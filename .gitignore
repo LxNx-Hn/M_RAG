@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Data & DB
+data/*.pdf
+chroma_db/
+*.sqlite3
+
+# Models (downloaded at runtime)
+*.bin
+*.safetensors
+*.onnx
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env

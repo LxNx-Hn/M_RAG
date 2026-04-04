@@ -1,0 +1,152 @@
+[
+  {
+    "query": "이 논문에서 사용한 데이터셋이 뭐야?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "expected_route": "A"
+  },
+  {
+    "query": "학습에 사용된 하이퍼파라미터는?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "expected_route": "A"
+  },
+  {
+    "query": "제안된 모델의 입력과 출력은 무엇인가?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "expected_route": "A"
+  },
+  {
+    "query": "실험 결과가 어떻게 나왔어?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "기존 방법 대비 성능이 얼마나 향상되었어?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "F1 score는 몇이야?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "정확도(accuracy)는 어느 정도야?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "방법론 설명해줘",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B"
+  },
+  {
+    "query": "모델 아키텍처가 어떻게 되어 있어?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B"
+  },
+  {
+    "query": "어떤 알고리즘을 사용했어?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B"
+  },
+  {
+    "query": "이 연구의 한계점은 뭐야?",
+    "ground_truth": "",
+    "type": "section_limit",
+    "expected_route": "B"
+  },
+  {
+    "query": "future work으로 뭘 제안했어?",
+    "ground_truth": "",
+    "type": "section_limit",
+    "expected_route": "B"
+  },
+  {
+    "query": "두 논문의 방법론 차이가 뭐야?",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C"
+  },
+  {
+    "query": "논문 A랑 B 성능 비교해줘",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C"
+  },
+  {
+    "query": "두 접근법의 공통점과 차이점은?",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C"
+  },
+  {
+    "query": "이 논문이 인용한 핵심 논문들이 뭐야?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D"
+  },
+  {
+    "query": "참고문헌 중에서 가장 관련 있는 논문은?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D"
+  },
+  {
+    "query": "이 논문 전체 요약해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E"
+  },
+  {
+    "query": "핵심 내용을 정리해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E"
+  },
+  {
+    "query": "논문 개요를 설명해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E"
+  },
+  {
+    "query": "What is the main contribution of this paper?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "expected_route": "A"
+  },
+  {
+    "query": "loss function이 뭐야?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B"
+  },
+  {
+    "query": "baseline 모델들은 뭐가 있어?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "ablation study 결과는?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B"
+  },
+  {
+    "query": "이 논문의 novelty가 뭐야?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "expected_route": "A"
+  }
+]
