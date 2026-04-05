@@ -117,10 +117,12 @@ git clone <repo-url>
 cd M_RAG
 
 # 백엔드
+cd backend
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
+cd ..
 
 # 프론트엔드
 cd frontend
@@ -133,14 +135,14 @@ cd ..
 
 ```bash
 # 방법 1: 백엔드 + 프론트엔드 분리 (개발)
-uvicorn api.main:app --host 0.0.0.0 --port 8000  # 터미널 1
-cd frontend && npm run dev                          # 터미널 2
+cd backend && uvicorn api.main:app --host 0.0.0.0 --port 8000  # 터미널 1
+cd frontend && npm run dev                                       # 터미널 2
 
 # 방법 2: Docker Compose (프로덕션)
 docker compose up --build
 
 # 방법 3: 백엔드만 (API 테스트)
-uvicorn api.main:app --host 0.0.0.0 --port 8000
+cd backend && uvicorn api.main:app --host 0.0.0.0 --port 8000
 # → http://localhost:8000/docs (Swagger UI)
 ```
 
@@ -159,7 +161,7 @@ uvicorn api.main:app --host 0.0.0.0 --port 8000
 
 ```bash
 # API 서버 실행 상태에서
-python -X utf8 tests/test_api.py
+cd backend && python -X utf8 tests/test_api.py
 # → 23/23 PASS
 ```
 
@@ -203,6 +205,50 @@ python -X utf8 tests/test_api.py
 
 ```
 M_RAG/
+├── backend/                      # Python 백엔드
+│   ├── api/                      #   FastAPI 서버
+│   │   ├── main.py               #     앱 진입점 + CORS + lifespan
+│   │   ├── dependencies.py       #     모듈 싱글턴 관리
+│   │   ├── schemas.py            #     Pydantic 요청/응답 스키마
+│   │   ├── auth.py               #     JWT 인증 유틸리티
+│   │   ├── database.py           #     SQLAlchemy DB 연결
+│   │   ├── models.py             #     ORM 모델 (User, Conversation, Message)
+│   │   └── routers/
+│   │       ├── papers.py         #     /api/papers — 문서 관리
+│   │       ├── chat.py           #     /api/chat — 질의응답 + SSE
+│   │       ├── citations.py      #     /api/citations — 인용 추적
+│   │       ├── auth.py           #     /api/auth — 인증
+│   │       └── history.py        #     /api/history — 대화 기록
+│   ├── modules/                  #   RAG 모듈 (14개)
+│   │   ├── pdf_parser.py         #     MODULE 1: PDF 파싱
+│   │   ├── section_detector.py   #     MODULE 2: 섹션 인식
+│   │   ├── chunker.py            #     MODULE 3: 섹션/RAPTOR/명제 청킹
+│   │   ├── embedder.py           #     MODULE 4: BGE-M3 임베딩
+│   │   ├── vector_store.py       #     MODULE 5: ChromaDB 관리
+│   │   ├── query_router.py       #     MODULE 6: 쿼리 라우터
+│   │   ├── query_expander.py     #     MODULE 7: HyDE + 다중 쿼리
+│   │   ├── hybrid_retriever.py   #     MODULE 8: BM25 + Dense + RRF
+│   │   ├── reranker.py           #     MODULE 9: Cross-Encoder 재랭킹
+│   │   ├── context_compressor.py #     MODULE 10: 컨텍스트 압축
+│   │   ├── citation_tracker.py   #     MODULE 11: 인용 추적 + arXiv
+│   │   ├── generator.py          #     MODULE 12: EXAONE 생성 + 스트리밍
+│   │   ├── contrastive_decoder.py#     MODULE 13: CAD 환각 억제
+│   │   └── docx_parser.py        #     MODULE 14: DOCX/TXT 파싱
+│   ├── pipelines/                #   동적 파이프라인 (5개)
+│   │   ├── pipeline_a_simple_qa.py
+│   │   ├── pipeline_b_section.py
+│   │   ├── pipeline_c_compare.py
+│   │   ├── pipeline_d_citation.py
+│   │   └── pipeline_e_summary.py
+│   ├── evaluation/               #   평가 프레임워크
+│   │   ├── ragas_eval.py
+│   │   ├── ablation_study.py
+│   │   └── test_queries.json
+│   ├── tests/
+│   │   └── test_api.py           #   API 통합 테스트 (23개)
+│   ├── config.py                 #   전역 설정
+│   ├── requirements.txt          #   Python 의존성
+│   └── Dockerfile                #   백엔드 Docker
 ├── frontend/                     # React 프론트엔드
 │   ├── src/
 │   │   ├── components/
@@ -218,53 +264,13 @@ M_RAG/
 │   │   └── types/                #   TypeScript 타입
 │   ├── Dockerfile                #   프론트엔드 Docker (Nginx)
 │   └── nginx.conf                #   Nginx SPA + 프록시
-├── api/                          # FastAPI 백엔드
-│   ├── main.py                   #   앱 진입점 + CORS + lifespan
-│   ├── dependencies.py           #   모듈 싱글턴 관리
-│   ├── schemas.py                #   Pydantic 요청/응답 스키마
-│   ├── auth.py                   #   JWT 인증 유틸리티
-│   ├── database.py               #   SQLAlchemy DB 연결
-│   ├── models.py                 #   ORM 모델 (User, Conversation, Message)
-│   └── routers/
-│       ├── papers.py             #   /api/papers — 문서 관리
-│       ├── chat.py               #   /api/chat — 질의응답 + SSE
-│       ├── citations.py          #   /api/citations — 인용 추적
-│       ├── auth.py               #   /api/auth — 인증
-│       └── history.py            #   /api/history — 대화 기록
-├── modules/                      # RAG 모듈 (14개)
-│   ├── pdf_parser.py             # MODULE 1: PDF 파싱
-│   ├── section_detector.py       # MODULE 2: 섹션 인식
-│   ├── chunker.py                # MODULE 3: 섹션/RAPTOR/명제 청킹
-│   ├── embedder.py               # MODULE 4: BGE-M3 임베딩
-│   ├── vector_store.py           # MODULE 5: ChromaDB 관리
-│   ├── query_router.py           # MODULE 6: 쿼리 라우터
-│   ├── query_expander.py         # MODULE 7: HyDE + 다중 쿼리
-│   ├── hybrid_retriever.py       # MODULE 8: BM25 + Dense + RRF
-│   ├── reranker.py               # MODULE 9: Cross-Encoder 재랭킹
-│   ├── context_compressor.py     # MODULE 10: 컨텍스트 압축
-│   ├── citation_tracker.py       # MODULE 11: 인용 추적 + arXiv
-│   ├── generator.py              # MODULE 12: EXAONE 생성 + 스트리밍
-│   ├── contrastive_decoder.py    # MODULE 13: CAD 환각 억제
-│   └── docx_parser.py            # MODULE 14: DOCX/TXT 파싱
-├── pipelines/                    # 동적 파이프라인 (5개)
-│   ├── pipeline_a_simple_qa.py   # 경로 A: 단순 QA
-│   ├── pipeline_b_section.py     # 경로 B: 섹션 특화
-│   ├── pipeline_c_compare.py     # 경로 C: 멀티 논문 비교
-│   ├── pipeline_d_citation.py    # 경로 D: 인용 추적
-│   └── pipeline_e_summary.py     # 경로 E: 전체 요약
-├── evaluation/                   # 평가 프레임워크
-│   ├── ragas_eval.py             # RAGAS 평가
-│   ├── ablation_study.py         # Ablation Study (6단계)
-│   └── test_queries.json         # 평가 질의 25개
-├── tests/
-│   └── test_api.py               # API 통합 테스트 (23개)
-├── config.py                     # 전역 설정
-├── requirements.txt              # Python 의존성
-├── Dockerfile                    # 백엔드 Docker
+├── docs/                         # 문서
+│   ├── CONCEPTS.md               #   초보자용 개념 설명
+│   ├── DEPLOY.md                 #   배포 가이드
+│   ├── ARCHITECTURE.md           #   아키텍처 문서
+│   └── Guide.md                  #   사용 가이드
 ├── docker-compose.yml            # 3서비스 Compose
-├── DEPLOY.md                     # 배포 가이드
-├── ARCHITECTURE.md               # 아키텍처 문서
-└── CONCEPTS.md                   # 초보자용 개념 설명
+└── README.md                     # 프로젝트 개요
 ```
 
 ---
@@ -304,7 +310,7 @@ docker compose up --build
 #   - frontend (Nginx :3000)
 ```
 
-자세한 내용은 [DEPLOY.md](DEPLOY.md) 참조.
+자세한 내용은 [DEPLOY.md](docs/DEPLOY.md) 참조.
 
 ---
 
@@ -328,9 +334,9 @@ docker compose up --build
 | 문서 | 설명 |
 |---|---|
 | [README.md](README.md) | 프로젝트 개요 (이 문서) |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 모듈 의존성, 데이터 흐름, 알고리즘 |
-| [DEPLOY.md](DEPLOY.md) | 배포 가이드 (Docker, Nginx, RunPod) |
-| [CONCEPTS.md](CONCEPTS.md) | 초보자용 개념 설명 (RAG, LLM, vLLM 등) |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | 모듈 의존성, 데이터 흐름, 알고리즘 |
+| [DEPLOY.md](docs/DEPLOY.md) | 배포 가이드 (Docker, Nginx, RunPod) |
+| [CONCEPTS.md](docs/CONCEPTS.md) | 초보자용 개념 설명 (RAG, LLM, vLLM 등) |
 
 ---
 
