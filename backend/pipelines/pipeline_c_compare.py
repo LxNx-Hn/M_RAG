@@ -1,11 +1,12 @@
 """
 Pipeline C: 멀티 논문 비교
-쿼리 → 논문A 병렬 검색 + 논문B 병렬 검색 → 합성 → 비교 생성 → 답변
+쿼리 → 논문별 병렬 검색 → 합성 → 비교 생성 (CAD+SCD) → 답변
 """
 import logging
 from concurrent.futures import ThreadPoolExecutor
 
-from modules.contrastive_decoder import create_cad_processor
+from config import CAD_ALPHA, SCD_BETA
+from modules.scd_decoder import create_combined_processor
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,9 @@ def run(
     compressor,
     generator,
     use_cad: bool = True,
-    cad_alpha: float = 0.5,
+    cad_alpha: float = CAD_ALPHA,
+    use_scd: bool = True,
+    scd_beta: float = SCD_BETA,
 ) -> dict:
     """멀티 논문 비교 파이프라인 실행"""
     steps = []
@@ -66,20 +69,25 @@ def run(
         context_parts[doc_id] = context_text
         all_docs.extend(docs)
 
-    # 3. 비교 생성
+    # 3. 비교 생성 (CAD + SCD 병렬 적용)
     doc_ids = list(context_parts.keys())
     context_a = context_parts.get(doc_ids[0], "")
     context_b = context_parts.get(doc_ids[1], "")
 
-    logits_processor = None
-    if use_cad:
-        logits_processor = create_cad_processor(generator, query, alpha=cad_alpha)
+    logits_processor = create_combined_processor(
+        generator=generator,
+        query=query,
+        use_cad=use_cad,
+        cad_alpha=cad_alpha,
+        use_scd=use_scd,
+        scd_beta=scd_beta,
+    )
 
     answer = generator.generate(
         query=query,
         context=context_a,
         template="compare",
-        logits_processor=logits_processor,
+        logits_processor=logits_processor if (use_cad or use_scd) else None,
         context_a=context_a,
         context_b=context_b,
     )

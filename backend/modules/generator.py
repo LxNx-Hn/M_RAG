@@ -1,7 +1,10 @@
 """
 MODULE 12: Generator
-컨텍스트 + 질의 → 최종 답변 생성 (EXAONE / Llama)
+컨텍스트 + 질의 → 최종 답변 생성 (MIDM-2.0 Base Instruct)
 기반 논문: Speculative RAG [16], RAG (Original) [20]
+
+모델: K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16)
+요구사항: transformers >= 4.45.0, GPU 24GB+ VRAM
 """
 import logging
 from threading import Thread
@@ -94,7 +97,7 @@ class Generator:
             logger.info(f"Loading model: {self.model_name}")
             self._model = AutoModelForCausalLM.from_pretrained(
                 self.model_name,
-                torch_dtype=torch.float16,
+                torch_dtype=torch.bfloat16,  # MIDM-2.0 권장 dtype
                 device_map="auto",
                 trust_remote_code=True,
             )

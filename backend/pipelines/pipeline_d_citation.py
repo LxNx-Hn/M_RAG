@@ -1,11 +1,12 @@
 """
 Pipeline D: 인용 트래커
-쿼리 → Reference 파싱 → arXiv API 수집 → 자동 인덱싱 → 확장 검색 → 생성
+쿼리 → Reference 파싱 → arXiv API 수집 → 자동 인덱싱 → 확장 검색 → 생성 (CAD+SCD)
 """
 import logging
 from pathlib import Path
 
-from modules.contrastive_decoder import create_cad_processor
+from config import CAD_ALPHA, SCD_BETA
+from modules.scd_decoder import create_combined_processor
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,9 @@ def run(
     chunker,
     data_dir: str = "data",
     use_cad: bool = True,
-    cad_alpha: float = 0.5,
+    cad_alpha: float = CAD_ALPHA,
+    use_scd: bool = True,
+    scd_beta: float = SCD_BETA,
 ) -> dict:
     """인용 트래커 파이프라인 실행"""
     steps = []
@@ -81,21 +84,25 @@ def run(
     compressed = compressor.compress(reranked, query)
     compressed = compressor.truncate_to_limit(compressed)
 
-    # 7. 생성
+    # 7. 생성 (CAD + SCD 병렬 적용)
     context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
 
-    logits_processor = None
-    if use_cad:
-        logits_processor = create_cad_processor(generator, query, alpha=cad_alpha)
+    logits_processor = create_combined_processor(
+        generator=generator,
+        query=query,
+        use_cad=use_cad,
+        cad_alpha=cad_alpha,
+        use_scd=use_scd,
+        scd_beta=scd_beta,
+    )
 
     answer = generator.generate(
         query=query,
         context=context,
         template="qa",
-        logits_processor=logits_processor,
+        logits_processor=logits_processor if (use_cad or use_scd) else None,
     )
 
-    # 인용 정보 포함
     citation_info = citation_tracker.get_citation_summary()
     sources = generator.format_sources(compressed)
 

@@ -1,7 +1,5 @@
-@import "tailwindcss";
-
-/* ─── 폰트: Noto Sans KR (동글동글, 아기자기하면서 가독성 좋음) ─── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
 /* ─── 디자인 토큰 ─── */
 :root {

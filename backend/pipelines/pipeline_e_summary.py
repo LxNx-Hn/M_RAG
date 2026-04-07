@@ -1,10 +1,11 @@
 """
 Pipeline E: 전체 요약
-쿼리 → RAPTOR 계층 트리 검색 → 섹션별 핵심 추출 → 압축 → 구조화 요약 생성
+쿼리 → RAPTOR 계층 트리 검색 → 섹션별 핵심 추출 → 압축 → 구조화 요약 생성 (CAD+SCD)
 """
 import logging
 
-from modules.contrastive_decoder import create_cad_processor
+from config import CAD_ALPHA, SCD_BETA
+from modules.scd_decoder import create_combined_processor
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,9 @@ def run(
     compressor,
     generator,
     use_cad: bool = True,
-    cad_alpha: float = 0.5,
+    cad_alpha: float = CAD_ALPHA,
+    use_scd: bool = True,
+    scd_beta: float = SCD_BETA,
 ) -> dict:
     """전체 요약 파이프라인 실행"""
     steps = []
@@ -39,7 +42,7 @@ def run(
             "results_count": len(results),
         })
 
-    # 섹션 필터 검색 결과가 부족하면 전체 검색 보완
+    # 섹션 필터 결과가 부족하면 전체 검색 보완
     if len(all_results) < 5:
         full_results = hybrid_retriever.search(
             collection_name=collection_name,
@@ -69,16 +72,21 @@ def run(
     )
     context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
 
-    # 5. 구조화 요약 생성
-    logits_processor = None
-    if use_cad:
-        logits_processor = create_cad_processor(generator, query, alpha=cad_alpha)
+    # 5. 구조화 요약 생성 (CAD + SCD 병렬 적용)
+    logits_processor = create_combined_processor(
+        generator=generator,
+        query=query,
+        use_cad=use_cad,
+        cad_alpha=cad_alpha,
+        use_scd=use_scd,
+        scd_beta=scd_beta,
+    )
 
     answer = generator.generate(
         query=query,
         context=context,
         template="summary",
-        logits_processor=logits_processor,
+        logits_processor=logits_processor if (use_cad or use_scd) else None,
     )
 
     sources = generator.format_sources(compressed)

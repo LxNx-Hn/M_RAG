@@ -1,10 +1,11 @@
 """
 Pipeline A: 단순 QA
-쿼리 → HyDE 확장 → 하이브리드 검색 → 재랭킹 → 압축 → 생성 → CAD 억제 → 답변
+쿼리 → HyDE 확장 → 하이브리드 검색 → 재랭킹 → 압축 → 생성 (CAD+SCD) → 답변
 """
 import logging
 
-from modules.contrastive_decoder import create_cad_processor
+from config import CAD_ALPHA, SCD_BETA
+from modules.scd_decoder import create_combined_processor
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,9 @@ def run(
     generator,
     query_expander=None,
     use_cad: bool = True,
-    cad_alpha: float = 0.5,
+    cad_alpha: float = CAD_ALPHA,
+    use_scd: bool = True,
+    scd_beta: float = SCD_BETA,
 ) -> dict:
     """단순 QA 파이프라인 실행"""
     steps = []
@@ -50,20 +53,28 @@ def run(
     # 5. 컨텍스트 조합
     context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
 
-    # 6. 생성 (+ CAD 환각 억제)
-    logits_processor = None
-    if use_cad:
-        logits_processor = create_cad_processor(generator, query, alpha=cad_alpha)
-        steps.append({"step": "cad_enabled", "alpha": cad_alpha})
+    # 6. 생성 (CAD + SCD 병렬 적용)
+    logits_processor = create_combined_processor(
+        generator=generator,
+        query=query,
+        use_cad=use_cad,
+        cad_alpha=cad_alpha,
+        use_scd=use_scd,
+        scd_beta=scd_beta,
+    )
+    steps.append({
+        "step": "decoder",
+        "cad_enabled": use_cad, "cad_alpha": cad_alpha,
+        "scd_enabled": use_scd, "scd_beta": scd_beta,
+    })
 
     answer = generator.generate(
         query=query,
         context=context,
         template="qa",
-        logits_processor=logits_processor,
+        logits_processor=logits_processor if (use_cad or use_scd) else None,
     )
 
-    # 출처 정보
     sources = generator.format_sources(compressed)
 
     return {

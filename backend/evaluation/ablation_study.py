@@ -15,19 +15,21 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class AblationConfig:
-    """Ablation 실험 구성"""
+    """Ablation 실험 구성 (Table 1: 모듈별 갭 해소 기여도)"""
     name: str
     use_section_chunking: bool = False
     use_hybrid_search: bool = False
     use_reranker: bool = False
     use_query_router: bool = False
     use_hyde: bool = False
-    use_cad: bool = False
+    use_cad: bool = False           # MODULE 13A
+    use_scd: bool = False           # MODULE 13B
     use_context_compression: bool = False
     cad_alpha: float = 0.5
+    scd_beta: float = 0.3
 
 
-# 실험 구성 정의
+# 실험 구성 정의 (GuideV2 Table 1 기준)
 ABLATION_CONFIGS = [
     AblationConfig(
         name="Baseline 1: Naive RAG",
@@ -38,7 +40,7 @@ ABLATION_CONFIGS = [
         use_section_chunking=True,
     ),
     AblationConfig(
-        name="Baseline 3: + Hybrid Search",
+        name="Baseline 3: + BGE-M3 Hybrid Search",
         use_section_chunking=True,
         use_hybrid_search=True,
     ),
@@ -57,19 +59,21 @@ ABLATION_CONFIGS = [
         use_hyde=True,
     ),
     AblationConfig(
-        name="Full System: + CAD + Compression",
+        name="Full System: + CAD + SCD + Compression",
         use_section_chunking=True,
         use_hybrid_search=True,
         use_reranker=True,
         use_query_router=True,
         use_hyde=True,
         use_cad=True,
+        use_scd=True,
         use_context_compression=True,
     ),
 ]
 
-# CAD alpha ablation
+# Table 2 ablation 값 범위
 CAD_ALPHA_VALUES = [0.1, 0.3, 0.5, 0.7, 1.0]
+SCD_BETA_VALUES = [0.1, 0.3, 0.5]
 
 
 class AblationStudy:

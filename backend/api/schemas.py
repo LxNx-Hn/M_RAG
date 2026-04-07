@@ -38,8 +38,12 @@ class UploadResponse(BaseModel):
 class QueryRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=2000, description="질의 텍스트")
     collection_name: str = Field(default="papers", description="검색 컬렉션 이름")
+    # MODULE 13A: CAD (파라메트릭 지식 개입 억제)
     use_cad: bool = Field(default=True, description="CAD 환각 억제 사용 여부")
-    cad_alpha: float = Field(default=0.5, ge=0.0, le=1.0, description="CAD 억제 강도")
+    cad_alpha: float = Field(default=0.5, ge=0.0, le=1.0, description="CAD 억제 강도 (Table 2 ablation)")
+    # MODULE 13B: SCD (Language Drift 억제)
+    use_scd: bool = Field(default=True, description="SCD Language Drift 억제 사용 여부")
+    scd_beta: float = Field(default=0.3, ge=0.0, le=1.0, description="SCD 패널티 강도 (Table 2 ablation)")
     use_hyde: bool = Field(default=True, description="HyDE 쿼리 확장 사용 여부")
     top_k: int = Field(default=5, ge=1, le=20, description="최종 반환 문서 수")
 

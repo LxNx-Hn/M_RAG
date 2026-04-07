@@ -246,12 +246,14 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
     if decision.route == RouteType.SECTION:
         return pipeline_b_section.run(
             req.query, col, decision.section_filter,
-            hr, rr, comp, gen, req.use_cad, req.cad_alpha,
+            hr, rr, comp, gen,
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )
     elif decision.route == RouteType.COMPARE:
         return pipeline_c_compare.run(
             req.query, col, decision.target_doc_ids,
-            hr, rr, comp, gen, req.use_cad, req.cad_alpha,
+            hr, rr, comp, gen,
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )
     elif decision.route == RouteType.CITATION:
         doc = papers[available_docs[0]]
@@ -262,15 +264,16 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
             req.query, col, doc, hr, rr, comp, gen,
             m.citation_tracker, m.embedder, m.vector_store,
             SectionDetector(), PDFParser(), Chunker(),
-            str(DATA_DIR), req.use_cad, req.cad_alpha,
+            str(DATA_DIR),
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )
     elif decision.route == RouteType.SUMMARY:
         return pipeline_e_summary.run(
             req.query, col, hr, rr, comp, gen,
-            req.use_cad, req.cad_alpha,
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )
     else:
         return pipeline_a_simple_qa.run(
             req.query, col, hr, rr, comp, gen, qe,
-            req.use_cad, req.cad_alpha,
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )

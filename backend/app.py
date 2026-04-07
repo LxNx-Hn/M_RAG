@@ -12,7 +12,7 @@ import streamlit as st
 PROJECT_ROOT = Path(__file__).parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from config import APP_TITLE, APP_DESCRIPTION, CAD_ALPHA, DATA_DIR
+from config import APP_TITLE, APP_DESCRIPTION, CAD_ALPHA, SCD_BETA, DATA_DIR
 from modules.pdf_parser import PDFParser
 from modules.section_detector import SectionDetector
 from modules.chunker import Chunker
@@ -177,6 +177,8 @@ def init_session():
         "citation_tracker": None,
         "use_cad": True,
         "cad_alpha": CAD_ALPHA,
+        "use_scd": True,
+        "scd_beta": SCD_BETA,
         "use_hyde": True,
     }
     for k, v in defaults.items():
@@ -327,6 +329,8 @@ def process_query(query: str) -> dict:
     qe = st.session_state.query_expander
     use_cad = st.session_state.use_cad
     alpha = st.session_state.cad_alpha
+    use_scd = st.session_state.use_scd
+    beta = st.session_state.scd_beta
 
     if gen is None:
         return {
@@ -349,15 +353,18 @@ def process_query(query: str) -> dict:
 
     if decision.route == RouteType.SIMPLE_QA:
         result = pipeline_a_simple_qa.run(
-            query, collection, hr, rr, comp, gen, qe, use_cad, alpha
+            query, collection, hr, rr, comp, gen, qe,
+            use_cad, alpha, use_scd, beta,
         )
     elif decision.route == RouteType.SECTION:
         result = pipeline_b_section.run(
-            query, collection, decision.section_filter, hr, rr, comp, gen, use_cad, alpha
+            query, collection, decision.section_filter, hr, rr, comp, gen,
+            use_cad, alpha, use_scd, beta,
         )
     elif decision.route == RouteType.COMPARE:
         result = pipeline_c_compare.run(
-            query, collection, decision.target_doc_ids, hr, rr, comp, gen, use_cad, alpha
+            query, collection, decision.target_doc_ids, hr, rr, comp, gen,
+            use_cad, alpha, use_scd, beta,
         )
     elif decision.route == RouteType.CITATION:
         if available_docs:
@@ -370,17 +377,20 @@ def process_query(query: str) -> dict:
                 st.session_state.citation_tracker,
                 st.session_state.embedder,
                 st.session_state.vector_store,
-                sd, pp, ch, str(DATA_DIR), use_cad, alpha,
+                sd, pp, ch, str(DATA_DIR),
+                use_cad, alpha, use_scd, beta,
             )
         else:
             result = {"answer": "업로드된 논문이 없습니다.", "sources": "", "source_documents": [], "pipeline": "D", "steps": []}
     elif decision.route == RouteType.SUMMARY:
         result = pipeline_e_summary.run(
-            query, collection, hr, rr, comp, gen, use_cad, alpha
+            query, collection, hr, rr, comp, gen,
+            use_cad, alpha, use_scd, beta,
         )
     else:
         result = pipeline_a_simple_qa.run(
-            query, collection, hr, rr, comp, gen, qe, use_cad, alpha
+            query, collection, hr, rr, comp, gen, qe,
+            use_cad, alpha, use_scd, beta,
         )
 
     result["route_decision"] = decision
@@ -447,15 +457,26 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### ⚙️ 설정")
 
+    # MODULE 13A: CAD
     st.session_state.use_cad = st.toggle(
         "환각 억제 (CAD)", value=st.session_state.use_cad,
-        help="Context-Aware Contrastive Decoding으로 환각을 억제합니다"
+        help="[13A] Context-Aware Contrastive Decoding — 수치 오류 등 파라메트릭 지식 개입 억제"
     )
-
     if st.session_state.use_cad:
         st.session_state.cad_alpha = st.slider(
             "CAD α 강도", 0.0, 1.0, st.session_state.cad_alpha, 0.1,
-            help="높을수록 파라메트릭 지식 억제가 강해집니다"
+            help="높을수록 파라메트릭 지식 억제가 강해집니다 (Table 2 ablation 대상)"
+        )
+
+    # MODULE 13B: SCD
+    st.session_state.use_scd = st.toggle(
+        "Language Drift 억제 (SCD)", value=st.session_state.use_scd,
+        help="[13B] Selective Context-aware Decoding — 영문 컨텍스트 입력 시 한국어 답변 강제"
+    )
+    if st.session_state.use_scd:
+        st.session_state.scd_beta = st.slider(
+            "SCD β 강도", 0.0, 1.0, st.session_state.scd_beta, 0.1,
+            help="높을수록 비한국어 토큰 패널티가 강해집니다 (Table 2 ablation 대상)"
         )
 
     st.session_state.use_hyde = st.toggle(

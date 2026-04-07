@@ -23,16 +23,22 @@ EMBEDDING_DIMENSION = 1024
 # ─────────────────────────────────────────────
 # LLM Generation
 # ─────────────────────────────────────────────
-GENERATION_MODEL = "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct"
+GENERATION_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
 BASELINE_MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 MAX_NEW_TOKENS = 1024
 TEMPERATURE = 0.1
 TOP_P = 0.9
 
 # ─────────────────────────────────────────────
-# Contrastive Decoding
+# MODULE 13A: CAD (파라메트릭 지식 개입 억제)
 # ─────────────────────────────────────────────
-CAD_ALPHA = 0.5  # suppression strength (0~1)
+CAD_ALPHA = 0.5  # suppression strength (0~1), Table 2 ablation: {0.1, 0.3, 0.5, 0.7, 1.0}
+
+# ─────────────────────────────────────────────
+# MODULE 13B: SCD (Language Drift 억제)
+# ─────────────────────────────────────────────
+SCD_BETA = 0.3   # non-target language penalty (0~1), Table 2 ablation: {0.1, 0.3, 0.5}
+SCD_TARGET_LANG = "ko"  # 목표 언어
 
 # ─────────────────────────────────────────────
 # Chunking
