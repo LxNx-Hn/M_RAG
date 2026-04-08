@@ -9,7 +9,6 @@ M-RAG FastAPI 백엔드
 프론트엔드 분리 배포:
     - FastAPI 백엔드: :8000 (API 서버)
     - React/Next.js 프론트엔드: :3000 (정적 빌드 또는 SPA)
-    - Streamlit 데모: :8501 (데모/관리용)
 """
 import logging
 import os
@@ -72,7 +71,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",   # React dev server
-        "http://localhost:8501",   # Streamlit
         "http://localhost:5173",   # Vite dev server
         "*",                       # 개발 중 전체 허용 (프로덕션에서 제한)
     ],

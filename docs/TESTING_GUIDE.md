@@ -346,7 +346,7 @@ GuideV2 기준으로 아직 미구현 또는 검증이 필요한 항목입니다
 
 - [ ] **데모 영상 제작** — React UI 기반 시연
 - [ ] **arXiv 논문 20편 자동 수집 스크립트** — `citation_tracker.py` 활용
-- [ ] **Streamlit UI 데모 폴리싱** — Ablation 결과 시각화 탭 추가
+- [ ] **React UI 데모 폴리싱** — Ablation 결과 시각화 추가
 
 ---
 

@@ -18,11 +18,11 @@ M-RAG는 **쿼리 유형에 따라 파이프라인이 동적으로 변경되는 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Streamlit UI (app.py)                    │
+│                  React SPA (:5173) + FastAPI (:8000)          │
 │  ┌──────────┐  ┌──────────────────────────────────────────┐ │
 │  │ 소스 패널 │  │            채팅 인터페이스                │ │
 │  │ PDF 업로드│  │  추천 질문 → 라우터 배지 → 출처 표시     │ │
-│  │ 논문 카드 │  │                                          │ │
+│  │ 논문 카드 │  │         (SSE 스트리밍)                   │ │
 │  │ 설정 패널 │  │                                          │ │
 │  └──────────┘  └──────────────────────────────────────────┘ │
 └─────────────────────────┬───────────────────────────────────┘
@@ -146,7 +146,7 @@ RouteDecision { route: A|B|C|D|E, section_filter, target_doc_ids }
   │
   ├──► ContextCompressor.compress()  [추출 압축 / 요약 압축]
   │
-  ├──► Generator.generate()          [EXAONE-7.8B 생성]
+  ├──► Generator.generate()          [MIDM-2.0 11.5B 생성]
   │       │
   │       ▼ (LogitsProcessor)
   │    ContrastiveDecoder.__call__()  [CAD: 파라메트릭 지식 억제]
@@ -261,7 +261,7 @@ RouteDecision { route: A|B|C|D|E, section_filter, target_doc_ids }
 - **인덱싱**: 수집된 논문을 자동으로 벡터DB에 추가
 
 ### MODULE 12: Generator (`modules/generator.py`)
-- **모델**: `EXAONE-3.5-7.8B-Instruct` (FP16, device_map="auto")
+- **모델**: `K-intelligence/Midm-2.0-Base-Instruct` (bfloat16, device_map="auto")
 - **템플릿**: QA / Compare / Summary 3종
 - **시스템 프롬프트**: 컨텍스트 기반 답변 강제 + 한국어 생성 + 전문용어 영어 병기
 
@@ -374,7 +374,7 @@ LLM 미사용 시 토큰 오버랩 기반 휴리스틱으로 대체.
 1. `config.py`의 `ROUTE_MAP`에 새 키워드 추가
 2. `modules/query_router.py`의 `RouteType` enum에 경로 추가
 3. `pipelines/pipeline_x_name.py` 생성 (`run()` 함수 구현)
-4. `app.py`의 `process_query()`에 분기 추가
+4. `api/routers/chat.py`의 `_run_pipeline()`에 분기 추가
 
 ### 8.2 생성 모델 교체
 

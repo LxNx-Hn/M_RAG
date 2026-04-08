@@ -65,7 +65,7 @@
 | 생성 모델 | MIDM-2.0 Base (11.5B) | KT 한국 중심 AI, 오픈소스 |
 | 환각 억제 | **CAD + SCD** | **두 문제 동시 해결** |
 | 평가 | RAGAS | RAG 특화 자동 평가 |
-| UI | Streamlit | 데모용 |
+| UI | React + FastAPI | SPA + REST API |
 | GPU | RunPod A100 | 로컬 LLM 추론 |
 
 ```python
@@ -512,7 +512,7 @@ beta  ∈ {0.1, 0.3, 0.5}
 
 #### Phase 4 — 마무리 (9~12주차)
 
-**9주차:** Streamlit UI + 데모 영상
+**9주차:** React UI + 데모 영상
 
 **10주차:** RAGAS 전체 평가 → Table 1 완성
 
@@ -522,7 +522,7 @@ beta  ∈ {0.1, 0.3, 0.5}
 
 ```
 modular-rag-paper-agent/
-├── app.py
+├── api/
 ├── config.py
 ├── modules/
 │   ├── pdf_parser.py

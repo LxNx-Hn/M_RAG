@@ -45,18 +45,18 @@ def main():
     if args.skip_llm:
         print("\n[3/3] Skipping LLM download (--skip-llm)")
     else:
-        print("\n[3/3] Downloading EXAONE-3.5-7.8B-Instruct...")
+        print("\n[3/3] Downloading MIDM-2.0-Base-Instruct...")
         try:
             import torch
             from transformers import AutoModelForCausalLM, AutoTokenizer
 
             tokenizer = AutoTokenizer.from_pretrained(
-                "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
+                "K-intelligence/Midm-2.0-Base-Instruct",
                 trust_remote_code=True,
             )
             model = AutoModelForCausalLM.from_pretrained(
-                "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
-                torch_dtype=torch.float16,
+                "K-intelligence/Midm-2.0-Base-Instruct",
+                torch_dtype=torch.bfloat16,
                 device_map="auto",
                 trust_remote_code=True,
             )

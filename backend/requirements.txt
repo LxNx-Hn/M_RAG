@@ -19,9 +19,6 @@ uvicorn>=0.23.0
 python-multipart>=0.0.6
 aiofiles>=23.0.0
 
-# ─── Demo UI ───
-streamlit>=1.30.0
-
 # ─── Evaluation (optional) ───
 # ragas>=0.1.0  # pip install ragas
 

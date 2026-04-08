@@ -24,9 +24,6 @@ cd frontend && npm run dev   # http://localhost:5173
 docker compose up --build
 LOAD_GPU_MODELS=true docker compose up --build  # GPU 활성화
 
-# Streamlit 프로토타입 (레거시)
-streamlit run backend/app.py
-
 # API 통합 테스트 (API 서버 실행 상태에서)
 cd backend && python -X utf8 tests/test_api.py   # 23개 테스트
 
@@ -98,7 +95,7 @@ M8  hybrid_retriever.py    Dense(BGE-M3) + BM25 → RRF 융합
 M9  reranker.py            cross-encoder + 섹션가중치 + Lost-in-the-Middle 보정
 M10 context_compressor.py  추출/요약 압축, 3072 토큰 한계
 M11 citation_tracker.py    Reference 섹션 파싱 → arXiv API
-M12 generator.py           EXAONE-3.5-7.8B-Instruct (FP16, device_map=auto) + SSE 스트리밍
+M12 generator.py           MIDM-2.0-Base-Instruct (bfloat16, device_map=auto) + SSE 스트리밍
 M13 contrastive_decoder.py CAD LogitsProcessor (파라메트릭 지식 억제)
 M14 docx_parser.py         DOCX/TXT 파싱
 ```
@@ -145,16 +142,16 @@ React + TypeScript + Vite + TailwindCSS + Zustand 기반 3패널 SPA.
 1. `config.ROUTE_MAP`에 키워드 추가
 2. `query_router.py`의 `RouteType` enum에 경로 추가
 3. `pipelines/pipeline_x_name.py` 생성 (`run()` 함수)
-4. `api/routers/chat.py`의 분기 추가 (`app.py`도 Streamlit 버전에서 동일)
+4. `api/routers/chat.py`의 분기 추가
 
 ### 모델 요구사항
 
-- **LLM (EXAONE-3.5-7.8B)**: GPU 24GB+ VRAM 필요. 없으면 Generator 로드 실패 시 검색 결과만 반환
+- **LLM (MIDM-2.0-Base-Instruct 11.5B)**: GPU 24GB+ VRAM 필요. 없으면 Generator 로드 실패 시 검색 결과만 반환
 - **Embedding (BGE-M3)**: CPU 가능하나 느림
 - **Reranker (ms-marco-MiniLM-L-6-v2)**: CPU 가능
 
 ### 배포 계획
 
-- 실제 배포 시 EXAONE → **MIDM** 교체 예정 (vLLM 서빙)
+- LLM: **MIDM-2.0-Base-Instruct** (vLLM 서빙 예정)
 - 아키텍처: Kubernetes + Docker Compose (BE / FE / LM / DB 레이어 분리)
 - Docker 서비스: `db` (PostgreSQL :5432) + `backend` (FastAPI :8000) + `frontend` (Nginx :3000)

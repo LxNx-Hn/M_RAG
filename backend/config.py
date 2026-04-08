@@ -102,9 +102,3 @@ SECTION_PATTERNS = {
     "references": [r"(?i)^references?\b", r"(?i)^bibliography", r"(?i)^참고\s*문헌"],
 }
 
-# ─────────────────────────────────────────────
-# Streamlit UI
-# ─────────────────────────────────────────────
-APP_TITLE = "📑 M-RAG: 모듈러 RAG 논문 리뷰 에이전트"
-APP_DESCRIPTION = "학술 논문 PDF를 업로드하고 한국어로 질의응답하세요."
-MAX_UPLOAD_SIZE_MB = 50

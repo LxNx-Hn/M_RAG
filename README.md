@@ -67,7 +67,7 @@
 | DOCX 파싱 | python-docx | Word 문서 지원 |
 | 임베딩 | BGE-M3 | 한영 크로스링구얼 임베딩 (1024D) |
 | 벡터DB | ChromaDB | 로컬 persistent, 메타데이터 필터링 |
-| 생성 모델 | EXAONE-3.5-7.8B | 한국어 우수 성능 오픈소스 LLM |
+| 생성 모델 | MIDM-2.0-Base-Instruct (11.5B) | 한국어 특화 오픈소스 LLM |
 | 환각 억제 | Contrastive Decoding | 학습 없이 LogitsProcessor로 구현 |
 | 재랭킹 | Cross-Encoder | ms-marco-MiniLM-L-6-v2 |
 | 인증 | JWT + PostgreSQL | 회원가입/로그인, 대화 기록 저장 |
@@ -81,12 +81,12 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     클라이언트                           │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  React SPA   │  │   Streamlit  │  │   모바일 앱   │  │
-│  │   :5173      │  │    :8501     │  │              │  │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
-│         │                 │                  │          │
-│         └─────────────────┼──────────────────┘          │
+│  ┌──────────────┐  ┌──────────────┐                     │
+│  │  React SPA   │  │   모바일 앱   │                     │
+│  │   :5173      │  │    (PWA)     │                     │
+│  └──────┬───────┘  └──────┬───────┘                     │
+│         │                 │                             │
+│         └─────────────────┘                             │
 │                           │ HTTP/REST + SSE             │
 │         ┌─────────────────▼─────────────────────┐       │
 │         │      FastAPI 백엔드 API (:8000)        │       │
@@ -231,7 +231,7 @@ M_RAG/
 │   │   ├── reranker.py           #     MODULE 9: Cross-Encoder 재랭킹
 │   │   ├── context_compressor.py #     MODULE 10: 컨텍스트 압축
 │   │   ├── citation_tracker.py   #     MODULE 11: 인용 추적 + arXiv
-│   │   ├── generator.py          #     MODULE 12: EXAONE 생성 + 스트리밍
+│   │   ├── generator.py          #     MODULE 12: MIDM-2.0 생성 + 스트리밍
 │   │   ├── contrastive_decoder.py#     MODULE 13: CAD 환각 억제
 │   │   └── docx_parser.py        #     MODULE 14: DOCX/TXT 파싱
 │   ├── pipelines/                #   동적 파이프라인 (5개)

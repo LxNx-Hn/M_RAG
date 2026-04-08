@@ -43,7 +43,7 @@
 |---|---|---|
 | BGE-M3 | ~2GB | 임베딩 |
 | ms-marco-MiniLM-L-6-v2 | ~0.5GB | 재랭킹 |
-| EXAONE-3.5-7.8B-Instruct | ~16GB | 생성 (메인) |
+| MIDM-2.0-Base-Instruct (11.5B) | ~23GB (bfloat16) | 생성 (메인) |
 | Llama-3.1-8B-Instruct | ~16GB | 생성 (비교 실험) |
 | **합계 (동시 로드)** | **~18.5GB** | |
 
@@ -85,11 +85,11 @@ pip install -r requirements.txt
 ### 2.3 로컬 실행
 
 ```bash
-# FastAPI 백엔드 (프로덕션 권장)
+# FastAPI 백엔드
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 
-# Streamlit 데모 UI
-streamlit run app.py --server.port 8501
+# 프론트엔드 (별도 터미널)
+cd frontend && npm run dev   # http://localhost:5173
 
 # Swagger 문서: http://localhost:8000/docs
 ```
@@ -98,15 +98,14 @@ streamlit run app.py --server.port 8501
 
 ## 3. 다중 사용자 동시 접속 배포
 
-### 3.1 왜 Streamlit만으로는 안 되는가
+### 3.1 프로덕션 구성 요약
 
-| 문제 | Streamlit | FastAPI |
+| 서비스 | 포트 | 역할 |
 |---|---|---|
-| 동시 접속 | 세션 격리 불완전, 메모리 공유 | async I/O + 요청 격리 |
-| 프론트엔드 자유도 | Python 위젯만 가능 | REST API → 어떤 프론트든 연결 |
-| API 문서 | 없음 | Swagger UI 자동 생성 |
-| 인증/권한 | 직접 구현 어려움 | 미들웨어로 간단히 추가 |
-| 확장성 | 수직 확장만 가능 | 수평 확장 (Nginx + 로드밸런서) |
+| FastAPI (uvicorn) | 8000 | RAG 파이프라인 API, JWT 인증, SSE 스트리밍 |
+| React (Nginx) | 3000 | SPA 프론트엔드 서빙 |
+| PostgreSQL | 5432 | 사용자/대화 기록 DB |
+| ChromaDB | (파일) | 벡터 인덱스 영속 저장 |
 
 ### 3.2 프로덕션 아키텍처
 
@@ -121,7 +120,7 @@ streamlit run app.py --server.port 8501
 └──────────┘     └──────────┬───────────────┘
                             │
               ┌─────────────▼──────────────┐
-              │  GPU: EXAONE-7.8B (FP16)   │
+              │  GPU: MIDM-2.0 (bfloat16)  │
               │  CPU: BGE-M3 + Reranker    │
               │  DB:  ChromaDB (persistent) │
               └────────────────────────────┘
@@ -216,7 +215,7 @@ sudo systemctl status m-rag
    - GPU: `NVIDIA A100 40GB` (또는 `A100 80GB`)
    - Template: `RunPod PyTorch 2.1` (CUDA 12.1 포함)
    - Disk: `50GB` (Container) + `50GB` (Volume, 모델 캐시용)
-   - Expose Port: `8000` (API) + `8501` (Streamlit 데모, 선택)
+   - Expose Port: `8000` (API) + `3000` (React, 선택)
 
 ### 3.2 Pod 접속 및 환경 설정
 
@@ -252,9 +251,9 @@ print('Reranker downloaded')
 python -c "
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-tokenizer = AutoTokenizer.from_pretrained('LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct', trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained('LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct', torch_dtype=torch.float16, device_map='auto', trust_remote_code=True)
-print('EXAONE downloaded')
+tokenizer = AutoTokenizer.from_pretrained('K-intelligence/Midm-2.0-Base-Instruct', trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained('K-intelligence/Midm-2.0-Base-Instruct', torch_dtype=torch.bfloat16, device_map='auto', trust_remote_code=True)
+print('MIDM downloaded')
 "
 ```
 
@@ -267,11 +266,6 @@ mkdir -p logs
 LOAD_GPU_MODELS=true nohup uvicorn api.main:app \
   --host 0.0.0.0 --port 8000 --workers 1 \
   > logs/api.log 2>&1 &
-
-# Streamlit 데모 (선택사항)
-nohup streamlit run app.py \
-  --server.address 0.0.0.0 --server.port 8501 \
-  > logs/streamlit.log 2>&1 &
 
 # 로그 확인
 tail -f logs/api.log
@@ -315,16 +309,13 @@ COPY . .
 RUN mkdir -p data chroma_db logs
 
 # 포트
-EXPOSE 8501
+EXPOSE 8000
 
 # 헬스체크
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8000/health || exit 1
 
 # 실행
-ENTRYPOINT ["streamlit", "run", "app.py", \
-    "--server.address", "0.0.0.0", \
-    "--server.port", "8501", \
-    "--server.maxUploadSize", "50"]
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
 ```
 
 ### 4.2 빌드 및 실행
@@ -336,16 +327,17 @@ docker build -t m-rag:latest .
 # GPU 실행 (NVIDIA Container Toolkit 필요)
 docker run -d \
   --gpus all \
-  -p 8501:8501 \
+  -p 8000:8000 \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/chroma_db:/app/chroma_db \
   -v ~/.cache/huggingface:/root/.cache/huggingface \
+  -e LOAD_GPU_MODELS=true \
   --name m-rag \
   m-rag:latest
 
 # CPU 전용 실행
 docker run -d \
-  -p 8501:8501 \
+  -p 8000:8000 \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/chroma_db:/app/chroma_db \
   --name m-rag \
@@ -361,7 +353,7 @@ services:
   m-rag:
     build: .
     ports:
-      - "8501:8501"
+      - "8000:8000"
     volumes:
       - ./data:/app/data
       - ./chroma_db:/app/chroma_db
@@ -405,14 +397,14 @@ print("[2/3] Downloading reranker model...")
 CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 print("  Done.")
 
-print("[3/3] Downloading EXAONE-3.5-7.8B-Instruct...")
+print("[3/3] Downloading MIDM-2.0-Base-Instruct...")
 tokenizer = AutoTokenizer.from_pretrained(
-    "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
+    "K-intelligence/Midm-2.0-Base-Instruct",
     trust_remote_code=True,
 )
 model = AutoModelForCausalLM.from_pretrained(
-    "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
-    torch_dtype=torch.float16,
+    "K-intelligence/Midm-2.0-Base-Instruct",
+    torch_dtype=torch.bfloat16,
     device_map="auto",
     trust_remote_code=True,
 )
@@ -449,7 +441,7 @@ export TRANSFORMERS_CACHE=/path/to/cache
 |---|---|---|
 | `HF_HOME` | `~/.cache/huggingface` | HuggingFace 모델 캐시 경로 |
 | `CUDA_VISIBLE_DEVICES` | `0` | 사용할 GPU 번호 |
-| `TOKENIZERS_PARALLELISM` | `false` | 토크나이저 병렬 처리 (Streamlit에서는 false 권장) |
+| `TOKENIZERS_PARALLELISM` | `false` | 토크나이저 병렬 처리 충돌 방지 |
 
 `.env` 파일 예시:
 
@@ -466,14 +458,13 @@ TOKENIZERS_PARALLELISM=false
 ### 7.1 기본 실행
 
 ```bash
-streamlit run app.py
+LOAD_GPU_MODELS=true uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### 7.2 헬스체크
 
 ```bash
-# Streamlit 내장 헬스 엔드포인트
-curl http://localhost:8501/_stcore/health
+curl http://localhost:8000/health
 ```
 
 ### 7.3 기능별 검증 체크리스트
@@ -520,8 +511,7 @@ for c in ABLATION_CONFIGS:
 | `ModuleNotFoundError: fitz` | pymupdf 미설치 | `pip install pymupdf` (패키지명 ≠ import명) |
 | `ChromaDB migration error` | DB 버전 불일치 | `chroma_db/` 폴더 삭제 후 재시작 |
 | 임베딩 모델 로딩 느림 | 첫 다운로드 | Section 5 사전 다운로드 스크립트 실행 |
-| `trust_remote_code=True` 경고 | EXAONE 모델 특성 | 정상 동작, 무시 가능 |
-| Streamlit `MaxUploadSize` | 기본 200MB 제한 | `.streamlit/config.toml`에서 설정됨 (50MB) |
+| `trust_remote_code=True` 경고 | MIDM 모델 특성 | 정상 동작, 무시 가능 |
 | BM25 검색 결과 없음 | `fit_bm25()` 미호출 | PDF 업로드 후 자동 호출됨. 수동: `hybrid_retriever.fit_bm25("papers")` |
 | 한글 깨짐 | PDF 인코딩 문제 | pymupdf가 대부분 처리. 스캔 PDF는 OCR 필요 (미지원) |
 
@@ -537,7 +527,7 @@ nvidia-smi
 
 ### 8.3 로그 레벨 변경
 
-`app.py` 상단의 로깅 레벨 변경:
+`api/main.py` 상단의 로깅 레벨 변경:
 
 ```python
 logging.basicConfig(level=logging.DEBUG)  # 상세 로그
@@ -560,7 +550,7 @@ RunPod/원격 서버에서 로컬 접속:
 
 ```bash
 # SSH 터널링
-ssh -L 8501:localhost:8501 root@<server-ip> -p <port>
+ssh -L 8000:localhost:8000 root@<server-ip> -p <port>
 ```
 
-브라우저에서 `http://localhost:8501` 접속.
+브라우저에서 `http://localhost:8000/docs` 접속 (Swagger UI).
