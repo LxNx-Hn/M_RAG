@@ -135,6 +135,8 @@ Q- 진행할려면 바꿔야하는 문서/ 코드가 존재하는지?
 > **답변 - 논문특화 부분 목록 및 제거 시 유효성**:
 > 논문특화 코드: `section_detector.py`(논문 헤더 패턴), `pipeline_b_section.py`(섹션필터), `pipeline_d_citation.py`(arXiv), `citation_tracker.py`, `query_expander.py`의 학술 HyDE 프롬프트, ROUTE_MAP의 비교/인용 키워드.
 > 이 부분을 빼면 일반 Modular RAG가 됨 — contribution이 크게 약해짐. 논문특화(레퍼런스 추적 C2, 섹션 인식 C1)가 이 프로젝트의 핵심 차별점이므로 유지 권장.
+>
+>Q2 - 아카이브에 없는논문과 다른논문에 대한 답변 아직 안달려있고, 이 프로젝트의 핵심은 특화된청킹과 환각제거이지, 논문에 고정할필요가 있나싶음
 
 -CAD<- 이거 한국어에서 적용후 평가한 논문있나? 없음 이걸로 가고싶은데
 
@@ -178,3 +180,23 @@ Q- 진행할려면 바꿔야하는 문서/ 코드가 존재하는지?
 > - **Modular RAG** (이 프로젝트): `QueryRouter(M6)`가 쿼리 유형을 분류해서 5개 파이프라인(A~E) 중 하나로 분기. 각 파이프라인은 서로 다른 모듈 조합을 사용. "단순 질문"은 HyDE+하이브리드검색, "비교 질문"은 병렬 검색+비교 템플릿, "요약"은 섹션별 반복 검색 등.
 >
 > 즉, 이 프로젝트는 **쿼리 적응형 파이프라인 분기**가 핵심이라 Modular RAG가 맞음. "Modular AI"(에이전트가 도구를 자율 선택)와는 다름 — 라우팅 로직이 규칙 기반(키워드 스코어)으로 명시적으로 설계되어 있기 때문. 논문에서 인용할 때는 Gao et al. (2023) "Modular RAG" 또는 Ma et al. (2023) "Query Routing" 계열 레퍼런스 활용 가능.
+
+
+
+PHASE 0: T0f~T0i+T0r — 문서 업데이트 (4개 docs + CLAUDE.md + ARCHITECTURE.md)
+
+PHASE 0: T0j+T0q — test_queries.json lecture 8개 + patent 6개 추가
+
+PHASE 1: T1 — CRITIQUE markdown lint 수정
+
+PHASE 2: T2+T3 — ground_truth 전략 + None-aware 평가
+
+PHASE 3: T4+T5+T6 — citation_tracker fallback + citations API 분리
+
+PHASE 4: T7~T11 — Pipeline F 퀴즈 생성
+
+PHASE 5: T12~T14 — 프론트엔드 인용 뷰어 패널
+
+PHASE 6: T15+T16 — C3 실험 스크립트 + 배포 검증
+
+PHASE 6: T17 — docker-compose 검증

@@ -81,7 +81,7 @@ ChromaDB + PostgreSQL + File Storage
 | D (인용추적) | `pipeline_d_citation.py` | arXiv API → PDF 자동 다운로드 → 재인덱싱 |
 | E (요약) | `pipeline_e_summary.py` | 섹션별 5회 검색 → 구조화 요약 |
 
-### 14개 모듈 (`backend/modules/`)
+### 13개 모듈 (`backend/modules/`)
 
 ```
 M1  pdf_parser.py          pymupdf 기반 블록 추출
@@ -89,15 +89,17 @@ M2  section_detector.py    정규식 + 폰트크기 헤더 판별
 M3  chunker.py             section/fixed/sentence 3가지 전략 + RAPTORChunker
 M4  embedder.py            BAAI/bge-m3 (1024차원, 한영 동일 공간)
 M5  vector_store.py        ChromaDB PersistentClient
-M6  query_router.py        키워드 스코어 → RouteDecision
+M6  query_router.py        키워드 스코어 → RouteDecision (투명한 라우트 배지)
 M7  query_expander.py      HyDE / RAG-Fusion / 한→영 번역
 M8  hybrid_retriever.py    Dense(BGE-M3) + BM25 → RRF 융합
 M9  reranker.py            cross-encoder + 섹션가중치 + Lost-in-the-Middle 보정
 M10 context_compressor.py  추출/요약 압축, 3072 토큰 한계
 M11 citation_tracker.py    Reference 섹션 파싱 → arXiv API
 M12 generator.py           MIDM-2.0-Base-Instruct (bfloat16, device_map=auto) + SSE 스트리밍
-M13 contrastive_decoder.py CAD LogitsProcessor (파라메트릭 지식 억제)
-M14 docx_parser.py         DOCX/TXT 파싱
+M13 cad_decoder.py +       CAD (환각 억제, Shi et al. NAACL 2024) +
+    scd_decoder.py         SCD (언어 이탈 방지, Li et al. 2025) — 핵심 기여 C3/C4
+    [contrastive_decoder.py: 구버전 호환 shim, 직접 사용 금지]
+    docx_parser.py         DOCX/TXT 파싱
 ```
 
 ### 설정 (`backend/config.py`)

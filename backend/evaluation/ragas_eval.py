@@ -200,8 +200,17 @@ class RAGASEvaluator:
         return sum(values) / max(len(values), 1)
 
 
-def load_test_queries(filepath: str = "evaluation/test_queries.json") -> list[EvalSample]:
-    """평가 질의 JSON 로드"""
+def load_test_queries(
+    filepath: str = "evaluation/test_queries.json",
+    query_types: Optional[list[str]] = None,
+) -> list[EvalSample]:
+    """평가 질의 JSON 로드.
+
+    Args:
+        filepath: test_queries.json 경로
+        query_types: 필터링할 type 목록 (None이면 전체 로드)
+                     예: ["cad_ablation"] → CAD 어블레이션 전용 쿼리만
+    """
     path = Path(filepath)
     if not path.exists():
         logger.warning(f"Test queries file not found: {filepath}")
@@ -210,10 +219,108 @@ def load_test_queries(filepath: str = "evaluation/test_queries.json") -> list[Ev
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    return [
-        EvalSample(
+    # v2.0 형식: {"_meta": {...}, "queries": [...]}
+    # v1.0 형식: [...]
+    items = data.get("queries", data) if isinstance(data, dict) else data
+
+    samples = []
+    for item in items:
+        if query_types and item.get("type") not in query_types:
+            continue
+        # ground_truth가 "PAPER_SPECIFIC"으로 시작하면 미채움 상태
+        gt = item.get("ground_truth", "")
+        if gt.startswith("PAPER_SPECIFIC"):
+            gt = ""
+        samples.append(EvalSample(
             query=item["query"],
-            ground_truth=item.get("ground_truth", ""),
-        )
-        for item in data
-    ]
+            ground_truth=gt,
+        ))
+
+    return samples
+
+
+def compare_cad_on_off(
+    evaluator: "RAGASEvaluator",
+    samples: list[EvalSample],
+    generator,
+    collection_name: str,
+    retriever,
+    reranker,
+    compressor,
+    cad_alpha: float = 0.5,
+) -> dict:
+    """C3 클레임 핵심 실험: CAD on vs off 비교.
+
+    동일한 쿼리셋을 CAD 활성화/비활성화 상태로 각각 실행하여
+    RAGAS faithfulness delta를 측정합니다.
+
+    Args:
+        evaluator: RAGASEvaluator 인스턴스
+        samples: 평가 샘플 목록 (ground_truth 채워진 것 권장)
+        generator: Generator 인스턴스 (MIDM)
+        collection_name: ChromaDB 컬렉션 이름
+        retriever: HybridRetriever 인스턴스
+        reranker: Reranker 인스턴스
+        compressor: ContextCompressor 인스턴스
+        cad_alpha: CAD 억제 강도 (기본 0.5)
+
+    Returns:
+        {
+            "cad_on": {faithfulness, answer_relevancy, ...},
+            "cad_off": {faithfulness, answer_relevancy, ...},
+            "faithfulness_delta": float,   # CAD on - CAD off (양수 = CAD가 더 좋음)
+            "answer_relevancy_delta": float,
+            "alpha": float,
+            "n_samples": int,
+        }
+
+    Example:
+        results = compare_cad_on_off(evaluator, samples, generator, ...)
+        print(f"Faithfulness delta (CAD on - off): {results['faithfulness_delta']:.3f}")
+    """
+    import copy
+    from modules.cad_decoder import create_cad_processor
+
+    def _run(use_cad: bool) -> dict:
+        run_samples = copy.deepcopy(samples)
+        for sample in run_samples:
+            search_results = retriever.search(
+                collection_name=collection_name,
+                query=sample.query,
+            )
+            search_results = reranker.rerank(sample.query, search_results)
+            search_results = compressor.truncate_to_limit(search_results)
+            sample.contexts = [r["content"] for r in search_results]
+            context = "\n\n---\n\n".join(sample.contexts)
+
+            logits_processor = None
+            if use_cad:
+                logits_processor = create_cad_processor(
+                    generator, sample.query, alpha=cad_alpha
+                )
+            sample.answer = generator.generate(
+                query=sample.query,
+                context=context,
+                template="qa",
+                logits_processor=logits_processor,
+            )
+        return evaluator.evaluate(run_samples)
+
+    logger.info(f"compare_cad_on_off: running CAD-on (alpha={cad_alpha})...")
+    cad_on = _run(use_cad=True)
+
+    logger.info("compare_cad_on_off: running CAD-off (baseline)...")
+    cad_off = _run(use_cad=False)
+
+    return {
+        "cad_on": cad_on["average"],
+        "cad_off": cad_off["average"],
+        "faithfulness_delta": (
+            cad_on["average"]["faithfulness"] - cad_off["average"]["faithfulness"]
+        ),
+        "answer_relevancy_delta": (
+            cad_on["average"]["answer_relevancy"] - cad_off["average"]["answer_relevancy"]
+        ),
+        "alpha": cad_alpha,
+        "n_samples": len(samples),
+    }

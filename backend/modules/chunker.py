@@ -67,28 +67,81 @@ class Chunker:
         else:
             return self._chunk_by_section(document)
 
-    def _chunk_by_section(self, document: ParsedDocument) -> list[Chunk]:
-        """섹션 경계를 넘지 않는 청킹 (기본 전략)"""
-        # 섹션별로 블록 그룹화
-        section_groups: dict[str, list[TextBlock]] = {}
-        for block in document.blocks:
-            if block.block_type != "text":
-                continue
-            key = block.section_type
-            if key not in section_groups:
-                section_groups[key] = []
-            section_groups[key].append(block)
+    # 분할 금지 block_type (수식/표/코드는 잘리면 의미 손실)
+    STRUCTURED_TYPES = frozenset({"code", "table", "math"})
 
+    def _chunk_by_section(self, document: ParsedDocument) -> list[Chunk]:
+        """섹션 경계를 넘지 않는 청킹 (기본 전략)
+
+        구조 블록(code/table/math)은 분할하지 않고 독립 청크로 보존.
+        인접 텍스트와 구조 블록 사이에 청크 경계를 생성.
+        """
         chunks = []
-        for section_type, blocks in section_groups.items():
-            section_text = "\n".join(b.content for b in blocks)
-            section_chunks = self._split_text(
-                section_text, document.doc_id, section_type,
-                page=blocks[0].page if blocks else 0,
-            )
-            chunks.extend(section_chunks)
+
+        # 섹션별로 블록을 순서대로 처리
+        current_section = "unknown"
+        text_buffer: list[TextBlock] = []
+
+        for block in document.blocks:
+            if block.block_type == "image":
+                continue
+
+            # 섹션 변경 감지
+            if block.section_type != current_section:
+                # 이전 섹션 텍스트 버퍼 플러시
+                if text_buffer:
+                    chunks.extend(self._flush_text_buffer(
+                        text_buffer, document.doc_id, current_section
+                    ))
+                    text_buffer = []
+                current_section = block.section_type
+
+            # 구조 블록: 독립 청크로 보존 (분할 금지)
+            if block.block_type in self.STRUCTURED_TYPES:
+                # 먼저 앞쪽 텍스트 버퍼 플러시
+                if text_buffer:
+                    last_chunk = self._flush_text_buffer(
+                        text_buffer, document.doc_id, current_section
+                    )
+                    # 수식 블록 인접 시 앞 청크에 참조 앵커 추가
+                    if block.block_type == "math" and last_chunk:
+                        last_chunk[-1].content += " [수식 참조]"
+                    chunks.extend(last_chunk)
+                    text_buffer = []
+
+                # 구조 블록을 독립 청크로 생성
+                chunks.append(self._make_chunk(
+                    block.content, document.doc_id,
+                    current_section, block.page,
+                    metadata={
+                        "is_structured": True,
+                        "structured_type": block.block_type,
+                    },
+                ))
+                continue
+
+            # 일반 텍스트/heading/list_item → 버퍼에 누적
+            text_buffer.append(block)
+
+        # 마지막 섹션 버퍼 플러시
+        if text_buffer:
+            chunks.extend(self._flush_text_buffer(
+                text_buffer, document.doc_id, current_section
+            ))
 
         return chunks
+
+    def _flush_text_buffer(
+        self, blocks: list[TextBlock], doc_id: str, section_type: str
+    ) -> list[Chunk]:
+        """텍스트 블록 버퍼를 청크로 분할"""
+        if not blocks:
+            return []
+        section_text = "\n".join(b.content for b in blocks)
+        return self._split_text(
+            section_text, doc_id, section_type,
+            page=blocks[0].page,
+        )
 
     def _chunk_fixed_size(self, document: ParsedDocument) -> list[Chunk]:
         """고정 크기 청킹 (Baseline용)"""
@@ -166,7 +219,7 @@ class Chunker:
     def _make_chunk(
         self, text: str, doc_id: str, section_type: str,
         page: int = 0, char_start: int = 0, char_end: int = 0,
-        level: int = 0,
+        level: int = 0, metadata: dict | None = None,
     ) -> Chunk:
         """Chunk 객체 생성"""
         chunk_id = hashlib.md5(
@@ -182,6 +235,7 @@ class Chunker:
             char_start=char_start,
             char_end=char_end,
             chunk_level=level,
+            metadata=metadata or {},
         )
 
 

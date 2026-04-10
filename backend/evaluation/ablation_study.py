@@ -151,6 +151,79 @@ class AblationStudy:
 
         return results
 
+    def run_cad_korean_evaluation(
+        self,
+        test_samples: list[EvalSample],
+        collection_name: str,
+    ) -> dict:
+        """C3 클레임 핵심 실험: 한국어 학술 RAG에서 CAD 어블레이션.
+
+        α ∈ {0.1, 0.3, 0.5, 0.7, 1.0} 각각에 대해 CAD on vs off를 비교하여
+        faithfulness delta를 측정합니다. 결과는 논문 Table 2로 직접 사용합니다.
+
+        Returns:
+            {
+                "summary": {"best_alpha": 0.5, "max_faithfulness_delta": 0.12},
+                "per_alpha": {
+                    "0.1": {"alpha": 0.1, "faithfulness_delta": ...,
+                            "cad_on": {...}, "cad_off": {...}},
+                    ...
+                },
+                "n_samples": int,
+                "description": "CAD Korean Academic RAG Evaluation — Thesis C3",
+            }
+        """
+        baseline_config = AblationConfig(
+            name="CAD-off baseline",
+            use_section_chunking=True,
+            use_hybrid_search=True,
+            use_reranker=True,
+            use_cad=False,
+            use_context_compression=True,
+        )
+        baseline_result = self._run_single_config(baseline_config, test_samples, collection_name)
+        logger.info("CAD Korean Eval: baseline (CAD-off) done")
+
+        per_alpha = {}
+        for alpha in CAD_ALPHA_VALUES:
+            config = AblationConfig(
+                name=f"CAD-on alpha={alpha}",
+                use_section_chunking=True,
+                use_hybrid_search=True,
+                use_reranker=True,
+                use_cad=True,
+                use_context_compression=True,
+                cad_alpha=alpha,
+            )
+            logger.info(f"CAD Korean Eval: alpha={alpha}")
+            cad_result = self._run_single_config(config, test_samples, collection_name)
+
+            faithfulness_delta = (
+                cad_result["average"]["faithfulness"]
+                - baseline_result["average"]["faithfulness"]
+            )
+            per_alpha[str(alpha)] = {
+                "alpha": alpha,
+                "faithfulness_delta": faithfulness_delta,
+                "overall_delta": (
+                    cad_result["average"]["overall"]
+                    - baseline_result["average"]["overall"]
+                ),
+                "cad_on": cad_result["average"],
+                "cad_off": baseline_result["average"],
+            }
+
+        best_alpha_key = max(per_alpha, key=lambda a: per_alpha[a]["faithfulness_delta"])
+        return {
+            "summary": {
+                "best_alpha": float(best_alpha_key),
+                "max_faithfulness_delta": per_alpha[best_alpha_key]["faithfulness_delta"],
+            },
+            "per_alpha": per_alpha,
+            "n_samples": len(test_samples),
+            "description": "CAD Korean Academic RAG Evaluation — Thesis C3",
+        }
+
     def _run_single_config(
         self,
         config: AblationConfig,
@@ -159,7 +232,7 @@ class AblationStudy:
     ) -> dict:
         """단일 구성으로 실험 실행"""
         import copy
-        from modules.contrastive_decoder import create_cad_processor
+        from modules.cad_decoder import create_cad_processor
 
         # 원본 보존을 위해 깊은 복사
         samples = copy.deepcopy(test_samples)

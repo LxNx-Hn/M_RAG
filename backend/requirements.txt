@@ -5,6 +5,7 @@ sentence-transformers>=2.5.0
 
 # ─── PDF Processing ───
 pymupdf>=1.23.0
+pymupdf4llm>=0.0.17
 
 # ─── Vector DB ───
 chromadb>=0.4.22

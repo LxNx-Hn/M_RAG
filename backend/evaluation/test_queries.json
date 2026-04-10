@@ -1,152 +1,442 @@
-[
-  {
-    "query": "이 논문에서 사용한 데이터셋이 뭐야?",
-    "ground_truth": "",
-    "type": "simple_qa",
-    "expected_route": "A"
+{
+  "_meta": {
+    "version": "2.1",
+    "total": 55,
+    "updated": "2026-04-09",
+    "note": "테스트 쿼리는 특정 도메인 종속 없이 설계됨. 어떤 학술 논문/일반 문서에도 적용 가능한 구조적 쿼리 위주."
   },
-  {
-    "query": "학습에 사용된 하이퍼파라미터는?",
-    "ground_truth": "",
-    "type": "simple_qa",
-    "expected_route": "A"
+
+  "_validation_guide": {
+    "recommended_test_papers": [
+      {
+        "id": "paper_A_nlp",
+        "description": "NLP/ML 논문 1편 (예: BERT, attention 관련)",
+        "why": "AI 특화 쿼리 및 CAD 어블레이션 쿼리 검증. 모델이 파라메트릭 지식으로 '알 것 같은' 수치 결과 포함."
+      },
+      {
+        "id": "paper_B_non_ai",
+        "description": "비AI 논문 1편 (예: 생명과학, 사회과학, 재료공학 등)",
+        "why": "AI 특화 쿼리가 아닌 일반 학술 쿼리 검증. 모델이 잘 모르는 도메인 → 환각 억제 효과가 더 명확하게 나타남."
+      },
+      {
+        "id": "paper_C_korean",
+        "description": "한국어 학술 논문 1편 (국내 학술지, KCI 등재)",
+        "why": "한국어 섹션명 감지 + SCD 언어이탈 방지 검증. 영문 논문 대비 섹션 감지 성공률 비교 가능."
+      },
+      {
+        "id": "doc_D_general",
+        "description": "일반 문서 1편 (교재 PDF, 기술 보고서, 공공기관 문서)",
+        "why": "일반문서 섹션 감지 (chapter/절 구조) + A경로 fallback 동작 확인. 논문 특화 기능 비활성화 시 동작 검증."
+      }
+    ],
+    "test_pipeline": [
+      "1. 추천 테스트 논문 4편을 backend/data/ 에 저장",
+      "2. python backend/scripts/download_models.py --skip-llm  (GPU 없으면)",
+      "3. 논문 업로드 → 인덱싱 (streamlit 또는 /api/papers/upload)",
+      "4. cad_ablation 쿼리 5개의 ground_truth를 실제 paper_A_nlp 또는 paper_B_non_ai 값으로 채움",
+      "5. python -m backend.evaluation.ragas_eval  → 전체 평가 실행",
+      "6. python -m backend.evaluation.ablation_study  → run_cad_korean_evaluation() 실행",
+      "7. crosslingual 쿼리에서 답변 언어가 한국어인지 육안 확인 (SCD 효과)",
+      "8. general_doc 쿼리에서 섹션 태그가 chapter/section 으로 표시되는지 확인",
+      "주의: ground_truth가 비어있는 쿼리는 faithfulness/relevancy만 측정 가능, context_recall 불가"
+    ],
+    "cad_test_strategy": "cad_ablation 쿼리는 LLM이 '일반 지식으로 답할 법한' 수치 질문으로 구성됨. CAD-off 시 파라메트릭 지식(훈련 데이터의 평균적 수치)이 개입할 가능성이 높아 논문 특정 값과 불일치 → CAD-on 시 컨텍스트 기반 답변으로 보정."
   },
-  {
-    "query": "제안된 모델의 입력과 출력은 무엇인가?",
-    "ground_truth": "",
-    "type": "simple_qa",
-    "expected_route": "A"
-  },
-  {
-    "query": "실험 결과가 어떻게 나왔어?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "기존 방법 대비 성능이 얼마나 향상되었어?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "F1 score는 몇이야?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "정확도(accuracy)는 어느 정도야?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "방법론 설명해줘",
-    "ground_truth": "",
-    "type": "section_method",
-    "expected_route": "B"
-  },
-  {
-    "query": "모델 아키텍처가 어떻게 되어 있어?",
-    "ground_truth": "",
-    "type": "section_method",
-    "expected_route": "B"
-  },
-  {
-    "query": "어떤 알고리즘을 사용했어?",
-    "ground_truth": "",
-    "type": "section_method",
-    "expected_route": "B"
-  },
-  {
-    "query": "이 연구의 한계점은 뭐야?",
-    "ground_truth": "",
-    "type": "section_limit",
-    "expected_route": "B"
-  },
-  {
-    "query": "future work으로 뭘 제안했어?",
-    "ground_truth": "",
-    "type": "section_limit",
-    "expected_route": "B"
-  },
-  {
-    "query": "두 논문의 방법론 차이가 뭐야?",
-    "ground_truth": "",
-    "type": "compare",
-    "expected_route": "C"
-  },
-  {
-    "query": "논문 A랑 B 성능 비교해줘",
-    "ground_truth": "",
-    "type": "compare",
-    "expected_route": "C"
-  },
-  {
-    "query": "두 접근법의 공통점과 차이점은?",
-    "ground_truth": "",
-    "type": "compare",
-    "expected_route": "C"
-  },
-  {
-    "query": "이 논문이 인용한 핵심 논문들이 뭐야?",
-    "ground_truth": "",
-    "type": "citation",
-    "expected_route": "D"
-  },
-  {
-    "query": "참고문헌 중에서 가장 관련 있는 논문은?",
-    "ground_truth": "",
-    "type": "citation",
-    "expected_route": "D"
-  },
-  {
-    "query": "이 논문 전체 요약해줘",
-    "ground_truth": "",
-    "type": "summary",
-    "expected_route": "E"
-  },
-  {
-    "query": "핵심 내용을 정리해줘",
-    "ground_truth": "",
-    "type": "summary",
-    "expected_route": "E"
-  },
-  {
-    "query": "논문 개요를 설명해줘",
-    "ground_truth": "",
-    "type": "summary",
-    "expected_route": "E"
-  },
-  {
-    "query": "What is the main contribution of this paper?",
-    "ground_truth": "",
-    "type": "simple_qa",
-    "expected_route": "A"
-  },
-  {
-    "query": "loss function이 뭐야?",
-    "ground_truth": "",
-    "type": "section_method",
-    "expected_route": "B"
-  },
-  {
-    "query": "baseline 모델들은 뭐가 있어?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "ablation study 결과는?",
-    "ground_truth": "",
-    "type": "section_result",
-    "expected_route": "B"
-  },
-  {
-    "query": "이 논문의 novelty가 뭐야?",
-    "ground_truth": "",
-    "type": "simple_qa",
-    "expected_route": "A"
-  }
-]
+
+  "queries": [
+    {
+      "query": "이 논문에서 사용한 데이터셋이 뭐야?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "학습에 사용된 하이퍼파라미터는?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp"]
+    },
+    {
+      "query": "제안된 모델의 입력과 출력은 무엇인가?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "이 논문의 novelty가 뭐야?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "What is the main contribution of this paper?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "이 논문의 저자들이 어느 기관 소속이야?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "이 연구에서 해결하려는 문제가 뭐야?",
+      "ground_truth": "",
+      "type": "simple_qa",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "이 문서는 무엇을 설명하는 자료야?",
+      "ground_truth": "",
+      "type": "general_doc",
+      "expected_route": "A",
+      "applicable_papers": ["doc_D_general"],
+      "note": "일반 문서용 — 섹션 인식 fallback 후 A경로 동작 확인"
+    },
+    {
+      "query": "실험 결과가 어떻게 나왔어?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "기존 방법 대비 성능이 얼마나 향상되었어?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "F1 score는 몇이야?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"]
+    },
+    {
+      "query": "정확도(accuracy)는 어느 정도야?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "baseline 모델들은 뭐가 있어?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "ablation study 결과는?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"]
+    },
+    {
+      "query": "방법론 설명해줘",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "모델 아키텍처가 어떻게 되어 있어?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"]
+    },
+    {
+      "query": "어떤 알고리즘을 사용했어?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "loss function이 뭐야?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"]
+    },
+    {
+      "query": "이 연구의 한계점은 뭐야?",
+      "ground_truth": "",
+      "type": "section_limit",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "future work으로 뭘 제안했어?",
+      "ground_truth": "",
+      "type": "section_limit",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "Abstract에서 주장하는 핵심 기여가 뭐야?",
+      "ground_truth": "",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "결론 섹션에서 향후 연구 방향으로 제시한 게 뭐야?",
+      "ground_truth": "",
+      "type": "section_conclusion",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "Discussion 섹션에서 분석한 실패 케이스가 있어?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "related work에서 언급된 가장 유사한 선행 연구가 뭐야?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "두 논문의 방법론 차이가 뭐야?",
+      "ground_truth": "",
+      "type": "compare",
+      "expected_route": "C",
+      "applicable_papers": ["paper_A_nlp + paper_B_non_ai (2편 동시 업로드)"]
+    },
+    {
+      "query": "논문 A랑 B 성능 비교해줘",
+      "ground_truth": "",
+      "type": "compare",
+      "expected_route": "C",
+      "applicable_papers": ["paper_A_nlp + paper_B_non_ai (2편 동시 업로드)"]
+    },
+    {
+      "query": "두 접근법의 공통점과 차이점은?",
+      "ground_truth": "",
+      "type": "compare",
+      "expected_route": "C",
+      "applicable_papers": ["paper_A_nlp + paper_B_non_ai (2편 동시 업로드)"]
+    },
+    {
+      "query": "이 논문이 인용한 핵심 논문들이 뭐야?",
+      "ground_truth": "",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "참고문헌 중에서 가장 관련 있는 논문은?",
+      "ground_truth": "",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "이 논문이 arXiv에 등록된 논문을 인용한 게 있어?",
+      "ground_truth": "",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": ["paper_A_nlp"],
+      "note": "arXiv에 없는 논문만 인용한 경우 Pipeline D가 graceful fallback하는지 확인 가능"
+    },
+    {
+      "query": "이 연구에서 직접 비교한 baseline 논문들의 제목이 뭐야?",
+      "ground_truth": "",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"]
+    },
+    {
+      "query": "이 논문 전체 요약해줘",
+      "ground_truth": "",
+      "type": "summary",
+      "expected_route": "E",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "핵심 내용을 정리해줘",
+      "ground_truth": "",
+      "type": "summary",
+      "expected_route": "E",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai", "paper_C_korean"]
+    },
+    {
+      "query": "논문 개요를 설명해줘",
+      "ground_truth": "",
+      "type": "summary",
+      "expected_route": "E",
+      "applicable_papers": ["paper_A_nlp", "paper_C_korean", "doc_D_general"]
+    },
+
+    {
+      "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
+      "ground_truth": "PAPER_SPECIFIC — paper_B_non_ai의 주요 정량 결과로 채울 것 (비AI 도메인 권장: 환각 위험 높음)",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "cad_test_purpose": "비AI 도메인 수치 → 모델 파라메트릭 지식이 없어 컨텍스트 의존도 높음. CAD 효과가 명확하게 측정됨."
+    },
+    {
+      "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
+      "ground_truth": "PAPER_SPECIFIC — paper_A_nlp의 실제 learning rate로 채울 것",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"],
+      "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 '흔한' LR을 파라메트릭 지식으로 답할 위험"
+    },
+    {
+      "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
+      "ground_truth": "PAPER_SPECIFIC — 실제 논문의 실험 환경 섹션에서 채울 것",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp", "paper_B_non_ai"],
+      "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험"
+    },
+    {
+      "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
+      "ground_truth": "PAPER_SPECIFIC — 실제 논문의 모델 파라미터 수로 채울 것",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"],
+      "cad_test_purpose": "모델 규모 — BERT=110M, GPT-2=117M 등 유사 모델 수치를 혼동할 위험"
+    },
+    {
+      "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
+      "ground_truth": "PAPER_SPECIFIC — 실제 test accuracy 값으로 채울 것",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"],
+      "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험"
+    },
+    {
+      "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
+      "ground_truth": "PAPER_SPECIFIC — paper_B_non_ai의 실험 샘플 수로 채울 것 (생명과학/사회과학 권장)",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "cad_test_purpose": "비AI 논문 샘플 수 — 모델이 일반 지식 없이 답해야 하므로 컨텍스트 의존 강제됨"
+    },
+    {
+      "query": "이 연구에서 측정한 특정 화합물/변수의 수치가 얼마야?",
+      "ground_truth": "PAPER_SPECIFIC — 생명과학/재료공학 논문의 핵심 측정값으로 채울 것",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "cad_test_purpose": "도메인 특수 수치 — AI 모델이 사전학습 지식으로 추측할 수 없어 hallucination 실패 가능성 극대화"
+    },
+
+    {
+      "query": "What hyperparameters were tuned in the training phase?",
+      "ground_truth": "",
+      "type": "crosslingual_en",
+      "expected_route": "A",
+      "applicable_papers": ["paper_A_nlp"],
+      "scd_test_purpose": "영어 쿼리 → 답변이 한국어로 생성되는지 확인 (SCD 효과)"
+    },
+    {
+      "query": "이 논문에서 attention mechanism을 어떻게 수정했어?",
+      "ground_truth": "",
+      "type": "crosslingual_mixed",
+      "expected_route": "B",
+      "applicable_papers": ["paper_A_nlp"],
+      "scd_test_purpose": "한영 혼합 쿼리 + 영어 기술 용어 → SCD가 한국어 답변을 유지하는지 확인"
+    },
+    {
+      "query": "How does this method compare to the BERT baseline?",
+      "ground_truth": "",
+      "type": "crosslingual_en",
+      "expected_route": "C",
+      "applicable_papers": ["paper_A_nlp"],
+      "scd_test_purpose": "영어 비교 쿼리 → C경로로 라우팅 + 한국어 답변 유지 확인"
+    },
+    {
+      "query": "이 문서의 각 챕터나 절에서 다루는 내용은?",
+      "ground_truth": "",
+      "type": "general_doc",
+      "expected_route": "E",
+      "applicable_papers": ["doc_D_general"],
+      "note": "일반 문서의 장절 구조 감지 → chapter/section 섹션 태그가 표시되는지 확인"
+    },
+    {
+      "query": "이 보고서의 결론이 뭐야?",
+      "ground_truth": "",
+      "type": "general_doc",
+      "expected_route": "B",
+      "applicable_papers": ["doc_D_general"],
+      "note": "결론 섹션 감지 — 논문 conclusion 패턴 vs 일반 문서 결론 패턴 비교"
+    },
+    {
+      "query": "이 교재에서 다루는 핵심 개념이 뭐야?",
+      "ground_truth": "",
+      "type": "general_doc",
+      "expected_route": "A",
+      "applicable_papers": ["doc_D_general"],
+      "note": "교재 문서 — 섹션 감지 실패 시 A경로 fallback 동작 확인"
+    },
+    {
+      "query": "이 논문에서 통계적으로 유의미한 결과가 있어? p-value가 얼마야?",
+      "ground_truth": "PAPER_SPECIFIC — 통계 논문(사회과학/의학)의 p-value로 채울 것",
+      "type": "cad_hallucination",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "cad_test_purpose": "통계 결과 — 모델이 'p < 0.05'를 일반 지식으로 답할 위험"
+    },
+    {
+      "query": "이 실험의 표본 집단(대상자)은 어떤 특성을 가진 사람들이야?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "note": "의학/사회과학 논문 대상 — 섹션 B 라우팅이 비AI 도메인에서도 작동하는지 확인"
+    },
+    {
+      "query": "이 논문에서 제안하는 방법이 기존 임상 가이드라인과 어떻게 다른가?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_B_non_ai"],
+      "note": "의학 논문 특화 — 도메인 전문용어 검색이 정상 작동하는지 확인"
+    },
+    {
+      "query": "이 문서에서 제시된 권고사항 또는 결론이 뭐야?",
+      "ground_truth": "",
+      "type": "general_doc",
+      "expected_route": "B",
+      "applicable_papers": ["doc_D_general"],
+      "note": "보고서/정책문서 — 결론/권고사항 섹션 감지"
+    },
+    {
+      "query": "한국어로 작성된 이 논문의 연구 방법이 뭐야?",
+      "ground_truth": "",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": ["paper_C_korean"],
+      "note": "한국어 논문 — 한국어 섹션명('방법론', '연구방법') 감지 + BGE-M3 크로스링구얼 검색 확인"
+    },
+    {
+      "query": "이 한국어 논문의 연구 결과와 시사점은?",
+      "ground_truth": "",
+      "type": "section_result",
+      "expected_route": "B",
+      "applicable_papers": ["paper_C_korean"],
+      "note": "한국어 논문 결과 섹션 — 한국어 결과 섹션 패턴 감지 확인"
+    }
+  ]
+}

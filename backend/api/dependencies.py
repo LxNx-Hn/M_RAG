@@ -15,6 +15,7 @@ from modules.hybrid_retriever import HybridRetriever
 from modules.reranker import Reranker
 from modules.context_compressor import ContextCompressor
 from modules.citation_tracker import CitationTracker
+from modules.patent_tracker import PatentTracker
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ class ModuleManager:
         self.reranker: Reranker | None = None
         self.compressor: ContextCompressor | None = None
         self.citation_tracker: CitationTracker | None = None
+        self.patent_tracker: PatentTracker | None = None
         self.generator = None
         self.query_expander = None
 
@@ -56,6 +58,7 @@ class ModuleManager:
         self.reranker = Reranker()
         self.compressor = ContextCompressor()
         self.citation_tracker = CitationTracker()
+        self.patent_tracker = PatentTracker()
 
         # GPU 모델 (선택적)
         if load_gpu_models:
