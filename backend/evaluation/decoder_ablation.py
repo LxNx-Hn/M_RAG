@@ -74,23 +74,53 @@ def compute_numeric_hallucination_rate(
     ground_truths: list[str],
 ) -> float:
     """수치 환각률: 정답에 없는 수치가 답변에 포함된 비율
-    단순 근사: 소수점 포함 숫자 추출 후 비교
+
+    개선 사항:
+    - 논문에서 흔한 단위 포괄 (%, M, B, K, GB, 배, 점 등)
+    - 단위 제거 후 정규화 비교 (82.1% == 82.1)
+    - trivial 숫자(10 미만 정수) 제외하여 false positive 방지
     """
     if not answers:
         return 0.0
 
+    _UNIT_PATTERN = r'(?:%|배|점|개|명|억|만|천|[KMBTG]B?|gb|mb|kb)'
+
     def extract_numbers(text: str) -> set[str]:
-        return set(re.findall(r'\b\d+(?:\.\d+)?(?:%|배|점|개|명)?\b', text))
+        """숫자+선택적 단위를 추출하고 정규화된 숫자값만 반환"""
+        raw = re.findall(
+            r'\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)' + _UNIT_PATTERN + r'?\b',
+            text, re.IGNORECASE,
+        )
+        normalized = set()
+        for num_str in raw:
+            clean = num_str.replace(',', '')
+            try:
+                val = float(clean)
+            except ValueError:
+                continue
+            # 10 미만 정수는 제외 (섹션 번호, 목록 번호 등)
+            if val < 10 and val == int(val):
+                continue
+            normalized.add(clean)
+        return normalized
 
     hallucinated = 0
     for answer, gt in zip(answers, ground_truths):
+        if not gt.strip():
+            continue  # ground_truth 없으면 평가 불가
         gt_nums = extract_numbers(gt)
+        if not gt_nums:
+            continue  # 정답에 수치가 없으면 스킵
         answer_nums = extract_numbers(answer)
         extra = answer_nums - gt_nums
         if extra:
             hallucinated += 1
 
-    return hallucinated / len(answers)
+    evaluated = sum(
+        1 for gt in ground_truths
+        if gt.strip() and extract_numbers(gt)
+    )
+    return hallucinated / max(evaluated, 1)
 
 
 # ─────────────────────────────────────────────

@@ -23,12 +23,12 @@ class QueryExpander:
             return query
 
         prompt = (
-            "You are a helpful research assistant. "
-            "Based on the following question, write a short hypothetical passage "
-            "that would answer it, as if it were from an academic paper. "
-            "Write in English.\n\n"
+            "You are a research assistant writing a passage from an academic paper.\n\n"
+            "Task: Write a 3-5 sentence passage in English that would answer the "
+            "following research question. Include specific technical details, "
+            "method names, and quantitative results where appropriate.\n\n"
             f"Question: {query}\n\n"
-            "Hypothetical passage:"
+            "Passage:"
         )
         hypothetical_doc = self.generator.generate_simple(prompt)
         return hypothetical_doc
@@ -39,8 +39,9 @@ class QueryExpander:
             return [query]
 
         prompt = (
-            f"주어진 질문을 {n_queries}가지 다른 표현으로 바꿔주세요. "
-            "각각 한 줄씩, 번호를 붙여서 작성하세요.\n\n"
+            f"아래 학술 질문을 검색에 유리하도록 {n_queries}가지 다른 표현으로 바꿔주세요.\n"
+            "각 표현은 다른 키워드나 관점을 사용하세요.\n"
+            "번호와 질문만 출력하고, 설명은 쓰지 마세요.\n\n"
             f"원래 질문: {query}\n\n"
             "다른 표현:"
         )
@@ -67,13 +68,18 @@ class QueryExpander:
             return None
 
         prompt = (
-            "Translate the following Korean question to English. "
+            "Translate the following Korean academic question to English. "
+            "Keep technical terms accurate. "
             "Output only the translation, nothing else.\n\n"
             f"Korean: {query}\n"
             "English:"
         )
         translated = self.generator.generate_simple(prompt)
-        return translated.strip()
+        # LLM이 빈 응답이나 원문 반복할 경우 None 반환
+        cleaned = translated.strip()
+        if not cleaned or cleaned == query:
+            return None
+        return cleaned
 
     def expand(self, query: str, use_hyde: bool = True, use_multi: bool = False) -> dict:
         """통합 쿼리 확장"""

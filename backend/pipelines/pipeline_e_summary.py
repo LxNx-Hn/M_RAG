@@ -22,12 +22,38 @@ def run(
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
 ) -> dict:
-    """전체 요약 파이프라인 실행"""
+    """전체 요약 파이프라인 실행
+
+    RAPTOR 계층 청크(chunk_level > 0)가 인덱싱 시 생성되어 있으면
+    root/mid 요약을 우선 활용하여 요약 품질을 높입니다.
+    """
     steps = []
+    all_results = []
+
+    # 0. RAPTOR 계층 청크 조회 (있으면 활용)
+    try:
+        vs = hybrid_retriever.vector_store
+        collection = vs.get_or_create_collection(collection_name)
+        raptor_data = collection.get(
+            where={"chunk_level": {"$gte": 1}},
+            include=["documents", "metadatas"],
+        )
+        if raptor_data["ids"]:
+            for i in range(len(raptor_data["ids"])):
+                level = raptor_data["metadatas"][i].get("chunk_level", 1)
+                all_results.append({
+                    "chunk_id": raptor_data["ids"][i],
+                    "content": raptor_data["documents"][i],
+                    "metadata": raptor_data["metadatas"][i],
+                    "score": 1.0 + level * 0.1,  # root(2) > mid(1) 우선
+                })
+            steps.append({"step": "raptor_chunks", "count": len(raptor_data["ids"])})
+            logger.info(f"RAPTOR 청크 {len(raptor_data['ids'])}개 발견 — 요약에 활용")
+    except Exception:
+        pass  # RAPTOR 청크 없으면 기존 방식으로 진행
 
     # 1. 주요 섹션별 검색
     sections = ["abstract", "introduction", "method", "result", "conclusion"]
-    all_results = []
 
     for section in sections:
         results = hybrid_retriever.search(

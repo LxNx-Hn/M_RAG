@@ -282,8 +282,11 @@ class RAPTORChunker:
 
             combined_text = "\n".join(c.content for c in chunks)
             summary_prompt = (
-                f"다음은 논문의 {section_type} 섹션 내용입니다. "
-                f"핵심 내용을 한국어로 요약해주세요:\n\n{combined_text[:3000]}"
+                f"다음은 학술 논문의 '{section_type}' 섹션입니다.\n"
+                f"핵심 내용을 5문장 이내로 요약하세요. "
+                f"구체적 수치, 방법명, 실험 결과를 반드시 포함하세요.\n\n"
+                f"[섹션 내용]\n{combined_text[:3000]}\n\n"
+                f"[요약]"
             )
 
             summary = self.generator.generate_simple(summary_prompt)
@@ -308,8 +311,11 @@ class RAPTORChunker:
         """전체 논문 요약 root 청크 생성"""
         combined = "\n".join(c.content for c in leaf_chunks[:20])  # 상위 20개
         summary_prompt = (
-            f"다음은 논문 '{document.title}'의 주요 내용입니다. "
-            f"전체를 한국어로 요약해주세요:\n\n{combined[:4000]}"
+            f"다음은 논문 '{document.title}'의 주요 내용입니다.\n"
+            f"전체를 아래 구조로 요약하세요:\n"
+            f"1. 연구 목적\n2. 핵심 방법론\n3. 주요 결과 (수치 포함)\n4. 의의\n\n"
+            f"[논문 내용]\n{combined[:4000]}\n\n"
+            f"[전체 요약]"
         )
 
         summary = self.generator.generate_simple(summary_prompt)

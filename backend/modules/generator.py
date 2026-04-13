@@ -26,11 +26,16 @@ logger = logging.getLogger(__name__)
 
 # 프롬프트 템플릿
 SYSTEM_PROMPT = """당신은 학술 논문 분석 전문 AI 어시스턴트입니다.
-주어진 논문 컨텍스트만을 기반으로 질문에 답변하세요.
-컨텍스트에 없는 내용은 "해당 정보는 제공된 논문에서 찾을 수 없습니다"라고 답하세요.
-답변은 한국어로 작성하되, 전문 용어는 영어를 괄호 안에 병기하세요."""
 
-QA_TEMPLATE = """[컨텍스트]
+핵심 원칙:
+1. 반드시 주어진 컨텍스트만을 근거로 답변하세요. 컨텍스트에 없는 내용을 추측하거나 사전 지식으로 보충하지 마세요.
+2. 수치, 실험 결과, 비교 데이터를 언급할 때는 컨텍스트에 있는 정확한 값을 인용하세요.
+3. 컨텍스트에서 답을 찾을 수 없으면 "해당 정보는 제공된 논문에서 찾을 수 없습니다"라고 명확히 밝히세요."""
+
+QA_TEMPLATE = """다음 논문 컨텍스트를 참고하여 질문에 답변하세요.
+답변 시 컨텍스트의 구체적 내용(수치, 방법, 결과 등)을 근거로 제시하세요.
+
+[컨텍스트]
 {context}
 
 [질문]
@@ -38,7 +43,9 @@ QA_TEMPLATE = """[컨텍스트]
 
 [답변]"""
 
-COMPARE_TEMPLATE = """[논문 A 컨텍스트]
+COMPARE_TEMPLATE = """두 논문의 컨텍스트를 비교 분석하세요. 각 항목마다 구체적 수치나 방법의 차이를 명시하세요.
+
+[논문 A 컨텍스트]
 {context_a}
 
 [논문 B 컨텍스트]
@@ -47,19 +54,21 @@ COMPARE_TEMPLATE = """[논문 A 컨텍스트]
 [비교 질문]
 {query}
 
-다음 형식으로 비교 분석하세요:
+아래 형식의 표로 비교한 뒤, 핵심 차이를 요약하세요:
 | 항목 | 논문 A | 논문 B |
 |---|---|---|
 
 [비교 분석]"""
 
-SUMMARY_TEMPLATE = """[논문 컨텍스트]
+SUMMARY_TEMPLATE = """다음 논문 컨텍스트를 구조화하여 요약하세요. 각 항목에서 핵심 수치와 결과를 반드시 포함하세요.
+
+[논문 컨텍스트]
 {context}
 
-위 논문의 내용을 다음 구조로 요약해주세요:
-1. 연구 목적
-2. 핵심 방법론
-3. 주요 결과
+아래 구조로 요약하세요:
+1. 연구 목적 — 어떤 문제를 해결하려 하는가
+2. 핵심 방법론 — 제안 기법의 구조와 특징
+3. 주요 결과 — 정량적 성능 수치 포함
 4. 의의 및 한계
 
 [구조화 요약]"""
@@ -79,6 +88,7 @@ class Generator:
         self.max_new_tokens = max_new_tokens
         self._model = None
         self._tokenizer = None
+        self._has_chat_template = None
 
     @property
     def tokenizer(self):
@@ -123,6 +133,39 @@ class Generator:
             self._model.eval()
         return self._model
 
+    def _format_chat(self, user_content: str, system_prompt: str = "") -> str:
+        """MIDM chat_template을 사용하여 프롬프트 포맷팅
+
+        MIDM-2.0은 Llama-3 스타일 특수 토큰을 사용:
+        <|start_header_id|>system<|end_header_id|> ... <|eot_id|>
+        <|start_header_id|>user<|end_header_id|> ... <|eot_id|>
+        <|start_header_id|>assistant<|end_header_id|>
+        """
+        if self._has_chat_template is None:
+            self._has_chat_template = (
+                hasattr(self.tokenizer, 'chat_template')
+                and self.tokenizer.chat_template is not None
+            )
+
+        if self._has_chat_template:
+            messages = []
+            if system_prompt:
+                messages.append({"role": "system", "content": system_prompt})
+            messages.append({"role": "user", "content": user_content})
+            try:
+                return self.tokenizer.apply_chat_template(
+                    messages,
+                    add_generation_prompt=True,
+                    tokenize=False,
+                )
+            except Exception as e:
+                logger.warning(f"apply_chat_template 실패, raw fallback: {e}")
+
+        # chat_template이 없는 토크나이저 fallback
+        if system_prompt:
+            return f"{system_prompt}\n\n{user_content}"
+        return user_content
+
     def generate(
         self,
         query: str,
@@ -134,7 +177,6 @@ class Generator:
         """컨텍스트 기반 답변 생성"""
         # 템플릿 선택
         if template == "compare":
-            # context should be pre-formatted with A/B sections
             prompt = COMPARE_TEMPLATE.format(
                 context_a=kwargs.get("context_a", context),
                 context_b=kwargs.get("context_b", ""),
@@ -147,7 +189,7 @@ class Generator:
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 
-        full_prompt = f"{SYSTEM_PROMPT}\n\n{prompt}"
+        full_prompt = self._format_chat(prompt, SYSTEM_PROMPT)
         return self._generate(full_prompt, logits_processor=logits_processor)
 
     def generate_stream(
@@ -172,7 +214,7 @@ class Generator:
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 
-        full_prompt = f"{SYSTEM_PROMPT}\n\n{prompt}"
+        full_prompt = self._format_chat(prompt, SYSTEM_PROMPT)
 
         inputs = self.tokenizer(
             full_prompt,
@@ -209,8 +251,9 @@ class Generator:
         thread.join()
 
     def generate_simple(self, prompt: str) -> str:
-        """단순 프롬프트 생성 (내부 용도: HyDE, 요약 등)"""
-        return self._generate(prompt)
+        """단순 프롬프트 생성 (내부 용도: HyDE, RAGAS 평가 등)"""
+        formatted = self._format_chat(prompt)
+        return self._generate(formatted)
 
     def _generate(self, prompt: str, logits_processor=None) -> str:
         """내부 생성 함수"""
@@ -245,9 +288,10 @@ class Generator:
 
     def get_empty_context_input_ids(self, query: str) -> torch.Tensor:
         """CAD용: 문서 없는 프롬프트의 input_ids 반환"""
-        empty_prompt = f"{SYSTEM_PROMPT}\n\n[컨텍스트]\n(없음)\n\n[질문]\n{query}\n\n[답변]"
+        empty_user_content = f"[컨텍스트]\n(없음)\n\n[질문]\n{query}\n\n[답변]"
+        formatted = self._format_chat(empty_user_content, SYSTEM_PROMPT)
         inputs = self.tokenizer(
-            empty_prompt,
+            formatted,
             return_tensors="pt",
             truncation=True,
             max_length=4096,

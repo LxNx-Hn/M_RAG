@@ -106,10 +106,16 @@ class RAGASEvaluator:
             return 0.0
 
         prompt = (
-            "다음 답변의 각 주장이 제공된 컨텍스트에 의해 뒷받침되는지 평가하세요.\n"
-            "0.0(전혀 근거 없음)~1.0(완전히 근거 있음) 사이의 점수만 숫자로 답하세요.\n\n"
-            f"컨텍스트: {' '.join(sample.contexts)[:2000]}\n\n"
-            f"답변: {sample.answer[:1000]}\n\n"
+            "당신은 RAG 시스템 평가자입니다. 답변의 충실도(faithfulness)를 평가하세요.\n\n"
+            "평가 기준:\n"
+            "- 1.0: 답변의 모든 주장이 컨텍스트에 명시적으로 뒷받침됨\n"
+            "- 0.7: 대부분 뒷받침되나 일부 미약한 근거\n"
+            "- 0.5: 절반 정도만 컨텍스트에 근거함\n"
+            "- 0.3: 대부분 컨텍스트에 없는 내용\n"
+            "- 0.0: 컨텍스트와 완전히 무관하거나 모순됨\n\n"
+            f"[컨텍스트]\n{' '.join(sample.contexts)[:2000]}\n\n"
+            f"[답변]\n{sample.answer[:1000]}\n\n"
+            "위 기준에 따라 0.0~1.0 사이의 숫자 하나만 출력하세요.\n"
             "점수:"
         )
         return self._extract_score(self.generator.generate_simple(prompt))
@@ -120,10 +126,16 @@ class RAGASEvaluator:
             return 0.0
 
         prompt = (
-            "답변이 질문에 얼마나 관련이 있는지 평가하세요.\n"
-            "0.0(무관)~1.0(완전 관련) 사이의 점수만 숫자로 답하세요.\n\n"
-            f"질문: {sample.query}\n"
-            f"답변: {sample.answer[:1000]}\n\n"
+            "당신은 RAG 시스템 평가자입니다. 답변의 관련성(relevancy)을 평가하세요.\n\n"
+            "평가 기준:\n"
+            "- 1.0: 질문에 정확히 대답하며 불필요한 정보 없음\n"
+            "- 0.7: 질문에 대답하나 일부 불필요한 내용 포함\n"
+            "- 0.5: 부분적으로만 질문에 대답\n"
+            "- 0.3: 질문과 간접적으로만 관련\n"
+            "- 0.0: 질문과 완전히 무관\n\n"
+            f"[질문]\n{sample.query}\n\n"
+            f"[답변]\n{sample.answer[:1000]}\n\n"
+            "위 기준에 따라 0.0~1.0 사이의 숫자 하나만 출력하세요.\n"
             "점수:"
         )
         return self._extract_score(self.generator.generate_simple(prompt))
@@ -133,15 +145,19 @@ class RAGASEvaluator:
         if not sample.contexts:
             return 0.0
 
-        prompt = (
-            "다음 검색된 컨텍스트 각각이 질문에 답하는 데 관련이 있는지 평가하세요.\n"
-            "관련 있는 컨텍스트의 비율을 0.0~1.0 사이의 숫자만으로 답하세요.\n\n"
-            f"질문: {sample.query}\n"
-            f"정답: {sample.ground_truth[:500]}\n\n"
-        )
+        ctx_block = ""
         for i, ctx in enumerate(sample.contexts[:5]):
-            prompt += f"컨텍스트 {i+1}: {ctx[:300]}\n"
-        prompt += "\n비율:"
+            ctx_block += f"[컨텍스트 {i+1}]\n{ctx[:300]}\n\n"
+
+        prompt = (
+            "당신은 RAG 시스템 평가자입니다. 검색 정밀도(context precision)를 평가하세요.\n\n"
+            "아래 컨텍스트들 중 질문에 답하는 데 실제로 관련 있는 비율을 측정합니다.\n\n"
+            f"[질문]\n{sample.query}\n\n"
+            f"[기대 정답]\n{sample.ground_truth[:500]}\n\n"
+            f"{ctx_block}"
+            "관련 있는 컨텍스트의 비율을 0.0~1.0 사이의 숫자 하나만 출력하세요.\n"
+            "점수:"
+        )
 
         return self._extract_score(self.generator.generate_simple(prompt))
 
@@ -151,10 +167,12 @@ class RAGASEvaluator:
             return 0.0
 
         prompt = (
-            "정답에 포함된 주요 정보가 검색된 컨텍스트에 얼마나 포함되어 있는지 평가하세요.\n"
-            "0.0(전혀 포함 안 됨)~1.0(완전 포함) 사이의 점수만 숫자로 답하세요.\n\n"
-            f"정답: {sample.ground_truth[:500]}\n"
-            f"컨텍스트: {' '.join(sample.contexts)[:2000]}\n\n"
+            "당신은 RAG 시스템 평가자입니다. 검색 재현율(context recall)을 평가하세요.\n\n"
+            "정답에 포함된 핵심 정보(수치, 방법, 결론 등)가 검색된 컨텍스트에 "
+            "얼마나 포함되어 있는지 측정합니다.\n\n"
+            f"[기대 정답]\n{sample.ground_truth[:500]}\n\n"
+            f"[검색된 컨텍스트]\n{' '.join(sample.contexts)[:2000]}\n\n"
+            "정답의 핵심 정보가 컨텍스트에 포함된 비율을 0.0~1.0 사이의 숫자 하나만 출력하세요.\n"
             "점수:"
         )
         return self._extract_score(self.generator.generate_simple(prompt))

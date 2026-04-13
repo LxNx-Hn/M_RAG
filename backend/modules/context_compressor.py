@@ -106,10 +106,12 @@ class ContextCompressor:
 
         for doc in documents:
             prompt = (
-                f"다음 텍스트에서 질문과 관련된 핵심 정보만 간결하게 추출하세요.\n\n"
-                f"질문: {query}\n\n"
-                f"텍스트: {doc['content'][:2000]}\n\n"
-                f"핵심 정보:"
+                "아래 텍스트에서 질문에 답하는 데 필요한 정보만 추출하세요.\n"
+                "원문의 수치, 고유명사, 실험 결과는 정확히 보존하세요.\n"
+                "불필요한 배경 설명이나 반복은 제거하세요.\n\n"
+                f"[질문]\n{query}\n\n"
+                f"[텍스트]\n{doc['content'][:2000]}\n\n"
+                "[핵심 정보]"
             )
             summary = self.generator.generate_simple(prompt)
 
