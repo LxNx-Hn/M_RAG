@@ -58,7 +58,7 @@ class SourceDocument(BaseModel):
 
 
 class RouteInfo(BaseModel):
-    route: str            # A, B, C, D, E
+    route: str            # A, B, C, D, E, F
     route_name: str       # 한국어 설명
     section_filter: Optional[str] = None
     confidence: float = 0.0
@@ -70,6 +70,7 @@ class QueryResponse(BaseModel):
     sources: list[SourceDocument] = []
     steps: list[dict] = []
     pipeline: str = ""
+    follow_ups: list[str] = []
 
 
 # ─────────────────────────────────────────
@@ -119,9 +120,37 @@ class CitationItem(BaseModel):
     arxiv_id: Optional[str] = None
     fetched: bool = False
     has_pdf: bool = False
+    fetch_error: Optional[str] = None
 
 
 class CitationResponse(BaseModel):
     citations: list[CitationItem] = []
     fetched_count: int = 0
     indexed_count: int = 0
+
+
+class CitationListRequest(BaseModel):
+    doc_id: str
+    collection_name: str = "papers"
+
+
+class CitationDownloadRequest(BaseModel):
+    doc_id: str
+    citation_index: int = Field(..., ge=0, description="인용 목록 내 인덱스")
+    collection_name: str = "papers"
+
+
+class CitationDownloadResponse(BaseModel):
+    success: bool
+    citation: Optional[CitationItem] = None
+    indexed: bool = False
+    message: str = ""
+
+
+# ─────────────────────────────────────────
+# PPT 내보내기
+# ─────────────────────────────────────────
+class PPTExportRequest(BaseModel):
+    answer: str = Field(..., min_length=1, description="요약 답변 텍스트")
+    title: str = Field(default="M-RAG Summary", description="PPT 타이틀")
+    subtitle: str = Field(default="", description="서브타이틀")

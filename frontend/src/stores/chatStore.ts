@@ -20,6 +20,7 @@ interface ChatState {
     sources?: SourceDocument[],
     steps?: Record<string, unknown>[],
     pipeline?: string,
+    followUps?: string[],
   ) => void
   setStreaming: (v: boolean) => void
   setHighlightedSource: (source: SourceDocument | null) => void
@@ -108,7 +109,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
     }))
   },
 
-  finalizeAssistantMessage: (fullAnswer, route, sources, steps, pipeline) => {
+  finalizeAssistantMessage: (fullAnswer, route, sources, steps, pipeline, followUps) => {
     const convId = get().activeConversationId
     if (!convId) return
     set((s) => ({
@@ -125,6 +126,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
             sources,
             steps,
             pipeline,
+            followUps,
             isStreaming: false,
           }
         }

@@ -1,6 +1,8 @@
+<!-- markdownlint-disable MD060 -->
 # M-RAG 테스팅 & 실험 가이드
 
-> GuideV2 기준 — 졸업작품 제출용 Table 1 · Table 2 재현 절차
+> 졸업작품 제출용 Table 1~4 재현 절차  
+> 최종 업데이트: 2026-04-14
 
 ---
 
@@ -8,15 +10,25 @@
 
 ```bash
 # 백엔드 의존성 설치
+pip install torch --index-url https://download.pytorch.org/whl/cu124
 pip install -r backend/requirements.txt
+pip install accelerate
 
-# 모델 다운로드 (GPU 없으면 --skip-llm)
+# 모델 다운로드
+python backend/scripts/download_models.py              # 전체 (GPU 필요)
 python backend/scripts/download_models.py --skip-llm   # 임베딩 + 재랭커만
-python backend/scripts/download_models.py              # MIDM-2.0 포함 전체
 ```
 
+### 모델별 GPU 요구사항
+
+| 모델 | 파라미터 | VRAM | 권장 GPU |
+|------|---------|------|---------|
+| MIDM Mini | 2.3B | ~5GB (bfloat16) | RTX 3080 Ti, RTX 4070+ |
+| MIDM Base | 11.5B | ~23GB (bfloat16) | A100 40GB, H100 |
+| MIDM Base (4-bit) | 11.5B | ~7GB (NF4) | RTX 3090, RTX 4090 |
+
 > **GPU 없이도 할 수 있는 것**: 파싱, 청킹, 임베딩, 검색, 재랭킹, 테스트 쿼리 구성  
-> **GPU 필요한 것**: MIDM-2.0 생성, CAD/SCD 디코더, RAGAS 평가 (LLM 호출)
+> **GPU 필요한 것**: MIDM 생성, CAD/SCD 디코더, RAGAS 평가 (LLM 호출)
 
 ---
 
@@ -33,54 +45,46 @@ cd backend && python -X utf8 tests/test_api.py
 # 목표: 23/23 PASS
 ```
 
-### 1-2. 모듈 개별 확인
+### 1-2. 모듈 임포트 전체 확인
 
 ```bash
-cd backend
-python -c "
-from modules.pdf_parser import PDFParser
-from modules.section_detector import SectionDetector
-from modules.chunker import Chunker
-
-parser = PDFParser()
-detector = SectionDetector()
-chunker = Chunker()
-
-doc = parser.parse('data/sample.pdf')
-doc = detector.detect(doc)
-chunks = chunker.chunk_document(doc, strategy='section')
-print(f'섹션 감지: {detector.get_section_summary(doc)}')
-print(f'청크 수: {len(chunks)}')
-for c in chunks[:3]:
-    print(f'  [{c.section_type}] {c.content[:60]}...')
+cd backend && python -c "
+import modules.pdf_parser
+import modules.section_detector
+import modules.chunker
+import modules.embedder
+import modules.vector_store
+import modules.query_router
+import modules.query_expander
+import modules.hybrid_retriever
+import modules.reranker
+import modules.context_compressor
+import modules.citation_tracker
+import modules.cad_decoder
+import modules.scd_decoder
+import modules.generator
+print('모든 모듈 임포트 성공')
 "
 ```
 
-### 1-3. MODULE 13A CAD 단독 확인
+### 1-3. CAD/SCD 단독 확인
 
 ```bash
+# CAD (MODULE 13A)
 python -c "
 from modules.cad_decoder import CADDecoder, create_cad_processor
 from modules.generator import Generator
-
 gen = Generator()
 processor = create_cad_processor(gen, query='이 논문의 방법론은?', alpha=0.5)
 print('CAD processor 생성 성공:', type(processor))
 "
-```
 
-### 1-4. MODULE 13B SCD 단독 확인
-
-```bash
+# SCD (MODULE 13B)
 python -c "
-from modules.scd_decoder import SCDDecoder, create_scd_processor
-
-# Generator 없이 토크나이저만으로 테스트
+from modules.scd_decoder import SCDDecoder
 from transformers import AutoTokenizer
-tok = AutoTokenizer.from_pretrained('BAAI/bge-m3')  # 이미 다운됐으면 빠름
+tok = AutoTokenizer.from_pretrained('K-intelligence/Midm-2.0-Mini-Instruct')
 scd = SCDDecoder(tokenizer=tok, beta=0.3)
-
-# 비한국어 토큰 수 확인 (vocab의 일부가 패널티 대상)
 scd._build_non_target_ids('cpu')
 print(f'패널티 대상 토큰 수: {len(scd._non_target_ids)}')
 print('SCD 초기화 성공')
@@ -91,13 +95,9 @@ print('SCD 초기화 성공')
 
 ## 2. 검색 품질 확인 (GPU 불필요)
 
-논문 PDF 1편으로 검색 파이프라인 전체를 빠르게 확인합니다.
-
 ```bash
 cd backend
 python -c "
-import sys
-sys.path.insert(0, '.')
 from modules.pdf_parser import PDFParser
 from modules.section_detector import SectionDetector
 from modules.chunker import Chunker
@@ -106,17 +106,14 @@ from modules.vector_store import VectorStore
 from modules.hybrid_retriever import HybridRetriever
 from modules.reranker import Reranker
 
-# 인덱싱
-parser, detector, chunker = PDFParser(), SectionDetector(), Chunker()
-embedder, vs = Embedder(), VectorStore()
-
-doc = parser.parse('data/your_paper.pdf')   # PDF 경로 수정
-doc = detector.detect(doc)
-chunks = chunker.chunk_document(doc, strategy='section')
+doc = PDFParser().parse('data/1810.04805_bert.pdf')
+doc = SectionDetector().detect(doc)
+chunks = Chunker().chunk_document(doc, strategy='section')
+embedder = Embedder()
+vs = VectorStore()
 embeddings = embedder.embed_texts([c.content for c in chunks])
 vs.add_chunks('test_col', chunks, embeddings)
 
-# 검색
 hr = HybridRetriever(vs, embedder)
 hr.fit_bm25('test_col')
 rr = Reranker()
@@ -134,10 +131,138 @@ for r in reranked[:3]:
 
 ---
 
-## 3. 3주차 체크포인트 — Language Drift 초기 실측
+## 3. 전체 실험 실행 (Table 1~4)
 
-> GuideV2 §4.2: "한/영 쌍 10개로 초기 갭 + Language Drift 실측"  
-> Drift 없으면 → 연구 설계 재조정 필요
+### 통합 실험 스크립트
+
+`run_all_experiments.py`로 Table 1~4를 한 번에 실행합니다.
+
+```bash
+cd backend
+
+# ─── 로컬 (MIDM Mini, RTX 3080 Ti 12GB) ───
+LOAD_GPU_MODELS=true python -X utf8 scripts/run_all_experiments.py \
+    --paper-pdf data/1810.04805_bert.pdf \
+    --max-queries 10
+
+# ─── 특정 테이블만 ───
+LOAD_GPU_MODELS=true python -X utf8 scripts/run_all_experiments.py \
+    --paper-pdf data/1810.04805_bert.pdf \
+    --tables 2,3 --max-queries 8
+
+# ─── MIDM Base (24GB+ GPU) ───
+GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct \
+LOAD_GPU_MODELS=true python -X utf8 scripts/run_all_experiments.py \
+    --paper-pdf data/1810.04805_bert.pdf \
+    --max-queries 10
+```
+
+### 옵션
+
+| 옵션 | 기본값 | 설명 |
+|------|--------|------|
+| `--paper-pdf` | (필수) | 실험용 논문 PDF 경로 |
+| `--collection` | `full_eval` | ChromaDB 컬렉션 이름 |
+| `--tables` | `1,2,3,4` | 실행할 테이블 번호 |
+| `--max-queries` | `10` | 사용할 최대 쿼리 수 (빠른 테스트: 5) |
+
+### 소요 시간 예상
+
+각 쿼리당 **4회 LLM 호출** (생성 1 + RAGAS 평가 3: faithfulness, relevancy, precision)
+
+| 구성 | LLM 호출 수 (10q) | A100 (Base) | 3080 Ti (Mini) |
+|------|-------------------|-------------|----------------|
+| Table 1 (6 config) | 240 | ~12분 | ~40분 |
+| Table 2 (6 config) | 240 | ~12분 | ~40분 |
+| Table 3 (4 config) | 160 | ~8분 | ~27분 |
+| Table 4 (4 config) | 160 | ~8분 | ~27분 |
+| **합계** | **800** | **~40분** | **~134분** |
+
+### 실험 결과 파일
+
+```
+evaluation/results/full_experiment_YYYYMMDD_HHMMSS.json
+```
+
+stdout에 마크다운 테이블이 출력됩니다 (Table 1~4).
+
+---
+
+## 4. RunPod 실행 가이드
+
+로컬 GPU가 부족하거나 Base 모델 실험이 필요할 때 RunPod을 사용합니다.
+
+### 4-1. RunPod 설정
+
+1. [runpod.io](https://runpod.io)에서 GPU Pod 생성
+   - **Mini 실험**: RTX 4090 (24GB), ~$0.44/hr
+   - **Base 실험**: A100 40GB, ~$1.04/hr
+   - Template: `RunPod PyTorch 2.x`
+2. SSH 접속 정보 확인
+
+### 4-2. 실행
+
+```bash
+# 1. 스크립트 업로드
+scp backend/scripts/runpod_experiment.sh root@<pod-ip>:/workspace/
+
+# 2-A. Base 모델 실행 (A100, 기본)
+ssh root@<pod-ip> "bash /workspace/runpod_experiment.sh"
+
+# 2-B. Mini 모델 실행 (RTX 4090 등)
+ssh root@<pod-ip> "bash /workspace/runpod_experiment.sh mini"
+
+# 2-C. 쿼리 수 조절 (빠른 테스트)
+ssh root@<pod-ip> "bash /workspace/runpod_experiment.sh base 5"
+
+# 3. 결과 다운로드
+scp root@<pod-ip>:/workspace/M_RAG/backend/evaluation/results/*.json ./results/
+scp root@<pod-ip>:/workspace/experiment_log.txt ./results/
+```
+
+### 4-3. 비용 참고
+
+| GPU | 모델 | 예상 시간 | 비용 |
+|-----|------|----------|------|
+| A100 40GB | Base (11.5B) | ~40분 | ~$0.70 |
+| RTX 4090 | Mini (2.3B) | ~60분 | ~$0.44 |
+
+> 실험 완료 후 반드시 Pod를 정지/삭제하세요!
+
+---
+
+## 5. 실험용 논문
+
+### 기본 제공 (BERT)
+
+`data/1810.04805_bert.pdf` — BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al., 2019)
+
+- 16페이지, NLP/AI 논문
+- 구체적 수치 풍부 (GLUE 82.1%, SQuAD F1 93.2, 파라미터 110M/340M 등)
+- CAD 환각 억제 실험에 적합 (모델이 파라메트릭 지식으로 답할 위험 있는 도메인)
+- `test_queries.json`의 CAD ablation 쿼리에 ground_truth가 BERT 수치로 채워져 있음
+
+### 테스트 쿼리
+
+`evaluation/test_queries.json` — 67개 쿼리 (v2.2)
+
+| 유형 | 개수 | 용도 |
+|------|------|------|
+| simple_qa | 7 | 기본 QA (A경로) |
+| section_result | 6 | 실험 결과 검색 (B경로) |
+| section_method | 7 | 방법론 검색 (B경로) |
+| cad_ablation | 7 | CAD 환각 억제 평가 (ground_truth 포함) |
+| crosslingual | 3 | SCD 언어 이탈 방지 평가 |
+| compare | 3 | 비교 분석 (C경로, 2편 필요) |
+| citation | 4 | 인용 추적 (D경로) |
+| summary | 3 | 전체 요약 (E경로) |
+| lecture | 8 | 강의 모드 |
+| patent | 6 | 특허 모드 |
+| general_doc | 5 | 일반 문서 |
+
+---
+
+## 6. Language Drift 확인
 
 ```bash
 cd backend
@@ -147,7 +272,6 @@ from evaluation.decoder_ablation import compute_language_drift_rate
 
 gen = Generator()  # GPU 필요
 
-# 영문 컨텍스트 + 한국어 질의 (Drift 재현 조건)
 en_context = '''
 This paper proposes a novel approach to information retrieval
 using dense embeddings. Our method achieves state-of-the-art
@@ -160,232 +284,39 @@ ko_queries = [
     '기존 방법과 비교하여 얼마나 개선되었는가?',
 ]
 
-# Baseline (디코더 없음)
-answers_baseline = []
-for q in ko_queries:
-    ans = gen.generate(query=q, context=en_context)
-    answers_baseline.append(ans)
+answers = [gen.generate(query=q, context=en_context) for q in ko_queries]
+for q, a in zip(ko_queries, answers):
     print(f'Q: {q}')
-    print(f'A (baseline): {ans[:100]}')
+    print(f'A: {a[:100]}')
     print()
 
-drift_rate = compute_language_drift_rate(answers_baseline)
-print(f'Language Drift 이탈률 (baseline): {drift_rate:.1%}')
+drift = compute_language_drift_rate(answers)
+print(f'Language Drift 이탈률: {drift:.1%}')
 print('→ 이탈 있으면 SCD 효과 측정 가능 / 없으면 연구 설계 재검토')
 "
 ```
 
 ---
 
-## 4. Table 1 — 모듈별 갭 해소 기여도 (Ablation Study)
-
-GuideV2 §5.1.2 기준. **가장 중요한 실험** — 시간이 가장 많이 걸립니다.
-
-### 4-1. 테스트 쿼리 준비
-
-`backend/evaluation/test_queries.json` 형식:
-
-```json
-[
-  {
-    "query": "이 논문의 핵심 기여는 무엇인가?",
-    "ground_truth": "...",
-    "lang": "ko",
-    "paper_id": "attention_is_all_you_need"
-  },
-  {
-    "query": "What is the main contribution of this paper?",
-    "ground_truth": "...",
-    "lang": "en",
-    "paper_id": "attention_is_all_you_need"
-  }
-]
-```
-
-> **규모**: 논문 20편 × (한국어 5 + 영어 5) = 200쌍  
-> **정답 생성**: GPT-4 API로 자동 생성 후 인간 검토  
-> **수치 포함 질의**: 40% 이상 (CAD 효과 측정용)
-
-### 4-2. Ablation Study 실행
-
-```bash
-cd backend
-python -m evaluation.ablation_study
-# → results/table1_ablation_*.json 생성
-```
-
-실행 시간 예상 (A100 기준):
-- 논문 20편 인덱싱: ~30분
-- Baseline 6개 × 200쌍: ~4~6시간
-
-### 4-3. 결과 확인
-
-```bash
-python -c "
-import json
-with open('backend/results/table1_ablation_latest.json') as f:
-    results = json.load(f)
-
-print('='*60)
-print('Table 1: 모듈별 갭 해소 기여도')
-print('='*60)
-print(f'{\"시스템\":<30} {\"EN\":>8} {\"KO\":>8} {\"갭(↓)\":>8}')
-print('-'*60)
-for name, r in results.items():
-    en_score = r.get('en_answer_relevancy', 0)
-    ko_score = r.get('ko_answer_relevancy', 0)
-    gap = en_score - ko_score
-    print(f'{name:<30} {en_score:>7.3f} {ko_score:>7.3f} {gap:>7.3f}')
-"
-```
-
----
-
-## 5. Table 2 — CAD/SCD 조합 Ablation
-
-GuideV2 §5.1.3 기준. **논문의 핵심 표** — C2 Contribution 직접 증명.
-
-### 5-1. 기본 4개 구성 실험
-
-```bash
-cd backend
-python -m evaluation.decoder_ablation
-# → results/table2_decoder_ablation.json
-```
-
-출력 예시:
-```
-======================================================================
-Table 2: CAD / SCD / 조합 Ablation
-======================================================================
-구성                                수치환각률  언어이탈률
-----------------------------------------------------------------------
-Baseline (no decoder)                   32.0%      45.0%
-CAD only (α=0.5)                        18.0%      44.0%
-SCD only (β=0.3)                        31.0%       8.0%
-CAD+SCD (α=0.5, β=0.3)                 17.0%       7.0%
-======================================================================
-```
-
-### 5-2. Alpha sweep (CAD 강도 최적화)
-
-```bash
-python -c "
-import json, sys
-sys.path.insert(0, 'backend')
-from evaluation.decoder_ablation import DecoderAblationStudy
-# ... (모듈 로드 후)
-study.run_alpha_sweep(ko_samples)
-# → results/table2_alpha_sweep.json
-"
-```
-
-### 5-3. Beta sweep (SCD 강도 최적화)
-
-```bash
-python -m evaluation.decoder_ablation  # __main__ 블록에서 자동 실행
-# → results/table2_beta_sweep.json
-```
-
-### 5-4. 실험 결과 해석 기준
-
-| 결과 패턴 | 해석 | 논문 기술 방법 |
-|---|---|---|
-| CAD만 → 수치환각↓, 언어이탈 유지 | CAD 효과 확인 | "수치환각률 X%p 감소" |
-| SCD만 → 수치환각 유지, 언어이탈↓ | SCD 효과 확인 | "언어이탈률 Y%p 감소" |
-| CAD+SCD → 둘 다↓ | 상호보완 효과 | "두 모듈의 상호보완적 적용" |
-| 효과 미미 | alpha/beta 조정 필요 | sweep 결과 참조 |
-
----
-
-## 6. RAGAS 평가 (4대 지표)
-
-```bash
-cd backend
-python -m backend.evaluation.ragas_eval
-```
-
-측정 지표:
-
-| 지표 | 의미 | Table 1/2 |
-|---|---|---|
-| Answer Relevancy | 답변이 질의와 관련된 정도 | 둘 다 |
-| Faithfulness | 답변이 컨텍스트에 근거한 정도 | 둘 다 |
-| Context Precision | 검색 청크 중 관련 비율 | Table 1 |
-| Context Recall | 필요 컨텍스트 검색 비율 | Table 1 |
-
-> RAGAS는 내부적으로 LLM을 호출하므로 GPU 또는 OpenAI API 키 필요.
-
----
-
 ## 7. 남은 작업 체크리스트
-
-GuideV2 기준으로 아직 미구현 또는 검증이 필요한 항목입니다.
 
 ### 🔴 필수 (논문 Contribution 직결)
 
-- [ ] **test_queries.json 구성** — 논문 20편 × 200쌍 (한/영 각 100쌍)
-  - GPT-4로 자동 생성 스크립트 작성 필요
-  - 수치 포함 질의 40% 이상 포함
-- [ ] **3주차 체크포인트 실행** — Language Drift 초기 실측 (섹션 3 참고)
-  - Drift 확인 없으면 연구 설계 재조정
-- [ ] **Table 1 실험 실행** — Baseline 1~5 + Full System 6개 구성
-- [ ] **Table 2 실험 실행** — CAD/SCD/조합 + alpha/beta sweep
-- [ ] **RAPTOR 청킹 (E경로)** — `chunker.py`에 `RAPTORChunker` 클래스 있으나 E경로와 연동 확인 필요
-- [ ] **언어 이탈률 측정 함수 검증** — `decoder_ablation.py`의 30% 임계값이 MIDM에 적합한지 확인
+- [x] **test_queries.json 구성** — 67개 쿼리, CAD ablation 7개에 BERT ground_truth 채움
+- [ ] **Language Drift 초기 실측** — 섹션 6 참고
+- [ ] **Table 1~4 실험 실행** — `run_all_experiments.py` 코드 완성, RunPod에서 실행 필요
+- [x] **`_run_single_config()` 구현** — CAD+SCD 통합 logits_processor, 쿼리별 진행 로깅 포함
+- [ ] **RAPTOR 청킹 (E경로)** — `chunker.py`에 `RAPTORChunker` 클래스 있으나 E경로 연동 미확인
 
 ### 🟡 중요 (시스템 완성도)
 
-- [ ] **MIDM-2.0 프롬프트 템플릿 최적화** — `generator.py`의 현재 템플릿이 MIDM chat format에 맞는지 확인
-  - MIDM-2.0-Base-Instruct의 공식 chat template 확인 필요
-- [ ] **한→영 번역 쿼리 확장 (M7)** — `query_expander.py`에서 번역 API 또는 모델 확인
-- [ ] **수치 환각률 측정 함수 정밀화** — 현재 단순 숫자 비교, 단위 포함 매칭으로 개선 가능
-- [ ] **`evaluation/ablation_study.py` `_run_single_config()` 구현** — 실제 파이프라인 분기 로직 완성
+- [ ] **MIDM-2.0 프롬프트 템플릿 최적화** — MIDM chat format 확인 필요
+- [ ] **한→영 번역 쿼리 확장 (M7)** — `query_expander.py` 번역 API/모델 확인
+- [ ] **수치 환각률 측정 함수 정밀화** — 단위 포함 매칭 개선
 
 ### 🟢 선택 (포트폴리오 강화)
 
+- [x] **답변 내보내기** — Copy/MD/PPT 내보내기 구현 완료
+- [x] **플래시카드 모드** — Pipeline F 확장, FlashcardViewer 컴포넌트
 - [ ] **데모 영상 제작** — React UI 기반 시연
-- [ ] **arXiv 논문 20편 자동 수집 스크립트** — `citation_tracker.py` 활용
 - [ ] **React UI 데모 폴리싱** — Ablation 결과 시각화 추가
-
----
-
-## 8. 빠른 확인 명령 모음
-
-```bash
-# 1. 모듈 임포트 전체 확인 (의존성 오류 사전 탐지)
-cd backend && python -c "
-import modules.pdf_parser
-import modules.section_detector
-import modules.chunker
-import modules.embedder
-import modules.vector_store
-import modules.query_router
-import modules.query_expander
-import modules.hybrid_retriever
-import modules.reranker
-import modules.context_compressor
-import modules.citation_tracker
-import modules.cad_decoder
-import modules.scd_decoder
-print('모든 모듈 임포트 성공')
-"
-
-# 2. config 확인
-python -c "
-import sys; sys.path.insert(0,'backend')
-import config
-print('GENERATION_MODEL:', config.GENERATION_MODEL)
-print('CAD_ALPHA:', config.CAD_ALPHA)
-print('SCD_BETA:', config.SCD_BETA)
-"
-
-# 3. ChromaDB 상태 확인
-python -c "
-import sys; sys.path.insert(0,'backend')
-from modules.vector_store import VectorStore
-vs = VectorStore()
-info = vs.get_collection_info('papers')
-print('ChromaDB 청크 수:', info.get('count', 0))
-"
-```

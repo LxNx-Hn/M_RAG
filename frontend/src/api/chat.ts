@@ -11,6 +11,20 @@ export async function searchRAG(req: SearchRequest): Promise<SearchResponse> {
   return data
 }
 
+/** PPT 내보내기 — Pipeline E 답변을 PPTX로 변환 다운로드 */
+export async function exportPPT(answer: string, title?: string): Promise<void> {
+  const response = await api.post('/api/chat/export/ppt', {
+    answer,
+    title: title || 'M-RAG Summary',
+  }, { responseType: 'blob' })
+  const url = URL.createObjectURL(response.data)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'm-rag-summary.pptx'
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
 /** SSE 스트리밍 쿼리 (Phase 2) */
 export async function queryRAGStream(
   req: QueryRequest,

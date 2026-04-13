@@ -224,6 +224,89 @@ class AblationStudy:
             "description": "CAD Korean Academic RAG Evaluation — Thesis C3",
         }
 
+    def run_scd_beta_ablation(
+        self,
+        test_samples: list[EvalSample],
+        collection_name: str,
+    ) -> dict:
+        """SCD β 값 어블레이션 (논문 Table 3)
+        β ∈ {0.1, 0.3, 0.5} 각각에 대해 SCD on vs off 비교
+        """
+        baseline = self._run_single_config(AblationConfig(
+            name="SCD-off",
+            use_section_chunking=True, use_hybrid_search=True,
+            use_reranker=True, use_cad=True, use_scd=False,
+            use_context_compression=True,
+        ), test_samples, collection_name)
+        logger.info("SCD β ablation: baseline (SCD-off) done")
+
+        per_beta = {}
+        for beta in SCD_BETA_VALUES:
+            config = AblationConfig(
+                name=f"SCD-on beta={beta}",
+                use_section_chunking=True, use_hybrid_search=True,
+                use_reranker=True, use_cad=True, use_scd=True,
+                use_context_compression=True, scd_beta=beta,
+            )
+            logger.info(f"SCD β ablation: beta={beta}")
+            result = self._run_single_config(config, test_samples, collection_name)
+            per_beta[str(beta)] = {
+                "beta": beta,
+                "scd_on": result["average"],
+                "scd_off": baseline["average"],
+                "faithfulness_delta": (
+                    result["average"]["faithfulness"]
+                    - baseline["average"]["faithfulness"]
+                ),
+                "overall_delta": (
+                    result["average"]["overall"]
+                    - baseline["average"]["overall"]
+                ),
+            }
+
+        best_beta_key = max(per_beta, key=lambda b: per_beta[b]["overall_delta"])
+        return {
+            "summary": {
+                "best_beta": float(best_beta_key),
+                "max_overall_delta": per_beta[best_beta_key]["overall_delta"],
+            },
+            "per_beta": per_beta,
+            "n_samples": len(test_samples),
+            "description": "SCD Beta Ablation — Thesis Table 3",
+        }
+
+    def run_combined_ablation(
+        self,
+        test_samples: list[EvalSample],
+        collection_name: str,
+    ) -> dict:
+        """CAD + SCD 결합 효과 비교 (논문 Table 4)
+        4가지 조합: both off / CAD only / SCD only / both on
+        """
+        configs = [
+            ("Both Off", False, False),
+            ("CAD Only (α=0.5)", True, False),
+            ("SCD Only (β=0.3)", False, True),
+            ("Both On (α=0.5, β=0.3)", True, True),
+        ]
+        results = {}
+        for name, use_cad, use_scd in configs:
+            config = AblationConfig(
+                name=name,
+                use_section_chunking=True, use_hybrid_search=True,
+                use_reranker=True, use_cad=use_cad, use_scd=use_scd,
+                use_context_compression=True,
+            )
+            logger.info(f"Combined ablation: {name}")
+            results[name] = self._run_single_config(
+                config, test_samples, collection_name
+            )["average"]
+        return {
+            "configs": results,
+            "n_samples": len(test_samples),
+            "description": "CAD+SCD Combined Ablation — Thesis Table 4",
+        }
+
     def _run_single_config(
         self,
         config: AblationConfig,
@@ -232,12 +315,13 @@ class AblationStudy:
     ) -> dict:
         """단일 구성으로 실험 실행"""
         import copy
-        from modules.cad_decoder import create_cad_processor
+        from modules.scd_decoder import create_combined_processor
 
         # 원본 보존을 위해 깊은 복사
         samples = copy.deepcopy(test_samples)
 
-        for sample in samples:
+        for idx, sample in enumerate(samples, 1):
+            logger.info(f"  [{config.name}] 쿼리 {idx}/{len(samples)}: {sample.query[:40]}...")
             # 검색
             hyde_doc = None
             if config.use_hyde and self.query_expander:
@@ -271,10 +355,16 @@ class AblationStudy:
             sample.contexts = [r["content"] for r in search_results]
             context = "\n\n---\n\n".join(sample.contexts)
 
+            # CAD + SCD 통합 logits processor
             logits_processor = None
-            if config.use_cad:
-                logits_processor = create_cad_processor(
-                    self.generator, sample.query, alpha=config.cad_alpha
+            if config.use_cad or config.use_scd:
+                logits_processor = create_combined_processor(
+                    generator=self.generator,
+                    query=sample.query,
+                    use_cad=config.use_cad,
+                    cad_alpha=config.cad_alpha,
+                    use_scd=config.use_scd,
+                    scd_beta=config.scd_beta,
                 )
 
             sample.answer = self.generator.generate(
@@ -306,12 +396,14 @@ class AblationStudy:
 
         for name, result in results.items():
             avg = result.get("average", {})
+            cr = avg.get('context_recall')
+            cr_str = f"{cr:.3f}" if cr is not None else "N/A"
             row = (
                 f"| {name} "
                 f"| {avg.get('faithfulness', 0):.3f} "
                 f"| {avg.get('answer_relevancy', 0):.3f} "
                 f"| {avg.get('context_precision', 0):.3f} "
-                f"| {avg.get('context_recall', 0):.3f} "
+                f"| {cr_str} "
                 f"| {avg.get('overall', 0):.3f} |"
             )
             rows.append(row)

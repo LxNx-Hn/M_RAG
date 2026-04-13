@@ -26,6 +26,7 @@ class RouteType(str, Enum):
     COMPARE = "C"
     CITATION = "D"
     SUMMARY = "E"
+    QUIZ = "F"
 
 
 @dataclass
@@ -94,6 +95,13 @@ class QueryRouter:
                 reasoning="Citation/reference keywords detected",
             )
 
+        if best_key == "quiz":
+            return RouteDecision(
+                route=RouteType.QUIZ,
+                confidence=confidence,
+                reasoning="Quiz/exercise keywords detected",
+            )
+
         if best_key == "summary":
             return RouteDecision(
                 route=RouteType.SUMMARY,
@@ -145,5 +153,6 @@ class QueryRouter:
             RouteType.COMPARE: "⚖️ 멀티 논문 비교",
             RouteType.CITATION: "📚 인용 논문 추적",
             RouteType.SUMMARY: "📋 전체 요약",
+            RouteType.QUIZ: "📝 퀴즈 생성",
         }
         return descriptions.get(route, "🔍 기본 검색")

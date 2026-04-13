@@ -11,10 +11,11 @@ from config import DATA_DIR
 from api.dependencies import ModuleManager, get_modules
 from api.schemas import (
     QueryRequest, QueryResponse, RouteInfo, SourceDocument,
-    SearchRequest, SearchResponse,
+    SearchRequest, SearchResponse, PPTExportRequest,
 )
 from api.routers.papers import get_papers
 from modules.query_router import RouteType
+from modules.followup_generator import generate_followups
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/chat", tags=["chat"])
@@ -63,16 +64,21 @@ async def query(
             for doc in reranked
         ]
 
+        no_gen_answer = "[생성 모델 미로드] 검색 결과만 반환합니다.\n\n" + "\n\n---\n\n".join(
+            f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
+            for s in sources
+        )
         return QueryResponse(
-            answer="[생성 모델 미로드] 검색 결과만 반환합니다.\n\n"
-                   + "\n\n---\n\n".join(
-                       f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
-                       for s in sources
-                   ),
+            answer=no_gen_answer,
             route=route_info,
             sources=sources,
             steps=[{"step": "search_only", "reason": "no_generator"}],
             pipeline=f"{decision.route.value}_search_only",
+            follow_ups=generate_followups(
+                query=req.query, answer=no_gen_answer,
+                route=decision.route.value,
+                section_filter=decision.section_filter,
+            ),
         )
 
     # 3. 전체 파이프라인 실행
@@ -92,12 +98,21 @@ async def query(
         for doc in result.get("source_documents", [])
     ]
 
+    answer_text = result.get("answer", "")
+    follow_ups = generate_followups(
+        query=req.query, answer=answer_text,
+        route=decision.route.value,
+        section_filter=decision.section_filter,
+        generator=m.generator if m.has_generator else None,
+    )
+
     return QueryResponse(
-        answer=result.get("answer", ""),
+        answer=answer_text,
         route=route_info,
         sources=sources,
         steps=result.get("steps", []),
         pipeline=result.get("pipeline", ""),
+        follow_ups=follow_ups,
     )
 
 
@@ -155,8 +170,13 @@ async def query_stream(
                 f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
                 for s in sources
             )
+            follow_ups = generate_followups(
+                query=req.query, answer=answer,
+                route=decision.route.value,
+                section_filter=decision.section_filter,
+            )
             yield f"event: token\ndata: {json.dumps({'token': answer}, ensure_ascii=False)}\n\n"
-            yield f"event: done\ndata: {json.dumps({'full_answer': answer}, ensure_ascii=False)}\n\n"
+            yield f"event: done\ndata: {json.dumps({'full_answer': answer, 'follow_ups': follow_ups}, ensure_ascii=False)}\n\n"
             return
 
         # 3. 스트리밍 생성
@@ -177,7 +197,13 @@ async def query_stream(
                 full_answer = f"생성 중 오류가 발생했습니다: {str(e)}"
                 yield f"event: token\ndata: {json.dumps({'token': full_answer}, ensure_ascii=False)}\n\n"
 
-        yield f"event: done\ndata: {json.dumps({'full_answer': full_answer}, ensure_ascii=False)}\n\n"
+        follow_ups = generate_followups(
+            query=req.query, answer=full_answer,
+            route=decision.route.value,
+            section_filter=decision.section_filter,
+            generator=m.generator if m.has_generator else None,
+        )
+        yield f"event: done\ndata: {json.dumps({'full_answer': full_answer, 'follow_ups': follow_ups}, ensure_ascii=False)}\n\n"
 
     return StreamingResponse(
         event_generator(),
@@ -226,6 +252,23 @@ async def search_only(
     )
 
 
+@router.post("/export/ppt")
+async def export_ppt(req: PPTExportRequest):
+    """요약 답변을 PPTX 파일로 변환하여 다운로드"""
+    from modules.pptx_exporter import create_pptx
+
+    pptx_bytes = create_pptx(
+        answer=req.answer,
+        title=req.title,
+        subtitle=req.subtitle,
+    )
+    return StreamingResponse(
+        pptx_bytes,
+        media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        headers={"Content-Disposition": f'attachment; filename="m-rag-summary.pptx"'},
+    )
+
+
 def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
     """라우터 결정에 따라 파이프라인 실행"""
     from pipelines import (
@@ -233,6 +276,7 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
         pipeline_b_section,
         pipeline_c_compare,
         pipeline_e_summary,
+        pipeline_f_quiz,
     )
     from modules.section_detector import SectionDetector
 
@@ -270,6 +314,11 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
     elif decision.route == RouteType.SUMMARY:
         return pipeline_e_summary.run(
             req.query, col, hr, rr, comp, gen,
+            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+        )
+    elif decision.route == RouteType.QUIZ:
+        return pipeline_f_quiz.run(
+            req.query, col, hr, rr, comp, gen, qe,
             req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
         )
     else:

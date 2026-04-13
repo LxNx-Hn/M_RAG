@@ -4,7 +4,6 @@
 #   ./dev.sh          → 백엔드(FastAPI) + 프론트엔드(React) 동시 실행
 #   ./dev.sh backend  → FastAPI만 실행
 #   ./dev.sh frontend → React만 실행
-#   ./dev.sh streamlit → Streamlit 프로토타입 실행
 #   ./dev.sh docker   → Docker Compose로 전체 실행 (PostgreSQL 포함)
 
 set -e
@@ -45,13 +44,6 @@ case "$MODE" in
     npm run dev
     ;;
 
-  "streamlit")
-    log "Streamlit 프로토타입 실행 중... (http://localhost:8501)"
-    cd "$BACKEND_DIR"
-    TOKENIZERS_PARALLELISM=false \
-    streamlit run app.py
-    ;;
-
   "docker")
     log "Docker Compose 실행 중..."
     info "서비스: db(PostgreSQL:5432) + backend(FastAPI:8000) + frontend(Nginx:3000)"
@@ -68,7 +60,7 @@ case "$MODE" in
     log "백엔드 + 프론트엔드 동시 실행"
     info "백엔드: http://localhost:8000 (Swagger: http://localhost:8000/docs)"
     info "프론트엔드: http://localhost:5173"
-    warn "PostgreSQL이 별도로 필요합니다. DB 없이 테스트하려면 ./dev.sh streamlit"
+    warn "PostgreSQL이 별도로 필요합니다. DB 없이도 RAG 기능은 정상 동작합니다."
 
     # 종료 시 두 프로세스 모두 kill
     trap 'kill 0' EXIT

@@ -20,8 +20,14 @@ uvicorn>=0.23.0
 python-multipart>=0.0.6
 aiofiles>=23.0.0
 
+# ─── Quantization (optional, Base 모델 4-bit) ───
+# bitsandbytes>=0.43.0  # pip install bitsandbytes
+
 # ─── Evaluation (optional) ───
 # ragas>=0.1.0  # pip install ragas
+
+# ─── Export ───
+python-pptx>=0.6.21
 
 # ─── Auth + DB ───
 python-docx>=0.8.11

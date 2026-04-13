@@ -30,11 +30,14 @@ cd backend && python -X utf8 tests/test_api.py   # 23개 테스트
 # RAGAS 평가 / Ablation Study
 python -m backend.evaluation.ragas_eval
 python -m backend.evaluation.ablation_study
+
+# 전체 실험 (Table 1~4, ~42분)
+LOAD_GPU_MODELS=true python backend/scripts/run_all_experiments.py --paper-pdf data/paper.pdf
 ```
 
 ## Architecture
 
-M-RAG는 **쿼리 유형에 따라 파이프라인이 동적으로 분기**되는 Modular RAG 시스템입니다. 학술 논문 PDF를 업로드하면 한국어로 질의응답합니다.
+M-RAG는 **쿼리 유형에 따라 파이프라인이 동적으로 분기**되는 Modular RAG 시스템입니다. 학술/교육 PDF(논문 + 강의/교재 + 특허 명세서)를 업로드하면 한국어로 질의응답합니다.
 
 ### 레이어 구조
 
@@ -43,7 +46,7 @@ React SPA (:5173/3000)
       ↕ HTTP + SSE
 FastAPI (:8000) — backend/api/
       ↕
-RAG 모듈 레이어 — backend/modules/ (14개)
+RAG 모듈 레이어 — backend/modules/ (13개 논리 모듈)
       ↕
 ChromaDB + PostgreSQL + File Storage
 ```
@@ -51,7 +54,7 @@ ChromaDB + PostgreSQL + File Storage
 ### 핵심 흐름
 
 1. **인덱싱**: PDF → `PDFParser(M1)` → `SectionDetector(M2)` → `Chunker(M3)` → `Embedder(M4)` → `VectorStore(M5)` + BM25
-2. **질의응답**: 쿼리 → `QueryRouter(M6)` → 5개 파이프라인 중 1개 → 답변
+2. **질의응답**: 쿼리 → `QueryRouter(M6)` → 6개 파이프라인 중 1개 → 답변
 
 ### FastAPI 레이어 (`backend/api/`)
 
@@ -78,14 +81,15 @@ ChromaDB + PostgreSQL + File Storage
 | A (단순QA) | `pipeline_a_simple_qa.py` | HyDE 확장 → 하이브리드 검색 → CAD 생성 |
 | B (섹션특화) | `pipeline_b_section.py` | 섹션 필터 검색 → 섹션 boost 재랭킹 |
 | C (비교) | `pipeline_c_compare.py` | 논문별 병렬 검색(ThreadPoolExecutor) → 비교 템플릿 |
-| D (인용추적) | `pipeline_d_citation.py` | arXiv API → PDF 자동 다운로드 → 재인덱싱 |
+| D (인용추적) | `pipeline_d_citation.py` | arXiv API(논문) / Google Patents(특허) → PDF 자동 다운로드 → 재인덱싱 |
 | E (요약) | `pipeline_e_summary.py` | 섹션별 5회 검색 → 구조화 요약 |
+| F (퀴즈) | `pipeline_f_quiz.py` | CAD 강제 객관식 문제 생성 → 후속 학습 연계 |
 
 ### 13개 모듈 (`backend/modules/`)
 
 ```
-M1  pdf_parser.py          pymupdf 기반 블록 추출
-M2  section_detector.py    정규식 + 폰트크기 헤더 판별
+M1  pdf_parser.py          pymupdf + pymupdf4llm 기반 구조 보존 추출 (코드/수식/표 블록 감지)
+M2  section_detector.py    정규식 + 폰트크기 헤더 판별 (4분류: paper/lecture/patent/general)
 M3  chunker.py             section/fixed/sentence 3가지 전략 + RAPTORChunker
 M4  embedder.py            BAAI/bge-m3 (1024차원, 한영 동일 공간)
 M5  vector_store.py        ChromaDB PersistentClient
@@ -94,11 +98,12 @@ M7  query_expander.py      HyDE / RAG-Fusion / 한→영 번역
 M8  hybrid_retriever.py    Dense(BGE-M3) + BM25 → RRF 융합
 M9  reranker.py            cross-encoder + 섹션가중치 + Lost-in-the-Middle 보정
 M10 context_compressor.py  추출/요약 압축, 3072 토큰 한계
-M11 citation_tracker.py    Reference 섹션 파싱 → arXiv API
+M11 citation_tracker.py    Reference 섹션 파싱 → arXiv API (논문) / Google Patents (특허)
+    patent_tracker.py      특허 인용/유사 특허 추적 → Google Patents / KIPRIS
 M12 generator.py           MIDM-2.0-Base-Instruct (bfloat16, device_map=auto) + SSE 스트리밍
 M13 cad_decoder.py +       CAD (환각 억제, Shi et al. NAACL 2024) +
     scd_decoder.py         SCD (언어 이탈 방지, Li et al. 2025) — 핵심 기여 C3/C4
-    [contrastive_decoder.py: 구버전 호환 shim, 직접 사용 금지]
+    followup_generator.py  라우트 인식 추천 질문 생성 (템플릿 + LLM 하이브리드)
     docx_parser.py         DOCX/TXT 파싱
 ```
 
@@ -130,9 +135,10 @@ React + TypeScript + Vite + TailwindCSS + Zustand 기반 3패널 SPA.
 ### 데이터 스키마
 
 - `ParsedDocument`: PDF 파싱 결과 (`doc_id`, `title`, `blocks: list[TextBlock]`)
+- `TextBlock`: `block_type` = `text` | `heading` | `code` | `table` | `math` | `list_item` | `image`
 - `Chunk`: 검색 단위 (`chunk_id`, `doc_id`, `content`, `section_type`, `page`, `chunk_level`)
 - `RouteDecision`: 라우터 출력 (`route`, `section_filter`, `target_doc_ids`, `confidence`)
-- 파이프라인 반환: `{ answer, sources, source_documents, pipeline, steps }`
+- 파이프라인 반환: `{ answer, sources, source_documents, pipeline, steps, follow_ups }`
 
 ### 저장소 경로
 

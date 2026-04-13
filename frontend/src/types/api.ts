@@ -54,6 +54,7 @@ export interface QueryResponse {
   sources: SourceDocument[]
   steps: Record<string, unknown>[]
   pipeline: string
+  follow_ups?: string[]
 }
 
 export interface SearchRequest {
@@ -94,6 +95,7 @@ export interface CitationItem {
   arxiv_id: string | null
   fetched: boolean
   has_pdf: boolean
+  fetch_error?: string | null
 }
 
 export interface CitationResponse {
@@ -115,4 +117,5 @@ export interface SSETokenEvent {
 
 export interface SSEDoneEvent {
   full_answer: string
+  follow_ups?: string[]
 }

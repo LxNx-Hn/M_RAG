@@ -29,6 +29,7 @@ class CitationInfo:
     pdf_url: Optional[str] = None
     abstract: Optional[str] = None
     fetched: bool = False
+    fetch_error: Optional[str] = None
 
 
 class CitationTracker:
@@ -119,7 +120,8 @@ class CitationTracker:
 
             entries = root.findall("atom:entry", ns)
             if not entries:
-                return None
+                citation.fetch_error = "arxiv_not_found"
+                return citation
 
             entry = entries[0]
             citation.title = entry.findtext("atom:title", citation.title, ns).strip()
@@ -149,7 +151,8 @@ class CitationTracker:
 
         except Exception as e:
             logger.warning(f"arXiv fetch failed for '{citation.title}': {e}")
-            return None
+            citation.fetch_error = f"fetch_failed: {e}"
+            return citation
 
     def fetch_all_citations(
         self, max_total: int = ARXIV_MAX_RESULTS, delay: float = 1.0
@@ -200,6 +203,7 @@ class CitationTracker:
                 "arxiv_id": c.arxiv_id,
                 "fetched": c.fetched,
                 "has_pdf": c.pdf_url is not None,
+                "fetch_error": c.fetch_error,
             }
             for c in self.citations
         ]

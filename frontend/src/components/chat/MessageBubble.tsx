@@ -1,22 +1,39 @@
-import { memo } from 'react'
-import { User, Bot, FileText } from 'lucide-react'
+import { memo, useState } from 'react'
+import { User, Bot, FileText, Copy, Check, Download } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import type { Message } from '@/types/chat'
 import { useChatStore } from '@/stores/chatStore'
 import { usePaperStore } from '@/stores/paperStore'
+import { copyToClipboard, formatMessageAsMarkdown, downloadAsMarkdown } from '@/utils/export'
+import { exportPPT } from '@/api/chat'
 import RouteBadge from './RouteBadge'
+import FlashcardViewer from './FlashcardViewer'
 
 interface Props {
   message: Message
+  onFollowUpClick?: (query: string) => void
 }
 
-export default memo(function MessageBubble({ message }: Props) {
+export default memo(function MessageBubble({ message, onFollowUpClick }: Props) {
   const setHighlightedSource = useChatStore((s) => s.setHighlightedSource)
   const setActivePaper = usePaperStore((s) => s.setActivePaper)
   const setActivePage = usePaperStore((s) => s.setActivePage)
+  const [copied, setCopied] = useState(false)
 
   const isUser = message.role === 'user'
+
+  const handleCopy = async () => {
+    const ok = await copyToClipboard(message.content)
+    if (ok) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    }
+  }
+
+  const handleDownload = () => {
+    downloadAsMarkdown(formatMessageAsMarkdown(message))
+  }
 
   return (
     <div className={`flex gap-2.5 animate-fade-in ${isUser ? 'justify-end' : ''}`}>
@@ -56,6 +73,13 @@ export default memo(function MessageBubble({ message }: Props) {
             </div>
           ) : isUser ? (
             <span>{message.content}</span>
+          ) : message.pipeline === 'F_flashcard' ? (
+            <>
+              <FlashcardViewer content={message.content} />
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {message.content}
+              </ReactMarkdown>
+            </>
           ) : (
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {message.content}
@@ -68,6 +92,41 @@ export default memo(function MessageBubble({ message }: Props) {
             />
           )}
         </div>
+
+        {/* 내보내기 버튼 */}
+        {!isUser && !message.isStreaming && message.content && (
+          <div className="flex gap-1 mt-1.5">
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+              title="Copy"
+            >
+              {copied ? <Check size={10} /> : <Copy size={10} />}
+              {copied ? 'Copied' : 'Copy'}
+            </button>
+            <button
+              onClick={handleDownload}
+              className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+              title="Download MD"
+            >
+              <Download size={10} />
+              MD
+            </button>
+            {message.pipeline?.startsWith('E') && (
+              <button
+                onClick={() => exportPPT(message.content)}
+                className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+                title="Download PPT"
+              >
+                <Download size={10} />
+                PPT
+              </button>
+            )}
+          </div>
+        )}
 
         {/* 출처 */}
         {message.sources && message.sources.length > 0 && !message.isStreaming && (
@@ -97,6 +156,27 @@ export default memo(function MessageBubble({ message }: Props) {
                 </button>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* 추천 질문 말풍선 */}
+        {message.followUps && message.followUps.length > 0 && !message.isStreaming && (
+          <div className="mt-2 pt-2 flex flex-wrap gap-1.5" style={{ borderTop: '1px solid var(--border-light)' }}>
+            {message.followUps.map((q, i) => (
+              <button
+                key={i}
+                onClick={() => onFollowUpClick?.(q)}
+                className="px-3 py-1.5 rounded-full text-[11px] font-medium transition-all hover:scale-105"
+                style={{
+                  background: 'var(--accent-light)',
+                  color: 'var(--accent)',
+                  border: '1px solid var(--accent)',
+                  borderColor: 'color-mix(in srgb, var(--accent) 30%, transparent)',
+                }}
+              >
+                {q}
+              </button>
+            ))}
           </div>
         )}
       </div>

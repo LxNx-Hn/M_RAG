@@ -28,16 +28,14 @@ class EvalResult:
     faithfulness: float = 0.0
     answer_relevancy: float = 0.0
     context_precision: float = 0.0
-    context_recall: float = 0.0
+    context_recall: Optional[float] = 0.0
 
     @property
     def average(self) -> float:
-        return (
-            self.faithfulness
-            + self.answer_relevancy
-            + self.context_precision
-            + self.context_recall
-        ) / 4
+        vals = [self.faithfulness, self.answer_relevancy, self.context_precision]
+        if self.context_recall is not None:
+            vals.append(self.context_recall)
+        return sum(vals) / max(len(vals), 1)
 
 
 class RAGASEvaluator:
@@ -89,7 +87,11 @@ class RAGASEvaluator:
         faithfulness = self._compute_faithfulness(sample)
         answer_relevancy = self._compute_answer_relevancy(sample)
         context_precision = self._compute_context_precision(sample)
-        context_recall = self._compute_context_recall(sample)
+        context_recall = (
+            self._compute_context_recall(sample)
+            if sample.ground_truth
+            else None
+        )
 
         return EvalResult(
             faithfulness=faithfulness,
@@ -161,7 +163,6 @@ class RAGASEvaluator:
         """LLM 없이 휴리스틱 평가 (토큰 오버랩 기반)"""
         answer_tokens = set(sample.answer.lower().split())
         query_tokens = set(sample.query.lower().split())
-        gt_tokens = set(sample.ground_truth.lower().split())
         ctx_tokens = set()
         for ctx in sample.contexts:
             ctx_tokens.update(ctx.lower().split())
@@ -172,17 +173,20 @@ class RAGASEvaluator:
         # Answer Relevancy: 답변과 질문의 토큰 오버랩
         relevancy = len(answer_tokens & query_tokens) / max(len(query_tokens), 1)
 
-        # Context Precision: 컨텍스트 토큰이 정답에 있는 비율
-        precision = len(ctx_tokens & gt_tokens) / max(len(ctx_tokens), 1)
-
-        # Context Recall: 정답 토큰이 컨텍스트에 있는 비율
-        recall = len(gt_tokens & ctx_tokens) / max(len(gt_tokens), 1)
+        # Context Recall / Precision: ground_truth가 없으면 None
+        if sample.ground_truth:
+            gt_tokens = set(sample.ground_truth.lower().split())
+            precision = len(ctx_tokens & gt_tokens) / max(len(ctx_tokens), 1)
+            recall = len(gt_tokens & ctx_tokens) / max(len(gt_tokens), 1)
+        else:
+            precision = 0.0
+            recall = None
 
         return EvalResult(
             faithfulness=min(faith, 1.0),
             answer_relevancy=min(relevancy, 1.0),
-            context_precision=min(precision, 1.0),
-            context_recall=min(recall, 1.0),
+            context_precision=min(precision, 1.0) if precision is not None else 0.0,
+            context_recall=min(recall, 1.0) if recall is not None else None,
         )
 
     @staticmethod
@@ -196,8 +200,10 @@ class RAGASEvaluator:
         return 0.5
 
     @staticmethod
-    def _mean(values: list[float]) -> float:
-        return sum(values) / max(len(values), 1)
+    def _mean(values: list) -> float:
+        """None을 건너뛰고 평균 계산"""
+        valid = [v for v in values if v is not None]
+        return sum(valid) / max(len(valid), 1)
 
 
 def load_test_queries(

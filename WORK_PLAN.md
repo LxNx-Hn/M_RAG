@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD022 MD024 MD032 MD040 MD046 -->
 # M-RAG 작업 추적 문서
 
 > **목적**: 세션이 끊겨도 진행 상황을 이어갈 수 있도록 작업 체크리스트를 관리합니다.  
@@ -24,10 +25,12 @@
 ## PHASE 0 — 레이아웃 인식 추출 + 강의 도메인 확장
 
 ### T0a. requirements.txt — pymupdf4llm 추가
+
 - [ ] `pymupdf4llm>=0.0.17` 추가
 - 이유: pymupdf 공식 LLM-friendly 어댑터 (코드 블록, 표, 헤딩, 다중 컬럼 → markdown)
 
 ### T0b. pdf_parser.py — 구조 보존 모드 (핵심, 높은 위험도)
+
 - [ ] `TextBlock.block_type`에 새 값: `"code"`, `"heading"`, `"list_item"`, `"math"`
 - [ ] `parse()` 내부에서 pymupdf4llm.to_markdown() 병합 호출
 - [ ] 표 보존: pymupdf4llm markdown 표 → `block_type="table"`
@@ -37,14 +40,17 @@
 - [ ] fallback: pymupdf4llm 실패 시 기존 raw 추출만 사용
 
 ### T0c. chunker.py — 구조 블록 보존 로직
+
 - [ ] `block_type in ("code", "table", "math")` → 분할 금지
 - [ ] 청크 메타데이터에 `is_structured=True` + `structured_type`
 - [ ] 수식 블록 인접 텍스트에 `[수식 참조]` 앵커
 
 ### T0d. config.py — LECTURE_PATTERNS 추가
+
 - [ ] definition/theorem/proof/example/exercise/code_block/chapter/section 패턴
 
 ### T0e. section_detector.py — lecture 유형 분기
+
 - [ ] `_LECTURE_SIGNALS` 정규식
 - [ ] `_detect_document_type()` → 3분류 (paper/lecture/general)
 - [ ] `LECTURE_SECTION_ORDER` 추가
@@ -55,15 +61,18 @@
 ## PHASE 0.5 — 특허 문서 도메인 확장
 
 ### T0k. config.py — PATENT_PATTERNS + ROUTE_MAP 특허 키워드
+
 - [ ] 특허 섹션 패턴 11종 (title/abstract/technical_field/background/...)
 - [ ] ROUTE_MAP citation에 특허 키워드 추가
 
 ### T0l. section_detector.py — patent 유형 추가
+
 - [ ] `_PATENT_SIGNALS` 정규식
 - [ ] `_detect_document_type()` → 4분류 (paper/lecture/patent/general)
 - [ ] `PATENT_SECTION_ORDER` 추가
 
 ### T0m. patent_tracker.py — 신규 생성
+
 - [ ] PatentInfo dataclass
 - [ ] parse_cited_patents(): 특허 번호 파싱 (KR/US/JP/EP/WO)
 - [ ] fetch_from_google_patents(): Google Patents HTML 파싱
@@ -71,9 +80,11 @@
 - [ ] search_similar_patents(): 청구항 키워드 기반 검색
 
 ### T0n. pipeline_d_citation.py — paper/patent 분기
+
 - [ ] doc_type == "patent" → patent_tracker 경로
 
 ### T0o. dependencies.py — patent_tracker 싱글턴
+
 - [ ] ModuleManager에 patent_tracker 추가
 
 ### T0p. (T0k에 합침)
@@ -83,6 +94,7 @@
 ## PHASE 0 문서 업데이트
 
 ### T0f~T0i + T0r — 문서 업데이트
+
 - [ ] COMPETITIVE_ANALYSIS.md: 강의/교재 + 특허 섹션 추가
 - [ ] ACADEMIC_CLAIMS.md: 검증 vs 적용 범위 분리 + 특허 추가
 - [ ] CRITIQUE_AND_IMPROVEMENTS.md: L1/L2/L8 멀티모달 문구 교체 + arXiv 한계에 특허 언급
@@ -90,6 +102,7 @@
 - [ ] ARCHITECTURE.md: 동일 표현 정정 + TextBlock 스키마 업데이트
 
 ### T0j+T0q — test_queries.json 확장
+
 - [ ] lecture 쿼리 8개 추가 (type: "lecture")
 - [ ] patent 쿼리 6개 추가 (type: "patent")
 - [ ] _validation_guide에 lecture_E_compiler, patent_F_kr_ai 추가
@@ -99,6 +112,7 @@
 ## PHASE 1 — 문서 잔작업
 
 ### T1. CRITIQUE_AND_IMPROVEMENTS.md lint 수정
+
 - [ ] MD032/MD060/MD009 경고 수정 (T0h와 합쳐 수행)
 
 ---
@@ -106,9 +120,11 @@
 ## PHASE 2 — 평가 데이터 개선
 
 ### T2. test_queries.json — ground_truth 전략
+
 - [ ] cad_ablation 쿼리에 `ground_truth_template` + `ground_truth_source_section` 추가
 
 ### T3. ragas_eval.py — None-aware 평가
+
 - [ ] `_mean_skip_none()` 헬퍼
 - [ ] ground_truth 빈 문자열 시 `context_recall=None`
 - [ ] ablation_study.py `format_results_table()`에도 동일 적용
@@ -118,13 +134,16 @@
 ## PHASE 3 — Citation Tracker + L5 뷰어 백엔드
 
 ### T4. citation_tracker.py — graceful fallback
+
 - [ ] `fetch_error: Optional[str]` 필드 추가
 - [ ] arXiv 미등록 시 `"arxiv_not_found"` 설정
 
 ### T5. schemas.py — CitationItem 확장
+
 - [ ] `fetch_error: Optional[str] = None`
 
 ### T6. citations.py — 엔드포인트 분리
+
 - [ ] `POST /api/citations/list` (메타데이터만)
 - [ ] `POST /api/citations/download` (단일 다운로드+인덱싱)
 
@@ -133,19 +152,24 @@
 ## PHASE 4 — Pipeline F (퀴즈 생성)
 
 ### T7. pipeline_f_quiz.py — 신규 생성
+
 - [ ] run() 함수: 섹션별 검색 → 객관식 5문제 생성 프롬프트
 - [ ] use_cad=True 강제
 
 ### T8. query_router.py — RouteType.F + quiz 슬롯
+
 - [ ] F 라우팅 추가
 
 ### T9. config.py — ROUTE_MAP quiz
+
 - [ ] `"quiz": ["문제", "퀴즈", "연습", "시험", "quiz", "exercise", "출제"]`
 
 ### T10. chat.py — F 분기
+
 - [ ] `route.route == "F"` 분기 추가
 
 ### T11. schemas.py — F 라벨
+
 - [ ] `F: "퀴즈 생성"` 추가
 
 ---
@@ -153,12 +177,15 @@
 ## PHASE 5 — 프론트엔드 인용 뷰어 패널
 
 ### T12. CitationPanel.tsx — 신규
+
 - [ ] 참고문헌 탭 UI (제목/저자/연도/상태/다운로드 버튼)
 
 ### T13. PDFViewer.tsx — 탭 토글
+
 - [ ] PDF 뷰어 / 참고문헌 탭 전환 (display:none으로 상태 보존)
 
 ### T14. citations.ts — API 클라이언트
+
 - [ ] listCitations(), downloadCitation()
 
 ---
@@ -166,13 +193,16 @@
 ## PHASE 6 — 배포·실험 진입점
 
 ### T15. run_c3_experiment.py — C3 실험 한 줄 실행
+
 - [ ] 인덱싱 → load_test_queries → compare_cad_on_off → run_cad_korean_evaluation
 - [ ] GPU 미존재 시 스킵 + 경고
 
 ### T16. verify_deployment.py — 배포 sanity check
+
 - [ ] 모듈 임포트 + ChromaDB + 환경변수 체크
 
 ### T17. docker-compose.yml 검증
+
 - [ ] 볼륨/의존성 확인
 
 ---
@@ -185,7 +215,6 @@
 4. **graceful fallback** — 모든 외부 의존성 실패에 우아한 처리
 5. **회귀 차단** — 기존 5 파이프라인 깨뜨리지 않기
 6. **기존 완료 작업 재작업 금지**
-
 
 이전까지 검증후 수행할것
 PHASE 0: T0f~T0i+T0r — 문서 업데이트 (4개 docs + CLAUDE.md + ARCHITECTURE.md)
@@ -205,8 +234,6 @@ PHASE 5: T12~T14 — 프론트엔드 인용 뷰어 패널
 PHASE 6: T15+T16 — C3 실험 스크립트 + 배포 검증
 
 PHASE 6: T17 — docker-compose 검증
-
-
 
 # M-RAG: 차별점 강화 + 즉시 배포·논문 실험 가능 상태로 마무리
 
@@ -273,29 +300,38 @@ PHASE 6: T17 — docker-compose 검증
 > 이 단계가 완료되어야 (a) 강의 PDF에서 코드/BNF/수식 블록 보존, (b) 특허 PDF에서 청구항/인용 특허 추적이 가능. C3 논문 실험과는 독립적이므로 병행 가능.
 
 **T0a.** [backend/requirements.txt](backend/requirements.txt) — `pymupdf4llm>=0.0.17` 추가
+
 - 이유: pymupdf 공식 LLM-friendly 어댑터. 코드 블록(monospace 폰트), 표, 헤딩, 다중 컬럼을 markdown으로 출력.
 - 라이선스: AGPL (pymupdf와 동일) — 학술 프로젝트 OK
 
 **T0b.** [backend/modules/pdf_parser.py](backend/modules/pdf_parser.py) — 구조 보존 모드 추가 (텍스트 전용, 멀티모달 無)
+
 - `TextBlock.block_type`에 새 값 추가: `"code"`, `"heading"`, `"list_item"`, `"math"` (기존 `"text"`, `"table"`, `"image"` 유지)
 - `parse()` 메서드 내부에서 두 단계 실행:
+
   1. 기존 raw block 추출 (현재 로직 그대로) — 폰트/bbox/span 단위 감지용
   2. **신규** `pymupdf4llm.to_markdown(pdf_path, page_chunks=True)` 호출 → 페이지별 markdown 추출
   3. 두 결과를 페이지 번호로 매칭해 병합 — bbox/font 정보는 raw에서, structured 마크다운은 pymupdf4llm에서
+
 - **표 보존**: pymupdf4llm이 markdown 표로 변환한 영역을 묶어 `block_type="table"` + `markdown` 원본을 `TextBlock.content`에 그대로 저장. 기존 `extract_tables()` fallback 유지 (pymupdf4llm이 놓친 표는 pymupdf find_tables로 보강)
 - **수식 보존** (이미지/OCR 없이 텍스트·폰트 기반):
+
   - span 단위 추출 시 `font` 이름에 `(?i)(math|stix|cmsy|cmex|cmmi|cmr|symbol|asana)` 포함되면 math span으로 마킹
   - 또는 span 텍스트가 유니코드 수학 기호(`[∀∃∑∏∫√≤≥≠≈∞αβγδθλμπσφω∂∇⊕⊗]` 외 Block `Mathematical Operators`, `Greek`)를 25% 이상 포함하면 math 마킹
   - math span이 연속된 영역(동일 줄 또는 인접 bbox) → `block_type="math"` 단일 블록으로 묶어 보존
   - 결과: display 수식은 독립 블록, inline 수식은 기존 text 블록 내 유니코드 그대로 유지 (pymupdf가 이미 유니코드로 추출함)
+
 - **코드 블록 감지**: markdown ` ``` ` 펜스 영역 → `block_type="code"`
 - **헤딩 감지**: markdown `#`/`##`/`###` → `block_type="heading"` + `header_level` 메타
 - **fallback**: pymupdf4llm 임포트 실패 시 기존 raw 추출만 사용 (graceful degradation), 수식 폰트 기반 감지는 raw 경로에서도 동작
 
 **T0c.** [backend/modules/chunker.py](backend/modules/chunker.py) — 구조 블록 보존 로직
+
 - `_chunk_by_section()`에서 `block_type in ("code", "table", "math")`인 블록은:
+
   - **분할 금지** — 청크 크기를 초과하더라도 단일 청크로 유지 (수식/표가 잘려 의미 손실되는 것 방지)
   - 청크 메타데이터에 `is_structured=True` + `structured_type` 표시
+
 - 일반 텍스트 블록과 구조 블록을 섞어 청킹할 때, 구조 블록은 청크 경계로 사용 (앞/뒤 텍스트 분리)
 - 수식 블록이 해설 문단과 인접한 경우: 수식 블록은 독립 청크로 두되, 바로 앞 텍스트 청크 끝에 `[수식 참조]` 앵커 삽입 (검색 시 맥락 연결용)
 
@@ -314,52 +350,72 @@ LECTURE_PATTERNS = {
 ```
 
 **T0e.** [backend/modules/section_detector.py](backend/modules/section_detector.py) — 강의 문서 유형 분기
+
 - `_LECTURE_SIGNALS` 정규식 추가: `(?i)(강의|강의노트|lecture|syllabus|예제|연습\s*문제|exercise|definition|theorem|proof|BNF|EBNF|algorithm)`
 - `_detect_document_type()` 반환값을 3분류로 확장: `"paper"` / `"lecture"` / `"general"`
+
   - 카운팅: paper_count, lecture_count, general_count 중 최대값으로 결정
   - 동점 시 우선순위: lecture > paper > general
+
 - `LECTURE_SECTION_ORDER = ["chapter", "section", "definition", "theorem", "proof", "example", "exercise", "code_block"]`
 - `get_section_order()`도 lecture 분기 추가
 - `detect()`가 lecture 유형이면 `LECTURE_PATTERNS` 사용
 
 **T0f.** [docs/COMPETITIVE_ANALYSIS.md](docs/COMPETITIVE_ANALYSIS.md) — 강의/교재 처리 섹션 신규 추가
+
 - 신규 섹션: "## 강의/교재 PDF 처리 (NotebookLM 동등 + α)"
+
   - NotebookLM 스크린샷 케이스 (BNF/EBNF/코드 블록) 설명
   - M-RAG의 `pymupdf4llm` 기반 구조 보존 추출 설명
   - 비교 표: 코드 블록 보존 / 다중 컬럼 / 표 / 수식 — 양쪽 모두 ✓로 표시 (M-RAG 동등성 확보)
   - **추가 우위**: M-RAG는 chunker 단에서 구조 블록 분할 금지 → LLM이 BNF 문법을 깨뜨리지 않고 인용 가능
 
 **T0g.** [docs/ACADEMIC_CLAIMS.md](docs/ACADEMIC_CLAIMS.md) — 클레임 범위 명확화
+
 - C1~C4는 그대로 유지 (논문에서 검증)
 - 새 섹션 "## 검증 vs 적용 범위 (포지셔닝)" 추가:
+
   - **검증**: 학술 논문 4편 (RAGAS + Ablation, C1~C4 표)
   - **적용**: 학술 논문 + 한국어 논문 + 강의/교재 PDF + 특허 명세서 + 일반 기술 문서
   - **강의/특허 시연**: 기능 적용 시연용이며 정량 평가는 논문 도메인에서만 수행
+
 - 기존 "한계" 섹션의 "논문 특화" 표현 → "검증 도메인은 논문, 적용 도메인은 광범위" 로 정정
 
 **T0h.** [docs/CRITIQUE_AND_IMPROVEMENTS.md](docs/CRITIQUE_AND_IMPROVEMENTS.md) — Section 0 보강 + 멀티모달 관련 문구 전면 제거
+
 - arXiv 미등록 한계 문단 마지막에 추가:
+
   > **단, 강의/교재/특허/기술문서 시연 모드에서는 arXiv 의존도가 0이므로 이 한계가 비활성화된다.** Pipeline D(인용 추적)는 학술 논문 모드에서는 arXiv, 특허 모드에서는 Google Patents로 분기되며, 일반 문서 모드에서는 라우팅되지 않는다.
+
 - **L1 (수식 처리) 문단 전면 교체**:
+
   > pymupdf4llm + 폰트/유니코드 기반 수식 감지로 해결. Math 폰트(CMSY/STIX/Symbol) 또는 유니코드 수학 기호 밀도 ≥25%인 span을 `block_type="math"` 블록으로 묶고 chunker에서 분할 금지. 인라인 수식은 유니코드 그대로 텍스트 블록에 포함. **LaTeX 원본 복원은 수행하지 않음** (이미지 기반 OCR은 멀티모달 정책에 의해 제외).
+
 - **L2 (Figure/Table) 문단 전면 교체**:
+
   > **표(Table)**: pymupdf4llm이 markdown 표로 변환하여 보존 + pymupdf `find_tables()` fallback. chunker에서 분할 금지. **Figure/이미지 QA는 지원하지 않음** — 멀티모달 정책에 의해 Vision-LM 의존 기능은 제외. Figure 캡션 텍스트만 검색 가능.
+
 - **L3 (스캔 PDF OCR) 문단 유지**: OCR은 이미지 인식이 아닌 광학 문자 인식이므로 멀티모달과 구분됨. Phase 2(중기)로 유지하되, 본 plan 범위 밖.
 - **L8 (멀티모달 입력) 문단 전면 교체**:
+
   > **정책**: M-RAG는 텍스트 전용 RAG로 유지. YouTube/오디오/Vision-LM/이미지 QA는 모두 범위 외. 슬라이드 PDF는 T0b 적용 후 코드/문법/표/수식 블록이 모두 텍스트 레벨에서 보존되므로 별도 멀티모달 없이 처리 가능.
+
 - L2에 있던 "향후: Vision-Language Model(LLaVA, InternVL)로 그림 설명 자동 생성" 문구 **삭제**
 - L1에 있던 "향후: LaTeX-OCR 또는 Mathpix API로 수식을 LaTeX 문자열로 변환" 문구 **삭제**
 - Phase 3 장기 로드맵에서 "Figure/Table Vision QA (LLaVA)", "LaTeX-OCR 수식 파싱" 항목 **삭제**
 
 **T0i.** [CLAUDE.md](CLAUDE.md) 및 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — 표현 정정
+
 - "논문 특화" / "학술 논문 PDF" → "학술/교육 PDF (논문 + 강의/교재)"로 통일
 - M1 (PDF Parser) 설명에 `pymupdf4llm 기반 구조 보존 추출` 명시
 - 데이터 스키마 섹션의 `TextBlock`에 새 block_type 값 4종 (`text/heading/code/table/list_item/image`) 명시
 
 **T0j.** [backend/evaluation/test_queries.json](backend/evaluation/test_queries.json) — 강의 쿼리 8개 추가
+
 - 신규 type: `"lecture"`
 - 추천 테스트 자료에 `lecture_E_compiler` 추가 (예: 컴파일러/이산수학 강의 PDF)
 - 쿼리 예시:
+
   ```
   "이 강의에서 BNF의 정의가 정확히 뭐야?" (코드 블록 보존 검증)
   "Definition 2.1을 그대로 인용해줘" (정의 블록 보존)
@@ -398,15 +454,19 @@ PATENT_PATTERNS = {
 ```
 
 **T0l.** [backend/modules/section_detector.py](backend/modules/section_detector.py) — 특허 문서 유형 추가
+
 - `_PATENT_SIGNALS = re.compile(r"(?i)(청구항|특허\s*출원|발명의\s*명칭|patent|invention|embodiment|claim\s*\d+|prior\s*art|KR\s*\d{2}-\d{4}-\d{7}|US\s*\d{7,})")`
 - `_detect_document_type()` 반환을 4분류로 확장: `"paper"` / `"lecture"` / `"patent"` / `"general"`
+
   - 카운팅: 각 신호 카운트 후 최대값 결정
   - 특허 우선순위는 patent > lecture > paper > general (특허 키워드가 매우 독특하여 오판 낮음)
+
 - `PATENT_SECTION_ORDER = ["title", "abstract", "technical_field", "background", "summary", "problem", "solution", "detailed_description", "drawings", "claims", "cited_patents"]`
 - `get_section_order()` patent 분기 추가
 - `detect()`가 patent 유형이면 `PATENT_PATTERNS` 사용
 
 **T0m.** `backend/modules/patent_tracker.py` 신규 생성 — 특허 인용/유사 특허 추적 모듈
+
 - `CitationTracker`와 동일 설계 패턴
 - `@dataclass PatentInfo`: `patent_id`, `title`, `inventors`, `applicant`, `publication_date`, `abstract`, `pdf_url`, `fetched`, `fetch_error`
 - `parse_cited_patents(cited_text)`: 인용 특허 섹션 파싱 → 특허 번호(`KR 10-2020-0012345`, `US 10,000,000`) 추출
@@ -417,6 +477,7 @@ PATENT_PATTERNS = {
 - `download_pdf(patent)`, `get_patent_summary()` 메서드 — `CitationTracker`와 시그니처 동일
 
 **T0n.** [backend/pipelines/pipeline_d_citation.py](backend/pipelines/pipeline_d_citation.py) — doc_type 분기 추가
+
 - 기존 arXiv 로직 유지 (paper 유형)
 - 신규: 업로드 문서가 patent 유형이면 `patent_tracker.parse_cited_patents()` + `fetch_from_google_patents()` 경로 실행
 - **추가 분기**: 쿼리에 "유사 특허" / "similar patent" 키워드 포함 시 `search_similar_patents()` 호출 → 결과를 임시 컬렉션에 인덱싱
@@ -431,9 +492,11 @@ PATENT_PATTERNS = {
 ```
 
 **T0q.** [backend/evaluation/test_queries.json](backend/evaluation/test_queries.json) — 특허 쿼리 6개 추가
+
 - 신규 type: `"patent"`
 - 추천 테스트 자료에 `patent_F_kr_ai` 추가 (예: 한국 AI/ML 특허 PDF 1편)
 - 쿼리 예시:
+
   ```
   "이 특허의 청구항 1번을 그대로 인용해줘" (청구항 블록 보존 검증)
   "이 특허의 배경기술에서 언급한 선행 기술이 뭐야?" (background 섹션 검색)
@@ -444,6 +507,7 @@ PATENT_PATTERNS = {
   ```
 
 **T0r.** 문서 업데이트 (특허 도메인 반영)
+
 - [docs/COMPETITIVE_ANALYSIS.md](docs/COMPETITIVE_ANALYSIS.md): "특허 문서 처리" 섹션 신규 추가 — NotebookLM도 일반 문서 처리하지만, M-RAG는 특허 섹션 감지 + 유사 특허/인용 특허 API 연동으로 차별화
 - [docs/ACADEMIC_CLAIMS.md](docs/ACADEMIC_CLAIMS.md): 적용 범위 목록에 "특허 명세서" 추가
 - [docs/CRITIQUE_AND_IMPROVEMENTS.md](docs/CRITIQUE_AND_IMPROVEMENTS.md): Section 0(arXiv 한계)에 특허 도메인 언급 — "특허는 Google Patents / KIPRIS 별도 경로 사용, arXiv 무관"
@@ -455,6 +519,7 @@ PATENT_PATTERNS = {
 ### PHASE 1 — 문서 잔작업 (의존성 0)
 
 **T1.** [docs/CRITIQUE_AND_IMPROVEMENTS.md](docs/CRITIQUE_AND_IMPROVEMENTS.md) markdown lint 경고 수정
+
 - MD032: 라인 13, 19, 80, 100, 152, 158 — 리스트 위/아래 빈 줄 추가
 - MD060: 라인 26 — 표 헤더/구분선 컬럼 정렬 수정
 - MD009: 라인 157 — 후행 공백 제거
@@ -465,11 +530,13 @@ PATENT_PATTERNS = {
 ### PHASE 2 — 평가 데이터 ground_truth 채움 (C3 실험 전제 조건)
 
 **T2.** [backend/evaluation/test_queries.json](backend/evaluation/test_queries.json) — `cad_ablation` 5개 쿼리에 `ground_truth_template` + `ground_truth_source_section` 필드 추가
+
 - 현재: `ground_truth = ""`
 - 변경: `ground_truth_template = "이 논문 Experiment 섹션의 정확한 수치"`, `ground_truth_source_section = "experiment"`
 - 사용자가 실제 페이퍼 업로드 후 이 가이드를 보고 수동 채움
 
 **T3.** [backend/evaluation/ragas_eval.py](backend/evaluation/ragas_eval.py) — None-aware 평가
+
 - `_evaluate_single()`/`_evaluate_heuristic()`: `sample.ground_truth`가 빈 문자열이면 `context_recall=None`
 - `evaluate()` 평균 계산에 `_mean_skip_none()` 헬퍼 사용
 - `per_sample` JSON 출력에 `null` 직렬화 허용
@@ -480,6 +547,7 @@ PATENT_PATTERNS = {
 ### PHASE 3 — Citation Tracker graceful fallback + L5 뷰어 패널 백엔드
 
 **T4.** [backend/modules/citation_tracker.py](backend/modules/citation_tracker.py)
+
 - `CitationInfo` dataclass에 `fetch_error: Optional[str] = None` 추가
 - `fetch_from_arxiv()`: 결과 없을 때 `citation.fetch_error = "arxiv_not_found"`
 - `get_citation_summary()` 출력에 `fetch_error` 포함
@@ -487,6 +555,7 @@ PATENT_PATTERNS = {
 **T5.** [backend/api/schemas.py](backend/api/schemas.py) — `CitationItem`에 `fetch_error: Optional[str] = None` 추가
 
 **T6.** [backend/api/routers/citations.py](backend/api/routers/citations.py) — 엔드포인트 분리
+
 - `POST /api/citations/list` (신규): 메타데이터만 (PDF 다운로드 X)
 - `POST /api/citations/download` (신규): 단일 인용 다운로드 + 인덱싱 (`{doc_id, citation_index}`)
 - 기존 `POST /api/citations/track`은 호환성 유지
@@ -501,6 +570,7 @@ PATENT_PATTERNS = {
 
 - **하이브리드 접근**: 템플릿 기반 (GPU 불요) + LLM 기반 (generator 있을 때)
 - 라우트별 템플릿:
+
 ```python
 FOLLOWUP_TEMPLATES = {
     "A": [  # 단순 QA
@@ -535,17 +605,23 @@ FOLLOWUP_TEMPLATES = {
     ],
 }
 ```
+
 - `generate_followups(query, answer, route, section_filter=None, generator=None) -> list[str]`:
+
   - generator 없으면: 템플릿에서 3개 선택, `{section}` 플레이스홀더 치환
   - generator 있으면: LLM에게 "답변 맥락을 보고 후속 질문 3개 제안" 프롬프트 → 파싱
   - LLM 실패 시 템플릿 fallback (항상 3개 보장)
+
 - 중복 제거: 원래 쿼리와 유사도 높은 후속 질문 필터링
 
 **T3.5b.** [backend/api/routers/chat.py](backend/api/routers/chat.py) — SSE done 이벤트에 follow_ups 추가
 
 - `event_generator()` 내 done 이벤트 수정:
+
 ```python
+
 # 추천 질문 생성
+
 from modules.followup_generator import generate_followups
 follow_ups = generate_followups(
     query=req.query,
@@ -556,6 +632,7 @@ follow_ups = generate_followups(
 )
 yield f'event: done\ndata: {json.dumps({"full_answer": full_answer, "follow_ups": follow_ups}, ensure_ascii=False)}\n\n'
 ```
+
 - 비스트리밍 `/query` 엔드포인트의 `QueryResponse`에도 `follow_ups: list[str]` 추가
 
 **T3.5c.** [backend/api/schemas.py](backend/api/schemas.py) — `QueryResponse`에 `follow_ups: list[str] = []` 추가
@@ -592,6 +669,7 @@ finalizeAssistantMessage: (
   followUps?: string[],  // 추가
 ) => void
 ```
+
 - 메시지 저장 시 `followUps` 필드도 저장
 
 **T3.5g.** [frontend/src/components/chat/ChatPanel.tsx](frontend/src/components/chat/ChatPanel.tsx) — done 콜백에서 follow_ups 전달
@@ -608,12 +686,14 @@ finalizeAssistantMessage: (
   )
 }
 ```
+
 - `handleSend`를 `MessageBubble`에 prop으로 전달 (추천 질문 클릭 → 자동 전송)
 
 **T3.5h.** [frontend/src/components/chat/MessageBubble.tsx](frontend/src/components/chat/MessageBubble.tsx) — 추천 질문 말풍선 UI
 
 - `Props`에 `onFollowUpClick?: (query: string) => void` 추가
 - 출처 영역 아래에 추천 질문 렌더링:
+
 ```tsx
 {/* 추천 질문 말풍선 */}
 {message.followUps && message.followUps.length > 0 && !message.isStreaming && (
@@ -636,6 +716,7 @@ finalizeAssistantMessage: (
   </div>
 )}
 ```
+
 - 디자인: 라운드 pill 버튼, accent 색상, hover 시 살짝 확대
 
 ---
@@ -643,6 +724,7 @@ finalizeAssistantMessage: (
 ### PHASE 4 — Pipeline F (Quiz 생성, 사용자 명시 요구)
 
 **T7.** `backend/pipelines/pipeline_f_quiz.py` 신규 생성
+
 - `run(query, retriever, generator, ...)` 시그니처
 - 흐름: 쿼리 의도 파싱(섹션 지정 여부) → 섹션별 검색 → 컨텍스트 결합 → "객관식 5문제 + 정답 + 해설 생성" 프롬프트 → `generator.generate()`
 - `use_cad=True` 강제 (꾸며낸 문제 방지)
@@ -653,6 +735,7 @@ finalizeAssistantMessage: (
 **T8.** [backend/modules/query_router.py](backend/modules/query_router.py) — `RouteType.F` + `quiz` 슬롯 처리
 
 **T9.** [backend/config.py](backend/config.py) — `ROUTE_MAP`에 `"quiz": ["문제", "퀴즈", "연습", "시험", "quiz", "exercise", "출제"]` 추가
+
 - "summary"의 "정리"와 충돌 가능 → quiz가 우선 매칭되도록 query_router에서 우선순위 명시
 
 **T10.** [backend/api/routers/chat.py](backend/api/routers/chat.py) — `route.route == "F"` 분기 추가
@@ -664,12 +747,14 @@ finalizeAssistantMessage: (
 ### PHASE 5 — 프론트엔드 인용 뷰어 패널 (L5)
 
 **T12.** `frontend/src/components/viewer/CitationPanel.tsx` 신규 생성
+
 - 탭: PDF 뷰어 / 참고문헌
 - API: `POST /api/citations/list` → `CitationItem[]`
 - 각 항목: 제목, 저자, 연도, 상태 배지(`fetched` / `arxiv_not_found`), `[다운로드 & 인덱싱]` 버튼
 - `arxiv_not_found` 항목 회색 + 툴팁: "arXiv 미등록 — PDF 직접 업로드 필요"
 
 **T13.** [frontend/src/components/viewer/PDFViewer.tsx](frontend/src/components/viewer/PDFViewer.tsx) — 상단 탭 토글 + `<CitationPanel />` 전환
+
 - 탭 전환 시 PDF 캔버스는 unmount 대신 `display: none` 처리하여 zoom/page 상태 보존
 
 **T14.** `frontend/src/api/citations.ts` 신규 생성: `listCitations()`, `downloadCitation()`
@@ -679,23 +764,28 @@ finalizeAssistantMessage: (
 ### PHASE 6 — 배포·실험 진입점 통합
 
 **T15.** `backend/scripts/run_c3_experiment.py` 신규 생성 (논문 실험 한 줄 실행)
+
 - 인자: `--paper-pdf <path>` `--collection <name>` (기본 `c3_eval`)
 - 흐름:
+
   1. 페이퍼 인덱싱 (parser → section_detector → chunker → embedder → vector_store)
   2. `load_test_queries(query_types=["cad_ablation","crosslingual_mixed","crosslingual_en"])`
   3. ground_truth 비어 있는 쿼리 경고 출력
   4. `compare_cad_on_off()` α=0.5 실행
   5. `AblationStudy.run_cad_korean_evaluation()` α 5단계 실행
   6. 결과 → `evaluation/results/c3_<timestamp>.json` + 마크다운 표 stdout
+
 - GPU 미존재 시: 휴리스틱 모드 경고 + CAD 비교 스킵
 
 **T16.** `backend/scripts/verify_deployment.py` 신규 생성 (배포 직전 sanity check)
+
 - 임포트: `modules.cad_decoder`, `modules.scd_decoder`, `pipelines.pipeline_f_quiz`, `api.routers.citations`, `pymupdf4llm`
 - ChromaDB 디렉토리 쓰기 권한, BGE-M3 캐시 존재
 - 환경 변수 `LOAD_GPU_MODELS` 체크
 - 출력: 모든 항목 `[OK]` 또는 명확한 실패 사유
 
 **T17.** [docker-compose.yml](docker-compose.yml) 검토만
+
 - `backend` 컨테이너 볼륨이 `evaluation/results/` 까지 커버하는지
 - pymupdf4llm 의존성이 backend Dockerfile `pip install -r requirements.txt` 단계에서 정상 설치되는지
 
@@ -880,6 +970,7 @@ LOAD_GPU_MODELS=true \
 ```
 
 산출물:
+
 - `backend/evaluation/results/c3_<timestamp>.json` — α별 faithfulness delta
 - stdout 마크다운 표 (논문 Table 2 직접 사용)
 - best_alpha + max_faithfulness_delta 요약

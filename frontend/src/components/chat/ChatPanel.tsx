@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Send, Plus, Loader2, Sparkles } from 'lucide-react'
+import { Send, Plus, Loader2, Sparkles, Download } from 'lucide-react'
 import { useChatStore } from '@/stores/chatStore'
 import { usePaperStore } from '@/stores/paperStore'
 import { queryRAG, queryRAGStream } from '@/api/chat'
+import { formatConversationAsMarkdown, downloadAsMarkdown } from '@/utils/export'
 import MessageBubble from './MessageBubble'
 
 export default function ChatPanel() {
@@ -64,6 +65,9 @@ export default function ChatPanel() {
             doneData.full_answer,
             streamRoute,
             streamSources,
+            undefined,
+            undefined,
+            doneData.follow_ups,
           )
         },
         async () => {
@@ -76,6 +80,7 @@ export default function ChatPanel() {
               res.sources,
               res.steps,
               res.pipeline,
+              res.follow_ups,
             )
           } catch {
             finalizeAssistantMessage('오류가 발생했습니다. 다시 시도해주세요.')
@@ -91,6 +96,7 @@ export default function ChatPanel() {
           res.sources,
           res.steps,
           res.pipeline,
+          res.follow_ups,
         )
       } catch {
         finalizeAssistantMessage('오류가 발생했습니다. 다시 시도해주세요.')
@@ -115,14 +121,29 @@ export default function ChatPanel() {
         <h2 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
           {t('chat.title')}
         </h2>
-        <button
-          onClick={() => createConversation()}
-          className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium transition-all hover:scale-105"
-          style={{ background: 'var(--accent-light)', color: 'var(--accent)' }}
-        >
-          <Plus size={12} />
-          {t('chat.newChat')}
-        </button>
+        <div className="flex items-center gap-1.5">
+          {messages.length > 0 && (
+            <button
+              onClick={() => {
+                const md = formatConversationAsMarkdown(messages)
+                downloadAsMarkdown(md)
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium transition-all hover:scale-105"
+              style={{ background: 'var(--bg-secondary)', color: 'var(--text-muted)' }}
+              title="Export conversation"
+            >
+              <Download size={12} />
+            </button>
+          )}
+          <button
+            onClick={() => createConversation()}
+            className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium transition-all hover:scale-105"
+            style={{ background: 'var(--accent-light)', color: 'var(--accent)' }}
+          >
+            <Plus size={12} />
+            {t('chat.newChat')}
+          </button>
+        </div>
       </div>
 
       {/* 메시지 영역 */}
@@ -162,7 +183,7 @@ export default function ChatPanel() {
         ) : (
           <div className="space-y-3">
             {messages.map((msg) => (
-              <MessageBubble key={msg.id} message={msg} />
+              <MessageBubble key={msg.id} message={msg} onFollowUpClick={handleSend} />
             ))}
             <div ref={messagesEndRef} />
           </div>

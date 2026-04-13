@@ -8,6 +8,7 @@ export interface Message {
   sources?: SourceDocument[]
   steps?: Record<string, unknown>[]
   pipeline?: string
+  followUps?: string[]
   isStreaming?: boolean
   createdAt: Date
 }

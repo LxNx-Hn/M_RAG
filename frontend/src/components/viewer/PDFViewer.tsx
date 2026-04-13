@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Maximize2, FileText, BookOpen } from 'lucide-react'
 import { usePaperStore } from '@/stores/paperStore'
 import { useChatStore } from '@/stores/chatStore'
 import HighlightLayer from './HighlightLayer'
+import CitationPanel from './CitationPanel'
+
+type ViewerTab = 'pdf' | 'citations'
 
 export default function PDFViewer() {
   const { t } = useTranslation()
@@ -15,6 +18,7 @@ export default function PDFViewer() {
   const [pdfDoc, setPdfDoc] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<ViewerTab>('pdf')
 
   // PDF 로드
   useEffect(() => {
@@ -112,6 +116,32 @@ export default function PDFViewer() {
         className="flex items-center justify-between px-4 py-2 border-b shrink-0"
         style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-color)' }}
       >
+        {/* 탭 토글 */}
+        <div className="flex items-center gap-1 mr-3">
+          <button
+            onClick={() => setActiveTab('pdf')}
+            className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all"
+            style={{
+              background: activeTab === 'pdf' ? 'var(--accent-light)' : 'transparent',
+              color: activeTab === 'pdf' ? 'var(--accent)' : 'var(--text-muted)',
+            }}
+          >
+            <FileText size={12} />
+            PDF
+          </button>
+          <button
+            onClick={() => setActiveTab('citations')}
+            className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all"
+            style={{
+              background: activeTab === 'citations' ? 'var(--accent-light)' : 'transparent',
+              color: activeTab === 'citations' ? 'var(--accent)' : 'var(--text-muted)',
+            }}
+          >
+            <BookOpen size={12} />
+            참고문헌
+          </button>
+        </div>
+
         {/* 페이지 네비게이션 */}
         <div className="flex items-center gap-1.5">
           <button
@@ -184,8 +214,12 @@ export default function PDFViewer() {
         </div>
       </div>
 
-      {/* PDF 캔버스 */}
-      <div ref={containerRef} className="flex-1 overflow-auto p-4 flex justify-center">
+      {/* PDF 캔버스 (탭 전환 시 display:none으로 상태 보존) */}
+      <div
+        ref={containerRef}
+        className="flex-1 overflow-auto p-4 flex justify-center"
+        style={{ display: activeTab === 'pdf' ? undefined : 'none' }}
+      >
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full" style={{ borderColor: 'var(--accent)', borderTopColor: 'transparent' }} />
@@ -211,6 +245,13 @@ export default function PDFViewer() {
           </div>
         )}
       </div>
+
+      {/* 참고문헌 패널 */}
+      {activeTab === 'citations' && (
+        <div className="flex-1 overflow-hidden">
+          <CitationPanel />
+        </div>
+      )}
     </div>
   )
 }

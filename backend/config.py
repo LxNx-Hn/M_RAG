@@ -23,7 +23,11 @@ EMBEDDING_DIMENSION = 1024
 # ─────────────────────────────────────────────
 # LLM Generation
 # ─────────────────────────────────────────────
-GENERATION_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
+GENERATION_MODEL = os.environ.get(
+    "GENERATION_MODEL",
+    "K-intelligence/Midm-2.0-Mini-Instruct",  # 2.3B, 12GB GPU OK (기본값)
+    # Base 모델: GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct (11.5B, 24GB+ 필요)
+)
 BASELINE_MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 MAX_NEW_TOKENS = 1024
 TEMPERATURE = 0.1
@@ -85,7 +89,8 @@ ROUTE_MAP = {
     "compare": ["비교", "차이", "vs", "compare", "versus", "다른 점", "공통점"],
     "citation": ["인용", "참고문헌", "reference", "cited by", "레퍼런스",
                  "유사 특허", "인용 특허", "선행 기술", "similar patent", "prior art"],
-    "quiz": ["문제", "퀴즈", "연습", "시험", "quiz", "exercise", "출제"],
+    "quiz": ["문제", "퀴즈", "연습", "시험", "quiz", "exercise", "출제",
+             "플래시카드", "카드", "flashcard", "암기"],
     "summary": ["요약", "summarize", "전체", "overview", "정리해", "설명해"],
 }
 

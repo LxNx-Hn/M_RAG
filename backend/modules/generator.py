@@ -1,10 +1,11 @@
 """
 MODULE 12: Generator
-컨텍스트 + 질의 → 최종 답변 생성 (MIDM-2.0 Base Instruct)
+컨텍스트 + 질의 → 최종 답변 생성 (MIDM-2.0 Instruct)
 기반 논문: Speculative RAG [16], RAG (Original) [20]
 
-모델: K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16)
-요구사항: transformers >= 4.45.0, GPU 24GB+ VRAM
+모델: K-intelligence/Midm-2.0-Mini-Instruct (2.3B, bfloat16, 12GB GPU)
+     K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16 24GB+ / 4-bit ~7GB)
+요구사항: transformers >= 4.45.0
 """
 import logging
 from threading import Thread
@@ -95,11 +96,29 @@ class Generator:
     def model(self):
         if self._model is None:
             logger.info(f"Loading model: {self.model_name}")
-            self._model = AutoModelForCausalLM.from_pretrained(
-                self.model_name,
-                torch_dtype=torch.bfloat16,  # MIDM-2.0 권장 dtype
+            load_kwargs = dict(
+                torch_dtype=torch.bfloat16,
                 device_map="auto",
                 trust_remote_code=True,
+            )
+            # Base(11.5B)가 VRAM에 안 들어가면 4-bit 양자화 시도
+            is_base = "Base" in self.model_name and "Mini" not in self.model_name
+            if is_base and torch.cuda.is_available():
+                vram_gb = torch.cuda.get_device_properties(0).total_mem / (1024**3)
+                if vram_gb < 20:
+                    try:
+                        from transformers import BitsAndBytesConfig
+                        logger.info(f"VRAM {vram_gb:.1f}GB < 20GB — Base 모델 4-bit 양자화 적용")
+                        load_kwargs["quantization_config"] = BitsAndBytesConfig(
+                            load_in_4bit=True,
+                            bnb_4bit_compute_dtype=torch.bfloat16,
+                            bnb_4bit_quant_type="nf4",
+                        )
+                        load_kwargs.pop("torch_dtype", None)
+                    except ImportError:
+                        logger.warning("bitsandbytes 미설치 — bfloat16으로 로드 시도")
+            self._model = AutoModelForCausalLM.from_pretrained(
+                self.model_name, **load_kwargs,
             )
             self._model.eval()
         return self._model
@@ -123,6 +142,8 @@ class Generator:
             )
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
+        elif template == "raw":
+            prompt = kwargs.get("raw_prompt", QA_TEMPLATE.format(context=context, query=query))
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 
@@ -146,6 +167,8 @@ class Generator:
             )
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
+        elif template == "raw":
+            prompt = kwargs.get("raw_prompt", QA_TEMPLATE.format(context=context, query=query))
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 

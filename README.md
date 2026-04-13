@@ -11,7 +11,7 @@
 | 기능 | 설명 |
 |---|---|
 | **섹션 인식 청킹** | Abstract / Method / Result / Conclusion 구조 인식 |
-| **동적 쿼리 라우터** | 질의 유형에 따라 5개 파이프라인 자동 선택 |
+| **동적 쿼리 라우터** | 질의 유형에 따라 6개 파이프라인 자동 선택 |
 | **크로스링구얼 검색** | BGE-M3 한영 동시 처리, 한국어 질의 → 영어 논문 검색 |
 | **하이브리드 검색** | Dense(BGE-M3) + Sparse(BM25) + RRF 결합 |
 | **인용 논문 추적** | arXiv API 기반 Reference 논문 자동 수집 및 인덱싱 |
@@ -45,7 +45,7 @@
 
 ---
 
-## 쿼리 경로 (5개 파이프라인)
+## 쿼리 경로 (6개 파이프라인)
 
 | 경로 | 트리거 예시 | 파이프라인 |
 |---|---|---|
@@ -54,6 +54,7 @@
 | C. 멀티 비교 | "논문 A랑 B 비교해줘" | 병렬 검색 → 합성 → 비교 표 생성 |
 | D. 인용 추적 | "인용 논문 분석해줘" | arXiv 수집 → 인덱싱 → 확장 검색 → 생성 |
 | E. 전체 요약 | "이 논문 요약해줘" | 섹션별 검색 → 구조화 요약 생성 |
+| F. 퀴즈 생성 | "이 내용으로 5문제 만들어줘" | 하이브리드 검색 → CAD 강제 → 객관식 생성 |
 
 ---
 
@@ -232,14 +233,18 @@ M_RAG/
 │   │   ├── context_compressor.py #     MODULE 10: 컨텍스트 압축
 │   │   ├── citation_tracker.py   #     MODULE 11: 인용 추적 + arXiv
 │   │   ├── generator.py          #     MODULE 12: MIDM-2.0 생성 + 스트리밍
-│   │   ├── contrastive_decoder.py#     MODULE 13: CAD 환각 억제
-│   │   └── docx_parser.py        #     MODULE 14: DOCX/TXT 파싱
-│   ├── pipelines/                #   동적 파이프라인 (5개)
+│   │   ├── cad_decoder.py         #     MODULE 13A: CAD 환각 억제
+│   │   ├── scd_decoder.py         #     MODULE 13B: SCD 언어 이탈 방지
+│   │   ├── followup_generator.py  #     추천 질문 생성
+│   │   ├── patent_tracker.py      #     특허 인용/유사 특허 추적
+│   │   └── docx_parser.py         #     DOCX/TXT 파싱
+│   ├── pipelines/                #   동적 파이프라인 (6개)
 │   │   ├── pipeline_a_simple_qa.py
 │   │   ├── pipeline_b_section.py
 │   │   ├── pipeline_c_compare.py
 │   │   ├── pipeline_d_citation.py
-│   │   └── pipeline_e_summary.py
+│   │   ├── pipeline_e_summary.py
+│   │   └── pipeline_f_quiz.py
 │   ├── evaluation/               #   평가 프레임워크
 │   │   ├── ragas_eval.py
 │   │   ├── ablation_study.py
