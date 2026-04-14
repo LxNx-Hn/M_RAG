@@ -42,86 +42,107 @@ def run(
     """
     doc_type = document.metadata.get("doc_type", "paper")
     steps = []
+    try:
+        if doc_type == "patent" and patent_tracker:
+            citation_info, newly_indexed = _run_patent_tracking(
+                query=query,
+                document=document,
+                collection_name=collection_name,
+                patent_tracker=patent_tracker,
+                section_detector=section_detector,
+                pdf_parser=pdf_parser,
+                chunker=chunker,
+                embedder=embedder,
+                vector_store=vector_store,
+                data_dir=data_dir,
+                steps=steps,
+            )
+        elif doc_type in ("paper", "general"):
+            citation_info, newly_indexed = _run_arxiv_tracking(
+                document=document,
+                collection_name=collection_name,
+                citation_tracker=citation_tracker,
+                section_detector=section_detector,
+                pdf_parser=pdf_parser,
+                chunker=chunker,
+                embedder=embedder,
+                vector_store=vector_store,
+                data_dir=data_dir,
+                steps=steps,
+            )
+        else:
+            citation_info = []
+            newly_indexed = 0
+            steps.append({"step": "skip_citation", "reason": f"doc_type={doc_type}"})
 
-    # 문서 유형별 인용 추적 분기
-    if doc_type == "patent" and patent_tracker:
-        citation_info, newly_indexed = _run_patent_tracking(
+        if newly_indexed > 0:
+            hybrid_retriever.fit_bm25(collection_name)
+
+        search_results = hybrid_retriever.search(
+            collection_name=collection_name,
             query=query,
-            document=document,
-            collection_name=collection_name,
-            patent_tracker=patent_tracker,
-            section_detector=section_detector,
-            pdf_parser=pdf_parser,
-            chunker=chunker,
-            embedder=embedder,
-            vector_store=vector_store,
-            data_dir=data_dir,
-            steps=steps,
         )
-    elif doc_type in ("paper", "general"):
-        citation_info, newly_indexed = _run_arxiv_tracking(
-            document=document,
-            collection_name=collection_name,
-            citation_tracker=citation_tracker,
-            section_detector=section_detector,
-            pdf_parser=pdf_parser,
-            chunker=chunker,
-            embedder=embedder,
-            vector_store=vector_store,
-            data_dir=data_dir,
-            steps=steps,
+        steps.append({"step": "expanded_search", "results_count": len(search_results)})
+        if not search_results:
+            return {
+                "answer": "제공된 문서에서 해당 내용을 찾지 못했습니다. 질문을 구체화하거나 관련 문서를 추가해 주세요.",
+                "sources": "",
+                "source_documents": [],
+                "citations": citation_info,
+                "pipeline": "D_citation",
+                "steps": steps + [{"step": "fallback", "reason": "no_search_results", "fallback": True}],
+            }
+
+        reranked = reranker.rerank(query, search_results)
+        compressed = compressor.compress(reranked, query)
+        compressed = compressor.truncate_to_limit(compressed)
+        if not compressed:
+            return {
+                "answer": "제공된 문서에서 해당 내용을 찾지 못했습니다. 질문을 구체화하거나 관련 문서를 추가해 주세요.",
+                "sources": "",
+                "source_documents": [],
+                "citations": citation_info,
+                "pipeline": "D_citation",
+                "steps": steps + [{"step": "fallback", "reason": "no_context_after_compression", "fallback": True}],
+            }
+
+        context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
+        logits_processor = create_combined_processor(
+            generator=generator,
+            query=query,
+            use_cad=use_cad,
+            cad_alpha=cad_alpha,
+            use_scd=use_scd,
+            scd_beta=scd_beta,
         )
-    else:
-        # lecture 등: 인용 추적 비활성
-        citation_info = []
-        newly_indexed = 0
-        steps.append({"step": "skip_citation", "reason": f"doc_type={doc_type}"})
 
-    # BM25 재구축
-    if newly_indexed > 0:
-        hybrid_retriever.fit_bm25(collection_name)
+        answer = generator.generate(
+            query=query,
+            context=context,
+            template="qa",
+            logits_processor=logits_processor if (use_cad or use_scd) else None,
+        )
+        sources = generator.format_sources(compressed)
 
-    # 확장 검색
-    search_results = hybrid_retriever.search(
-        collection_name=collection_name,
-        query=query,
-    )
-    steps.append({"step": "expanded_search", "results_count": len(search_results)})
-
-    # 재랭킹 + 압축
-    reranked = reranker.rerank(query, search_results)
-    compressed = compressor.compress(reranked, query)
-    compressed = compressor.truncate_to_limit(compressed)
-
-    # 생성 (CAD + SCD)
-    context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
-
-    logits_processor = create_combined_processor(
-        generator=generator,
-        query=query,
-        use_cad=use_cad,
-        cad_alpha=cad_alpha,
-        use_scd=use_scd,
-        scd_beta=scd_beta,
-    )
-
-    answer = generator.generate(
-        query=query,
-        context=context,
-        template="qa",
-        logits_processor=logits_processor if (use_cad or use_scd) else None,
-    )
-
-    sources = generator.format_sources(compressed)
-
-    return {
-        "answer": answer,
-        "sources": sources,
-        "source_documents": compressed,
-        "citations": citation_info,
-        "pipeline": "D_citation",
-        "steps": steps,
-    }
+        return {
+            "answer": answer,
+            "sources": sources,
+            "source_documents": compressed,
+            "citations": citation_info,
+            "pipeline": "D_citation",
+            "steps": steps,
+        }
+    except Exception as exc:
+        logger.error("pipeline_d_citation failed: %s", exc, exc_info=True)
+        return {
+            "answer": "답변 생성 중 일시적 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+            "sources": "",
+            "source_documents": [],
+            "citations": [],
+            "pipeline": "D_citation",
+            "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
+            "error": True,
+        }
 
 
 def _run_arxiv_tracking(

@@ -5,6 +5,10 @@ export interface HealthResponse {
   modules_loaded: boolean
   gpu_available: boolean
   collections: string[]
+  database_connected: boolean
+  chroma_connected: boolean
+  generator_loaded: boolean
+  embedder_loaded: boolean
 }
 
 export interface PaperInfo {
@@ -43,6 +47,8 @@ export interface QueryRequest {
   collection_name?: string
   use_cad?: boolean
   cad_alpha?: number
+  use_scd?: boolean
+  scd_beta?: number
   use_hyde?: boolean
   top_k?: number
   conversation_id?: string
@@ -118,4 +124,10 @@ export interface SSETokenEvent {
 export interface SSEDoneEvent {
   full_answer: string
   follow_ups?: string[]
+}
+
+export interface SSEErrorEvent {
+  error: string
+  detail?: string
+  retryable?: boolean
 }

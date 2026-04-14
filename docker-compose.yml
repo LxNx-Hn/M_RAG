@@ -2,32 +2,47 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: mrag
-      POSTGRES_PASSWORD: mrag
-      POSTGRES_DB: mrag
+      POSTGRES_USER: ${POSTGRES_USER:?required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+      POSTGRES_DB: ${POSTGRES_DB:?required}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mrag"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:?required} -d ${POSTGRES_DB:?required}"]
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://mrag:mrag@db:5432/mrag
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:?required}
+      - CORS_ALLOW_ORIGINS=${CORS_ALLOW_ORIGINS}
+      - CORS_ALLOW_CREDENTIALS=${CORS_ALLOW_CREDENTIALS}
       - TOKENIZERS_PARALLELISM=false
       - LOAD_GPU_MODELS=${LOAD_GPU_MODELS:-false}
+      - GENERATION_MODEL=${GENERATION_MODEL}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENV=${ENV:-production}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-60}
+      - DB_POOL_SIZE=${DB_POOL_SIZE:-20}
+      - DB_MAX_OVERFLOW=${DB_MAX_OVERFLOW:-10}
+      - DB_POOL_RECYCLE=${DB_POOL_RECYCLE:-1800}
+      - GENERATION_QUEUE_TIMEOUT_SECONDS=${GENERATION_QUEUE_TIMEOUT_SECONDS:-29}
+      - GENERATION_CONCURRENCY=${GENERATION_CONCURRENCY:-1}
+      - SECURITY_CSP=${SECURITY_CSP}
+      - CITATION_PDF_ALLOWLIST=${CITATION_PDF_ALLOWLIST}
     volumes:
       - ./backend/data:/app/data
       - ./backend/chroma_db:/app/chroma_db
       - ./backend/evaluation/results:/app/evaluation/results
-      - hf_cache:/root/.cache/huggingface
+      - hf_cache:/home/appuser/.cache/huggingface
     depends_on:
       db:
         condition: service_healthy
@@ -38,6 +53,7 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    restart: unless-stopped
 
   frontend:
     build: ./frontend
@@ -45,6 +61,7 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   pgdata:

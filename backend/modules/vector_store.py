@@ -143,6 +143,14 @@ class VectorStore:
         except Exception as e:
             logger.warning(f"Failed to delete collection '{safe_name}': {e}")
 
+    def delete_by_doc_id(self, collection_name: str, doc_id: str):
+        """Delete vectors that belong to one logical document."""
+        collection = self.get_or_create_collection(collection_name)
+        try:
+            collection.delete(where={"doc_id": doc_id})
+        except Exception as e:
+            logger.warning(f"delete_by_doc_id failed for '{collection_name}/{doc_id}': {e}")
+
     def get_all_doc_ids(self, collection_name: str) -> list[str]:
         """컬렉션 내 모든 고유 doc_id 반환"""
         collection = self.get_or_create_collection(collection_name)

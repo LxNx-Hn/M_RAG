@@ -1,29 +1,26 @@
-"""
-FastAPI 요청/응답 스키마 (Pydantic v2)
-"""
-from pydantic import BaseModel, Field
+"""Pydantic schemas for FastAPI request/response payloads."""
 from typing import Optional
 
+from pydantic import BaseModel, Field
 
-# ─────────────────────────────────────────
-# 공통
-# ─────────────────────────────────────────
+
 class HealthResponse(BaseModel):
     status: str = "ok"
     modules_loaded: bool = False
     gpu_available: bool = False
     collections: list[str] = []
+    database_connected: bool = False
+    chroma_connected: bool = False
+    generator_loaded: bool = False
+    embedder_loaded: bool = False
 
 
-# ─────────────────────────────────────────
-# PDF 업로드
-# ─────────────────────────────────────────
 class PaperInfo(BaseModel):
     doc_id: str
     title: str
     total_pages: int
     num_chunks: int
-    sections: dict[str, int]  # {section_type: block_count}
+    sections: dict[str, int]
 
 
 class UploadResponse(BaseModel):
@@ -32,20 +29,15 @@ class UploadResponse(BaseModel):
     message: str = ""
 
 
-# ─────────────────────────────────────────
-# 질의응답
-# ─────────────────────────────────────────
 class QueryRequest(BaseModel):
-    query: str = Field(..., min_length=1, max_length=2000, description="질의 텍스트")
-    collection_name: str = Field(default="papers", description="검색 컬렉션 이름")
-    # MODULE 13A: CAD (파라메트릭 지식 개입 억제)
-    use_cad: bool = Field(default=True, description="CAD 환각 억제 사용 여부")
-    cad_alpha: float = Field(default=0.5, ge=0.0, le=1.0, description="CAD 억제 강도 (Table 2 ablation)")
-    # MODULE 13B: SCD (Language Drift 억제)
-    use_scd: bool = Field(default=True, description="SCD Language Drift 억제 사용 여부")
-    scd_beta: float = Field(default=0.3, ge=0.0, le=1.0, description="SCD 패널티 강도 (Table 2 ablation)")
-    use_hyde: bool = Field(default=True, description="HyDE 쿼리 확장 사용 여부")
-    top_k: int = Field(default=5, ge=1, le=20, description="최종 반환 문서 수")
+    query: str = Field(..., min_length=1, max_length=2000, description="User question text")
+    collection_name: str = Field(default="papers", min_length=1, max_length=100)
+    use_cad: bool = Field(default=True, description="Enable CAD decoding")
+    cad_alpha: float = Field(default=0.5, ge=0.0, le=1.0)
+    use_scd: bool = Field(default=True, description="Enable SCD decoding")
+    scd_beta: float = Field(default=0.3, ge=0.0, le=1.0)
+    use_hyde: bool = Field(default=True, description="Enable HyDE query expansion")
+    top_k: int = Field(default=5, ge=1, le=20)
 
 
 class SourceDocument(BaseModel):
@@ -58,8 +50,8 @@ class SourceDocument(BaseModel):
 
 
 class RouteInfo(BaseModel):
-    route: str            # A, B, C, D, E, F
-    route_name: str       # 한국어 설명
+    route: str
+    route_name: str
     section_filter: Optional[str] = None
     confidence: float = 0.0
 
@@ -73,14 +65,11 @@ class QueryResponse(BaseModel):
     follow_ups: list[str] = []
 
 
-# ─────────────────────────────────────────
-# 검색 전용 (생성 없이)
-# ─────────────────────────────────────────
 class SearchRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=2000)
-    collection_name: str = "papers"
-    section_filter: Optional[str] = None
-    doc_id_filter: Optional[str] = None
+    collection_name: str = Field(default="papers", min_length=1, max_length=100)
+    section_filter: Optional[str] = Field(default=None, max_length=100)
+    doc_id_filter: Optional[str] = Field(default=None, max_length=255)
     top_k: int = Field(default=10, ge=1, le=50)
 
 
@@ -90,9 +79,6 @@ class SearchResponse(BaseModel):
     bm25_fitted: bool = False
 
 
-# ─────────────────────────────────────────
-# 컬렉션 관리
-# ─────────────────────────────────────────
 class CollectionInfo(BaseModel):
     name: str
     count: int
@@ -103,12 +89,9 @@ class CollectionListResponse(BaseModel):
     collections: list[CollectionInfo] = []
 
 
-# ─────────────────────────────────────────
-# 인용 추적
-# ─────────────────────────────────────────
 class CitationRequest(BaseModel):
-    doc_id: str
-    collection_name: str = "papers"
+    doc_id: str = Field(..., min_length=1, max_length=255)
+    collection_name: str = Field(default="papers", min_length=1, max_length=100)
     max_citations: int = Field(default=5, ge=1, le=20)
 
 
@@ -130,14 +113,14 @@ class CitationResponse(BaseModel):
 
 
 class CitationListRequest(BaseModel):
-    doc_id: str
-    collection_name: str = "papers"
+    doc_id: str = Field(..., min_length=1, max_length=255)
+    collection_name: str = Field(default="papers", min_length=1, max_length=100)
 
 
 class CitationDownloadRequest(BaseModel):
-    doc_id: str
-    citation_index: int = Field(..., ge=0, description="인용 목록 내 인덱스")
-    collection_name: str = "papers"
+    doc_id: str = Field(..., min_length=1, max_length=255)
+    citation_index: int = Field(..., ge=0)
+    collection_name: str = Field(default="papers", min_length=1, max_length=100)
 
 
 class CitationDownloadResponse(BaseModel):
@@ -147,10 +130,7 @@ class CitationDownloadResponse(BaseModel):
     message: str = ""
 
 
-# ─────────────────────────────────────────
-# PPT 내보내기
-# ─────────────────────────────────────────
 class PPTExportRequest(BaseModel):
-    answer: str = Field(..., min_length=1, description="요약 답변 텍스트")
-    title: str = Field(default="M-RAG Summary", description="PPT 타이틀")
-    subtitle: str = Field(default="", description="서브타이틀")
+    answer: str = Field(..., min_length=1)
+    title: str = Field(default="M-RAG Summary")
+    subtitle: str = Field(default="")

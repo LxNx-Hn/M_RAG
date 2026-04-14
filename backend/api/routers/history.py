@@ -1,13 +1,16 @@
 """
-/api/history — 대화 기록 관리
+/api/history - conversation history management
 """
 import logging
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from typing import Optional
+from sqlalchemy import select
 
+from api.auth import get_current_user_id
 from api.database import get_db
+from api.models import Conversation, Message
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/history", tags=["history"])
@@ -23,132 +26,159 @@ class MessageCreate(BaseModel):
     metadata_json: Optional[dict] = None
 
 
+async def _get_owned_conversation(db, conversation_id: str, user_id: str) -> Conversation:
+    result = await db.execute(
+        select(Conversation).where(
+            Conversation.id == conversation_id,
+            Conversation.user_id == user_id,
+        )
+    )
+    conversation = result.scalar_one_or_none()
+    if conversation is None:
+        raise HTTPException(404, "Conversation not found.")
+    return conversation
+
+
 @router.get("/conversations")
-async def list_conversations(db=Depends(get_db)):
-    """대화 목록 조회"""
+async def list_conversations(
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """List user-owned conversations."""
     if db is None:
         return {"conversations": []}
 
     try:
-        from sqlalchemy import select
-        from api.models import Conversation
-
         result = await db.execute(
-            select(Conversation).order_by(Conversation.updated_at.desc()).limit(50)
+            select(Conversation)
+            .where(Conversation.user_id == user_id)
+            .order_by(Conversation.updated_at.desc())
+            .limit(50)
         )
-        convs = result.scalars().all()
+        conversations = result.scalars().all()
         return {
             "conversations": [
                 {
-                    "id": c.id,
-                    "title": c.title,
-                    "created_at": c.created_at.isoformat() if c.created_at else None,
-                    "updated_at": c.updated_at.isoformat() if c.updated_at else None,
+                    "id": conv.id,
+                    "title": conv.title,
+                    "created_at": conv.created_at.isoformat() if conv.created_at else None,
+                    "updated_at": conv.updated_at.isoformat() if conv.updated_at else None,
                 }
-                for c in convs
+                for conv in conversations
             ]
         }
-    except Exception as e:
-        logger.error(f"List conversations failed: {e}")
+    except Exception as exc:
+        logger.error("List conversations failed: %s", exc)
         return {"conversations": []}
 
 
 @router.post("/conversations")
-async def create_conversation(req: ConversationCreate, db=Depends(get_db)):
-    """새 대화 생성"""
+async def create_conversation(
+    req: ConversationCreate,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Create a conversation owned by current user."""
     if db is None:
         raise HTTPException(503, "Database not available")
 
     try:
-        from api.models import Conversation
-
-        conv = Conversation(title=req.title)
-        db.add(conv)
+        conversation = Conversation(title=req.title, user_id=user_id)
+        db.add(conversation)
         await db.commit()
-        await db.refresh(conv)
-        return {"id": conv.id, "title": conv.title}
-    except Exception as e:
-        logger.error(f"Create conversation failed: {e}")
-        raise HTTPException(500, str(e))
+        await db.refresh(conversation)
+        return {"id": conversation.id, "title": conversation.title}
+    except Exception as exc:
+        logger.error("Create conversation failed: %s", exc)
+        raise HTTPException(500, "Failed to create conversation.")
 
 
 @router.get("/conversations/{conversation_id}/messages")
-async def get_messages(conversation_id: str, db=Depends(get_db)):
-    """대화 메시지 조회"""
+async def get_messages(
+    conversation_id: str,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Get messages for an owned conversation."""
     if db is None:
         return {"messages": []}
 
     try:
-        from sqlalchemy import select
-        from api.models import Message
-
+        await _get_owned_conversation(db, conversation_id, user_id)
         result = await db.execute(
             select(Message)
             .where(Message.conversation_id == conversation_id)
             .order_by(Message.created_at)
         )
-        msgs = result.scalars().all()
+        messages = result.scalars().all()
         return {
             "messages": [
                 {
-                    "id": m.id,
-                    "role": m.role,
-                    "content": m.content,
-                    "metadata": m.metadata_json,
-                    "created_at": m.created_at.isoformat() if m.created_at else None,
+                    "id": msg.id,
+                    "role": msg.role,
+                    "content": msg.content,
+                    "metadata": msg.metadata_json,
+                    "created_at": msg.created_at.isoformat() if msg.created_at else None,
                 }
-                for m in msgs
+                for msg in messages
             ]
         }
-    except Exception as e:
-        logger.error(f"Get messages failed: {e}")
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Get messages failed: %s", exc)
         return {"messages": []}
 
 
 @router.post("/conversations/{conversation_id}/messages")
-async def add_message(conversation_id: str, req: MessageCreate, db=Depends(get_db)):
-    """메시지 추가"""
+async def add_message(
+    conversation_id: str,
+    req: MessageCreate,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Add message to an owned conversation."""
     if db is None:
         raise HTTPException(503, "Database not available")
 
     try:
-        from api.models import Message
+        await _get_owned_conversation(db, conversation_id, user_id)
 
-        msg = Message(
+        message = Message(
             conversation_id=conversation_id,
             role=req.role,
             content=req.content,
             metadata_json=req.metadata_json or {},
         )
-        db.add(msg)
+        db.add(message)
         await db.commit()
-        await db.refresh(msg)
-        return {"id": msg.id, "role": msg.role}
-    except Exception as e:
-        logger.error(f"Add message failed: {e}")
-        raise HTTPException(500, str(e))
+        await db.refresh(message)
+        return {"id": message.id, "role": message.role}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Add message failed: %s", exc)
+        raise HTTPException(500, "Failed to add message.")
 
 
 @router.delete("/conversations/{conversation_id}")
-async def delete_conversation(conversation_id: str, db=Depends(get_db)):
-    """대화 삭제"""
+async def delete_conversation(
+    conversation_id: str,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Delete an owned conversation."""
     if db is None:
         raise HTTPException(503, "Database not available")
 
     try:
-        from sqlalchemy import select
-        from api.models import Conversation
-
-        result = await db.execute(select(Conversation).where(Conversation.id == conversation_id))
-        conv = result.scalar_one_or_none()
-        if not conv:
-            raise HTTPException(404, "대화를 찾을 수 없습니다.")
-
-        await db.delete(conv)
+        conversation = await _get_owned_conversation(db, conversation_id, user_id)
+        await db.delete(conversation)
         await db.commit()
-        return {"message": "삭제 완료"}
+        return {"message": "Conversation deleted."}
     except HTTPException:
         raise
-    except Exception as e:
-        logger.error(f"Delete conversation failed: {e}")
-        raise HTTPException(500, str(e))
+    except Exception as exc:
+        logger.error("Delete conversation failed: %s", exc)
+        raise HTTPException(500, "Failed to delete conversation.")
+

@@ -1,22 +1,28 @@
 """
-데이터베이스 연결 (SQLite 기본, PostgreSQL 옵션)
-포트폴리오 환경에서는 SQLite로 충분, 프로덕션에서 PostgreSQL 전환 가능
+Database connection utilities.
 """
-import os
 import logging
+import os
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-# SQLite 기본 (별도 설치 불필요), PostgreSQL은 DATABASE_URL 환경변수로 전환
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    f"sqlite+aiosqlite:///{Path(__file__).parent.parent / 'mrag.db'}"
+    f"sqlite+aiosqlite:///{Path(__file__).parent.parent / 'mrag.db'}",
 )
 
-# SQLAlchemy 사용 가능 여부 확인
 _engine = None
 _SessionLocal = None
+
+
+def get_sync_database_url() -> str:
+    """Return a sync SQLAlchemy URL for Alembic and ops tooling."""
+    if DATABASE_URL.startswith("postgresql+asyncpg://"):
+        return DATABASE_URL.replace("postgresql+asyncpg://", "postgresql+psycopg2://", 1)
+    if DATABASE_URL.startswith("sqlite+aiosqlite://"):
+        return DATABASE_URL.replace("sqlite+aiosqlite://", "sqlite://", 1)
+    return DATABASE_URL
 
 
 def get_engine():
@@ -25,7 +31,18 @@ def get_engine():
         return _engine
     try:
         from sqlalchemy.ext.asyncio import create_async_engine
-        _engine = create_async_engine(DATABASE_URL, echo=False)
+
+        engine_kwargs = {"echo": False}
+        if not DATABASE_URL.startswith("sqlite"):
+            engine_kwargs.update(
+                {
+                    "pool_size": int(os.environ.get("DB_POOL_SIZE", "20")),
+                    "max_overflow": int(os.environ.get("DB_MAX_OVERFLOW", "10")),
+                    "pool_pre_ping": True,
+                    "pool_recycle": int(os.environ.get("DB_POOL_RECYCLE", "1800")),
+                }
+            )
+        _engine = create_async_engine(DATABASE_URL, **engine_kwargs)
         return _engine
     except ImportError:
         logger.warning("SQLAlchemy not installed, DB features disabled")
@@ -38,6 +55,7 @@ def get_session_factory():
         return _SessionLocal
     try:
         from sqlalchemy.ext.asyncio import async_sessionmaker
+
         engine = get_engine()
         if engine is None:
             return None
@@ -48,25 +66,27 @@ def get_session_factory():
 
 
 async def init_db():
-    """테이블 생성"""
+    """Create tables when needed."""
     engine = get_engine()
     if engine is None:
         logger.warning("DB engine not available, skipping table creation")
         return
     try:
         from api.models import Base
+
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables created")
-    except Exception as e:
-        logger.warning(f"DB init failed (non-critical): {e}")
+    except Exception as exc:
+        logger.warning("DB init failed (non-critical): %s", exc)
 
 
 async def get_db():
-    """FastAPI Depends용 DB 세션"""
+    """FastAPI dependency for DB session."""
     factory = get_session_factory()
     if factory is None:
         yield None
         return
     async with factory() as session:
         yield session
+

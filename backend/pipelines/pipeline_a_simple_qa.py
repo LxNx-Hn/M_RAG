@@ -1,6 +1,5 @@
 """
-Pipeline A: 단순 QA
-쿼리 → HyDE 확장 → 하이브리드 검색 → 재랭킹 → 압축 → 생성 (CAD+SCD) → 답변
+Pipeline A: simple QA.
 """
 import logging
 
@@ -8,6 +7,16 @@ from config import CAD_ALPHA, SCD_BETA
 from modules.scd_decoder import create_combined_processor
 
 logger = logging.getLogger(__name__)
+
+
+def _fallback_response(pipeline: str, steps: list[dict], reason: str) -> dict:
+    return {
+        "answer": "제공된 문서에서 해당 내용을 찾지 못했습니다. 질문을 구체화하거나 관련 문서를 추가해 주세요.",
+        "sources": "",
+        "source_documents": [],
+        "pipeline": pipeline,
+        "steps": steps + [{"step": "fallback", "reason": reason, "fallback": True}],
+    }
 
 
 def run(
@@ -18,69 +27,85 @@ def run(
     compressor,
     generator,
     query_expander=None,
+    use_hyde: bool = True,
     use_cad: bool = True,
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
 ) -> dict:
-    """단순 QA 파이프라인 실행"""
+    """Run simple QA pipeline."""
     steps = []
+    try:
+        hyde_doc = None
+        if query_expander and use_hyde:
+            expansion = query_expander.expand(query, use_hyde=True, use_multi=False)
+            hyde_doc = expansion.get("hyde_doc")
+            steps.append({"step": "query_expansion", "hyde_used": hyde_doc is not None})
+        else:
+            steps.append({"step": "query_expansion", "hyde_used": False})
 
-    # 1. 쿼리 확장 (HyDE)
-    hyde_doc = None
-    if query_expander:
-        expansion = query_expander.expand(query, use_hyde=True, use_multi=False)
-        hyde_doc = expansion.get("hyde_doc")
-        steps.append({"step": "query_expansion", "hyde_used": hyde_doc is not None})
+        search_results = hybrid_retriever.search(
+            collection_name=collection_name,
+            query=query,
+            hyde_doc=hyde_doc,
+        )
+        steps.append({"step": "hybrid_search", "results_count": len(search_results)})
+        if not search_results:
+            return _fallback_response("A_simple_qa", steps, "no_search_results")
 
-    # 2. 하이브리드 검색
-    search_results = hybrid_retriever.search(
-        collection_name=collection_name,
-        query=query,
-        hyde_doc=hyde_doc,
-    )
-    steps.append({"step": "hybrid_search", "results_count": len(search_results)})
+        reranked = reranker.rerank(query, search_results)
+        steps.append({"step": "reranking", "top_k": len(reranked)})
+        if not reranked:
+            return _fallback_response("A_simple_qa", steps, "no_rerank_results")
 
-    # 3. 재랭킹
-    reranked = reranker.rerank(query, search_results)
-    steps.append({"step": "reranking", "top_k": len(reranked)})
+        compressed = compressor.compress(reranked, query, strategy="extractive")
+        compressed = compressor.truncate_to_limit(compressed)
+        steps.append({"step": "compression", "docs_count": len(compressed)})
+        if not compressed:
+            return _fallback_response("A_simple_qa", steps, "no_context_after_compression")
 
-    # 4. 컨텍스트 압축
-    compressed = compressor.compress(reranked, query, strategy="extractive")
-    compressed = compressor.truncate_to_limit(compressed)
-    steps.append({"step": "compression", "docs_count": len(compressed)})
+        context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
+        logits_processor = create_combined_processor(
+            generator=generator,
+            query=query,
+            use_cad=use_cad,
+            cad_alpha=cad_alpha,
+            use_scd=use_scd,
+            scd_beta=scd_beta,
+        )
+        steps.append(
+            {
+                "step": "decoder",
+                "cad_enabled": use_cad,
+                "cad_alpha": cad_alpha,
+                "scd_enabled": use_scd,
+                "scd_beta": scd_beta,
+            }
+        )
 
-    # 5. 컨텍스트 조합
-    context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
+        answer = generator.generate(
+            query=query,
+            context=context,
+            template="qa",
+            logits_processor=logits_processor if (use_cad or use_scd) else None,
+        )
+        sources = generator.format_sources(compressed)
 
-    # 6. 생성 (CAD + SCD 병렬 적용)
-    logits_processor = create_combined_processor(
-        generator=generator,
-        query=query,
-        use_cad=use_cad,
-        cad_alpha=cad_alpha,
-        use_scd=use_scd,
-        scd_beta=scd_beta,
-    )
-    steps.append({
-        "step": "decoder",
-        "cad_enabled": use_cad, "cad_alpha": cad_alpha,
-        "scd_enabled": use_scd, "scd_beta": scd_beta,
-    })
+        return {
+            "answer": answer,
+            "sources": sources,
+            "source_documents": compressed,
+            "pipeline": "A_simple_qa",
+            "steps": steps,
+        }
+    except Exception as exc:
+        logger.error("pipeline_a_simple_qa failed: %s", exc, exc_info=True)
+        return {
+            "answer": "답변 생성 중 일시적 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+            "sources": "",
+            "source_documents": [],
+            "pipeline": "A_simple_qa",
+            "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
+            "error": True,
+        }
 
-    answer = generator.generate(
-        query=query,
-        context=context,
-        template="qa",
-        logits_processor=logits_processor if (use_cad or use_scd) else None,
-    )
-
-    sources = generator.format_sources(compressed)
-
-    return {
-        "answer": answer,
-        "sources": sources,
-        "source_documents": compressed,
-        "pipeline": "A_simple_qa",
-        "steps": steps,
-    }

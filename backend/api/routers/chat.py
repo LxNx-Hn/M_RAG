@@ -1,40 +1,108 @@
 """
-/api/chat — 질의응답 (핵심 RAG 파이프라인)
+/api/chat - query, streaming, search, and export endpoints
 """
+import asyncio
 import json
 import logging
+import os
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
-from config import DATA_DIR
+from api.auth import get_current_user_id
+from api.database import get_db
 from api.dependencies import ModuleManager, get_modules
+from api.limiter import limiter
+from api.routers.papers import get_papers, namespace_collection_name
 from api.schemas import (
-    QueryRequest, QueryResponse, RouteInfo, SourceDocument,
-    SearchRequest, SearchResponse, PPTExportRequest,
+    PPTExportRequest,
+    QueryRequest,
+    QueryResponse,
+    RouteInfo,
+    SearchRequest,
+    SearchResponse,
+    SourceDocument,
 )
-from api.routers.papers import get_papers
-from modules.query_router import RouteType
+from config import DATA_DIR
 from modules.followup_generator import generate_followups
+from modules.query_router import RouteType
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
+STREAM_PIPELINE_TIMEOUT_SECONDS = 120
+GENERATION_QUEUE_TIMEOUT_SECONDS = int(os.environ.get("GENERATION_QUEUE_TIMEOUT_SECONDS", "29"))
+GENERATION_CONCURRENCY = max(1, int(os.environ.get("GENERATION_CONCURRENCY", "1")))
+_generation_semaphore = asyncio.Semaphore(GENERATION_CONCURRENCY)
+
+
+def _to_source_documents(documents: list[dict], truncate: bool = True) -> list[SourceDocument]:
+    return [
+        SourceDocument(
+            chunk_id=doc.get("chunk_id", ""),
+            content=(doc.get("content", "")[:500] if truncate else doc.get("content", "")),
+            section_type=doc.get("metadata", {}).get("section_type", "unknown"),
+            doc_id=doc.get("metadata", {}).get("doc_id", ""),
+            page=doc.get("metadata", {}).get("page", 0),
+            score=doc.get("rerank_score", doc.get("rrf_score", 0.0)),
+        )
+        for doc in documents
+    ]
+
+
+def _chunk_text(text: str, chunk_size: int = 24):
+    for i in range(0, len(text), chunk_size):
+        yield text[i:i + chunk_size]
+
+
+async def _run_pipeline_with_generation_gate(
+    decision,
+    req: QueryRequest,
+    m: ModuleManager,
+    available_docs: list[str],
+    papers: dict,
+    internal_collection_name: str,
+) -> dict:
+    acquired = False
+    try:
+        await asyncio.wait_for(_generation_semaphore.acquire(), timeout=GENERATION_QUEUE_TIMEOUT_SECONDS)
+        acquired = True
+    except asyncio.TimeoutError:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Generation queue is full. Retry after {GENERATION_QUEUE_TIMEOUT_SECONDS}s.",
+        )
+
+    try:
+        return await asyncio.to_thread(
+            _run_pipeline,
+            decision,
+            req,
+            m,
+            available_docs,
+            papers,
+            internal_collection_name,
+        )
+    finally:
+        if acquired:
+            _generation_semaphore.release()
+
 
 @router.post("/query", response_model=QueryResponse)
+@limiter.limit("20/minute")
 async def query(
+    request: Request,
     req: QueryRequest,
+    user_id: str = Depends(get_current_user_id),
     m: ModuleManager = Depends(get_modules),
+    db=Depends(get_db),
 ):
-    """쿼리 → 라우터 → 파이프라인 → 답변"""
-
-    papers = get_papers()
+    internal_collection_name = namespace_collection_name(user_id, req.collection_name)
+    papers = await get_papers(db, user_id, req.collection_name)
     available_docs = list(papers.keys())
-
     if not available_docs:
-        raise HTTPException(400, "업로드된 논문이 없습니다. 먼저 PDF를 업로드하세요.")
+        raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
 
-    # 1. 쿼리 라우팅
     decision = m.query_router.route(req.query, available_docs)
     route_info = RouteInfo(
         route=decision.route.value,
@@ -43,28 +111,15 @@ async def query(
         confidence=decision.confidence,
     )
 
-    # 2. 생성 모델 없으면 검색 결과만 반환
     if not m.has_generator:
         search_results = m.hybrid_retriever.search(
-            collection_name=req.collection_name,
+            collection_name=internal_collection_name,
             query=req.query,
             top_k=req.top_k,
         )
         reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
-
-        sources = [
-            SourceDocument(
-                chunk_id=doc.get("chunk_id", ""),
-                content=doc["content"],
-                section_type=doc.get("metadata", {}).get("section_type", "unknown"),
-                doc_id=doc.get("metadata", {}).get("doc_id", ""),
-                page=doc.get("metadata", {}).get("page", 0),
-                score=doc.get("rerank_score", 0.0),
-            )
-            for doc in reranked
-        ]
-
-        no_gen_answer = "[생성 모델 미로드] 검색 결과만 반환합니다.\n\n" + "\n\n---\n\n".join(
+        sources = _to_source_documents(reranked, truncate=False)
+        no_gen_answer = "[Generator not loaded: returning search results only]\n\n" + "\n\n---\n\n".join(
             f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
             for s in sources
         )
@@ -75,32 +130,26 @@ async def query(
             steps=[{"step": "search_only", "reason": "no_generator"}],
             pipeline=f"{decision.route.value}_search_only",
             follow_ups=generate_followups(
-                query=req.query, answer=no_gen_answer,
+                query=req.query,
+                answer=no_gen_answer,
                 route=decision.route.value,
                 section_filter=decision.section_filter,
             ),
         )
 
-    # 3. 전체 파이프라인 실행
-    result = _run_pipeline(
-        decision, req, m, available_docs, papers
+    result = await _run_pipeline_with_generation_gate(
+        decision,
+        req,
+        m,
+        available_docs,
+        papers,
+        internal_collection_name,
     )
-
-    sources = [
-        SourceDocument(
-            chunk_id=doc.get("chunk_id", ""),
-            content=doc["content"][:500],
-            section_type=doc.get("metadata", {}).get("section_type", "unknown"),
-            doc_id=doc.get("metadata", {}).get("doc_id", ""),
-            page=doc.get("metadata", {}).get("page", 0),
-            score=doc.get("rerank_score", doc.get("rrf_score", 0.0)),
-        )
-        for doc in result.get("source_documents", [])
-    ]
-
+    sources = _to_source_documents(result.get("source_documents", []), truncate=True)
     answer_text = result.get("answer", "")
     follow_ups = generate_followups(
-        query=req.query, answer=answer_text,
+        query=req.query,
+        answer=answer_text,
         route=decision.route.value,
         section_filter=decision.section_filter,
         generator=m.generator if m.has_generator else None,
@@ -117,20 +166,20 @@ async def query(
 
 
 @router.post("/query/stream")
+@limiter.limit("20/minute")
 async def query_stream(
+    request: Request,
     req: QueryRequest,
+    user_id: str = Depends(get_current_user_id),
     m: ModuleManager = Depends(get_modules),
+    db=Depends(get_db),
 ):
-    """SSE 스트리밍 질의응답 — 프론트엔드용"""
-    import asyncio
-
-    papers = get_papers()
+    internal_collection_name = namespace_collection_name(user_id, req.collection_name)
+    papers = await get_papers(db, user_id, req.collection_name)
     available_docs = list(papers.keys())
-
     if not available_docs:
-        raise HTTPException(400, "업로드된 논문이 없습니다. 먼저 PDF를 업로드하세요.")
+        raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
 
-    # 라우팅
     decision = m.query_router.route(req.query, available_docs)
     route_info = {
         "route": decision.route.value,
@@ -139,71 +188,125 @@ async def query_stream(
         "confidence": decision.confidence,
     }
 
-    async def event_generator():
-        # 1. 검색 + 리랭킹 (동기)
-        search_results = m.hybrid_retriever.search(
-            collection_name=req.collection_name,
-            query=req.query,
-            top_k=req.top_k,
-        )
-        reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
+    def sse_event(event: str, payload: dict) -> str:
+        return f"event: {event}\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
 
-        sources = [
-            {
-                "chunk_id": doc.get("chunk_id", ""),
-                "content": doc["content"][:500],
-                "section_type": doc.get("metadata", {}).get("section_type", "unknown"),
-                "doc_id": doc.get("metadata", {}).get("doc_id", ""),
-                "page": doc.get("metadata", {}).get("page", 0),
-                "score": doc.get("rerank_score", 0.0),
-            }
-            for doc in reranked
-        ]
-
-        # 메타데이터 이벤트 전송
-        metadata = {"route": route_info, "sources": sources, "steps": []}
-        yield f"event: metadata\ndata: {json.dumps(metadata, ensure_ascii=False)}\n\n"
-
-        # 2. 생성 모델 없으면 검색 결과만
-        if not m.has_generator:
-            answer = "[생성 모델 미로드] 검색 결과만 반환합니다.\n\n" + "\n\n---\n\n".join(
-                f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
-                for s in sources
+    generation_gate_acquired = False
+    if m.has_generator:
+        try:
+            await asyncio.wait_for(_generation_semaphore.acquire(), timeout=GENERATION_QUEUE_TIMEOUT_SECONDS)
+            generation_gate_acquired = True
+        except asyncio.TimeoutError:
+            raise HTTPException(
+                status_code=429,
+                detail=f"Generation queue is full. Retry after {GENERATION_QUEUE_TIMEOUT_SECONDS}s.",
             )
+
+    async def event_generator():
+        try:
+            if not m.has_generator:
+                search_results = m.hybrid_retriever.search(
+                    collection_name=internal_collection_name,
+                    query=req.query,
+                    top_k=req.top_k,
+                )
+                reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
+                sources = [
+                    {
+                        "chunk_id": doc.get("chunk_id", ""),
+                        "content": doc.get("content", "")[:500],
+                        "section_type": doc.get("metadata", {}).get("section_type", "unknown"),
+                        "doc_id": doc.get("metadata", {}).get("doc_id", ""),
+                        "page": doc.get("metadata", {}).get("page", 0),
+                        "score": doc.get("rerank_score", 0.0),
+                    }
+                    for doc in reranked
+                ]
+                answer = "[Generator not loaded: returning search results only]\n\n" + "\n\n---\n\n".join(
+                    f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
+                    for s in sources
+                )
+                follow_ups = generate_followups(
+                    query=req.query,
+                    answer=answer,
+                    route=decision.route.value,
+                    section_filter=decision.section_filter,
+                )
+                yield sse_event("metadata", {"route": route_info, "sources": sources, "steps": []})
+                yield sse_event("token", {"token": answer})
+                yield sse_event("done", {"full_answer": answer, "follow_ups": follow_ups})
+                return
+
+            result = await asyncio.wait_for(
+                asyncio.to_thread(
+                    _run_pipeline,
+                    decision,
+                    req,
+                    m,
+                    available_docs,
+                    papers,
+                    internal_collection_name,
+                ),
+                # Keep stream path behavior aligned with non-stream pipeline execution.
+                timeout=STREAM_PIPELINE_TIMEOUT_SECONDS,
+            )
+            source_docs = _to_source_documents(result.get("source_documents", []), truncate=True)
+            sources = [doc.model_dump() for doc in source_docs]
+            steps = result.get("steps", [])
+            pipeline_name = result.get("pipeline", "")
+
+            answer_text = result.get("answer", "") or "No answer generated."
             follow_ups = generate_followups(
-                query=req.query, answer=answer,
+                query=req.query,
+                answer=answer_text,
                 route=decision.route.value,
                 section_filter=decision.section_filter,
+                generator=m.generator if m.has_generator else None,
             )
-            yield f"event: token\ndata: {json.dumps({'token': answer}, ensure_ascii=False)}\n\n"
-            yield f"event: done\ndata: {json.dumps({'full_answer': answer, 'follow_ups': follow_ups}, ensure_ascii=False)}\n\n"
-            return
 
-        # 3. 스트리밍 생성
-        context = "\n\n".join(doc["content"] for doc in reranked[:5])
-        full_answer = ""
-
-        try:
-            for token_text in m.generator.generate_stream(
-                query=req.query,
-                context=context,
-            ):
-                full_answer += token_text
-                yield f"event: token\ndata: {json.dumps({'token': token_text}, ensure_ascii=False)}\n\n"
-                await asyncio.sleep(0)  # yield control to event loop
-        except Exception as e:
-            logger.error(f"Streaming generation error: {e}")
-            if not full_answer:
-                full_answer = f"생성 중 오류가 발생했습니다: {str(e)}"
-                yield f"event: token\ndata: {json.dumps({'token': full_answer}, ensure_ascii=False)}\n\n"
-
-        follow_ups = generate_followups(
-            query=req.query, answer=full_answer,
-            route=decision.route.value,
-            section_filter=decision.section_filter,
-            generator=m.generator if m.has_generator else None,
-        )
-        yield f"event: done\ndata: {json.dumps({'full_answer': full_answer, 'follow_ups': follow_ups}, ensure_ascii=False)}\n\n"
+            yield sse_event(
+                "metadata",
+                {
+                    "route": route_info,
+                    "sources": sources,
+                    "steps": steps,
+                    "pipeline": pipeline_name,
+                },
+            )
+            for text_chunk in _chunk_text(answer_text):
+                yield sse_event("token", {"token": text_chunk})
+                await asyncio.sleep(0)
+            yield sse_event(
+                "done",
+                {
+                    "full_answer": answer_text,
+                    "follow_ups": follow_ups,
+                    "pipeline": pipeline_name,
+                },
+            )
+        except asyncio.TimeoutError:
+            logger.error("Streaming pipeline timed out after %ss", STREAM_PIPELINE_TIMEOUT_SECONDS)
+            yield sse_event(
+                "error",
+                {
+                    "error": "stream_timeout",
+                    "detail": f"Pipeline exceeded {STREAM_PIPELINE_TIMEOUT_SECONDS}s timeout",
+                    "retryable": True,
+                },
+            )
+        except Exception as exc:
+            logger.error("Streaming generation error: %s", exc, exc_info=True)
+            yield sse_event(
+                "error",
+                {
+                    "error": "stream_generation_failed",
+                    "detail": "Streaming failed during pipeline execution",
+                    "retryable": True,
+                },
+            )
+        finally:
+            if generation_gate_acquired:
+                _generation_semaphore.release()
 
     return StreamingResponse(
         event_generator(),
@@ -219,42 +322,33 @@ async def query_stream(
 @router.post("/search", response_model=SearchResponse)
 async def search_only(
     req: SearchRequest,
+    user_id: str = Depends(get_current_user_id),
     m: ModuleManager = Depends(get_modules),
+    db=Depends(get_db),
 ):
-    """생성 없이 검색만 수행 (디버깅, 프론트엔드용)"""
+    internal_collection_name = namespace_collection_name(user_id, req.collection_name)
+    papers = await get_papers(db, user_id, req.collection_name)
+    if not papers:
+        raise HTTPException(404, "Collection not found.")
 
     results = m.hybrid_retriever.search(
-        collection_name=req.collection_name,
+        collection_name=internal_collection_name,
         query=req.query,
         top_k=req.top_k,
         section_filter=req.section_filter,
         doc_id_filter=req.doc_id_filter,
     )
-
     reranked = m.reranker.rerank(req.query, results, top_k=req.top_k)
-
-    sources = [
-        SourceDocument(
-            chunk_id=doc.get("chunk_id", ""),
-            content=doc["content"],
-            section_type=doc.get("metadata", {}).get("section_type", "unknown"),
-            doc_id=doc.get("metadata", {}).get("doc_id", ""),
-            page=doc.get("metadata", {}).get("page", 0),
-            score=doc.get("rerank_score", 0.0),
-        )
-        for doc in reranked
-    ]
-
-    return SearchResponse(
-        results=sources,
-        total=len(sources),
-        bm25_fitted=m.hybrid_retriever._bm25_fitted,
-    )
+    sources = _to_source_documents(reranked, truncate=False)
+    bm25_fitted = m.hybrid_retriever.has_bm25_for_collection(internal_collection_name)
+    return SearchResponse(results=sources, total=len(sources), bm25_fitted=bm25_fitted)
 
 
 @router.post("/export/ppt")
-async def export_ppt(req: PPTExportRequest):
-    """요약 답변을 PPTX 파일로 변환하여 다운로드"""
+async def export_ppt(
+    req: PPTExportRequest,
+    _: str = Depends(get_current_user_id),
+):
     from modules.pptx_exporter import create_pptx
 
     pptx_bytes = create_pptx(
@@ -265,12 +359,11 @@ async def export_ppt(req: PPTExportRequest):
     return StreamingResponse(
         pptx_bytes,
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        headers={"Content-Disposition": f'attachment; filename="m-rag-summary.pptx"'},
+        headers={"Content-Disposition": 'attachment; filename="m-rag-summary.pptx"'},
     )
 
 
-def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
-    """라우터 결정에 따라 파이프라인 실행"""
+def _run_pipeline(decision, req, m, available_docs, papers, internal_collection_name: str) -> dict:
     from pipelines import (
         pipeline_a_simple_qa,
         pipeline_b_section,
@@ -280,7 +373,7 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
     )
     from modules.section_detector import SectionDetector
 
-    col = req.collection_name
+    col = internal_collection_name
     hr = m.hybrid_retriever
     rr = m.reranker
     comp = m.compressor
@@ -289,40 +382,96 @@ def _run_pipeline(decision, req, m, available_docs, papers) -> dict:
 
     if decision.route == RouteType.SECTION:
         return pipeline_b_section.run(
-            req.query, col, decision.section_filter,
-            hr, rr, comp, gen,
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+            req.query,
+            col,
+            decision.section_filter,
+            hr,
+            rr,
+            comp,
+            gen,
+            req.use_cad,
+            req.cad_alpha,
+            req.use_scd,
+            req.scd_beta,
         )
-    elif decision.route == RouteType.COMPARE:
+    if decision.route == RouteType.COMPARE:
         return pipeline_c_compare.run(
-            req.query, col, decision.target_doc_ids,
-            hr, rr, comp, gen,
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+            req.query,
+            col,
+            decision.target_doc_ids,
+            hr,
+            rr,
+            comp,
+            gen,
+            req.use_cad,
+            req.cad_alpha,
+            req.use_scd,
+            req.scd_beta,
         )
-    elif decision.route == RouteType.CITATION:
+    if decision.route == RouteType.CITATION:
         doc = papers[available_docs[0]]
-        from modules.pdf_parser import PDFParser
         from modules.chunker import Chunker
+        from modules.pdf_parser import PDFParser
         from pipelines import pipeline_d_citation
+
         return pipeline_d_citation.run(
-            req.query, col, doc, hr, rr, comp, gen,
-            m.citation_tracker, m.embedder, m.vector_store,
-            SectionDetector(), PDFParser(), Chunker(),
+            req.query,
+            col,
+            doc,
+            hr,
+            rr,
+            comp,
+            gen,
+            m.citation_tracker,
+            m.embedder,
+            m.vector_store,
+            SectionDetector(),
+            PDFParser(),
+            Chunker(),
             str(DATA_DIR),
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+            req.use_cad,
+            req.cad_alpha,
+            req.use_scd,
+            req.scd_beta,
         )
-    elif decision.route == RouteType.SUMMARY:
+    if decision.route == RouteType.SUMMARY:
         return pipeline_e_summary.run(
-            req.query, col, hr, rr, comp, gen,
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+            req.query,
+            col,
+            hr,
+            rr,
+            comp,
+            gen,
+            req.use_cad,
+            req.cad_alpha,
+            req.use_scd,
+            req.scd_beta,
         )
-    elif decision.route == RouteType.QUIZ:
+    if decision.route == RouteType.QUIZ:
         return pipeline_f_quiz.run(
-            req.query, col, hr, rr, comp, gen, qe,
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
+            req.query,
+            col,
+            hr,
+            rr,
+            comp,
+            gen,
+            qe,
+            req.use_cad,
+            req.cad_alpha,
+            req.use_scd,
+            req.scd_beta,
         )
-    else:
-        return pipeline_a_simple_qa.run(
-            req.query, col, hr, rr, comp, gen, qe,
-            req.use_cad, req.cad_alpha, req.use_scd, req.scd_beta,
-        )
+    return pipeline_a_simple_qa.run(
+        query=req.query,
+        collection_name=col,
+        hybrid_retriever=hr,
+        reranker=rr,
+        compressor=comp,
+        generator=gen,
+        query_expander=qe,
+        use_hyde=req.use_hyde,
+        use_cad=req.use_cad,
+        cad_alpha=req.cad_alpha,
+        use_scd=req.use_scd,
+        scd_beta=req.scd_beta,
+    )

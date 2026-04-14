@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import type { SourceDocument } from '@/types/api'
 
 interface Props {
@@ -9,31 +9,33 @@ interface Props {
   canvasHeight: number
 }
 
+const highlightFadeKeyframes = `
+@keyframes mrag-highlight-fade {
+  0% { opacity: 0.95; }
+  70% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+`
+
 export default function HighlightLayer({ source, zoom, pageNumber }: Props) {
-  const [visible, setVisible] = useState(false)
+  const animationKey = useMemo(() => {
+    if (!source) return ''
+    return `${source.chunk_id}-${source.page}-${source.score}`
+  }, [source])
 
-  useEffect(() => {
-    if (source && source.page === pageNumber) {
-      setVisible(true)
-      const timer = setTimeout(() => setVisible(false), 5000)
-      return () => clearTimeout(timer)
-    }
-    setVisible(false)
-  }, [source, pageNumber])
+  if (!source || source.page !== pageNumber) return null
 
-  if (!visible || !source || source.page !== pageNumber) return null
-
-  // bbox가 있으면 정확한 위치, 없으면 페이지 중앙 일부 하이라이트
   if (source.bbox && source.bbox.length > 0) {
     return (
       <>
+        <style>{highlightFadeKeyframes}</style>
         {source.bbox.map((box, i) => {
           const [x0, y0, x1, y1] = box
-          const scale = zoom * 1.5 // match PDFViewer render scale
+          const scale = zoom * 1.5
           return (
             <div
-              key={i}
-              className="absolute transition-opacity duration-500"
+              key={`${animationKey}-${i}`}
+              className="absolute"
               style={{
                 left: x0 * scale,
                 top: y0 * scale,
@@ -43,7 +45,7 @@ export default function HighlightLayer({ source, zoom, pageNumber }: Props) {
                 border: '2px solid rgba(56, 189, 248, 0.5)',
                 borderRadius: 4,
                 pointerEvents: 'none',
-                animation: 'fadeIn 0.3s ease-out',
+                animation: 'mrag-highlight-fade 5s ease-out forwards',
               }}
             />
           )
@@ -52,15 +54,19 @@ export default function HighlightLayer({ source, zoom, pageNumber }: Props) {
     )
   }
 
-  // bbox 없으면 페이지 전체에 부드러운 테두리 표시
   return (
-    <div
-      className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-      style={{
-        border: '3px solid rgba(56, 189, 248, 0.4)',
-        borderRadius: 8,
-        background: 'rgba(56, 189, 248, 0.05)',
-      }}
-    />
+    <>
+      <style>{highlightFadeKeyframes}</style>
+      <div
+        key={animationKey}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          border: '3px solid rgba(56, 189, 248, 0.4)',
+          borderRadius: 8,
+          background: 'rgba(56, 189, 248, 0.05)',
+          animation: 'mrag-highlight-fade 5s ease-out forwards',
+        }}
+      />
+    </>
   )
 }

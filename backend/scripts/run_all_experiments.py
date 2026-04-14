@@ -32,10 +32,13 @@ Usage:
 import argparse
 import json
 import logging
+import random
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+import torch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -46,6 +49,15 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 logger = logging.getLogger(__name__)
+EXPERIMENT_SEED = 42
+
+
+def configure_reproducibility() -> None:
+    random.seed(EXPERIMENT_SEED)
+    torch.manual_seed(EXPERIMENT_SEED)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(EXPERIMENT_SEED)
+    logger.info(f"Reproducibility seed configured: {EXPERIMENT_SEED}")
 
 
 def index_paper(pdf_path: str, collection_name: str):
@@ -185,6 +197,7 @@ def main():
         help="사용할 최대 쿼리 수 (기본: 10, 빠른 테스트: 5)",
     )
     args = parser.parse_args()
+    configure_reproducibility()
 
     pdf_path = Path(args.paper_pdf)
     if not pdf_path.exists():
@@ -225,6 +238,7 @@ def main():
             "paper": str(pdf_path),
             "collection": args.collection,
             "model": GENERATION_MODEL,
+            "seed": EXPERIMENT_SEED,
             "n_samples": len(samples),
             "max_queries": args.max_queries,
             "tables": tables,
@@ -278,11 +292,13 @@ def main():
     # 결과 저장
     results_dir = Path("evaluation/results")
     results_dir.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Experiment results directory: {results_dir.resolve()}")
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = results_dir / f"full_experiment_{timestamp}.json"
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
+    logger.info(f"Experiment results written to: {output_path.resolve()}")
 
     # 마크다운 표 출력
     print("\n" + "=" * 60)

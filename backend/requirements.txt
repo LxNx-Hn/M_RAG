@@ -1,7 +1,7 @@
 # ─── Core ───
-torch>=2.0.0
-transformers>=4.38.0
-sentence-transformers>=2.5.0
+torch>=2.0.0,<2.4.0
+transformers==4.41.2
+sentence-transformers==2.7.0
 
 # ─── PDF Processing ───
 pymupdf>=1.23.0
@@ -19,6 +19,8 @@ fastapi>=0.100.0
 uvicorn>=0.23.0
 python-multipart>=0.0.6
 aiofiles>=23.0.0
+slowapi>=0.1.9
+python-magic>=0.4.27
 
 # ─── Quantization (optional, Base 모델 4-bit) ───
 # bitsandbytes>=0.43.0  # pip install bitsandbytes
@@ -33,6 +35,8 @@ python-pptx>=0.6.21
 python-docx>=0.8.11
 asyncpg>=0.29.0
 sqlalchemy[asyncio]>=2.0.0
+alembic>=1.14.0
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.0
+bcrypt<5
 psycopg2-binary>=2.9.0

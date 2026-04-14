@@ -9,6 +9,7 @@ venv/
 data/*.pdf
 chroma_db/
 *.sqlite3
+backend/mrag.db
 
 # Models (downloaded at runtime)
 *.bin

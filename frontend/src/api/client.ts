@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { useAuthStore } from '@/stores/authStore'
+
 const API_BASE = import.meta.env.VITE_API_URL || ''
 
 export const api = axios.create({
@@ -8,7 +10,6 @@ export const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-// JWT 인터셉터 (Phase 4에서 활성화)
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token')
   if (token) {
@@ -21,8 +22,10 @@ api.interceptors.response.use(
   (res) => res,
   async (err) => {
     if (err.response?.status === 401) {
-      localStorage.removeItem('access_token')
-      // Phase 4: 자동 토큰 갱신 로직
+      useAuthStore.getState().logout()
+      if (typeof window !== 'undefined') {
+        window.location.replace('/')
+      }
     }
     return Promise.reject(err)
   }

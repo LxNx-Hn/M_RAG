@@ -5,6 +5,7 @@ import { usePaperStore } from '@/stores/paperStore'
 import { useChatStore } from '@/stores/chatStore'
 import HighlightLayer from './HighlightLayer'
 import CitationPanel from './CitationPanel'
+import type { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api'
 
 type ViewerTab = 'pdf' | 'citations'
 
@@ -15,7 +16,7 @@ export default function PDFViewer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [totalPages, setTotalPages] = useState(0)
-  const [pdfDoc, setPdfDoc] = useState<any>(null)
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<ViewerTab>('pdf')
@@ -60,12 +61,13 @@ export default function PDFViewer() {
       const page = await pdfDoc.getPage(activePage)
       const viewport = page.getViewport({ scale: zoom * 1.5 })
       const canvas = canvasRef.current!
-      const ctx = canvas.getContext('2d')!
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
 
       canvas.width = viewport.width
       canvas.height = viewport.height
 
-      await page.render({ canvasContext: ctx, viewport }).promise
+      await page.render({ canvasContext: ctx, canvas, viewport }).promise
     }
 
     renderPage()
