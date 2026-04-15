@@ -1,6 +1,7 @@
 """
 Pipeline E: structured summary.
 """
+
 import logging
 
 from config import CAD_ALPHA, SCD_BETA
@@ -53,7 +54,9 @@ def run(
                             "score": 1.0 + level * 0.1,
                         }
                     )
-                steps.append({"step": "raptor_chunks", "count": len(raptor_data["ids"])})
+                steps.append(
+                    {"step": "raptor_chunks", "count": len(raptor_data["ids"])}
+                )
         except Exception:
             pass
 
@@ -66,7 +69,9 @@ def run(
                 top_k=3,
             )
             all_results.extend(results)
-            steps.append({"step": f"section_search_{section}", "results_count": len(results)})
+            steps.append(
+                {"step": f"section_search_{section}", "results_count": len(results)}
+            )
 
         if len(all_results) < 5:
             full_results = hybrid_retriever.search(
@@ -135,4 +140,3 @@ def run(
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
         }
-

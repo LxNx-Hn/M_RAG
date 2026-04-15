@@ -3,6 +3,7 @@ MODULE 7: Query Expander
 검색 성능 향상을 위한 쿼리 변환
 기반 논문: HyDE [6], RAG-Fusion [26], IRCoT [25]
 """
+
 import logging
 from typing import Optional
 
@@ -56,7 +57,7 @@ class QueryExpander:
             if line and line not in queries:
                 queries.append(line)
 
-        return queries[:n_queries + 1]
+        return queries[: n_queries + 1]
 
     def translate_ko_to_en(self, query: str) -> Optional[str]:
         """한국어 쿼리를 영어로 번역 (병렬 검색용)"""
@@ -81,7 +82,9 @@ class QueryExpander:
             return None
         return cleaned
 
-    def expand(self, query: str, use_hyde: bool = True, use_multi: bool = False) -> dict:
+    def expand(
+        self, query: str, use_hyde: bool = True, use_multi: bool = False
+    ) -> dict:
         """통합 쿼리 확장"""
         result = {
             "original": query,

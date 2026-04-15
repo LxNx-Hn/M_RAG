@@ -4,9 +4,9 @@ Revision ID: 20260414_000001
 Revises: None
 Create Date: 2026-04-14 13:15:00
 """
+
 from alembic import op
 import sqlalchemy as sa
-
 
 revision = "20260414_000001"
 down_revision = None
@@ -45,7 +45,9 @@ def upgrade() -> None:
         sa.Column("content", sa.Text(), nullable=False),
         sa.Column("metadata_json", sa.JSON(), nullable=True),
         sa.Column("created_at", sa.DateTime(), nullable=True),
-        sa.ForeignKeyConstraint(["conversation_id"], ["conversations.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["conversation_id"], ["conversations.id"], ondelete="CASCADE"
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
 
@@ -69,7 +71,9 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index("ix_papers_doc_id", "papers", ["doc_id"], unique=True)
-    op.create_index("ix_papers_collection_name", "papers", ["collection_name"], unique=False)
+    op.create_index(
+        "ix_papers_collection_name", "papers", ["collection_name"], unique=False
+    )
     op.create_index("ix_papers_user_id", "papers", ["user_id"], unique=False)
 
 

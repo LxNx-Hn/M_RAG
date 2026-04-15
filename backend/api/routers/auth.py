@@ -1,6 +1,7 @@
 """
 /api/auth - user authentication endpoints
 """
+
 import logging
 import re
 

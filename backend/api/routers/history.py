@@ -1,6 +1,7 @@
 """
 /api/history - conversation history management
 """
+
 import logging
 from typing import Optional
 
@@ -26,7 +27,9 @@ class MessageCreate(BaseModel):
     metadata_json: Optional[dict] = None
 
 
-async def _get_owned_conversation(db, conversation_id: str, user_id: str) -> Conversation:
+async def _get_owned_conversation(
+    db, conversation_id: str, user_id: str
+) -> Conversation:
     result = await db.execute(
         select(Conversation).where(
             Conversation.id == conversation_id,
@@ -61,8 +64,12 @@ async def list_conversations(
                 {
                     "id": conv.id,
                     "title": conv.title,
-                    "created_at": conv.created_at.isoformat() if conv.created_at else None,
-                    "updated_at": conv.updated_at.isoformat() if conv.updated_at else None,
+                    "created_at": (
+                        conv.created_at.isoformat() if conv.created_at else None
+                    ),
+                    "updated_at": (
+                        conv.updated_at.isoformat() if conv.updated_at else None
+                    ),
                 }
                 for conv in conversations
             ]
@@ -118,7 +125,9 @@ async def get_messages(
                     "role": msg.role,
                     "content": msg.content,
                     "metadata": msg.metadata_json,
-                    "created_at": msg.created_at.isoformat() if msg.created_at else None,
+                    "created_at": (
+                        msg.created_at.isoformat() if msg.created_at else None
+                    ),
                 }
                 for msg in messages
             ]
@@ -181,4 +190,3 @@ async def delete_conversation(
     except Exception as exc:
         logger.error("Delete conversation failed: %s", exc)
         raise HTTPException(500, "Failed to delete conversation.")
-

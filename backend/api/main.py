@@ -1,6 +1,7 @@
 """
 M-RAG FastAPI backend entrypoint.
 """
+
 import json
 import logging
 import os
@@ -84,9 +85,13 @@ def parse_cors_origins() -> list[str]:
 
 
 def parse_cors_credentials(origins: list[str]) -> bool:
-    allow_credentials = os.environ.get("CORS_ALLOW_CREDENTIALS", "false").lower() == "true"
+    allow_credentials = (
+        os.environ.get("CORS_ALLOW_CREDENTIALS", "false").lower() == "true"
+    )
     if "*" in origins and allow_credentials:
-        logger.warning("CORS credentials disabled because wildcard origins are configured")
+        logger.warning(
+            "CORS credentials disabled because wildcard origins are configured"
+        )
         return False
     return allow_credentials
 
@@ -186,7 +191,9 @@ async def security_headers_middleware(request: Request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     if os.environ.get("ENV", "development").lower() == "production":
-        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains; preload"
+        )
     return response
 
 

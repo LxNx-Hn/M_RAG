@@ -2,8 +2,8 @@
 FastAPI 의존성 관리
 모든 모듈을 싱글턴으로 초기화하고 요청 간 공유
 """
+
 import logging
-from functools import lru_cache
 
 from modules.pdf_parser import PDFParser
 from modules.section_detector import SectionDetector
@@ -65,6 +65,7 @@ class ModuleManager:
             try:
                 from modules.generator import Generator
                 from modules.query_expander import QueryExpander
+
                 self.generator = Generator()
                 self.query_expander = QueryExpander(generator=self.generator)
                 self.compressor.generator = self.generator

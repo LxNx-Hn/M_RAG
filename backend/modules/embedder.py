@@ -4,6 +4,7 @@ BGE-M3 기반 텍스트 → 벡터 변환
 한영 동일 임베딩 공간에서 크로스링구얼 매칭 지원
 기반 논문: BGE M3-Embedding [2]
 """
+
 import logging
 from typing import Optional
 
@@ -69,6 +70,8 @@ class Embedder:
         """임베딩 차원 반환"""
         return EMBEDDING_DIMENSION
 
-    def compute_similarity(self, query_emb: np.ndarray, doc_embs: np.ndarray) -> np.ndarray:
+    def compute_similarity(
+        self, query_emb: np.ndarray, doc_embs: np.ndarray
+    ) -> np.ndarray:
         """코사인 유사도 계산 (정규화된 벡터 전제)"""
         return np.dot(doc_embs, query_emb)

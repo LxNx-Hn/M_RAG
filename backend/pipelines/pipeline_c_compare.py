@@ -1,6 +1,7 @@
 """
 Pipeline C: pairwise document comparison.
 """
+
 import logging
 from concurrent.futures import ThreadPoolExecutor
 
@@ -50,7 +51,9 @@ def run(
                 "sources": "",
                 "source_documents": [],
                 "pipeline": "C_compare",
-                "steps": [{"step": "error", "reason": "too_many_docs", "max_supported": 2}],
+                "steps": [
+                    {"step": "error", "reason": "too_many_docs", "max_supported": 2}
+                ],
             }
 
         doc_contexts: dict[str, list[dict]] = {}
@@ -67,7 +70,9 @@ def run(
 
         search_doc_ids = target_doc_ids[:2]
         with ThreadPoolExecutor(max_workers=2) as executor:
-            futures = [executor.submit(search_for_doc, doc_id) for doc_id in search_doc_ids]
+            futures = [
+                executor.submit(search_for_doc, doc_id) for doc_id in search_doc_ids
+            ]
             for future in futures:
                 doc_id, docs = future.result()
                 doc_contexts[doc_id] = docs
@@ -134,4 +139,3 @@ def run(
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
         }
-

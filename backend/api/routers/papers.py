@@ -1,6 +1,7 @@
 """
 /api/papers - document upload and metadata management
 """
+
 import logging
 from dataclasses import asdict
 from pathlib import Path
@@ -14,7 +15,12 @@ from api.database import get_db
 from api.dependencies import ModuleManager, get_modules
 from api.limiter import limiter
 from api.models import Paper
-from api.schemas import CollectionInfo, CollectionListResponse, PaperInfo, UploadResponse
+from api.schemas import (
+    CollectionInfo,
+    CollectionListResponse,
+    PaperInfo,
+    UploadResponse,
+)
 from config import DATA_DIR
 
 logger = logging.getLogger(__name__)
@@ -69,7 +75,11 @@ def _validate_upload_signature(ext: str, content: bytes) -> None:
         if not content.startswith(b"PK\x03\x04") or detected_mime not in allowed:
             raise HTTPException(400, "DOCX 파일 형식이 올바르지 않습니다.")
     elif ext == ".txt":
-        if detected_mime not in {"text/plain", "text/markdown", "application/octet-stream"}:
+        if detected_mime not in {
+            "text/plain",
+            "text/markdown",
+            "application/octet-stream",
+        }:
             raise HTTPException(400, "TXT 파일 형식이 올바르지 않습니다.")
         if not _is_text_like(content[:4096]):
             raise HTTPException(400, "텍스트 파일 검증에 실패했습니다.")
@@ -308,9 +318,7 @@ async def list_collections(
         raise HTTPException(503, "Database not available")
 
     result = await db.execute(
-        select(Paper)
-        .where(Paper.user_id == user_id)
-        .order_by(Paper.created_at.desc())
+        select(Paper).where(Paper.user_id == user_id).order_by(Paper.created_at.desc())
     )
     papers = result.scalars().all()
     collections = [
@@ -382,7 +390,10 @@ async def delete_collection(
             try:
                 Path(paper.file_path).unlink(missing_ok=True)
             except Exception:
-                logger.warning("Failed to remove file during collection delete: %s", paper.file_path)
+                logger.warning(
+                    "Failed to remove file during collection delete: %s",
+                    paper.file_path,
+                )
         m.vector_store.delete_by_doc_id(internal_collection_name, paper.doc_id)
 
     await db.execute(
@@ -398,11 +409,15 @@ async def delete_collection(
         if not remaining_doc_ids:
             m.vector_store.delete_collection(internal_collection_name)
     except Exception:
-        logger.warning("Failed to evaluate empty collection cleanup: %s", internal_collection_name)
+        logger.warning(
+            "Failed to evaluate empty collection cleanup: %s", internal_collection_name
+        )
 
     try:
         m.hybrid_retriever.fit_bm25(internal_collection_name)
     except Exception:
-        logger.warning("BM25 rebuild failed after collection delete: %s", internal_collection_name)
+        logger.warning(
+            "BM25 rebuild failed after collection delete: %s", internal_collection_name
+        )
 
     return {"message": "Collection deleted successfully."}

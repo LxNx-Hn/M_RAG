@@ -3,6 +3,7 @@ RAGAS 기반 RAG 평가 프레임워크
 기반 논문: RAGAS (Es et al., 2023) [10]
 지표: Faithfulness, Answer Relevancy, Context Precision, Context Recall
 """
+
 import json
 import logging
 from dataclasses import dataclass, field
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class EvalSample:
     """평가 샘플"""
+
     query: str
     ground_truth: str
     answer: str = ""
@@ -25,6 +27,7 @@ class EvalSample:
 @dataclass
 class EvalResult:
     """평가 결과"""
+
     faithfulness: float = 0.0
     answer_relevancy: float = 0.0
     context_precision: float = 0.0
@@ -88,9 +91,7 @@ class RAGASEvaluator:
         answer_relevancy = self._compute_answer_relevancy(sample)
         context_precision = self._compute_context_precision(sample)
         context_recall = (
-            self._compute_context_recall(sample)
-            if sample.ground_truth
-            else None
+            self._compute_context_recall(sample) if sample.ground_truth else None
         )
 
         return EvalResult(
@@ -211,7 +212,8 @@ class RAGASEvaluator:
     def _extract_score(text: str) -> float:
         """LLM 출력에서 점수 추출"""
         import re
-        match = re.search(r'(\d+\.?\d*)', text.strip())
+
+        match = re.search(r"(\d+\.?\d*)", text.strip())
         if match:
             score = float(match.group(1))
             return min(max(score, 0.0), 1.0)
@@ -255,10 +257,12 @@ def load_test_queries(
         gt = item.get("ground_truth", "")
         if gt.startswith("PAPER_SPECIFIC"):
             gt = ""
-        samples.append(EvalSample(
-            query=item["query"],
-            ground_truth=gt,
-        ))
+        samples.append(
+            EvalSample(
+                query=item["query"],
+                ground_truth=gt,
+            )
+        )
 
     return samples
 
@@ -343,7 +347,8 @@ def compare_cad_on_off(
             cad_on["average"]["faithfulness"] - cad_off["average"]["faithfulness"]
         ),
         "answer_relevancy_delta": (
-            cad_on["average"]["answer_relevancy"] - cad_off["average"]["answer_relevancy"]
+            cad_on["average"]["answer_relevancy"]
+            - cad_off["average"]["answer_relevancy"]
         ),
         "alpha": cad_alpha,
         "n_samples": len(samples),

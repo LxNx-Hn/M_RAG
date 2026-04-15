@@ -1,6 +1,7 @@
 """
 /api/citations - citation paper tracking
 """
+
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -39,7 +40,9 @@ def _extract_reference_text(m: ModuleManager, doc) -> str:
     ref_text = m.section_detector.get_section_text(doc, "references")
     if not ref_text:
         ref_text = "\n".join(
-            block.content for block in doc.blocks if "reference" in block.content.lower()[:50]
+            block.content
+            for block in doc.blocks
+            if "reference" in block.content.lower()[:50]
         )
     return ref_text
 
@@ -62,9 +65,13 @@ async def list_citations(
         return CitationResponse(citations=[], fetched_count=0, indexed_count=0)
 
     citations = m.citation_tracker.parse_references(ref_text)
-    fetched = m.citation_tracker.fetch_all_citations(max_total=len(citations), delay=1.0)
+    fetched = m.citation_tracker.fetch_all_citations(
+        max_total=len(citations), delay=1.0
+    )
     items = [_build_citation_item(c) for c in citations]
-    return CitationResponse(citations=items, fetched_count=len(fetched), indexed_count=0)
+    return CitationResponse(
+        citations=items, fetched_count=len(fetched), indexed_count=0
+    )
 
 
 @router.post("/download", response_model=CitationDownloadResponse)
@@ -158,7 +165,9 @@ async def track_citations(
         return CitationResponse(citations=[], fetched_count=0, indexed_count=0)
 
     citations = m.citation_tracker.parse_references(ref_text)
-    fetched = m.citation_tracker.fetch_all_citations(max_total=req.max_citations, delay=1.0)
+    fetched = m.citation_tracker.fetch_all_citations(
+        max_total=req.max_citations, delay=1.0
+    )
 
     indexed = 0
     for citation in fetched:
@@ -182,4 +191,6 @@ async def track_citations(
         m.hybrid_retriever.fit_bm25(internal_collection_name)
 
     items = [_build_citation_item(c) for c in citations]
-    return CitationResponse(citations=items, fetched_count=len(fetched), indexed_count=indexed)
+    return CitationResponse(
+        citations=items, fetched_count=len(fetched), indexed_count=indexed
+    )

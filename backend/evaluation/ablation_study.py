@@ -2,11 +2,11 @@
 Ablation Study 실험 프레임워크
 Baseline 1~5 + Full System 비교
 """
+
 import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from evaluation.ragas_eval import RAGASEvaluator, EvalSample
 
@@ -16,14 +16,15 @@ logger = logging.getLogger(__name__)
 @dataclass
 class AblationConfig:
     """Ablation 실험 구성 (Table 1: 모듈별 갭 해소 기여도)"""
+
     name: str
     use_section_chunking: bool = False
     use_hybrid_search: bool = False
     use_reranker: bool = False
     use_query_router: bool = False
     use_hyde: bool = False
-    use_cad: bool = False           # MODULE 13A
-    use_scd: bool = False           # MODULE 13B
+    use_cad: bool = False  # MODULE 13A
+    use_scd: bool = False  # MODULE 13B
     use_context_compression: bool = False
     cad_alpha: float = 0.5
     scd_beta: float = 0.3
@@ -181,7 +182,9 @@ class AblationStudy:
             use_cad=False,
             use_context_compression=True,
         )
-        baseline_result = self._run_single_config(baseline_config, test_samples, collection_name)
+        baseline_result = self._run_single_config(
+            baseline_config, test_samples, collection_name
+        )
         logger.info("CAD Korean Eval: baseline (CAD-off) done")
 
         per_alpha = {}
@@ -213,11 +216,15 @@ class AblationStudy:
                 "cad_off": baseline_result["average"],
             }
 
-        best_alpha_key = max(per_alpha, key=lambda a: per_alpha[a]["faithfulness_delta"])
+        best_alpha_key = max(
+            per_alpha, key=lambda a: per_alpha[a]["faithfulness_delta"]
+        )
         return {
             "summary": {
                 "best_alpha": float(best_alpha_key),
-                "max_faithfulness_delta": per_alpha[best_alpha_key]["faithfulness_delta"],
+                "max_faithfulness_delta": per_alpha[best_alpha_key][
+                    "faithfulness_delta"
+                ],
             },
             "per_alpha": per_alpha,
             "n_samples": len(test_samples),
@@ -232,21 +239,32 @@ class AblationStudy:
         """SCD β 값 어블레이션 (논문 Table 3)
         β ∈ {0.1, 0.3, 0.5} 각각에 대해 SCD on vs off 비교
         """
-        baseline = self._run_single_config(AblationConfig(
-            name="SCD-off",
-            use_section_chunking=True, use_hybrid_search=True,
-            use_reranker=True, use_cad=True, use_scd=False,
-            use_context_compression=True,
-        ), test_samples, collection_name)
+        baseline = self._run_single_config(
+            AblationConfig(
+                name="SCD-off",
+                use_section_chunking=True,
+                use_hybrid_search=True,
+                use_reranker=True,
+                use_cad=True,
+                use_scd=False,
+                use_context_compression=True,
+            ),
+            test_samples,
+            collection_name,
+        )
         logger.info("SCD β ablation: baseline (SCD-off) done")
 
         per_beta = {}
         for beta in SCD_BETA_VALUES:
             config = AblationConfig(
                 name=f"SCD-on beta={beta}",
-                use_section_chunking=True, use_hybrid_search=True,
-                use_reranker=True, use_cad=True, use_scd=True,
-                use_context_compression=True, scd_beta=beta,
+                use_section_chunking=True,
+                use_hybrid_search=True,
+                use_reranker=True,
+                use_cad=True,
+                use_scd=True,
+                use_context_compression=True,
+                scd_beta=beta,
             )
             logger.info(f"SCD β ablation: beta={beta}")
             result = self._run_single_config(config, test_samples, collection_name)
@@ -259,8 +277,7 @@ class AblationStudy:
                     - baseline["average"]["faithfulness"]
                 ),
                 "overall_delta": (
-                    result["average"]["overall"]
-                    - baseline["average"]["overall"]
+                    result["average"]["overall"] - baseline["average"]["overall"]
                 ),
             }
 
@@ -293,8 +310,11 @@ class AblationStudy:
         for name, use_cad, use_scd in configs:
             config = AblationConfig(
                 name=name,
-                use_section_chunking=True, use_hybrid_search=True,
-                use_reranker=True, use_cad=use_cad, use_scd=use_scd,
+                use_section_chunking=True,
+                use_hybrid_search=True,
+                use_reranker=True,
+                use_cad=use_cad,
+                use_scd=use_scd,
                 use_context_compression=True,
             )
             logger.info(f"Combined ablation: {name}")
@@ -321,7 +341,9 @@ class AblationStudy:
         samples = copy.deepcopy(test_samples)
 
         for idx, sample in enumerate(samples, 1):
-            logger.info(f"  [{config.name}] 쿼리 {idx}/{len(samples)}: {sample.query[:40]}...")
+            logger.info(
+                f"  [{config.name}] 쿼리 {idx}/{len(samples)}: {sample.query[:40]}..."
+            )
             # 검색
             hyde_doc = None
             if config.use_hyde and self.query_expander:
@@ -336,9 +358,7 @@ class AblationStudy:
                 )
             else:
                 query_emb = self.embedder.embed_query(sample.query)
-                search_results = self.vector_store.search(
-                    collection_name, query_emb
-                )
+                search_results = self.vector_store.search(collection_name, query_emb)
 
             # 재랭킹
             if config.use_reranker:
@@ -346,9 +366,7 @@ class AblationStudy:
 
             # 압축
             if config.use_context_compression:
-                search_results = self.compressor.compress(
-                    search_results, sample.query
-                )
+                search_results = self.compressor.compress(search_results, sample.query)
                 search_results = self.compressor.truncate_to_limit(search_results)
 
             # 컨텍스트 + 생성
@@ -380,7 +398,9 @@ class AblationStudy:
 
         return eval_results
 
-    def save_results(self, results: dict, output_path: str = "evaluation/ablation_results.json"):
+    def save_results(
+        self, results: dict, output_path: str = "evaluation/ablation_results.json"
+    ):
         """결과 저장"""
         path = Path(output_path)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -396,7 +416,7 @@ class AblationStudy:
 
         for name, result in results.items():
             avg = result.get("average", {})
-            cr = avg.get('context_recall')
+            cr = avg.get("context_recall")
             cr_str = f"{cr:.3f}" if cr is not None else "N/A"
             row = (
                 f"| {name} "

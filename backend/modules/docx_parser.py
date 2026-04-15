@@ -2,9 +2,9 @@
 MODULE 14: DOCX Parser
 Word 문서 파싱 → ParsedDocument 변환
 """
+
 import logging
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -34,20 +34,22 @@ class DocxParser:
             font_size = 10.0
             if para.style and para.style.name:
                 style_name = para.style.name.lower()
-                if 'heading 1' in style_name or 'title' in style_name:
+                if "heading 1" in style_name or "title" in style_name:
                     font_size = 18.0
-                elif 'heading 2' in style_name:
+                elif "heading 2" in style_name:
                     font_size = 14.0
-                elif 'heading 3' in style_name:
+                elif "heading 3" in style_name:
                     font_size = 12.0
 
-            blocks.append({
-                "text": text,
-                "page": page_num,
-                "font_size": font_size,
-                "bbox": (72, 72 + line_count * 14, 540, 72 + (line_count + 1) * 14),
-                "is_bold": bool(para.runs and para.runs[0].bold),
-            })
+            blocks.append(
+                {
+                    "text": text,
+                    "page": page_num,
+                    "font_size": font_size,
+                    "bbox": (72, 72 + line_count * 14, 540, 72 + (line_count + 1) * 14),
+                    "is_bold": bool(para.runs and para.runs[0].bold),
+                }
+            )
 
             line_count += 1
             # 약 40줄마다 페이지 구분 (근사)
@@ -95,13 +97,15 @@ class TextFileParser:
             elif stripped.startswith("### "):
                 font_size = 12.0
 
-            blocks.append({
-                "text": stripped,
-                "page": page_num,
-                "font_size": font_size,
-                "bbox": (72, 72 + line_count * 14, 540, 72 + (line_count + 1) * 14),
-                "is_bold": font_size > 10,
-            })
+            blocks.append(
+                {
+                    "text": stripped,
+                    "page": page_num,
+                    "font_size": font_size,
+                    "bbox": (72, 72 + line_count * 14, 540, 72 + (line_count + 1) * 14),
+                    "is_bold": font_size > 10,
+                }
+            )
 
             line_count += 1
             if line_count > 50:

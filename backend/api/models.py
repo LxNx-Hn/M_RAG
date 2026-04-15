@@ -1,11 +1,21 @@
 """
 SQLAlchemy ORM models.
 """
+
 import uuid
 from datetime import datetime, timezone
 
 try:
-    from sqlalchemy import JSON, Column, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+    from sqlalchemy import (
+        JSON,
+        Column,
+        DateTime,
+        ForeignKey,
+        Integer,
+        String,
+        Text,
+        UniqueConstraint,
+    )
     from sqlalchemy.orm import DeclarativeBase, relationship
 
     class Base(DeclarativeBase):
@@ -20,14 +30,18 @@ try:
         hashed_password = Column(String(255), nullable=False)
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-        conversations = relationship("Conversation", back_populates="user", cascade="all, delete-orphan")
+        conversations = relationship(
+            "Conversation", back_populates="user", cascade="all, delete-orphan"
+        )
         revoked_tokens = relationship("RevokedToken", cascade="all, delete-orphan")
 
     class Conversation(Base):
         __tablename__ = "conversations"
 
         id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+        user_id = Column(
+            String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+        )
         title = Column(String(255), default="New Conversation")
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
         updated_at = Column(
@@ -37,13 +51,19 @@ try:
         )
 
         user = relationship("User", back_populates="conversations")
-        messages = relationship("Message", back_populates="conversation", cascade="all, delete-orphan")
+        messages = relationship(
+            "Message", back_populates="conversation", cascade="all, delete-orphan"
+        )
 
     class Message(Base):
         __tablename__ = "messages"
 
         id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        conversation_id = Column(String(36), ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False)
+        conversation_id = Column(
+            String(36),
+            ForeignKey("conversations.id", ondelete="CASCADE"),
+            nullable=False,
+        )
         role = Column(String(20), nullable=False)
         content = Column(Text, nullable=False)
         metadata_json = Column(JSON, default=dict)
@@ -54,14 +74,26 @@ try:
     class Paper(Base):
         __tablename__ = "papers"
         __table_args__ = (
-            UniqueConstraint("user_id", "collection_name", "doc_id", name="uq_papers_user_collection_doc"),
+            UniqueConstraint(
+                "user_id",
+                "collection_name",
+                "doc_id",
+                name="uq_papers_user_collection_doc",
+            ),
         )
 
         id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+        user_id = Column(
+            String(36),
+            ForeignKey("users.id", ondelete="CASCADE"),
+            nullable=False,
+            index=True,
+        )
         doc_id = Column(String(255), nullable=False, index=True)
         title = Column(String(500), nullable=False)
-        collection_name = Column(String(255), nullable=False, default="papers", index=True)
+        collection_name = Column(
+            String(255), nullable=False, default="papers", index=True
+        )
         doc_type = Column(String(32), nullable=False, default="paper")
         file_name = Column(String(255), nullable=False)
         file_path = Column(String(1024), nullable=False)
@@ -81,12 +113,18 @@ try:
         __tablename__ = "revoked_tokens"
 
         id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+        user_id = Column(
+            String(36),
+            ForeignKey("users.id", ondelete="CASCADE"),
+            nullable=False,
+            index=True,
+        )
         jti = Column(String(128), nullable=False, unique=True, index=True)
         expires_at = Column(DateTime, nullable=False)
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 except ImportError:
+
     class Base:
         metadata = type("obj", (object,), {"create_all": lambda *a, **k: None})()
 

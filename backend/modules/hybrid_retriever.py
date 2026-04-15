@@ -2,6 +2,7 @@
 MODULE 8: Hybrid Retriever
 Dense (embedding) + Sparse (BM25) retrieval with RRF fusion.
 """
+
 import hashlib
 import logging
 import math
@@ -11,7 +12,6 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Optional
 
-import numpy as np
 
 from config import BM25_WEIGHT, CHROMA_DIR, DENSE_WEIGHT, RRF_K, TOP_K_RETRIEVAL
 
@@ -73,7 +73,9 @@ class BM25:
 
                 dl = self.doc_lengths[i]
                 numerator = tf * (self.k1 + 1)
-                denominator = tf + self.k1 * (1 - self.b + self.b * dl / max(self.avg_dl, 1))
+                denominator = tf + self.k1 * (
+                    1 - self.b + self.b * dl / max(self.avg_dl, 1)
+                )
                 score += idf * numerator / denominator
 
             scores.append((i, score))
@@ -149,7 +151,9 @@ class HybridRetriever:
         all_docs = collection.get(include=["documents", "metadatas"])
 
         documents = []
-        for i, (doc_text, metadata) in enumerate(zip(all_docs["documents"], all_docs["metadatas"])):
+        for i, (doc_text, metadata) in enumerate(
+            zip(all_docs["documents"], all_docs["metadatas"])
+        ):
             documents.append(
                 {
                     "chunk_id": all_docs["ids"][i],
@@ -170,7 +174,11 @@ class HybridRetriever:
         self.bm25_map[collection_name] = bm25_index
         self._persist_bm25(collection_name, bm25_index)
         self._bm25_fitted = True
-        logger.info("BM25 index built for '%s' with %s documents", collection_name, len(documents))
+        logger.info(
+            "BM25 index built for '%s' with %s documents",
+            collection_name,
+            len(documents),
+        )
 
     def search(
         self,
@@ -197,17 +205,27 @@ class HybridRetriever:
             sparse_results = bm25_index.search(query, top_k=top_k)
             if section_filter:
                 sparse_results = [
-                    r for r in sparse_results if r.get("metadata", {}).get("section_type") == section_filter
+                    r
+                    for r in sparse_results
+                    if r.get("metadata", {}).get("section_type") == section_filter
                 ]
             if doc_id_filter:
-                sparse_results = [r for r in sparse_results if r.get("metadata", {}).get("doc_id") == doc_id_filter]
+                sparse_results = [
+                    r
+                    for r in sparse_results
+                    if r.get("metadata", {}).get("doc_id") == doc_id_filter
+                ]
         else:
-            logger.debug("BM25 index not fitted for '%s'; using dense-only", collection_name)
+            logger.debug(
+                "BM25 index not fitted for '%s'; using dense-only", collection_name
+            )
             sparse_results = []
 
         return self._rrf_fusion(dense_results, sparse_results, top_k)
 
-    def _rrf_fusion(self, dense_results: list[dict], sparse_results: list[dict], top_k: int) -> list[dict]:
+    def _rrf_fusion(
+        self, dense_results: list[dict], sparse_results: list[dict], top_k: int
+    ) -> list[dict]:
         scores = defaultdict(float)
         doc_map = {}
 
@@ -229,4 +247,3 @@ class HybridRetriever:
             doc["rrf_score"] = scores[chunk_id]
             results.append(doc)
         return results
-

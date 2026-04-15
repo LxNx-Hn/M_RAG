@@ -10,6 +10,7 @@ MODULE 6: Query Router ★ Modular RAG 핵심
   D. 인용 트래커       → arXiv 수집 → 확장 검색 → 생성
   E. 전체 요약         → RAPTOR 계층 검색 → 생성
 """
+
 import logging
 from dataclasses import dataclass, field
 from enum import Enum
@@ -32,8 +33,9 @@ class RouteType(str, Enum):
 @dataclass
 class RouteDecision:
     """라우터 결정 결과"""
+
     route: RouteType
-    section_filter: Optional[str] = None   # 경로 B: 어느 섹션을 필터할지
+    section_filter: Optional[str] = None  # 경로 B: 어느 섹션을 필터할지
     target_doc_ids: list[str] = field(default_factory=list)  # 경로 C: 비교 대상 문서들
     confidence: float = 0.0
     reasoning: str = ""

@@ -6,6 +6,7 @@ Google Patents 공개 페이지 파싱 + KIPRIS API (선택적)
 CitationTracker와 동일한 설계 패턴:
   parse_cited_patents() → fetch_from_google_patents() → download_pdf()
 """
+
 import logging
 import re
 import time
@@ -31,7 +32,8 @@ _PATENT_NUMBER_RE = re.compile(
 @dataclass
 class PatentInfo:
     """파싱된 특허 정보"""
-    patent_id: str              # "KR10-2020-0012345" 등
+
+    patent_id: str  # "KR10-2020-0012345" 등
     title: str = ""
     inventors: list[str] = field(default_factory=list)
     applicant: str = ""
@@ -78,10 +80,12 @@ class PatentTracker:
 
             title = self._extract_title_from_context(context, patent_id)
 
-            patents.append(PatentInfo(
-                patent_id=patent_id,
-                title=title,
-            ))
+            patents.append(
+                PatentInfo(
+                    patent_id=patent_id,
+                    title=title,
+                )
+            )
 
         self.patents = patents
         logger.info(f"Parsed {len(patents)} cited patents")
@@ -90,7 +94,9 @@ class PatentTracker:
     def _extract_title_from_context(self, context: str, patent_id: str) -> str:
         """특허 번호 주변에서 제목 추출 시도"""
         # 특허 번호 뒤의 텍스트에서 따옴표 내용이나 첫 문장 추출
-        after_id = context.split(patent_id, 1)[-1].strip() if patent_id in context else context
+        after_id = (
+            context.split(patent_id, 1)[-1].strip() if patent_id in context else context
+        )
         # 따옴표로 묶인 제목
         title_match = re.search(r'["""\'](.+?)["""\']', after_id)
         if title_match:
@@ -106,9 +112,13 @@ class PatentTracker:
         """
         url = f"{GOOGLE_PATENTS_BASE}/{patent.patent_id}"
         try:
-            response = requests.get(url, timeout=15, headers={
-                "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
-            })
+            response = requests.get(
+                url,
+                timeout=15,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
+                },
+            )
 
             if response.status_code == 404:
                 patent.fetch_error = "patent_not_found"
@@ -119,6 +129,7 @@ class PatentTracker:
             # BeautifulSoup로 파싱 시도
             try:
                 from bs4 import BeautifulSoup
+
                 soup = BeautifulSoup(response.text, "html.parser")
 
                 # 제목
@@ -138,9 +149,7 @@ class PatentTracker:
 
                 # 발명자
                 inventor_els = soup.find_all("dd", {"itemprop": "inventor"})
-                patent.inventors = [
-                    el.get_text(strip=True) for el in inventor_els
-                ]
+                patent.inventors = [el.get_text(strip=True) for el in inventor_els]
 
                 # PDF 링크
                 pdf_link = soup.find("a", href=re.compile(r"\.pdf$"))
@@ -152,7 +161,9 @@ class PatentTracker:
             except ImportError:
                 # BeautifulSoup 없으면 기본 메타데이터만
                 patent.fetch_error = "beautifulsoup_not_installed"
-                logger.warning("bs4 not installed — Google Patents HTML parsing skipped")
+                logger.warning(
+                    "bs4 not installed — Google Patents HTML parsing skipped"
+                )
 
         except requests.Timeout:
             patent.fetch_error = "timeout"
@@ -177,7 +188,9 @@ class PatentTracker:
             # KIPRIS Plus REST API
             url = "http://plus.kipris.or.kr/openapi/rest/patUtiModInfoSearchSevice/applicantNameSearchInfo"
             params = {
-                "applicationNumber": patent.patent_id.replace("KR", "").replace("-", ""),
+                "applicationNumber": patent.patent_id.replace("KR", "").replace(
+                    "-", ""
+                ),
                 "accessKey": KIPRIS_API_KEY,
             }
             response = requests.get(url, params=params, timeout=10)
@@ -185,6 +198,7 @@ class PatentTracker:
 
             # XML 파싱 (KIPRIS는 XML 응답)
             import xml.etree.ElementTree as ET
+
             root = ET.fromstring(response.content)
 
             title_el = root.find(".//inventionTitle")
@@ -216,16 +230,23 @@ class PatentTracker:
             return []
 
         query = " ".join(keywords[:5])
-        search_url = f"https://patents.google.com/?q={quote_plus(query)}&oq={quote_plus(query)}"
+        search_url = (
+            f"https://patents.google.com/?q={quote_plus(query)}&oq={quote_plus(query)}"
+        )
 
         try:
-            response = requests.get(search_url, timeout=15, headers={
-                "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
-            })
+            response = requests.get(
+                search_url,
+                timeout=15,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
+                },
+            )
             response.raise_for_status()
 
             try:
                 from bs4 import BeautifulSoup
+
                 soup = BeautifulSoup(response.text, "html.parser")
 
                 results = []
@@ -246,11 +267,13 @@ class PatentTracker:
                         if id_match:
                             patent_id = id_match.group(1)
 
-                    results.append(PatentInfo(
-                        patent_id=patent_id or f"similar_{len(results)}",
-                        title=title_el.get_text(strip=True) if title_el else "",
-                        fetched=False,
-                    ))
+                    results.append(
+                        PatentInfo(
+                            patent_id=patent_id or f"similar_{len(results)}",
+                            title=title_el.get_text(strip=True) if title_el else "",
+                            fetched=False,
+                        )
+                    )
 
                 return results[:top_k]
 
@@ -269,16 +292,46 @@ class PatentTracker:
 
         # 기본 불용어
         stopwords = {
-            "the", "and", "for", "are", "with", "that", "this", "from",
-            "which", "has", "have", "been", "not", "but", "can", "will",
-            "one", "more", "said", "each", "may", "also", "than",
-            "상기", "하는", "있는", "위한", "따른", "의한", "포함하는",
-            "구성된", "이루어진", "되는", "하여",
+            "the",
+            "and",
+            "for",
+            "are",
+            "with",
+            "that",
+            "this",
+            "from",
+            "which",
+            "has",
+            "have",
+            "been",
+            "not",
+            "but",
+            "can",
+            "will",
+            "one",
+            "more",
+            "said",
+            "each",
+            "may",
+            "also",
+            "than",
+            "상기",
+            "하는",
+            "있는",
+            "위한",
+            "따른",
+            "의한",
+            "포함하는",
+            "구성된",
+            "이루어진",
+            "되는",
+            "하여",
         }
 
         keywords = [w for w in words if w.lower() not in stopwords]
         # 빈도 기반 정렬
         from collections import Counter
+
         counter = Counter(keywords)
         return [word for word, _ in counter.most_common(10)]
 

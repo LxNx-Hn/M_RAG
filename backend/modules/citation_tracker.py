@@ -1,4 +1,5 @@
 """Reference parser and citation fetcher for arXiv-backed citation workflows."""
+
 import logging
 import os
 import re
@@ -65,7 +66,9 @@ class CitationTracker:
         if not normalized:
             return None
 
-        arxiv_match = re.search(r"arXiv[:\s]*(\d{4}\.\d{4,5})", normalized, re.IGNORECASE)
+        arxiv_match = re.search(
+            r"arXiv[:\s]*(\d{4}\.\d{4,5})", normalized, re.IGNORECASE
+        )
         arxiv_id = arxiv_match.group(1) if arxiv_match else None
 
         year_match = re.search(r"\((\d{4})\)|,\s*(\d{4})", normalized)
@@ -89,9 +92,15 @@ class CitationTracker:
             arxiv_id=arxiv_id,
         )
 
-    def fetch_from_arxiv(self, citation: CitationInfo, max_results: int = 1) -> Optional[CitationInfo]:
+    def fetch_from_arxiv(
+        self, citation: CitationInfo, max_results: int = 1
+    ) -> Optional[CitationInfo]:
         try:
-            query = f"id:{citation.arxiv_id}" if citation.arxiv_id else f"ti:{quote_plus(citation.title[:100])}"
+            query = (
+                f"id:{citation.arxiv_id}"
+                if citation.arxiv_id
+                else f"ti:{quote_plus(citation.title[:100])}"
+            )
             params = {"search_query": query, "start": 0, "max_results": max_results}
 
             response = requests.get(self.ARXIV_API, params=params, timeout=10)
@@ -128,7 +137,9 @@ class CitationTracker:
             citation.fetch_error = f"fetch_failed: {exc}"
             return citation
 
-    def fetch_all_citations(self, max_total: int = ARXIV_MAX_RESULTS, delay: float = 1.0) -> list[CitationInfo]:
+    def fetch_all_citations(
+        self, max_total: int = ARXIV_MAX_RESULTS, delay: float = 1.0
+    ) -> list[CitationInfo]:
         fetched: list[CitationInfo] = []
         for citation in self.citations[:max_total]:
             result = self.fetch_from_arxiv(citation)
@@ -136,7 +147,9 @@ class CitationTracker:
                 fetched.append(result)
             time.sleep(delay)
 
-        logger.info("Fetched %s/%s citations from arXiv", len(fetched), len(self.citations))
+        logger.info(
+            "Fetched %s/%s citations from arXiv", len(fetched), len(self.citations)
+        )
         return fetched
 
     def download_pdf(self, citation: CitationInfo, output_dir: str) -> Optional[str]:
@@ -157,7 +170,9 @@ class CitationTracker:
             head.raise_for_status()
             content_type = (head.headers.get("Content-Type") or "").lower()
             if "application/pdf" not in content_type:
-                logger.warning("Rejected non-pdf citation content type: %s", content_type)
+                logger.warning(
+                    "Rejected non-pdf citation content type: %s", content_type
+                )
                 return None
 
             output_path = Path(output_dir)

@@ -5,9 +5,9 @@ Pipeline D: 인용 트래커
   - patent: 인용 특허 파싱 → Google Patents/KIPRIS 수집
   - lecture/general: 인용 추적 비활성 (해당 섹션 없음)
 """
+
 import logging
 import re
-from pathlib import Path
 
 from config import CAD_ALPHA, SCD_BETA
 from modules.scd_decoder import create_combined_processor
@@ -90,7 +90,14 @@ def run(
                 "source_documents": [],
                 "citations": citation_info,
                 "pipeline": "D_citation",
-                "steps": steps + [{"step": "fallback", "reason": "no_search_results", "fallback": True}],
+                "steps": steps
+                + [
+                    {
+                        "step": "fallback",
+                        "reason": "no_search_results",
+                        "fallback": True,
+                    }
+                ],
             }
 
         reranked = reranker.rerank(query, search_results)
@@ -103,7 +110,14 @@ def run(
                 "source_documents": [],
                 "citations": citation_info,
                 "pipeline": "D_citation",
-                "steps": steps + [{"step": "fallback", "reason": "no_context_after_compression", "fallback": True}],
+                "steps": steps
+                + [
+                    {
+                        "step": "fallback",
+                        "reason": "no_context_after_compression",
+                        "fallback": True,
+                    }
+                ],
             }
 
         context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
@@ -146,17 +160,23 @@ def run(
 
 
 def _run_arxiv_tracking(
-    document, collection_name, citation_tracker,
-    section_detector, pdf_parser, chunker, embedder, vector_store,
-    data_dir, steps,
+    document,
+    collection_name,
+    citation_tracker,
+    section_detector,
+    pdf_parser,
+    chunker,
+    embedder,
+    vector_store,
+    data_dir,
+    steps,
 ) -> tuple[list[dict], int]:
     """논문 모드: arXiv API 기반 인용 추적"""
     # Reference 섹션 추출
     ref_text = section_detector.get_section_text(document, "references")
     if not ref_text:
         ref_text = "\n".join(
-            b.content for b in document.blocks
-            if "reference" in b.content.lower()[:50]
+            b.content for b in document.blocks if "reference" in b.content.lower()[:50]
         )
 
     citations = citation_tracker.parse_references(ref_text)
@@ -193,9 +213,17 @@ def _run_arxiv_tracking(
 
 
 def _run_patent_tracking(
-    query, document, collection_name, patent_tracker,
-    section_detector, pdf_parser, chunker, embedder, vector_store,
-    data_dir, steps,
+    query,
+    document,
+    collection_name,
+    patent_tracker,
+    section_detector,
+    pdf_parser,
+    chunker,
+    embedder,
+    vector_store,
+    data_dir,
+    steps,
 ) -> tuple[list[dict], int]:
     """특허 모드: Google Patents/KIPRIS 기반 인용 특허 추적"""
     # 인용 특허 섹션 추출
@@ -207,9 +235,9 @@ def _run_patent_tracking(
     steps.append({"step": "parse_cited_patents", "patents_found": len(patents)})
 
     # "유사 특허" 키워드 감지 → 유사 특허 검색
-    is_similar_query = bool(re.search(
-        r"(?i)(유사\s*특허|similar\s*patent|관련\s*특허)", query
-    ))
+    is_similar_query = bool(
+        re.search(r"(?i)(유사\s*특허|similar\s*patent|관련\s*특허)", query)
+    )
 
     if is_similar_query:
         claims_text = section_detector.get_section_text(document, "claims")

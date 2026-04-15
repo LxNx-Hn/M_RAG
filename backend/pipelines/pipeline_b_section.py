@@ -1,6 +1,7 @@
 """
 Pipeline B: section-focused QA.
 """
+
 import logging
 
 from config import CAD_ALPHA, SCD_BETA
@@ -76,7 +77,9 @@ def run(
         compressed = compressor.compress(reranked, query)
         compressed = compressor.truncate_to_limit(compressed)
         if not compressed:
-            return _fallback_response(pipeline_name, steps, "no_context_after_compression")
+            return _fallback_response(
+                pipeline_name, steps, "no_context_after_compression"
+            )
 
         context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
         logits_processor = create_combined_processor(
@@ -113,4 +116,3 @@ def run(
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
         }
-

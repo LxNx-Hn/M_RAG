@@ -4,9 +4,9 @@ Revision ID: 20260414_000002
 Revises: 20260414_000001
 Create Date: 2026-04-14 16:10:00
 """
+
 from alembic import op
 import sqlalchemy as sa
-
 
 revision = "20260414_000002"
 down_revision = "20260414_000001"
@@ -25,20 +25,30 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index("ix_revoked_tokens_user_id", "revoked_tokens", ["user_id"], unique=False)
+    op.create_index(
+        "ix_revoked_tokens_user_id", "revoked_tokens", ["user_id"], unique=False
+    )
     op.create_index("ix_revoked_tokens_jti", "revoked_tokens", ["jti"], unique=True)
 
     op.execute("DELETE FROM conversations WHERE user_id IS NULL")
     with op.batch_alter_table("conversations") as batch:
-        batch.alter_column("user_id", existing_type=sa.String(length=36), nullable=False)
+        batch.alter_column(
+            "user_id", existing_type=sa.String(length=36), nullable=False
+        )
 
     with op.batch_alter_table("papers") as batch:
-        batch.add_column(sa.Column("doc_type", sa.String(length=32), nullable=True, server_default="paper"))
+        batch.add_column(
+            sa.Column(
+                "doc_type", sa.String(length=32), nullable=True, server_default="paper"
+            )
+        )
     op.execute("UPDATE papers SET doc_type = 'paper' WHERE doc_type IS NULL")
 
     op.execute("DELETE FROM papers WHERE user_id IS NULL")
     with op.batch_alter_table("papers") as batch:
-        batch.alter_column("user_id", existing_type=sa.String(length=36), nullable=False)
+        batch.alter_column(
+            "user_id", existing_type=sa.String(length=36), nullable=False
+        )
         batch.drop_index("ix_papers_doc_id")
         batch.create_index("ix_papers_doc_id", ["doc_id"], unique=False)
         batch.create_index(
@@ -46,7 +56,12 @@ def upgrade() -> None:
             ["user_id", "collection_name", "doc_id"],
             unique=True,
         )
-        batch.alter_column("doc_type", existing_type=sa.String(length=32), nullable=False, server_default=None)
+        batch.alter_column(
+            "doc_type",
+            existing_type=sa.String(length=32),
+            nullable=False,
+            server_default=None,
+        )
 
 
 def downgrade() -> None:

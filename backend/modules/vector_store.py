@@ -2,6 +2,7 @@
 MODULE 5: Vector Store
 ChromaDB 기반 임베딩 저장 및 메타데이터 필터 검색
 """
+
 import logging
 from pathlib import Path
 from typing import Optional
@@ -108,13 +109,16 @@ class VectorStore:
         search_results = []
         if results["ids"] and results["ids"][0]:
             for i in range(len(results["ids"][0])):
-                search_results.append({
-                    "chunk_id": results["ids"][0][i],
-                    "content": results["documents"][0][i],
-                    "metadata": results["metadatas"][0][i],
-                    "distance": results["distances"][0][i],
-                    "score": 1 - results["distances"][0][i],  # cosine distance → similarity
-                })
+                search_results.append(
+                    {
+                        "chunk_id": results["ids"][0][i],
+                        "content": results["documents"][0][i],
+                        "metadata": results["metadatas"][0][i],
+                        "distance": results["distances"][0][i],
+                        "score": 1
+                        - results["distances"][0][i],  # cosine distance → similarity
+                    }
+                )
 
         return search_results
 
@@ -149,7 +153,9 @@ class VectorStore:
         try:
             collection.delete(where={"doc_id": doc_id})
         except Exception as e:
-            logger.warning(f"delete_by_doc_id failed for '{collection_name}/{doc_id}': {e}")
+            logger.warning(
+                f"delete_by_doc_id failed for '{collection_name}/{doc_id}': {e}"
+            )
 
     def get_all_doc_ids(self, collection_name: str) -> list[str]:
         """컬렉션 내 모든 고유 doc_id 반환"""
@@ -165,7 +171,8 @@ class VectorStore:
     def _sanitize_name(name: str) -> str:
         """ChromaDB 컬렉션 이름 규칙 준수"""
         import re
-        safe = re.sub(r'[^a-zA-Z0-9_-]', '_', name)
+
+        safe = re.sub(r"[^a-zA-Z0-9_-]", "_", name)
         if not safe or not safe[0].isalpha():
             safe = "col_" + safe
         return safe[:63]  # max 63 chars

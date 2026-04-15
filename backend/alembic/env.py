@@ -10,8 +10,8 @@ from sqlalchemy import engine_from_config, pool
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from api.database import get_sync_database_url
-from api.models import Base
+from api.database import get_sync_database_url  # noqa: E402
+from api.models import Base  # noqa: E402
 
 config = context.config
 if config.config_file_name is not None:

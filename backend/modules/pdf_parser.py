@@ -13,6 +13,7 @@ PDF → 구조화된 텍스트 블록 추출 (pymupdf + pymupdf4llm 기반)
 
 pymupdf4llm 실패 시 기존 raw 추출만 사용 (graceful fallback).
 """
+
 import re
 import logging
 import fitz  # pymupdf
@@ -25,6 +26,7 @@ logger = logging.getLogger(__name__)
 # pymupdf4llm graceful import
 try:
     import pymupdf4llm
+
     HAS_PYMUPDF4LLM = True
 except ImportError:
     HAS_PYMUPDF4LLM = False
@@ -34,28 +36,32 @@ except ImportError:
 _MATH_FONT_RE = re.compile(r"(?i)(math|stix|cmsy|cmex|cmmi|cmr\d|symbol|asana)")
 
 # 유니코드 수학 기호 (Mathematical Operators, Greek 등)
-_MATH_CHARS = set("∀∃∑∏∫√≤≥≠≈∞αβγδεζηθικλμνξπρσςτυφχψω"
-                  "ΓΔΘΛΞΠΣΦΨΩ∂∇⊕⊗⊖⊘⊙±×÷∈∉⊂⊃⊆⊇∪∩∧∨¬→←↔⇒⇐⇔"
-                  "∝∠∡∢∴∵∼≅≡≜≝≐≑∓∔∤∥∦∷⋅⋆⋇⋈⋉⋊")
+_MATH_CHARS = set(
+    "∀∃∑∏∫√≤≥≠≈∞αβγδεζηθικλμνξπρσςτυφχψω"
+    "ΓΔΘΛΞΠΣΦΨΩ∂∇⊕⊗⊖⊘⊙±×÷∈∉⊂⊃⊆⊇∪∩∧∨¬→←↔⇒⇐⇔"
+    "∝∠∡∢∴∵∼≅≡≜≝≐≑∓∔∤∥∦∷⋅⋆⋇⋈⋉⋊"
+)
 
 
 @dataclass
 class TextBlock:
     """PDF에서 추출된 단일 텍스트 블록"""
+
     content: str
     page: int
     font_size: float
     is_bold: bool = False
     bbox: tuple = (0, 0, 0, 0)  # x0, y0, x1, y1
-    block_type: str = "text"     # text|heading|code|table|math|list_item|image
+    block_type: str = "text"  # text|heading|code|table|math|list_item|image
     section_type: str = "unknown"
-    header_level: int = 0        # heading일 때 1~3
+    header_level: int = 0  # heading일 때 1~3
     metadata: dict = field(default_factory=dict)
 
 
 @dataclass
 class ParsedDocument:
     """파싱된 문서 전체"""
+
     doc_id: str
     title: str
     blocks: list[TextBlock] = field(default_factory=list)
@@ -97,7 +103,9 @@ class PDFParser:
             try:
                 structured_blocks = self._extract_structured(str(pdf_path))
             except Exception as e:
-                logger.warning(f"pymupdf4llm extraction failed: {e} — using raw blocks only")
+                logger.warning(
+                    f"pymupdf4llm extraction failed: {e} — using raw blocks only"
+                )
 
         # 3단계: 병합
         if structured_blocks:
@@ -138,13 +146,15 @@ class PDFParser:
 
         for block in raw_blocks.get("blocks", []):
             if block.get("type") == 1:
-                blocks.append(TextBlock(
-                    content="[IMAGE]",
-                    page=page_num,
-                    font_size=0,
-                    bbox=tuple(block["bbox"]),
-                    block_type="image",
-                ))
+                blocks.append(
+                    TextBlock(
+                        content="[IMAGE]",
+                        page=page_num,
+                        font_size=0,
+                        bbox=tuple(block["bbox"]),
+                        block_type="image",
+                    )
+                )
                 continue
 
             text_parts = []
@@ -180,10 +190,7 @@ class PDFParser:
             avg_font = sum(font_sizes) / len(font_sizes) if font_sizes else 10
 
             # 수식 블록 판정: span의 50% 이상이 math
-            is_math = (
-                total_span_count > 0
-                and math_span_count / total_span_count >= 0.5
-            )
+            is_math = total_span_count > 0 and math_span_count / total_span_count >= 0.5
 
             tb = TextBlock(
                 content=content,
@@ -223,9 +230,7 @@ class PDFParser:
 
         return blocks
 
-    def _parse_markdown_to_blocks(
-        self, md_text: str, page_num: int
-    ) -> list[TextBlock]:
+    def _parse_markdown_to_blocks(self, md_text: str, page_num: int) -> list[TextBlock]:
         """Markdown 텍스트를 block_type별 TextBlock으로 변환"""
         blocks = []
         lines = md_text.split("\n")
@@ -244,12 +249,14 @@ class PDFParser:
                 i += 1  # closing ```
                 code_content = "\n".join(code_lines).strip()
                 if code_content:
-                    blocks.append(TextBlock(
-                        content=code_content,
-                        page=page_num,
-                        font_size=10,
-                        block_type="code",
-                    ))
+                    blocks.append(
+                        TextBlock(
+                            content=code_content,
+                            page=page_num,
+                            font_size=10,
+                            block_type="code",
+                        )
+                    )
                 continue
 
             # 헤딩 (#, ##, ###)
@@ -258,14 +265,16 @@ class PDFParser:
                 level = len(heading_match.group(1))
                 text = heading_match.group(2).strip()
                 if text:
-                    blocks.append(TextBlock(
-                        content=text,
-                        page=page_num,
-                        font_size=14 + (3 - level) * 2,
-                        is_bold=True,
-                        block_type="heading",
-                        header_level=level,
-                    ))
+                    blocks.append(
+                        TextBlock(
+                            content=text,
+                            page=page_num,
+                            font_size=14 + (3 - level) * 2,
+                            is_bold=True,
+                            block_type="heading",
+                            header_level=level,
+                        )
+                    )
                 i += 1
                 continue
 
@@ -277,22 +286,26 @@ class PDFParser:
                     i += 1
                 if len(table_lines) >= 2:  # 헤더 + 구분선 이상
                     table_content = "\n".join(table_lines)
-                    blocks.append(TextBlock(
-                        content=table_content,
-                        page=page_num,
-                        font_size=10,
-                        block_type="table",
-                    ))
+                    blocks.append(
+                        TextBlock(
+                            content=table_content,
+                            page=page_num,
+                            font_size=10,
+                            block_type="table",
+                        )
+                    )
                 else:
                     for tl in table_lines:
                         text = tl.strip().strip("|").strip()
                         if text:
-                            blocks.append(TextBlock(
-                                content=text,
-                                page=page_num,
-                                font_size=10,
-                                block_type="text",
-                            ))
+                            blocks.append(
+                                TextBlock(
+                                    content=text,
+                                    page=page_num,
+                                    font_size=10,
+                                    block_type="text",
+                                )
+                            )
                 continue
 
             # 리스트 항목
@@ -300,24 +313,28 @@ class PDFParser:
                 text = re.sub(r"^\s*[-*+]\s+", "", line).strip()
                 text = re.sub(r"^\s*\d+\.\s+", "", text).strip()
                 if text:
-                    blocks.append(TextBlock(
-                        content=text,
-                        page=page_num,
-                        font_size=10,
-                        block_type="list_item",
-                    ))
+                    blocks.append(
+                        TextBlock(
+                            content=text,
+                            page=page_num,
+                            font_size=10,
+                            block_type="list_item",
+                        )
+                    )
                 i += 1
                 continue
 
             # 일반 텍스트
             text = line.strip()
             if text and len(text) >= self.min_text_length:
-                blocks.append(TextBlock(
-                    content=text,
-                    page=page_num,
-                    font_size=10,
-                    block_type="text",
-                ))
+                blocks.append(
+                    TextBlock(
+                        content=text,
+                        page=page_num,
+                        font_size=10,
+                        block_type="text",
+                    )
+                )
             i += 1
 
         return blocks
@@ -423,8 +440,7 @@ class PDFParser:
     def _detect_title(self, blocks: list[TextBlock]) -> str:
         """첫 페이지 블록 중 가장 큰 폰트를 제목으로 추정"""
         first_page = [
-            b for b in blocks
-            if b.page == 0 and b.block_type in ("text", "heading")
+            b for b in blocks if b.page == 0 and b.block_type in ("text", "heading")
         ]
         if not first_page:
             return "Unknown"
@@ -439,11 +455,13 @@ class PDFParser:
             page = doc[page_num]
             page_tables = page.find_tables()
             for i, table in enumerate(page_tables):
-                tables.append({
-                    "page": page_num,
-                    "table_index": i,
-                    "data": table.extract(),
-                    "bbox": table.bbox,
-                })
+                tables.append(
+                    {
+                        "page": page_num,
+                        "table_index": i,
+                        "data": table.extract(),
+                        "bbox": table.bbox,
+                    }
+                )
         doc.close()
         return tables

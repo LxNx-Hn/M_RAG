@@ -3,10 +3,10 @@ API 엔드포인트 통합 테스트
 GPU 없이 실행 가능한 테스트
 Usage: python tests/test_api.py
 """
+
 import json
 import os
 import sys
-import time
 
 # Windows 콘솔 인코딩 문제 해결
 os.environ["PYTHONIOENCODING"] = "utf-8"
@@ -79,47 +79,60 @@ def main():
 
     # 테스트용 미니 PDF 생성
     import fitz
+
     doc = fitz.open()
     # 페이지 1: Title + Abstract
     page = doc.new_page()
     page.insert_text((72, 80), "Test Paper: A Novel Approach", fontsize=18)
     page.insert_text((72, 120), "Abstract", fontsize=14)
-    page.insert_text((72, 145),
+    page.insert_text(
+        (72, 145),
         "This paper proposes a novel method for improving text classification "
         "accuracy using transformer-based models. We achieve 95.3% accuracy "
         "on the GLUE benchmark dataset, surpassing previous state-of-the-art.",
-        fontsize=10)
+        fontsize=10,
+    )
     # 페이지 2: Method
     page2 = doc.new_page()
     page2.insert_text((72, 80), "1. Introduction", fontsize=14)
-    page2.insert_text((72, 110),
+    page2.insert_text(
+        (72, 110),
         "Natural language understanding is a fundamental challenge in NLP. "
         "Recent advances in transformer models have shown remarkable progress.",
-        fontsize=10)
+        fontsize=10,
+    )
     page2.insert_text((72, 160), "2. Method", fontsize=14)
-    page2.insert_text((72, 190),
+    page2.insert_text(
+        (72, 190),
         "We propose a multi-head cross-attention mechanism that enables "
         "the model to capture both local and global dependencies. The architecture "
         "consists of 12 transformer layers with 768 hidden dimensions.",
-        fontsize=10)
+        fontsize=10,
+    )
     # 페이지 3: Results + References
     page3 = doc.new_page()
     page3.insert_text((72, 80), "3. Results", fontsize=14)
-    page3.insert_text((72, 110),
+    page3.insert_text(
+        (72, 110),
         "Our model achieves 95.3% accuracy on GLUE, 92.1% on SuperGLUE, "
         "and 88.7% F1-score on SQuAD 2.0. The training time is 48 hours "
         "on 8 NVIDIA A100 GPUs with a batch size of 256.",
-        fontsize=10)
+        fontsize=10,
+    )
     page3.insert_text((72, 180), "4. Conclusion", fontsize=14)
-    page3.insert_text((72, 210),
+    page3.insert_text(
+        (72, 210),
         "We presented a novel attention mechanism that outperforms existing methods. "
         "The main limitation is the computational cost during inference.",
-        fontsize=10)
+        fontsize=10,
+    )
     page3.insert_text((72, 260), "References", fontsize=14)
-    page3.insert_text((72, 290),
-        "[1] Vaswani, A. et al. (2017). \"Attention Is All You Need.\" NeurIPS 2017. arXiv:1706.03762\n"
-        "[2] Devlin, J. et al. (2019). \"BERT: Pre-training of Deep Bidirectional Transformers.\" NAACL.",
-        fontsize=9)
+    page3.insert_text(
+        (72, 290),
+        '[1] Vaswani, A. et al. (2017). "Attention Is All You Need." NeurIPS 2017. arXiv:1706.03762\n'
+        '[2] Devlin, J. et al. (2019). "BERT: Pre-training of Deep Bidirectional Transformers." NAACL.',
+        fontsize=9,
+    )
 
     pdf_path = "data/test_paper.pdf"
     doc.save(pdf_path)
@@ -129,7 +142,8 @@ def main():
     with open(pdf_path, "rb") as f:
         data = test(
             "Upload PDF",
-            "POST", "/api/papers/upload",
+            "POST",
+            "/api/papers/upload",
             files={"file": ("test_paper.pdf", f, "application/pdf")},
         )
     if data:
@@ -141,22 +155,28 @@ def main():
     page = doc2.new_page()
     page.insert_text((72, 80), "Second Paper: Efficient Training", fontsize=18)
     page.insert_text((72, 120), "Abstract", fontsize=14)
-    page.insert_text((72, 145),
+    page.insert_text(
+        (72, 145),
         "We present an efficient training method that reduces GPU memory usage "
         "by 40% while maintaining model accuracy. Our approach uses gradient "
         "checkpointing and mixed precision training.",
-        fontsize=10)
+        fontsize=10,
+    )
     page2 = doc2.new_page()
     page2.insert_text((72, 80), "2. Method", fontsize=14)
-    page2.insert_text((72, 110),
+    page2.insert_text(
+        (72, 110),
         "The proposed method combines gradient accumulation with dynamic "
         "batch sizing to optimize memory efficiency during training.",
-        fontsize=10)
+        fontsize=10,
+    )
     page2.insert_text((72, 170), "3. Results", fontsize=14)
-    page2.insert_text((72, 200),
+    page2.insert_text(
+        (72, 200),
         "Our method achieves 94.8% accuracy with only 60% of the original "
         "memory footprint, enabling training on consumer GPUs.",
-        fontsize=10)
+        fontsize=10,
+    )
     pdf_path2 = "data/second_paper.pdf"
     doc2.save(pdf_path2)
     doc2.close()
@@ -164,7 +184,8 @@ def main():
     with open(pdf_path2, "rb") as f:
         test(
             "Upload second PDF",
-            "POST", "/api/papers/upload",
+            "POST",
+            "/api/papers/upload",
             files={"file": ("second_paper.pdf", f, "application/pdf")},
         )
 
@@ -181,31 +202,39 @@ def main():
     print("\n--- Search ---")
     data = test(
         "Search: accuracy",
-        "POST", "/api/chat/search",
+        "POST",
+        "/api/chat/search",
         json={"query": "What accuracy did the model achieve?", "top_k": 3},
     )
     if data:
         for r in data.get("results", []):
-            print(f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}...")
+            print(
+                f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}..."
+            )
 
     data = test(
         "Search: Korean query",
-        "POST", "/api/chat/search",
+        "POST",
+        "/api/chat/search",
         json={"query": "이 모델의 정확도가 얼마야?", "top_k": 3},
     )
     if data:
         for r in data.get("results", []):
-            print(f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}...")
+            print(
+                f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}..."
+            )
 
     data = test(
         "Search: section filter (method)",
-        "POST", "/api/chat/search",
+        "POST",
+        "/api/chat/search",
         json={"query": "model architecture", "section_filter": "method", "top_k": 3},
     )
 
     data = test(
         "Search: doc_id filter",
-        "POST", "/api/chat/search",
+        "POST",
+        "/api/chat/search",
         json={"query": "accuracy", "doc_id_filter": "test_paper", "top_k": 3},
     )
 
@@ -215,71 +244,99 @@ def main():
     # Route A: 단순 QA
     data = test(
         "Route A: 단순 QA",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "이 논문에서 사용한 데이터셋이 뭐야?"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
         print(f"         Answer: {data.get('answer', '')[:100]}...")
 
     # Route B: 섹션 특화
     data = test(
         "Route B: 결과 섹션",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "실험 결과가 어떻게 나왔어?"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
 
     # Route B: 방법론
     data = test(
         "Route B: 방법론 섹션",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "방법론 설명해줘"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
 
     # Route C: 비교
     data = test(
         "Route C: 논문 비교",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "두 논문의 정확도 차이를 비교해줘"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
 
     # Route E: 요약
     data = test(
         "Route E: 전체 요약",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "이 논문 전체 요약해줘"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
 
     # Route D: 인용
     data = test(
         "Route D: 인용 논문",
-        "POST", "/api/chat/query",
+        "POST",
+        "/api/chat/query",
         json={"query": "인용 논문들 분석해줘"},
     )
     if data:
-        print(f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}")
+        print(
+            f"         Route: {data.get('route', {}).get('route')} - {data.get('route', {}).get('route_name', '')}"
+        )
 
     # ─── 7. Error Cases ───
     print("\n--- Error Handling ---")
-    test("Empty query", "POST", "/api/chat/query",
-         json={"query": ""}, expected_status=422)
-    test("Invalid file type", "POST", "/api/papers/upload",
-         files={"file": ("bad.xyz", b"not a valid file", "application/octet-stream")},
-         expected_status=400)
+    test(
+        "Empty query",
+        "POST",
+        "/api/chat/query",
+        json={"query": ""},
+        expected_status=422,
+    )
+    test(
+        "Invalid file type",
+        "POST",
+        "/api/papers/upload",
+        files={"file": ("bad.xyz", b"not a valid file", "application/octet-stream")},
+        expected_status=400,
+    )
 
     # ─── 8. Citations ───
     print("\n--- Citations ---")
     data = test(
         "Track citations",
-        "POST", "/api/citations/track",
+        "POST",
+        "/api/citations/track",
         json={"doc_id": "test_paper", "max_citations": 2},
     )
     if data:

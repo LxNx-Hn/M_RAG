@@ -3,6 +3,7 @@ MODULE 9: Reranker
 Cross-Encoder 기반 검색 결과 관련성 재정렬
 기반 논문: ColBERTv2 [14], Jina-ColBERT-v2 [15], Lost in the Middle [29]
 """
+
 import logging
 from typing import Optional
 

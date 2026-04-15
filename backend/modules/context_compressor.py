@@ -3,9 +3,9 @@ MODULE 10: Context Compressor
 LLM 컨텍스트 윈도우 한계 내 정보 밀도 최대화
 기반 논문: LLMLingua [11], LongLLMLingua [12], RECOMP [19], ICAE [30]
 """
+
 import logging
 import re
-from typing import Optional
 
 from config import MAX_CONTEXT_TOKENS, COMPRESSION_RATIO
 
@@ -41,9 +41,7 @@ class ContextCompressor:
         if total_tokens <= self.max_tokens:
             return documents
 
-        logger.info(
-            f"Compressing context: {total_tokens} → ~{self.max_tokens} tokens"
-        )
+        logger.info(f"Compressing context: {total_tokens} → ~{self.max_tokens} tokens")
 
         if strategy == "extractive":
             return self._extractive_compress(documents, query)
@@ -52,15 +50,13 @@ class ContextCompressor:
         else:
             return self._extractive_compress(documents, query)
 
-    def _extractive_compress(
-        self, documents: list[dict], query: str
-    ) -> list[dict]:
+    def _extractive_compress(self, documents: list[dict], query: str) -> list[dict]:
         """추출 압축: 쿼리 관련 문장만 추출 (LLMLingua 근사)"""
         query_terms = set(query.lower().split())
         compressed = []
 
         for doc in documents:
-            sentences = re.split(r'(?<=[.!?。])\s+', doc["content"])
+            sentences = re.split(r"(?<=[.!?。])\s+", doc["content"])
             scored_sentences = []
 
             for sent in sentences:
@@ -92,15 +88,15 @@ class ContextCompressor:
                     selected_set.discard(sent)
 
             compressed_doc = doc.copy()
-            compressed_doc["content"] = " ".join(original_order) if original_order else doc["content"][:500]
+            compressed_doc["content"] = (
+                " ".join(original_order) if original_order else doc["content"][:500]
+            )
             compressed_doc["compressed"] = True
             compressed.append(compressed_doc)
 
         return compressed
 
-    def _abstractive_compress(
-        self, documents: list[dict], query: str
-    ) -> list[dict]:
+    def _abstractive_compress(self, documents: list[dict], query: str) -> list[dict]:
         """요약 압축: LLM으로 쿼리 관련 요약 생성 (RECOMP)"""
         compressed = []
 

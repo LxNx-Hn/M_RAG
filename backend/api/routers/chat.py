@@ -1,6 +1,7 @@
 """
 /api/chat - query, streaming, search, and export endpoints
 """
+
 import asyncio
 import json
 import logging
@@ -31,16 +32,22 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 STREAM_PIPELINE_TIMEOUT_SECONDS = 120
-GENERATION_QUEUE_TIMEOUT_SECONDS = int(os.environ.get("GENERATION_QUEUE_TIMEOUT_SECONDS", "29"))
+GENERATION_QUEUE_TIMEOUT_SECONDS = int(
+    os.environ.get("GENERATION_QUEUE_TIMEOUT_SECONDS", "29")
+)
 GENERATION_CONCURRENCY = max(1, int(os.environ.get("GENERATION_CONCURRENCY", "1")))
 _generation_semaphore = asyncio.Semaphore(GENERATION_CONCURRENCY)
 
 
-def _to_source_documents(documents: list[dict], truncate: bool = True) -> list[SourceDocument]:
+def _to_source_documents(
+    documents: list[dict], truncate: bool = True
+) -> list[SourceDocument]:
     return [
         SourceDocument(
             chunk_id=doc.get("chunk_id", ""),
-            content=(doc.get("content", "")[:500] if truncate else doc.get("content", "")),
+            content=(
+                doc.get("content", "")[:500] if truncate else doc.get("content", "")
+            ),
             section_type=doc.get("metadata", {}).get("section_type", "unknown"),
             doc_id=doc.get("metadata", {}).get("doc_id", ""),
             page=doc.get("metadata", {}).get("page", 0),
@@ -52,7 +59,7 @@ def _to_source_documents(documents: list[dict], truncate: bool = True) -> list[S
 
 def _chunk_text(text: str, chunk_size: int = 24):
     for i in range(0, len(text), chunk_size):
-        yield text[i:i + chunk_size]
+        yield text[i : i + chunk_size]
 
 
 async def _run_pipeline_with_generation_gate(
@@ -65,7 +72,9 @@ async def _run_pipeline_with_generation_gate(
 ) -> dict:
     acquired = False
     try:
-        await asyncio.wait_for(_generation_semaphore.acquire(), timeout=GENERATION_QUEUE_TIMEOUT_SECONDS)
+        await asyncio.wait_for(
+            _generation_semaphore.acquire(), timeout=GENERATION_QUEUE_TIMEOUT_SECONDS
+        )
         acquired = True
     except asyncio.TimeoutError:
         raise HTTPException(
@@ -119,9 +128,12 @@ async def query(
         )
         reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
         sources = _to_source_documents(reranked, truncate=False)
-        no_gen_answer = "[Generator not loaded: returning search results only]\n\n" + "\n\n---\n\n".join(
-            f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
-            for s in sources
+        no_gen_answer = (
+            "[Generator not loaded: returning search results only]\n\n"
+            + "\n\n---\n\n".join(
+                f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
+                for s in sources
+            )
         )
         return QueryResponse(
             answer=no_gen_answer,
@@ -194,7 +206,10 @@ async def query_stream(
     generation_gate_acquired = False
     if m.has_generator:
         try:
-            await asyncio.wait_for(_generation_semaphore.acquire(), timeout=GENERATION_QUEUE_TIMEOUT_SECONDS)
+            await asyncio.wait_for(
+                _generation_semaphore.acquire(),
+                timeout=GENERATION_QUEUE_TIMEOUT_SECONDS,
+            )
             generation_gate_acquired = True
         except asyncio.TimeoutError:
             raise HTTPException(
@@ -215,16 +230,21 @@ async def query_stream(
                     {
                         "chunk_id": doc.get("chunk_id", ""),
                         "content": doc.get("content", "")[:500],
-                        "section_type": doc.get("metadata", {}).get("section_type", "unknown"),
+                        "section_type": doc.get("metadata", {}).get(
+                            "section_type", "unknown"
+                        ),
                         "doc_id": doc.get("metadata", {}).get("doc_id", ""),
                         "page": doc.get("metadata", {}).get("page", 0),
                         "score": doc.get("rerank_score", 0.0),
                     }
                     for doc in reranked
                 ]
-                answer = "[Generator not loaded: returning search results only]\n\n" + "\n\n---\n\n".join(
-                    f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
-                    for s in sources
+                answer = (
+                    "[Generator not loaded: returning search results only]\n\n"
+                    + "\n\n---\n\n".join(
+                        f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
+                        for s in sources
+                    )
                 )
                 follow_ups = generate_followups(
                     query=req.query,
@@ -232,9 +252,13 @@ async def query_stream(
                     route=decision.route.value,
                     section_filter=decision.section_filter,
                 )
-                yield sse_event("metadata", {"route": route_info, "sources": sources, "steps": []})
+                yield sse_event(
+                    "metadata", {"route": route_info, "sources": sources, "steps": []}
+                )
                 yield sse_event("token", {"token": answer})
-                yield sse_event("done", {"full_answer": answer, "follow_ups": follow_ups})
+                yield sse_event(
+                    "done", {"full_answer": answer, "follow_ups": follow_ups}
+                )
                 return
 
             result = await asyncio.wait_for(
@@ -250,7 +274,9 @@ async def query_stream(
                 # Keep stream path behavior aligned with non-stream pipeline execution.
                 timeout=STREAM_PIPELINE_TIMEOUT_SECONDS,
             )
-            source_docs = _to_source_documents(result.get("source_documents", []), truncate=True)
+            source_docs = _to_source_documents(
+                result.get("source_documents", []), truncate=True
+            )
             sources = [doc.model_dump() for doc in source_docs]
             steps = result.get("steps", [])
             pipeline_name = result.get("pipeline", "")
@@ -285,7 +311,10 @@ async def query_stream(
                 },
             )
         except asyncio.TimeoutError:
-            logger.error("Streaming pipeline timed out after %ss", STREAM_PIPELINE_TIMEOUT_SECONDS)
+            logger.error(
+                "Streaming pipeline timed out after %ss",
+                STREAM_PIPELINE_TIMEOUT_SECONDS,
+            )
             yield sse_event(
                 "error",
                 {
@@ -363,7 +392,9 @@ async def export_ppt(
     )
 
 
-def _run_pipeline(decision, req, m, available_docs, papers, internal_collection_name: str) -> dict:
+def _run_pipeline(
+    decision, req, m, available_docs, papers, internal_collection_name: str
+) -> dict:
     from pipelines import (
         pipeline_a_simple_qa,
         pipeline_b_section,

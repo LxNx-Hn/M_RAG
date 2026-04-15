@@ -10,12 +10,12 @@ GuideV2 §5.1.3 기준:
 실행:
     python -m backend.evaluation.decoder_ablation
 """
+
 import json
 import logging
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -24,11 +24,13 @@ logger = logging.getLogger(__name__)
 # ─────────────────────────────────────────────
 
 CAD_ALPHA_VALUES = [0.0, 0.1, 0.3, 0.5, 0.7, 1.0]
-SCD_BETA_VALUES  = [0.1, 0.3, 0.5]
+SCD_BETA_VALUES = [0.1, 0.3, 0.5]
+
 
 @dataclass
 class DecoderConfig:
     """디코더 ablation 단일 실험 구성"""
+
     name: str
     use_cad: bool = False
     use_scd: bool = False
@@ -39,15 +41,22 @@ class DecoderConfig:
 # Table 2 기본 구성
 DECODER_CONFIGS = [
     DecoderConfig(name="Baseline (no decoder)"),
-    DecoderConfig(name="CAD only (α=0.5)",  use_cad=True,  cad_alpha=0.5),
-    DecoderConfig(name="SCD only (β=0.3)",  use_scd=True,  scd_beta=0.3),
-    DecoderConfig(name="CAD+SCD (α=0.5, β=0.3)", use_cad=True, use_scd=True, cad_alpha=0.5, scd_beta=0.3),
+    DecoderConfig(name="CAD only (α=0.5)", use_cad=True, cad_alpha=0.5),
+    DecoderConfig(name="SCD only (β=0.3)", use_scd=True, scd_beta=0.3),
+    DecoderConfig(
+        name="CAD+SCD (α=0.5, β=0.3)",
+        use_cad=True,
+        use_scd=True,
+        cad_alpha=0.5,
+        scd_beta=0.3,
+    ),
 ]
 
 
 # ─────────────────────────────────────────────
 # 평가 지표 계산
 # ─────────────────────────────────────────────
+
 
 def compute_language_drift_rate(answers: list[str]) -> float:
     """언어 이탈률: 한국어가 없는 답변 비율
@@ -83,17 +92,18 @@ def compute_numeric_hallucination_rate(
     if not answers:
         return 0.0
 
-    _UNIT_PATTERN = r'(?:%|배|점|개|명|억|만|천|[KMBTG]B?|gb|mb|kb)'
+    _UNIT_PATTERN = r"(?:%|배|점|개|명|억|만|천|[KMBTG]B?|gb|mb|kb)"
 
     def extract_numbers(text: str) -> set[str]:
         """숫자+선택적 단위를 추출하고 정규화된 숫자값만 반환"""
         raw = re.findall(
-            r'\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)' + _UNIT_PATTERN + r'?\b',
-            text, re.IGNORECASE,
+            r"\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)" + _UNIT_PATTERN + r"?\b",
+            text,
+            re.IGNORECASE,
         )
         normalized = set()
         for num_str in raw:
-            clean = num_str.replace(',', '')
+            clean = num_str.replace(",", "")
             try:
                 val = float(clean)
             except ValueError:
@@ -116,16 +126,14 @@ def compute_numeric_hallucination_rate(
         if extra:
             hallucinated += 1
 
-    evaluated = sum(
-        1 for gt in ground_truths
-        if gt.strip() and extract_numbers(gt)
-    )
+    evaluated = sum(1 for gt in ground_truths if gt.strip() and extract_numbers(gt))
     return hallucinated / max(evaluated, 1)
 
 
 # ─────────────────────────────────────────────
 # 실험 실행기
 # ─────────────────────────────────────────────
+
 
 class DecoderAblationStudy:
     """Table 2 생성을 위한 CAD/SCD 조합 ablation 실행기"""
@@ -187,11 +195,13 @@ class DecoderAblationStudy:
                 logger.warning(f"Generation failed for '{query}': {e}")
                 answer = ""
 
-            answers.append({
-                "query": query,
-                "answer": answer,
-                "ground_truth": ground_truth,
-            })
+            answers.append(
+                {
+                    "query": query,
+                    "answer": answer,
+                    "ground_truth": ground_truth,
+                }
+            )
 
         answer_texts = [a["answer"] for a in answers]
         gt_texts = [a["ground_truth"] for a in answers]
@@ -199,7 +209,9 @@ class DecoderAblationStudy:
         return {
             "config": config.name,
             "language_drift_rate": compute_language_drift_rate(answer_texts),
-            "numeric_hallucination_rate": compute_numeric_hallucination_rate(answer_texts, gt_texts),
+            "numeric_hallucination_rate": compute_numeric_hallucination_rate(
+                answer_texts, gt_texts
+            ),
             "answers": answers,
         }
 
@@ -218,8 +230,10 @@ class DecoderAblationStudy:
         for alpha in CAD_ALPHA_VALUES:
             config = DecoderConfig(
                 name=f"CAD+SCD (α={alpha}, β=0.3)",
-                use_cad=True, use_scd=True,
-                cad_alpha=alpha, scd_beta=0.3,
+                use_cad=True,
+                use_scd=True,
+                cad_alpha=alpha,
+                scd_beta=0.3,
             )
             logger.info(f"[Alpha sweep] Running: {config.name}")
             results[config.name] = self.run_single(config, test_samples)
@@ -232,8 +246,10 @@ class DecoderAblationStudy:
         for beta in SCD_BETA_VALUES:
             config = DecoderConfig(
                 name=f"CAD+SCD (α=0.5, β={beta})",
-                use_cad=True, use_scd=True,
-                cad_alpha=0.5, scd_beta=beta,
+                use_cad=True,
+                use_scd=True,
+                cad_alpha=0.5,
+                scd_beta=beta,
             )
             logger.info(f"[Beta sweep] Running: {config.name}")
             results[config.name] = self.run_single(config, test_samples)
@@ -248,16 +264,16 @@ class DecoderAblationStudy:
 
     def print_summary(self, results: dict):
         """실험 결과 콘솔 출력 (Table 2 형식)"""
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("Table 2: CAD / SCD / 조합 Ablation")
-        print("="*70)
+        print("=" * 70)
         print(f"{'구성':<35} {'수치환각률':>10} {'언어이탈률':>10}")
-        print("-"*70)
+        print("-" * 70)
         for name, r in results.items():
             drift = r.get("language_drift_rate", 0.0)
             halluc = r.get("numeric_hallucination_rate", 0.0)
             print(f"{name:<35} {halluc:>9.1%} {drift:>9.1%}")
-        print("="*70)
+        print("=" * 70)
 
 
 if __name__ == "__main__":

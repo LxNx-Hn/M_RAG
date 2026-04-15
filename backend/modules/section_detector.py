@@ -10,40 +10,70 @@ MODULE 2: Section Detector
   - 일반 문서 (general): GENERAL_DOC_PATTERNS (chapter/section/overview/...)
   자동 판별 후 적절한 패턴 적용. 우선순위: patent > lecture > paper > general.
 """
+
 import re
 from typing import Optional
 
 from config import (
-    SECTION_PATTERNS, GENERAL_DOC_PATTERNS,
-    LECTURE_PATTERNS, PATENT_PATTERNS,
+    SECTION_PATTERNS,
+    GENERAL_DOC_PATTERNS,
+    LECTURE_PATTERNS,
+    PATENT_PATTERNS,
 )
 from modules.pdf_parser import TextBlock, ParsedDocument
 
-
 # 섹션 타입 우선순위 (논문 구조 순서)
 SECTION_ORDER = [
-    "abstract", "introduction", "related_work", "method",
-    "experiment", "result", "discussion", "conclusion", "references"
+    "abstract",
+    "introduction",
+    "related_work",
+    "method",
+    "experiment",
+    "result",
+    "discussion",
+    "conclusion",
+    "references",
 ]
 
 # 일반 문서 섹션 순서
 GENERAL_DOC_SECTION_ORDER = [
-    "overview", "chapter", "section", "body",
-    "requirements", "design", "implementation",
-    "recommendation", "conclusion", "appendix"
+    "overview",
+    "chapter",
+    "section",
+    "body",
+    "requirements",
+    "design",
+    "implementation",
+    "recommendation",
+    "conclusion",
+    "appendix",
 ]
 
 # 강의/교재 섹션 순서
 LECTURE_SECTION_ORDER = [
-    "chapter", "section", "definition", "theorem", "proof",
-    "example", "exercise", "code_block"
+    "chapter",
+    "section",
+    "definition",
+    "theorem",
+    "proof",
+    "example",
+    "exercise",
+    "code_block",
 ]
 
 # 특허 명세서 섹션 순서
 PATENT_SECTION_ORDER = [
-    "title", "abstract", "technical_field", "background",
-    "summary", "problem", "solution", "detailed_description",
-    "drawings", "claims", "cited_patents"
+    "title",
+    "abstract",
+    "technical_field",
+    "background",
+    "summary",
+    "problem",
+    "solution",
+    "detailed_description",
+    "drawings",
+    "claims",
+    "cited_patents",
 ]
 
 # ─── 문서 유형 판별 신호 ───
@@ -138,7 +168,8 @@ class SectionDetector:
         특허는 키워드가 매우 독특하여 오판 위험 낮음.
         """
         sample_text = " ".join(
-            b.content for b in document.blocks[:30]
+            b.content
+            for b in document.blocks[:30]
             if b.block_type in ("text", "heading")
         )
 
@@ -176,8 +207,12 @@ class SectionDetector:
     def _estimate_body_font(self, blocks: list[TextBlock]) -> float:
         """가장 빈번한 폰트 크기를 본문 폰트로 추정"""
         from collections import Counter
-        font_sizes = [round(b.font_size, 1) for b in blocks
-                      if b.block_type in ("text", "heading") and b.font_size > 0]
+
+        font_sizes = [
+            round(b.font_size, 1)
+            for b in blocks
+            if b.block_type in ("text", "heading") and b.font_size > 0
+        ]
         if not font_sizes:
             return 10.0
         counter = Counter(font_sizes)
@@ -201,9 +236,8 @@ class SectionDetector:
             return None
 
         # 짧은 텍스트 + (큰 폰트 또는 볼드) → 헤더 후보
-        is_header_candidate = (
-            len(text) < 100
-            and (block.font_size >= body_font * self.header_font_threshold or block.is_bold)
+        is_header_candidate = len(text) < 100 and (
+            block.font_size >= body_font * self.header_font_threshold or block.is_bold
         )
 
         if not is_header_candidate:

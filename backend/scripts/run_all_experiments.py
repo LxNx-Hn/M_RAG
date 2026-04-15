@@ -29,6 +29,7 @@ Usage:
     * calls = 생성(1) + RAGAS평가(3) = 쿼리당 4회 LLM 호출
     * A100: ~3초/call, RTX 3080 Ti Mini: ~10초/call
 """
+
 import argparse
 import json
 import logging
@@ -129,7 +130,9 @@ def build_ablation_study(embedder, vector_store, hybrid_retriever):
 def print_table1(results: dict):
     """Table 1: 모듈별 Ablation 마크다운 출력"""
     print("\n### Table 1: 모듈별 Ablation Study")
-    print("| System | Faithfulness | Answer Rel. | Context Prec. | Context Recall | Overall |")
+    print(
+        "| System | Faithfulness | Answer Rel. | Context Prec. | Context Recall | Overall |"
+    )
     print("|---|---|---|---|---|---|")
     for name, result in results.items():
         avg = result.get("average", {})
@@ -154,7 +157,9 @@ def print_table2(results: dict):
     for key, val in results["per_alpha"].items():
         fd = val["faithfulness_delta"]
         od = val["overall_delta"]
-        print(f"| {key} | {'+' if fd >= 0 else ''}{fd:.3f} | {'+' if od >= 0 else ''}{od:.3f} |")
+        print(
+            f"| {key} | {'+' if fd >= 0 else ''}{fd:.3f} | {'+' if od >= 0 else ''}{od:.3f} |"
+        )
 
 
 def print_table3(results: dict):
@@ -166,7 +171,9 @@ def print_table3(results: dict):
     for key, val in results["per_beta"].items():
         fd = val["faithfulness_delta"]
         od = val["overall_delta"]
-        print(f"| {key} | {'+' if fd >= 0 else ''}{fd:.3f} | {'+' if od >= 0 else ''}{od:.3f} |")
+        print(
+            f"| {key} | {'+' if fd >= 0 else ''}{fd:.3f} | {'+' if od >= 0 else ''}{od:.3f} |"
+        )
 
 
 def print_table4(results: dict):
@@ -189,11 +196,14 @@ def main():
     parser.add_argument("--paper-pdf", required=True, help="평가용 논문 PDF 경로")
     parser.add_argument("--collection", default="full_eval", help="ChromaDB 컬렉션")
     parser.add_argument(
-        "--tables", default="1,2,3,4",
+        "--tables",
+        default="1,2,3,4",
         help="실행할 테이블 번호 (기본: 1,2,3,4)",
     )
     parser.add_argument(
-        "--max-queries", type=int, default=10,
+        "--max-queries",
+        type=int,
+        default=10,
         help="사용할 최대 쿼리 수 (기본: 10, 빠른 테스트: 5)",
     )
     args = parser.parse_args()
@@ -220,18 +230,27 @@ def main():
 
     all_samples = load_test_queries(
         filepath="evaluation/test_queries.json",
-        query_types=["cad_ablation", "crosslingual_en", "crosslingual_mixed",
-                     "simple_qa", "section_result"],
+        query_types=[
+            "cad_ablation",
+            "crosslingual_en",
+            "crosslingual_mixed",
+            "simple_qa",
+            "section_result",
+        ],
     )
-    samples = all_samples[:args.max_queries]
-    logger.info(f"평가 쿼리: {len(samples)}개 (전체 {len(all_samples)}개 중 --max-queries={args.max_queries})")
+    samples = all_samples[: args.max_queries]
+    logger.info(
+        f"평가 쿼리: {len(samples)}개 (전체 {len(all_samples)}개 중 --max-queries={args.max_queries})"
+    )
 
     # LLM 호출 수 예측
     n_configs = {"1": 6, "2": 6, "3": 4, "4": 4}
     total_configs = sum(n_configs.get(str(t), 0) for t in tables)
     calls_per_query = 4  # 생성(1) + RAGAS(3: faithfulness, relevancy, precision)
     total_calls = total_configs * len(samples) * calls_per_query
-    logger.info(f"예상 LLM 호출: {total_configs} configs × {len(samples)} queries × {calls_per_query} = {total_calls}회")
+    logger.info(
+        f"예상 LLM 호출: {total_configs} configs × {len(samples)} queries × {calls_per_query} = {total_calls}회"
+    )
 
     all_results = {
         "metadata": {

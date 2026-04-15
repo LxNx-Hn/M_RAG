@@ -1,4 +1,5 @@
 """Pydantic schemas for FastAPI request/response payloads."""
+
 from typing import Optional
 
 from pydantic import BaseModel, Field
@@ -30,7 +31,9 @@ class UploadResponse(BaseModel):
 
 
 class QueryRequest(BaseModel):
-    query: str = Field(..., min_length=1, max_length=2000, description="User question text")
+    query: str = Field(
+        ..., min_length=1, max_length=2000, description="User question text"
+    )
     collection_name: str = Field(default="papers", min_length=1, max_length=100)
     use_cad: bool = Field(default=True, description="Enable CAD decoding")
     cad_alpha: float = Field(default=0.5, ge=0.0, le=1.0)

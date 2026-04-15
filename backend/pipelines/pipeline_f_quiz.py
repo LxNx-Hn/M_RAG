@@ -1,6 +1,7 @@
 """
 Pipeline F: quiz/flashcard generation.
 """
+
 import logging
 
 from config import CAD_ALPHA, SCD_BETA
@@ -126,7 +127,11 @@ def run(
             }
         )
 
-        prompt = FLASHCARD_PROMPT.format(context=context, query=query) if mode == "flashcard" else QUIZ_PROMPT.format(context=context, query=query)
+        prompt = (
+            FLASHCARD_PROMPT.format(context=context, query=query)
+            if mode == "flashcard"
+            else QUIZ_PROMPT.format(context=context, query=query)
+        )
         answer = generator.generate(
             query=query,
             context=context,
@@ -153,4 +158,3 @@ def run(
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
         }
-

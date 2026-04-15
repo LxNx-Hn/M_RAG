@@ -6,13 +6,16 @@ Usage:
     python scripts/download_models.py
     python scripts/download_models.py --skip-llm  # LLM 제외 (CPU 환경)
 """
+
 import argparse
 import sys
 
 
 def main():
     parser = argparse.ArgumentParser(description="Download all required models")
-    parser.add_argument("--skip-llm", action="store_true", help="Skip LLM download (CPU environment)")
+    parser.add_argument(
+        "--skip-llm", action="store_true", help="Skip LLM download (CPU environment)"
+    )
     args = parser.parse_args()
 
     print("=" * 60)
@@ -23,6 +26,7 @@ def main():
     print("\n[1/3] Downloading BGE-M3 embedding model...")
     try:
         from sentence_transformers import SentenceTransformer
+
         model = SentenceTransformer("BAAI/bge-m3")
         test = model.encode(["hello world"])
         print(f"  OK — dimension: {test.shape[1]}")
@@ -34,6 +38,7 @@ def main():
     print("\n[2/3] Downloading reranker model...")
     try:
         from sentence_transformers import CrossEncoder
+
         reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
         score = reranker.predict([("query", "document")])
         print(f"  OK — test score: {score[0]:.4f}")

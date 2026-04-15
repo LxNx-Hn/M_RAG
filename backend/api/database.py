@@ -1,6 +1,7 @@
 """
 Database connection utilities.
 """
+
 import logging
 import os
 from pathlib import Path
@@ -19,7 +20,9 @@ _SessionLocal = None
 def get_sync_database_url() -> str:
     """Return a sync SQLAlchemy URL for Alembic and ops tooling."""
     if DATABASE_URL.startswith("postgresql+asyncpg://"):
-        return DATABASE_URL.replace("postgresql+asyncpg://", "postgresql+psycopg2://", 1)
+        return DATABASE_URL.replace(
+            "postgresql+asyncpg://", "postgresql+psycopg2://", 1
+        )
     if DATABASE_URL.startswith("sqlite+aiosqlite://"):
         return DATABASE_URL.replace("sqlite+aiosqlite://", "sqlite://", 1)
     return DATABASE_URL
@@ -89,4 +92,3 @@ async def get_db():
         return
     async with factory() as session:
         yield session
-

@@ -2,6 +2,7 @@
 PPT 자동 생성 모듈
 Pipeline E (요약) 결과를 python-pptx 기반 슬라이드로 변환
 """
+
 import logging
 import re
 from io import BytesIO
@@ -24,27 +25,32 @@ def _parse_summary_sections(answer: str) -> list[dict]:
     for line in answer.split("\n"):
         stripped = line.strip()
         # ## 헤더 또는 **1. 제목** 패턴
-        header_match = re.match(r'^#{1,3}\s+(.+)', stripped) or \
-                       re.match(r'^\*\*\d+\.\s*(.+?)\*\*', stripped)
+        header_match = re.match(r"^#{1,3}\s+(.+)", stripped) or re.match(
+            r"^\*\*\d+\.\s*(.+?)\*\*", stripped
+        )
         if header_match:
             if current_title or current_body:
-                sections.append({
-                    "title": current_title,
-                    "body": "\n".join(current_body).strip(),
-                })
+                sections.append(
+                    {
+                        "title": current_title,
+                        "body": "\n".join(current_body).strip(),
+                    }
+                )
             current_title = header_match.group(1).strip("*# ")
             current_body = []
         else:
             if stripped:
                 # 마크다운 볼드/이탤릭 제거
-                clean = re.sub(r'\*{1,2}(.+?)\*{1,2}', r'\1', stripped)
+                clean = re.sub(r"\*{1,2}(.+?)\*{1,2}", r"\1", stripped)
                 current_body.append(clean)
 
     if current_title or current_body:
-        sections.append({
-            "title": current_title,
-            "body": "\n".join(current_body).strip(),
-        })
+        sections.append(
+            {
+                "title": current_title,
+                "body": "\n".join(current_body).strip(),
+            }
+        )
 
     # 섹션이 없으면 전체를 하나의 슬라이드로
     if not sections:
@@ -87,9 +93,11 @@ def create_pptx(
             if not line.strip():
                 continue
             # 불릿 아이템 감지 (-, *, 숫자.)
-            is_bullet = bool(re.match(r'^[-*]\s', line)) or bool(re.match(r'^\d+\.\s', line))
-            clean_line = re.sub(r'^[-*]\s+', '', line)
-            clean_line = re.sub(r'^\d+\.\s+', '', clean_line)
+            is_bullet = bool(re.match(r"^[-*]\s", line)) or bool(
+                re.match(r"^\d+\.\s", line)
+            )
+            clean_line = re.sub(r"^[-*]\s+", "", line)
+            clean_line = re.sub(r"^\d+\.\s+", "", clean_line)
 
             if i == 0:
                 p = tf.paragraphs[0]

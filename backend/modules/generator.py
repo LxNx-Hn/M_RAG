@@ -7,6 +7,7 @@ MODULE 12: Generator
      K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16 24GB+ / 4-bit ~7GB)
 요구사항: transformers >= 4.45.0
 """
+
 import logging
 from threading import Thread
 from typing import Generator as Gen, Optional
@@ -118,7 +119,10 @@ class Generator:
                 if vram_gb < 20:
                     try:
                         from transformers import BitsAndBytesConfig
-                        logger.info(f"VRAM {vram_gb:.1f}GB < 20GB — Base 모델 4-bit 양자화 적용")
+
+                        logger.info(
+                            f"VRAM {vram_gb:.1f}GB < 20GB — Base 모델 4-bit 양자화 적용"
+                        )
                         load_kwargs["quantization_config"] = BitsAndBytesConfig(
                             load_in_4bit=True,
                             bnb_4bit_compute_dtype=torch.bfloat16,
@@ -128,7 +132,8 @@ class Generator:
                     except ImportError:
                         logger.warning("bitsandbytes 미설치 — bfloat16으로 로드 시도")
             self._model = AutoModelForCausalLM.from_pretrained(
-                self.model_name, **load_kwargs,
+                self.model_name,
+                **load_kwargs,
             )
             self._model.eval()
         return self._model
@@ -143,7 +148,7 @@ class Generator:
         """
         if self._has_chat_template is None:
             self._has_chat_template = (
-                hasattr(self.tokenizer, 'chat_template')
+                hasattr(self.tokenizer, "chat_template")
                 and self.tokenizer.chat_template is not None
             )
 
@@ -185,7 +190,9 @@ class Generator:
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
         elif template == "raw":
-            prompt = kwargs.get("raw_prompt", QA_TEMPLATE.format(context=context, query=query))
+            prompt = kwargs.get(
+                "raw_prompt", QA_TEMPLATE.format(context=context, query=query)
+            )
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 
@@ -210,7 +217,9 @@ class Generator:
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
         elif template == "raw":
-            prompt = kwargs.get("raw_prompt", QA_TEMPLATE.format(context=context, query=query))
+            prompt = kwargs.get(
+                "raw_prompt", QA_TEMPLATE.format(context=context, query=query)
+            )
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
 

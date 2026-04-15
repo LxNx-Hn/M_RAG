@@ -1,4 +1,5 @@
 """JWT auth utilities and dependencies."""
+
 import os
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -32,7 +33,9 @@ def _get_password_context():
     try:
         from passlib.context import CryptContext
     except ImportError as exc:
-        raise RuntimeError("passlib is required for password hashing and verification") from exc
+        raise RuntimeError(
+            "passlib is required for password hashing and verification"
+        ) from exc
     return CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -40,7 +43,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     """Create JWT access token."""
     jwt = _get_jwt()
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.now(timezone.utc) + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
     to_encode.update(
         {
             "exp": expire,
@@ -131,7 +136,9 @@ async def revoke_token(db, user_id: str, payload: dict[str, Any]) -> None:
     if expires_at <= datetime.now(timezone.utc):
         return
 
-    existing = await db.execute(select(RevokedToken).where(RevokedToken.jti == str(jti)))
+    existing = await db.execute(
+        select(RevokedToken).where(RevokedToken.jti == str(jti))
+    )
     if existing.scalar_one_or_none() is not None:
         return
 

@@ -8,8 +8,8 @@ MODULE 13A: CAD (Context-Aware Contrastive Decoding) 환각 억제기
 
 Table 2 ablation 대상: alpha ∈ {0.1, 0.3, 0.5, 0.7, 1.0}
 """
+
 import logging
-from typing import Optional
 
 import torch
 from transformers import LogitsProcessor, LogitsProcessorList
@@ -95,11 +95,17 @@ class CADDecoder(LogitsProcessor):
         empty_probs = torch.softmax(empty_logits, dim=-1)
 
         m = 0.5 * (context_probs + empty_probs)
-        kl_cm = torch.sum(context_probs * torch.log(context_probs / (m + 1e-10) + 1e-10), dim=-1)
-        kl_em = torch.sum(empty_probs * torch.log(empty_probs / (m + 1e-10) + 1e-10), dim=-1)
+        kl_cm = torch.sum(
+            context_probs * torch.log(context_probs / (m + 1e-10) + 1e-10), dim=-1
+        )
+        kl_em = torch.sum(
+            empty_probs * torch.log(empty_probs / (m + 1e-10) + 1e-10), dim=-1
+        )
         jsd = 0.5 * (kl_cm + kl_em)
 
-        adaptive_alpha = torch.clamp(jsd * self.alpha * 2, min=0.1, max=self.alpha).item()
+        adaptive_alpha = torch.clamp(
+            jsd * self.alpha * 2, min=0.1, max=self.alpha
+        ).item()
         return adaptive_alpha
 
     def reset(self):

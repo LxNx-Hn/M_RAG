@@ -4,6 +4,7 @@ MODULE 3: Chunker
 전략: 섹션 단위 / RAPTOR 계층 / 명제 단위
 기반 논문: RAPTOR [5], Dense-X Retrieval [24], Meta-Chunking [28]
 """
+
 import hashlib
 import re
 from dataclasses import dataclass, field
@@ -16,6 +17,7 @@ from modules.pdf_parser import ParsedDocument, TextBlock
 @dataclass
 class Chunk:
     """검색 단위 청크"""
+
     chunk_id: str
     doc_id: str
     content: str
@@ -23,7 +25,7 @@ class Chunk:
     page: int = 0
     char_start: int = 0
     char_end: int = 0
-    chunk_level: int = 0        # RAPTOR: 0=leaf, 1=mid, 2=root
+    chunk_level: int = 0  # RAPTOR: 0=leaf, 1=mid, 2=root
     metadata: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
@@ -90,9 +92,11 @@ class Chunker:
             if block.section_type != current_section:
                 # 이전 섹션 텍스트 버퍼 플러시
                 if text_buffer:
-                    chunks.extend(self._flush_text_buffer(
-                        text_buffer, document.doc_id, current_section
-                    ))
+                    chunks.extend(
+                        self._flush_text_buffer(
+                            text_buffer, document.doc_id, current_section
+                        )
+                    )
                     text_buffer = []
                 current_section = block.section_type
 
@@ -110,14 +114,18 @@ class Chunker:
                     text_buffer = []
 
                 # 구조 블록을 독립 청크로 생성
-                chunks.append(self._make_chunk(
-                    block.content, document.doc_id,
-                    current_section, block.page,
-                    metadata={
-                        "is_structured": True,
-                        "structured_type": block.block_type,
-                    },
-                ))
+                chunks.append(
+                    self._make_chunk(
+                        block.content,
+                        document.doc_id,
+                        current_section,
+                        block.page,
+                        metadata={
+                            "is_structured": True,
+                            "structured_type": block.block_type,
+                        },
+                    )
+                )
                 continue
 
             # 일반 텍스트/heading/list_item → 버퍼에 누적
@@ -125,9 +133,9 @@ class Chunker:
 
         # 마지막 섹션 버퍼 플러시
         if text_buffer:
-            chunks.extend(self._flush_text_buffer(
-                text_buffer, document.doc_id, current_section
-            ))
+            chunks.extend(
+                self._flush_text_buffer(text_buffer, document.doc_id, current_section)
+            )
 
         return chunks
 
@@ -139,7 +147,9 @@ class Chunker:
             return []
         section_text = "\n".join(b.content for b in blocks)
         return self._split_text(
-            section_text, doc_id, section_type,
+            section_text,
+            doc_id,
+            section_type,
             page=blocks[0].page,
         )
 
@@ -157,7 +167,7 @@ class Chunker:
             if block.block_type != "text":
                 continue
 
-            sentences = re.split(r'(?<=[.!?])\s+', block.content)
+            sentences = re.split(r"(?<=[.!?])\s+", block.content)
             current = []
             current_len = 0
 
@@ -166,10 +176,14 @@ class Chunker:
                 if current_len + sent_len > self.chunk_size and current:
                     chunk_text = " ".join(current)
                     if len(chunk_text.split()) >= self.min_chunk_size:
-                        chunks.append(self._make_chunk(
-                            chunk_text, document.doc_id,
-                            block.section_type, block.page
-                        ))
+                        chunks.append(
+                            self._make_chunk(
+                                chunk_text,
+                                document.doc_id,
+                                block.section_type,
+                                block.page,
+                            )
+                        )
                     current = []
                     current_len = 0
                 current.append(sent)
@@ -178,10 +192,11 @@ class Chunker:
             if current:
                 chunk_text = " ".join(current)
                 if len(chunk_text.split()) >= self.min_chunk_size:
-                    chunks.append(self._make_chunk(
-                        chunk_text, document.doc_id,
-                        block.section_type, block.page
-                    ))
+                    chunks.append(
+                        self._make_chunk(
+                            chunk_text, document.doc_id, block.section_type, block.page
+                        )
+                    )
 
         return chunks
 
@@ -202,10 +217,16 @@ class Chunker:
             chunk_text = " ".join(words[start:end])
 
             if len(chunk_text.split()) >= self.min_chunk_size:
-                chunks.append(self._make_chunk(
-                    chunk_text, doc_id, section_type, page,
-                    char_start=start, char_end=end,
-                ))
+                chunks.append(
+                    self._make_chunk(
+                        chunk_text,
+                        doc_id,
+                        section_type,
+                        page,
+                        char_start=start,
+                        char_end=end,
+                    )
+                )
 
             if end >= len(words):
                 break
@@ -217,9 +238,15 @@ class Chunker:
         return chunks
 
     def _make_chunk(
-        self, text: str, doc_id: str, section_type: str,
-        page: int = 0, char_start: int = 0, char_end: int = 0,
-        level: int = 0, metadata: dict | None = None,
+        self,
+        text: str,
+        doc_id: str,
+        section_type: str,
+        page: int = 0,
+        char_start: int = 0,
+        char_end: int = 0,
+        level: int = 0,
+        metadata: dict | None = None,
     ) -> Chunk:
         """Chunk 객체 생성"""
         chunk_id = hashlib.md5(
@@ -321,9 +348,7 @@ class RAPTORChunker:
         summary = self.generator.generate_simple(summary_prompt)
 
         root_chunk = Chunk(
-            chunk_id=hashlib.md5(
-                f"{document.doc_id}:root".encode()
-            ).hexdigest()[:12],
+            chunk_id=hashlib.md5(f"{document.doc_id}:root".encode()).hexdigest()[:12],
             doc_id=document.doc_id,
             content=summary,
             section_type="summary",

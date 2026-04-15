@@ -1,6 +1,7 @@
 """
 Pipeline A: simple QA.
 """
+
 import logging
 
 from config import CAD_ALPHA, SCD_BETA
@@ -62,7 +63,9 @@ def run(
         compressed = compressor.truncate_to_limit(compressed)
         steps.append({"step": "compression", "docs_count": len(compressed)})
         if not compressed:
-            return _fallback_response("A_simple_qa", steps, "no_context_after_compression")
+            return _fallback_response(
+                "A_simple_qa", steps, "no_context_after_compression"
+            )
 
         context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
         logits_processor = create_combined_processor(
@@ -108,4 +111,3 @@ def run(
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
         }
-

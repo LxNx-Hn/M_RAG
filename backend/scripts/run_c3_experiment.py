@@ -5,6 +5,7 @@ Usage:
     python scripts/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --collection c3_eval
     python scripts/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --heuristic  # GPU 없이
 """
+
 import argparse
 import json
 import logging
@@ -17,7 +18,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from config import CHROMA_DIR
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -25,7 +28,9 @@ def main():
     parser = argparse.ArgumentParser(description="C3 CAD Ablation Experiment")
     parser.add_argument("--paper-pdf", required=True, help="평가용 논문 PDF 경로")
     parser.add_argument("--collection", default="c3_eval", help="ChromaDB 컬렉션 이름")
-    parser.add_argument("--heuristic", action="store_true", help="GPU 없이 휴리스틱 모드 실행")
+    parser.add_argument(
+        "--heuristic", action="store_true", help="GPU 없이 휴리스틱 모드 실행"
+    )
     args = parser.parse_args()
 
     pdf_path = Path(args.paper_pdf)
@@ -58,6 +63,7 @@ def main():
     if not args.heuristic:
         try:
             from modules.generator import Generator
+
             generator = Generator()
             logger.info("Generator (LLM) 로드 완료")
         except Exception as e:
@@ -153,7 +159,6 @@ def main():
     else:
         # 휴리스틱 모드
         logger.info("=== 휴리스틱 모드 실행 (참고용, 논문 인용 불가) ===")
-        import copy
 
         for sample in samples:
             search_results = hybrid_retriever.search(
@@ -195,9 +200,15 @@ def main():
     if "cad_on_off" in combined:
         r = combined["cad_on_off"]
         print(f"\n### CAD on/off 비교 (alpha={r['alpha']})")
-        print(f"| Metric | CAD On | CAD Off | Delta |")
-        print(f"| --- | --- | --- | --- |")
-        for key in ["faithfulness", "answer_relevancy", "context_precision", "context_recall", "overall"]:
+        print("| Metric | CAD On | CAD Off | Delta |")
+        print("| --- | --- | --- | --- |")
+        for key in [
+            "faithfulness",
+            "answer_relevancy",
+            "context_precision",
+            "context_recall",
+            "overall",
+        ]:
             on_val = r["cad_on"].get(key)
             off_val = r["cad_off"].get(key)
             if on_val is not None and off_val is not None:
@@ -208,8 +219,8 @@ def main():
     if "alpha_ablation" in combined:
         a = combined["alpha_ablation"]
         print(f"\n### Alpha Ablation (best: alpha={a['summary']['best_alpha']})")
-        print(f"| Alpha | Faithfulness Delta | Overall Delta |")
-        print(f"| --- | --- | --- |")
+        print("| Alpha | Faithfulness Delta | Overall Delta |")
+        print("| --- | --- | --- |")
         for key, val in a["per_alpha"].items():
             f_d = val["faithfulness_delta"]
             o_d = val["overall_delta"]
@@ -220,12 +231,14 @@ def main():
     if "heuristic_eval" in combined:
         avg = combined["heuristic_eval"]["average"]
         print("\n### 휴리스틱 평가 (참고용)")
-        print(f"| Metric | Score |")
-        print(f"| --- | --- |")
+        print("| Metric | Score |")
+        print("| --- | --- |")
         for key, val in avg.items():
             val_str = f"{val:.3f}" if val is not None else "N/A"
             print(f"| {key} | {val_str} |")
-        print("\n** 이 결과는 LLM 없이 토큰 오버랩으로 계산되었으므로 논문 인용에 사용할 수 없습니다.")
+        print(
+            "\n** 이 결과는 LLM 없이 토큰 오버랩으로 계산되었으므로 논문 인용에 사용할 수 없습니다."
+        )
 
     print(f"\n결과 파일: {output_path}")
 
