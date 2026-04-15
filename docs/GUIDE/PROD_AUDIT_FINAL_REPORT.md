@@ -1,89 +1,74 @@
-# M-RAG Production Audit Final Report
-Date: 2026-04-14
-Scope: Security, tenancy isolation, reliability, deployment readiness, and RAG quality guardrails
+# M-RAG 운영 기준서
 
-## 1) Final verdict
-- Current codebase has moved from "demo-risk" to "internal demo-ready with controlled risk".
-- Tier 0 and most Tier 1/Tier 2 blocking items are now implemented in code.
-- External/public launch is still not recommended until Tier 3 items are finished (refresh-cookie auth, TLS/HSTS end-to-end, audit logging, E2E/load validation).
+- 기준일 2026-04-15
+- 문서 목적 현재 운영 범위와 공개 전 조건 명시
+- 문서 원칙 과거 이력 서술 제외
 
-## 2) What was completed
-### Tier 0 (critical blockers)
-- Enforced JWT auth dependency across protected routers.
-- Removed insecure auth fallbacks; startup now fails fast when required auth setup is missing.
-- Added user ownership filtering (`user_id`) for papers/history/chat/citations paths.
-- Removed database URL leakage from root/health responses.
-- Hardened upload flow with rollback boundary across file/vector/db.
-- Collection delete now validates ownership and performs coordinated cleanup.
-- Docker compose now uses env-required secrets and restart policy.
+## 운영 등급
 
-### Tier R0 / Tier 1 quality and safety
-- Stream route aligned with main pipeline path and explicit timeout/error SSE events.
-- Pipeline C fixed to explicit pairwise comparison mode (exactly 2 documents).
-- Collection namespaced by user (`{user_id}__{collection_name}`) for tenant isolation.
-- Query length and request schema bounds hardened (`max_length`, filters).
-- Frontend 401 handling now triggers logout and redirect.
-- BM25 migrated to per-collection index map with disk persistence.
+### 연구용
 
-### Tier 2 (deployment prerequisites)
-- Added global rate limiter scaffold (`slowapi`) and route-level limits:
-  - `/api/auth/register`: 3/min
-  - `/api/auth/login`: 10/min
-  - `/api/papers/upload`: 5/min
-  - `/api/chat/query`, `/api/chat/query/stream`: 20/min
-- Added security headers middleware (CSP, XFO, XCTO, Referrer-Policy, HSTS in prod).
-- Logging upgraded to JSON + rotating file handler + request/user context.
-- Database pool tuning added (`pool_size`, `max_overflow`, `pre_ping`, `recycle`).
-- Added token revocation table/model and `/api/auth/logout` blacklist path.
-- Added MIME/signature validation for uploads (`python-magic` + magic-byte fallback).
-- Added citation PDF download allowlist + content-type/signature verification for SSRF risk reduction.
-- Added Alembic second migration for auth/paper hardening.
-- Added backend entrypoint migration hook (`alembic upgrade head` on startup).
-- Added CI workflow (backend lint/test/build + frontend lint/build + docker build).
-- Added frontend nginx cache/security header defaults.
+- 상태 사용 가능
+- 조건 단일 운영자 환경
+- 조건 로컬 또는 사설 네트워크
+- 조건 수동 점검 절차 수행
 
-## 3) Verification summary (this session)
-- `python -m py_compile` passed for all modified backend modules, routers, schemas, alembic files.
-- `npm run build` passed on frontend.
-- `alembic upgrade head` passed locally (SQLite path) including new revision chain.
-- Runtime API import smoke (`import api.main`) was not executable in this shell due missing local FastAPI package in the current Python environment.
+### 내부 시연용
 
-## 4) Remaining work before public launch
-Priority P0 (must before external exposure):
-- Refresh token flow (short-lived access + refresh rotation).
-- Move access token to httpOnly cookie + CSRF strategy.
-- End-to-end HTTPS termination and strict secure-cookie path.
-- Audit log table/events for login/upload/delete/auth failures.
+- 상태 사용 가능
+- 조건 인증 인가 데이터 격리 검증 완료
+- 조건 백업 스크립트 실행 경로 확인
+- 조건 장애 대응 담당자 지정
 
-Priority P1 (strongly recommended):
-- Generator concurrency policy validation under load (429 behavior + queue metrics).
-- Prompt injection defensive sanitization and boundary markers.
+### 외부 공개용
 
-Priority P2 (quality/operations):
-- Full Playwright E2E scenario pack.
-- Locust load profile and SLO targets.
-- BM25 tokenizer enhancement for Korean morphology-aware sparse retrieval.
+- 상태 대기
+- 조건 P0 항목 전부 완료
 
-## 5) Files with major changes
-- Backend core: `backend/api/auth.py`, `backend/api/main.py`, `backend/api/database.py`, `backend/api/models.py`, `backend/api/schemas.py`
-- Routers: `backend/api/routers/auth.py`, `chat.py`, `papers.py`, `history.py`, `citations.py`
-- Retrieval: `backend/modules/hybrid_retriever.py`, `backend/modules/vector_store.py`
-- Migrations/ops: `backend/alembic/*`, `backend/scripts/entrypoint.sh`, `backend/scripts/backup.sh`, `backend/Dockerfile`, `docker-compose.yml`, `.env.example`
-- Frontend: `frontend/src/api/client.ts`, `frontend/src/types/api.ts`, `frontend/src/App.tsx`, `frontend/src/stores/authStore.ts`, `frontend/nginx.conf`
-- CI: `.github/workflows/ci.yml`
+## 현재 보안 기준
 
-## 6) Important implementation notes
-- Some legacy docs in `docs/GUIDE/` remain as project baseline docs; this file is the single merged result for audit/plan/report context.
-- Model/migration drift was reduced by introducing Alembic revision `20260414_000002`; fresh deploy should use Alembic-first startup path.
-- Collection namespace migration may require re-upload or a one-time data migration for legacy records.
+- JWT 인증 의존성 보호 라우트 적용
+- 사용자 소유 데이터 쿼리 필터 적용
+- 컬렉션 사용자 네임스페이스 적용
+- 업로드 확장자 크기 MIME 시그니처 검증 적용
+- SSRF 완화 URL allowlist 및 content type 검증 적용
+- 레이트 리밋 적용 로그인 업로드 채팅
+- 보안 헤더 적용 CSP XFO XCTO Referrer Policy
+- HSTS 헤더는 프로덕션 환경 플래그에서만 활성
 
-## 7) Claim re-verification notes (RAG/LLM findings)
-- BM25 Korean tokenization claim corrected:
-  - `\w+` does not split Hangul into jamo in Python 3.
-  - Real issue is lack of morphology-aware segmentation for compound Korean terms, which can still reduce sparse recall.
-- HyDE leakage claim is not treated as a confirmed blocker:
-  - The quality risk remains possible via retrieval bias, but direct "HyDE text leak into final context" was not finalized as a proven invariant in this pass.
-- Pipeline C "3-paper hard limit" claim corrected:
-  - Current behavior was normalized to explicit pairwise mode (exactly two docs) to avoid ambiguous partial comparisons.
-- CAD/SCD implementation exists, but production control gaps remain:
-  - Cost/concurrency/timeout guardrails were added, yet deeper quality benchmarking for CAD/SCD parameter policy is still pending.
+## 현재 운영 기준
+
+- Alembic 마이그레이션 체계 적용
+- 앱 시작 시 마이그레이션 실행 경로 제공
+- DB 풀 설정 적용
+- JSON 로그 및 로그 로테이션 적용
+- 요청 ID 사용자 ID 로그 컨텍스트 적용
+- 백업 스크립트 제공 Postgres Chroma data
+- 헬스 체크 엔드포인트 제공
+
+## 현재 기능 기준
+
+- 문서 업로드 PDF DOCX TXT
+- 라우트 A B C D E F 동작
+- SSE 스트리밍 및 follow_ups 전송
+- 참고문헌 목록 조회 및 다운로드
+- 퀴즈 생성 파이프라인 제공
+
+## 공개 전 필수 조건
+
+- Refresh Token 도입
+- Access Token httpOnly 쿠키 전환
+- CSRF 방어 도입
+- HTTPS 강제 리다이렉트 및 인증서 자동 갱신
+- 감사 로그 테이블 및 조회 경로 구축
+- E2E 테스트 시나리오 통과
+- 부하 테스트 기준치 합의 및 통과
+
+## 검증 기준
+
+- 인증 누락 요청 401 반환
+- 타 사용자 데이터 조회 삭제 차단
+- 업로드 정책 위반 요청 차단
+- 스트리밍 타임아웃 에러 프레임 반환
+- 로그 파일 로테이션 정상 동작
+- 백업 산출물 생성 및 복구 리허설 완료
