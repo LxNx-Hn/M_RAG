@@ -1,103 +1,74 @@
-# M-RAG: PPT용 개조식 요약
+# M-RAG 발표 요약
 
-> 마침표 없이, 슬라이드에 바로 붙여넣을 수 있는 개조식
+- 문서 기준 2026-04-25
+- 발표 슬라이드와 개요 문서에 바로 옮길 수 있는 축약본
 
----
+## 한눈에 보는 구조
 
-## 개요
+```mermaid
+flowchart LR
+    D["문서 업로드"] --> P["파싱 + 섹션 감지 + 청킹"]
+    P --> V["임베딩 + 벡터 저장"]
+    Q["질문 입력"] --> R["질문 라우팅"]
+    R --> H["하이브리드 검색 + 리랭킹"]
+    H --> C["컨텍스트 압축"]
+    C --> G["MIDM 생성 + CAD/SCD"]
+    V --> H
+    G --> A["답변 + 출처"]
+```
 
-- 한국어 학술 논문 질의응답을 위한 Modular RAG 시스템
-- 쿼리 유형에 따라 6개 파이프라인(A~F)이 동적으로 분기
-- 논문 + 강의/교재 + 특허 3가지 문서 유형 자동 감지
-- 환각 억제(CAD) + 언어 이탈 방지(SCD) 내장
-- RAGAS 기반 정량 평가 프레임워크 포함
+## 한 줄 소개
 
----
+- 한국어 중심 논문 질의응답을 위해 검색과 생성 경로를 모듈화한 Modular RAG 시스템
 
-## 문제 정의
+## 해결하려는 문제
 
-- 기존 RAG: 단일 파이프라인, 모든 질문에 동일 전략 적용
-- 학술 논문: 섹션 구조, 인용 관계, 수치 데이터 등 도메인 특수성 존재
-- 영어 논문 + 한국어 사용자: LLM 답변이 영어로 전환되는 Language Drift
-- LLM 환각: 논문에 없는 수치나 사실을 그럴듯하게 생성하는 문제
+- 일반 RAG는 질문 유형이 달라도 같은 흐름으로 처리하는 경우가 많음
+- 논문 질의는 섹션 기반 질문, 비교 질문, 인용 추적, 전체 요약처럼 의도가 다름
+- 영어 논문을 한국어로 다룰 때 언어 이탈과 환각이 발생하기 쉬움
 
----
+## 핵심 해법
 
-## 동기
+- 질문 라우터가 질의 의도에 따라 A~F 파이프라인 선택
+- Dense와 BM25를 결합한 검색
+- Cross-Encoder 리랭킹과 컨텍스트 압축
+- CAD와 SCD 기반 생성 제어
+- 인용 추적과 퀴즈 생성까지 한 시스템 안에서 연결
 
-- NotebookLM: 범용 문서 QA, AI 아키텍처 미공개, 학술 특화 기능 부재
-- SciRAG/PaperQA2: 영어 전용, 환각 억제 없음, 단일 파이프라인
-- 한국어 학술 RAG에 CAD를 적용·평가한 선행 연구가 존재하지 않음
+## 현재 실행 기준
 
----
+- 로컬 기본 모델은 MIDM Mini
+- Base 모델은 대형 GPU 환경에서 선택형 사용
+- 양자화 없이 `bfloat16 + device_map=auto` 사용
+- 전체 로컬 실험은 `master_run.py` 기준으로 실행
 
-## 해결 — 13개 모듈 + 6개 파이프라인
+## 주요 구성
 
-### 인덱싱 흐름
-- PDF → 구조 보존 파싱(M1) → 섹션 감지(M2) → 청킹(M3) → 임베딩(M4) → 벡터 저장(M5)
+- Frontend React + TypeScript + Zustand
+- Backend FastAPI + SQLAlchemy + JWT
+- Retrieval BGE-M3 + BM25 + RRF + Reranker
+- Generation MIDM Mini 또는 Base + CAD + SCD
+- Storage PostgreSQL + ChromaDB + local files
 
-### 질의응답 흐름
-- 쿼리 → 라우터(M6) → 파이프라인 분기 → 검색(M7~M9) → 압축(M10) → 생성(M12) + CAD/SCD(M13)
+## 발표에 쓰기 좋은 비교 포인트
 
-### 6개 파이프라인
+| 항목 | 현재 기준 |
+|---|---|
+| 기본 로컬 모델 | MIDM Mini |
+| 대형 GPU 확장 | MIDM Base 선택 사용 |
+| 검색 방식 | Dense + BM25 + RRF |
+| 생성 제어 | CAD + SCD |
+| 실행 러너 | `master_run.py` |
 
-| 경로 | 용도 | 핵심 기법 |
-|------|------|----------|
-| A | 단순 QA | HyDE 확장 + 하이브리드 검색 |
-| B | 섹션 특화 | 섹션 필터링 + 부스트 재랭킹 |
-| C | 비교 분석 | 논문별 병렬 검색 + 비교 표 |
-| D | 인용 추적 | arXiv/Google Patents 자동 인덱싱 |
-| E | 전체 요약 | 섹션별 5회 검색 + 구조화 |
-| F | 퀴즈/플래시카드 | CAD 강제 적용 출제 |
+## 산출물
 
----
+- 결과 JSON 5종
+- `TABLES.md` 요약 표
+- 자동 실행 로그
 
-## 핵심 차별점
+## 문서 위치
 
-- **CAD (Context-Aware Decoding)**: LLM의 파라메트릭 지식 개입을 α 강도로 억제
-- **SCD (Selective Context-aware Decoding)**: 비한국어 토큰에 β 패널티 부여
-- **라우트 투명성**: 매 답변에 어떤 파이프라인이 사용되었는지 배지로 표시
-- **완전 오픈소스**: 전체 코드 + 평가 프레임워크 공개
-- **로컬 배포 가능**: 민감 자료 외부 유출 차단
-
----
-
-## 시스템 구성
-
-- Frontend: React + TypeScript + Vite + TailwindCSS
-- Backend: FastAPI + 13개 RAG 모듈
-- LLM: MIDM-2.0 Instruct (Mini 2.3B / Base 11.5B)
-- Embedding: BAAI/bge-m3 (1024차원, 한영 동일 공간)
-- Vector DB: ChromaDB + BM25 하이브리드
-- Auth/History: PostgreSQL + JWT
-- 배포: Docker Compose 원클릭
-
----
-
-## 실험 결과 (Table 1~4)
-
-### Table 1: 모듈별 Ablation (누적 추가)
-- Baseline 1 (Naive RAG) → Full System까지 6단계
-- 각 모듈 추가 시 RAGAS 4개 지표 변화 측정
-
-### Table 2: CAD α Ablation
-- α ∈ {0.1, 0.3, 0.5, 0.7, 1.0}
-- Faithfulness delta 기준 최적 α 도출
-
-### Table 3: SCD β Ablation
-- β ∈ {0.1, 0.3, 0.5}
-- 한국어 답변 유지율 및 Overall delta 측정
-
-### Table 4: CAD + SCD 결합 효과
-- 4가지 조합: Both Off / CAD Only / SCD Only / Both On
-- 결합 시 시너지 효과 확인
-
----
-
-## 한계 및 향후 과제
-
-- arXiv 미등록 논문은 인용 추적 불가 (Pipeline D 제약)
-- MIDM Base 모델 24GB VRAM 필요 (Mini로 대체 가능하나 품질 차이)
-- 수식의 의미 이해 불가 (구조 보존은 가능)
-- 특허 도메인: KIPRIS API 키 필요, Google Patents 비공식 크롤링
-- SCD의 영어 기술 용어 오탐 가능성 (허용 목록 확장 필요)
+- 전체 구조 `README.md`
+- 아키텍처 `docs/ARCHITECTURE.md`
+- 개념 설명 `docs/CONCEPTS.md`
+- 배포 가이드 `docs/DEPLOY.md`

@@ -57,10 +57,6 @@ pip install -q torch --index-url https://download.pytorch.org/whl/cu121
 pip install -q -r requirements.txt
 pip install -q accelerate
 
-if [ "$MODEL_SIZE" = "base" ]; then
-    pip install -q bitsandbytes>=0.43.0 2>/dev/null || true
-fi
-
 # ─── 3. 모델 다운로드 ───
 echo "[3/6] Downloading models..."
 export HF_HOME=/workspace/hf_cache

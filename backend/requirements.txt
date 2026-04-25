@@ -11,7 +11,7 @@ pymupdf4llm>=0.0.17
 chromadb>=0.4.22
 
 # ─── Retrieval ───
-numpy>=1.24.0
+numpy>=1.24.0,<2.0.0
 requests>=2.31.0
 
 # ─── API Server (Production) ───
@@ -21,9 +21,6 @@ python-multipart>=0.0.6
 aiofiles>=23.0.0
 slowapi>=0.1.9
 python-magic>=0.4.27
-
-# ─── Quantization (optional, Base 모델 4-bit) ───
-# bitsandbytes>=0.43.0  # pip install bitsandbytes
 
 # ─── Evaluation (optional) ───
 # ragas>=0.1.0  # pip install ragas

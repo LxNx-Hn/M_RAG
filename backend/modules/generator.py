@@ -4,7 +4,7 @@ MODULE 12: Generator
 기반 논문: Speculative RAG [16], RAG (Original) [20]
 
 모델: K-intelligence/Midm-2.0-Mini-Instruct (2.3B, bfloat16, 12GB GPU)
-     K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16 24GB+ / 4-bit ~7GB)
+     K-intelligence/Midm-2.0-Base-Instruct (11.5B, bfloat16, 24GB+ GPU)
 요구사항: transformers >= 4.45.0
 """
 
@@ -84,6 +84,7 @@ class Generator:
         device: Optional[str] = None,
         max_new_tokens: int = MAX_NEW_TOKENS,
     ):
+        # 양자화 경로 없이 지정된 모델(Mini/Base)을 그대로 사용한다.
         self.model_name = model_name
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.max_new_tokens = max_new_tokens
@@ -112,25 +113,6 @@ class Generator:
                 device_map="auto",
                 trust_remote_code=True,
             )
-            # Base(11.5B)가 VRAM에 안 들어가면 4-bit 양자화 시도
-            is_base = "Base" in self.model_name and "Mini" not in self.model_name
-            if is_base and torch.cuda.is_available():
-                vram_gb = torch.cuda.get_device_properties(0).total_mem / (1024**3)
-                if vram_gb < 20:
-                    try:
-                        from transformers import BitsAndBytesConfig
-
-                        logger.info(
-                            f"VRAM {vram_gb:.1f}GB < 20GB — Base 모델 4-bit 양자화 적용"
-                        )
-                        load_kwargs["quantization_config"] = BitsAndBytesConfig(
-                            load_in_4bit=True,
-                            bnb_4bit_compute_dtype=torch.bfloat16,
-                            bnb_4bit_quant_type="nf4",
-                        )
-                        load_kwargs.pop("torch_dtype", None)
-                    except ImportError:
-                        logger.warning("bitsandbytes 미설치 — bfloat16으로 로드 시도")
             self._model = AutoModelForCausalLM.from_pretrained(
                 self.model_name,
                 **load_kwargs,
