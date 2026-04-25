@@ -6,6 +6,7 @@
 
 ## 문서 구성
 
+- [`THESIS.md`](THESIS.md) 제출용 논문 본문 초안
 - [`../GUIDE/GuideV2.md`](../GUIDE/GuideV2.md) 논문 본문 작성 기준
 - [`ACADEMIC_CLAIMS.md`](ACADEMIC_CLAIMS.md) 논문에서 주장 가능한 기여와 근거 파일
 - [`COMPETITIVE_ANALYSIS.md`](COMPETITIVE_ANALYSIS.md) 비교 포지셔닝 초안
@@ -41,5 +42,5 @@
 
 - 논문 본문 용어가 `docs/FEATURES.md` 와 충돌하지 않는지 확인
 - 구조 설명이 `docs/ARCHITECTURE.md` 와 일치하는지 확인
-- 실험 표 번호와 `GuideV2.md` 의 표 정의가 일치하는지 확인
+- 실험 표 번호와 `THESIS.md`, `GuideV2.md` 의 표 정의가 일치하는지 확인
 - 결과 수치는 `backend/evaluation/results/` 산출물 기준으로만 기입

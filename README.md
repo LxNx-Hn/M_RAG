@@ -222,6 +222,7 @@ npm run dev
 ### 논문 문서
 
 - `docs/PAPER/README.md` 논문 문서 묶음 시작점
+- `docs/PAPER/THESIS.md` 제출용 논문 본문 초안
 - `docs/GUIDE/GuideV2.md` 논문 본문 작성 기준서
 - `docs/PAPER/ACADEMIC_CLAIMS.md` 주장 가능한 기여와 근거 파일
 - `docs/PAPER/COMPETITIVE_ANALYSIS.md` 비교 포지셔닝 초안

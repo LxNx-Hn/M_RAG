@@ -6,6 +6,7 @@
 
 ## 같이 보는 문서
 
+- `docs/PAPER/THESIS.md` 제출용 논문 본문 초안
 - `docs/PAPER/README.md` 논문 문서 묶음 진입점
 - `docs/PAPER/ACADEMIC_CLAIMS.md` 기여 주장과 근거 파일
 - `docs/PAPER/COMPETITIVE_ANALYSIS.md` 비교 포지셔닝
@@ -29,9 +30,9 @@
 ## 3 실험 표 구성
 
 - Table 1 모듈 누적 ablation
-- Table 2 CAD alpha ablation
-- Table 3 SCD beta ablation
-- Table 4 CAD SCD 조합 비교
+- Table 2 디코더 조합 비교
+- Table 3 CAD alpha 및 SCD beta sweep
+- Table 4 Track 2 도메인 특화 비교
 
 ## 4 구현 연결 포인트
 
