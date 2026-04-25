@@ -37,6 +37,18 @@ flowchart LR
 | 로컬 시연 | Mini | 12GB급 GPU | UI와 API 시연 |
 | GPU 서버 | Base 또는 Mini | 24GB 이상 GPU 권장 | 대형 모델 시연과 비교 실험 |
 
+## 연구 경로와 서비스 경로
+
+- 연구와 논문 검증 경로에서는 현재 생성 구조를 유지
+- 이 경로의 핵심은 CAD와 SCD를 포함한 생성 제어
+- 따라서 이번 구현에서는 plain generation 전환이나 외부 상용 LLM API 연동, `vLLM` 전환을 진행하지 않음
+- 이유는 현재 논문 클레임이 CAD와 SCD 기반 생성 제어를 전제로 하기 때문
+- OpenAI 같은 외부 API는 연결이 쉽지만 CAD와 SCD 유지에는 적합하지 않음
+- `vLLM` 은 아직 구현되어 있지 않음
+- `vLLM` 은 추론 효율 측면의 장점이 있지만 CAD와 SCD, 특히 CAD를 유지하려면 별도 연구와 재구현이 필요
+- 서비스 배포 경로에서는 plain generation 기반 외부 추론 서버 분리를 후속 선택지로 검토 가능
+- 나중에 `vLLM` 을 붙인다면 먼저 plain generation 서빙 경로를 분리하고, 이후 SCD와 CAD를 단계적으로 재검토하는 순서가 안전
+
 ## 기본 원칙
 
 - 기본 모델은 Mini

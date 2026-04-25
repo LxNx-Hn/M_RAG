@@ -84,6 +84,17 @@ npm run dev
 - 로컬 12GB급 GPU는 Mini 기준으로 운영
 - 24GB 이상 GPU가 있을 때만 Base 사용 권장
 
+## 연구 경로와 서비스 경로
+
+- 논문 목표 경로는 현재 구조를 그대로 유지
+- 이 경로에서는 CAD와 SCD를 포함한 생성 제어가 핵심
+- 따라서 이번 구현에서는 plain generation 전환이나 외부 상용 LLM API 전환, `vLLM` 전환을 진행하지 않음
+- 이유는 현재 논문 클레임이 CAD와 SCD 기반 환각 억제와 언어 이탈 억제에 있기 때문
+- OpenAI 같은 외부 API 연결은 상대적으로 쉬운 편이지만 CAD와 SCD를 그대로 유지하기는 어려움
+- `vLLM` 은 아직 구현되어 있지 않으며, plain generation 서빙은 비교적 단순하지만 CAD와 SCD 유지형 연동은 추가 연구와 구현이 필요
+- 서비스 배포 목표에서는 plain generation 기반 외부 추론 서버 분리를 후속 선택지로 검토 가능
+- `vLLM` 기반 RAG에서 환각 억제 기법을 유지하는 연구는 다음 단계 클레임 후보로 분리
+
 ## 주요 결과물 경로
 
 - 실험 결과 JSON `backend/evaluation/results/*.json`

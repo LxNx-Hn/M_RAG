@@ -44,6 +44,16 @@ flowchart LR
 - 양자화 없이 bfloat16 + device_map=auto 사용
 - 전체 로컬 실험은 master_run.py 기준 실행
 
+## 연구와 서비스 구분
+
+- 논문 경로는 CAD + SCD 유지가 우선
+- 이번 구현에서는 외부 상용 LLM API 연동과 `vLLM` 전환을 진행하지 않음
+- 이유는 현재 클레임이 CAD + SCD 기반 생성 제어에 있기 때문
+- OpenAI 같은 외부 API는 연결이 쉽지만 CAD + SCD 유지에는 불리
+- `vLLM` 은 아직 미구현
+- 서비스 경로는 plain generation 기반 외부 추론 서버 분리를 후속 검토 가능
+- `vLLM` 기반 환각 억제 RAG는 다음 단계 연구 주제로 분리 가능
+
 ## 주요 구성
 
 - Frontend React + TypeScript + Zustand

@@ -10,9 +10,10 @@
 - [`THESIS.md`](THESIS.md) 제출용 논문 본문 초안
 - [`../GUIDE/GuideV2.md`](../GUIDE/GuideV2.md) 논문 본문 작성 기준
 - [`ACADEMIC_CLAIMS.md`](ACADEMIC_CLAIMS.md) 논문에서 주장 가능한 기여와 근거 파일
+- [`NEXT_STAGE_VLLM_CLAIM.md`](NEXT_STAGE_VLLM_CLAIM.md) `vLLM` 기반 다음 단계 연구 클레임 후보
 - [`COMPETITIVE_ANALYSIS.md`](COMPETITIVE_ANALYSIS.md) 비교 포지셔닝 초안
 - [`LIMITATIONS_AND_FUTURE_WORK.md`](LIMITATIONS_AND_FUTURE_WORK.md) 한계와 후속 과제
-- [`../SUMMARY.md`](../SUMMARY.md) 발표용 요약
+- [`../PRESENTATION/SUMMARY.md`](../PRESENTATION/SUMMARY.md) 발표용 요약
 - [`../ARCHITECTURE.md`](../ARCHITECTURE.md) 구조도와 흐름도
 
 ## 현재 논문에서 고정할 범위
