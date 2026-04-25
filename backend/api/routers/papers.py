@@ -153,6 +153,7 @@ async def upload_paper(
 
     safe_filename = Path(file.filename).name
     ext = Path(safe_filename).suffix.lower()
+    normalized_doc_id = Path(safe_filename).stem.replace(" ", "_").lower()
     if ext not in ALLOWED_EXTENSIONS:
         allowed = ", ".join(sorted(ALLOWED_EXTENSIONS))
         raise HTTPException(400, f"Unsupported file type. Allowed: {allowed}")
@@ -194,9 +195,8 @@ async def upload_paper(
                 )
                 for block in parsed["blocks"]
             ]
-            doc_id = Path(safe_filename).stem.replace(" ", "_").lower()
             document = ParsedDocument(
-                doc_id=doc_id,
+                doc_id=normalized_doc_id,
                 title=parsed["title"],
                 total_pages=parsed["total_pages"],
                 blocks=blocks,
@@ -217,15 +217,16 @@ async def upload_paper(
                 )
                 for block in parsed["blocks"]
             ]
-            doc_id = Path(safe_filename).stem.replace(" ", "_").lower()
             document = ParsedDocument(
-                doc_id=doc_id,
+                doc_id=normalized_doc_id,
                 title=parsed["title"],
                 total_pages=parsed["total_pages"],
                 blocks=blocks,
             )
             document = m.section_detector.detect(document)
 
+        # Keep doc_id stable regardless of temporary upload path.
+        document.doc_id = normalized_doc_id
         chunks = m.chunker.chunk_document(document, strategy="section")
         if not chunks:
             raise HTTPException(400, "Document parsing produced no chunks.")

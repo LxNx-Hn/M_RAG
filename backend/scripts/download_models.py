@@ -16,10 +16,10 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from config import GENERATION_MODEL
-
 
 def main() -> None:
+    from config import GENERATION_MODEL
+
     parser = argparse.ArgumentParser(description="Download all required models")
     parser.add_argument(
         "--skip-llm", action="store_true", help="Skip LLM download"

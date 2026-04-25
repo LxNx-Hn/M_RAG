@@ -69,6 +69,7 @@ class MasterRunner:
         self._write_line(
             f"MASTER RUN STARTED {self.session_started_at.isoformat()} cwd={PROJECT_ROOT}"
         )
+        self._warn_if_not_workspace_venv()
         self._write_line("=" * 100)
         return self
 
@@ -83,6 +84,17 @@ class MasterRunner:
 
     def _timestamp(self) -> str:
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    def _warn_if_not_workspace_venv(self) -> None:
+        expected = PROJECT_ROOT.parent / ".venv"
+        executable = Path(sys.executable).resolve()
+        try:
+            executable.relative_to(expected.resolve())
+        except ValueError:
+            self._write_line(
+                "WARNING: master_run.py is not running from the workspace .venv. "
+                f"current={executable} expected_prefix={expected}"
+            )
 
     def _write_line(self, message: str) -> None:
         line = f"[{self._timestamp()}] {message}"

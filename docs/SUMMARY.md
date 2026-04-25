@@ -1,7 +1,9 @@
-# M-RAG 발표 요약
+# M-RAG: PPT용 개조식 요약
 
-- 문서 기준 2026-04-25
-- 발표 슬라이드와 개요 문서에 바로 옮길 수 있는 축약본
+> 마침표 없이, 슬라이드에 바로 붙여넣을 수 있는 톤
+> 문서 기준 2026-04-25
+
+---
 
 ## 한눈에 보는 구조
 
@@ -19,7 +21,7 @@ flowchart LR
 
 ## 한 줄 소개
 
-- 한국어 중심 논문 질의응답을 위해 검색과 생성 경로를 모듈화한 Modular RAG 시스템
+- 한국어 중심 학술 문서 질의응답과 환각 억제를 위해 검색과 생성 경로를 모듈화한 Modular RAG 시스템
 
 ## 해결하려는 문제
 
@@ -30,17 +32,17 @@ flowchart LR
 ## 핵심 해법
 
 - 질문 라우터가 질의 의도에 따라 A~F 파이프라인 선택
-- Dense와 BM25를 결합한 검색
-- Cross-Encoder 리랭킹과 컨텍스트 압축
-- CAD와 SCD 기반 생성 제어
-- 인용 추적과 퀴즈 생성까지 한 시스템 안에서 연결
+- Dense와 BM25 결합 검색
+- Cross-Encoder 리랭킹 + 컨텍스트 압축
+- CAD + SCD 기반 생성 제어
+- 인용 추적과 퀴즈 생성까지 단일 시스템으로 연결
 
 ## 현재 실행 기준
 
-- 로컬 기본 모델은 MIDM Mini
+- 로컬 기본 모델 MIDM Mini
 - Base 모델은 대형 GPU 환경에서 선택형 사용
-- 양자화 없이 `bfloat16 + device_map=auto` 사용
-- 전체 로컬 실험은 `master_run.py` 기준으로 실행
+- 양자화 없이 bfloat16 + device_map=auto 사용
+- 전체 로컬 실험은 master_run.py 기준 실행
 
 ## 주요 구성
 
@@ -48,7 +50,7 @@ flowchart LR
 - Backend FastAPI + SQLAlchemy + JWT
 - Retrieval BGE-M3 + BM25 + RRF + Reranker
 - Generation MIDM Mini 또는 Base + CAD + SCD
-- Storage PostgreSQL + ChromaDB + local files
+- Storage SQLAlchemy DB SQLite 기본 + PostgreSQL 선택 + ChromaDB + local files
 
 ## 발표에 쓰기 좋은 비교 포인트
 
@@ -58,17 +60,17 @@ flowchart LR
 | 대형 GPU 확장 | MIDM Base 선택 사용 |
 | 검색 방식 | Dense + BM25 + RRF |
 | 생성 제어 | CAD + SCD |
-| 실행 러너 | `master_run.py` |
+| 실행 러너 | master_run.py |
 
 ## 산출물
 
 - 결과 JSON 5종
-- `TABLES.md` 요약 표
+- TABLES.md 요약 표
 - 자동 실행 로그
 
 ## 문서 위치
 
-- 전체 구조 `README.md`
-- 아키텍처 `docs/ARCHITECTURE.md`
-- 개념 설명 `docs/CONCEPTS.md`
-- 배포 가이드 `docs/DEPLOY.md`
+- 전체 구조 README.md
+- 아키텍처 docs/ARCHITECTURE.md
+- 개념 설명 docs/CONCEPTS.md
+- 배포 가이드 docs/DEPLOY.md

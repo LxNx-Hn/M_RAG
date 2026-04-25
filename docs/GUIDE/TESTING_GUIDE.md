@@ -23,9 +23,9 @@ python -m black --check .
 
 ## 3 백엔드 테스트 실행 규칙
 
-- `backend/tests/test_api.py`는 pytest 수집 대상 아님
-- 통합 스모크는 직접 실행 방식 사용
-- pytest는 단위 테스트 파일만 수집
+- `backend/tests/conftest.py` 에서 `test_api.py` 를 pytest 수집에서 제외
+- `backend/tests/test_api.py` 는 보호 라우트까지 확인하는 별도 통합 스모크 스크립트
+- pytest는 나머지 단위 테스트 파일 기준으로 실행
 
 ```bash
 cd backend
@@ -36,6 +36,8 @@ python -m pytest -q
 cd backend
 python -X utf8 tests/test_api.py
 ```
+
+- `test_api.py` 는 실행 중 테스트 계정을 생성하고 bearer 토큰으로 보호 라우트를 호출
 
 ## 4 프론트엔드 검사
 

@@ -12,6 +12,11 @@
 - `docs/PAPER/COMPETITIVE_ANALYSIS.md` 비교 포지셔닝
 - `docs/PAPER/LIMITATIONS_AND_FUTURE_WORK.md` 한계와 후속 과제
 
+## 0 고정 제목
+
+- 국문 `M-RAG: 한국어 중심 학술 문서 질의응답을 위한 환각 억제형 모듈러 RAG 시스템`
+- 영문 `M-RAG: A Hallucination-Controlled Modular Retrieval-Augmented Generation System for Korean-Centered Academic Document Question Answering`
+
 ## 1 연구 범위
 
 - 대상 한국어 중심 학술 문서 QA

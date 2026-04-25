@@ -1,0 +1,86 @@
+{
+  "_meta": {
+    "source_file": "evaluation\\test_queries.json",
+    "requested_n_samples": 5,
+    "selected_n_samples": 5,
+    "note": "CRAG API is unavailable in this environment, so simple_qa entries were reformatted from evaluation/test_queries.json."
+  },
+  "samples": [
+    {
+      "query": "이 논문에서 사용한 데이터셋이 뭐야?",
+      "ground_truth": "",
+      "answer": "",
+      "contexts": [],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa",
+      "source": "test_queries",
+      "expected_route": "A",
+      "applicable_papers": [
+        "paper_A_nlp",
+        "paper_B_non_ai",
+        "paper_C_korean"
+      ]
+    },
+    {
+      "query": "학습에 사용된 하이퍼파라미터는?",
+      "ground_truth": "",
+      "answer": "",
+      "contexts": [],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa",
+      "source": "test_queries",
+      "expected_route": "A",
+      "applicable_papers": [
+        "paper_A_nlp"
+      ]
+    },
+    {
+      "query": "제안된 모델의 입력과 출력은 무엇인가?",
+      "ground_truth": "",
+      "answer": "",
+      "contexts": [],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa",
+      "source": "test_queries",
+      "expected_route": "A",
+      "applicable_papers": [
+        "paper_A_nlp",
+        "paper_B_non_ai"
+      ]
+    },
+    {
+      "query": "이 논문의 novelty가 뭐야?",
+      "ground_truth": "",
+      "answer": "",
+      "contexts": [],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa",
+      "source": "test_queries",
+      "expected_route": "A",
+      "applicable_papers": [
+        "paper_A_nlp",
+        "paper_B_non_ai",
+        "paper_C_korean"
+      ]
+    },
+    {
+      "query": "What is the main contribution of this paper?",
+      "ground_truth": "",
+      "answer": "",
+      "contexts": [],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa",
+      "source": "test_queries",
+      "expected_route": "A",
+      "applicable_papers": [
+        "paper_A_nlp",
+        "paper_B_non_ai"
+      ]
+    }
+  ]
+}

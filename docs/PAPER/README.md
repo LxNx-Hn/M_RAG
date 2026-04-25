@@ -17,6 +17,7 @@
 
 ## 현재 논문에서 고정할 범위
 
+- 권장 고정 제목 `M-RAG: 한국어 중심 학술 문서 질의응답을 위한 환각 억제형 모듈러 RAG 시스템`
 - 한국어 중심 학술 문서 QA
 - 문서 유형 paper lecture patent general
 - 라우터 기반 파이프라인 A B C D E F

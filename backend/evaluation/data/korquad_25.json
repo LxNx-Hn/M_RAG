@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "source": "bundled_fallback",
+    "n_samples": 5,
+    "seed": 42
+  },
+  "samples": [
+    {
+      "query": "파이썬은 어떤 종류의 프로그래밍 언어인가?",
+      "ground_truth": "고급 프로그래밍 언어",
+      "answer": "",
+      "contexts": [
+        "파이썬은 가독성이 높고 문법이 간결한 고급 프로그래밍 언어이다."
+      ],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa"
+    },
+    {
+      "query": "한반도는 어느 대륙에 속하는가?",
+      "ground_truth": "아시아",
+      "answer": "",
+      "contexts": [
+        "한반도는 동아시아에 위치하며 아시아 대륙에 속한다."
+      ],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa"
+    },
+    {
+      "query": "대한민국의 공용어는 무엇인가?",
+      "ground_truth": "한국어",
+      "answer": "",
+      "contexts": [
+        "대한민국의 공용어는 한국어이며 대부분의 행정과 교육이 한국어로 이루어진다."
+      ],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa"
+    },
+    {
+      "query": "빛의 속도는 대략 얼마인가?",
+      "ground_truth": "초속 약 30만 km",
+      "answer": "",
+      "contexts": [
+        "진공에서 빛의 속도는 초속 약 30만 km로 알려져 있다."
+      ],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa"
+    },
+    {
+      "query": "한글을 창제한 왕은 누구인가?",
+      "ground_truth": "세종대왕",
+      "answer": "",
+      "contexts": [
+        "훈민정음은 조선 제4대 임금 세종대왕이 창제하였다."
+      ],
+      "pipeline": "",
+      "track": "track1",
+      "type": "simple_qa"
+    }
+  ]
+}

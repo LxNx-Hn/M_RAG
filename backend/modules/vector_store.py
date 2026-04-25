@@ -46,7 +46,22 @@ class VectorStore:
         """청크 + 임베딩을 컬렉션에 추가"""
         collection = self.get_or_create_collection(collection_name)
 
-        ids = [c.chunk_id for c in chunks]
+        # Chroma requires globally unique IDs per collection.
+        # Some chunking paths can produce duplicate chunk_id values, so we
+        # normalize to a deterministic unique ID per document/chunk index.
+        ids = []
+        seen_ids: set[str] = set()
+        for index, chunk in enumerate(chunks):
+            base_id = (
+                f"{chunk.doc_id}_{chunk.chunk_id}" if chunk.doc_id else chunk.chunk_id
+            )
+            candidate = base_id
+            suffix = 1
+            while candidate in seen_ids:
+                suffix += 1
+                candidate = f"{base_id}_{suffix}"
+            seen_ids.add(candidate)
+            ids.append(candidate)
         documents = [c.content for c in chunks]
         metadatas = [
             {

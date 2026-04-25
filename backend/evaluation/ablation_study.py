@@ -429,3 +429,102 @@ class AblationStudy:
             rows.append(row)
 
         return "\n".join(rows)
+
+
+def _load_cli_queries(queries_path: str) -> list[EvalSample]:
+    path = Path(queries_path)
+    with open(path, "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    if isinstance(payload, dict):
+        items = payload.get("queries", payload.get("samples", []))
+    else:
+        items = payload
+
+    samples = []
+    for item in items:
+        ground_truth = item.get("ground_truth", "")
+        if isinstance(ground_truth, str) and ground_truth.startswith("PAPER_SPECIFIC"):
+            ground_truth = ""
+        samples.append(EvalSample(query=item["query"], ground_truth=ground_truth))
+    return samples
+
+
+def _build_cli_study() -> AblationStudy:
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+
+    from config import CHROMA_DIR
+    from modules.context_compressor import ContextCompressor
+    from modules.embedder import Embedder
+    from modules.generator import Generator
+    from modules.hybrid_retriever import HybridRetriever
+    from modules.query_expander import QueryExpander
+    from modules.reranker import Reranker
+    from modules.vector_store import VectorStore
+
+    embedder = Embedder()
+    vector_store = VectorStore(persist_dir=str(CHROMA_DIR))
+    hybrid_retriever = HybridRetriever(vector_store=vector_store, embedder=embedder)
+    reranker = Reranker()
+    generator = Generator()
+    compressor = ContextCompressor(generator=generator)
+    query_expander = QueryExpander(generator=generator)
+
+    return AblationStudy(
+        pdf_parser=None,
+        section_detector=None,
+        chunker=None,
+        embedder=embedder,
+        vector_store=vector_store,
+        hybrid_retriever=hybrid_retriever,
+        reranker=reranker,
+        compressor=compressor,
+        generator=generator,
+        query_router=None,
+        query_expander=query_expander,
+    )
+
+
+if __name__ == "__main__":
+    import argparse
+
+    logging.basicConfig(level=logging.INFO)
+
+    parser = argparse.ArgumentParser(
+        description="Run ablation study from a query JSON file."
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["ablation", "alpha-sweep"],
+        default="ablation",
+        help="Ablation mode to run.",
+    )
+    parser.add_argument("--queries", required=True, help="Path to query JSON file.")
+    parser.add_argument(
+        "--papers",
+        nargs="+",
+        required=True,
+        help="One or more ChromaDB collection names.",
+    )
+    parser.add_argument("--output", required=True, help="Output JSON path.")
+    args = parser.parse_args()
+
+    samples = _load_cli_queries(args.queries)
+    study = _build_cli_study()
+
+    results = {}
+    for paper in args.papers:
+        logger.info("Running %s for collection '%s'", args.mode, paper)
+        if args.mode == "alpha-sweep":
+            results[paper] = study.run_cad_alpha_ablation(samples, paper)
+        else:
+            results[paper] = study.run_ablation(samples, paper)
+
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+
+    logger.info("Saved results to %s", output_path)

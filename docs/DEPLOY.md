@@ -9,7 +9,7 @@
 flowchart TD
     B["Browser"] --> FE["Frontend<br/>Vite dev or Nginx"]
     FE --> API["FastAPI<br/>api.main:app"]
-    API --> DB["PostgreSQL"]
+    API --> DB["SQLAlchemy DB<br/>SQLite local / PostgreSQL deploy"]
     API --> VS["ChromaDB<br/>backend/chroma_db"]
     API --> FS["File Storage<br/>backend/data"]
     API --> LLM["MIDM Mini or Base"]
@@ -56,6 +56,9 @@ LOG_LEVEL=INFO
 ENV=development
 ```
 
+- 로컬 기본 DB는 `DATABASE_URL` 미지정 시 `sqlite+aiosqlite:///./mrag.db`
+- PostgreSQL을 쓰면 `DATABASE_URL=postgresql+asyncpg://...` 로 덮어씀
+
 ## 로컬 실행
 
 ### 1 의존성 설치
@@ -83,6 +86,7 @@ python scripts\download_models.py --llm-model K-intelligence/Midm-2.0-Base-Instr
 
 ```powershell
 cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
+$env:JWT_SECRET_KEY = "change-this-secret"
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -95,6 +99,7 @@ npm run dev
 
 ```powershell
 cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
+$env:JWT_SECRET_KEY = "change-this-secret"
 $env:LOAD_GPU_MODELS = "true"
 python scripts\master_run.py --skip-download
 ```

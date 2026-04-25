@@ -7,9 +7,14 @@ venv/
 
 # Data & DB
 data/*.pdf
+backend/data/
 chroma_db/
 *.sqlite3
 backend/mrag.db
+backend/*.db
+backend/evaluation/results/
+evaluation/results/
+backend/evaluation/data/pseudo_gt.json
 
 # Models (downloaded at runtime)
 *.bin

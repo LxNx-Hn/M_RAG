@@ -12,7 +12,7 @@ flowchart TD
     API --> DEP["Dependency Layer<br/>ModuleManager + DB Session + Auth"]
     DEP --> MOD["RAG Modules<br/>parser / section / chunk / embed / retrieve / rerank / compress / generate"]
     MOD --> PIPE["Pipelines A-F<br/>simple QA / section / compare / citation / summary / quiz"]
-    MOD --> STORE["Storage<br/>PostgreSQL + ChromaDB + backend/data"]
+    MOD --> STORE["Storage<br/>SQLAlchemy DB(SQLite local / PostgreSQL deploy)<br/>+ ChromaDB + backend/data"]
     PIPE --> MOD
     API --> STORE
 ```
@@ -29,14 +29,13 @@ flowchart LR
     R --> PE["E 요약"]
     R --> PF["F 퀴즈"]
 
-    PA --> X["QueryExpander"]
-    PB --> X
-    PC --> X
-    PD --> X
-    PE --> X
-    PF --> X
-
+    PA --> X["QueryExpander<br/>HyDE"]
     X --> H["HybridRetriever<br/>Dense + BM25 + RRF"]
+    PB --> H
+    PC --> H
+    PD --> H
+    PE --> H
+    PF --> H
     H --> RR["Reranker"]
     RR --> C["ContextCompressor"]
     C --> G["Generator<br/>MIDM Mini or Base"]
@@ -89,7 +88,7 @@ flowchart LR
 
 1. `routers/chat.py` 가 요청과 인증 정보 수신
 2. `query_router.py` 가 의도에 맞는 파이프라인 선택
-3. `query_expander.py` 가 HyDE와 다중 질의 확장 수행
+3. Route A는 `query_expander.py` 로 HyDE 확장을 수행
 4. `hybrid_retriever.py` 가 Dense와 BM25를 결합 검색
 5. `reranker.py` 가 상위 문맥 재정렬
 6. `context_compressor.py` 가 LLM 입력 길이에 맞게 컨텍스트 압축
@@ -106,10 +105,12 @@ flowchart LR
   - 다중 문서 비교
 - Route D `pipeline_d_citation.py`
   - 참고문헌과 특허 추적
+  - `paper` 문서는 `citation_tracker.py`, `patent` 문서는 `patent_tracker.py` 사용
 - Route E `pipeline_e_summary.py`
   - 전체 요약
 - Route F `pipeline_f_quiz.py`
   - 퀴즈와 플래시카드 생성
+  - `query_expander` 인자를 받지만 현재 본문 로직에서 직접 사용하지 않음
 
 ## 저장소 경계
 

@@ -1,0 +1,86 @@
+[
+  {
+    "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
+    "ground_truth": "BERTLARGE 기준 GLUE 평균 82.1%, MNLI 86.7%, SQuAD v1.1 Test F1 93.2, SQuAD v2.0 Test F1 83.1, SST-2 94.9%, SWAG Test 86.3%",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "AI 도메인 수치 → 모델이 BERT 수치를 파라메트릭 지식으로 알 수 있어 CAD 효과 측정에 적합.",
+    "track": "track2"
+  },
+  {
+    "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
+    "ground_truth": "Fine-tuning 시 학습률은 태스크별로 5e-5, 4e-5, 3e-5, 2e-5 중 Dev set에서 최적값을 선택. SQuAD 2.0은 5e-5, batch size 48로 2 epoch 학습.",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 '흔한' LR을 파라메트릭 지식으로 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
+    "ground_truth": "BERTBASE는 4개의 Cloud TPU에서 4일간 사전학습, BERTLARGE는 16개의 Cloud TPU에서 4일간 사전학습. Batch size 128,000 words, 1,000,000 steps.",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
+    "ground_truth": "BERTBASE는 L=12, H=768, A=12로 총 110M 파라미터. BERTLARGE는 L=24, H=1024, A=16으로 총 340M 파라미터.",
+    "ground_truth_source_section": "method",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "모델 규모 — BERT=110M, GPT-2=117M 등 유사 모델 수치를 혼동할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
+    "ground_truth": "BERTLARGE Test set 결과: MNLI-m 86.7%, QNLI 92.7%, SST-2 94.9%, MRPC 89.3% (F1), RTE 70.1%, GLUE 평균 82.1%. SQuAD v1.1 Test F1 93.2, SQuAD v2.0 Test F1 83.1.",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
+    "ground_truth": "GLUE 태스크별 학습 샘플 수: MNLI 392k, QQP 363k, QNLI 108k, SST-2 67k, CoLA 8.5k, STS-B 5.7k, MRPC 3.5k, RTE 2.5k. 사전학습 데이터: BooksCorpus 800M words + English Wikipedia 2,500M words.",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 ablation study 결과의 구체적 수치가 얼마야?",
+    "ground_truth": "BERTBASE ablation: NSP 제거 시 MNLI 83.9(-0.5), QNLI 84.9(-3.5), SQuAD F1 87.9(-0.6). LTR+No NSP 시 MNLI 82.1(-2.3), MRPC 77.5(-9.2), SQuAD F1 77.8(-10.7). BiLSTM 추가 시 SQuAD F1 84.9로 개선되나 여전히 MLM(88.5)보다 낮음.",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_A_nlp"
+    ],
+    "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
+    "track": "track2"
+  }
+]

@@ -7,6 +7,7 @@ Usage: python tests/test_api.py
 import json
 import os
 import sys
+from uuid import uuid4
 
 # Windows 콘솔 인코딩 문제 해결
 os.environ["PYTHONIOENCODING"] = "utf-8"
@@ -18,18 +19,31 @@ import requests
 BASE = "http://127.0.0.1:8000"
 PASS = 0
 FAIL = 0
+AUTH_HEADERS = {}
+
+
+def _prepare_request_kwargs(kwargs):
+    prepared = dict(kwargs)
+    use_auth = prepared.pop("use_auth", True)
+    headers = dict(prepared.pop("headers", {}) or {})
+    if use_auth and AUTH_HEADERS:
+        headers = {**AUTH_HEADERS, **headers}
+    if headers:
+        prepared["headers"] = headers
+    return prepared
 
 
 def test(name, method, path, expected_status=200, **kwargs):
     global PASS, FAIL
     url = f"{BASE}{path}"
     try:
+        request_kwargs = _prepare_request_kwargs(kwargs)
         if method == "GET":
-            resp = requests.get(url, timeout=60)
+            resp = requests.get(url, timeout=60, **request_kwargs)
         elif method == "POST":
-            resp = requests.post(url, timeout=120, **kwargs)
+            resp = requests.post(url, timeout=120, **request_kwargs)
         elif method == "DELETE":
-            resp = requests.delete(url, timeout=30)
+            resp = requests.delete(url, timeout=30, **request_kwargs)
         else:
             raise ValueError(f"Unknown method: {method}")
 
@@ -58,6 +72,29 @@ def test(name, method, path, expected_status=200, **kwargs):
         return None
 
 
+def bootstrap_auth():
+    global AUTH_HEADERS
+    unique = uuid4().hex[:8]
+    email = f"mrag-smoke-{unique}@example.com"
+    username = f"mrag_smoke_{unique}"
+    password = "MragSmoke!2026"
+
+    data = test(
+        "Register test user",
+        "POST",
+        "/api/auth/register",
+        json={"email": email, "username": username, "password": password},
+        use_auth=False,
+    )
+    token = data.get("access_token") if isinstance(data, dict) else None
+    if not token:
+        return False
+
+    AUTH_HEADERS = {"Authorization": f"Bearer {token}"}
+    me = test("Get current user", "GET", "/api/auth/me")
+    return isinstance(me, dict) and me.get("email") == email
+
+
 def main():
     print("=" * 60)
     print("M-RAG API Integration Tests")
@@ -69,6 +106,12 @@ def main():
     test("Health check", "GET", "/health")
     test("Swagger docs accessible", "GET", "/docs")
 
+    print("\n--- Auth bootstrap ---")
+    if not bootstrap_auth():
+        print("  [FAIL] Authentication bootstrap")
+        print("         Could not create a test user or acquire a bearer token")
+        return False
+
     # ─── 2. Papers (empty) ───
     print("\n--- Papers (before upload) ---")
     test("List collections (empty)", "GET", "/api/papers/list")
@@ -76,6 +119,7 @@ def main():
 
     # ─── 3. PDF Upload ───
     print("\n--- PDF Upload ---")
+    os.makedirs("data", exist_ok=True)
 
     # 테스트용 미니 PDF 생성
     import fitz
@@ -347,6 +391,7 @@ def main():
     # ─── 9. Cleanup ───
     print("\n--- Cleanup ---")
     test("Delete collection", "DELETE", "/api/papers/papers")
+    test("Logout", "POST", "/api/auth/logout")
 
     # ─── Summary ───
     print("\n" + "=" * 60)

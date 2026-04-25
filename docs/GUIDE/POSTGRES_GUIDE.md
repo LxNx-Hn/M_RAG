@@ -1,6 +1,6 @@
 # PostgreSQL 완전 입문 가이드
 
-> M-RAG 프로젝트 기준 — "처음 써보는 PostgreSQL" 대상
+> M-RAG 프로젝트 기준 — 기본 로컬 실행은 SQLite, 이 문서는 PostgreSQL로 전환할 때 보는 가이드
 
 ---
 
@@ -19,6 +19,8 @@ M-RAG에서 PostgreSQL이 저장하는 것:
 - **User** 테이블: 아이디, 비밀번호(해시), 이메일
 - **Conversation** 테이블: 대화 세션 (제목, 생성일)
 - **Message** 테이블: 실제 채팅 메시지 (질문/답변, 타임스탬프)
+- **Paper** 테이블: 업로드 문서 메타데이터와 사용자별 컬렉션 정보
+- **RevokedToken** 테이블: 로그아웃된 JWT 식별자
 
 > **ChromaDB(벡터DB)는 별개**: 논문 청크와 임베딩은 PostgreSQL이 아니라 ChromaDB에 저장됨.
 
@@ -103,7 +105,16 @@ DATABASE_URL=postgresql+asyncpg://mrag:mrag@localhost:5432/mrag
 > **형식 설명**: `postgresql+asyncpg://[유저]:[비밀번호]@[호스트]:[포트]/[DB이름]`  
 > `asyncpg`는 FastAPI의 비동기 처리를 위한 PostgreSQL 드라이버.
 
-### 3-2. 테이블 자동 생성 (마이그레이션)
+### 3-2. 스키마 생성과 마이그레이션
+
+운영 배포 기준:
+
+```bash
+cd backend
+alembic upgrade head
+```
+
+로컬 빠른 확인 기준:
 
 ```bash
 cd backend
@@ -134,6 +145,8 @@ psql -U mrag -d mrag
 #  public | users         | table | mrag
 #  public | conversations | table | mrag
 #  public | messages      | table | mrag
+#  public | papers        | table | mrag
+#  public | revoked_tokens| table | mrag
 ```
 
 ---
@@ -150,20 +163,20 @@ SELECT id, username, email, created_at FROM users;
 -- 특정 유저의 대화 목록
 SELECT c.id, c.title, c.created_at
 FROM conversations c
-WHERE c.user_id = 1
+WHERE c.user_id = '사용자 UUID'
 ORDER BY c.created_at DESC;
 
 -- 메시지 내용 보기
 SELECT role, content, created_at
 FROM messages
-WHERE conversation_id = 1
+WHERE conversation_id = '대화 UUID'
 ORDER BY created_at;
 
 -- 유저 삭제 (테스트 데이터 정리)
 DELETE FROM users WHERE username = 'test_user';
 
 -- 테이블 전체 비우기 (개발 중 초기화)
-TRUNCATE users, conversations, messages RESTART IDENTITY CASCADE;
+TRUNCATE users, conversations, messages, papers, revoked_tokens CASCADE;
 ```
 
 > **CASCADE**: 연결된 데이터도 같이 삭제 (예: 유저 삭제 시 해당 대화/메시지도 삭제)
@@ -333,13 +346,13 @@ M-RAG 코드에서 DB를 어떻게 쓰는지 보면:
 # backend/api/models.py — 테이블 = Python 클래스
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True)
-    email = Column(String)
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = Column(String(255), unique=True, nullable=False, index=True)
+    username = Column(String(100), nullable=False)
 
 # backend/api/routers/auth.py — 데이터 조회
-user = await db.execute(select(User).where(User.username == username))
-# → SQL: SELECT * FROM users WHERE username = ?
+user = await db.execute(select(User).where(User.email == email))
+# → SQL: SELECT * FROM users WHERE email = ?
 
 # 데이터 추가
 new_user = User(username="kim", email="kim@example.com")

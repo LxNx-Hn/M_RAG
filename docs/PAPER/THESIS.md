@@ -5,15 +5,15 @@
 - 원칙 기능과 구조는 현재 저장소 기준으로 서술
 - 원칙 미검증 수치는 넣지 않고 결과 재실행 후 삽입
 
-## 제목 후보
+## 고정 제목
 
 ### 국문 제목
 
-- M-RAG: 한국어 중심 학술 문서 질의응답을 위한 라우트 기반 모듈형 검색 증강 생성 시스템
+- M-RAG: 한국어 중심 학술 문서 질의응답을 위한 환각 억제형 모듈러 RAG 시스템
 
 ### 영문 제목
 
-- M-RAG: A Route-Aware Modular Retrieval-Augmented Generation System for Korean-Centered Academic Document Question Answering
+- M-RAG: A Hallucination-Controlled Modular Retrieval-Augmented Generation System for Korean-Centered Academic Document Question Answering
 
 ## 초록
 
@@ -54,7 +54,7 @@ The contributions of this work are a route-aware modular QA architecture, an int
 본 연구는 이러한 문제를 해결하기 위해 M-RAG를 제안한다  
 M-RAG는 질문을 일반 QA, 섹션 QA, 비교, 인용 추적, 요약, 퀴즈 생성의 여섯 유형으로 분기하고, 각 유형에 맞는 검색 및 생성 경로를 선택하는 라우트 기반 모듈형 구조를 가진다  
 검색 단계에서는 Dense 임베딩, BM25, RRF, reranker, context compression을 결합하고, 생성 단계에서는 MIDM 계열 언어 모델에 CAD와 SCD 기반 제어를 연결한다  
-구현은 FastAPI 기반 백엔드와 React 기반 프론트엔드, PostgreSQL과 ChromaDB 저장소, 로컬 실험 러너와 결과 변환 스크립트까지 포함한다  
+구현은 FastAPI 기반 백엔드와 React 기반 프론트엔드, SQLAlchemy 기반 영속 계층과 ChromaDB 저장소, 로컬 실험 러너와 결과 변환 스크립트까지 포함한다  
 
 본 연구의 기여는 다음과 같다  
 
@@ -103,7 +103,7 @@ M-RAG는 CAD와 SCD를 각각 환각 억제와 언어 이탈 억제의 축으로
 M-RAG의 상위 구조는 프론트엔드, API 계층, 모듈 계층, 파이프라인 계층, 저장 계층으로 구성된다  
 프론트엔드는 문서 업로드, PDF 뷰어, 채팅, 인용 패널, 대화 이력을 제공하고, API 계층은 인증과 문서 업로드, 검색 및 답변 생성, 인용, 대화 저장을 담당한다  
 모듈 계층은 파서, 섹션 감지기, 청커, 임베더, 검색기, 재정렬기, 컨텍스트 압축기, 생성기, 인용 추적기로 구성되며, 파이프라인 계층은 질문 유형별 경로를 묶는다  
-저장 계층은 PostgreSQL, ChromaDB, 로컬 파일 저장소로 구성된다  
+저장 계층은 SQLAlchemy가 여는 로컬 SQLite 기본 경로와 PostgreSQL 확장 경로, ChromaDB, 로컬 파일 저장소로 구성된다  
 
 ### 3.2 문서 처리 경로
 
@@ -146,7 +146,7 @@ Route F는 퀴즈와 플래시카드 생성을 담당한다
 
 ### 4.2 저장 구조
 
-문서 파일은 로컬 데이터 디렉터리에 저장되고, 벡터는 ChromaDB에 저장되며, 사용자와 문서 메타데이터, 대화 이력은 PostgreSQL에 저장된다  
+문서 파일은 로컬 데이터 디렉터리에 저장되고, 벡터는 ChromaDB에 저장되며, 사용자와 문서 메타데이터, 대화 이력은 SQLAlchemy가 관리하는 로컬 SQLite 또는 PostgreSQL에 저장된다  
 이 구조는 문서 관리와 검색 근거 저장을 분리해 유지보수와 확장성을 높인다  
 
 ### 4.3 운영과 실험 경로

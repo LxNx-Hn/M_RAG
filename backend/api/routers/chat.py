@@ -464,6 +464,7 @@ def _run_pipeline(
             req.cad_alpha,
             req.use_scd,
             req.scd_beta,
+            patent_tracker=m.patent_tracker,
         )
     if decision.route == RouteType.SUMMARY:
         return pipeline_e_summary.run(

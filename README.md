@@ -6,7 +6,7 @@
 
 ## 프로젝트 개요
 
-- 한국어 중심 논문 질의응답용 Modular RAG 시스템
+- 한국어 중심 학술 문서 질의응답과 환각 억제를 위한 Modular RAG 시스템
 - FastAPI 백엔드와 React 프론트엔드로 구성
 - 논문 업로드, 하이브리드 검색, 라우팅 기반 파이프라인, 인용 추적, 퀴즈 생성 지원
 - 로컬 연구 실행 기본 모델은 `K-intelligence/Midm-2.0-Mini-Instruct`
@@ -28,6 +28,10 @@ npm ci
 cd ..
 ```
 
+- 여러 Python 환경이 섞여 있으면 `python` 대신 `.venv\Scripts\python.exe` 사용 권장
+- 로컬 기본 DB는 SQLAlchemy가 여는 `backend/mrag.db` SQLite 파일
+- PostgreSQL을 쓰려면 `DATABASE_URL` 환경변수로 별도 지정
+
 ### 2 모델 캐시 준비
 
 ```powershell
@@ -46,6 +50,7 @@ python scripts\download_models.py --llm-model K-intelligence/Midm-2.0-Base-Instr
 
 ```powershell
 cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
+$env:JWT_SECRET_KEY = "change-this-secret"
 $env:LOAD_GPU_MODELS = "true"
 python scripts\master_run.py --skip-download
 ```
@@ -61,6 +66,7 @@ python scripts\master_run.py --skip-download
 
 ```powershell
 cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
+$env:JWT_SECRET_KEY = "change-this-secret"
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -95,7 +101,7 @@ npm run dev
 - `backend/api/database.py` SQLAlchemy 엔진과 세션, DB 초기화
 - `backend/api/dependencies.py` RAG 모듈 싱글턴 초기화와 공유
 - `backend/api/limiter.py` `slowapi` 기반 레이트 리밋 설정
-- `backend/api/models.py` `User`, `Conversation`, `Message`, `Paper`, `AuditLog` ORM 모델
+- `backend/api/models.py` `User`, `Conversation`, `Message`, `Paper`, `RevokedToken` ORM 모델
 - `backend/api/schemas.py` 요청과 응답 Pydantic 스키마
 - `backend/api/routers/auth.py` 회원가입, 로그인, 로그아웃, 현재 사용자 조회
 - `backend/api/routers/papers.py` 업로드, 목록, 상세, 삭제, 파일 검증과 사용자 격리
@@ -195,10 +201,9 @@ npm run dev
 - `frontend/src/utils/export.ts` 프론트 내보내기 보조 유틸
 - `frontend/src/i18n/index.ts` 국제화 설정
 
-### 산출물과 작업 메모
+### 산출물과 세션 메모
 
 - `backend/evaluation/results/` 아래 파일은 실행 결과 산출물
-- `backend/scripts/codex_report_*.md` 와 `backend/scripts/codex_task_*.md` 는 작업 메모
 - `HANDOFF.md` 는 다음 세션 인수인계용 최신 문서
 - 불필요 문서와 코드 삭제는 사용자 확인 후 진행
 
@@ -238,6 +243,7 @@ npm run dev
 ## 운영 메모
 
 - 로컬 연구 실행은 `backend/scripts/master_run.py` 를 기준으로 유지
+- 로컬 기본 영속 계층은 SQLAlchemy + SQLite, PostgreSQL은 운영과 확장 경로로 사용
 - 문서와 코드에서 양자화 경로를 다시 넣지 않음
 - Base 모델은 유지하지만 기본값으로 강제하지 않음
 - 삭제 후보가 보여도 사용자 확인 전에는 제거하지 않음

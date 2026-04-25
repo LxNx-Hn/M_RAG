@@ -1,14 +1,5 @@
 """
-Decoder Ablation Study — Table 2 생성
-CAD / SCD / CAD+SCD 조합 실험
-
-GuideV2 §5.1.3 기준:
-  - 수치 환각률: 수치 오류 포함 답변 비율
-  - 언어 이탈률: 한국어 질의에 비한국어 답변 비율
-  - Faithfulness, Answer Relevancy (RAGAS)
-
-실행:
-    python -m backend.evaluation.decoder_ablation
+Decoder ablation study utilities.
 """
 
 import json
@@ -19,17 +10,13 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-# ─────────────────────────────────────────────
-# Table 2 실험 구성
-# ─────────────────────────────────────────────
-
 CAD_ALPHA_VALUES = [0.0, 0.1, 0.3, 0.5, 0.7, 1.0]
 SCD_BETA_VALUES = [0.1, 0.3, 0.5]
 
 
 @dataclass
 class DecoderConfig:
-    """디코더 ablation 단일 실험 구성"""
+    """Single decoder ablation configuration."""
 
     name: str
     use_cad: bool = False
@@ -38,13 +25,12 @@ class DecoderConfig:
     scd_beta: float = 0.3
 
 
-# Table 2 기본 구성
 DECODER_CONFIGS = [
     DecoderConfig(name="Baseline (no decoder)"),
-    DecoderConfig(name="CAD only (α=0.5)", use_cad=True, cad_alpha=0.5),
-    DecoderConfig(name="SCD only (β=0.3)", use_scd=True, scd_beta=0.3),
+    DecoderConfig(name="CAD only (alpha=0.5)", use_cad=True, cad_alpha=0.5),
+    DecoderConfig(name="SCD only (beta=0.3)", use_scd=True, scd_beta=0.3),
     DecoderConfig(
-        name="CAD+SCD (α=0.5, β=0.3)",
+        name="CAD+SCD (alpha=0.5, beta=0.3)",
         use_cad=True,
         use_scd=True,
         cad_alpha=0.5,
@@ -53,15 +39,8 @@ DECODER_CONFIGS = [
 ]
 
 
-# ─────────────────────────────────────────────
-# 평가 지표 계산
-# ─────────────────────────────────────────────
-
-
 def compute_language_drift_rate(answers: list[str]) -> float:
-    """언어 이탈률: 한국어가 없는 답변 비율
-    한글 음절이 전체 비공백 문자 대비 일정 비율 미만이면 이탈로 판정
-    """
+    """Compute the share of answers with low Korean-character ratio."""
     if not answers:
         return 0.0
 
@@ -72,7 +51,7 @@ def compute_language_drift_rate(answers: list[str]) -> float:
         non_ws = [c for c in answer if not c.isspace()]
         korean = [c for c in non_ws if 0xAC00 <= ord(c) <= 0xD7A3]
         ratio = len(korean) / max(len(non_ws), 1)
-        if ratio < 0.3:  # 한글 비율 30% 미만 → 언어 이탈
+        if ratio < 0.3:
             drifted += 1
 
     return drifted / len(answers)
@@ -82,22 +61,15 @@ def compute_numeric_hallucination_rate(
     answers: list[str],
     ground_truths: list[str],
 ) -> float:
-    """수치 환각률: 정답에 없는 수치가 답변에 포함된 비율
-
-    개선 사항:
-    - 논문에서 흔한 단위 포괄 (%, M, B, K, GB, 배, 점 등)
-    - 단위 제거 후 정규화 비교 (82.1% == 82.1)
-    - trivial 숫자(10 미만 정수) 제외하여 false positive 방지
-    """
+    """Compute the rate of extra numbers in answers that are absent from ground truth."""
     if not answers:
         return 0.0
 
-    _UNIT_PATTERN = r"(?:%|배|점|개|명|억|만|천|[KMBTG]B?|gb|mb|kb)"
+    unit_pattern = r"(?:%|개|명|건|만|천|[KMBTG]B?|gb|mb|kb)"
 
     def extract_numbers(text: str) -> set[str]:
-        """숫자+선택적 단위를 추출하고 정규화된 숫자값만 반환"""
         raw = re.findall(
-            r"\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)" + _UNIT_PATTERN + r"?\b",
+            r"\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?|\d+(?:\.\d+)?)" + unit_pattern + r"?\b",
             text,
             re.IGNORECASE,
         )
@@ -108,7 +80,6 @@ def compute_numeric_hallucination_rate(
                 val = float(clean)
             except ValueError:
                 continue
-            # 10 미만 정수는 제외 (섹션 번호, 목록 번호 등)
             if val < 10 and val == int(val):
                 continue
             normalized.add(clean)
@@ -117,26 +88,20 @@ def compute_numeric_hallucination_rate(
     hallucinated = 0
     for answer, gt in zip(answers, ground_truths):
         if not gt.strip():
-            continue  # ground_truth 없으면 평가 불가
+            continue
         gt_nums = extract_numbers(gt)
         if not gt_nums:
-            continue  # 정답에 수치가 없으면 스킵
+            continue
         answer_nums = extract_numbers(answer)
-        extra = answer_nums - gt_nums
-        if extra:
+        if answer_nums - gt_nums:
             hallucinated += 1
 
     evaluated = sum(1 for gt in ground_truths if gt.strip() and extract_numbers(gt))
     return hallucinated / max(evaluated, 1)
 
 
-# ─────────────────────────────────────────────
-# 실험 실행기
-# ─────────────────────────────────────────────
-
-
 class DecoderAblationStudy:
-    """Table 2 생성을 위한 CAD/SCD 조합 ablation 실행기"""
+    """Run decoder ablations over a single collection."""
 
     def __init__(
         self,
@@ -156,7 +121,7 @@ class DecoderAblationStudy:
         self.results_dir.mkdir(exist_ok=True)
 
     def run_single(self, config: DecoderConfig, test_samples: list[dict]) -> dict:
-        """단일 디코더 구성으로 전체 샘플 실행"""
+        """Run one decoder configuration across all samples."""
         from modules.scd_decoder import create_combined_processor
 
         answers = []
@@ -164,7 +129,6 @@ class DecoderAblationStudy:
             query = sample["query"]
             ground_truth = sample.get("ground_truth", "")
 
-            # 검색
             results = self.hybrid_retriever.search(
                 collection_name=self.collection_name,
                 query=query,
@@ -174,7 +138,6 @@ class DecoderAblationStudy:
             compressed = self.compressor.truncate_to_limit(compressed)
             context = "\n\n---\n\n".join(doc["content"] for doc in compressed)
 
-            # 디코더 적용
             lp = create_combined_processor(
                 generator=self.generator,
                 query=query,
@@ -191,8 +154,8 @@ class DecoderAblationStudy:
                     template="qa",
                     logits_processor=lp if (config.use_cad or config.use_scd) else None,
                 )
-            except Exception as e:
-                logger.warning(f"Generation failed for '{query}': {e}")
+            except Exception as exc:
+                logger.warning("Generation failed for '%s': %s", query, exc)
                 answer = ""
 
             answers.append(
@@ -216,42 +179,42 @@ class DecoderAblationStudy:
         }
 
     def run_table2(self, test_samples: list[dict]) -> dict:
-        """Table 2 전체 실험 실행 (기본 4개 구성)"""
+        """Run the four default decoder configurations."""
         results = {}
         for config in DECODER_CONFIGS:
-            logger.info(f"[Table 2] Running: {config.name}")
+            logger.info("[Table 2] Running: %s", config.name)
             results[config.name] = self.run_single(config, test_samples)
         self._save(results, "table2_decoder_ablation.json")
         return results
 
     def run_alpha_sweep(self, test_samples: list[dict]) -> dict:
-        """CAD alpha sweep (SCD 고정 β=0.3)"""
+        """Run a CAD alpha sweep with SCD fixed."""
         results = {}
         for alpha in CAD_ALPHA_VALUES:
             config = DecoderConfig(
-                name=f"CAD+SCD (α={alpha}, β=0.3)",
+                name=f"CAD+SCD (alpha={alpha}, beta=0.3)",
                 use_cad=True,
                 use_scd=True,
                 cad_alpha=alpha,
                 scd_beta=0.3,
             )
-            logger.info(f"[Alpha sweep] Running: {config.name}")
+            logger.info("[Alpha sweep] Running: %s", config.name)
             results[config.name] = self.run_single(config, test_samples)
         self._save(results, "table2_alpha_sweep.json")
         return results
 
     def run_beta_sweep(self, test_samples: list[dict]) -> dict:
-        """SCD beta sweep (CAD 고정 α=0.5)"""
+        """Run an SCD beta sweep with CAD fixed."""
         results = {}
         for beta in SCD_BETA_VALUES:
             config = DecoderConfig(
-                name=f"CAD+SCD (α=0.5, β={beta})",
+                name=f"CAD+SCD (alpha=0.5, beta={beta})",
                 use_cad=True,
                 use_scd=True,
                 cad_alpha=0.5,
                 scd_beta=beta,
             )
-            logger.info(f"[Beta sweep] Running: {config.name}")
+            logger.info("[Beta sweep] Running: %s", config.name)
             results[config.name] = self.run_single(config, test_samples)
         self._save(results, "table2_beta_sweep.json")
         return results
@@ -260,64 +223,110 @@ class DecoderAblationStudy:
         out_path = self.results_dir / filename
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
-        logger.info(f"Saved: {out_path}")
+        logger.info("Saved: %s", out_path)
 
     def print_summary(self, results: dict):
-        """실험 결과 콘솔 출력 (Table 2 형식)"""
+        """Print a compact decoder summary table."""
         print("\n" + "=" * 70)
-        print("Table 2: CAD / SCD / 조합 Ablation")
+        print("Table 2: CAD / SCD / Combined Ablation")
         print("=" * 70)
-        print(f"{'구성':<35} {'수치환각률':>10} {'언어이탈률':>10}")
+        print(f"{'Config':<35} {'Num Hall.':>10} {'Lang Drift':>10}")
         print("-" * 70)
-        for name, r in results.items():
-            drift = r.get("language_drift_rate", 0.0)
-            halluc = r.get("numeric_hallucination_rate", 0.0)
+        for name, result in results.items():
+            drift = result.get("language_drift_rate", 0.0)
+            halluc = result.get("numeric_hallucination_rate", 0.0)
             print(f"{name:<35} {halluc:>9.1%} {drift:>9.1%}")
         print("=" * 70)
 
 
-if __name__ == "__main__":
+def _load_cli_queries(queries_path: str) -> list[dict]:
+    path = Path(queries_path)
+    with open(path, "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    if isinstance(payload, dict):
+        items = payload.get("queries", payload.get("samples", []))
+    else:
+        items = payload
+
+    return [
+        {
+            "query": item["query"],
+            "ground_truth": item.get("ground_truth", ""),
+        }
+        for item in items
+    ]
+
+
+def _build_cli_study(collection_name: str) -> DecoderAblationStudy:
     import sys
-    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+
+    from config import CHROMA_DIR
+    from modules.context_compressor import ContextCompressor
+    from modules.embedder import Embedder
+    from modules.generator import Generator
+    from modules.hybrid_retriever import HybridRetriever
+    from modules.reranker import Reranker
+    from modules.vector_store import VectorStore
+
+    embedder = Embedder()
+    vector_store = VectorStore(persist_dir=str(CHROMA_DIR))
+    hybrid_retriever = HybridRetriever(vector_store=vector_store, embedder=embedder)
+    reranker = Reranker()
+    generator = Generator()
+    compressor = ContextCompressor(generator=generator)
+
+    return DecoderAblationStudy(
+        generator=generator,
+        hybrid_retriever=hybrid_retriever,
+        reranker=reranker,
+        compressor=compressor,
+        collection_name=collection_name,
+    )
+
+
+if __name__ == "__main__":
+    import argparse
 
     logging.basicConfig(level=logging.INFO)
 
-    # 테스트 쿼리 로드
-    queries_path = Path(__file__).parent / "test_queries.json"
-    if not queries_path.exists():
-        print(f"test_queries.json 없음: {queries_path}")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Run decoder ablation from a query JSON file."
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["decoder", "alpha-sweep", "beta-sweep"],
+        default="decoder",
+        help="Decoder ablation mode to run.",
+    )
+    parser.add_argument("--queries", required=True, help="Path to query JSON file.")
+    parser.add_argument(
+        "--papers",
+        nargs="+",
+        required=True,
+        help="One or more ChromaDB collection names.",
+    )
+    parser.add_argument("--output", required=True, help="Output JSON path.")
+    args = parser.parse_args()
 
-    with open(queries_path, encoding="utf-8") as f:
-        test_data = json.load(f)
+    samples = _load_cli_queries(args.queries)
+    results = {}
 
-    # 한국어 질의만 추출 (언어 이탈률 측정 대상)
-    ko_samples = [s for s in test_data if s.get("lang", "ko") == "ko"]
-    print(f"한국어 질의 샘플: {len(ko_samples)}개")
+    for paper in args.papers:
+        logger.info("Running %s for collection '%s'", args.mode, paper)
+        study = _build_cli_study(paper)
+        if args.mode == "alpha-sweep":
+            results[paper] = study.run_alpha_sweep(samples)
+        elif args.mode == "beta-sweep":
+            results[paper] = study.run_beta_sweep(samples)
+        else:
+            results[paper] = study.run_table2(samples)
 
-    # 모듈 로드
-    sys.path.insert(0, str(Path(__file__).parent.parent))
-    from modules.embedder import Embedder
-    from modules.vector_store import VectorStore
-    from modules.hybrid_retriever import HybridRetriever
-    from modules.reranker import Reranker
-    from modules.context_compressor import ContextCompressor
-    from modules.generator import Generator
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
 
-    embedder = Embedder()
-    vs = VectorStore()
-    hr = HybridRetriever(vs, embedder)
-    rr = Reranker()
-    comp = ContextCompressor()
-    gen = Generator()
-    comp.generator = gen
-
-    study = DecoderAblationStudy(gen, hr, rr, comp)
-
-    # Table 2 기본 실험
-    results = study.run_table2(ko_samples)
-    study.print_summary(results)
-
-    # Alpha sweep
-    alpha_results = study.run_alpha_sweep(ko_samples)
-    study.print_summary(alpha_results)
+    logger.info("Saved results to %s", output_path)
