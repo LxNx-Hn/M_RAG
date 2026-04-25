@@ -56,10 +56,10 @@ cd frontend && npm run build
 ## Important Paths
 
 - Main doc `README.md`
-- Working plan `WORK_PLAN.md`
-- Handoff `HANDOFF.md`
+- Working plan `docs/USAGE/WORK_PLAN.md`
+- Handoff `docs/USAGE/HANDOFF.md`
 - Architecture doc `docs/ARCHITECTURE.md`
-- Deployment doc `docs/DEPLOY.md`
+- Deployment doc `docs/USAGE/DEPLOY.md`
 - Results `backend/evaluation/results/`
 - Master log `backend/scripts/master_run.log`
 

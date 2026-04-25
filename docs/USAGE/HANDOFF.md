@@ -1,6 +1,6 @@
 # M-RAG 인수인계
 
-- 문서 기준 2026-04-25
+- 문서 기준 2026-04-26
 - 다음 세션이 바로 이어받을 수 있도록 현재 기준만 남긴 인수인계 문서
 
 ## 현재 상태
@@ -37,8 +37,8 @@ Get-Content C:\Users\KiKi\Desktop\CODE\M_RAG\backend\scripts\master_run.log -Wai
 ## 핵심 경로
 
 - 메인 문서 `C:\Users\KiKi\Desktop\CODE\M_RAG\README.md`
-- 실행 계획 `C:\Users\KiKi\Desktop\CODE\M_RAG\WORK_PLAN.md`
-- 배포 가이드 `C:\Users\KiKi\Desktop\CODE\M_RAG\docs\DEPLOY.md`
+- 실행 계획 `C:\Users\KiKi\Desktop\CODE\M_RAG\docs\USAGE\WORK_PLAN.md`
+- 배포 가이드 `C:\Users\KiKi\Desktop\CODE\M_RAG\docs\USAGE\DEPLOY.md`
 - 아키텍처 `C:\Users\KiKi\Desktop\CODE\M_RAG\docs\ARCHITECTURE.md`
 - 결과 폴더 `C:\Users\KiKi\Desktop\CODE\M_RAG\backend\evaluation\results`
 - 실행 로그 `C:\Users\KiKi\Desktop\CODE\M_RAG\backend\scripts\master_run.log`

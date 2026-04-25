@@ -1,7 +1,7 @@
 # M-RAG: PPT용 개조식 요약
 
 > 마침표 없이, 슬라이드에 바로 붙여넣을 수 있는 톤
-> 문서 기준 2026-04-25
+> 문서 기준 2026-04-26
 
 ---
 
@@ -72,5 +72,5 @@ flowchart LR
 
 - 전체 구조 README.md
 - 아키텍처 docs/ARCHITECTURE.md
-- 개념 설명 docs/CONCEPTS.md
-- 배포 가이드 docs/DEPLOY.md
+- 개념 설명 docs/PRESENTATION/CONCEPTS.md
+- 배포 가이드 docs/USAGE/DEPLOY.md

@@ -204,7 +204,7 @@ npm run dev
 ### 산출물과 세션 메모
 
 - `backend/evaluation/results/` 아래 파일은 실행 결과 산출물
-- `HANDOFF.md` 는 다음 세션 인수인계용 최신 문서
+- `docs/USAGE/HANDOFF.md` 는 다음 세션 인수인계용 최신 문서
 - 불필요 문서와 코드 삭제는 사용자 확인 후 진행
 
 ## 문서 맵
@@ -215,9 +215,12 @@ npm run dev
 
 ### 사용법 문서
 
-- `docs/DEPLOY.md` 로컬 실행, Docker 실행, GPU 서버 실행 방법
-- `WORK_PLAN.md` 최신 실험 실행 계획
-- `HANDOFF.md` 세션 재개용 인수인계 문서
+- `docs/USAGE/README.md` 사용법 문서 묶음 시작점
+- `docs/USAGE/DEPLOY.md` 로컬 실행, Docker 실행, GPU 서버 실행 방법
+- `docs/USAGE/WORK_PLAN.md` 최신 실험 실행 계획
+- `docs/USAGE/HANDOFF.md` 세션 재개용 인수인계 문서
+- `docs/USAGE/POSTGRES_GUIDE.md` PostgreSQL 전환과 운영 기준
+- `docs/USAGE/TESTING_GUIDE.md` 테스트와 스모크 검증 기준
 
 ### 구조 문서
 
@@ -236,9 +239,10 @@ npm run dev
 
 ### 발표용 문서
 
-- `docs/SUMMARY.md` 발표용 요약 문서
-- `docs/CONCEPTS.md` 개념 용어집
-- `docs/EXPLAINED.md` 비전공자용 설명 문서
+- `docs/PRESENTATION/README.md` 발표용 문서 묶음 시작점
+- `docs/PRESENTATION/SUMMARY.md` 발표용 요약 문서
+- `docs/PRESENTATION/CONCEPTS.md` 개념 용어집
+- `docs/PRESENTATION/EXPLAINED.md` 비전공자용 설명 문서
 
 ## 운영 메모
 
