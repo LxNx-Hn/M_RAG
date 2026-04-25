@@ -1,6 +1,6 @@
 # M-RAG
 
-- 문서 기준 2026-04-25
+- 문서 기준 2026-04-26
 - 현재 기준 로컬 연구용 실험과 시연용 실행 경로를 반영한 메인 문서
 - 패키지 표식용 `__init__.py` 는 역할이 단순해 코드 맵에서 생략
 
@@ -219,7 +219,15 @@ npm run dev
 - `docs/ARCHITECTURE.md` 계층 구조와 요청 흐름
 - `docs/FEATURES.md` 현재 제공 기능 범위
 
-### 논문과 발표용 문서
+### 논문 문서
+
+- `docs/PAPER/README.md` 논문 문서 묶음 시작점
+- `docs/GUIDE/GuideV2.md` 논문 본문 작성 기준서
+- `docs/PAPER/ACADEMIC_CLAIMS.md` 주장 가능한 기여와 근거 파일
+- `docs/PAPER/COMPETITIVE_ANALYSIS.md` 비교 포지셔닝 초안
+- `docs/PAPER/LIMITATIONS_AND_FUTURE_WORK.md` 한계와 후속 과제
+
+### 발표용 문서
 
 - `docs/SUMMARY.md` 발표용 요약 문서
 - `docs/CONCEPTS.md` 개념 용어집
