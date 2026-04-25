@@ -224,6 +224,7 @@ class MasterRunner:
     def _is_port_in_use(self, port: int) -> bool:
         """Return True if something is already listening on the given port."""
         import socket
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.settimeout(1)
             return s.connect_ex(("127.0.0.1", port)) == 0
@@ -239,7 +240,7 @@ class MasterRunner:
             "-Command",
             (
                 f'$p = Get-CimInstance Win32_Process -Filter "ProcessId = {pid}" '
-                '-ErrorAction SilentlyContinue; if ($p) { $p.CommandLine }'
+                "-ErrorAction SilentlyContinue; if ($p) { $p.CommandLine }"
             ),
         ]
         try:
@@ -365,7 +366,11 @@ class MasterRunner:
             raise RuntimeError("Log handle is not initialized.")
 
         # Guard against a stale process already using port 8000.
-        api_port = int(self.args.api_url.split(":")[-1].split("/")[0]) if ":" in self.args.api_url else 8000
+        api_port = (
+            int(self.args.api_url.split(":")[-1].split("/")[0])
+            if ":" in self.args.api_url
+            else 8000
+        )
         self._kill_our_uvicorn(api_port)
         if self._is_port_in_use(api_port):
             self._write_line(
@@ -455,6 +460,7 @@ class MasterRunner:
         else:
             try:
                 from jose import jwt as _jose_jwt
+
                 expire = _dt.now(_tz.utc) + _td(minutes=1440)
                 tok_payload = {
                     "sub": "master_runner_bypass",
@@ -480,11 +486,16 @@ class MasterRunner:
 
         # HTTP fallback: register then login
         import json as _json
+
         base = self.args.api_url.rstrip("/")
         email = "mrag_runner@local.test"
         password = "Mrag_Runner_2026!"
 
-        register_body = {"email": email, "username": "mrag_runner", "password": password}
+        register_body = {
+            "email": email,
+            "username": "mrag_runner",
+            "password": password,
+        }
         login_body = {"email": email, "password": password}
 
         for endpoint, body in [
@@ -520,9 +531,7 @@ class MasterRunner:
                 if e.code == 409:
                     continue
             except Exception as exc:
-                self._write_line(
-                    f"{endpoint} -> {type(exc).__name__}: {exc}"
-                )
+                self._write_line(f"{endpoint} -> {type(exc).__name__}: {exc}")
 
         self._write_line(
             "WARNING: Could not acquire API token. Experiment steps may fail with 401."

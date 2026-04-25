@@ -21,9 +21,7 @@ def main() -> None:
     from config import GENERATION_MODEL
 
     parser = argparse.ArgumentParser(description="Download all required models")
-    parser.add_argument(
-        "--skip-llm", action="store_true", help="Skip LLM download"
-    )
+    parser.add_argument("--skip-llm", action="store_true", help="Skip LLM download")
     parser.add_argument(
         "--llm-model",
         default=GENERATION_MODEL,
