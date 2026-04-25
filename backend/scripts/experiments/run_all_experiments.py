@@ -3,19 +3,19 @@ M-RAG 전체 실험 스크립트 — 논문 Table 1~4 한 번에 실행
 
 Usage:
     # MIDM Mini (로컬, RTX 3080 Ti 12GB)
-    LOAD_GPU_MODELS=true python scripts/run_all_experiments.py \
+    LOAD_GPU_MODELS=true python scripts/experiments/run_all_experiments.py \
         --paper-pdf data/1810.04805_bert.pdf
 
     # MIDM Base (RunPod, A100 40GB+)
     GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct \
-    LOAD_GPU_MODELS=true python scripts/run_all_experiments.py \
+    LOAD_GPU_MODELS=true python scripts/experiments/run_all_experiments.py \
         --paper-pdf data/1810.04805_bert.pdf
 
     # 쿼리 수 조절 (기본 10개, 빠른 테스트는 5개)
-    python scripts/run_all_experiments.py --paper-pdf data/paper.pdf --max-queries 5
+    python scripts/experiments/run_all_experiments.py --paper-pdf data/paper.pdf --max-queries 5
 
     # 특정 테이블만 실행
-    python scripts/run_all_experiments.py --paper-pdf data/paper.pdf --tables 2,3
+    python scripts/experiments/run_all_experiments.py --paper-pdf data/paper.pdf --tables 2,3
 
 예상 소요 시간:
     ┌──────────────┬────────────┬────────────┬────────────┐
@@ -41,7 +41,7 @@ from pathlib import Path
 
 import torch
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from config import CHROMA_DIR, GENERATION_MODEL
 

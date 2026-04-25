@@ -122,6 +122,8 @@ docker compose up --build
 - Python 3.10 이상
 - HuggingFace 캐시용 별도 볼륨
 - `LOAD_GPU_MODELS=true`
+- 보조 실행 스크립트는 `backend/scripts/experiments/` 아래에 별도 보존
+- `vLLM` 연동은 아직 구현되어 있지 않고 현재는 FastAPI + `modules/generator.py` 직접 로드 구조
 
 ### 예시
 

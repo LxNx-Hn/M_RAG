@@ -2,8 +2,8 @@
 C3 핵심 실험: CAD on/off RAGAS 비교 (논문 Table 2 직접 사용)
 
 Usage:
-    python scripts/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --collection c3_eval
-    python scripts/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --heuristic  # GPU 없이
+    python scripts/experiments/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --collection c3_eval
+    python scripts/experiments/run_c3_experiment.py --paper-pdf data/paper_A_nlp.pdf --heuristic  # GPU 없이
 """
 
 import argparse
@@ -14,7 +14,7 @@ from datetime import datetime
 from pathlib import Path
 
 # 프로젝트 루트 추가
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from config import CHROMA_DIR
 

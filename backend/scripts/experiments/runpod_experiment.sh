@@ -9,7 +9,7 @@
 #
 # Usage:
 #   # 1. RunPod에 스크립트 업로드
-#   scp scripts/runpod_experiment.sh root@<pod-ip>:/workspace/
+#   scp scripts/experiments/runpod_experiment.sh root@<pod-ip>:/workspace/
 #
 #   # 2-A. Base 모델 실행 (기본, A100/H100)
 #   ssh root@<pod-ip> "bash /workspace/runpod_experiment.sh"
@@ -92,7 +92,7 @@ export LOAD_GPU_MODELS=true
 echo "[6/6] Running experiments (Table 1~4, $MAX_QUERIES queries)..."
 echo ""
 
-python -X utf8 scripts/run_all_experiments.py \
+python -X utf8 scripts/experiments/run_all_experiments.py \
     --paper-pdf "$PAPER_PDF" \
     --collection "runpod_${MODEL_SIZE}_eval" \
     --max-queries "$MAX_QUERIES" \

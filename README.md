@@ -163,10 +163,11 @@ npm run dev
 - `backend/scripts/prepare_korquad.py` KorQuAD 샘플링
 - `backend/scripts/prepare_crag.py` CRAG 샘플링과 변환
 - `backend/scripts/results_to_markdown.py` 결과 JSON을 `TABLES.md` 로 변환
-- `backend/scripts/run_all_experiments.py` 단일 논문 기준 레거시 실험 실행기
-- `backend/scripts/run_c3_experiment.py` C3 관련 별도 실험 실행기
+- `backend/scripts/experiments/run_all_experiments.py` 단일 논문 기준 레거시 실험 실행기
+- `backend/scripts/experiments/run_c3_experiment.py` C3 관련 별도 실험 실행기
 - `backend/scripts/verify_deployment.py` 배포 환경 체크
-- `backend/scripts/runpod_experiment.sh` RunPod 실험 보조 스크립트
+- `backend/scripts/experiments/runpod_experiment.sh` RunPod 실험 보조 스크립트
+- `backend/scripts/experiments/README.md` 보존형 실험 스크립트 묶음 설명
 - `backend/scripts/backup.sh` Postgres, Chroma, data 백업
 - `backend/scripts/entrypoint.sh` 컨테이너 엔트리포인트와 마이그레이션 실행
 
