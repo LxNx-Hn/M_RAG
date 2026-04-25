@@ -6,6 +6,7 @@
 
 ## 문서 구성
 
+- [`GUIDE_ORIGINAL.md`](GUIDE_ORIGINAL.md) 과거 `Guide.md` 국문 원본 초안 복구본
 - [`THESIS.md`](THESIS.md) 제출용 논문 본문 초안
 - [`../GUIDE/GuideV2.md`](../GUIDE/GuideV2.md) 논문 본문 작성 기준
 - [`ACADEMIC_CLAIMS.md`](ACADEMIC_CLAIMS.md) 논문에서 주장 가능한 기여와 근거 파일
@@ -40,6 +41,7 @@
 
 ## 제출 전 최소 확인
 
+- 원본 초안과 최신 초안의 역할이 섞이지 않게 구분
 - 논문 본문 용어가 `docs/FEATURES.md` 와 충돌하지 않는지 확인
 - 구조 설명이 `docs/ARCHITECTURE.md` 와 일치하는지 확인
 - 실험 표 번호와 `THESIS.md`, `GuideV2.md` 의 표 정의가 일치하는지 확인
