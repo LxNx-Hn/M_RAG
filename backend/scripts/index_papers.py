@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import time
 from pathlib import Path
 
 import requests
@@ -20,6 +21,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--collection", default="papers")
     parser.add_argument("--doc-type", default="paper")
     parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument(
+        "--max-retries",
+        type=int,
+        default=8,
+        help="Maximum retries for transient API/network errors.",
+    )
+    parser.add_argument(
+        "--retry-backoff",
+        type=float,
+        default=12.5,
+        help="Base backoff seconds for retries.",
+    )
+    parser.add_argument(
+        "--min-interval",
+        type=float,
+        default=12.5,
+        help="Minimum delay in seconds between upload attempts.",
+    )
     parser.add_argument(
         "--token",
         default=os.environ.get("MRAG_API_TOKEN", ""),
@@ -48,24 +67,58 @@ def _upload_pdf(
     doc_type: str,
     timeout: int,
     token: str,
+    max_retries: int,
+    retry_backoff: float,
 ) -> tuple[bool, str]:
-    with pdf_path.open("rb") as file:
-        response = requests.post(
-            f"{api_url.rstrip('/')}/api/papers/upload",
-            params={"collection_name": collection_name, "doc_type": doc_type},
-            files={"file": (pdf_path.name, file, "application/pdf")},
-            headers=_build_headers(token),
-            timeout=timeout,
-        )
-    response.raise_for_status()
-    data = response.json()
-    paper = data.get("paper", {}) if isinstance(data, dict) else {}
-    num_chunks = int(paper.get("num_chunks", 0) or 0)
-    sections = paper.get("sections", {})
-    message = f"{pdf_path.name}: num_chunks={num_chunks}, sections={sections}"
-    if num_chunks < 10:
-        message += " [warning: num_chunks < 10]"
-    return True, message
+    attempts = max(0, max_retries) + 1
+    for attempt in range(attempts):
+        try:
+            with pdf_path.open("rb") as file:
+                response = requests.post(
+                    f"{api_url.rstrip('/')}/api/papers/upload",
+                    params={"collection_name": collection_name, "doc_type": doc_type},
+                    files={"file": (pdf_path.name, file, "application/pdf")},
+                    headers=_build_headers(token),
+                    timeout=timeout,
+                )
+        except requests.RequestException as exc:
+            if attempt < attempts - 1:
+                sleep_seconds = retry_backoff * (attempt + 1)
+                print(
+                    f"  Retryable network error: {exc} (sleep {sleep_seconds:.1f}s)",
+                    file=sys.stderr,
+                )
+                time.sleep(sleep_seconds)
+                continue
+            raise
+
+        if response.status_code == 429 and attempt < attempts - 1:
+            retry_after = response.headers.get("Retry-After")
+            if retry_after:
+                try:
+                    sleep_seconds = max(float(retry_after), retry_backoff)
+                except ValueError:
+                    sleep_seconds = retry_backoff * (attempt + 1)
+            else:
+                sleep_seconds = retry_backoff * (attempt + 1)
+            print(
+                f"  429 received for {pdf_path.name}. Retrying in {sleep_seconds:.1f}s",
+                file=sys.stderr,
+            )
+            time.sleep(sleep_seconds)
+            continue
+
+        response.raise_for_status()
+        data = response.json()
+        paper = data.get("paper", {}) if isinstance(data, dict) else {}
+        num_chunks = int(paper.get("num_chunks", 0) or 0)
+        sections = paper.get("sections", {})
+        message = f"{pdf_path.name}: num_chunks={num_chunks}, sections={sections}"
+        if num_chunks < 10:
+            message += " [warning: num_chunks < 10]"
+        return True, message
+
+    raise RuntimeError(f"Exceeded retry budget while uploading {pdf_path.name}.")
 
 
 def _list_indexed(api_url: str, timeout: int, token: str) -> list[dict]:
@@ -97,8 +150,13 @@ def main() -> int:
 
     success = 0
     failed = 0
+    last_attempt_at: float | None = None
     for pdf_path in pdfs:
         print(f"Uploading {pdf_path.name} ...")
+        if args.min_interval > 0 and last_attempt_at is not None:
+            elapsed = time.time() - last_attempt_at
+            if elapsed < args.min_interval:
+                time.sleep(args.min_interval - elapsed)
         try:
             _, message = _upload_pdf(
                 args.api_url,
@@ -107,10 +165,14 @@ def main() -> int:
                 args.doc_type,
                 args.timeout,
                 args.token,
+                args.max_retries,
+                args.retry_backoff,
             )
+            last_attempt_at = time.time()
             print(f"  Success: {message}")
             success += 1
         except Exception as exc:
+            last_attempt_at = time.time()
             failed += 1
             print(f"  Failed: {pdf_path.name}: {exc}", file=sys.stderr)
 

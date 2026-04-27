@@ -13,16 +13,15 @@ logger = logging.getLogger(__name__)
 class QueryExpander:
     """HyDE + 다중 쿼리 + 한→영 번역"""
 
-    def __init__(self, generator=None):
+    def __init__(self, generator):
+        if generator is None:
+            raise ValueError("QueryExpander requires a generator-backed runtime.")
         self.generator = generator
 
     def expand_hyde(self, query: str) -> str:
         """HyDE: LLM으로 가상 답변 문서 생성 → 그 문서로 검색
         한국어 쿼리 → 가상 영문 답변 → 영문 논문 검색 (크로스링구얼 갭 해소)
         """
-        if not self.generator:
-            return query
-
         prompt = (
             "You are a research assistant writing a passage from an academic paper.\n\n"
             "Task: Write a 3-5 sentence passage in English that would answer the "
@@ -36,9 +35,6 @@ class QueryExpander:
 
     def expand_multi_query(self, query: str, n_queries: int = 3) -> list[str]:
         """RAG-Fusion: 쿼리를 여러 표현으로 확장"""
-        if not self.generator:
-            return [query]
-
         prompt = (
             f"아래 학술 질문을 검색에 유리하도록 {n_queries}가지 다른 표현으로 바꿔주세요.\n"
             "각 표현은 다른 키워드나 관점을 사용하세요.\n"
@@ -61,9 +57,6 @@ class QueryExpander:
 
     def translate_ko_to_en(self, query: str) -> Optional[str]:
         """한국어 쿼리를 영어로 번역 (병렬 검색용)"""
-        if not self.generator:
-            return None
-
         # 이미 영어면 스킵
         if all(ord(c) < 128 or c.isspace() for c in query):
             return None

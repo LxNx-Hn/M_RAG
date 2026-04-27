@@ -41,7 +41,7 @@ class ModuleManager:
         self.generator = None
         self.query_expander = None
 
-    def initialize(self, load_gpu_models: bool = False):
+    def initialize(self, load_gpu_models: bool = True):
         """모듈 초기화 (서버 시작 시 1회)"""
         if self._initialized:
             return
@@ -60,18 +60,21 @@ class ModuleManager:
         self.citation_tracker = CitationTracker()
         self.patent_tracker = PatentTracker()
 
-        # GPU 모델 (선택적)
+        # Generator-backed runtime is the supported service and experiment path.
         if load_gpu_models:
             try:
                 from modules.generator import Generator
                 from modules.query_expander import QueryExpander
 
                 self.generator = Generator()
+                # Preload once at startup so version or checkpoint mismatches
+                # fail fast before long experiment runs begin.
+                _ = self.generator.model
                 self.query_expander = QueryExpander(generator=self.generator)
                 self.compressor.generator = self.generator
                 logger.info("GPU models loaded successfully")
             except Exception as e:
-                logger.warning(f"GPU models not available: {e}")
+                raise RuntimeError(f"Failed to load generator runtime: {e}") from e
 
         self._initialized = True
         logger.info("All modules initialized")

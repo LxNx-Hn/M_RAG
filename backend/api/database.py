@@ -4,13 +4,12 @@ Database connection utilities.
 
 import logging
 import os
-from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    f"sqlite+aiosqlite:///{Path(__file__).parent.parent / 'mrag.db'}",
+    "postgresql+asyncpg://mrag:mrag@127.0.0.1:5432/mrag",
 )
 
 _engine = None

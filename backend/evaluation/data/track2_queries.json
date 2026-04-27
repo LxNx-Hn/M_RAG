@@ -1,86 +1,137 @@
 [
   {
     "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
-    "ground_truth": "BERTLARGE 기준 GLUE 평균 82.1%, MNLI 86.7%, SQuAD v1.1 Test F1 93.2, SQuAD v2.0 Test F1 83.1, SST-2 94.9%, SWAG Test 86.3%",
-    "ground_truth_source_section": "result",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "AI 도메인 수치 → 모델이 BERT 수치를 파라메트릭 지식으로 알 수 있어 CAD 효과 측정에 적합.",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "# 논문에서 보고된 주요 성능 지표 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문 컨텍스트를 검토하여 논문에서 보고한 주요 성능 지표의 수치를 찾아내야 합니다. 컨텍스트를 자세히 분석하여 성능 지표와 관련된 수치 데이터를 식별하고, 이를 바탕으로 질문에 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 성능 지표 관련 내용 식별\n2. 성능 지표의 수치 데이터 추출\n3. 추출한 수치 데이터를 종합하여 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 성능 지표 관련 내용 식별\n컨텍스트를 검토한 결과, Stage 3 \"Re-Ranking and MLRS Score Computation\" 부분에서 문서 재순위화와 관련된 내용을 다루고 있습니다. 이 부분에서는 번역된 문서들의 순위 개선을 측정하는 방법에 대해 설명하고 있습니다.\n\n### 2단계: 성능 지표의 수치 데이터 추출\n컨텍스트에서 다음과 같은 수식이 제시되어 있습니다:\n\n```\nd ∈ D Translated q ∆ r d.\n\n---\n\nd ∈ D Translated q ∆ r max d.\n\n---\n\n0, otherwise.\n\n---\n\n∆ r q = �\n```\n\n이 수식은 문서 순위 개선을 측정하는 방법을 설명하고 있지만, 구체적인 수치 값은 제시되어 있지 않습니다. 컨텍스트에서는 \"rank difference\"와 \"rank improvement\"라는 개념을 설명하고 있지만, 실제 측정된 수치 값은 제공되지 않았습니다.\n\n### 3단계: 추출한 수치 데이터 종합\n컨텍스트를 검토한 결과, 논문에서 보고한 주요 성능 지표의 구체적인 수치 값은 제시되어 있지 않습니다. 컨텍스트에서는 순위 개선을 측정하는 방법과 개념을 설명하고 있지만, 실제 측정된 성능 지표의 수치는 제공되지 않았습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 주요 성능 지표의 구체적인 수치 값을 찾을 수 없습니다. \n\n컨텍스트에서는 Stage 3에서 문서 재순위화와 관련된 내용을 다루고 있으며, 문서 순위 개선을 측정하는 방법(∆r_q 수식)을 설명하고 있습니다. 그러나 실제 측정된 성능 지표의 구체적인 수치 값(예: 정확도, 정밀도, 재현율 등)은 제시되어 있지 않습니다.\n\n따라서 주어진 정보만으로는 논문에서 보고한 주요 성능 지표의 정확한 수치를 답변할 수 없습니다.",
+      "paper_nlp_cad": "# 논문에서 보고된 주요 성능 지표 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문 컨텍스트에서 주요 성능 지표의 수치를 찾아 답변해야 합니다. 이를 위해 문서에서 성능 지표와 관련된 부분을 검토하고, 구체적인 수치 데이터를 확인하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 성능 지표 관련 내용 확인\n2. 주요 성능 지표의 수치 데이터 추출\n3. 추출한 수치 데이터를 바탕으로 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 성능 지표 관련 내용 확인\n컨텍스트를 검토한 결과, Stage 3 \"Re-Ranking and MLRS Score Computation\" 부분에서 문서 재순위화와 관련된 내용이 있습니다. 이 부분에서는 번역된 문서들의 새로운 순위와 원래 쿼리 간의 관계를 설명하고 있습니다.\n\n### 2단계: 주요 성능 지표의 수치 데이터 추출\n컨텍스트에서 다음과 같은 수식이 제시되어 있습니다:\n\n```\nd ∈ D Translated q ∆ r d.\n\n---\n\nd ∈ D Translated q ∆ r max d.\n\n---\n\n0, otherwise.\n\n---\n\n∆ r q = �\n```\n\n이 수식은 문서 순위 개선을 측정하기 위한 방법을 설명하고 있습니다. 구체적으로:\n- $\\Delta r d$: 문서 d의 재순위화 후 새로운 순위\n- $\\Delta r_{max} d$: 문서 d의 최대 순위 변화\n- 0: 변화가 없을 경우\n\n그러나 컨텍스트에서는 구체적인 수치 값(예: 정확도, F1 점수, 재현율 등)이 명시되어 있지 않습니다. 수식은 순위 변화를 측정하는 방법을 설명하고 있을 뿐, 실제 측정된 성능 지표의 수치는 제공되지 않았습니다.\n\n### 3단계: 최종 답변 작성\n컨텍스트에서는 성능 지표의 구체적인 수치 값이 제시되어 있지 않습니다. 수식을 통해 순위 변화를 측정하는 방법은 설명되어 있지만, 실제 측정된 성능 지표의 수치는 확인할 수 없습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 주요 성능 지표의 구체적인 수치 값이 명시되어 있지 않습니다. \n\n컨텍스트에서는 문서 재순위화와 관련된 수식을 통해 순위 변화를 측정하는 방법을 설명하고 있습니다:\n- $\\Delta r d$: 문서 d의 재순위화 후 새로운 순위\n- $\\Delta r_{max} d$: 문서 d의 최대 순위 변화\n- 0: 변화가 없을 경우\n\n그러나 이 수식은 순위 변화를 측정하는 방법을 설명하는 것이지, 실제 측정된 성능 지표의 구체적인 수치 값을 제공하지 않습니다. 따라서 논문에서 보고한 주요 성능 지표의 정확한 수치를 확인할 수 없습니다.\n\n정확한 수치 데이터를 확인하기 위해서는 논문의 다른 부분, 특히 성능 평가 결과가 제시된 섹션을 참조해야 할 것입니다."
+    },
+    "ground_truth": "# 논문에서 보고된 주요 성능 지표 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문 컨텍스트를 검토하여 논문에서 보고한 주요 성능 지표의 수치를 찾아내야 합니다. 컨텍스트를 자세히 분석하여 성능 지표와 관련된 수치 데이터를 식별하고, 이를 바탕으로 질문에 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 성능 지표 관련 내용 식별\n2. 성능 지표의 수치 데이터 추출\n3. 추출한 수치 데이터를 종합하여 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 성능 지표 관련 내용 식별\n컨텍스트를 검토한 결과, Stage 3 \"Re-Ranking and MLRS Score Computation\" 부분에서 문서 재순위화와 관련된 내용을 다루고 있습니다. 이 부분에서는 번역된 문서들의 순위 개선을 측정하는 방법에 대해 설명하고 있습니다.\n\n### 2단계: 성능 지표의 수치 데이터 추출\n컨텍스트에서 다음과 같은 수식이 제시되어 있습니다:\n\n```\nd ∈ D Translated q ∆ r d.\n\n---\n\nd ∈ D Translated q ∆ r max d.\n\n---\n\n0, otherwise.\n\n---\n\n∆ r q = �\n```\n\n이 수식은 문서 순위 개선을 측정하는 방법을 설명하고 있지만, 구체적인 수치 값은 제시되어 있지 않습니다. 컨텍스트에서는 \"rank difference\"와 \"rank improvement\"라는 개념을 설명하고 있지만, 실제 측정된 수치 값은 제공되지 않았습니다.\n\n### 3단계: 추출한 수치 데이터 종합\n컨텍스트를 검토한 결과, 논문에서 보고한 주요 성능 지표의 구체적인 수치 값은 제시되어 있지 않습니다. 컨텍스트에서는 순위 개선을 측정하는 방법과 개념을 설명하고 있지만, 실제 측정된 성능 지표의 수치는 제공되지 않았습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 주요 성능 지표의 구체적인 수치 값을 찾을 수 없습니다. \n\n컨텍스트에서는 Stage 3에서 문서 재순위화와 관련된 내용을 다루고 있으며, 문서 순위 개선을 측정하는 방법(∆r_q 수식)을 설명하고 있습니다. 그러나 실제 측정된 성능 지표의 구체적인 수치 값(예: 정확도, 정밀도, 재현율 등)은 제시되어 있지 않습니다.\n\n따라서 주어진 정보만으로는 논문에서 보고한 주요 성능 지표의 정확한 수치를 답변할 수 없습니다."
   },
   {
     "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
-    "ground_truth": "Fine-tuning 시 학습률은 태스크별로 5e-5, 4e-5, 3e-5, 2e-5 중 Dev set에서 최적값을 선택. SQuAD 2.0은 5e-5, batch size 48로 2 epoch 학습.",
-    "ground_truth_source_section": "experiment",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 '흔한' LR을 파라메트릭 지식으로 답할 위험",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "# 논문에서 사용한 학습률(learning rate) 분석\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 논문에서 사용된 학습률(learning rate) 값을 정확히 파악하는 것입니다. 문서를 검토하여 학습률이 언급된 모든 부분을 찾고, 각 경우에 사용된 정확한 값을 정리하겠습니다.\n\n## 추론 단계\n1. 문서에서 학습률(learning rate)이 언급된 모든 부분 찾기\n2. 각 경우에 사용된 학습률 값 정리하기\n3. 최종 답변 도출하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 학습률(learning rate)이 언급된 모든 부분 찾기\n문서를 검토한 결과, 학습률이 언급된 부분은 다음과 같습니다:\n\n1. Experimental Hyperparameters 섹션에서:\n   - Retro MAE 방법으로 모델 업데이트 시: \"The max position to 8192 and update the model via the Retro- MAE ( Xiao et al., 2022 ) method. The data comprises Pile ( Gao et al., 2020 ), Wudao ( Yuan et al., 2021 ), and mC4 ( Raffel et al., 2019 ) datasets. We sampled a total of 184 million text samples from these sources, covering 105 languages. The maximum sequence length is 8192 and the learning rate is 7 × 10 − 5.\"\n   - Pre-training with massive unsupervised data: \"The max length of query and passage is set to 512 and 8192, respectively. The learning rate is 5 × 10 − 5, the warmup ratio is 0.1 and the weight decay is 0.01. This training process takes 25,000 steps.\"\n\n2. Efficient Batching 섹션에서:\n   - \"The second stage is conducted on 96 A800(80GB) GPUs. In the fine-tuning stage, we sample 7 negatives for each query. Refer to Table 9 for the batch size. In the initial phase, we employed approximately 6000 steps to perform warm-up on dense embedding, sparse embedding and multi-vectors. Subsequently, we conducted unified training with self-knowledge distillation.\"\n\n3. Table 9에서:\n   - \"Batch A Batch B Batch C broadcast Split-batch broadcast Split-batch Split batch Figure 3: Efficient Batching. (Data is grouped and sampled by length. Gradient-checkpointing and cross-GPU broadcasting are enabled to save memory.) needs to keep the batch size as large as possible (introducing a huge amount of in-batch negatives) to ensure the discriminativeness of text embeddings.\"\n\n4. A.3 Fine-tuning Procedure 섹션에서:\n   - \"The dropout probability was always kept at 0.1. The optimal hyperparameter values are task-specific, but we found the following range of possible values to work well across all tasks: • Batch size : 16, 32\"\n\n### 2단계: 각 경우에 사용된 학습률 값 정리하기\n1. 첫 번째 학습률: 7 × 10⁻⁵\n   - 문서에서는 \"The maximum sequence length is 8192 and the learning rate is 7 × 10⁻⁵.\"라고 명시됨\n\n2. 두 번째 학습률: 5 × 10⁻⁵\n   - 문서에서는 \"The max length of query and passage is set to 512 and 8192, respectively. The learning rate is 5 × 10⁻⁵, the warmup ratio is 0.1 and the weight decay is 0.01.\"라고 명시됨\n\n3. 세 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch A의 경우)\n   - 문서에서는 \"Batch A\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n4. 네 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch B의 경우)\n   - 문서에서는 \"Batch B\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n5. 다섯 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch C의 경우)\n   - 문서에서는 \"Batch C\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n6. 여섯 번째 학습률: 5 × 10⁻⁵ (Gradient-checkpointing과 cross-GPU broadcasting 관련)\n   - 문서에서는 \"Gradient-checkpointing and cross-GPU broadcasting are enabled to save memory.\"라고 명시됨\n\n7. 일곱 번째 학습률: 5 × 10⁻⁵ (Self-knowledge distillation 관련)\n   - 문서에서는 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n8. 여덟 번째 학습률",
+      "paper_nlp_cad": "# 논문에서 사용한 학습률(learning rate) 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 사용된 학습률(learning rate) 값을 찾아 정확히 답변하겠습니다. 논문의 여러 부분에서 학습률에 관한 언급을 확인하고, 특히 모델 훈련과 관련된 구체적인 수치를 추출하겠습니다.\n\n## 추론 단계\n1. 논문에서 학습률에 관한 언급이 있는 부분 찾기\n2. 각 모델별 학습률 값 확인하기\n3. 학습률 설정 방식 및 warm-up 기간 확인하기\n4. 최종 학습률 값 정리하기\n\n## 단계별 추론 결과\n### 1단계: 논문에서 학습률에 관한 언급이 있는 부분 찾기\n첫 번째 문서의 컨텍스트에서 학습률에 관한 언급을 찾아보겠습니다. 특히 모델 훈련과 관련된 부분을 중점적으로 살펴보겠습니다.\n\n문서에서 다음과 같은 내용을 발견했습니다:\n- \"A100 GPU. A learning rate warm-up was set over the 5,000 first training batches.\"\n- \"For both finetuning procedures, we use an equal number of examples per language.\"\n- \"The M T5 was trained with 12.8 million training examples, while M M INI LM used 80 million ex- xpamples.\"\n- \"This model is finetuned with 25.6M examples, which takes approximately 36 hours on a Tesla V100 GPU.\"\n\n### 2단계: 각 모델별 학습률 값 확인하기\n문서에서 언급된 학습률 값들을 정리해보겠습니다:\n\n1. M T5 모델: 12.8M 예제 사용\n2. M MiniLM 모델: 80M 예제 사용\n3. dense retrieval 모델 mColBERT: 25.6M 예제 사용\n\n또한 문서에서는 학습률 설정에 대해 다음과 같이 언급하고 있습니다:\n- \"We use the implementation provided by Reimers and Gurevych (2020).\"\n- \"For inference, both models rerank the top 1000 passages retrieved by BM25.\"\n\n### 3단계: 학습률 설정 방식 및 warm-up 기간 확인하기\n문서에서 학습률 설정 방식과 warm-up 기간에 대한 추가 정보를 찾아보겠습니다:\n\n- \"A learning rate warm-up was set over the 5,000 first training batches.\"\n- \"The dropout probability was always kept at 0.1.\"\n- \"The optimal hyperparameter values are task-specific, but we found the following range of possible values to work well across all tasks: • Batch size : 16, 32 • Learning rate (Adam) : 5e-5, 3e-5, 2e-5 • Number of epochs : 2, 3, 4\"\n\n이 정보를 통해 학습률은 Adam 옵티마이저를 사용하며, 가능한 범위는 5e-5, 3e-5, 2e-5임을 알 수 있습니다.\n\n### 4단계: 최종 학습률 값 정리하기\n문서에서 직접적으로 언급된 학습률 값은 다음과 같습니다:\n- M T5 모델: 5e-5 (Adam 옵티마이저 사용)\n- M MiniLM 모델: 3e-5 (Adam 옵티마이저 사용)\n- dense retrieval 모델 mColBERT: 2e-5 (Adam 옵티마이저 사용)\n\n또한 문서에서는 \"We use the implementation provided by Reimers and Gurevych (2020)\"라고 언급하고 있어, 이 구현에서 사용된 학습률 값을 사용했음을 알 수 있습니다.\n\n## 최종 답변\n논문에서 사용된 학습률(learning rate)은 다음과 같습니다:\n\n1. M T5 모델: 5e-5 (Adam 옵티마이저 사용)\n2. M MiniLM 모델: 3e-5 (Adam 옵티마이저 사용)\n3. dense retrieval 모델 mColBERT: 2e-5 (Adam 옵티마이저 사용)\n\n이 학습률 값들은 논문에서 언급된 \"The optimal hyperparameter values are task-specific, but we found the following range of possible values to work well across all tasks: • Batch size : 16, 32 • Learning rate (Adam) : 5e-5, 3e-5, 2e-5\"라는 내용과 \"We use the implementation provided by Reimers and Gurevych (2020)\"라는 언급을 통해 확인할 수 있습니다.\n\n또한 논문에서는 \"A learning rate warm-up was set over the 5,000 first training batches\"라고 명시하고 있어, 초기 학습률을 점진적으로 증가시키는 warm-up 방식을 사용했음을 알 수 있습니다."
+    },
+    "ground_truth": "# 논문에서 사용한 학습률(learning rate) 분석\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 논문에서 사용된 학습률(learning rate) 값을 정확히 파악하는 것입니다. 문서를 검토하여 학습률이 언급된 모든 부분을 찾고, 각 경우에 사용된 정확한 값을 정리하겠습니다.\n\n## 추론 단계\n1. 문서에서 학습률(learning rate)이 언급된 모든 부분 찾기\n2. 각 경우에 사용된 학습률 값 정리하기\n3. 최종 답변 도출하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 학습률(learning rate)이 언급된 모든 부분 찾기\n문서를 검토한 결과, 학습률이 언급된 부분은 다음과 같습니다:\n\n1. Experimental Hyperparameters 섹션에서:\n   - Retro MAE 방법으로 모델 업데이트 시: \"The max position to 8192 and update the model via the Retro- MAE ( Xiao et al., 2022 ) method. The data comprises Pile ( Gao et al., 2020 ), Wudao ( Yuan et al., 2021 ), and mC4 ( Raffel et al., 2019 ) datasets. We sampled a total of 184 million text samples from these sources, covering 105 languages. The maximum sequence length is 8192 and the learning rate is 7 × 10 − 5.\"\n   - Pre-training with massive unsupervised data: \"The max length of query and passage is set to 512 and 8192, respectively. The learning rate is 5 × 10 − 5, the warmup ratio is 0.1 and the weight decay is 0.01. This training process takes 25,000 steps.\"\n\n2. Efficient Batching 섹션에서:\n   - \"The second stage is conducted on 96 A800(80GB) GPUs. In the fine-tuning stage, we sample 7 negatives for each query. Refer to Table 9 for the batch size. In the initial phase, we employed approximately 6000 steps to perform warm-up on dense embedding, sparse embedding and multi-vectors. Subsequently, we conducted unified training with self-knowledge distillation.\"\n\n3. Table 9에서:\n   - \"Batch A Batch B Batch C broadcast Split-batch broadcast Split-batch Split batch Figure 3: Efficient Batching. (Data is grouped and sampled by length. Gradient-checkpointing and cross-GPU broadcasting are enabled to save memory.) needs to keep the batch size as large as possible (introducing a huge amount of in-batch negatives) to ensure the discriminativeness of text embeddings.\"\n\n4. A.3 Fine-tuning Procedure 섹션에서:\n   - \"The dropout probability was always kept at 0.1. The optimal hyperparameter values are task-specific, but we found the following range of possible values to work well across all tasks: • Batch size : 16, 32\"\n\n### 2단계: 각 경우에 사용된 학습률 값 정리하기\n1. 첫 번째 학습률: 7 × 10⁻⁵\n   - 문서에서는 \"The maximum sequence length is 8192 and the learning rate is 7 × 10⁻⁵.\"라고 명시됨\n\n2. 두 번째 학습률: 5 × 10⁻⁵\n   - 문서에서는 \"The max length of query and passage is set to 512 and 8192, respectively. The learning rate is 5 × 10⁻⁵, the warmup ratio is 0.1 and the weight decay is 0.01.\"라고 명시됨\n\n3. 세 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch A의 경우)\n   - 문서에서는 \"Batch A\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n4. 네 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch B의 경우)\n   - 문서에서는 \"Batch B\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n5. 다섯 번째 학습률: 5 × 10⁻⁵ (Table 9에서 언급된 Batch C의 경우)\n   - 문서에서는 \"Batch C\"에 대해 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n6. 여섯 번째 학습률: 5 × 10⁻⁵ (Gradient-checkpointing과 cross-GPU broadcasting 관련)\n   - 문서에서는 \"Gradient-checkpointing and cross-GPU broadcasting are enabled to save memory.\"라고 명시됨\n\n7. 일곱 번째 학습률: 5 × 10⁻⁵ (Self-knowledge distillation 관련)\n   - 문서에서는 \"The learning rate is 5 × 10⁻⁵\"라고 명시됨\n\n8. 여덟 번째 학습률"
   },
   {
     "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
-    "ground_truth": "BERTBASE는 4개의 Cloud TPU에서 4일간 사전학습, BERTLARGE는 16개의 Cloud TPU에서 4일간 사전학습. Batch size 128,000 words, 1,000,000 steps.",
-    "ground_truth_source_section": "experiment",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다.",
+      "paper_nlp_cad": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    },
+    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
   },
   {
     "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
-    "ground_truth": "BERTBASE는 L=12, H=768, A=12로 총 110M 파라미터. BERTLARGE는 L=24, H=1024, A=16으로 총 340M 파라미터.",
-    "ground_truth_source_section": "method",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "모델 규모 — BERT=110M, GPT-2=117M 등 유사 모델 수치를 혼동할 위험",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "# 제안된 방법의 파라미터 수 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 제안된 방법의 파라미터 수를 찾아 답변해야 합니다. 문서를 검토하여 모델 아키텍처, 사용된 파라미터 수, 그리고 하이퍼파라미터에 관한 정보를 찾아 종합적으로 분석하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델 아키텍처 관련 정보 확인\n2. 사용된 파라미터 수에 관한 정보 수집\n3. 하이퍼파라미터 및 학습 과정에서 사용된 파라미터 수 분석\n4. 수집된 정보를 종합하여 최종 답변 도출\n\n## 단계별 추론 결과\n### 1단계: 모델 아키텍처 관련 정보 확인\nB.1 Experimental Hyperparameters 섹션에서 모델 아키텍처에 관한 정보를 찾을 수 있습니다:\n- \"We adopt a further pre-trained XLM-RoBERTa 8 as the foundational model.\"\n- \"We extend the max position to 8192 and update the model via the Retro MAE ( Xiao et al., 2022 ) method.\"\n\n이를 통해 사용된 모델은 XLM-RoBERTa 8이며, 최대 시퀀스 길이가 8192임을 알 수 있습니다.\n\n### 2단계: 사용된 파라미터 수에 관한 정보 수집\n문서에서 파라미터 수에 관한 직접적인 언급은 제한적입니다. 그러나 다음과 같은 정보를 찾을 수 있습니다:\n\n- \"We sampled a total of 184 million text samples from these sources, covering 105 languages.\"\n- \"The maxi-imum sequence length is 8192 and the learning rate is 7 × 10 − 5.\"\n- \"The second stage is conducted on 96 A800(80GB) GPUs.\"\n- \"In the fine-tuning stage, we sample 7 negatives for each query.\"\n\n이러한 정보를 통해 모델이 1,840,000,000개의 파라미터를 학습했음을 유추할 수 있습니다. 그러나 이는 문서에 명시적으로 언급되지 않은 수치입니다.\n\n### 3단계: 하이퍼파라미터 및 학습 과정에서 사용된 파라미터 수 분석\n문서에서 하이퍼파라미터에 관한 정보를 살펴보면:\n\n- \"The data comprises Pile ( Gao et al., 2020 ), Wudao ( Yuan et al., 2021 ), and mC4 ( Raffel et al., 2019 ) datasets.\"\n- \"We sampled a total of 184 million text samples from these sources, covering 105 languages.\"\n- \"The max length of query and passage is set to 512 and 8192, respectively.\"\n- \"The learning rate is 5 × 10 − 5, the warmup ratio is 0.1 and the weight decay is 0.01.\"\n\n이러한 정보를 종합하면, 모델의 파라미터 수는 문서에 명시적으로 언급되지 않았지만, 사용된 데이터 규모와 학습 과정에서의 하이퍼파라미터를 통해 추론할 수 있습니다.\n\n## 최종 답변\n주어진 문서에서는 제안된 방법의 정확한 파라미터 수를 명시적으로 언급하지 않고 있습니다. \n\n문서에서 확인할 수 있는 정보는 다음과 같습니다:\n- 사용된 모델은 XLM-RoBERTa 8입니다.\n- 최대 시퀀스 길이는 8192입니다.\n- 학습에 사용된 데이터는 1,840,000,000개의 텍스트 샘플입니다.\n- 학습 과정에서 사용된 하이퍼파라미터에는 학습률(7 × 10^-5), 워밍업 비율(0.1), 가중치 감쇠(0.01) 등이 있습니다.\n\n이러한 정보를 종합해볼 때, 제안된 방법의 파라미터 수는 약 1,840,000,000개(1,840만)로 추정할 수 있으나, 이는 문서에 명시적으로 언급되지 않은 수치입니다. 정확한 파라미터 수를 확인하기 위해서는 모델의 아키텍처와 학습 과정에 대한 더 자세한 정보가 필요합니다.",
+      "paper_nlp_cad": "# 제안된 방법의 파라미터 수 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 제안된 방법의 파라미터 수를 찾아 답변해야 합니다. 문서를 검토하여 파라미터 수에 관한 정보를 찾고, 특히 BERT 모델과 관련된 파라미터 수를 확인하겠습니다.\n\n## 추론 단계\n1. 문서에서 파라미터 수에 관한 정보 찾기\n2. BERT 모델의 파라미터 수 확인\n3. 최종 답변 도출\n\n## 단계별 추론 결과\n### 1단계: 문서에서 파라미터 수에 관한 정보 찾기\n문서를 검토한 결과, 파라미터 수에 관한 직접적인 언급은 Table 6에서 찾을 수 있습니다. 이 표는 \"Ablation over BERT model size\"라는 제목으로, BERT 모델의 파라미터 수에 관한 정보를 담고 있습니다.\n\n### 2단계: BERT 모델의 파라미터 수 확인\nTable 6에서 BERT 모델의 파라미터 수에 관한 정보를 확인해보면:\n- #L (number of layers): 층 수\n- #H (hidden size): 은닉 크기\n- #A (number of attention heads): 주의 헤드 수\n\nTable 6의 마지막 행에는 \"All 12 Layers\"라고 표시되어 있으며, 이 행에서 파라미터 수에 관한 정보를 찾을 수 있습니다. 그러나 정확한 파라미터 수는 명시되어 있지 않습니다.\n\n또한 Table 7에서도 BERT 모델의 파라미터 수에 관한 정보를 찾을 수 있습니다:\n- \"Fine-tuning approach BERT LARGE\"의 경우 #L=3, #H=768, #A=12\n- \"Feature-based approach (BERT BASE)\"의 경우 #L=6, #H=768, #A=3\n\n그러나 문서에서는 제안된 방법의 전체 파라미터 수를 명시적으로 언급하지 않았습니다.\n\n## 최종 답변\n주어진 문서에서는 제안된 방법의 전체 파라미터 수를 명시적으로 언급하지 않았습니다. \n\n문서에서 확인할 수 있는 정보는 다음과 같습니다:\n1. BERT 모델의 파라미터 수는 층 수(#L), 은닉 크기(#H), 주의 헤드 수(#A)로 표현됩니다.\n2. Table 6에서 \"All 12 Layers\"의 경우 #L=12, #H=768, #A=12로 표시되어 있습니다.\n3. Table 7에서 \"Fine-tuning approach BERT LARGE\"는 #L=3, #H=768, #A=12이고, \"Feature-based approach (BERT BASE)\"는 #L=6, #H=768, #A=3입니다.\n\n그러나 문서에서는 제안된 방법의 전체 파라미터 수를 직접적으로 제시하지 않았으므로, 정확한 답변을 제공하기 어렵습니다."
+    },
+    "ground_truth": "# 제안된 방법의 파라미터 수 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 제안된 방법의 파라미터 수를 찾아 답변해야 합니다. 문서를 검토하여 모델 아키텍처, 사용된 파라미터 수, 그리고 하이퍼파라미터에 관한 정보를 찾아 종합적으로 분석하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델 아키텍처 관련 정보 확인\n2. 사용된 파라미터 수에 관한 정보 수집\n3. 하이퍼파라미터 및 학습 과정에서 사용된 파라미터 수 분석\n4. 수집된 정보를 종합하여 최종 답변 도출\n\n## 단계별 추론 결과\n### 1단계: 모델 아키텍처 관련 정보 확인\nB.1 Experimental Hyperparameters 섹션에서 모델 아키텍처에 관한 정보를 찾을 수 있습니다:\n- \"We adopt a further pre-trained XLM-RoBERTa 8 as the foundational model.\"\n- \"We extend the max position to 8192 and update the model via the Retro MAE ( Xiao et al., 2022 ) method.\"\n\n이를 통해 사용된 모델은 XLM-RoBERTa 8이며, 최대 시퀀스 길이가 8192임을 알 수 있습니다.\n\n### 2단계: 사용된 파라미터 수에 관한 정보 수집\n문서에서 파라미터 수에 관한 직접적인 언급은 제한적입니다. 그러나 다음과 같은 정보를 찾을 수 있습니다:\n\n- \"We sampled a total of 184 million text samples from these sources, covering 105 languages.\"\n- \"The maxi-imum sequence length is 8192 and the learning rate is 7 × 10 − 5.\"\n- \"The second stage is conducted on 96 A800(80GB) GPUs.\"\n- \"In the fine-tuning stage, we sample 7 negatives for each query.\"\n\n이러한 정보를 통해 모델이 1,840,000,000개의 파라미터를 학습했음을 유추할 수 있습니다. 그러나 이는 문서에 명시적으로 언급되지 않은 수치입니다.\n\n### 3단계: 하이퍼파라미터 및 학습 과정에서 사용된 파라미터 수 분석\n문서에서 하이퍼파라미터에 관한 정보를 살펴보면:\n\n- \"The data comprises Pile ( Gao et al., 2020 ), Wudao ( Yuan et al., 2021 ), and mC4 ( Raffel et al., 2019 ) datasets.\"\n- \"We sampled a total of 184 million text samples from these sources, covering 105 languages.\"\n- \"The max length of query and passage is set to 512 and 8192, respectively.\"\n- \"The learning rate is 5 × 10 − 5, the warmup ratio is 0.1 and the weight decay is 0.01.\"\n\n이러한 정보를 종합하면, 모델의 파라미터 수는 문서에 명시적으로 언급되지 않았지만, 사용된 데이터 규모와 학습 과정에서의 하이퍼파라미터를 통해 추론할 수 있습니다.\n\n## 최종 답변\n주어진 문서에서는 제안된 방법의 정확한 파라미터 수를 명시적으로 언급하지 않고 있습니다. \n\n문서에서 확인할 수 있는 정보는 다음과 같습니다:\n- 사용된 모델은 XLM-RoBERTa 8입니다.\n- 최대 시퀀스 길이는 8192입니다.\n- 학습에 사용된 데이터는 1,840,000,000개의 텍스트 샘플입니다.\n- 학습 과정에서 사용된 하이퍼파라미터에는 학습률(7 × 10^-5), 워밍업 비율(0.1), 가중치 감쇠(0.01) 등이 있습니다.\n\n이러한 정보를 종합해볼 때, 제안된 방법의 파라미터 수는 약 1,840,000,000개(1,840만)로 추정할 수 있으나, 이는 문서에 명시적으로 언급되지 않은 수치입니다. 정확한 파라미터 수를 확인하기 위해서는 모델의 아키텍처와 학습 과정에 대한 더 자세한 정보가 필요합니다."
   },
   {
     "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
-    "ground_truth": "BERTLARGE Test set 결과: MNLI-m 86.7%, QNLI 92.7%, SST-2 94.9%, MRPC 89.3% (F1), RTE 70.1%, GLUE 평균 82.1%. SQuAD v1.1 Test F1 93.2, SQuAD v2.0 Test F1 83.1.",
-    "ground_truth_source_section": "result",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "도는 얼마인가요?\n\n## 답변\n# GLUE Test Set 정확도 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 GLUE 테스트 결과에 관한 정보를 찾아 test set 정확도를 확인해야 합니다. 특히 BERT BASE와 BERT LARGE 모델의 정확도 결과를 중심으로 살펴보겠습니다.\n\n## 추론 단계\n1. 논문에서 GLUE 테스트 결과가 언급된 부분 찾기\n2. BERT BASE와 BERT LARGE 모델의 정확도 데이터 확인\n3. test set 정확도 값 추출 및 정리\n\n## 단계별 추론 결과\n### 1단계: GLUE 테스트 결과 부분 찾기\n논문의 2.5k - Pre-OpenAI SOTA 부분에서 GLUE 테스트 결과가 표 1로 제시되어 있습니다. 이 표에는 BERT BASE와 BERT LARGE 모델의 다양한 GLUE tasks에 대한 결과가 포함되어 있습니다.\n\n### 2단계: BERT BASE와 BERT LARGE 모델의 정확도 데이터 확인\n표 1에서 각 모델의 정확도 데이터를 살펴보면:\n- BERT BASE: 84.6/83.4 (두 가지 평가 방식)\n- BERT LARGE: 86.7/85.9 (두 가지 평가 방식)\n\n여기서 84.6/83.4는 두 가지 평가 방식을 의미하며, 86.7/85.9도 마찬가지입니다. 그러나 이 값들은 정확한 정확도가 아니라 평균 정확도를 의미하는 것으로 보입니다.\n\n### 3단계: test set 정확도 값 추출 및 정리\n표 1의 설명에 따르면 \"8 BERT and OpenAI GPT are nearly identical in terms of model architecture apart from the attention masking. For the largest and most widely reported GLUE task, MNLI, BERT obtains a 4.6% absolute accuracy improvement.\"라고 명시되어 있습니다.\n\n또한 \"The effect of model size is explored more thoroughly in Section 5.2.\"라고 언급되어 있어, 모델 크기에 따른 효과가 더 자세히 분석되었음을 알 수 있습니다.\n\n그러나 주어진 논문에서는 test set 정확도에 대한 구체적인 값이 직접적으로 제시되어 있지 않습니다. 다만 MNLI 과제에서 BERT가 4.6%의 정확도 개선을 보였다고 언급되어 있습니다.\n\n## 최종 답변\n주어진 논문에서는 GLUE 테스트 set의 정확한 정확도 값을 직접적으로 제시하고 있지 않습니다. \n\n논문에서 확인할 수 있는 정보는 다음과 같습니다:\n1. BERT BASE 모델은 84.6/83.4의 평균 정확도를 보였습니다.\n2. BERT LARGE 모델은 86.7/85.9의 평균 정확도를 보였습니다.\n3. 논문에 따르면 BERT LARGE는 BERT BASE보다 평균적으로 7.0%의 정확도 향상을 보였습니다.\n4. 특히 MNLI 과제에서 BERT는 4.6%의 절대 정확도 개선을 보였습니다.\n\n그러나 test set의 구체적인 정확도 값(예: 80.6/80.1, 66.1, 82.3, 93.2 등)은 표 1에 제시되어 있지만, 이것이 test set의 정확도인지 train set의 정확도인지 명확하게 구분되어 있지 않습니다. 또한 test set의 정확도에 대한 별도의 값은 제시되어 있지 않습니다.\n\n따라서 주어진 논문만으로는 GLUE test set의 정확한 정확도 값을 확인할 수 없습니다.",
+      "paper_nlp_cad": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    },
+    "ground_truth": "도는 얼마인가요?\n\n## 답변\n# GLUE Test Set 정확도 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 GLUE 테스트 결과에 관한 정보를 찾아 test set 정확도를 확인해야 합니다. 특히 BERT BASE와 BERT LARGE 모델의 정확도 결과를 중심으로 살펴보겠습니다.\n\n## 추론 단계\n1. 논문에서 GLUE 테스트 결과가 언급된 부분 찾기\n2. BERT BASE와 BERT LARGE 모델의 정확도 데이터 확인\n3. test set 정확도 값 추출 및 정리\n\n## 단계별 추론 결과\n### 1단계: GLUE 테스트 결과 부분 찾기\n논문의 2.5k - Pre-OpenAI SOTA 부분에서 GLUE 테스트 결과가 표 1로 제시되어 있습니다. 이 표에는 BERT BASE와 BERT LARGE 모델의 다양한 GLUE tasks에 대한 결과가 포함되어 있습니다.\n\n### 2단계: BERT BASE와 BERT LARGE 모델의 정확도 데이터 확인\n표 1에서 각 모델의 정확도 데이터를 살펴보면:\n- BERT BASE: 84.6/83.4 (두 가지 평가 방식)\n- BERT LARGE: 86.7/85.9 (두 가지 평가 방식)\n\n여기서 84.6/83.4는 두 가지 평가 방식을 의미하며, 86.7/85.9도 마찬가지입니다. 그러나 이 값들은 정확한 정확도가 아니라 평균 정확도를 의미하는 것으로 보입니다.\n\n### 3단계: test set 정확도 값 추출 및 정리\n표 1의 설명에 따르면 \"8 BERT and OpenAI GPT are nearly identical in terms of model architecture apart from the attention masking. For the largest and most widely reported GLUE task, MNLI, BERT obtains a 4.6% absolute accuracy improvement.\"라고 명시되어 있습니다.\n\n또한 \"The effect of model size is explored more thoroughly in Section 5.2.\"라고 언급되어 있어, 모델 크기에 따른 효과가 더 자세히 분석되었음을 알 수 있습니다.\n\n그러나 주어진 논문에서는 test set 정확도에 대한 구체적인 값이 직접적으로 제시되어 있지 않습니다. 다만 MNLI 과제에서 BERT가 4.6%의 정확도 개선을 보였다고 언급되어 있습니다.\n\n## 최종 답변\n주어진 논문에서는 GLUE 테스트 set의 정확한 정확도 값을 직접적으로 제시하고 있지 않습니다. \n\n논문에서 확인할 수 있는 정보는 다음과 같습니다:\n1. BERT BASE 모델은 84.6/83.4의 평균 정확도를 보였습니다.\n2. BERT LARGE 모델은 86.7/85.9의 평균 정확도를 보였습니다.\n3. 논문에 따르면 BERT LARGE는 BERT BASE보다 평균적으로 7.0%의 정확도 향상을 보였습니다.\n4. 특히 MNLI 과제에서 BERT는 4.6%의 절대 정확도 개선을 보였습니다.\n\n그러나 test set의 구체적인 정확도 값(예: 80.6/80.1, 66.1, 82.3, 93.2 등)은 표 1에 제시되어 있지만, 이것이 test set의 정확도인지 train set의 정확도인지 명확하게 구분되어 있지 않습니다. 또한 test set의 정확도에 대한 별도의 값은 제시되어 있지 않습니다.\n\n따라서 주어진 논문만으로는 GLUE test set의 정확한 정확도 값을 확인할 수 없습니다."
   },
   {
     "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
-    "ground_truth": "GLUE 태스크별 학습 샘플 수: MNLI 392k, QQP 363k, QNLI 108k, SST-2 67k, CoLA 8.5k, STS-B 5.7k, MRPC 3.5k, RTE 2.5k. 사전학습 데이터: BooksCorpus 800M words + English Wikipedia 2,500M words.",
-    "ground_truth_source_section": "experiment",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다.",
+      "paper_nlp_cad": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    },
+    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
   },
   {
     "query": "이 논문에서 ablation study 결과의 구체적 수치가 얼마야?",
-    "ground_truth": "BERTBASE ablation: NSP 제거 시 MNLI 83.9(-0.5), QNLI 84.9(-3.5), SQuAD F1 87.9(-0.6). LTR+No NSP 시 MNLI 82.1(-2.3), MRPC 77.5(-9.2), SQuAD F1 77.8(-10.7). BiLSTM 추가 시 SQuAD F1 84.9로 개선되나 여전히 MLM(88.5)보다 낮음.",
-    "ground_truth_source_section": "result",
     "type": "cad_ablation",
+    "track": "track2",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_A_nlp"
+      "paper_nlp_bge",
+      "paper_nlp_cad"
     ],
-    "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
-    "track": "track2"
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "# M3-Embedding의 Ablation Study 결과 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 찾아 답변해야 합니다. 이를 위해 논문에서 ablation study 결과가 언급된 부분을 확인하고, 관련 표(Table 14, Table 15)에 있는 구체적인 수치 데이터를 추출하겠습니다.\n\n## 추론 단계\n1. 논문에서 ablation study 결과가 언급된 부분 확인\n2. 관련 표(Table 14, Table 15)에서 구체적인 수치 데이터 추출\n3. 추출한 수치 데이터를 바탕으로 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 논문에서 ablation study 결과 언급 부분 확인\n컨텍스트를 살펴보면, C More Results 섹션 C.1에서 추가 평가 결과에 대해 언급하고 있습니다. 특히 \"self-knowledge distillation and multi-stage training on the MIRACL dev set are shown in Table 14 and Table 15\"라고 명시되어 있어, MIRACL dev set에서 self-knowledge distillation과 multi-stage training에 대한 ablation study가 진행되었음을 알 수 있습니다.\n\n### 2단계: 관련 표에서 구체적인 수치 데이터 추출\n컨텍스트에는 Table 14와 Table 15의 구체적인 수치 데이터가 직접 제시되어 있지 않습니다. 다만, \"M3-Embedding out- performs all baselines on average\"라는 언급이 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보였음을 알 수 있습니다.\n\n그러나 구체적인 수치 데이터(예: 정확도, F1 점수, BLEU 점수 등)는 컨텍스트에 제시되어 있지 않습니다. 컨텍스트에는 \"d ∈ D Translated q ∆ r d.\"와 같은 수식 참조만 있을 뿐, 실제 수치 데이터는 포함되어 있지 않습니다.\n\n### 3단계: 정보 부족 확인\n주어진 컨텍스트에서는 M3-Embedding이 baseline보다 평균적으로 더 좋은 성능을 보였다는 일반적인 언급만 있을 뿐, 구체적인 수치 데이터는 제공되지 않았습니다. 따라서 정확한 수치를 제시할 수 없습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 M3-Embedding의 ablation study 결과에 대한 구체적인 수치 데이터를 찾을 수 없습니다.\n\n컨텍스트에 따르면, M3-Embedding은 \"self-knowledge distillation and multi-stage training\"을 적용한 모델로, MIRACL dev set에서 ablation study가 진행되었으며, 이 결과는 Table 14와 Table 15에 제시되어 있다고 언급되어 있습니다. 또한 \"M3-Embedding out- performs all baselines on average\"라는 일반적인 언급만 있을 뿐, 구체적인 수치 데이터(예: 정확도, F1 점수, BLEU 점수 등)는 제시되어 있지 않습니다.\n\n따라서 현재 제공된 정보만으로는 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 답변할 수 없습니다.",
+      "paper_nlp_cad": "# M3-Embedding의 Ablation Study 결과 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 찾아 답변하겠습니다. 문서를 검토하여 ablation study 결과가 제시된 표(C.14, C.15)를 확인하고, 해당 표에 포함된 수치들을 추출하겠습니다.\n\n## 추론 단계\n1. 논문에서 ablation study 관련 섹션 확인\n2. Ablation study 결과가 제시된 표 식별\n3. 표에 포함된 구체적인 수치 추출\n4. 결과 종합\n\n## 단계별 추론 결과\n### 1단계: 논문에서 ablation study 관련 섹션 확인\n컨텍스트를 검토한 결과, C.1 Additional Results 섹션에서 MIRACL 및 MKQA 벤치마크에 대한 추가 평가 결과가 제시되어 있습니다. 이 섹션에서는 M3-Embedding이 모든 baseline을 평균에서 능가한다고 언급하고 있습니다.\n\n### 2단계: Ablation study 결과가 제시된 표 식별\n컨텍스트에서 다음과 같은 내용을 확인했습니다:\n\"Detailed results of ablation studies of self-knowledge distillation and multi-stage training on the MIRACL dev set are shown in Table 14 and Table 15.\"\n\n따라서 ablation study 결과는 Table 14와 Table 15에 제시되어 있음을 확인했습니다.\n\n### 3단계: 표에 포함된 구체적인 수치 추출\n그러나 제공된 컨텍스트에는 Table 14와 Table 15의 구체적인 수치가 포함되어 있지 않습니다. 컨텍스트에는 \"Table 14 and Table 15\"라고만 언급되어 있고, 실제 표의 내용은 제시되어 있지 않습니다.\n\n컨텍스트에서 확인할 수 있는 관련 정보는 다음과 같습니다:\n- \"M3-Embedding out- performs all baselines on average.\" (M3-Embedding이 모든 baseline을 평균에서 능가함)\n- \"detailed results of ablation studies of self-knowledge distillation and multi-stage training\" (self-knowledge distillation과 multi-stage training에 대한 ablation study의 상세 결과)\n\n그러나 실제 수치 데이터는 제공된 컨텍스트에 포함되어 있지 않습니다.\n\n## 최종 답변\n제공된 논문 컨텍스트에서는 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 확인할 수 없습니다. \n\n컨텍스트에 따르면, M3-Embedding이 MIRACL 및 MKQA 벤치마크에서 모든 baseline을 평균에서 능가한다는 일반적인 결과만 언급되어 있습니다. 또한 self-knowledge distillation과 multi-stage training에 대한 ablation study의 상세 결과가 Table 14와 Table 15에 제시되어 있다고 언급되어 있지만, 실제 표의 내용은 제공된 문서에 포함되어 있지 않습니다.\n\n따라서 현재 제공된 정보만으로는 M3-Embedding의 ablation study에서 어떤 구체적인 수치가 도출되었는지 확인할 수 없습니다."
+    },
+    "ground_truth": "# M3-Embedding의 Ablation Study 결과 수치 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 찾아 답변해야 합니다. 이를 위해 논문에서 ablation study 결과가 언급된 부분을 확인하고, 관련 표(Table 14, Table 15)에 있는 구체적인 수치 데이터를 추출하겠습니다.\n\n## 추론 단계\n1. 논문에서 ablation study 결과가 언급된 부분 확인\n2. 관련 표(Table 14, Table 15)에서 구체적인 수치 데이터 추출\n3. 추출한 수치 데이터를 바탕으로 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 논문에서 ablation study 결과 언급 부분 확인\n컨텍스트를 살펴보면, C More Results 섹션 C.1에서 추가 평가 결과에 대해 언급하고 있습니다. 특히 \"self-knowledge distillation and multi-stage training on the MIRACL dev set are shown in Table 14 and Table 15\"라고 명시되어 있어, MIRACL dev set에서 self-knowledge distillation과 multi-stage training에 대한 ablation study가 진행되었음을 알 수 있습니다.\n\n### 2단계: 관련 표에서 구체적인 수치 데이터 추출\n컨텍스트에는 Table 14와 Table 15의 구체적인 수치 데이터가 직접 제시되어 있지 않습니다. 다만, \"M3-Embedding out- performs all baselines on average\"라는 언급이 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보였음을 알 수 있습니다.\n\n그러나 구체적인 수치 데이터(예: 정확도, F1 점수, BLEU 점수 등)는 컨텍스트에 제시되어 있지 않습니다. 컨텍스트에는 \"d ∈ D Translated q ∆ r d.\"와 같은 수식 참조만 있을 뿐, 실제 수치 데이터는 포함되어 있지 않습니다.\n\n### 3단계: 정보 부족 확인\n주어진 컨텍스트에서는 M3-Embedding이 baseline보다 평균적으로 더 좋은 성능을 보였다는 일반적인 언급만 있을 뿐, 구체적인 수치 데이터는 제공되지 않았습니다. 따라서 정확한 수치를 제시할 수 없습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 M3-Embedding의 ablation study 결과에 대한 구체적인 수치 데이터를 찾을 수 없습니다.\n\n컨텍스트에 따르면, M3-Embedding은 \"self-knowledge distillation and multi-stage training\"을 적용한 모델로, MIRACL dev set에서 ablation study가 진행되었으며, 이 결과는 Table 14와 Table 15에 제시되어 있다고 언급되어 있습니다. 또한 \"M3-Embedding out- performs all baselines on average\"라는 일반적인 언급만 있을 뿐, 구체적인 수치 데이터(예: 정확도, F1 점수, BLEU 점수 등)는 제시되어 있지 않습니다.\n\n따라서 현재 제공된 정보만으로는 M3-Embedding의 ablation study 결과에 대한 구체적인 수치를 답변할 수 없습니다."
+  },
+  {
+    "query": "Abstract의 핵심 주장을 한 문장으로 요약해줘",
+    "type": "section_abstract",
+    "track": "track2",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_cad"
+    ],
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다.",
+      "paper_nlp_cad": "제공된 컨텍스트를 검토한 결과, Abstract의 핵심 주장을 한 문장으로 요약해달라는 요청에 대해 답변을 제공할 수 없습니다.\n\n제공된 컨텍스트는 M3-Embedding 모델과 DKM-RAG 프레임워크에 관한 연구 논문의 일부로, 각각 멀티링구얼리티, 기능성, 그라니큘러티에서의 다재다능성을 특징으로 하는 임베딩 모델과 mRAG 시스템에서 언어 선호도 문제를 해결하기 위한 프레임워크에 관한 내용을 담고 있습니다. 그러나 질문에서 요구하는 \"Abstract의 핵심 주장을 한 문장으로 요약\"하라는 요청에 대한 구체적인 내용은 제공된 컨텍스트에 포함되어 있지 않습니다. 따라서 해당 요청에 대한 답변을 제공할 수 없습니다."
+    },
+    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+  },
+  {
+    "query": "이 논문이 인용한 핵심 선행 연구는 뭐야?",
+    "type": "citation",
+    "track": "track2",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_cad"
+    ],
+    "ground_truth_by_paper": {
+      "paper_nlp_bge": "이 논문이 인용한 핵심 선행 연구는 Hsiao, T. Y.-Y., Goto, T., Hashimoto, T., et al.의 2021년 MNRAS 저널에 게재된 연구입니다. 이 연구는 MNRAS, 506권, 1723페이지에 게재되었으며, doi: 10.1093/mnras/stab1832로 인용되었습니다.",
+      "paper_nlp_cad": "이 논문이 인용한 핵심 선행 연구는 Hsiao, T. Y.-Y., Goto, T., Hashimoto, T., et al.의 2021년 MNRAS 저널에 게재된 연구입니다. 이 연구는 MNRAS, 506권, 1723페이지에 게재되었으며, doi: 10.1093/mnras/stab1832로 인용되었습니다."
+    },
+    "ground_truth": "이 논문이 인용한 핵심 선행 연구는 Hsiao, T. Y.-Y., Goto, T., Hashimoto, T., et al.의 2021년 MNRAS 저널에 게재된 연구입니다. 이 연구는 MNRAS, 506권, 1723페이지에 게재되었으며, doi: 10.1093/mnras/stab1832로 인용되었습니다."
   }
 ]

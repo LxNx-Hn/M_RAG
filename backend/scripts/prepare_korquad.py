@@ -9,49 +9,6 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = PROJECT_ROOT / "evaluation" / "data" / "korquad_25.json"
 
-FALLBACK_SAMPLES = [
-    {
-        "question": "대한민국의 수도는 어디인가?",
-        "answer": "서울",
-        "context": "대한민국의 수도는 서울이며 정치, 경제, 문화의 중심지이다.",
-    },
-    {
-        "question": "지구는 태양계에서 몇 번째 행성인가?",
-        "answer": "세 번째 행성",
-        "context": "지구는 태양계에서 태양으로부터 세 번째 행성이며 생명체가 존재하는 것으로 알려져 있다.",
-    },
-    {
-        "question": "한글을 창제한 왕은 누구인가?",
-        "answer": "세종대왕",
-        "context": "훈민정음은 조선 제4대 임금 세종대왕이 창제하였다.",
-    },
-    {
-        "question": "파이썬은 어떤 종류의 프로그래밍 언어인가?",
-        "answer": "고급 프로그래밍 언어",
-        "context": "파이썬은 가독성이 높고 문법이 간결한 고급 프로그래밍 언어이다.",
-    },
-    {
-        "question": "한반도는 어느 대륙에 속하는가?",
-        "answer": "아시아",
-        "context": "한반도는 동아시아에 위치하며 아시아 대륙에 속한다.",
-    },
-    {
-        "question": "물의 화학식은 무엇인가?",
-        "answer": "H2O",
-        "context": "물은 수소와 산소로 이루어진 화합물이며 화학식은 H2O이다.",
-    },
-    {
-        "question": "대한민국의 공용어는 무엇인가?",
-        "answer": "한국어",
-        "context": "대한민국의 공용어는 한국어이며 대부분의 행정과 교육이 한국어로 이루어진다.",
-    },
-    {
-        "question": "빛의 속도는 대략 얼마인가?",
-        "answer": "초속 약 30만 km",
-        "context": "진공에서 빛의 속도는 초속 약 30만 km로 알려져 있다.",
-    },
-]
-
 
 def _load_korquad_train() -> list[dict]:
     try:
@@ -68,29 +25,19 @@ def _load_korquad_train() -> list[dict]:
         texts = answers.get("text") or []
         if not texts:
             continue
+        question = str(row.get("question", "")).strip()
+        answer = str(texts[0]).strip()
+        context = str(row.get("context", "")).strip()
+        if not question or not answer:
+            continue
         records.append(
             {
-                "question": str(row.get("question", "")).strip(),
-                "answer": str(texts[0]).strip(),
-                "context": str(row.get("context", "")).strip(),
+                "question": question,
+                "answer": answer,
+                "context": context,
             }
         )
-    return [r for r in records if r["question"] and r["answer"]]
-
-
-def _fallback_records(n_samples: int, seed: int) -> list[dict]:
-    randomizer = random.Random(seed)
-    base = FALLBACK_SAMPLES[:]
-    if n_samples <= len(base):
-        randomizer.shuffle(base)
-        return base[:n_samples]
-
-    expanded: list[dict] = []
-    while len(expanded) < n_samples:
-        chunk = base[:]
-        randomizer.shuffle(chunk)
-        expanded.extend(chunk)
-    return expanded[:n_samples]
+    return records
 
 
 def _to_eval_samples(records: list[dict]) -> list[dict]:
@@ -129,29 +76,16 @@ def main() -> int:
         print("--n-samples must be a positive integer.", file=sys.stderr)
         return 2
 
-    try:
-        records = _load_korquad_train()
-        source = "squad_kor_v2/train"
-        if len(records) < args.n_samples:
-            print(
-                f"Warning: requested {args.n_samples} samples but dataset has only {len(records)} usable rows.",
-                file=sys.stderr,
-            )
-        sampled = random.Random(args.seed).sample(
-            records, min(args.n_samples, len(records))
+    records = _load_korquad_train()
+    if len(records) < args.n_samples:
+        raise RuntimeError(
+            f"Requested {args.n_samples} samples but only {len(records)} usable KorQuAD rows were loaded."
         )
-    except Exception as exc:
-        print(
-            "Warning: failed to load KorQuAD via Hugging Face datasets; using bundled fallback samples instead.",
-            file=sys.stderr,
-        )
-        print(f"Reason: {exc}", file=sys.stderr)
-        sampled = _fallback_records(args.n_samples, args.seed)
-        source = "bundled_fallback"
 
+    sampled = random.Random(args.seed).sample(records, args.n_samples)
     payload = {
         "_meta": {
-            "source": source,
+            "source": "squad_kor_v2/train",
             "n_samples": len(sampled),
             "seed": args.seed,
         },

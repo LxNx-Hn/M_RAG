@@ -15,6 +15,15 @@ DATA_DIR.mkdir(exist_ok=True)
 CHROMA_DIR.mkdir(exist_ok=True)
 
 # ─────────────────────────────────────────────
+# HuggingFace cache: 환경변수 우선, 미설정 시 backend/.cache/huggingface로 fallback
+# Alice Cloud / RunPod 등 외부 환경에서는 export HF_HOME=...로 영구볼륨 경로 지정 권장
+# ─────────────────────────────────────────────
+_HF_CACHE_DEFAULT = str(PROJECT_ROOT / ".cache" / "huggingface")
+os.environ.setdefault("HF_HOME", _HF_CACHE_DEFAULT)
+os.environ.setdefault("TRANSFORMERS_CACHE", os.environ["HF_HOME"])
+os.environ.setdefault("HF_HUB_CACHE", os.environ["HF_HOME"])
+
+# ─────────────────────────────────────────────
 # Embedding
 # ─────────────────────────────────────────────
 EMBEDDING_MODEL = "BAAI/bge-m3"
@@ -26,8 +35,8 @@ EMBEDDING_DIMENSION = 1024
 # ─────────────────────────────────────────────
 GENERATION_MODEL = os.environ.get(
     "GENERATION_MODEL",
-    "K-intelligence/Midm-2.0-Mini-Instruct",  # 2.3B, 12GB GPU OK (기본값)
-    # Base 모델: GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct (11.5B, 24GB+ 필요)
+    "K-intelligence/Midm-2.0-Base-Instruct",  # Thesis baseline default
+    # Mini fallback for local smoke runs: GENERATION_MODEL=K-intelligence/Midm-2.0-Mini-Instruct
 )
 BASELINE_MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 MAX_NEW_TOKENS = 1024

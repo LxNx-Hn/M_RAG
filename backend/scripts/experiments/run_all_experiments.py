@@ -109,7 +109,7 @@ def build_ablation_study(embedder, vector_store, hybrid_retriever):
 
     query_expander = QueryExpander(generator=generator)
     reranker = Reranker()
-    compressor = ContextCompressor()
+    compressor = ContextCompressor(generator=generator)
 
     ablation = AblationStudy(
         pdf_parser=None,
@@ -229,7 +229,7 @@ def main():
     from evaluation.ragas_eval import load_test_queries
 
     all_samples = load_test_queries(
-        filepath="evaluation/test_queries.json",
+        filepath="evaluation/data/track1_queries.json",
         query_types=[
             "cad_ablation",
             "crosslingual_en",

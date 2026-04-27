@@ -98,7 +98,11 @@ def parse_cors_credentials(origins: list[str]) -> bool:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    load_gpu = os.environ.get("LOAD_GPU_MODELS", "false").lower() == "true"
+    load_gpu = os.environ.get("LOAD_GPU_MODELS", "true").lower() == "true"
+    if not load_gpu:
+        raise RuntimeError(
+            "LOAD_GPU_MODELS=false is no longer supported. This service requires the generator runtime."
+        )
     logger.info(json.dumps({"event": "startup", "gpu_models": load_gpu}))
     modules.initialize(load_gpu_models=load_gpu)
     await init_db()

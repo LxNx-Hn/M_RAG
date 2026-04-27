@@ -105,7 +105,7 @@ def create_combined_processor(
     cad_alpha: float = 0.5,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
-    cad_adaptive: bool = True,
+    cad_adaptive: bool = False,
 ) -> LogitsProcessorList:
     """CAD + SCD 통합 LogitsProcessorList 생성
     GuideV2 §3.3 MODULE 13 통합 사용법 기반

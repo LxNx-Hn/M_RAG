@@ -61,7 +61,7 @@ def flatten_track1_table1(data: dict[str, Any]) -> list[list[Any]]:
                 [
                     f"{paper} / {system_name}",
                     avg.get("faithfulness"),
-                    avg.get("faithfulness"),
+                    avg.get("answer_relevancy"),
                     avg.get("overall"),
                     avg.get("context_precision"),
                 ]
@@ -69,18 +69,52 @@ def flatten_track1_table1(data: dict[str, Any]) -> list[list[Any]]:
     return rows
 
 
-def flatten_track1_table2(data: dict[str, Any]) -> list[list[Any]]:
+def flatten_table2_decoder(data: dict[str, Any]) -> list[list[Any]]:
     rows: list[list[Any]] = []
     for paper, configs in data.get("results", {}).items():
         for config_name, result in configs.items():
             rows.append(
                 [
                     f"{paper} / {config_name}",
-                    "on" if "CAD" in config_name or "alpha" in config_name else "off",
-                    "on" if "SCD" in config_name or "beta" in config_name else "off",
+                    "on" if "CAD" in config_name else "off",
+                    "on" if "SCD" in config_name else "off",
                     result.get("numeric_hallucination_rate"),
                     result.get("language_drift_rate"),
                     result.get("faithfulness"),
+                ]
+            )
+    return rows
+
+
+def flatten_table2_alpha(data: dict[str, Any]) -> list[list[Any]]:
+    rows: list[list[Any]] = []
+    for paper, configs in data.get("results", {}).items():
+        for config_name, result in configs.items():
+            avg = result.get("average", result)
+            rows.append(
+                [
+                    f"{paper} / {config_name}",
+                    avg.get("faithfulness"),
+                    avg.get("answer_relevancy"),
+                    avg.get("context_precision"),
+                    avg.get("overall"),
+                ]
+            )
+    return rows
+
+
+def flatten_table2_beta(data: dict[str, Any]) -> list[list[Any]]:
+    rows: list[list[Any]] = []
+    for paper, configs in data.get("results", {}).items():
+        for config_name, result in configs.items():
+            avg = result.get("average", result)
+            rows.append(
+                [
+                    f"{paper} / {config_name}",
+                    avg.get("faithfulness"),
+                    avg.get("answer_relevancy"),
+                    avg.get("context_precision"),
+                    avg.get("overall"),
                 ]
             )
     return rows
@@ -130,8 +164,8 @@ def render_sections(files: list[Path]) -> str:
                 md_table(
                     [
                         "System",
-                        "EN Query Faithfulness",
-                        "KO Query Faithfulness",
+                        "Faithfulness",
+                        "Answer Relevancy",
                         "Average",
                         "Context Precision",
                     ],
@@ -141,8 +175,8 @@ def render_sections(files: list[Path]) -> str:
             sections.append("")
             continue
 
-        if name.startswith("table2_"):
-            rows = flatten_track1_table2(data)
+        if name == "table2_decoder":
+            rows = flatten_table2_decoder(data)
             if not rows:
                 continue
             sections.append(f"## {path.stem}\n")
@@ -156,6 +190,48 @@ def render_sections(files: list[Path]) -> str:
                         "Numeric Hallucination",
                         "Language Drift",
                         "Faithfulness",
+                    ],
+                    rows,
+                )
+            )
+            sections.append("")
+            continue
+
+        if name == "table2_alpha":
+            rows = flatten_table2_alpha(data)
+            if not rows:
+                continue
+            sections.append(f"## {path.stem}\n")
+            sections.append(f"Conditions: {conditions}\n")
+            sections.append(
+                md_table(
+                    [
+                        "Config",
+                        "Faithfulness",
+                        "Answer Relevancy",
+                        "Context Precision",
+                        "Overall",
+                    ],
+                    rows,
+                )
+            )
+            sections.append("")
+            continue
+
+        if name == "table2_beta":
+            rows = flatten_table2_beta(data)
+            if not rows:
+                continue
+            sections.append(f"## {path.stem}\n")
+            sections.append(f"Conditions: {conditions}\n")
+            sections.append(
+                md_table(
+                    [
+                        "Config",
+                        "Faithfulness",
+                        "Answer Relevancy",
+                        "Context Precision",
+                        "Overall",
                     ],
                     rows,
                 )

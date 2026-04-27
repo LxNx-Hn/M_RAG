@@ -6,6 +6,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 import time
 from dataclasses import asdict, dataclass
@@ -33,6 +34,10 @@ compute_numeric_hallucination_rate = _decoder_module.compute_numeric_hallucinati
 EvalSample = _ragas_module.EvalSample
 RAGASEvaluator = _ragas_module.RAGASEvaluator
 
+PLACEHOLDER_PAPER_RE = re.compile(
+    r"(paper_[A-Z]_[A-Za-z0-9_]+|doc_[A-Z]_[A-Za-z0-9_]+|lecture_[A-Z]_[A-Za-z0-9_]+|patent_[A-Z]_[A-Za-z0-9_]+)"
+)
+
 DEFAULT_API_BASE = os.environ.get("MRAG_API_BASE", "http://127.0.0.1:8000")
 DEFAULT_OUTPUTS = {
     "ablation": "evaluation/results/table1_track1.json",
@@ -53,6 +58,7 @@ class RunContext:
     checkpoint_every: int
     max_retries: int
     retry_backoff: float
+    resume: bool
 
 
 def parse_args() -> argparse.Namespace:
@@ -67,7 +73,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--queries",
-        default="evaluation/data/track1_queries.json",
+        default=str(PROJECT_ROOT / "evaluation/data/track1_queries.json"),
         help="Path to Track 1 query JSON.",
     )
     parser.add_argument(
@@ -124,6 +130,11 @@ def parse_args() -> argparse.Namespace:
         "--verbose",
         action="store_true",
         help="Enable verbose logging.",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from an existing output JSON and skip completed configs.",
     )
     return parser.parse_args()
 
@@ -251,20 +262,60 @@ def warn_missing_papers(ctx: RunContext, papers: list[str]) -> None:
             LOGGER.warning("Paper '%s' was not found in /api/papers/list.", paper)
 
 
-def choose_queries_for_paper(
-    queries: list[dict[str, Any]], paper: str
-) -> list[dict[str, Any]]:
-    selected = []
-    for item in queries:
-        applicable = item.get("applicable_papers") or []
-        if not applicable or any(paper in str(entry) for entry in applicable):
-            selected.append(item)
-    return selected
+def judge_text(ctx: RunContext, prompt: str, labels: list[str] | None = None) -> str:
+    # Prefer label ranking when candidate labels are provided for deterministic scoring.
+    payload: dict[str, Any] = {"prompt": prompt, "max_new_tokens": 32}
+    if labels:
+        payload["labels"] = labels
+    data = call_json_api(
+        "POST",
+        f"{ctx.api_base.rstrip('/')}/api/chat/judge",
+        token=ctx.token,
+        timeout=ctx.timeout,
+        max_retries=ctx.max_retries,
+        retry_backoff=ctx.retry_backoff,
+        payload=payload,
+    )
+    text = str(data.get("text", "")).strip()
+    if not text:
+        raise RuntimeError("Judge endpoint returned an empty response.")
+    return text
 
 
-def evaluate_samples(samples: list[EvalSample]) -> dict[str, Any]:
-    evaluator = RAGASEvaluator(generator=None)
+def evaluate_samples(ctx: RunContext, samples: list[EvalSample]) -> dict[str, Any]:
+    evaluator = RAGASEvaluator(
+        judge_fn=lambda prompt, labels=None: judge_text(ctx, prompt, labels)
+    )
     return evaluator.evaluate(samples)
+
+
+def load_existing_results(output_path: str, resume: bool) -> dict[str, Any]:
+    if not resume:
+        return {}
+    path = Path(output_path)
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as handle:
+        data = json.load(handle)
+    if not isinstance(data, dict):
+        return {}
+    LOGGER.info("Resuming from %s", output_path)
+    return data
+
+
+def is_ragas_config_completed(result: Any) -> bool:
+    if not isinstance(result, dict):
+        return False
+    average = result.get("average")
+    per_sample = result.get("per_sample")
+    return isinstance(average, dict) and isinstance(per_sample, list) and bool(per_sample)
+
+
+def is_decoder_config_completed(result: Any) -> bool:
+    if not isinstance(result, dict):
+        return False
+    required = ("faithfulness", "answer_relevancy", "context_precision", "overall")
+    return all(key in result for key in required)
 
 
 def print_table(headers: list[str], rows: list[list[str]]) -> None:
@@ -303,6 +354,50 @@ def track1_query_payload(
         "top_k": 5,
         "doc_id_filter": paper,
     }
+
+
+def resolve_ground_truth(query_item: dict[str, Any], paper: str) -> str:
+    by_paper = query_item.get("ground_truth_by_paper")
+    if isinstance(by_paper, dict):
+        value = by_paper.get(paper, "")
+        if isinstance(value, str):
+            return value
+    return str(query_item.get("ground_truth", ""))
+
+
+def select_queries_or_fail(
+    queries: list[dict[str, Any]],
+    paper: str,
+) -> list[dict[str, Any]]:
+    selected: list[dict[str, Any]] = []
+    unresolved_tokens: list[str] = []
+
+    for item in queries:
+        applicable = item.get("applicable_papers") or []
+        if not applicable:
+            continue
+
+        normalized_entries = [
+            str(entry).strip() for entry in applicable if str(entry).strip()
+        ]
+        for entry in normalized_entries:
+            unresolved_tokens.extend(PLACEHOLDER_PAPER_RE.findall(entry))
+
+        if paper in normalized_entries:
+            selected.append(item)
+
+    if unresolved_tokens:
+        unresolved_text = ", ".join(dict.fromkeys(unresolved_tokens))
+        raise SystemExit(
+            f"Placeholder paper ids are not supported in Track 1 runs: {unresolved_text}. "
+            "Rewrite the query file with actual doc ids."
+        )
+    if not selected:
+        raise SystemExit(
+            f"No paper-specific queries matched '{paper}'. "
+            "This run would be invalid. Fix applicable_papers with actual doc ids."
+        )
+    return selected
 
 
 def query_answer(
@@ -359,6 +454,7 @@ def run_ragas_mode(
     mode: str,
     output_path: str,
 ) -> dict[str, Any]:
+    existing = load_existing_results(output_path, ctx.resume)
     results: dict[str, Any] = {
         "meta": {
             "mode": mode,
@@ -367,19 +463,21 @@ def run_ragas_mode(
             "papers": papers,
             "queries_path": None,
             "generated_at": datetime.now().isoformat(),
+            "resume": ctx.resume,
         },
-        "results": {},
+        "results": existing.get("results", {}) if isinstance(existing.get("results"), dict) else {},
     }
 
-    total_queries = 0
     for paper in papers:
-        paper_queries = choose_queries_for_paper(queries, paper)
-        paper_result: dict[str, Any] = {}
+        paper_queries = select_queries_or_fail(queries, paper)
+        paper_result: dict[str, Any] = dict(results["results"].get(paper, {}))
         for config in configs:
             config_name = config["name"]
+            if is_ragas_config_completed(paper_result.get(config_name)):
+                LOGGER.info("Skipping completed config=%s paper=%s", config_name, paper)
+                continue
             samples: list[EvalSample] = []
             for index, query_item in enumerate(paper_queries, start=1):
-                total_queries += 1
                 LOGGER.info(
                     "[%s] %s | paper=%s | query %s/%s",
                     mode,
@@ -394,25 +492,26 @@ def run_ragas_mode(
                 samples.append(
                     EvalSample(
                         query=query_item["query"],
-                        ground_truth=query_item.get("ground_truth", ""),
+                        ground_truth=resolve_ground_truth(query_item, paper),
                         answer=answer,
                         contexts=contexts,
                         pipeline=api_data.get("pipeline", ""),
                     )
                 )
-                if (
-                    ctx.checkpoint_every > 0
-                    and total_queries % ctx.checkpoint_every == 0
-                ):
-                    partial = dict(results)
-                    partial["results"] = {**results["results"], paper: {**paper_result}}
-                    save_json(output_path, partial)
-                    LOGGER.info("Saved checkpoint to %s", output_path)
 
-            evaluation = evaluate_samples(samples)
+            evaluation = evaluate_samples(ctx, samples)
             evaluation["config"] = config_name
             evaluation["paper"] = paper
             paper_result[config_name] = evaluation
+            results["results"][paper] = paper_result
+            if ctx.checkpoint_every > 0:
+                save_json(output_path, results)
+                LOGGER.info(
+                    "Saved checkpoint after config=%s paper=%s to %s",
+                    config_name,
+                    paper,
+                    output_path,
+                )
         results["results"][paper] = paper_result
 
     save_json(output_path, results)
@@ -456,6 +555,7 @@ def run_decoder_mode(
     output_path: str,
 ) -> dict[str, Any]:
     configs = build_decoder_configs(mode)
+    existing = load_existing_results(output_path, ctx.resume)
     results: dict[str, Any] = {
         "meta": {
             "mode": mode,
@@ -463,20 +563,26 @@ def run_decoder_mode(
             "collection_name": ctx.collection_name,
             "papers": papers,
             "generated_at": datetime.now().isoformat(),
+            "resume": ctx.resume,
         },
-        "results": {},
+        "results": existing.get("results", {}) if isinstance(existing.get("results"), dict) else {},
     }
 
-    total_queries = 0
     for paper in papers:
-        paper_queries = choose_queries_for_paper(queries, paper)
-        paper_result: dict[str, Any] = {}
+        paper_queries = select_queries_or_fail(queries, paper)
+        paper_result: dict[str, Any] = dict(results["results"].get(paper, {}))
         for config in configs:
+            if is_decoder_config_completed(paper_result.get(config["name"])):
+                LOGGER.info(
+                    "Skipping completed config=%s paper=%s",
+                    config["name"],
+                    paper,
+                )
+                continue
             answers: list[str] = []
             gts: list[str] = []
             samples: list[EvalSample] = []
             for index, query_item in enumerate(paper_queries, start=1):
-                total_queries += 1
                 LOGGER.info(
                     "[%s] %s | paper=%s | query %s/%s",
                     mode,
@@ -489,26 +595,18 @@ def run_decoder_mode(
                     ctx, query_item, paper, config
                 )
                 answers.append(answer)
-                gts.append(query_item.get("ground_truth", ""))
+                gts.append(resolve_ground_truth(query_item, paper))
                 samples.append(
                     EvalSample(
                         query=query_item["query"],
-                        ground_truth=query_item.get("ground_truth", ""),
+                        ground_truth=resolve_ground_truth(query_item, paper),
                         answer=answer,
                         contexts=contexts,
                         pipeline=api_data.get("pipeline", ""),
                     )
                 )
-                if (
-                    ctx.checkpoint_every > 0
-                    and total_queries % ctx.checkpoint_every == 0
-                ):
-                    partial = dict(results)
-                    partial["results"] = {**results["results"], paper: {**paper_result}}
-                    save_json(output_path, partial)
-                    LOGGER.info("Saved checkpoint to %s", output_path)
 
-            ragas_result = evaluate_samples(samples)
+            ragas_result = evaluate_samples(ctx, samples)
             paper_result[config["name"]] = {
                 "config": config["name"],
                 "paper": paper,
@@ -522,6 +620,15 @@ def run_decoder_mode(
                 "context_recall": ragas_result["average"]["context_recall"],
                 "overall": ragas_result["average"]["overall"],
             }
+            results["results"][paper] = paper_result
+            if ctx.checkpoint_every > 0:
+                save_json(output_path, results)
+                LOGGER.info(
+                    "Saved checkpoint after config=%s paper=%s to %s",
+                    config["name"],
+                    paper,
+                    output_path,
+                )
         results["results"][paper] = paper_result
 
     save_json(output_path, results)
@@ -591,6 +698,7 @@ def main() -> int:
         checkpoint_every=args.checkpoint_every,
         max_retries=args.max_retries,
         retry_backoff=args.retry_backoff,
+        resume=args.resume,
     )
 
     ensure_api_available(ctx)

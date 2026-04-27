@@ -1,7 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm --version)"
+      "Bash(npm --version)",
+      "Bash(codex --version)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(codex --help)",
+      "Bash(codex exec *)",
+      "Bash(echo \"Codex started in background \\(PID: $!\\)\")",
+      "Bash(index)",
+      "Bash(generate)",
+      "Bash(codex_report\")",
+      "Bash(grep -r \"sys.path.insert\\\\|import_module\" /c/Users/KiKi/Desktop/CODE/M_RAG/backend --include=\"*.py\" ! -path \"*/.venv/*\" ! -path \"*/__pycache__/*\")",
+      "Bash(python -m compileall -q backend/config.py backend/evaluation/ablation_study.py backend/evaluation/ragas_eval.py backend/evaluation/run_track1.py backend/evaluation/run_track2.py)",
+      "Bash(echo \"compileall: $?\")"
     ]
   }
 }

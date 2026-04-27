@@ -68,6 +68,17 @@ class QueryResponse(BaseModel):
     follow_ups: list[str] = []
 
 
+class JudgeRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, max_length=12000)
+    max_new_tokens: int = Field(default=64, ge=1, le=256)
+    labels: Optional[list[str]] = Field(default=None, max_length=8)
+
+
+class JudgeResponse(BaseModel):
+    text: str
+    scores: Optional[dict[str, float]] = None
+
+
 class SearchRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=2000)
     collection_name: str = Field(default="papers", min_length=1, max_length=100)

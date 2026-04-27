@@ -193,21 +193,19 @@ def check_bge_cache() -> str:
 
 @check("LOAD_GPU_MODELS env")
 def check_gpu_env() -> str:
-    val = os.environ.get("LOAD_GPU_MODELS", "")
+    val = os.environ.get("LOAD_GPU_MODELS", "true")
     if val.lower() == "true":
-        return "LOAD_GPU_MODELS=true (GPU models enabled)"
-    return "LOAD_GPU_MODELS not true (GPU models disabled)"
+        return "LOAD_GPU_MODELS=true (generator runtime enabled)"
+    raise RuntimeError("LOAD_GPU_MODELS must be true for supported service/experiment runs.")
 
 
-@check("test_queries.json validity")
-def check_test_queries() -> str:
+@check("track query files validity")
+def check_track_queries() -> str:
     from evaluation.ragas_eval import load_test_queries
 
-    all_samples = load_test_queries("evaluation/test_queries.json")
-    cad_samples = load_test_queries(
-        "evaluation/test_queries.json", query_types=["cad_ablation"]
-    )
-    return f"total={len(all_samples)}, cad_ablation={len(cad_samples)}"
+    track1_samples = load_test_queries("evaluation/data/track1_queries.json")
+    track2_samples = load_test_queries("evaluation/data/track2_queries.json")
+    return f"track1={len(track1_samples)}, track2={len(track2_samples)}"
 
 
 def main() -> None:

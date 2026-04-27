@@ -628,7 +628,7 @@ modular-rag-paper-agent/
 ├── evaluation/
 │   ├── ragas_eval.py             # RAGAS 자동 평가
 │   ├── ablation_study.py         # Ablation Study 실험
-│   └── test_queries.json         # 평가 질의 100개
+│   └── test_queries.json         # 당시 기준 평가 질의 100개
 ├── data/                         # 테스트 논문 PDF
 ├── notebooks/                    # 실험 노트북
 ├── requirements.txt

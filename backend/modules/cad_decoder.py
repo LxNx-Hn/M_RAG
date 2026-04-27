@@ -36,7 +36,7 @@ class CADDecoder(LogitsProcessor):
         tokenizer,
         empty_input_ids: torch.Tensor,
         alpha: float = CAD_ALPHA,
-        adaptive: bool = True,
+        adaptive: bool = False,
     ):
         self.model = model
         self.tokenizer = tokenizer
@@ -118,7 +118,7 @@ def create_cad_processor(
     generator,
     query: str,
     alpha: float = CAD_ALPHA,
-    adaptive: bool = True,
+    adaptive: bool = False,
 ) -> LogitsProcessorList:
     """CAD LogitsProcessor 생성 헬퍼"""
     empty_ids = generator.get_empty_context_input_ids(query)

@@ -16,6 +16,8 @@ from api.dependencies import ModuleManager, get_modules
 from api.limiter import limiter
 from api.routers.papers import get_papers, namespace_collection_name
 from api.schemas import (
+    JudgeRequest,
+    JudgeResponse,
     PPTExportRequest,
     QueryRequest,
     QueryResponse,
@@ -62,6 +64,14 @@ def _chunk_text(text: str, chunk_size: int = 24):
         yield text[i : i + chunk_size]
 
 
+def _ensure_generator_available(m: ModuleManager) -> None:
+    if not m.has_generator:
+        raise HTTPException(
+            status_code=503,
+            detail="Generator model is not loaded. This runtime does not support query generation without an LLM.",
+        )
+
+
 async def _run_pipeline_with_generation_gate(
     decision,
     req: QueryRequest,
@@ -98,7 +108,7 @@ async def _run_pipeline_with_generation_gate(
 
 
 @router.post("/query", response_model=QueryResponse)
-@limiter.limit("20/minute")
+@limiter.limit("200/minute")
 async def query(
     request: Request,
     req: QueryRequest,
@@ -111,6 +121,7 @@ async def query(
     available_docs = list(papers.keys())
     if not available_docs:
         raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
+    _ensure_generator_available(m)
 
     decision = m.query_router.route(req.query, available_docs)
     route_info = RouteInfo(
@@ -119,35 +130,6 @@ async def query(
         section_filter=decision.section_filter,
         confidence=decision.confidence,
     )
-
-    if not m.has_generator:
-        search_results = m.hybrid_retriever.search(
-            collection_name=internal_collection_name,
-            query=req.query,
-            top_k=req.top_k,
-        )
-        reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
-        sources = _to_source_documents(reranked, truncate=False)
-        no_gen_answer = (
-            "[Generator not loaded: returning search results only]\n\n"
-            + "\n\n---\n\n".join(
-                f"**[{s.section_type}]** (p.{s.page})\n{s.content[:300]}"
-                for s in sources
-            )
-        )
-        return QueryResponse(
-            answer=no_gen_answer,
-            route=route_info,
-            sources=sources,
-            steps=[{"step": "search_only", "reason": "no_generator"}],
-            pipeline=f"{decision.route.value}_search_only",
-            follow_ups=generate_followups(
-                query=req.query,
-                answer=no_gen_answer,
-                route=decision.route.value,
-                section_filter=decision.section_filter,
-            ),
-        )
 
     result = await _run_pipeline_with_generation_gate(
         decision,
@@ -164,7 +146,7 @@ async def query(
         answer=answer_text,
         route=decision.route.value,
         section_filter=decision.section_filter,
-        generator=m.generator if m.has_generator else None,
+        generator=m.generator,
     )
 
     return QueryResponse(
@@ -178,7 +160,7 @@ async def query(
 
 
 @router.post("/query/stream")
-@limiter.limit("20/minute")
+@limiter.limit("200/minute")
 async def query_stream(
     request: Request,
     req: QueryRequest,
@@ -191,6 +173,7 @@ async def query_stream(
     available_docs = list(papers.keys())
     if not available_docs:
         raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
+    _ensure_generator_available(m)
 
     decision = m.query_router.route(req.query, available_docs)
     route_info = {
@@ -204,63 +187,20 @@ async def query_stream(
         return f"event: {event}\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
 
     generation_gate_acquired = False
-    if m.has_generator:
-        try:
-            await asyncio.wait_for(
-                _generation_semaphore.acquire(),
-                timeout=GENERATION_QUEUE_TIMEOUT_SECONDS,
-            )
-            generation_gate_acquired = True
-        except asyncio.TimeoutError:
-            raise HTTPException(
-                status_code=429,
-                detail=f"Generation queue is full. Retry after {GENERATION_QUEUE_TIMEOUT_SECONDS}s.",
-            )
+    try:
+        await asyncio.wait_for(
+            _generation_semaphore.acquire(),
+            timeout=GENERATION_QUEUE_TIMEOUT_SECONDS,
+        )
+        generation_gate_acquired = True
+    except asyncio.TimeoutError:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Generation queue is full. Retry after {GENERATION_QUEUE_TIMEOUT_SECONDS}s.",
+        )
 
     async def event_generator():
         try:
-            if not m.has_generator:
-                search_results = m.hybrid_retriever.search(
-                    collection_name=internal_collection_name,
-                    query=req.query,
-                    top_k=req.top_k,
-                )
-                reranked = m.reranker.rerank(req.query, search_results, top_k=req.top_k)
-                sources = [
-                    {
-                        "chunk_id": doc.get("chunk_id", ""),
-                        "content": doc.get("content", "")[:500],
-                        "section_type": doc.get("metadata", {}).get(
-                            "section_type", "unknown"
-                        ),
-                        "doc_id": doc.get("metadata", {}).get("doc_id", ""),
-                        "page": doc.get("metadata", {}).get("page", 0),
-                        "score": doc.get("rerank_score", 0.0),
-                    }
-                    for doc in reranked
-                ]
-                answer = (
-                    "[Generator not loaded: returning search results only]\n\n"
-                    + "\n\n---\n\n".join(
-                        f"**[{s['section_type']}]** (p.{s['page']})\n{s['content'][:300]}"
-                        for s in sources
-                    )
-                )
-                follow_ups = generate_followups(
-                    query=req.query,
-                    answer=answer,
-                    route=decision.route.value,
-                    section_filter=decision.section_filter,
-                )
-                yield sse_event(
-                    "metadata", {"route": route_info, "sources": sources, "steps": []}
-                )
-                yield sse_event("token", {"token": answer})
-                yield sse_event(
-                    "done", {"full_answer": answer, "follow_ups": follow_ups}
-                )
-                return
-
             result = await asyncio.wait_for(
                 asyncio.to_thread(
                     _run_pipeline,
@@ -287,7 +227,7 @@ async def query_stream(
                 answer=answer_text,
                 route=decision.route.value,
                 section_filter=decision.section_filter,
-                generator=m.generator if m.has_generator else None,
+                generator=m.generator,
             )
 
             yield sse_event(
@@ -371,6 +311,48 @@ async def search_only(
     sources = _to_source_documents(reranked, truncate=False)
     bm25_fitted = m.hybrid_retriever.has_bm25_for_collection(internal_collection_name)
     return SearchResponse(results=sources, total=len(sources), bm25_fitted=bm25_fitted)
+
+
+@router.post("/judge", response_model=JudgeResponse)
+@limiter.limit("600/minute")
+async def judge_prompt(
+    request: Request,
+    req: JudgeRequest,
+    _: str = Depends(get_current_user_id),
+    m: ModuleManager = Depends(get_modules),
+):
+    _ensure_generator_available(m)
+    acquired = False
+    try:
+        await asyncio.wait_for(
+            _generation_semaphore.acquire(),
+            timeout=GENERATION_QUEUE_TIMEOUT_SECONDS,
+        )
+        acquired = True
+    except asyncio.TimeoutError:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Generation queue is full. Retry after {GENERATION_QUEUE_TIMEOUT_SECONDS}s.",
+        )
+
+    try:
+        if req.labels:
+            text, scores = await asyncio.to_thread(
+                m.generator.rank_labels,
+                req.prompt,
+                req.labels,
+            )
+        else:
+            text = await asyncio.to_thread(
+                m.generator.generate_judge,
+                req.prompt,
+                min(req.max_new_tokens, 64),
+            )
+            scores = None
+    finally:
+        if acquired:
+            _generation_semaphore.release()
+    return JudgeResponse(text=text, scores=scores)
 
 
 @router.post("/export/ppt")

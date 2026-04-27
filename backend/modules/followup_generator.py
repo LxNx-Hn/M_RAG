@@ -76,8 +76,8 @@ def generate_followups(
     query: str,
     answer: str,
     route: str,
+    generator,
     section_filter: Optional[str] = None,
-    generator=None,
     count: int = 3,
 ) -> list[str]:
     """후속 질문 생성 (라우트 인식 + LLM 하이브리드).
@@ -87,27 +87,28 @@ def generate_followups(
         answer: 생성된 답변
         route: 파이프라인 경로 (A~F)
         section_filter: 섹션 필터 (B 경로용)
-        generator: Generator 인스턴스 (있으면 LLM 생성, 없으면 템플릿)
+        generator: Generator 인스턴스
         count: 생성할 후속 질문 수
 
     Returns:
         후속 질문 리스트 (항상 count개 보장)
     """
-    # LLM 사용 가능하면 LLM 생성 시도
-    if generator is not None:
-        try:
-            llm_followups = _generate_with_llm(
-                query, answer, route, section_filter, generator, count
-            )
-            if len(llm_followups) >= count:
-                return llm_followups[:count]
-            # LLM 결과가 부족하면 템플릿으로 보충
-            template_followups = _generate_from_template(
-                route, section_filter, query, count - len(llm_followups)
-            )
-            return (llm_followups + template_followups)[:count]
-        except Exception as e:
-            logger.warning(f"LLM followup generation failed, using templates: {e}")
+    if generator is None:
+        raise ValueError("generate_followups requires a generator-backed runtime.")
+
+    try:
+        llm_followups = _generate_with_llm(
+            query, answer, route, section_filter, generator, count
+        )
+        if len(llm_followups) >= count:
+            return llm_followups[:count]
+        # LLM 결과가 부족하면 템플릿으로 보충
+        template_followups = _generate_from_template(
+            route, section_filter, query, count - len(llm_followups)
+        )
+        return (llm_followups + template_followups)[:count]
+    except Exception as e:
+        logger.warning(f"LLM followup generation failed, using templates: {e}")
 
     # 템플릿 기반 생성
     return _generate_from_template(route, section_filter, query, count)
