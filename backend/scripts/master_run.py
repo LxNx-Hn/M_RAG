@@ -202,8 +202,21 @@ class MasterRunner:
                 args,
                 output=completed.stdout,
                 stderr=completed.stderr,
-            )
+        )
         return completed
+
+    def _script_supports_retry_args(self, script_path: Path) -> bool:
+        completed = self.run_subprocess(
+            "compat-check",
+            [sys.executable, str(script_path), "--help"],
+            check=False,
+        )
+        help_text = (completed.stdout or "") + "\n" + (completed.stderr or "")
+        return (
+            "--max-retries" in help_text
+            and "--retry-backoff" in help_text
+            and "--min-interval" in help_text
+        )
 
     def run_step(
         self,
@@ -572,20 +585,32 @@ class MasterRunner:
             ) from exc
 
     def step_index_papers(self) -> None:
+        script_path = PROJECT_ROOT / "scripts" / "index_papers.py"
+        command = [
+            sys.executable,
+            str(script_path),
+            "--api-url",
+            self.args.api_url,
+        ]
+        if self._script_supports_retry_args(script_path):
+            command.extend(
+                [
+                    "--max-retries",
+                    "8",
+                    "--retry-backoff",
+                    "12.5",
+                    "--min-interval",
+                    "12.5",
+                ]
+            )
+        else:
+            self._write_line(
+                "index_papers.py does not support retry arguments in this environment. "
+                "Running with legacy-compatible arguments only."
+            )
         self.run_subprocess(
             "STEP 4",
-            [
-                sys.executable,
-                str(PROJECT_ROOT / "scripts" / "index_papers.py"),
-                "--api-url",
-                self.args.api_url,
-                "--max-retries",
-                "8",
-                "--retry-backoff",
-                "12.5",
-                "--min-interval",
-                "12.5",
-            ],
+            command,
         )
 
     def step_generate_pseudo_gt(self) -> None:
