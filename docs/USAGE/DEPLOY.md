@@ -130,6 +130,7 @@ docker compose up --build
 ## RunPod 또는 원격 GPU 서버
 
 - 무SSH Web Terminal 절차는 `RUNPOD_A100_NO_SSH.md` 우선 사용
+- 원샷 실행은 `backend/scripts/runpod_one_shot.sh` 사용
 - 컨테이너 Pull 방식은 GHCR 이미지 `ghcr.io/<github-owner-lowercase>/m-rag-backend:latest` 기준
 - GHCR 패키지가 private 면 RunPod 에서 `docker login ghcr.io` 선행 필요
 - GHCR 발행 워크플로우는 `.github/workflows/publish-backend-image.yml`
