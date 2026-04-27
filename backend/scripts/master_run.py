@@ -27,6 +27,10 @@ SCRIPTS_DIR = PROJECT_ROOT / "scripts"
 DATA_DIR = PROJECT_ROOT / "data"
 RESULTS_DIR = PROJECT_ROOT / "evaluation" / "results"
 LOG_PATH = SCRIPTS_DIR / "master_run.log"
+LOCK_PATH = SCRIPTS_DIR / "master_run.lock"
+DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./mrag.db"
+DEFAULT_JWT_SECRET = "mrag-experiment-local-secret-2026"
+DEFAULT_GENERATION_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
 
 REQUIRED_PDFS = [
     "paper_nlp_bge.pdf",
@@ -60,9 +64,12 @@ class MasterRunner:
         self.log_handle: TextIO | None = None
         self.step_results: list[StepResult] = []
         self.api_token: str | None = None  # JWT token obtained after server start
+        self._lock_acquired = False
+        self.runtime_env: dict[str, str] | None = None
 
     def __enter__(self) -> "MasterRunner":
         SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
+        self._acquire_lock()
         self.log_handle = LOG_PATH.open("a", encoding="utf-8")
         self._write_line("")
         self._write_line("=" * 100)
@@ -70,17 +77,21 @@ class MasterRunner:
             f"MASTER RUN STARTED {self.session_started_at.isoformat()} cwd={PROJECT_ROOT}"
         )
         self._warn_if_not_workspace_venv()
+        self.runtime_env = self._load_env()
         self._write_line("=" * 100)
         return self
 
     def __exit__(self, exc_type, exc, tb) -> None:
-        if self.log_handle is not None:
-            self._write_line("=" * 100)
-            self._write_line(
-                f"MASTER RUN FINISHED {datetime.now().isoformat()} elapsed={self.format_elapsed()}"
-            )
-            self._write_line("=" * 100)
-            self.log_handle.close()
+        try:
+            if self.log_handle is not None:
+                self._write_line("=" * 100)
+                self._write_line(
+                    f"MASTER RUN FINISHED {datetime.now().isoformat()} elapsed={self.format_elapsed()}"
+                )
+                self._write_line("=" * 100)
+                self.log_handle.close()
+        finally:
+            self._release_lock()
 
     def _timestamp(self) -> str:
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -95,6 +106,40 @@ class MasterRunner:
                 "WARNING: master_run.py is not running from the workspace .venv. "
                 f"current={executable} expected_prefix={expected}"
             )
+
+    def _acquire_lock(self) -> None:
+        try:
+            with LOCK_PATH.open("x", encoding="utf-8") as handle:
+                handle.write(
+                    json.dumps(
+                        {
+                            "pid": os.getpid(),
+                            "started_at": self.session_started_at.isoformat(),
+                            "executable": sys.executable,
+                            "cwd": str(PROJECT_ROOT),
+                        },
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+                )
+            self._lock_acquired = True
+        except FileExistsError as exc:
+            details = ""
+            try:
+                details = LOCK_PATH.read_text(encoding="utf-8").strip()
+            except Exception:
+                details = "unreadable lock file"
+            raise RuntimeError(
+                f"Another master_run instance appears to be active. lock={LOCK_PATH} details={details}"
+            ) from exc
+
+    def _release_lock(self) -> None:
+        if not self._lock_acquired:
+            return
+        try:
+            LOCK_PATH.unlink(missing_ok=True)
+        finally:
+            self._lock_acquired = False
 
     def _write_line(self, message: str) -> None:
         line = f"[{self._timestamp()}] {message}"
@@ -134,7 +179,7 @@ class MasterRunner:
     ) -> subprocess.CompletedProcess[str]:
         self._write_line(f"Running command: {subprocess.list2cmdline(args)}")
         # Inject API token into environment so experiment scripts pick it up
-        merged_env = dict(os.environ) if env is None else dict(env)
+        merged_env = dict(self.runtime_env or os.environ) if env is None else dict(env)
         merged_env["PYTHONIOENCODING"] = "utf-8"
         if self.api_token:
             merged_env["MRAG_API_TOKEN"] = self.api_token
@@ -352,6 +397,17 @@ class MasterRunner:
             self._write_line(
                 f"No .env file found at {env_file} — continuing without it"
             )
+        # Experiment-mode defaults: keep DB setup friction low and reproducible.
+        env["DATABASE_URL"] = self.args.database_url
+        env["JWT_SECRET_KEY"] = self.args.jwt_secret
+        env["GENERATION_MODEL"] = self.args.generation_model
+        env["LOAD_GPU_MODELS"] = "true"
+        self._write_line(
+            "Runtime overrides: "
+            f"DATABASE_URL={env['DATABASE_URL']}, "
+            f"GENERATION_MODEL={env['GENERATION_MODEL']}, "
+            "LOAD_GPU_MODELS=true"
+        )
         return env
 
     def step_start_server(self) -> None:
@@ -386,7 +442,7 @@ class MasterRunner:
                 f"Port {api_port} is in use but server at {self.args.api_url} is not healthy: {detail}"
             )
 
-        server_env = self._load_env()
+        server_env = self.runtime_env or self._load_env()
 
         command = [
             sys.executable,
@@ -413,7 +469,7 @@ class MasterRunner:
             creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0),
         )
 
-        # GPU model loading (2.3B Mini) can take 3-5 min — allow 600 s total.
+        # GPU model loading can take several minutes (Base model included).
         deadline = time.time() + 600
         poll_interval = 10  # seconds between health checks
         while time.time() < deadline:
@@ -435,7 +491,7 @@ class MasterRunner:
 
     def _read_jwt_secret(self) -> str:
         """Read JWT_SECRET_KEY from environment or .env file."""
-        secret = os.environ.get("JWT_SECRET_KEY", "")
+        secret = self.args.jwt_secret or os.environ.get("JWT_SECRET_KEY", "")
         if not secret:
             env_file = PROJECT_ROOT / ".env"
             if env_file.exists():
@@ -447,95 +503,39 @@ class MasterRunner:
         return secret
 
     def _acquire_api_token(self) -> None:
-        """Generate a JWT token directly (same jose + HS256 as the server),
-        bypassing the HTTP auth API to avoid timing/file-handle/buffering issues."""
+        """Generate a JWT token directly for authenticated experiment APIs."""
         import uuid as _uuid
         from datetime import datetime as _dt, timedelta as _td, timezone as _tz
 
         jwt_secret = self._read_jwt_secret()
         if not jwt_secret:
-            self._write_line(
-                "WARNING: JWT_SECRET_KEY not found in env or .env — trying HTTP fallback."
+            raise RuntimeError(
+                "JWT_SECRET_KEY not found in env or .env. Supported experiment runs require direct JWT token generation."
             )
-        else:
-            try:
-                from jose import jwt as _jose_jwt
 
-                expire = _dt.now(_tz.utc) + _td(minutes=1440)
-                tok_payload = {
-                    "sub": "master_runner_bypass",
-                    "email": "master@runner.local",
-                    "exp": expire,
-                    "iat": _dt.now(_tz.utc),
-                    "jti": str(_uuid.uuid4()),
-                    "token_type": "access",
-                }
-                self.api_token = _jose_jwt.encode(
-                    tok_payload, jwt_secret, algorithm="HS256"
-                )
-                self._write_line(
-                    f"Generated API token directly via jose "
-                    f"(sub=master_runner_bypass, expires={expire.strftime('%H:%M UTC')})."
-                )
-                return
-            except Exception as exc:
-                self._write_line(
-                    f"Direct token generation failed ({type(exc).__name__}: {exc}). "
-                    f"Falling back to HTTP auth."
-                )
+        try:
+            from jose import jwt as _jose_jwt
 
-        # HTTP fallback: register then login
-        import json as _json
-
-        base = self.args.api_url.rstrip("/")
-        email = "mrag_runner@local.test"
-        password = "Mrag_Runner_2026!"
-
-        register_body = {
-            "email": email,
-            "username": "mrag_runner",
-            "password": password,
-        }
-        login_body = {"email": email, "password": password}
-
-        for endpoint, body in [
-            ("/api/auth/register", register_body),
-            ("/api/auth/login", login_body),
-        ]:
-            self._write_line(f"Trying HTTP auth: POST {endpoint} ...")
-            try:
-                raw_payload = _json.dumps(body).encode()
-                req = urllib_request.Request(
-                    f"{base}{endpoint}",
-                    data=raw_payload,
-                    headers={"Content-Type": "application/json"},
-                    method="POST",
-                )
-                with urllib_request.urlopen(req, timeout=15) as resp:
-                    resp_bytes = resp.read()
-                    self._write_line(
-                        f"{endpoint} -> HTTP {resp.status}: {resp_bytes[:200]}"
-                    )
-                    data = _json.loads(resp_bytes)
-                    token = data.get("access_token") or data.get("token")
-                    if token:
-                        self.api_token = token
-                        self._write_line(f"Acquired API token via {endpoint}")
-                        return
-                    self._write_line(
-                        f"{endpoint} -> response has no access_token: keys={list(data.keys())}"
-                    )
-            except urllib_error.HTTPError as e:
-                body_str = e.read().decode(errors="replace")
-                self._write_line(f"{endpoint} -> HTTP {e.code}: {body_str[:300]}")
-                if e.code == 409:
-                    continue
-            except Exception as exc:
-                self._write_line(f"{endpoint} -> {type(exc).__name__}: {exc}")
-
-        self._write_line(
-            "WARNING: Could not acquire API token. Experiment steps may fail with 401."
-        )
+            expire = _dt.now(_tz.utc) + _td(minutes=1440)
+            tok_payload = {
+                "sub": "master_runner_bypass",
+                "email": "master@runner.local",
+                "exp": expire,
+                "iat": _dt.now(_tz.utc),
+                "jti": str(_uuid.uuid4()),
+                "token_type": "access",
+            }
+            self.api_token = _jose_jwt.encode(
+                tok_payload, jwt_secret, algorithm="HS256"
+            )
+            self._write_line(
+                f"Generated API token directly via jose "
+                f"(sub=master_runner_bypass, expires={expire.strftime('%H:%M UTC')})."
+            )
+        except Exception as exc:
+            raise RuntimeError(
+                f"Direct API token generation failed: {type(exc).__name__}: {exc}"
+            ) from exc
 
     def step_index_papers(self) -> None:
         self.run_subprocess(
@@ -545,27 +545,47 @@ class MasterRunner:
                 str(PROJECT_ROOT / "scripts" / "index_papers.py"),
                 "--api-url",
                 self.args.api_url,
+                "--max-retries",
+                "8",
+                "--retry-backoff",
+                "12.5",
+                "--min-interval",
+                "12.5",
             ],
         )
 
     def step_generate_pseudo_gt(self) -> None:
-        self.run_subprocess(
-            "STEP 5",
-            [
-                sys.executable,
-                str(PROJECT_ROOT / "scripts" / "generate_pseudo_gt.py"),
-                "--collection",
-                "papers",
-                "--api-url",
-                self.args.api_url,
-                "--max-retries",
-                "8",
-                "--retry-backoff",
-                "2.0",
-                "--min-interval",
-                "3.2",
-            ],
-        )
+        for input_path, output_path in [
+            (
+                "evaluation/data/track1_queries.json",
+                "evaluation/data/pseudo_gt_track1.json",
+            ),
+            (
+                "evaluation/data/track2_queries.json",
+                "evaluation/data/pseudo_gt_track2.json",
+            ),
+        ]:
+            self.run_subprocess(
+                "STEP 5",
+                [
+                    sys.executable,
+                    str(PROJECT_ROOT / "scripts" / "generate_pseudo_gt.py"),
+                    "--collection",
+                    "papers",
+                    "--api-url",
+                    self.args.api_url,
+                    "--input",
+                    input_path,
+                    "--output",
+                    output_path,
+                    "--max-retries",
+                    "8",
+                    "--retry-backoff",
+                    "2.0",
+                    "--min-interval",
+                    "3.2",
+                ],
+            )
 
     def step_track1_ablation(self) -> None:
         self.run_subprocess(
@@ -576,7 +596,7 @@ class MasterRunner:
                 "--mode",
                 "ablation",
                 "--queries",
-                "evaluation/data/track1_queries.json",
+                "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_bge",
                 "paper_nlp_rag",
@@ -584,6 +604,7 @@ class MasterRunner:
                 "evaluation/results/table1_track1.json",
                 "--api-base",
                 self.args.api_url,
+                "--resume",
             ],
         )
 
@@ -596,13 +617,14 @@ class MasterRunner:
                 "--mode",
                 "decoder",
                 "--queries",
-                "evaluation/data/track1_queries.json",
+                "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
                 "--output",
                 "evaluation/results/table2_decoder.json",
                 "--api-base",
                 self.args.api_url,
+                "--resume",
             ],
         )
 
@@ -615,13 +637,14 @@ class MasterRunner:
                 "--mode",
                 "alpha-sweep",
                 "--queries",
-                "evaluation/data/track1_queries.json",
+                "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
                 "--output",
                 "evaluation/results/table2_alpha.json",
                 "--api-base",
                 self.args.api_url,
+                "--resume",
             ],
         )
 
@@ -634,13 +657,14 @@ class MasterRunner:
                 "--mode",
                 "beta-sweep",
                 "--queries",
-                "evaluation/data/track1_queries.json",
+                "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_korean",
                 "--output",
                 "evaluation/results/table2_beta.json",
                 "--api-base",
                 self.args.api_url,
+                "--resume",
             ],
         )
 
@@ -653,7 +677,7 @@ class MasterRunner:
                 "--mode",
                 "domain",
                 "--queries",
-                "evaluation/data/track2_queries.json",
+                "evaluation/data/pseudo_gt_track2.json",
                 "--papers",
                 "paper_nlp_bge",
                 "paper_nlp_cad",
@@ -667,6 +691,7 @@ class MasterRunner:
                 "8",
                 "--retry-backoff",
                 "3.0",
+                "--resume",
             ],
         )
 
@@ -713,8 +738,10 @@ class MasterRunner:
                 continue
             try:
                 with path.open("r", encoding="utf-8") as handle:
-                    json.load(handle)
-                rows.append([filename, "PASS", str(size), "ok"])
+                    payload = json.load(handle)
+                detail = self._semantic_validate_result(filename, payload)
+                status = "PASS" if detail == "ok" else "FAIL"
+                rows.append([filename, status, str(size), detail])
             except Exception as exc:
                 rows.append([filename, "FAIL", str(size), f"invalid json: {exc}"])
 
@@ -729,6 +756,46 @@ class MasterRunner:
                 self._write_line(line)
         else:
             self._write_line("TABLES.md is missing.")
+
+    def _semantic_validate_result(self, filename: str, payload: dict) -> str:
+        results = payload.get("results")
+        if not isinstance(results, dict) or not results:
+            return "missing results payload"
+
+        if filename in {"table1_track1.json", "table3_domain.json"}:
+            empty_configs: list[str] = []
+            for paper, configs in results.items():
+                if not isinstance(configs, dict):
+                    empty_configs.append(f"{paper}:invalid")
+                    continue
+                for config_name, result in configs.items():
+                    per_sample = result.get("per_sample")
+                    if not isinstance(per_sample, list) or not per_sample:
+                        empty_configs.append(f"{paper}/{config_name}")
+            if empty_configs:
+                preview = ", ".join(empty_configs[:5])
+                return f"empty per_sample: {preview}"
+
+        if filename.startswith("table2_"):
+            all_zero = True
+            for configs in results.values():
+                if not isinstance(configs, dict):
+                    continue
+                for result in configs.values():
+                    numeric_values = [
+                        float(result.get("faithfulness", 0.0) or 0.0),
+                        float(result.get("overall", 0.0) or 0.0),
+                        float(result.get("answer_relevancy", 0.0) or 0.0),
+                    ]
+                    if any(value != 0.0 for value in numeric_values):
+                        all_zero = False
+                        break
+                if not all_zero:
+                    break
+            if all_zero:
+                return "all tracked metrics are zero"
+
+        return "ok"
 
     def step_stop_server(self) -> None:
         if self.args.skip_server:
@@ -801,6 +868,24 @@ def parse_args() -> argparse.Namespace:
         default="http://localhost:8000",
         help="API base URL used for health checks and downstream scripts.",
     )
+    parser.add_argument(
+        "--database-url",
+        default=DEFAULT_DATABASE_URL,
+        help=(
+            "Experiment DB URL. Default is SQLite for zero-setup thesis runs "
+            f"({DEFAULT_DATABASE_URL})."
+        ),
+    )
+    parser.add_argument(
+        "--jwt-secret",
+        default=DEFAULT_JWT_SECRET,
+        help="Experiment-only JWT secret used to mint local access tokens.",
+    )
+    parser.add_argument(
+        "--generation-model",
+        default=DEFAULT_GENERATION_MODEL,
+        help="Generation model override for the experiment run.",
+    )
     return parser.parse_args()
 
 
@@ -816,35 +901,60 @@ def main() -> int:
                 runner.step_start_server,
                 abort_on_failure=True,
             )
-            runner.run_step(4, "Index papers", runner.step_index_papers)
+            runner.run_step(
+                4,
+                "Index papers",
+                runner.step_index_papers,
+                abort_on_failure=True,
+            )
             runner.run_step(
                 5,
                 "Generate pseudo ground truth",
                 runner.step_generate_pseudo_gt,
+                abort_on_failure=True,
             )
             runner.run_step(
                 6,
                 "Track 1 ablation (Table 1)",
                 runner.step_track1_ablation,
+                abort_on_failure=True,
             )
             runner.run_step(
                 7,
                 "Track 1 decoder ablation (Table 2)",
                 runner.step_track1_decoder,
+                abort_on_failure=True,
             )
-            runner.run_step(8, "CAD alpha sweep", runner.step_cad_alpha)
-            runner.run_step(9, "SCD beta sweep", runner.step_scd_beta)
+            runner.run_step(
+                8,
+                "CAD alpha sweep",
+                runner.step_cad_alpha,
+                abort_on_failure=True,
+            )
+            runner.run_step(
+                9,
+                "SCD beta sweep",
+                runner.step_scd_beta,
+                abort_on_failure=True,
+            )
             runner.run_step(
                 10,
                 "Track 2 domain (Table 3)",
                 runner.step_track2_domain,
+                abort_on_failure=True,
             )
             runner.run_step(
                 11,
                 "Convert results to markdown",
                 runner.step_results_to_markdown,
+                abort_on_failure=True,
             )
-            runner.run_step(12, "Validate results", runner.step_validate_results)
+            runner.run_step(
+                12,
+                "Validate results",
+                runner.step_validate_results,
+                abort_on_failure=True,
+            )
         finally:
             runner.run_step(
                 13, "Stop the API server subprocess cleanly", runner.step_stop_server

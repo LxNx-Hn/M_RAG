@@ -1,6 +1,6 @@
 # M-RAG 배포와 실행 가이드
 
-- 문서 기준 2026-04-25
+- 문서 기준 2026-04-27
 - 현재 기준 연구용 로컬 실행과 GPU 서버 실행 절차 정리
 
 ## 배포 구조도
@@ -9,10 +9,10 @@
 flowchart TD
     B["Browser"] --> FE["Frontend<br/>Vite dev or Nginx"]
     FE --> API["FastAPI<br/>api.main:app"]
-    API --> DB["SQLAlchemy DB<br/>SQLite local / PostgreSQL deploy"]
+    API --> DB["SQLAlchemy ORM<br/>PostgreSQL default / SQLite optional"]
     API --> VS["ChromaDB<br/>backend/chroma_db"]
     API --> FS["File Storage<br/>backend/data"]
-    API --> LLM["MIDM Mini or Base"]
+    API --> LLM["MIDM Base default<br/>Mini smoke-only"]
 ```
 
 ## 로컬 실험 흐름도
@@ -33,9 +33,9 @@ flowchart LR
 
 | 모드 | 기본 생성 모델 | 권장 환경 | 용도 |
 |---|---|---|---|
-| 로컬 연구 | Mini | 12GB급 GPU | 전체 실험 실행 |
-| 로컬 시연 | Mini | 12GB급 GPU | UI와 API 시연 |
-| GPU 서버 | Base 또는 Mini | 24GB 이상 GPU 권장 | 대형 모델 시연과 비교 실험 |
+| 로컬 연구 | Base | 24GB 이상 GPU 권장 | 논문 기준 전체 실험 실행 |
+| 로컬 시연 | Base | 24GB 이상 GPU 권장 | UI와 API 시연 |
+| 로컬 스모크 | Mini | 12GB급 GPU | 최소 기능 점검 |
 
 ## 연구 경로와 서비스 경로
 
@@ -51,8 +51,8 @@ flowchart LR
 
 ## 기본 원칙
 
-- 기본 모델은 Mini
-- Base 모델은 환경변수로만 선택
+- 기본 모델은 Base
+- Mini 모델은 로컬 스모크 검증 전용 선택지
 - 양자화는 사용하지 않음
 - 전체 로컬 실험 기준 러너는 `backend/scripts/master_run.py`
 
@@ -61,15 +61,16 @@ flowchart LR
 ```env
 LOAD_GPU_MODELS=true
 JWT_SECRET_KEY=change-this-secret
-GENERATION_MODEL=K-intelligence/Midm-2.0-Mini-Instruct
+GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct
 CORS_ALLOW_ORIGINS=http://localhost:3000,http://localhost:5173
 CORS_ALLOW_CREDENTIALS=true
 LOG_LEVEL=INFO
 ENV=development
 ```
 
-- 로컬 기본 DB는 `DATABASE_URL` 미지정 시 `sqlite+aiosqlite:///./mrag.db`
-- PostgreSQL을 쓰면 `DATABASE_URL=postgresql+asyncpg://...` 로 덮어씀
+- SQLAlchemy는 유지하고 기본 DB는 PostgreSQL URL 사용
+- SQLite는 로컬 임시 점검에서만 명시 전환
+- 예시 `DATABASE_URL=sqlite+aiosqlite:///./mrag.db`
 
 ## 로컬 실행
 
@@ -128,6 +129,11 @@ docker compose up --build
 
 ## RunPod 또는 원격 GPU 서버
 
+- 무SSH Web Terminal 절차는 `RUNPOD_A100_NO_SSH.md` 우선 사용
+- 컨테이너 Pull 방식은 GHCR 이미지 `ghcr.io/<github-owner-lowercase>/m-rag-backend:latest` 기준
+- GHCR 패키지가 private 면 RunPod 에서 `docker login ghcr.io` 선행 필요
+- GHCR 발행 워크플로우는 `.github/workflows/publish-backend-image.yml`
+
 ### 권장 설정
 
 - GPU A100 40GB 또는 동급
@@ -140,9 +146,14 @@ docker compose up --build
 ### 예시
 
 ```bash
-export LOAD_GPU_MODELS=true
-export GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct
-uvicorn api.main:app --host 0.0.0.0 --port 8000
+docker pull ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+docker run --gpus all -p 8000:8000 \
+  -e DATABASE_URL=sqlite+aiosqlite:///./mrag.db \
+  -e JWT_SECRET_KEY=mrag-experiment-local-secret-2026 \
+  -e GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct \
+  -e LOAD_GPU_MODELS=true \
+  -e SKIP_MIGRATIONS=true \
+  ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
 ```
 
 ## 검증 체크리스트
