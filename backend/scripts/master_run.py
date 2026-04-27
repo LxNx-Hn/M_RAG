@@ -636,6 +636,8 @@ class MasterRunner:
         )
 
     def step_generate_pseudo_gt(self) -> None:
+        openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        use_gpt = bool(openai_key)
         for input_path, output_path in [
             (
                 "evaluation/data/track1_queries.json",
@@ -646,27 +648,29 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track2.json",
             ),
         ]:
-            self.run_subprocess(
-                "STEP 5",
-                [
-                    sys.executable,
-                    str(PROJECT_ROOT / "scripts" / "generate_pseudo_gt.py"),
-                    "--collection",
-                    "papers",
-                    "--api-url",
-                    self.args.api_url,
-                    "--input",
-                    input_path,
-                    "--output",
-                    output_path,
-                    "--max-retries",
-                    "8",
-                    "--retry-backoff",
-                    "2.0",
-                    "--min-interval",
-                    "3.2",
-                ],
-            )
+            cmd = [
+                sys.executable,
+                str(PROJECT_ROOT / "scripts" / "generate_pseudo_gt.py"),
+                "--collection",
+                "papers",
+                "--api-url",
+                self.args.api_url,
+                "--input",
+                input_path,
+                "--output",
+                output_path,
+                "--max-retries",
+                "8",
+                "--retry-backoff",
+                "2.0",
+                "--min-interval",
+                "3.2",
+            ]
+            if use_gpt:
+                # GPT-4o generates GT from retrieved paper contexts — independent of Midm.
+                # OPENAI_API_KEY is passed via env (inherited by subprocess), not CLI flag.
+                cmd += ["--gt-model", "gpt-4o", "--search-top-k", "5"]
+            self.run_subprocess("STEP 5", cmd)
 
     def step_track1_ablation(self) -> None:
         # 7개 PDF 전체에 대해 ablation 실시 (paper_korean 포함). 67-쿼리 매핑 결과

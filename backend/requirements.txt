@@ -38,3 +38,6 @@ python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.0
 bcrypt<5
 psycopg2-binary>=2.9.0
+
+# ─── External GT Generation ───
+openai>=1.30.0
