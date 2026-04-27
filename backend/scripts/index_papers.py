@@ -186,7 +186,7 @@ def main() -> int:
         failed += 1
 
     print(f"Completed. Success: {success}, Failed: {failed}")
-    return 0 if failed == 0 else 1
+    return 0 if success > 0 else 1
 
 
 if __name__ == "__main__":
