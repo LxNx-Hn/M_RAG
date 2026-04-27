@@ -81,6 +81,7 @@ def run(
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
+    doc_id_filter: str | None = None,
 ) -> dict:
     """Run quiz/flashcard generation pipeline."""
     mode = _detect_mode(query)
@@ -90,6 +91,7 @@ def run(
             collection_name=collection_name,
             query=query,
             top_k=10,
+            doc_id_filter=doc_id_filter,
         )
         steps.append({"step": "hybrid_search", "results_count": len(search_results)})
         if not search_results:

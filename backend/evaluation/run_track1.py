@@ -198,13 +198,29 @@ def call_json_api(
 ) -> dict[str, Any]:
     attempts = max(0, max_retries) + 1
     for attempt in range(attempts):
-        response = requests.request(
-            method=method,
-            url=url,
-            json=payload,
-            headers=build_headers(token),
-            timeout=timeout,
-        )
+        try:
+            response = requests.request(
+                method=method,
+                url=url,
+                json=payload,
+                headers=build_headers(token),
+                timeout=timeout,
+            )
+        except requests.RequestException as exc:
+            if attempt < attempts - 1:
+                sleep_seconds = retry_backoff * (2**attempt)
+                LOGGER.warning(
+                    "Request error from %s: %s. Retrying in %.1fs (%s/%s)",
+                    url,
+                    exc,
+                    sleep_seconds,
+                    attempt + 1,
+                    attempts - 1,
+                )
+                time.sleep(sleep_seconds)
+                continue
+            raise RuntimeError(f"Request failed for {url}: {exc}") from exc
+
         try:
             data = response.json()
         except ValueError:
@@ -306,16 +322,13 @@ def load_existing_results(output_path: str, resume: bool) -> dict[str, Any]:
 def is_ragas_config_completed(result: Any) -> bool:
     if not isinstance(result, dict):
         return False
-    average = result.get("average")
-    per_sample = result.get("per_sample")
-    return isinstance(average, dict) and isinstance(per_sample, list) and bool(per_sample)
+    return result.get("status") == "completed"
 
 
 def is_decoder_config_completed(result: Any) -> bool:
     if not isinstance(result, dict):
         return False
-    required = ("faithfulness", "answer_relevancy", "context_precision", "overall")
-    return all(key in result for key in required)
+    return result.get("status") == "completed"
 
 
 def print_table(headers: list[str], rows: list[list[str]]) -> None:
@@ -523,6 +536,7 @@ def run_ragas_mode(
             evaluation = evaluate_samples(ctx, samples)
             evaluation["config"] = config_name
             evaluation["paper"] = paper
+            evaluation["status"] = "completed"
             paper_result[config_name] = evaluation
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:
@@ -661,6 +675,7 @@ def run_decoder_mode(
                 "context_precision": ragas_result["average"]["context_precision"],
                 "context_recall": ragas_result["average"]["context_recall"],
                 "overall": ragas_result["average"]["overall"],
+                "status": "completed",
             }
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:

@@ -33,6 +33,8 @@ def run(
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
+    doc_id_filter: str | None = None,
+    section_filter: str | None = None,
 ) -> dict:
     """Run simple QA pipeline."""
     steps = []
@@ -49,6 +51,8 @@ def run(
             collection_name=collection_name,
             query=query,
             hyde_doc=hyde_doc,
+            doc_id_filter=doc_id_filter,
+            section_filter=section_filter,
         )
         steps.append({"step": "hybrid_search", "results_count": len(search_results)})
         if not search_results:

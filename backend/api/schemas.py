@@ -41,6 +41,8 @@ class QueryRequest(BaseModel):
     scd_beta: float = Field(default=0.3, ge=0.0, le=1.0)
     use_hyde: bool = Field(default=True, description="Enable HyDE query expansion")
     top_k: int = Field(default=5, ge=1, le=20)
+    doc_id_filter: Optional[str] = Field(default=None, max_length=255)
+    section_filter: Optional[str] = Field(default=None, max_length=100)
 
 
 class SourceDocument(BaseModel):

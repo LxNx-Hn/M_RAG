@@ -332,9 +332,7 @@ def load_existing_results(output_path: str, resume: bool) -> dict[str, Any]:
 def is_domain_config_completed(result: Any) -> bool:
     if not isinstance(result, dict):
         return False
-    average = result.get("average")
-    per_sample = result.get("per_sample")
-    return isinstance(average, dict) and isinstance(per_sample, list) and bool(per_sample)
+    return result.get("status") == "completed"
 
 
 def save_json(path_str: str, payload: dict[str, Any]) -> None:
@@ -581,6 +579,7 @@ def run_domain_mode(
                     "indexed_count": (citation_data or {}).get("indexed_count", 0),
                 },
                 "section_filter": config.get("section_filter"),
+                "status": "completed",
             }
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:

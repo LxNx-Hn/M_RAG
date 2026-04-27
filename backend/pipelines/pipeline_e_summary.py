@@ -31,6 +31,7 @@ def run(
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
+    doc_id_filter: str | None = None,
 ) -> dict:
     """Run summary pipeline."""
     steps = []
@@ -39,8 +40,11 @@ def run(
         try:
             vs = hybrid_retriever.vector_store
             collection = vs.get_or_create_collection(collection_name)
+            raptor_where: dict = {"chunk_level": {"$gte": 1}}
+            if doc_id_filter:
+                raptor_where = {"$and": [{"chunk_level": {"$gte": 1}}, {"doc_id": {"$eq": doc_id_filter}}]}
             raptor_data = collection.get(
-                where={"chunk_level": {"$gte": 1}},
+                where=raptor_where,
                 include=["documents", "metadatas"],
             )
             if raptor_data["ids"]:
@@ -67,6 +71,7 @@ def run(
                 query=query,
                 section_filter=section,
                 top_k=3,
+                doc_id_filter=doc_id_filter,
             )
             all_results.extend(results)
             steps.append(
@@ -78,6 +83,7 @@ def run(
                 collection_name=collection_name,
                 query="summarize the paper main contributions results",
                 top_k=10,
+                doc_id_filter=doc_id_filter,
             )
             existing_ids = {r["chunk_id"] for r in all_results}
             for result in full_results:

@@ -32,6 +32,7 @@ def run(
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
+    doc_id_filter: str | None = None,
 ) -> dict:
     """Run section-specific pipeline."""
     steps = []
@@ -41,6 +42,7 @@ def run(
             collection_name=collection_name,
             query=query,
             section_filter=section_filter,
+            doc_id_filter=doc_id_filter,
         )
         steps.append(
             {
@@ -54,6 +56,7 @@ def run(
             fallback_results = hybrid_retriever.search(
                 collection_name=collection_name,
                 query=query,
+                doc_id_filter=doc_id_filter,
             )
             existing_ids = {r["chunk_id"] for r in search_results}
             for result in fallback_results:

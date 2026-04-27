@@ -392,12 +392,15 @@ def _run_pipeline(
     comp = m.compressor
     gen = m.generator
     qe = m.query_expander
+    doc_id_filter = getattr(req, "doc_id_filter", None)
+    # req.section_filter overrides the router decision (evaluation explicit control)
+    effective_section_filter = getattr(req, "section_filter", None) or decision.section_filter
 
     if decision.route == RouteType.SECTION:
         return pipeline_b_section.run(
             req.query,
             col,
-            decision.section_filter,
+            effective_section_filter,
             hr,
             rr,
             comp,
@@ -406,6 +409,7 @@ def _run_pipeline(
             req.cad_alpha,
             req.use_scd,
             req.scd_beta,
+            doc_id_filter=doc_id_filter,
         )
     if decision.route == RouteType.COMPARE:
         return pipeline_c_compare.run(
@@ -460,6 +464,7 @@ def _run_pipeline(
             req.cad_alpha,
             req.use_scd,
             req.scd_beta,
+            doc_id_filter=doc_id_filter,
         )
     if decision.route == RouteType.QUIZ:
         return pipeline_f_quiz.run(
@@ -474,6 +479,7 @@ def _run_pipeline(
             req.cad_alpha,
             req.use_scd,
             req.scd_beta,
+            doc_id_filter=doc_id_filter,
         )
     return pipeline_a_simple_qa.run(
         query=req.query,
@@ -488,4 +494,6 @@ def _run_pipeline(
         cad_alpha=req.cad_alpha,
         use_scd=req.use_scd,
         scd_beta=req.scd_beta,
+        doc_id_filter=doc_id_filter,
+        section_filter=getattr(req, "section_filter", None),
     )
