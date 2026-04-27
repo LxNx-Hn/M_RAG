@@ -636,7 +636,7 @@ class MasterRunner:
         )
 
     def step_generate_pseudo_gt(self) -> None:
-        openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        openai_key = (self.runtime_env or os.environ).get("OPENAI_API_KEY", "").strip()
         use_gpt = bool(openai_key)
         for input_path, output_path in [
             (
