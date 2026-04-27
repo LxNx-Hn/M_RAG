@@ -12,8 +12,7 @@ chroma_db/
 *.sqlite3
 backend/mrag.db
 backend/*.db
-backend/evaluation/results/
-evaluation/results/
+# backend/evaluation/results/ — tracked so Alice Cloud experiments are pull-able
 backend/evaluation/data/pseudo_gt.json
 backend/evaluation/data/pseudo_gt_track1.json
 backend/evaluation/data/pseudo_gt_track2.json

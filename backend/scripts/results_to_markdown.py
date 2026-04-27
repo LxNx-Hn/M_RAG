@@ -90,14 +90,14 @@ def flatten_table2_alpha(data: dict[str, Any]) -> list[list[Any]]:
     rows: list[list[Any]] = []
     for paper, configs in data.get("results", {}).items():
         for config_name, result in configs.items():
-            avg = result.get("average", result)
+            # alpha-sweep uses run_decoder_mode → top-level keys include numeric_hallucination_rate
             rows.append(
                 [
                     f"{paper} / {config_name}",
-                    avg.get("faithfulness"),
-                    avg.get("answer_relevancy"),
-                    avg.get("context_precision"),
-                    avg.get("overall"),
+                    result.get("faithfulness"),
+                    result.get("numeric_hallucination_rate"),
+                    result.get("answer_relevancy"),
+                    result.get("overall"),
                 ]
             )
     return rows
@@ -107,14 +107,14 @@ def flatten_table2_beta(data: dict[str, Any]) -> list[list[Any]]:
     rows: list[list[Any]] = []
     for paper, configs in data.get("results", {}).items():
         for config_name, result in configs.items():
-            avg = result.get("average", result)
+            # beta-sweep uses run_decoder_mode → top-level keys include language_drift_rate
             rows.append(
                 [
                     f"{paper} / {config_name}",
-                    avg.get("faithfulness"),
-                    avg.get("answer_relevancy"),
-                    avg.get("context_precision"),
-                    avg.get("overall"),
+                    result.get("faithfulness"),
+                    result.get("language_drift_rate"),
+                    result.get("answer_relevancy"),
+                    result.get("overall"),
                 ]
             )
     return rows
@@ -208,8 +208,8 @@ def render_sections(files: list[Path]) -> str:
                     [
                         "Config",
                         "Faithfulness",
+                        "Numeric Hallucination",
                         "Answer Relevancy",
-                        "Context Precision",
                         "Overall",
                     ],
                     rows,
@@ -229,8 +229,8 @@ def render_sections(files: list[Path]) -> str:
                     [
                         "Config",
                         "Faithfulness",
+                        "Language Drift",
                         "Answer Relevancy",
-                        "Context Precision",
                         "Overall",
                     ],
                     rows,

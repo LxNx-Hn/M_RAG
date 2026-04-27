@@ -925,7 +925,7 @@ class MasterRunner:
 
             self._write_line(f"Staging changes under {results_rel}/")
             subprocess.run(
-                ["git", "add", results_rel],
+                ["git", "add", "-f", results_rel],
                 cwd=str(repo_root),
                 check=True,
             )
