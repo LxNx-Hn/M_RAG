@@ -446,14 +446,36 @@ class MasterRunner:
             )
         # Experiment-mode defaults: keep DB setup friction low and reproducible.
         env["DATABASE_URL"] = self.args.database_url
-        env["JWT_SECRET_KEY"] = self.args.jwt_secret
         env["GENERATION_MODEL"] = self.args.generation_model
         env["LOAD_GPU_MODELS"] = "true"
+
+        # JWT_SECRET_KEY 해석 우선순위: --jwt-secret 인자 > 기존 env 값 > .env 값 > ephemeral 자동 생성.
+        # api/auth.py:16 은 빈 값이면 RuntimeError 로 즉시 종료하므로 절대 빈 값으로 두지 않는다.
+        explicit = (self.args.jwt_secret or "").strip()
+        existing = env.get("JWT_SECRET_KEY", "").strip()
+        if explicit:
+            env["JWT_SECRET_KEY"] = explicit
+            secret_source = "--jwt-secret arg"
+        elif existing:
+            env["JWT_SECRET_KEY"] = existing
+            secret_source = ".env / OS env"
+        else:
+            import secrets as _secrets
+            env["JWT_SECRET_KEY"] = _secrets.token_hex(32)
+            secret_source = "ephemeral (auto-generated)"
+            self._write_line(
+                "WARNING: JWT_SECRET_KEY not provided via --jwt-secret, env, or .env. "
+                "Generated an ephemeral key for this run. Tokens will not survive a restart."
+            )
+
+        # Propagate so `_acquire_api_token()` (master_run 자체 프로세스) 도 동일 키로 토큰 발급 가능.
+        os.environ["JWT_SECRET_KEY"] = env["JWT_SECRET_KEY"]
+
         self._write_line(
             "Runtime overrides: "
             f"DATABASE_URL={env['DATABASE_URL']}, "
             f"GENERATION_MODEL={env['GENERATION_MODEL']}, "
-            "LOAD_GPU_MODELS=true"
+            f"LOAD_GPU_MODELS=true, JWT_SECRET_KEY=({secret_source})"
         )
         return env
 
@@ -647,6 +669,8 @@ class MasterRunner:
             )
 
     def step_track1_ablation(self) -> None:
+        # 7개 PDF 전체에 대해 ablation 실시 (paper_korean 포함). 67-쿼리 매핑 결과
+        # paper_nlp_* 4편 + 1810.04805_bert + 2101.08577 + paper_korean 모두 매칭됨.
         self.run_subprocess(
             "STEP 6",
             [
@@ -659,6 +683,11 @@ class MasterRunner:
                 "--papers",
                 "paper_nlp_bge",
                 "paper_nlp_rag",
+                "paper_nlp_cad",
+                "paper_nlp_raptor",
+                "1810.04805_bert",
+                "2101.08577",
+                "paper_korean",
                 "--output",
                 "evaluation/results/table1_track1.json",
                 "--api-base",
@@ -668,6 +697,8 @@ class MasterRunner:
         )
 
     def step_track1_decoder(self) -> None:
+        # decoder ablation: CAD/SCD on/off — paper_nlp_cad 와 paper_korean 으로
+        # CAD(파라메트릭 억제) 와 SCD(언어이탈 억제) 모두 실험.
         self.run_subprocess(
             "STEP 7",
             [
@@ -679,6 +710,7 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
+                "paper_korean",
                 "--output",
                 "evaluation/results/table2_decoder.json",
                 "--api-base",
@@ -688,6 +720,7 @@ class MasterRunner:
         )
 
     def step_cad_alpha(self) -> None:
+        # alpha sweep: paper_nlp_cad + paper_nlp_bge 두 NLP 논문에서 alpha 변동
         self.run_subprocess(
             "STEP 8",
             [
@@ -699,6 +732,7 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
+                "paper_nlp_bge",
                 "--output",
                 "evaluation/results/table2_alpha.json",
                 "--api-base",
@@ -708,6 +742,7 @@ class MasterRunner:
         )
 
     def step_scd_beta(self) -> None:
+        # SCD beta sweep: 한국어 논문 — 언어이탈 억제 효과 측정
         self.run_subprocess(
             "STEP 9",
             [
@@ -728,6 +763,7 @@ class MasterRunner:
         )
 
     def step_track2_domain(self) -> None:
+        # Track 2: NLP 4편 모두 — 도메인 특화 비교
         self.run_subprocess(
             "STEP 10",
             [
@@ -739,7 +775,9 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track2.json",
                 "--papers",
                 "paper_nlp_bge",
+                "paper_nlp_rag",
                 "paper_nlp_cad",
+                "paper_nlp_raptor",
                 "--output",
                 "evaluation/results/table3_domain.json",
                 "--api-base",
@@ -856,6 +894,85 @@ class MasterRunner:
 
         return "ok"
 
+    def step_push_results(self) -> None:
+        """평가 결과(evaluation/results/) 와 평가 로그를 원격 저장소에 자동 commit + push.
+
+        Alice Cloud / RunPod 등 외부 GPU 환경에서 실험을 백그라운드로 끝내고
+        사용자 PC 에서 git pull 만으로 결과를 받을 수 있도록 한다. git push 자격이
+        설정되지 않은 환경에서는 경고만 남기고 실패하지 않는다."""
+        if not getattr(self.args, "push_results", True):
+            self._write_line("Skipping result push (--no-push-results).")
+            return
+
+        repo_root = PROJECT_ROOT.parent  # = M_RAG/
+        results_rel = "backend/evaluation/results"
+        target = repo_root / results_rel
+        if not target.exists():
+            self._write_line(f"No results directory at {target}; nothing to push.")
+            return
+
+        try:
+            status_proc = subprocess.run(
+                ["git", "status", "--porcelain", results_rel],
+                cwd=str(repo_root),
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if not status_proc.stdout.strip():
+                self._write_line("No result changes to commit; skipping push.")
+                return
+
+            self._write_line(f"Staging changes under {results_rel}/")
+            subprocess.run(
+                ["git", "add", results_rel],
+                cwd=str(repo_root),
+                check=True,
+            )
+
+            host = os.environ.get("HOSTNAME") or os.environ.get("HOST") or "remote"
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+            commit_message = f"results: experiment run from {host} @ {timestamp}"
+
+            commit_proc = subprocess.run(
+                ["git", "commit", "-m", commit_message],
+                cwd=str(repo_root),
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if commit_proc.returncode != 0:
+                self._write_line(
+                    f"git commit failed (rc={commit_proc.returncode}): "
+                    f"{commit_proc.stderr.strip() or commit_proc.stdout.strip()}"
+                )
+                return
+
+            self._write_line(f"Committed: {commit_message}")
+            push_proc = subprocess.run(
+                ["git", "push", "origin", self.args.results_branch],
+                cwd=str(repo_root),
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if push_proc.returncode != 0:
+                self._write_line(
+                    "WARNING: git push failed. Results are committed locally on this "
+                    "runner but not on origin. Configure push credentials and run "
+                    f"`git push origin {self.args.results_branch}` manually. "
+                    f"stderr: {push_proc.stderr.strip()}"
+                )
+                return
+            self._write_line(
+                f"Pushed results to origin/{self.args.results_branch}. "
+                "Use `git pull` on your local PC to download."
+            )
+        except Exception as exc:  # noqa: BLE001
+            self._write_line(
+                f"Result push step encountered an error but pipeline continues: {exc}"
+            )
+
     def step_stop_server(self) -> None:
         if self.args.skip_server:
             self._write_line("Skipping server stop because --skip-server was provided.")
@@ -945,6 +1062,27 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_GENERATION_MODEL,
         help="Generation model override for the experiment run.",
     )
+    parser.add_argument(
+        "--push-results",
+        action="store_true",
+        default=True,
+        help=(
+            "After STEP 12 validation, commit & push evaluation/results/ back to origin."
+            " Allows downloading results via git pull from anywhere."
+            " Requires git push credentials configured on the runner."
+        ),
+    )
+    parser.add_argument(
+        "--no-push-results",
+        dest="push_results",
+        action="store_false",
+        help="Disable result auto-push (no git commit/push of results).",
+    )
+    parser.add_argument(
+        "--results-branch",
+        default="main",
+        help="Branch to push experiment results to. Default: main.",
+    )
     return parser.parse_args()
 
 
@@ -1014,9 +1152,15 @@ def main() -> int:
                 runner.step_validate_results,
                 abort_on_failure=True,
             )
+            runner.run_step(
+                13,
+                "Push results to origin",
+                runner.step_push_results,
+                abort_on_failure=False,
+            )
         finally:
             runner.run_step(
-                13, "Stop the API server subprocess cleanly", runner.step_stop_server
+                14, "Stop the API server subprocess cleanly", runner.step_stop_server
             )
             runner.header("MASTER RUN COMPLETE")
             runner._write_line(f"Total elapsed time: {runner.format_elapsed()}")

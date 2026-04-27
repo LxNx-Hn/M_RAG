@@ -1,389 +1,817 @@
 [
   {
     "query": "이 논문에서 사용한 데이터셋이 뭐야?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "-length documents.\n\n---\n\n[컨텍스트 종료]\n\nCAD의 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 대한 CAD 적용 효과로 언급된 개선 비율은 얼마인가요?\n\n# CAD의 LLaMA-30B 모델에 대한 지식 충돌 QA 태스크 개선 비율\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 CAD(Context-Aware Decoding)가 LLaMA-30B 모델에 적용되었을 때 지식 충돌 QA 태스크에서의 개선 효과를 묻고 있습니다. 주어진 컨텍스트에서 CAD의 지식 충돌 태스크에 대한 구체적인 개선 비율을 찾아 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 CAD와 LLaMA-30B 모델에 관한 정보 찾기\n2. 지식 충돌 QA 태스크에서의 CAD 적용 효과 확인\n3. CAD 적용으로 인한 개선 비율 확인\n\n## 단계별 추론 결과\n### 1단계: CAD와 LLaMA-30B 모델에 관한 정보 찾기\n컨텍스트의 첫 번째 부분에서 CAD와 LLaMA-30B 모델에 관한 정보를 찾을 수 있습니다. 해당 부분은 다음과 같습니다:\n\n\"for instance, when ap- plied to LLaMA-30B in CNN-DM, CAD leads to substantial improvement in both ROUGE-L (21%) arXiv:2305.14739v1 [cs.CL] 24 May 2023 and summary factuality evaluation metrics (14.3%).\"\n\n이 문장에서 LLaMA-30B 모델이 CAD와 함께 CNN-DM 태스크에서 사용되었다는 것을 알 수 있습니다.\n\n### 2단계: 지식 충돌 QA 태스크에서의 CAD 적용 효과 확인\n컨텍스트에서 CAD가 특히 \"knowledge conflicts tasks, where the context contains information contradictory to the model’s prior knowledge\"에 특히 유익하다는 내용을 찾을 수 있습니다. 이는 지식 충돌 QA 태스크를 의미합니다.\n\n### 3단계: CAD 적용으로 인한 개선 비율 확인\n컨텍스트에서 CAD가 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 적용된 효과로 다음과 같은 구체적인 개선 비율을 언급하고 있습니다:\n\n\"For instance, when applied to LLaMA-30B in CNN-DM, CAD leads to substantial improvement in both ROUGE-L (21%) arXiv:2305.14739v1 [cs.CL] 24 May 2023 and summary factuality evaluation metrics (14.3%).\"\n\n또한 더 주목할 만한 개선 효과에 대해서는 다음과 같이 언급하고 있습니다:\n\"More notably, CAD is especially beneficial for knowledge conflicting tasks, where the context contains information contradictory to the model’s prior knowledge. CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset ( Longpre et al., 2021 ).\"\n\n따라서 CAD 적용으로 인한 개선 비율은 다음과 같습니다:\n- ROUGE-L: 21% 개선\n- 요약 사실성 평가 지표: 14.3% 개선\n- 지식 충돌 QA 태스크에서 2.9배 개선\n\n## 최종 답변\nCAD(Context-Aware Decoding)의 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 대한 개선 효과는 다음과 같습니다:\n\n1. ROUGE-L 평가 지표에서 21%의 개선 효과가 있었습니다.\n2. 요약 사실성 평가 지표에서 14.3%의 개선 효과가 있었습니다.\n3. 지식 충돌 QA 태스크에서는 2.9배의 개선 효과가 있었습니다.\n\n이러한 개선 효과는 특히 모델의 사전 지식과 상충되는 정보가 포함된 맥락에서 CAD가 특히 유용함을 보여줍니다.",
-      "paper_nlp_rag": "논문에서 사용한 데이터셋들은 다음과 같습니다:\n\n1. **NarrativeQA**: 책과 영화 transcripts의 full texts를 기반으로 한 질문-답변 쌍으로, 총 1,572개의 문서가 포함되어 있습니다. 이 데이터셋은 전체 내러티브를 이해하는 능력을 테스트하기 위해 설계되었습니다.\n\n2. **QASPER**: 5,049개의 질문이 1,585개의 NLP 논문에 걸쳐 있으며, 각 질문은 full text 내의 정보를 파악하는 것을 목표로 합니다. 답변 유형은 Answerable/Unanswerable, Yes/No, Abstractive, 그리고 Extractive로 분류됩니다.\n\n3. **QuALITY**: medium-length 문서를 위한 다중선택 질문이 포함된 데이터셋으로, 각 질문에는 약 5,000 토큰의 맥락이 제공됩니다. 특히 HARD subset은 많은 인간 annotators가 잘못 답변한 도전적인 질문들로 구성되어 있습니다.",
-      "paper_korean": "the masked LM tokens), it ensures that the model does not overfit to the random words. Appendix for “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding” We organize the appendix into three sections: • Additional implementation details for BERT are presented in Appendix A ; • Additional details for our experiments are presented in Appendix B ; and • Additional ablation studies are presented in Appendix C. We present additional ablation studies for BERT including: – Effect of Number of Training Steps; and – Ablation for Different Masking Proce- dures. A.2 Illustration of the Pre-training Tasks We provide examples of the pre-training tasks in the following. Masked LM and the Masking Procedure As- suming the unlabeled sentence is my dog is hairy, and during the random masking procedure we chose the 4-th token (which corresponding to hairy ), our masking procedure can be further il- lustrated by • 80% of the time: Replace the word with the [MASK] token, e.g., my dog is hairy → my dog is [MASK] • 10% of the time: Replace the word with a random word, e 가지. e.g., my dog is hairy → my dog is apple • 10% of the time: Keep the word un- changed, e.g., my dog is hairy → my dog is hairy. The purpose of this is to bias the representation towards the actual observed word. The advantage of this procedure is that the Transformer encoder does not know which words it will be asked to predict or which have been re- placed by random words, so it is forced to keep a distributional contextual representation of ev- ery input token. Additionally, because random replacement only occurs for 1.5% of all tokens (i. e., the masked LM tokens), it ensures that the model does not overfit to the random words.\n\n---\n\n[컨텍스트 종료]\n\n첫 번째 질문: CAD의 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 대한 개선 비율은 얼마인가요?\n\n[컨텍스트] For instance, when ap- plied to LLaMA-30B in CNN-DM, CAD leads to substantial improvement in both ROUGE-L (21%) arXiv:2305.14739v1 [cs.CL] 24 May 2023 and summary factuality evaluation metrics (14.3%). More notably, CAD is especially beneficial for knowledge conflicting tasks, where the context contains information contradictory to the model’s prior knowledge. CAD brings a 2.9x improve- ment to LLaMA-30B on a knowledge conflicts QA dataset ( Longpre et al., 2021 ).\n\n두 번째 질문: RAPTOR의 트리 기반 검색 방식이 Dense Passage Retrieval(DPR) 방법보다 더 나은 이유는 무엇인가요?\n\n[컨텍스트] Using a token-based approach ensures the context does not exceed model context constraints as token counts can vary across nodes. For experiments with the UnifiedQA model, we provide 400 to-kens of context, as UnifiedQA has a max con- text length of 512 tokens. We provide the same amount of tokens of context to RAPTOR and to the baselines. Qualitative Study We conduct a qualitative analysis to understand the benefits of RAPTOR’s retrieval process compared to Dense Passage Retrieval (DPR) methods. Our study focuses on thematic, multi-hop questions using a 1500-word Cinderella fairytale. As illustrated in Figure 4, RAPTOR’s tree-based retrieval allows it to choose nodes from different tree layers, matching the question’s detail level. This approach often yields more relevant and comprehensive information for downstream tasks than DPR. For a detailed discussion and examples, including the text retrieved by both RAPTOR and DPR for specific questions, please refer to the appendix G."
-    },
-    "ground_truth": "-length documents.\n\n---\n\n[컨텍스트 종료]\n\nCAD의 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 대한 CAD 적용 효과로 언급된 개선 비율은 얼마인가요?\n\n# CAD의 LLaMA-30B 모델에 대한 지식 충돌 QA 태스크 개선 비율\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 CAD(Context-Aware Decoding)가 LLaMA-30B 모델에 적용되었을 때 지식 충돌 QA 태스크에서의 개선 효과를 묻고 있습니다. 주어진 컨텍스트에서 CAD의 지식 충돌 태스크에 대한 구체적인 개선 비율을 찾아 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 CAD와 LLaMA-30B 모델에 관한 정보 찾기\n2. 지식 충돌 QA 태스크에서의 CAD 적용 효과 확인\n3. CAD 적용으로 인한 개선 비율 확인\n\n## 단계별 추론 결과\n### 1단계: CAD와 LLaMA-30B 모델에 관한 정보 찾기\n컨텍스트의 첫 번째 부분에서 CAD와 LLaMA-30B 모델에 관한 정보를 찾을 수 있습니다. 해당 부분은 다음과 같습니다:\n\n\"for instance, when ap- plied to LLaMA-30B in CNN-DM, CAD leads to substantial improvement in both ROUGE-L (21%) arXiv:2305.14739v1 [cs.CL] 24 May 2023 and summary factuality evaluation metrics (14.3%).\"\n\n이 문장에서 LLaMA-30B 모델이 CAD와 함께 CNN-DM 태스크에서 사용되었다는 것을 알 수 있습니다.\n\n### 2단계: 지식 충돌 QA 태스크에서의 CAD 적용 효과 확인\n컨텍스트에서 CAD가 특히 \"knowledge conflicts tasks, where the context contains information contradictory to the model’s prior knowledge\"에 특히 유익하다는 내용을 찾을 수 있습니다. 이는 지식 충돌 QA 태스크를 의미합니다.\n\n### 3단계: CAD 적용으로 인한 개선 비율 확인\n컨텍스트에서 CAD가 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 적용된 효과로 다음과 같은 구체적인 개선 비율을 언급하고 있습니다:\n\n\"For instance, when applied to LLaMA-30B in CNN-DM, CAD leads to substantial improvement in both ROUGE-L (21%) arXiv:2305.14739v1 [cs.CL] 24 May 2023 and summary factuality evaluation metrics (14.3%).\"\n\n또한 더 주목할 만한 개선 효과에 대해서는 다음과 같이 언급하고 있습니다:\n\"More notably, CAD is especially beneficial for knowledge conflicting tasks, where the context contains information contradictory to the model’s prior knowledge. CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset ( Longpre et al., 2021 ).\"\n\n따라서 CAD 적용으로 인한 개선 비율은 다음과 같습니다:\n- ROUGE-L: 21% 개선\n- 요약 사실성 평가 지표: 14.3% 개선\n- 지식 충돌 QA 태스크에서 2.9배 개선\n\n## 최종 답변\nCAD(Context-Aware Decoding)의 지식 충돌 QA 태스크에서 LLaMA-30B 모델에 대한 개선 효과는 다음과 같습니다:\n\n1. ROUGE-L 평가 지표에서 21%의 개선 효과가 있었습니다.\n2. 요약 사실성 평가 지표에서 14.3%의 개선 효과가 있었습니다.\n3. 지식 충돌 QA 태스크에서는 2.9배의 개선 효과가 있었습니다.\n\n이러한 개선 효과는 특히 모델의 사전 지식과 상충되는 정보가 포함된 맥락에서 CAD가 특히 유용함을 보여줍니다."
+    "track": "track1"
   },
   {
     "query": "학습에 사용된 하이퍼파라미터는?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
-      "paper_nlp_bge"
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# 학습에 사용된 하이퍼파라미터 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서들에서 학습에 사용된 하이퍼파라미터(학습 단계 수, 배치 크기, 마스크 전략 비율 등)에 관한 정보를 찾아 분석하겠습니다. 각 문서에서 언급된 구체적인 수치와 방법을 종합하여 답변을 도출하겠습니다.\n\n## 추론 단계\n1. BERT 모델의 학습 단계 수(k) 확인\n2. 배치 크기 관련 정보 확인\n3. 마스크 전략 비율 확인\n4. 기타 하이퍼파라미터 정보 확인\n5. 종합적인 하이퍼파라미터 정리\n\n## 단계별 추론 결과\n### 1단계: BERT 모델의 학습 단계 수(k) 확인\n첫 번째 문서의 3.3 Self-Knowledge Distillation 섹션에서는 InfoNCE 손실을 최소화하기 위한 훈련 과정에 대해 언급하고 있습니다. 그러나 구체적인 학습 단계 수(k)는 명시되어 있지 않습니다.\n\n두 번째 문서의 \"Second Paper: Efficient Training\" 섹션에서는 \"has been pre-trained for k steps\"라는 표현이 있어, BERT 모델이 k 단계 동안 사전 훈련되었음을 알 수 있습니다. 그러나 정확한 k 값은 제시되어 있지 않습니다.\n\n### 2단계: 배치 크기 관련 정보 확인\n두 번째 문서의 \"Length Range Batch Size Unsupervised Fine-tuning\" 표 9에서는 다양한 텍스트 길이 범위에 따른 배치 크기를 보여주고 있습니다:\n- 0-500: 67,200\n- 1,152\n- 54,720\n- 37,248\n- 27,648\n- 21,504\n- 17,280\n- 15,072\n- 12,288\n- 9,984\n- 7,680\n- 6,048\n- 4,800\n- 3,600\n- 2,880\n- 2,400\n- 1,920\n- 1,536\n- 1,200\n- 1,024\n- 768\n- 480\n- 432\n- 336\n- 288\n- 240\n- 192\n\n이 표는 텍스트 길이가 0-500에서 7000-8192까지 증가함에 따라 배치 크기가 어떻게 변화하는지 보여줍니다. 특히 8192 길이의 경우, split-batch 기능이 없을 때는 192였지만, split-batch 기능이 있을 때는 9,984로 약 20배 증가했습니다.\n\n### 3단계: 마스크 전략 비율 확인\n두 번째 문서의 \"Ablation over different masking strategies\" 표 8에서는 다음과 같은 마스크 전략 비율을 보여줍니다:\n- M ASK: 80%\n- S AME: 0%\n- R ND: 20%\n\nBERT는 이 세 가지 전략을 혼합하여 사용하며, 80%, 10%, 10%의 비율로 적용된다고 언급되어 있습니다.\n\n### 4단계: 기타 하이퍼파라미터 정보 확인\n두 번째 문서에서는 다음과 같은 정보를 확인할 수 있습니다:\n- \"94.8% accuracy with only 60% of the original memory footprint\" - 이는 제안된 효율적인 훈련 방법으로 60%의 메모리만 사용하면서 94.8%의 정확도를 달성했음을 의미합니다.\n- \"O\" - 이는 아마도 \"Optimization\"의 약자로, 효율적인 훈련 방법을 지칭하는 것으로 보입니다.\n\n### 5단계: 종합적인 하이퍼파라미터 정리\n문서에서 직접적으로 언급된 하이퍼파라미터는 다음과 같습니다:\n1. 학습 단계 수(k): 문서에서 정확한 값은 제시되지 않음\n2. 배치 크기: 텍스트 길이에 따라 192~9,984로 변화하며, split-batch 기능이 있을 때 20배 증가\n3. 마스크 전략 비율: M ASK(80%), S AME(0%), R ND(20%)\n4. 효율적인 훈련 방법: 94.8% 정확도를 60% 메모리로 달성\n\n## 최종 답변\n주어진 문서에서 학습에 사용된 하이퍼파라미터에 관한 정보를 분석한 결과, 다음과 같은 주요 하이퍼파라미터를 확인할 수 있습니다:\n\n1. **학습 단계 수(k)**: 문서에서 정확한 값은 명시되어 있지 않습니다. 첫 번째 문서에서는 \"has been pre-trained for k steps\"라고만 언급되어 있습니다.\n\n2. **배치 크기**: \n   - 텍스트 길이에 따라 192에서 9,984까지 변화\n   - split-batch 기능이 없을 때는 192\n   - split-batch 기능이 있을 때는 8192 길이에서 9,984로 약 20배 증가\n\n3. **마스크 전략 비율**: \n   - M ASK(80%): 대상 토큰을 [MASK]로 대체\n   - S AME(0%): 대상 토큰 유지\n   - R ND(20%): 대상 토큰을 다른 랜덤 토큰으로 대체\n   - BERT는 이 세 가지 전략을 혼합하여 사용(80%, 10%, 10%)\n\n4. **효율적인 훈련 방법**:\n   - gradient accumulation과 dynamic batch sizing을 결합"
-    },
-    "ground_truth": "# 학습에 사용된 하이퍼파라미터 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서들에서 학습에 사용된 하이퍼파라미터(학습 단계 수, 배치 크기, 마스크 전략 비율 등)에 관한 정보를 찾아 분석하겠습니다. 각 문서에서 언급된 구체적인 수치와 방법을 종합하여 답변을 도출하겠습니다.\n\n## 추론 단계\n1. BERT 모델의 학습 단계 수(k) 확인\n2. 배치 크기 관련 정보 확인\n3. 마스크 전략 비율 확인\n4. 기타 하이퍼파라미터 정보 확인\n5. 종합적인 하이퍼파라미터 정리\n\n## 단계별 추론 결과\n### 1단계: BERT 모델의 학습 단계 수(k) 확인\n첫 번째 문서의 3.3 Self-Knowledge Distillation 섹션에서는 InfoNCE 손실을 최소화하기 위한 훈련 과정에 대해 언급하고 있습니다. 그러나 구체적인 학습 단계 수(k)는 명시되어 있지 않습니다.\n\n두 번째 문서의 \"Second Paper: Efficient Training\" 섹션에서는 \"has been pre-trained for k steps\"라는 표현이 있어, BERT 모델이 k 단계 동안 사전 훈련되었음을 알 수 있습니다. 그러나 정확한 k 값은 제시되어 있지 않습니다.\n\n### 2단계: 배치 크기 관련 정보 확인\n두 번째 문서의 \"Length Range Batch Size Unsupervised Fine-tuning\" 표 9에서는 다양한 텍스트 길이 범위에 따른 배치 크기를 보여주고 있습니다:\n- 0-500: 67,200\n- 1,152\n- 54,720\n- 37,248\n- 27,648\n- 21,504\n- 17,280\n- 15,072\n- 12,288\n- 9,984\n- 7,680\n- 6,048\n- 4,800\n- 3,600\n- 2,880\n- 2,400\n- 1,920\n- 1,536\n- 1,200\n- 1,024\n- 768\n- 480\n- 432\n- 336\n- 288\n- 240\n- 192\n\n이 표는 텍스트 길이가 0-500에서 7000-8192까지 증가함에 따라 배치 크기가 어떻게 변화하는지 보여줍니다. 특히 8192 길이의 경우, split-batch 기능이 없을 때는 192였지만, split-batch 기능이 있을 때는 9,984로 약 20배 증가했습니다.\n\n### 3단계: 마스크 전략 비율 확인\n두 번째 문서의 \"Ablation over different masking strategies\" 표 8에서는 다음과 같은 마스크 전략 비율을 보여줍니다:\n- M ASK: 80%\n- S AME: 0%\n- R ND: 20%\n\nBERT는 이 세 가지 전략을 혼합하여 사용하며, 80%, 10%, 10%의 비율로 적용된다고 언급되어 있습니다.\n\n### 4단계: 기타 하이퍼파라미터 정보 확인\n두 번째 문서에서는 다음과 같은 정보를 확인할 수 있습니다:\n- \"94.8% accuracy with only 60% of the original memory footprint\" - 이는 제안된 효율적인 훈련 방법으로 60%의 메모리만 사용하면서 94.8%의 정확도를 달성했음을 의미합니다.\n- \"O\" - 이는 아마도 \"Optimization\"의 약자로, 효율적인 훈련 방법을 지칭하는 것으로 보입니다.\n\n### 5단계: 종합적인 하이퍼파라미터 정리\n문서에서 직접적으로 언급된 하이퍼파라미터는 다음과 같습니다:\n1. 학습 단계 수(k): 문서에서 정확한 값은 제시되지 않음\n2. 배치 크기: 텍스트 길이에 따라 192~9,984로 변화하며, split-batch 기능이 있을 때 20배 증가\n3. 마스크 전략 비율: M ASK(80%), S AME(0%), R ND(20%)\n4. 효율적인 훈련 방법: 94.8% 정확도를 60% 메모리로 달성\n\n## 최종 답변\n주어진 문서에서 학습에 사용된 하이퍼파라미터에 관한 정보를 분석한 결과, 다음과 같은 주요 하이퍼파라미터를 확인할 수 있습니다:\n\n1. **학습 단계 수(k)**: 문서에서 정확한 값은 명시되어 있지 않습니다. 첫 번째 문서에서는 \"has been pre-trained for k steps\"라고만 언급되어 있습니다.\n\n2. **배치 크기**: \n   - 텍스트 길이에 따라 192에서 9,984까지 변화\n   - split-batch 기능이 없을 때는 192\n   - split-batch 기능이 있을 때는 8192 길이에서 9,984로 약 20배 증가\n\n3. **마스크 전략 비율**: \n   - M ASK(80%): 대상 토큰을 [MASK]로 대체\n   - S AME(0%): 대상 토큰 유지\n   - R ND(20%): 대상 토큰을 다른 랜덤 토큰으로 대체\n   - BERT는 이 세 가지 전략을 혼합하여 사용(80%, 10%, 10%)\n\n4. **효율적인 훈련 방법**:\n   - gradient accumulation과 dynamic batch sizing을 결합"
+    "track": "track1"
   },
   {
     "query": "제안된 모델의 입력과 출력은 무엇인가?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# 제안된 모델의 입력과 출력 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 제안된 모델의 입력과 출력에 관한 정보를 찾아 분석해야 합니다. 문서의 여러 부분을 검토하여 모델의 입력과 출력에 대한 구체적인 설명을 찾고, 이를 바탕으로 답변을 구성하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델의 입력에 관한 정보 찾기\n2. 문서에서 모델의 출력에 관한 정보 찾기\n3. 찾은 정보를 종합하여 모델의 입력과 출력 정리하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 모델의 입력에 관한 정보 찾기\n문서를 검토한 결과, 모델의 입력에 관한 정보는 주로 \"RAPTOR Tree Construction Process\" 부분에서 찾을 수 있습니다. 해당 부분에서는 다음과 같은 내용을 확인할 수 있습니다:\n\n\"Clustering 4 3 5 Formation of one tree layer Root layer Leaf layer Contents of a node RAPTOR Tree Figure 1: Tree construction process: RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up. Nodes clustered together are siblings; a parent node contains the text summary of that cluster.\"\n\n이 내용에 따르면, 모델의 입력은:\n1. 텍스트의 벡터 임베딩\n2. 텍스트의 벡터 데이터베이스에 저장된 벡터 표현\n\n또한 \"Synthetic Data\" 부분에서는 GPT3.5에 대한 프롬프트가 언급되어 있습니다:\n\"prompt for GPT3.5 is “You are a curious AI assistant, please generate one specific and valuable question based on the following text. The generated question should revolve around the core content of this text, and avoid using pronouns (e.g., ”this”). Note that you should generate only one question, without including additional content:”.\"\n\n이 프롬프트는 모델의 입력으로 사용되는 것으로 보입니다.\n\n### 2단계: 문서에서 모델의 출력에 관한 정보 찾기\n문서에서 모델의 출력에 관한 정보는 주로 \"Controlled experiments with three language models\" 부분에서 찾을 수 있습니다. 해당 부분에서는 다음과 같은 내용을 확인할 수 있습니다:\n\n\"Controlled experiments with three language models (UnifiedQA ( Khashabi et al., 2020 ), GPT-3 ( Brown et al., 2020 ) and GPT-4 ( OpenAI, 2023 )) show that RAPTOR outperforms current retrieval augmentation.\"\n\n이 내용에 따르면, 모델의 출력은:\n1. 사용자 질문에 대한 응답\n2. 책과 영화에 대한 자유 텍스트 응답 질문(NarrativeQA)\n3. full-text NLP 논문(QASPER)\n4. medium-length passages 기반의 multiple-choice 질문(QuALITY)\n\n또한 \"Self-Knowledge Distillation\" 부분에서는:\n\"The embedding model is trained to discriminate the positive samples from the negative ones. For each of the retrieval methods, it is expected to as- sign a higher score for the query’s positive samples compared with the negative ones. Therefore, the training process is conducted to minimize the InfoNCE loss...\"\n\n이 내용에 따르면, 모델의 출력은:\n1. 쿼리의 긍정 샘플에 더 높은 점수를 할당하는 것\n2. InfoNCE 손실을 최소화하는 것\n\n### 3단계: 찾은 정보 종합하기\n위의 분석을 종합하면, 제안된 모델의 입력과 출력은 다음과 같습니다:\n\n**입력:**\n1. 텍스트의 벡터 임베딩\n2. 텍스트의 벡터 데이터베이스\n3. 프롬프트(예: \"You are a curious AI assistant, please generate one specific and valuable question based on the following text...\")\n4. 사용자 질문\n\n**출력:**\n1. 사용자 질문에 대한 응답\n2. 책과 영화에 대한 자유 텍스트 응답 질문에 대한 답변\n3. full-text NLP 논문에 대한 답변\n4. medium-length passages 기반의 multiple-choice 질문에 대한 답변\n5. 쿼리의 긍정 샘플에 더 높은 점수를 할당하는 벡터 표현\n\n## 최종 답변\n주어진 문서를 분석한 결과, 제안된 모델의 입력과 출력은 다음과 같습니다:\n\n### 입력\n1. **텍스트 벡터 임베딩**: 문서에 따르면, 텍스트는 먼저 벡터 임베딩 모델을 통해 벡터 표현으로 변환됩니다.\n2. **벡터 데이터베이스**: 변환된 벡터 표현은 벡터 데이터베이스에 저장됩니다.\n3. **프롬프트**: GPT3.5와 같은 언어 모델에 제공되는 프롬프트는 \"You are a curious AI assistant, please generate one specific and valuable question based on the following text. The generated question should revolve around the core content of this text, and avoid using pronouns (e.g., ”this”). Note that you should generate only one question, without including additional content:\" 형태입니다.\n4. **사용자 질문**: 모델이 답변해야 할 질문 자체입니다.\n\n### 출력\n1. **사용자 질문에 대한 응답**: 모델의 주요 출력은 사용자가 제시한 질문에 대한 답변입니다.\n2. **다양한 QA 과제에 대한 답변**:\n   - 책과 영화에",
-      "paper_nlp_rag": "# BERT 모델의 입력과 출력 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 BERT 모델의 입력과 출력에 관한 정보를 찾아 분석합니다. 문서에 나타난 BERT의 아키텍처와 훈련 방식을 검토하여 입력과 출력이 무엇인지 파악하겠습니다.\n\n## 추론 단계\n1. 문서에서 BERT 모델의 아키텍처와 훈련 방식에 관한 정보 찾기\n2. BERT 모델의 입력에 관한 정보 확인\n3. BERT 모델의 출력에 관한 정보 확인\n4. 찾은 정보를 종합하여 BERT 모델의 입력과 출력 정리\n\n## 단계별 추론 결과\n### 1단계: BERT 모델의 아키텍처와 훈련 방식 확인\n문서에서 BERT 모델에 관한 내용을 살펴보면, BERT는 \"Bidirectional Encoder Representations from Transformers\"의 약자로, Transformer 아키텍처를 기반으로 합니다. 문서에 따르면 BERT는 다음과 같은 훈련 방식을 사용합니다:\n\n- \"masked language model (MLM)\" pre-training objective: 입력에서 일부 토큰을 무작위로 마스킹하고 원래 어휘 ID를 예측하는 방식\n- \"next sentence prediction\" task: 텍스트-쌍 representations를 공동으로 pre-train\n\n### 2단계: BERT 모델의 입력 확인\n문서에서 BERT의 입력에 관한 직접적인 설명은 다음과 같습니다:\n\n\" masked language model randomly masks some of the tokens from the input, and the objective is to predict the original vocabulary id of the masked word based only on its context.\"\n\n이는 BERT 모델의 입력이 텍스트 데이터이며, 이 텍스트 데이터에서 일부 토큰이 무작위로 마스킹된다는 것을 의미합니다. 문서의 \"Implementation Details\" 섹션에서는 \"During training, we applied this operation to passages with a probability of 0.2%\"라고 언급하여, 입력 데이터에 대해 0.2% 확률로 토큰 마스킹이 적용됨을 알 수 있습니다.\n\n### 3단계: BERT 모델의 출력 확인\n문서에서 BERT 모델의 출력에 관한 직접적인 설명은 다음과 같습니다:\n\n\"Unlike left-to-right language model pre-training, the MLM objective enables the representation to fuse the left and the right context, which allows us to pre-train a deep bidirectional Transformer.\"\n\n이는 BERT 모델의 출력이 \"deep bidirectional representations\"임을 나타냅니다. 즉, BERT는 양방향 컨텍스트를 융합한 심층 양방향 표현을 생성합니다.\n\n또한 문서의 \"Contributions of our paper\" 섹션에서는 \"pre-trained representations reduce the need for many heavily-engineered task-specific architectures\"라고 언급하여, BERT의 출력이 \"pre-trained representations\"임을 확인할 수 있습니다.\n\n### 4단계: 입력과 출력 종합\n문서의 내용을 종합하면, BERT 모델의 입력은 텍스트 데이터이며, 이 텍스트 데이터에서 일부 토큰이 무작위로 마스킹됩니다. 출력은 양방향 컨텍스트를 융합한 심층 양방향 표현입니다.\n\n문서에서는 BERT 모델의 구체적인 출력 형태(예: 벡터 크기, 표현의 차원 등)에 대한 자세한 정보는 제공하지 않고 있습니다.\n\n## 최종 답변\n주어진 문서에 따르면, BERT 모델의 입력과 출력은 다음과 같습니다:\n\n**입력:**\n- BERT 모델의 입력은 텍스트 데이터입니다.\n- 이 텍스트 데이터에서 일부 토큰이 무작위로 마스킹됩니다.\n- 문서에 따르면, 훈련 과정에서 전체 패시지에 대해 0.2% 확률로 토큰 마스킹이 적용됩니다.\n\n**출력:**\n- BERT 모델의 출력은 \"deep bidirectional representations\"입니다.\n- 이는 양방향 컨텍스트를 융합한 심층 양방향 표현을 의미합니다.\n- 문서에서는 BERT의 출력이 정확히 어떤 형태(예: 벡터 크기, 표현의 차원 등)인지에 대한 구체적인 정보는 제공하지 않고 있습니다.\n\nBERT 모델은 \"masked language model (MLM)\"과 \"next sentence prediction\"이라는 두 가지 훈련 방식을 사용하여 양방향 컨텍스트를 융합한 심층 표현을 학습합니다. 이러한 양방향 표현은 이후 다양한 NLP 작업에 활용될 수 있습니다."
-    },
-    "ground_truth": "# 제안된 모델의 입력과 출력 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 제안된 모델의 입력과 출력에 관한 정보를 찾아 분석해야 합니다. 문서의 여러 부분을 검토하여 모델의 입력과 출력에 대한 구체적인 설명을 찾고, 이를 바탕으로 답변을 구성하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델의 입력에 관한 정보 찾기\n2. 문서에서 모델의 출력에 관한 정보 찾기\n3. 찾은 정보를 종합하여 모델의 입력과 출력 정리하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 모델의 입력에 관한 정보 찾기\n문서를 검토한 결과, 모델의 입력에 관한 정보는 주로 \"RAPTOR Tree Construction Process\" 부분에서 찾을 수 있습니다. 해당 부분에서는 다음과 같은 내용을 확인할 수 있습니다:\n\n\"Clustering 4 3 5 Formation of one tree layer Root layer Leaf layer Contents of a node RAPTOR Tree Figure 1: Tree construction process: RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up. Nodes clustered together are siblings; a parent node contains the text summary of that cluster.\"\n\n이 내용에 따르면, 모델의 입력은:\n1. 텍스트의 벡터 임베딩\n2. 텍스트의 벡터 데이터베이스에 저장된 벡터 표현\n\n또한 \"Synthetic Data\" 부분에서는 GPT3.5에 대한 프롬프트가 언급되어 있습니다:\n\"prompt for GPT3.5 is “You are a curious AI assistant, please generate one specific and valuable question based on the following text. The generated question should revolve around the core content of this text, and avoid using pronouns (e.g., ”this”). Note that you should generate only one question, without including additional content:”.\"\n\n이 프롬프트는 모델의 입력으로 사용되는 것으로 보입니다.\n\n### 2단계: 문서에서 모델의 출력에 관한 정보 찾기\n문서에서 모델의 출력에 관한 정보는 주로 \"Controlled experiments with three language models\" 부분에서 찾을 수 있습니다. 해당 부분에서는 다음과 같은 내용을 확인할 수 있습니다:\n\n\"Controlled experiments with three language models (UnifiedQA ( Khashabi et al., 2020 ), GPT-3 ( Brown et al., 2020 ) and GPT-4 ( OpenAI, 2023 )) show that RAPTOR outperforms current retrieval augmentation.\"\n\n이 내용에 따르면, 모델의 출력은:\n1. 사용자 질문에 대한 응답\n2. 책과 영화에 대한 자유 텍스트 응답 질문(NarrativeQA)\n3. full-text NLP 논문(QASPER)\n4. medium-length passages 기반의 multiple-choice 질문(QuALITY)\n\n또한 \"Self-Knowledge Distillation\" 부분에서는:\n\"The embedding model is trained to discriminate the positive samples from the negative ones. For each of the retrieval methods, it is expected to as- sign a higher score for the query’s positive samples compared with the negative ones. Therefore, the training process is conducted to minimize the InfoNCE loss...\"\n\n이 내용에 따르면, 모델의 출력은:\n1. 쿼리의 긍정 샘플에 더 높은 점수를 할당하는 것\n2. InfoNCE 손실을 최소화하는 것\n\n### 3단계: 찾은 정보 종합하기\n위의 분석을 종합하면, 제안된 모델의 입력과 출력은 다음과 같습니다:\n\n**입력:**\n1. 텍스트의 벡터 임베딩\n2. 텍스트의 벡터 데이터베이스\n3. 프롬프트(예: \"You are a curious AI assistant, please generate one specific and valuable question based on the following text...\")\n4. 사용자 질문\n\n**출력:**\n1. 사용자 질문에 대한 응답\n2. 책과 영화에 대한 자유 텍스트 응답 질문에 대한 답변\n3. full-text NLP 논문에 대한 답변\n4. medium-length passages 기반의 multiple-choice 질문에 대한 답변\n5. 쿼리의 긍정 샘플에 더 높은 점수를 할당하는 벡터 표현\n\n## 최종 답변\n주어진 문서를 분석한 결과, 제안된 모델의 입력과 출력은 다음과 같습니다:\n\n### 입력\n1. **텍스트 벡터 임베딩**: 문서에 따르면, 텍스트는 먼저 벡터 임베딩 모델을 통해 벡터 표현으로 변환됩니다.\n2. **벡터 데이터베이스**: 변환된 벡터 표현은 벡터 데이터베이스에 저장됩니다.\n3. **프롬프트**: GPT3.5와 같은 언어 모델에 제공되는 프롬프트는 \"You are a curious AI assistant, please generate one specific and valuable question based on the following text. The generated question should revolve around the core content of this text, and avoid using pronouns (e.g., ”this”). Note that you should generate only one question, without including additional content:\" 형태입니다.\n4. **사용자 질문**: 모델이 답변해야 할 질문 자체입니다.\n\n### 출력\n1. **사용자 질문에 대한 응답**: 모델의 주요 출력은 사용자가 제시한 질문에 대한 답변입니다.\n2. **다양한 QA 과제에 대한 답변**:\n   - 책과 영화에"
+    "track": "track1"
   },
   {
     "query": "이 논문의 novelty가 뭐야?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "B Additional Details for Our Experiments B.1 Training Details. BERT was trained on 16,000,000 tokens of English text from the Common Crawl corpus. B.2 Training Losses. The training loss consists of the following: – Masked Language Modeling (MLM) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. – Next Sentence Prediction (NSP) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a sentence being masked. – InfoNCE loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. C Ablation Studies for BERT C.1 Effect of Number of Training Steps; and C.2 Ablation for Different Masking Procedures.\n\n---\n\nAppendix for “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding” We organize the appendix into three sections: • Additional implementation details for BERT are presented in Appendix A ; • Additional details for our experiments are presented in Appendix B ; and • Additional ablation studies are presented in Appendix C. We present additional ablation studies for BERT including: – Effect of Number of Training Steps; and – Ablation for Different Masking Procedures. A Additional Details for BERT A.1 Illustration of the Pre-training Tasks We provide examples of the pre-training tasks in the following. B Additional Details for Our Experiments B.1 Training Details. BERT was trained on 16,000,000 tokens of English text from the Common Crawl corpus. B.2 Training Losses. The training loss consists of the following: – Masked Language Modeling (MLM) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. – Next Sentence Prediction (NSP) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a sentence being masked. – InfoNCE loss: 0.5 × (1 - p) InfoNCE loss의 일반 형태는 다음과 같이 제시됩니다: [수식 참조]\n\n---\n\nJianmo Ni, Gustavo Hernandez Abrego, Noah Constant, Ji Ma, Keith Hall, Daniel Cer, and Yinfei Yang. 2022. Sentence-t5: Scalable sentence encoders from pre-trained text-to-text models. In Findings of the As- sociation for Computational Linguistics: ACL 2022, pages 1864–1874, Dublin, Ireland. Association for Computational Linguistics. NLLB Team, Marta R. Costa-juss ` a, James Cross, Onur C¸olebi, Maha Elbayad, Kenneth Heafield, Kevin Hef- Fernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Bar- rault, Gabriel Mejia-Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzm ´ an, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. 2022. No language left behind: Scaling human- centered machine translation. Telmo Pires, Eva Schlinger, and Dan Garquette. 2019. How multilingual is multilingual BERT? In Proceed- ings of the 57th Annual Meeting of the Association for Computational Linguistics, pages 4996–5001, Flo- rence, Italy. Association for Computational Linguistics. Yingqi Qu, Yuchen Ding, Jing Liu, Kai Liu, Ruiyang Ren, Wayne Xin Zhao, Daxiang Dong, Hua Wu, and Haifeng Wang. 2021. RocketQA: An optimized train- ing approach to dense passage retrieval for open- domain question answering. In Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Hu- man Language Technologies, pages 5835–5847, On- line. Association for Computational Linguistics. Colin Raffel, Noam Shazeer,",
-      "paper_nlp_rag": "iv:1805.09958.\n\n---\n\nQuestion: BERT 모델의 pre-training에 사용된 masking procedure의 비율은 어떻게 되나요?\n\n## 질문 의도 파악 및 답변 계획\n주어진 컨텍스트에서 BERT 모델의 pre-training에 사용된 masking procedure의 비율에 관한 정보를 찾아 답변하겠습니다. 구체적으로 masked LM에서 단어를 [MASK]로 대체하는 비율, 무작위 단어로 대체하는 비율, 그리고 변경하지 않는 비율을 확인해야 합니다.\n\n## 추론 단계\n1. 컨텍스트에서 BERT의 pre-training에 사용된 masking procedure에 관한 정보 찾기\n2. masked LM에서 단어를 [MASK]로 대체하는 비율 확인\n3. 무작위 단어로 대체하는 비율 확인\n4. 변경하지 않는 비율 확인\n5. 찾은 정보를 종합하여 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 BERT의 pre-training에 사용된 masking procedure에 관한 정보 찾기\n컨텍스트에서 BERT의 pre-training에 사용된 masking procedure에 관한 정보는 다음 부분에서 찾을 수 있습니다:\n\n\"Additional implementation details for BERT are presented in Appendix A ; • Additional details for our experiments are presented in Appendix B ; and • Additional ablation studies are presented in Appendix C. We present additional ablation studies for BERT including: – Effect of Number of Training Steps; and – Ablation for Different Masking Procedures.\"\n\n그리고 이어서 다음 내용이 나옵니다:\n\n\"Masked LM and the Masking Procedure Assuming the unlabeled sentence is my dog is hairy, and during the random masking procedure we chose the 4-th token (which corresponding to hairy ), our masking procedure can be further il- lustrated by • 80% of the time: Replace the word with the [MASK] token, e.g., my dog is hairy → my dog is [MASK] • 10% of the time: Replace the word with a random word, e.g., my dog is hairy → my dog is apple • 10% of the time: Keep the word un- changed, e.g., my dog is hairy → my dog is hairy.\"\n\n### 2단계: masked LM에서 단어를 [MASK]로 대체하는 비율 확인\n위 내용에서 masked LM에서 단어를 [MASK]로 대체하는 비율은 80%임을 확인할 수 있습니다.\n\n### 3단계: 무작위 단어로 대체하는 비율 확인\n위 내용에서 무작위 단어로 대체하는 비율은 10%임을 확인할 수 있습니다.\n\n### 4단계: 변경하지 않는 비율 확인\n위 내용에서 변경하지 않는 비율은 10%임을 확인할 수 있습니다.\n\n### 5단계: 찾은 정보 종합\n컨텍스트에서 찾은 정보를 종합하면, BERT의 pre-training에 사용된 masking procedure는 다음과 같은 비율로 작동합니다:\n- [MASK] 토큰으로 대체하는 비율: 80%\n- 무작위 단어로 대체하는 비율: 10%\n- 변경하지 않는 비율: 10%\n\n## 최종 답변\nBERT 모델의 pre-training에 사용된 masking procedure의 비율은 다음과 같습니다:\n\n- [MASK] 토큰으로 대체하는 비율: 80%\n- 무작위 단어로 대체하는 비율: 10%\n- 변경하지 않는 비율: 10%\n\n이 masking procedure는 \"Masked Language Modeling\"의 일부로, BERT의 pre-training 과정에서 언어 모델이 문맥을 이해하고 분포적(contextual) 표현을 학습하도록 유도하는 데 사용됩니다. 문서에 따르면 이 절차는 Transformer 인코더가 어떤 단어를 예측해야 하는지, 혹은 어떤 단어가 무작위로 대체되었는지 알지 못하게 하여 입력 토큰에 대한 분포적 표현을 강제합니다.",
-      "paper_korean": "ife Huang, and Quoc V Le. 2018. Reading comprehension with multi-granularity hierarchical attention fusion networks. In Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). Association for Computational Linguistics. Samuel Humeau, Kurt Shuster, Marie-Anne Lachaux, and Jason Weston. 2020. Poly- encoders: Architec- tures and pre-training strategies for fast and accurate multi-sentence scoring. In 8th International Confer- ence on Learning Representations, ICLR 2020, Addis Ababa, Ethiopia, April 26-30, 2020. OpenReview.net.**\n\nJianmo Ni, Gustavo Hernandez Abrego, Noah Constant, Ji Ma, Keith Hall, Daniel Cer, and Yinfei Yang. 2022. Sentence-t5: Scalable sentence encoders from pre-trained text-to-text models. In Findings of the Association for Computational Linguistics: ACL 2022, pages 1864–1874, Dublin, Ireland. Association for Computational Linguistics. NLLB Team, Marta R. Costa-jus ` a, James Cross, Onur C¸ olebi, Maha Elbayad, Kenneth Heafield, Kevin Hef- fernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Bar- rault, Gabriel Mejia-Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzm ´ an, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. 2022. No language left behind: Scaling human-centered machine translation. Telmo Pires, Eva Schlinger, and Dan Garquette. 2019. How multilingual is multilingual BERT? In Proceed- ings of the 57th Annual Meeting of the Association for Computational Linguistics, pages 4996–5001, Flo- rence, Italy. Association for Computational Linguistics. Yingqi Qu, Yuchen Ding, Jing Liu, Kai Liu, Ruiyang Ren, Wayne Xin Zhao, Daxiang Dong, Hua Wu, and Haifeng Wang. 2021. RocketQA: An optimized train- ing approach to dense passage retrieval for open- domain question answering. In Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Hu- man Language Technologies, pages 5835–5847, On- line. Association for Computational Linguistics. Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Semarley Jarrett, M- anil Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Bar- rault, Gabriel Mejia-Gonzalez, Prangthip Hansanti, John Hoffman, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzm ´ an, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. 2019. Exploring the limits of transfer learning with a unified text-to-text trans- former. arXiv e-prints. Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang. 2016. SQuAD: 100,000+ questions for machine comprehension of text. In Proceedings of the 2016 Conference on Empirical Methods in Natu- ral Language Processing, pages 2383–2392, Austin, Texas. Association for Computational Linguistics. Nils Reimers and Iryna Gurevych. 2019. Sentence- BERT: Sentence embeddings using Siamese BERT- networks. In Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-I"
-    },
-    "ground_truth": "B Additional Details for Our Experiments B.1 Training Details. BERT was trained on 16,000,000 tokens of English text from the Common Crawl corpus. B.2 Training Losses. The training loss consists of the following: – Masked Language Modeling (MLM) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. – Next Sentence Prediction (NSP) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a sentence being masked. – InfoNCE loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. C Ablation Studies for BERT C.1 Effect of Number of Training Steps; and C.2 Ablation for Different Masking Procedures.\n\n---\n\nAppendix for “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding” We organize the appendix into three sections: • Additional implementation details for BERT are presented in Appendix A ; • Additional details for our experiments are presented in Appendix B ; and • Additional ablation studies are presented in Appendix C. We present additional ablation studies for BERT including: – Effect of Number of Training Steps; and – Ablation for Different Masking Procedures. A Additional Details for BERT A.1 Illustration of the Pre-training Tasks We provide examples of the pre-training tasks in the following. B Additional Details for Our Experiments B.1 Training Details. BERT was trained on 16,000,000 tokens of English text from the Common Crawl corpus. B.2 Training Losses. The training loss consists of the following: – Masked Language Modeling (MLM) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a token being masked. – Next Sentence Prediction (NSP) loss: 0.5 × (1 - p) × L1 loss on the masked tokens, where p is the probability of a sentence being masked. – InfoNCE loss: 0.5 × (1 - p) InfoNCE loss의 일반 형태는 다음과 같이 제시됩니다: [수식 참조]\n\n---\n\nJianmo Ni, Gustavo Hernandez Abrego, Noah Constant, Ji Ma, Keith Hall, Daniel Cer, and Yinfei Yang. 2022. Sentence-t5: Scalable sentence encoders from pre-trained text-to-text models. In Findings of the As- sociation for Computational Linguistics: ACL 2022, pages 1864–1874, Dublin, Ireland. Association for Computational Linguistics. NLLB Team, Marta R. Costa-juss ` a, James Cross, Onur C¸olebi, Maha Elbayad, Kenneth Heafield, Kevin Hef- Fernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Bar- rault, Gabriel Mejia-Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzm ´ an, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. 2022. No language left behind: Scaling human- centered machine translation. Telmo Pires, Eva Schlinger, and Dan Garquette. 2019. How multilingual is multilingual BERT? In Proceed- ings of the 57th Annual Meeting of the Association for Computational Linguistics, pages 4996–5001, Flo- rence, Italy. Association for Computational Linguistics. Yingqi Qu, Yuchen Ding, Jing Liu, Kai Liu, Ruiyang Ren, Wayne Xin Zhao, Daxiang Dong, Hua Wu, and Haifeng Wang. 2021. RocketQA: An optimized train- ing approach to dense passage retrieval for open- domain question answering. In Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Hu- man Language Technologies, pages 5835–5847, On- line. Association for Computational Linguistics. Colin Raffel, Noam Shazeer,"
+    "track": "track1"
   },
   {
     "query": "What is the main contribution of this paper?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "이 논문의 주요 기여는 deep bidirectional architectures를 일반화하여 동일한 pre-trained model이 광범위한 NLP tasks를 성공적으로 처리할 수 있도록 하는 것입니다. 이는 unidirectional language models에 국한되었던 기존의 findings를 deep bidirectional architectures로 확장하는 것입니다.",
-      "paper_nlp_rag": "M3-Embedding은 versatility in Multi-Linguality, Multi-Functionality, and Multi-Granularity로 구별되는 새로운 embedding 모델입니다. 이 모델은 100개 이상의 작동 언어에 대한 의미적 평가를 균일하게 지원합니다. dense retrieval, multi-vector retrieval, sparse retrieval의 세 가지 일반적인 검색 기능성을 동시에 수행할 수 있습니다. 또한 짧은 문장부터 최대 8192 토큰의 긴 문서까지 다양한 세분화 수준의 입력을 처리할 수 있습니다. 효과적인 M3-Embedding 훈련은 기술적 기여를 제시합니다. 주목할 만한 것은 관련성 점수를 교사 신호로 통합하여 훈련 품질을 향상시키는 새로운 self-knowledge dis- tillation 접근 방식을 제안하는 것입니다. 배치 전략을 최적화하여 큰 배치 크기와 높은 훈련 처리량을 가능하게 하여 임베딩의 구별성을 향상시킵니다. M3-Embedding은 실험에서 우수한 성능을 보여 다국어, 교차 언어 및 긴 문서 검색 벤치마크에서 새로운 최첨단 결과를 이끌어냅니다."
-    },
-    "ground_truth": "이 논문의 주요 기여는 deep bidirectional architectures를 일반화하여 동일한 pre-trained model이 광범위한 NLP tasks를 성공적으로 처리할 수 있도록 하는 것입니다. 이는 unidirectional language models에 국한되었던 기존의 findings를 deep bidirectional architectures로 확장하는 것입니다."
+    "track": "track1"
   },
   {
     "query": "이 논문의 저자들이 어느 기관 소속이야?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다.",
-      "paper_nlp_rag": "제공된 컨텍스트에서는 논문의 저자가 어느 기관에 소속되어 있는지에 대한 정보를 찾을 수 없습니다. 컨텍스트에는 다양한 연구자들의 이름이 언급되어 있지만, 그들이 어느 기관에 소속되어 있는지에 대한 정보는 포함되어 있지 않습니다. 따라서 이 질문에 대한 답변을 컨텍스트에서 도출할 수 없습니다.",
-      "paper_korean": "alike. ACL Anthology, pages 1–9, 2013. URL https://aclanthology.org/2013.wac.104.html. \n\n---\n\nQuestion: MS MARCO passage ranking dataset을 번역하여 multilingual 버전인 mMARCO를 만들었을 때, 어떤 언어로 번역되었나요?\n\n## 답변\n# MS MARCO를 번역하여 만든 multilingual 버전 mMARCO의 언어\n\n제공된 컨텍스트를 검토한 결과, MS MARCO passage ranking dataset을 번역하여 multilingual 버전인 mMARCO를 만들었을 때 13개의 언어로 번역되었습니다. 구체적으로 번역된 언어는 다음과 같습니다:\n\n- Portuguese (포르투갈어)\n- Spanish (스페인어)\n- German (독일어)\n- 그리고 Chinese (중국어)\n\n이 번역 작업은 automatic translation(자동 번역) 방법을 사용하여 수행되었으며, 이는 많은 언어에 대해 신뢰할 수 있는 labeled resources를 생성하는 attainable(달성 가능한) 방법으로 채택되었습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "이 연구에서 해결하려는 문제가 뭐야?",
+    "ground_truth": "",
     "type": "simple_qa",
-    "track": "track1",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "20] J. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [21] X. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [22] Y. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [23] X. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXi\n\n---\n\n—. 2021, ApJ, 917, 96, doi: 10.3847/1538-4357/ac0c7b\n\n---\n\n**문제 1.** 다음 중 언어 모델의 효과성 및 한계점을 조사하는 연구로 2022년에 발표된 논문은 무엇인가요?\n(A) Ms marco (B) Eli5 (C) Hotpotqa (D) Musique\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 2.** 2013년 자연어 처리 컨퍼런스에서 발표된 언어 모델 관련 연구는 무엇인가요?\n(A) Think you have solved question answering? try arc, the ai2 reasoning challenge (B) Eli5 (C) Covid-qa (D) Asqa\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 3.** 2023년에 발표된 의료 분야 벤치마크 연구는 무엇인가요?\n(A) cmb (B) Quality (C) Asqa (D) Qmsum\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 4.** 2022년에 발표된 다중 홉 질문 구성에 관한 연구는 무엇인가요?\n(A) Eli5 (B) Eli5: Long form question answering (C) Constructing a multi-hop qa dataset for comprehensive evaluation of reasoning steps (D) Eli5: Long document transformer\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 5.** 2021년에 발표된 논문의 DOI는 무엇인가요?\n(A) 10.3847/1538-4357/ac0c7b (B) 10.18653/v1/2022.findings-emnlp.180 (C) 10.1538/4357/2001 (D) 10.18653/v1/2022.findings-acl.679\n**정답:** (X)\n**해설:** [근거]",
-      "paper_nlp_rag": "20] Y. Li, Y. Zhang, and Y. Zhang, “A new benchmark for question answering with long input texts, yes!” arXiv preprint arXiv:2112.08608, 2021. [21] A. Fan, Y. Jernite, E. Perez, D. Grangier, J. Weston, and M. Auli, “Eli5: Long form question answering,” arXiv preprint arXiv:1907.09190, 2019. [22] T. Koˇcisk`y, J. Schwarz, P. Blunsom, C. Dyer, K. M. Hermann, G. Melis, and E. Grefenstette, “The narrativeqa reading comprehension chal- lenge,” Transactions of the Association for Computational Linguistics, vol. 6, pp. 317–328, 2018. [23] X. Ho, A.-K. D. Nguyen, S. Sugawara, and A. Aizawa, “Constructing a multi-hop qa dataset for comprehensive evaluation of reasoning steps,” arXiv preprint arXiv:2011.01060, 2020. [24] H. Trivedi, N. Balasubramanian, T. Khot, and A. Sabharwal, “Musique: Multihop questions via single-hop question composition,” Transactions of the Association for Computational Linguistics, vol. 10, pp. 539–554, 2022. [25] M. Zhong, D. Yin, T. Yu, A. Zaidi, M. Mutuma, R. Jha, A. H. Awadallah, A. Celikyilmaz, Y. Liu, X. Qiu et al., “Qmsum: A new benchmark for query-based multi-domain meeting summarization,” arXiv preprint arXiv:2104.05938, 2021. [26] I. Stelmakh, Y. Luan, B. Dhingra, and M.-W. Chang, “Asqa: Factoid questions meet long-form answers,” arXiv preprint arXiv:2204.06092, 2022. [27] T. M¨oller, A. Reina, R. Jayakumar, and M. Pietsch, “Covid-qa: A question answering dataset for covid-19,” in ACL 2020 Workshop on Natural Language Processing for COVID-19 (NLP-COVID), 2020. [28] X. Wang, G. H. Chen, D. Song, Z. Zhang, Z. Chen, Q. Xiao, F. Jiang, J. Li, X. Wan, B. Wang et al., “Cmb: A comprehensive medical benchmark in chinese,” arXiv preprint arXiv:2308.08833, 2023. [29] H. Zeng, “Measuring massive multitask chinese understanding,” arXiv preprint arXiv:2304.12986, 2023. [30] R. Y. Pang, A. Parrish, N. Joshi, N. Nangia, J. Phang, A. Chen, V. Pad- makumar, J. Ma, J. Thompson, H. He et al., “Quality: Question answering with long input texts, yes!” arXiv preprint arXiv:2112.08608, 2021. [31] P. Clark, I. Cowhey, O. Etzioni, T. Khot, A. Sabharwal, C. Schoenick, and O. Tafjord, “Think you have solved question answering? try arc, the ai2 reasoning challenge,” arXiv preprint arXiv:1803.05457, 2018. [32] A. Talmor, J. Herzig, N. Lourie, and J. Berant, “Commonsenseqa: A question answering challenge\"\n\n---\n\n---\n\n**문제 1.** 다음 중 2022년에 발표된 언어 모델 관련 논문은 무엇인가요?\n(A) Eli5: Long form question answering\n(B) Hotpotqa: A dataset for diverse, explain-able multi-hop question answering\n(C) When not to trust language models: Investigating effectiveness and limitations of parametric and non-parametric memories\n(D) Ms marco: A human-generated machine reading comprehension dataset\n\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 2.** 다음 중 2013년에 발표된 자연어 처리 컨퍼런스에서 다룬 주제는 무엇인가요?\n(A) 언어 모델의 효과성 및 한계\n(B) 인간-생성 기계 독해 데이터셋",
-      "paper_korean": "20] J. Li, Y. Li, and X. Li, “Knowledge retrieval for question answering: A survey,” arXiv preprint arXiv:2308.08634, 2023. [21] X. Wang, Y. Qiu, Y. Liu, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, Y. Zhang"
-    },
-    "ground_truth": "20] J. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [21] X. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [22] Y. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXiv preprint arXiv:2308.04856, 2023. [23] X. Li, Y. Zhang, and X. Li, “Query rewriting for retrieval-augmented icl,” arXi\n\n---\n\n—. 2021, ApJ, 917, 96, doi: 10.3847/1538-4357/ac0c7b\n\n---\n\n**문제 1.** 다음 중 언어 모델의 효과성 및 한계점을 조사하는 연구로 2022년에 발표된 논문은 무엇인가요?\n(A) Ms marco (B) Eli5 (C) Hotpotqa (D) Musique\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 2.** 2013년 자연어 처리 컨퍼런스에서 발표된 언어 모델 관련 연구는 무엇인가요?\n(A) Think you have solved question answering? try arc, the ai2 reasoning challenge (B) Eli5 (C) Covid-qa (D) Asqa\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 3.** 2023년에 발표된 의료 분야 벤치마크 연구는 무엇인가요?\n(A) cmb (B) Quality (C) Asqa (D) Qmsum\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 4.** 2022년에 발표된 다중 홉 질문 구성에 관한 연구는 무엇인가요?\n(A) Eli5 (B) Eli5: Long form question answering (C) Constructing a multi-hop qa dataset for comprehensive evaluation of reasoning steps (D) Eli5: Long document transformer\n**정답:** (X)\n**해설:** [근거]\n\n---\n\n**문제 5.** 2021년에 발표된 논문의 DOI는 무엇인가요?\n(A) 10.3847/1538-4357/ac0c7b (B) 10.18653/v1/2022.findings-emnlp.180 (C) 10.1538/4357/2001 (D) 10.18653/v1/2022.findings-acl.679\n**정답:** (X)\n**해설:** [근거]"
+    "track": "track1"
+  },
+  {
+    "query": "이 문서는 무엇을 설명하는 자료야?",
+    "ground_truth": "",
+    "type": "general_doc",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "note": "일반 문서용 — 섹션 인식 fallback 후 A경로 동작 확인",
+    "track": "track1"
   },
   {
     "query": "실험 결과가 어떻게 나왔어?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score Computation에 관한 내용을 설명하고 있지만, 실험 결과에 대한 구체적인 수치나 데이터는 포함되어 있지 않습니다. 따라서 실험 결과가 어떻게 나왔는지에 대한 정보는 제공된 논문에서 찾을 수 없습니다.",
-      "paper_nlp_rag": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score Computation에 관한 내용을 설명하고 있지만, 실험 결과에 대한 구체적인 수치나 데이터는 포함되어 있지 않습니다. 따라서 실험 결과가 어떻게 나왔는지에 대한 정보는 제공된 논문에서 찾을 수 없습니다.",
-      "paper_korean": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score Computation에 관한 내용을 다루고 있지만, 실험 결과에 대한 구체적인 수치나 데이터는 포함되어 있지 않습니다. 따라서 실험 결과가 어떻게 나왔는지에 대한 정보는 제공된 논문에서 확인할 수 없습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score Computation에 관한 내용을 설명하고 있지만, 실험 결과에 대한 구체적인 수치나 데이터는 포함되어 있지 않습니다. 따라서 실험 결과가 어떻게 나왔는지에 대한 정보는 제공된 논문에서 찾을 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "기존 방법 대비 성능이 얼마나 향상되었어?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score 계산에 관한 내용을 다루고 있으며, 문서 순위 차이를 계산하는 수식을 포함하고 있습니다. 그러나 기존 방법 대비 성능 향상에 대한 구체적인 수치는 제공되지 않았습니다.",
-      "paper_nlp_rag": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score 계산 방법에 대해 설명하고 있지만, 기존 방법 대비 성능 향상에 대한 구체적인 수치나 비교 데이터는 포함되어 있지 않습니다. 따라서 성능 향상 정도를 문서에서 확인할 수 없습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트는 Stage 3에서 번역된 문서들의 재랭킹과 MLRS Score 계산에 관한 내용을 다루고 있으며, 문서 순위 차이를 계산하는 수식을 포함하고 있습니다. 그러나 기존 방법 대비 성능 향상에 대한 구체적인 수치는 제공되지 않았습니다."
+    "track": "track1"
   },
   {
     "query": "F1 score는 몇이야?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_nlp_bge"
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "정확도(accuracy)는 어느 정도야?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다.",
-      "paper_nlp_rag": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "baseline 모델들은 뭐가 있어?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "Empirical Methods in Natural Language Processing, pp. 1–11, Online, November 2021. Association for Computational Linguistics. doi: 10.18653/v1/2021.emnlp-main.1. Jack W Rae, Trevor Cai, Katie Millican, Jordan Hoffmann, Francis Song, John Aslanides, Sarah Henderson, Roman Ring, Susannah Young, et al. Scaling language models: Methods, Analysis & Insights from Training Gopher. arXiv preprint arXiv:2112.11446, 2021. URL https://arxiv.org/abs/2112.11446. Fabio Petroni, Tim Rockt¨aschel, Patrick Lewis, Anton Bakhtin, Yuxiang Wu, Alexander H Miller, and Sebastian Riedel. Language models as knowledge bases? arXiv preprint arXiv:1909.01066, 2019. URL https://arxiv.org/abs/1909.01066. \n\n---\n\n[CLS] Tok 1 [SEP]... Tok 1... Tok Question Paragraph E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence Tok 1 Tok 2 Tok N... [CLS] E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence B-PER O O... E [CLS] E 1 E [SEP] Class Label... E N E 1 ’... E M ’ C T 1 T [SEP]... T N T 1 ’... T M ’ Start/End Span Class Label Tok 1 Tok 2 Tok N... [CLS] Tok 1 [CLS] [CLS] Tok 1 [SEP]... Tok 1... Tok Sentence 1 Sentence 2 Figure 4: Illustrations of Fine-tuning BERT on Different Tasks. SST-2 The Stanford Sentiment Treebank is a binary single-sentence classification task consist- ing of sentences extracted from movie reviews with human annotations of their sentiment ( Socher et al., 2013 ). CoLA The Corpus of Linguistic Acceptability is a binary single-sentence classification task, where the goal is to predict whether an English sentence is linguistically “acceptable” or not ( Warstadt et al., 2018 ). STS-B The Semantic Textual Similarity Bench- mark is a collection of sentence pairs drawn from news headlines and other sources ( Cer et al., 2017 ). They were annotated with a score from 1 to 5 denoting how similar the two sentences are in terms of semantic meaning. MRPC Microsoft Research Paraphrase Corpus consists of sentence pairs automatically extracted from online news sources, with human annotations for whether the sentences in the pair are semanti- cally equivalent ( Dolan and Brockett, 2005 ). RTE Recognizing Textual Entailment is a bi- nary entailment task similar to MNLI, but with much less training data ( Bentivogli et al., 2009 ). 14 WNLI Winograd NLI is a small natural lan- guage inference dataset ( Levesque et al., 2011 ). The GLUE webpage notes that there are issues with the construction of this dataset, 15 and every trained system that’s been submitted to GLUE has performed worse than the 65.1 baseline accuracy of predicting the majority class. We therefore ex- clude this set to be fair to OpenAI GPT. For our GLUE submission, we always predicted the ma 14 Note that we only report single-task fine-tuning results in this paper. A multitask fine-tuning approach could poten- tially push the performance even further. For example, we did observe substantial improvements on RTE from multi- task training with MNLI. 15 https://gluebenchmark.com/faq\n\n---\n\n[CLS] Tok 1 [SEP]... Tok 1... Tok Question Paragraph E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence Tok 1 Tok 2 Tok N... [CLS] E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence B-PER O O... E [CLS] E 1 E [SEP] Class Label... E N E 1 ’... E M ’ C T 1 T [SEP]... T N T 1 ’... T M ’ Start/End Span Class Label Tok 1 Tok 2 Tok N... [CLS] Tok 1 [CLS] [CLS] Tok 1 [SEP]... Tok 1... Tok Sentence 1 S",
-      "paper_nlp_rag": "# SWAG 데이터셋에서의 baseline 모델 비교\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 SWAG 데이터셋에서 사용된 baseline 모델들에 대해 묻고 있습니다. 주어진 문서에서 SWAG 데이터셋과 관련된 baseline 모델들에 대한 정보를 찾아 답변하겠습니다. 특히 ESIM+ELMo 시스템과 OpenAI GPT가 baseline으로 언급되었는지 확인하고, BERT LARGE와의 성능 비교 결과도 함께 제시하겠습니다.\n\n## 추론 단계\n1. 문서에서 SWAG 데이터셋 관련 내용 찾기\n2. baseline 모델들에 대한 정보 확인\n3. BERT LARGE와 baseline 모델들의 성능 비교 결과 확인\n4. 찾은 정보를 종합하여 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 문서에서 SWAG 데이터셋 관련 내용 찾기\n문서를 검토한 결과, SWAG 데이터셋에 대한 내용은 주로 다음 부분에서 언급되고 있습니다:\n\n\"has been pre-trained for k steps. This allows us to answer the following questions: 1. Question: Does BERT really need such a large amount of pre-training (128,000 words/batch * 1,000,000 steps) to achieve high fine-tuning accuracy? Answer: Yes, BERT BASE achieves almost 1.0% additional accuracy on MNLI when trained on 1M steps compared to 500k steps. 2. Question: Does MLM pre-training converge slower than LTR pre-training, since only 15% of words are predicted in each batch rather than every word? Answer: The MLM model does converge slightly slower than the LTR model. However, in terms of absolute accuracy the MLM model begins to outperform the LTR model almost immediately.\"\n\n그리고 아래에 SWAG 관련 내용이 있습니다:\n\"Given a sentence, the task is to choose the most plausible continuation among four choices. When fine-tuning on the SWAG dataset, we construct four input sequences, each containing the concatenation of the given sentence (sentence A ) and a possible continuation (sentence B ). The only task-specific parameters introduced is a vector whose dot product with the [CLS] token representation C denotes a score for each choice which is normalized with a softmax layer. We fine-tune the model for 3 epochs with a learning rate of 2e-5 and a batch size of 16. Results are presented in Table 4. BERT LARGE out- performs the authors’ baseline ESIM+ELMo system by +27.1% and OpenAI GPT by 8.3%.\"\n\n### 2단계: baseline 모델들에 대한 정보 확인\n문서에서 SWAG 데이터셋의 baseline 모델로 명시적으로 언급된 것은:\n1. ESIM+ELMo 시스템\n2. OpenAI GPT\n\n이 두 모델이 baseline으로 사용되었음을 확인할 수 있습니다.\n\n### 3단계: BERT LARGE와 baseline 모델들의 성능 비교 결과 확인\n문서에 따르면, BERT LARGE는 SWAG 데이터셋에서:\n- ESIM+ELMo 시스템보다 +27.1% 더 높은 성능을 보임\n- OpenAI GPT보다 8.3% 더 높은 성능을 보임\n\n이는 BERT LARGE가 두 baseline 모델보다 상당히 우수한 성능을 달성했음을 보여줍니다.\n\n## 최종 답변\n문서에 따르면, SWAG 데이터셋에서 사용된 baseline 모델들은 다음과 같습니다:\n\n1. **ESIM+ELMo 시스템**: BERT LARGE가 이 baseline 시스템보다 27.1% 더 높은 성능을 보였습니다.\n\n2. **OpenAI GPT**: BERT LARGE가 이 baseline 모델보다 8.3% 더 높은 성능을 보였습니다.\n\n문서에서는 BERT LARGE가 SWAG 데이터셋에서 네 개의 입력 시퀀스(주어진 문장과 가능한 네 가지 연속 문장)를 사용하여 학습되었으며, [CLS] 토큰의 표현과 벡터의 내적을 통해 각 선택지의 점수를 계산하고 소프트맥스 레이어로 정규화하는 방식으로 성능을 평가했음을 확인할 수 있습니다."
-    },
-    "ground_truth": "Empirical Methods in Natural Language Processing, pp. 1–11, Online, November 2021. Association for Computational Linguistics. doi: 10.18653/v1/2021.emnlp-main.1. Jack W Rae, Trevor Cai, Katie Millican, Jordan Hoffmann, Francis Song, John Aslanides, Sarah Henderson, Roman Ring, Susannah Young, et al. Scaling language models: Methods, Analysis & Insights from Training Gopher. arXiv preprint arXiv:2112.11446, 2021. URL https://arxiv.org/abs/2112.11446. Fabio Petroni, Tim Rockt¨aschel, Patrick Lewis, Anton Bakhtin, Yuxiang Wu, Alexander H Miller, and Sebastian Riedel. Language models as knowledge bases? arXiv preprint arXiv:1909.01066, 2019. URL https://arxiv.org/abs/1909.01066. \n\n---\n\n[CLS] Tok 1 [SEP]... Tok 1... Tok Question Paragraph E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence Tok 1 Tok 2 Tok N... [CLS] E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence B-PER O O... E [CLS] E 1 E [SEP] Class Label... E N E 1 ’... E M ’ C T 1 T [SEP]... T N T 1 ’... T M ’ Start/End Span Class Label Tok 1 Tok 2 Tok N... [CLS] Tok 1 [CLS] [CLS] Tok 1 [SEP]... Tok 1... Tok Sentence 1 Sentence 2 Figure 4: Illustrations of Fine-tuning BERT on Different Tasks. SST-2 The Stanford Sentiment Treebank is a binary single-sentence classification task consist- ing of sentences extracted from movie reviews with human annotations of their sentiment ( Socher et al., 2013 ). CoLA The Corpus of Linguistic Acceptability is a binary single-sentence classification task, where the goal is to predict whether an English sentence is linguistically “acceptable” or not ( Warstadt et al., 2018 ). STS-B The Semantic Textual Similarity Bench- mark is a collection of sentence pairs drawn from news headlines and other sources ( Cer et al., 2017 ). They were annotated with a score from 1 to 5 denoting how similar the two sentences are in terms of semantic meaning. MRPC Microsoft Research Paraphrase Corpus consists of sentence pairs automatically extracted from online news sources, with human annotations for whether the sentences in the pair are semanti- cally equivalent ( Dolan and Brockett, 2005 ). RTE Recognizing Textual Entailment is a bi- nary entailment task similar to MNLI, but with much less training data ( Bentivogli et al., 2009 ). 14 WNLI Winograd NLI is a small natural lan- guage inference dataset ( Levesque et al., 2011 ). The GLUE webpage notes that there are issues with the construction of this dataset, 15 and every trained system that’s been submitted to GLUE has performed worse than the 65.1 baseline accuracy of predicting the majority class. We therefore ex- clude this set to be fair to OpenAI GPT. For our GLUE submission, we always predicted the ma 14 Note that we only report single-task fine-tuning results in this paper. A multitask fine-tuning approach could poten- tially push the performance even further. For example, we did observe substantial improvements on RTE from multi- task training with MNLI. 15 https://gluebenchmark.com/faq\n\n---\n\n[CLS] Tok 1 [SEP]... Tok 1... Tok Question Paragraph E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence Tok 1 Tok 2 Tok N... [CLS] E [CLS] E 1 E 2 E N C T 1 T 2 T N Single Sentence B-PER O O... E [CLS] E 1 E [SEP] Class Label... E N E 1 ’... E M ’ C T 1 T [SEP]... T N T 1 ’... T M ’ Start/End Span Class Label Tok 1 Tok 2 Tok N... [CLS] Tok 1 [CLS] [CLS] Tok 1 [SEP]... Tok 1... Tok Sentence 1 S"
+    "track": "track1"
   },
   {
     "query": "ablation study 결과는?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_nlp_bge"
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# M3-Embedding의 Ablation Study 결과 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 M3-Embedding의 ablation study 결과에 관한 정보를 찾아 답변하겠습니다. 구체적으로 Table 14와 Table 15에 나타난 self-knowledge distillation과 multi-stage training에 관한 결과를 분석하겠습니다.\n\n## 추론 단계\n1. 논문에서 ablation study 관련 섹션 확인\n2. Table 14와 Table 15의 위치 및 내용 파악\n3. M3-Embedding의 ablation study 결과 분석\n\n## 단계별 추론 결과\n### 1단계: 논문에서 ablation study 관련 섹션 확인\n컨텍스트를 살펴보면 \"C.1 Additional Results\" 섹션 아래 \"C.1 Additional Results\"라는 제목이 있고, 그 아래에 \"In this section, we present additional evaluation results on the MIRACL and MKQA benchmarks.\"라고 명시되어 있습니다. 이는 M3-Embedding의 추가 평가 결과를 제시하는 섹션임을 알 수 있습니다.\n\n### 2단계: Table 14와 Table 15의 위치 및 내용 파악\n컨텍스트에서 \"The detailed results of ablation studies of self-knowledge distillation and multi-stage training on the MIRACL dev set are shown in Table 14 and Table 15.\"라고 언급하고 있습니다. 이는 self-knowledge distillation과 multi-stage training에 관한 ablation study 결과가 Table 14와 Table 15에 제시되어 있음을 나타냅니다.\n\n그러나 제공된 컨텍스트에는 Table 14와 Table 15의 실제 내용이 포함되어 있지 않습니다. 따라서 구체적인 수치나 결과를 확인할 수 없습니다.\n\n### 3단계: M3-Embedding의 ablation study 결과 분석\n컨텍스트에서는 \"M3-Embedding out- performs all baselines on average.\"라고 언급하고 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보인다는 것을 알 수 있습니다. 그러나 구체적인 수치나 비교 데이터는 제공된 컨텍스트에 포함되어 있지 않습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 M3-Embedding의 ablation study 결과에 대한 일부 정보만 제공하고 있습니다. \n\n컨텍스트에 따르면, M3-Embedding은 MIRACL dev set에서 self-knowledge distillation과 multi-stage training에 관한 ablation study를 수행했으며, 이 결과는 Table 14와 Table 15에 제시되어 있습니다. \n\n논문에서는 \"M3-Embedding out- performs all baselines on average\"라고 언급하고 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보인다는 것을 알 수 있습니다. 그러나 구체적인 수치, 비교 데이터, 또는 Table 14와 Table 15의 상세 내용은 제공된 컨텍스트에 포함되어 있지 않습니다.\n\n따라서 ablation study의 구체적인 결과(어떤 요소가 성능 향상에 기여했는지, 어떤 baseline과 비교되었는지 등)에 대한 상세 정보는 주어진 논문에서 찾을 수 없습니다."
-    },
-    "ground_truth": "# M3-Embedding의 Ablation Study 결과 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문에서 M3-Embedding의 ablation study 결과에 관한 정보를 찾아 답변하겠습니다. 구체적으로 Table 14와 Table 15에 나타난 self-knowledge distillation과 multi-stage training에 관한 결과를 분석하겠습니다.\n\n## 추론 단계\n1. 논문에서 ablation study 관련 섹션 확인\n2. Table 14와 Table 15의 위치 및 내용 파악\n3. M3-Embedding의 ablation study 결과 분석\n\n## 단계별 추론 결과\n### 1단계: 논문에서 ablation study 관련 섹션 확인\n컨텍스트를 살펴보면 \"C.1 Additional Results\" 섹션 아래 \"C.1 Additional Results\"라는 제목이 있고, 그 아래에 \"In this section, we present additional evaluation results on the MIRACL and MKQA benchmarks.\"라고 명시되어 있습니다. 이는 M3-Embedding의 추가 평가 결과를 제시하는 섹션임을 알 수 있습니다.\n\n### 2단계: Table 14와 Table 15의 위치 및 내용 파악\n컨텍스트에서 \"The detailed results of ablation studies of self-knowledge distillation and multi-stage training on the MIRACL dev set are shown in Table 14 and Table 15.\"라고 언급하고 있습니다. 이는 self-knowledge distillation과 multi-stage training에 관한 ablation study 결과가 Table 14와 Table 15에 제시되어 있음을 나타냅니다.\n\n그러나 제공된 컨텍스트에는 Table 14와 Table 15의 실제 내용이 포함되어 있지 않습니다. 따라서 구체적인 수치나 결과를 확인할 수 없습니다.\n\n### 3단계: M3-Embedding의 ablation study 결과 분석\n컨텍스트에서는 \"M3-Embedding out- performs all baselines on average.\"라고 언급하고 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보인다는 것을 알 수 있습니다. 그러나 구체적인 수치나 비교 데이터는 제공된 컨텍스트에 포함되어 있지 않습니다.\n\n## 최종 답변\n주어진 논문 컨텍스트에서는 M3-Embedding의 ablation study 결과에 대한 일부 정보만 제공하고 있습니다. \n\n컨텍스트에 따르면, M3-Embedding은 MIRACL dev set에서 self-knowledge distillation과 multi-stage training에 관한 ablation study를 수행했으며, 이 결과는 Table 14와 Table 15에 제시되어 있습니다. \n\n논문에서는 \"M3-Embedding out- performs all baselines on average\"라고 언급하고 있어, M3-Embedding이 모든 baseline보다 평균적으로 더 좋은 성능을 보인다는 것을 알 수 있습니다. 그러나 구체적인 수치, 비교 데이터, 또는 Table 14와 Table 15의 상세 내용은 제공된 컨텍스트에 포함되어 있지 않습니다.\n\n따라서 ablation study의 구체적인 결과(어떤 요소가 성능 향상에 기여했는지, 어떤 baseline과 비교되었는지 등)에 대한 상세 정보는 주어진 논문에서 찾을 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "방법론 설명해줘",
+    "ground_truth": "",
     "type": "section_method",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# Dual Knowledge Multilingual RAG(DKM-RAG) 방법론 설명\n\n컨텍스트에서 제시된 Dual Knowledge Multilingual RAG(DKM-RAG)는 문서 번역과 LLM 내부 지식을 활용하여 관련성을 정제하는 프레임워크입니다. 주요 방법론은 다음과 같습니다:\n\n## 번역 기반 접근법의 한계와 개선점\n- 기존 mRAG 방식은 검색된 문서를 쿼리 언어로 번역하여 활용하지만, 고자원 언어의 평가 출력에 포함된 관련 없거나 불필요한 내용이 반영될 수 있음\n- 이를 해결하기 위해 LLM의 내부 지식을 활용하여 번역된 내용을 정제함으로써 문서의 관련성을 향상시킴\n\n## DKM-RAG 프레임워크\n- LLM의 내부 정보를 활용하여 번역된 문장을 재작성함으로써 문서의 관련성을 강화\n- 이 접근법을 통해 검색된 정보를 더 신뢰할 수 있는 내용으로 풍부하게 만듦\n\n컨텍스트에서는 DKM-RAG가 제안된 프레임워크임을 명시하고 있으며, 구체적인 방법론의 세부 단계나 기술적 구현에 대한 상세 설명은 제공되지 않았습니다.",
-      "paper_nlp_rag": "# Dual Knowledge Multilingual RAG(DKM-RAG) 방법론 설명\n\n컨텍스트에서 제시된 Dual Knowledge Multilingual RAG(DKM-RAG)는 문서 번역과 LLM 내부 지식을 활용하여 관련성을 정제하는 프레임워크입니다. 주요 방법론은 다음과 같습니다:\n\n## 1. 번역 기반 접근법\n- 검색된 문서들을 쿼리 언어로 번역하여 mRAG(멀티링구얼 RAG)를 활용합니다.\n- 그러나 이 방법은 고자원 언어의 평가 출력물에서 불필요한 내용도 반영될 수 있습니다.\n\n## 2. LLM 내부 지식 활용\n- LLM의 내부 지식을 활용하여 번역된 문서의 부정확성을 필터링합니다.\n- LLM의 내부 정보를 활용하여 검색된 정보를 더 신뢰할 수 있는 내용으로 풍부하게 만듭니다.\n\n## 3. DKM-RAG 프레임워크\n- 위의 통찰을 바탕으로 Dual Knowledge Multilingual RAG(DKM-RAG) 프레임워크를 제안합니다.\n- 번역된 문장을 LLM의 내부 정보를 활용하여 재작성함으로써 문서의 관련성을 강화합니다.\n\n이 방법론은 번역 과정에서 발생할 수 있는 부정확성을 LLM의 내부 지식을 통해 보완하고, 검색된 정보의 신뢰성을 향상시키는 것을 목표로 합니다.",
-      "paper_korean": "# Dual Knowledge Multilingual RAG(DKM-RAG) 방법론 설명\n\n컨텍스트에서 제시된 Dual Knowledge Multilingual RAG(DKM-RAG)는 문서 번역과 LLM 내부 지식을 활용하여 관련성을 정제하는 프레임워크입니다. 주요 방법론은 다음과 같습니다:\n\n## 1. 번역 기반 접근법\n- 검색된 문서를 쿼리 언어로 번역하여 mRAG의 장점을 활용\n- 그러나 고자원 언어의 평가결과가 포함되어 관련성 없는 내용이 반영될 수 있음\n- LLM의 내부 지식을 활용하여 번역된 내용을 정제함으로써 문서의 관련성을 향상\n\n## 2. 제안된 프레임워크\n- Dual Knowledge Multilingual RAG라는 이름으로 명명됨\n- LLM의 내부 정보를 활용하여 번역된 문장을 개선\n\n컨텍스트에서는 DKM-RAG의 구체적인 구현 방법이나 실험 결과에 대한 상세 내용은 제공되지 않았습니다. 다만, 이 프레임워크가 번역된 문서의 관련성을 향상시키기 위해 LLM의 내부 지식을 활용한다는 점이 핵심 아이디어로 제시되었습니다."
-    },
-    "ground_truth": "# Dual Knowledge Multilingual RAG(DKM-RAG) 방법론 설명\n\n컨텍스트에서 제시된 Dual Knowledge Multilingual RAG(DKM-RAG)는 문서 번역과 LLM 내부 지식을 활용하여 관련성을 정제하는 프레임워크입니다. 주요 방법론은 다음과 같습니다:\n\n## 번역 기반 접근법의 한계와 개선점\n- 기존 mRAG 방식은 검색된 문서를 쿼리 언어로 번역하여 활용하지만, 고자원 언어의 평가 출력에 포함된 관련 없거나 불필요한 내용이 반영될 수 있음\n- 이를 해결하기 위해 LLM의 내부 지식을 활용하여 번역된 내용을 정제함으로써 문서의 관련성을 향상시킴\n\n## DKM-RAG 프레임워크\n- LLM의 내부 정보를 활용하여 번역된 문장을 재작성함으로써 문서의 관련성을 강화\n- 이 접근법을 통해 검색된 정보를 더 신뢰할 수 있는 내용으로 풍부하게 만듦\n\n컨텍스트에서는 DKM-RAG가 제안된 프레임워크임을 명시하고 있으며, 구체적인 방법론의 세부 단계나 기술적 구현에 대한 상세 설명은 제공되지 않았습니다."
+    "track": "track1"
   },
   {
     "query": "모델 아키텍처가 어떻게 되어 있어?",
+    "ground_truth": "",
     "type": "section_method",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_nlp_bge"
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# DKM-RAG 모델 아키텍처 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 컨텍스트에서 모델 아키텍처에 관한 정보를 찾아 분석해야 합니다. 문서에는 모델의 구성 요소와 특징에 대한 정보가 포함되어 있을 수 있으나, 구체적인 아키텍처 구조는 명시되어 있지 않습니다. 문서의 내용을 검토하여 모델 아키텍처에 관한 정보를 찾고, 이를 바탕으로 답변을 작성하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델 아키텍처 관련 정보 찾기\n2. 모델의 구성 요소와 특징 분석하기\n3. 문서에 제시된 정보를 바탕으로 결론 도출하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 모델 아키텍처 관련 정보 찾기\n컨텍스트를 검토한 결과, 모델 아키텍처에 대한 직접적인 설명은 제한적입니다. 문서에서는 다음과 같은 정보를 찾을 수 있습니다:\n\n- \"Based on this insight, we propose Dual Knowl- edge Multilingual RAG (DKM-RAG), a framework\"\n- \"71.3 72.0 de 23.3 53.2 60.2 71.2 70.8 67.6 69.8 33.2 69.6 70.2 70.4 es 29.8 55.4 62.3 70.8 71.6 68.0 69.8 40.3 70.3 70.2 70.7 fi 33.2 42.8 58.7 67.7 63.6 65.5 67.8 41.2 68.3 68.4 68.9 fr 30.3 56.5 62.6 69.5 72.7 68.2 69.6 43.2 70.1 70.1 70.8 he 16.1 34.0 50.5 61.4 32.4 46.3 63.4 24.5 64.4 63.5 64.6 hu 26.1 46.1 57.1 68.0 68.3 64.0 67.1 34.5 67.3 67.7 67.9 it 31.5 53.8 62.0 71.2 71.3 67.6 69.7 41.5 69.9 69.9 70.3 ja 14.5 46.3 50.7 63.1 57.6 64.2 67.0 23.3 67.8 67.1 67.9 km 20.7 20.6 18.7 18.3 23.3 25.7 58.5 24.4 59.2 58.9 59.5 ko 18.3 36.8 44.9 58.9 49.4 53.9 61.9 24.3 63.2 62.1 63.3 ms 42.3 53.8 63.7 70.2 71.1 66.1 71.6 52.5 72.1 71.8 72.3 nl 42.5 56.9 63.9 73.0 74.5 68.8 71.3 52.9 71.8 71.7 72.3 no 38.5 55.2 63.0 71.1 70.8 67.0 70.7 47.0 71.4 71.1 71.6 pl 28.7 50.4 60.9 70.5 71.5 66.1 69.4 36.4 70.0 69.9 70.4 pt 31.8 52.5 61.0 66.8 71.6 67.7 69.3 40.2 70.0 69.8 70.6 ru 21.8 49.8 57.9 70.6 68.7 65.1 69.4 29.2 70.0 69.4 70.0 sv 41.1 54.9 62.7 72.0 73.3 67.8 70.5 49.8 71.3 71.5 71.5 th 28.4 40.9 54.4 69.7 57.1 55.2 69.6 34.7 70.5 69.8 70.8 tr 33.5 45.5 59.9 67."
-    },
-    "ground_truth": "# DKM-RAG 모델 아키텍처 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 컨텍스트에서 모델 아키텍처에 관한 정보를 찾아 분석해야 합니다. 문서에는 모델의 구성 요소와 특징에 대한 정보가 포함되어 있을 수 있으나, 구체적인 아키텍처 구조는 명시되어 있지 않습니다. 문서의 내용을 검토하여 모델 아키텍처에 관한 정보를 찾고, 이를 바탕으로 답변을 작성하겠습니다.\n\n## 추론 단계\n1. 문서에서 모델 아키텍처 관련 정보 찾기\n2. 모델의 구성 요소와 특징 분석하기\n3. 문서에 제시된 정보를 바탕으로 결론 도출하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 모델 아키텍처 관련 정보 찾기\n컨텍스트를 검토한 결과, 모델 아키텍처에 대한 직접적인 설명은 제한적입니다. 문서에서는 다음과 같은 정보를 찾을 수 있습니다:\n\n- \"Based on this insight, we propose Dual Knowl- edge Multilingual RAG (DKM-RAG), a framework\"\n- \"71.3 72.0 de 23.3 53.2 60.2 71.2 70.8 67.6 69.8 33.2 69.6 70.2 70.4 es 29.8 55.4 62.3 70.8 71.6 68.0 69.8 40.3 70.3 70.2 70.7 fi 33.2 42.8 58.7 67.7 63.6 65.5 67.8 41.2 68.3 68.4 68.9 fr 30.3 56.5 62.6 69.5 72.7 68.2 69.6 43.2 70.1 70.1 70.8 he 16.1 34.0 50.5 61.4 32.4 46.3 63.4 24.5 64.4 63.5 64.6 hu 26.1 46.1 57.1 68.0 68.3 64.0 67.1 34.5 67.3 67.7 67.9 it 31.5 53.8 62.0 71.2 71.3 67.6 69.7 41.5 69.9 69.9 70.3 ja 14.5 46.3 50.7 63.1 57.6 64.2 67.0 23.3 67.8 67.1 67.9 km 20.7 20.6 18.7 18.3 23.3 25.7 58.5 24.4 59.2 58.9 59.5 ko 18.3 36.8 44.9 58.9 49.4 53.9 61.9 24.3 63.2 62.1 63.3 ms 42.3 53.8 63.7 70.2 71.1 66.1 71.6 52.5 72.1 71.8 72.3 nl 42.5 56.9 63.9 73.0 74.5 68.8 71.3 52.9 71.8 71.7 72.3 no 38.5 55.2 63.0 71.1 70.8 67.0 70.7 47.0 71.4 71.1 71.6 pl 28.7 50.4 60.9 70.5 71.5 66.1 69.4 36.4 70.0 69.9 70.4 pt 31.8 52.5 61.0 66.8 71.6 67.7 69.3 40.2 70.0 69.8 70.6 ru 21.8 49.8 57.9 70.6 68.7 65.1 69.4 29.2 70.0 69.4 70.0 sv 41.1 54.9 62.7 72.0 73.3 67.8 70.5 49.8 71.3 71.5 71.5 th 28.4 40.9 54.4 69.7 57.1 55.2 69.6 34.7 70.5 69.8 70.8 tr 33.5 45.5 59.9 67."
+    "track": "track1"
   },
   {
     "query": "어떤 알고리즘을 사용했어?",
+    "ground_truth": "",
     "type": "section_method",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# DKM-RAG 프레임워크에서 사용된 알고리즘 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 컨텍스트에서 DKM-RAG 프레임워크에서 사용된 알고리즘을 식별하고 분석해야 합니다. 이를 위해 문서에 언급된 알고리즘 이름, 특성, 그리고 사용된 방법을 찾아 체계적으로 정리하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 언급된 알고리즘 식별하기\n2. 각 알고리즘의 특성과 용도 분석하기\n3. DKM-RAG 프레임워크에서의 알고리즘 활용 방식 정리하기\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 언급된 알고리즘 식별하기\n컨텍스트를 검토한 결과, 다음과 같은 알고리즘들이 언급되어 있습니다:\n\n1. Dense 모델: M3-w.skd Dense, Sparse, Multi-vec, M3-w.o.skd Dense\n2. RetroMAE: RetroMAE + Fine-tune Dense\n3. 자기 지식 증류(Self-Knowledge Distillation): Multi-vec, Fine-tune Dense, RetroMAE + Fine-tune Dense\n\n이 알고리즘들은 주로 cross-lingual retrieval과 self-knowledge distillation에 사용되었습니다.\n\n### 2단계: 각 알고리즘의 특성과 용도 분석하기\n1. **Dense 모델**:\n   - M3-w.skd Dense: 25개 언어에서 Recall@20 성능을 보여주는 모델\n   - Sparse: 또 다른 Dense 모델 변형\n   - Multi-vec: 벡터 기반 모델\n   - M3-w.o.skd Dense: self-knowledge distillation을 적용한 Dense 모델\n\n2. **RetroMAE**:\n   - RetroMAE + Fine-tune Dense: 자기 지식 증류와 함께 Fine-tune된 Dense 모델\n\n3. **자기 지식 증류(Self-Knowledge Distillation)**:\n   - Multi-vec: 자기 지식 증류를 적용한 벡터 기반 모델\n   - Fine-tune Dense: Dense 모델에 자기 지식 증류 적용\n   - RetroMAE + Fine-tune Dense: RetroMAE와 Fine-tune Dense를 결합한 모델\n\n### 3단계: DKM-RAG 프레임워크에서의 알고리즘 활용 방식 정리하기\n컨텍스트에 따르면, DKM-RAG 프레임워크는 \"Translating retrieved documents into the query language benefits mRAG, but it may also reflect retrieval outputs from high-resource languages including irrelevant content\"라는 문제를 해결하기 위해 설계되었습니다. 이를 위해 LLM의 내부 지식을 활용하여 \"filter inaccuracies and enrich the retrieved information with more reliable content\"하는 방법을 제안했습니다.\n\nDKM-RAG는 \"based on this insight\"로 설명된 원리에 따라 Dual Knowledge Multilingual RAG 프레임워크를 제안했으며, 이는 위에서 식별한 알고리즘들을 활용하여 구현되었습니다.\n\n## 최종 답변\n주어진 컨텍스트를 분석한 결과, DKM-RAG 프레임워크에서 사용된 주요 알고리즘은 다음과 같습니다:\n\n1. **Dense 모델 변형들**:\n   - M3-w.skd Dense: 25개 언어에서 cross-lingual retrieval 성능을 보여주는 모델\n   - Sparse: 또 다른 Dense 모델 변형\n   - Multi-vec: 벡터 기반 모델\n   - M3-w.o.skd Dense: self-knowledge distillation을 적용한 Dense 모델\n\n2. **RetroMAE와 Fine-tuning 결합**:\n   - RetroMAE + Fine-tune Dense: 자기 지식 증류와 함께 Fine-tuned된 Dense 모델\n\n3. **자기 지식 증류(Self-Knowledge Distillation)**:\n   - Multi-vec: 자기 지식 증류를 적용한 벡터 기반 모델\n   - Fine-tune Dense: Dense 모델에 자기 지식 증류 적용\n   - RetroMAE + Fine-tune Dense: RetroMAE와 Fine-tune Dense를 결합한 모델\n\n이 알고리즘들은 cross-lingual retrieval 과정에서 발생할 수 있는 부정확한 정보를 필터링하고, 더 신뢰할 수 있는 정보로 보강하는 데 사용되었습니다. 특히 LLM의 내부 지식을 활용하여 검색된 문서의 관련성을 향상시키는 방식으로 구현되었습니다.",
-      "paper_nlp_rag": "# DKM-RAG 프레임워크에서 사용된 알고리즘 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 논문 컨텍스트에서 사용된 알고리즘에 관한 정보를 찾아 분석하겠습니다. 구체적으로는 Dual Knowledge Multilingual RAG(DKM-RAG) 프레임워크에서 어떤 알고리즘이 사용되었는지, 그리고 그 알고리즘들의 성능에 관한 정보를 확인하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 언급된 알고리즘 식별하기\n2. 각 알고리즘의 성능 데이터 확인하기\n3. 알고리즘의 특징과 사용 목적 분석하기\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 언급된 알고리즘 식별하기\n컨텍스트를 살펴보면 다음과 같은 알고리즘들이 언급되어 있습니다:\n- Dense 알고리즘 (M3-w.skd Dense, Sparse, Multi-vec, RetroMAE + Fine-tune Dense)\n- Fine-tune 알고리즘 (Fine-tune Dense, RetroMAE + Fine-tune Dense)\n\n이 알고리즘들은 주로 cross-lingual retrieval과 self-knowledge distillation 작업에 사용되었습니다.\n\n### 2단계: 각 알고리즘의 성능 데이터 확인하기\n컨텍스트의 표 13과 표 14에서 각 알고리즘의 성능 데이터를 확인할 수 있습니다:\n\n표 13 (Recall@20 on MKQA dataset for cross-lingual retrieval in all 25 languages):\n- Dense 알고리즘: ar bn en es fa fi fr hi id ja ko ru sw te th zh de yo M3-w.skd Dense 69.2 78.4 80.0 56.9 56.1 60.9 78.6 58.3 59.5 56.1 72.8 69.9 70.1 78.7 86.2 82.6 62.7 56.7 81.8 Sparse 53.9 67.1 68.9 43.8 38.6 45.1 65.4 35.3 48.2 48.9 56.1 61.5 44.5 57.9 79.1 70.9 36.1 32.5 70.0 Multi-vec 70.5 79.6 81.0 59.3 57.8 62.0 80.1 59.4 61.5 58.3 74.5 71.2 71.2 79.1 87.9 83.0 63.7 58.0 82.4 M3-w.o.skd Dense 68.7 78.0 79.1 56.4 55.4 60.3 78.3 58.2 59.0 55.1 72.4 68.8 69.5 77.8 85.8 82.5 63.0 56.0 80.6 Sparse 36.7 48.2 51.9 24.3 20.3 26.0 48.6 16.8 30.1 32.0 33.0 43.1 27.2 45.2 63.6 52.2 22.6 16.5 59.2 Multi-vec 69.3 78.7 80.2 57.6 56.7 60.5 79.0 58.4 59.3 57.5 74.0 70.3 70.2 78.6 86.9 82.1 61.9 56.7 78.2\n\n표 14 (Ablation study of self-knowledge distillation on the MIRACL dev set (nDCG@10)):\n- Fine-tune Dense: ar bn en es fa fi fr hi id ja ko ru sw te th zh de yo Fine-tune Dense 60.5 71.0 72.5 47.6 46.7 51.8 72.3 50.9 48.9 48.9 65.7 60.5 60.9 71.9 81.3 74.7 54.4 48.7 60.6\n- RetroMAE + Fine-tune Dense: 66.1 75.9 77.9 54.5 54.0 58.3\n\n### 3단계: 알고리즘의 특징과 사용 목적 분석하기\n컨텍스트에서 언급된 알고리즘들의 특징과 사용 목적을 분석해보면:\n\n1. Dense 알고리즘:\n   - M3-w.skd Dense: 기존의 Dense 알고리즘에 self-knowledge distillation을 적용한 버전\n   - M3-w.o.skd Dense: self-knowledge distillation을 적용하지 않은 버전\n   - Sparse: sparse attention을 사용하는 알고리즘\n   - Multi-vec: multi-vector attention을 사용하는 알고리즘"
-    },
-    "ground_truth": "# DKM-RAG 프레임워크에서 사용된 알고리즘 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 컨텍스트에서 DKM-RAG 프레임워크에서 사용된 알고리즘을 식별하고 분석해야 합니다. 이를 위해 문서에 언급된 알고리즘 이름, 특성, 그리고 사용된 방법을 찾아 체계적으로 정리하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 언급된 알고리즘 식별하기\n2. 각 알고리즘의 특성과 용도 분석하기\n3. DKM-RAG 프레임워크에서의 알고리즘 활용 방식 정리하기\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 언급된 알고리즘 식별하기\n컨텍스트를 검토한 결과, 다음과 같은 알고리즘들이 언급되어 있습니다:\n\n1. Dense 모델: M3-w.skd Dense, Sparse, Multi-vec, M3-w.o.skd Dense\n2. RetroMAE: RetroMAE + Fine-tune Dense\n3. 자기 지식 증류(Self-Knowledge Distillation): Multi-vec, Fine-tune Dense, RetroMAE + Fine-tune Dense\n\n이 알고리즘들은 주로 cross-lingual retrieval과 self-knowledge distillation에 사용되었습니다.\n\n### 2단계: 각 알고리즘의 특성과 용도 분석하기\n1. **Dense 모델**:\n   - M3-w.skd Dense: 25개 언어에서 Recall@20 성능을 보여주는 모델\n   - Sparse: 또 다른 Dense 모델 변형\n   - Multi-vec: 벡터 기반 모델\n   - M3-w.o.skd Dense: self-knowledge distillation을 적용한 Dense 모델\n\n2. **RetroMAE**:\n   - RetroMAE + Fine-tune Dense: 자기 지식 증류와 함께 Fine-tune된 Dense 모델\n\n3. **자기 지식 증류(Self-Knowledge Distillation)**:\n   - Multi-vec: 자기 지식 증류를 적용한 벡터 기반 모델\n   - Fine-tune Dense: Dense 모델에 자기 지식 증류 적용\n   - RetroMAE + Fine-tune Dense: RetroMAE와 Fine-tune Dense를 결합한 모델\n\n### 3단계: DKM-RAG 프레임워크에서의 알고리즘 활용 방식 정리하기\n컨텍스트에 따르면, DKM-RAG 프레임워크는 \"Translating retrieved documents into the query language benefits mRAG, but it may also reflect retrieval outputs from high-resource languages including irrelevant content\"라는 문제를 해결하기 위해 설계되었습니다. 이를 위해 LLM의 내부 지식을 활용하여 \"filter inaccuracies and enrich the retrieved information with more reliable content\"하는 방법을 제안했습니다.\n\nDKM-RAG는 \"based on this insight\"로 설명된 원리에 따라 Dual Knowledge Multilingual RAG 프레임워크를 제안했으며, 이는 위에서 식별한 알고리즘들을 활용하여 구현되었습니다.\n\n## 최종 답변\n주어진 컨텍스트를 분석한 결과, DKM-RAG 프레임워크에서 사용된 주요 알고리즘은 다음과 같습니다:\n\n1. **Dense 모델 변형들**:\n   - M3-w.skd Dense: 25개 언어에서 cross-lingual retrieval 성능을 보여주는 모델\n   - Sparse: 또 다른 Dense 모델 변형\n   - Multi-vec: 벡터 기반 모델\n   - M3-w.o.skd Dense: self-knowledge distillation을 적용한 Dense 모델\n\n2. **RetroMAE와 Fine-tuning 결합**:\n   - RetroMAE + Fine-tune Dense: 자기 지식 증류와 함께 Fine-tuned된 Dense 모델\n\n3. **자기 지식 증류(Self-Knowledge Distillation)**:\n   - Multi-vec: 자기 지식 증류를 적용한 벡터 기반 모델\n   - Fine-tune Dense: Dense 모델에 자기 지식 증류 적용\n   - RetroMAE + Fine-tune Dense: RetroMAE와 Fine-tune Dense를 결합한 모델\n\n이 알고리즘들은 cross-lingual retrieval 과정에서 발생할 수 있는 부정확한 정보를 필터링하고, 더 신뢰할 수 있는 정보로 보강하는 데 사용되었습니다. 특히 LLM의 내부 지식을 활용하여 검색된 문서의 관련성을 향상시키는 방식으로 구현되었습니다."
+    "track": "track1"
   },
   {
     "query": "loss function이 뭐야?",
+    "ground_truth": "",
     "type": "section_method",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
-      "paper_nlp_bge"
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# Self-Knowledge Distillation에서의 손실 함수 분석\n\n## 질문 의도 파악 및 답변 계획\n질문은 Self-Knowledge Distillation에서 사용되는 손실 함수(loss function)에 대해 묻고 있습니다. 주어진 문서에서 손실 함수에 관한 정보를 찾아 정확히 답변하겠습니다. 특히 수식 형태로 표현된 손실 함수와 그 구성 요소에 초점을 맞추겠습니다.\n\n## 추론 단계\n1. 문서에서 손실 함수에 관한 내용 찾기\n2. 손실 함수의 수식 형태 확인하기\n3. 손실 함수의 구성 요소 분석하기\n4. 최종 답변 작성하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 손실 함수에 관한 내용 찾기\nSelf-Knowledge Distillation 섹션(3.3)에서 손실 함수에 관한 내용을 찾을 수 있습니다. 문서에 따르면:\n\n\"embedding model is trained to discriminate the positive samples from the negative ones. For each of the retrieval methods, it is expected to as- sign a higher score for the query’s positive samples compared with the negative ones. Therefore, the training process is conducted to minimize the InfoNCE loss...\"\n\n이 내용은 임베딩 모델이 긍정 샘플과 부정 샘플을 구별하도록 훈련되며, InfoNCE 손실을 최소화하는 방식으로 훈련된다는 것을 설명합니다.\n\n### 2단계: 손실 함수의 수식 형태 확인하기\n문서에서 손실 함수의 일반 형태를 다음과 같이 제시하고 있습니다:\n\n\"Here, p ( · ) is the softmax activation; s ∗ is any of the members within s dense, s lex, and s mul. We further integrate and normalize the modified loss function:\" [수식 참조]\n\n이 부분에서 수식이 [수식 참조]로 표시되어 있지만, 실제 수식 내용은 문서에 완전히 포함되어 있지 않습니다. 그러나 문서의 맥락을 통해 손실 함수가 InfoNCE 손실임을 알 수 있습니다.\n\n### 3단계: 손실 함수의 구성 요소 분석하기\n문서에서 손실 함수의 구성 요소를 다음과 같이 설명하고 있습니다:\n\n\"L final ← � L + L ′ � / 2. The training process constitutes a multi-stage workflow (Figure 2 ). In the first place, the text en- coder (an XLM-RoBERTa ( Conneau et al., 2020a ) model adapted by RetroMAE ( Xiao et al., 2022 ) method) is pre-trained with the massive unsupervised data, where only the dense retrieval is trained in the basic form of contrastive learning. The self-knowledge distillation is applied to the second stage, where the embedding model is fine-tuned to establish the three retrieval functionalities.\"\n\n또한 다음과 같은 가중치 설정도 언급되어 있습니다:\n\"w 1 = 1, w 2 = 0. 3, w 3 = 1, λ 1 = 1, λ 2 = 0. 1 and λ 3 = 1 during the training process.\"\n\n문서에서는 손실 함수가 다음과 같이 구성됨을 알 수 있습니다:\nL ← � λ 1 ·L dense + λ 2 ·L lex + λ 3 ·L mul + L inter � / 4\n\n여기서:\n- L dense: 밀집 임베딩에 대한 손실\n- L lex: 언어학적 임베딩에 대한 손실\n- L mul: 다중 모달 임베딩에 대한 손실\n- L inter: 상호 임베딩에 대한 손실\n- λ 1, λ 2, λ 3: 각 손실의 가중치\n\n## 최종 답변\nSelf-Knowledge Distillation에서 사용되는 손실 함수는 InfoNCE(Information-NCE) 손실입니다. 문서에 따르면, 이 손실 함수는 임베딩 모델이 긍정 샘플과 부정 샘플을 구별하도록 훈련하는 데 사용됩니다.\n\n손실 함수의 일반 형태는 다음과 같습니다:\n```\nL final ← (L + L')/2\n```\n\n여기서 L과 L'는 각각 다른 유형의 임베딩에 대한 손실을 나타냅니다. 구체적으로:\n\n```\nL ← λ1·L dense + λ2·L lex + λ3·L mul + L inter / 4\n```\n\n각 구성 요소는 다음을 의미합니다:\n- L dense: 밀집 임베딩에 대한 손실\n- L lex: 언어학적 임베딩에 대한 손실\n- L mul: 다중 모달 임베딩에 대한 손실\n- L inter: 상호 임베딩에 대한 손실\n- λ1, λ2, λ3: 각 손실의 가중치 (예: λ1=1, λ2=0.1, λ3=1)\n\n문서에 따르면, 이 손실 함수는 두 단계로 구성된 훈련 과정에서 사용됩니다:\n1. 첫 번째 단계: 대규모 비지도 데이터로 텍스트 인코더(XLM-RoBERTa)를 사전 훈련\n2. 두 번째 단계: 임베딩 모델을 세 가지 검색 기능을 확립하도록 미세 조정\n\n이 손실 함수는 긍정 샘플에 대해 더 높은 점수를 할당하고 부정 샘플에 대해서는 낮은 점수를 할당하는 방식으로 훈련됩니다."
-    },
-    "ground_truth": "# Self-Knowledge Distillation에서의 손실 함수 분석\n\n## 질문 의도 파악 및 답변 계획\n질문은 Self-Knowledge Distillation에서 사용되는 손실 함수(loss function)에 대해 묻고 있습니다. 주어진 문서에서 손실 함수에 관한 정보를 찾아 정확히 답변하겠습니다. 특히 수식 형태로 표현된 손실 함수와 그 구성 요소에 초점을 맞추겠습니다.\n\n## 추론 단계\n1. 문서에서 손실 함수에 관한 내용 찾기\n2. 손실 함수의 수식 형태 확인하기\n3. 손실 함수의 구성 요소 분석하기\n4. 최종 답변 작성하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 손실 함수에 관한 내용 찾기\nSelf-Knowledge Distillation 섹션(3.3)에서 손실 함수에 관한 내용을 찾을 수 있습니다. 문서에 따르면:\n\n\"embedding model is trained to discriminate the positive samples from the negative ones. For each of the retrieval methods, it is expected to as- sign a higher score for the query’s positive samples compared with the negative ones. Therefore, the training process is conducted to minimize the InfoNCE loss...\"\n\n이 내용은 임베딩 모델이 긍정 샘플과 부정 샘플을 구별하도록 훈련되며, InfoNCE 손실을 최소화하는 방식으로 훈련된다는 것을 설명합니다.\n\n### 2단계: 손실 함수의 수식 형태 확인하기\n문서에서 손실 함수의 일반 형태를 다음과 같이 제시하고 있습니다:\n\n\"Here, p ( · ) is the softmax activation; s ∗ is any of the members within s dense, s lex, and s mul. We further integrate and normalize the modified loss function:\" [수식 참조]\n\n이 부분에서 수식이 [수식 참조]로 표시되어 있지만, 실제 수식 내용은 문서에 완전히 포함되어 있지 않습니다. 그러나 문서의 맥락을 통해 손실 함수가 InfoNCE 손실임을 알 수 있습니다.\n\n### 3단계: 손실 함수의 구성 요소 분석하기\n문서에서 손실 함수의 구성 요소를 다음과 같이 설명하고 있습니다:\n\n\"L final ← � L + L ′ � / 2. The training process constitutes a multi-stage workflow (Figure 2 ). In the first place, the text en- coder (an XLM-RoBERTa ( Conneau et al., 2020a ) model adapted by RetroMAE ( Xiao et al., 2022 ) method) is pre-trained with the massive unsupervised data, where only the dense retrieval is trained in the basic form of contrastive learning. The self-knowledge distillation is applied to the second stage, where the embedding model is fine-tuned to establish the three retrieval functionalities.\"\n\n또한 다음과 같은 가중치 설정도 언급되어 있습니다:\n\"w 1 = 1, w 2 = 0. 3, w 3 = 1, λ 1 = 1, λ 2 = 0. 1 and λ 3 = 1 during the training process.\"\n\n문서에서는 손실 함수가 다음과 같이 구성됨을 알 수 있습니다:\nL ← � λ 1 ·L dense + λ 2 ·L lex + λ 3 ·L mul + L inter � / 4\n\n여기서:\n- L dense: 밀집 임베딩에 대한 손실\n- L lex: 언어학적 임베딩에 대한 손실\n- L mul: 다중 모달 임베딩에 대한 손실\n- L inter: 상호 임베딩에 대한 손실\n- λ 1, λ 2, λ 3: 각 손실의 가중치\n\n## 최종 답변\nSelf-Knowledge Distillation에서 사용되는 손실 함수는 InfoNCE(Information-NCE) 손실입니다. 문서에 따르면, 이 손실 함수는 임베딩 모델이 긍정 샘플과 부정 샘플을 구별하도록 훈련하는 데 사용됩니다.\n\n손실 함수의 일반 형태는 다음과 같습니다:\n```\nL final ← (L + L')/2\n```\n\n여기서 L과 L'는 각각 다른 유형의 임베딩에 대한 손실을 나타냅니다. 구체적으로:\n\n```\nL ← λ1·L dense + λ2·L lex + λ3·L mul + L inter / 4\n```\n\n각 구성 요소는 다음을 의미합니다:\n- L dense: 밀집 임베딩에 대한 손실\n- L lex: 언어학적 임베딩에 대한 손실\n- L mul: 다중 모달 임베딩에 대한 손실\n- L inter: 상호 임베딩에 대한 손실\n- λ1, λ2, λ3: 각 손실의 가중치 (예: λ1=1, λ2=0.1, λ3=1)\n\n문서에 따르면, 이 손실 함수는 두 단계로 구성된 훈련 과정에서 사용됩니다:\n1. 첫 번째 단계: 대규모 비지도 데이터로 텍스트 인코더(XLM-RoBERTa)를 사전 훈련\n2. 두 번째 단계: 임베딩 모델을 세 가지 검색 기능을 확립하도록 미세 조정\n\n이 손실 함수는 긍정 샘플에 대해 더 높은 점수를 할당하고 부정 샘플에 대해서는 낮은 점수를 할당하는 방식으로 훈련됩니다."
+    "track": "track1"
   },
   {
     "query": "이 연구의 한계점은 뭐야?",
+    "ground_truth": "",
     "type": "section_limit",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# M3-Embedding 모델의 한계점\n\n이 연구에서 언급된 M3-Embedding 모델의 주요 한계점은 다음과 같습니다:\n\n1. **일반화 가능성 부족**: \n   - M3-Embedding 모델은 MIRACL과 MKQA 같은 인기 있는 다국어 및 교차 언어 벤치마크에서 최첨단 성능을 달성했지만, 다양한 실제 데이터셋과 시나리오에 대한 일반화 가능성은 추가 조사가 필요합니다.\n\n2. **장문서 처리의 한계**:\n   - 모델은 최대 8192 토큰 길이의 긴 문서도 처리할 수 있도록 설계되었지만, 매우 긴 문서나 지정된 토큰 제한을 초과하는 문서를 처리할 때의 성능은 아직 충분히 조사되지 않았습니다.\n\n3. **언어별 성능 차이**:\n   - M3-Embedding은 100개 이상의 작동 언어를 지원한다고 주장하지만, 다양한 언어에 따른 성능 차이에 대한 철저한 분석은 이루어지지 않았습니다.\n   - 더 넓은 범위의 언어와 언어 가족, 그리고 언어적 특성에 대한 추가 분석과 평가가 필요합니다.\n\n이러한 한계점을 해결하기 위해서는 다양한 언어와 시나리오에서 모델의 성능을 더 광범위하게 조사하고 평가할 필요가 있습니다.",
-      "paper_nlp_rag": "이 연구의 한계점으로는 다음과 같은 사항들이 있습니다:\n\n1. M3-Embedding 모델이 인기 있는 다국어 및 교차 언어 벤치마크인 MIRACL과 MKQA에서 최첨단 성능을 달성했지만, 다양한 데이터셋과 실제 시나리오에 대한 일반화가 추가로 조사되어야 합니다. 서로 다른 데이터셋은 서로 다른 특성과 도전 과제를 가질 수 있어 모델의 성능에 영향을 미칠 수 있습니다.\n\n2. M3-Embedding이 다양한 granularity의 입력을 처리하도록 설계되었지만, 최대 8192 토큰의 긴 문서를 처리하는 데 있어 컴퓨팅 자원과 모델 효율성 측면에서 도전 과제가 있을 수 있습니다. 극도로 긴 문서나 지정된 토큰 한도를 초과하는 문서에 대한 모델의 성능은 추가 조사가 필요합니다.\n\n3. M3-Embedding은 100개 이상의 작동 언어를 지원한다고 주장하지만, 서로 다른 언어에 따른 성능의 잠재적 변동은 철저히 논의되지 않았습니다. 다양한 언어 가족과 언어적 특성 전반에 걸쳐 모델의 강건성과 효과성을 이해하기 위해서는 더 넓은 범위의 언어에 대한 추가 분석과 평가가 필요합니다.",
-      "paper_korean": "이 연구의 한계점으로는 다음과 같은 내용이 컨텍스트에 명시되어 있습니다:\n\n1. M3-Embedding 모델이 인기 있는 다중언어 및 교차언어 벤치마크인 MIRACL과 MKQA에서 최첨단 성능을 달성했지만, 다양한 데이터셋과 실제 시나리오에 대한 일반화가 추가로 조사되어야 합니다. 서로 다른 데이터셋은 서로 다른 특성과 도전 과제를 가질 수 있어 모델의 성능에 영향을 미칠 수 있습니다.\n\n2. M3-Embedding이 다양한 granularity의 입력을 처리하도록 설계되었지만, 최대 8192 토큰 길이의 긴 문서를 처리하는 데 컴퓨팅 자원과 모델 효율성 측면에서 도전 과제가 있을 수 있습니다. 모델의 매우 긴 문서나 지정된 토큰 한도를 초과하는 문서에 대한 성능은 추가로 조사되어야 합니다.\n\n3. M3-Embedding은 100개 이상의 작동 언어를 지원한다고 주장하지만, 서로 다른 언어에 따른 성능의 잠재적 변동은 철저히 논의되지 않았습니다. 모델의 견고성과 효과성을 다양한 언어 가족과 언어적 특성 전반에 걸쳐 이해하기 위해서는 더 넓은 범위의 언어에 대한 추가 분석과 평가가 필요합니다."
-    },
-    "ground_truth": "# M3-Embedding 모델의 한계점\n\n이 연구에서 언급된 M3-Embedding 모델의 주요 한계점은 다음과 같습니다:\n\n1. **일반화 가능성 부족**: \n   - M3-Embedding 모델은 MIRACL과 MKQA 같은 인기 있는 다국어 및 교차 언어 벤치마크에서 최첨단 성능을 달성했지만, 다양한 실제 데이터셋과 시나리오에 대한 일반화 가능성은 추가 조사가 필요합니다.\n\n2. **장문서 처리의 한계**:\n   - 모델은 최대 8192 토큰 길이의 긴 문서도 처리할 수 있도록 설계되었지만, 매우 긴 문서나 지정된 토큰 제한을 초과하는 문서를 처리할 때의 성능은 아직 충분히 조사되지 않았습니다.\n\n3. **언어별 성능 차이**:\n   - M3-Embedding은 100개 이상의 작동 언어를 지원한다고 주장하지만, 다양한 언어에 따른 성능 차이에 대한 철저한 분석은 이루어지지 않았습니다.\n   - 더 넓은 범위의 언어와 언어 가족, 그리고 언어적 특성에 대한 추가 분석과 평가가 필요합니다.\n\n이러한 한계점을 해결하기 위해서는 다양한 언어와 시나리오에서 모델의 성능을 더 광범위하게 조사하고 평가할 필요가 있습니다."
+    "track": "track1"
   },
   {
     "query": "future work으로 뭘 제안했어?",
+    "ground_truth": "",
     "type": "section_limit",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트를 검토한 결과, 논문에서는 DKM-RAG 프레임워크의 한계점과 향후 연구 방향에 대해 언급하고 있지만, 구체적인 future work 제안에 대한 내용은 포함되어 있지 않습니다. 단지 \"Future work could explore more sophisticated techniques for merging exter- nal and internal knowledge (e.g., trainable fusion mechanisms, dynamic weighting) to further reduce preferences and enhance overall system capabili- ties.\"라는 일반적인 방향성만 제시하고 있을 뿐입니다. 따라서 구체적인 future work 제안에 대한 답변은 주어진 컨텍스트만으로는 도출할 수 없습니다.",
-      "paper_nlp_rag": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트를 검토한 결과, 논문에서는 DKM-RAG 프레임워크의 한계점과 향후 연구 방향에 대해 언급하고 있지만, 구체적인 future work 제안에 대한 내용은 포함되어 있지 않습니다. 한계점으로는 번역 모델의 품질에 따른 영향, latency와 computational cost, Wikipedia 기반 실험의 제한성 등이 언급되었으며, 미래 연구 방향으로는 더 정교한 merging techniques, trainable fusion mechanisms, dynamic weighting, low-resource languages나 domain-specific retrieval settings 등으로의 확장이 제안되었습니다. 그러나 구체적인 future work 제안에 대한 내용은 문서에 명시되어 있지 않습니다.",
-      "paper_korean": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트를 검토한 결과, 논문에서는 DKM-RAG 프레임워크의 한계점과 미래 연구 방향에 대해 언급하고 있지만, 구체적인 future work 제안에 대한 내용은 포함되어 있지 않습니다. 한계점으로는 번역 모델의 품질에 따른 영향, latency와 computational cost, 특정 Wikipedia 기반 언어 세트에 한정된 실험 결과 등이 언급되어 있으나, 구체적인 future work 제안은 제시되어 있지 않습니다."
-    },
-    "ground_truth": "해당 정보는 제공된 논문에서 찾을 수 없습니다. \n\n컨텍스트를 검토한 결과, 논문에서는 DKM-RAG 프레임워크의 한계점과 향후 연구 방향에 대해 언급하고 있지만, 구체적인 future work 제안에 대한 내용은 포함되어 있지 않습니다. 단지 \"Future work could explore more sophisticated techniques for merging exter- nal and internal knowledge (e.g., trainable fusion mechanisms, dynamic weighting) to further reduce preferences and enhance overall system capabili- ties.\"라는 일반적인 방향성만 제시하고 있을 뿐입니다. 따라서 구체적인 future work 제안에 대한 답변은 주어진 컨텍스트만으로는 도출할 수 없습니다."
+    "track": "track1"
   },
   {
     "query": "Abstract에서 주장하는 핵심 기여가 뭐야?",
+    "ground_truth": "",
     "type": "section_abstract",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "M3-Embedding 모델의 핵심 기여는 다음과 같습니다:\n\n1. **다언어 지원**: 100개 이상의 작동 언어에 대한 의미적 평가를 균일하게 지원합니다.\n\n2. **다양한 검색 기능성 제공**:\n   - dense retrieval(밀집 검색)\n   - multi-vector retrieval(다중 벡터 검색)\n   - sparse retrieval(희소 검색)\n\n3. **다양한 입력 수준 처리**: 짧은 문장부터 최대 8192 토큰의 긴 문서까지 다양한 수준의 입력을 처리할 수 있습니다.\n\n4. **훈련 기술적 기여**:\n   - 관련성 점수를 교사 신호로 통합하는 새로운 self-knowledge dis Tillation 접근법 제안\n   - 배치 전략 최적화를 통한 대용량 배치와 높은 훈련 처리량으로 임베딩의 구별력 향상\n\n5. **우수한 성능**: 실험 결과를 통해 멀티랭귀지, 크로스랭귀지, 장문 검색 벤치마크에서 새로운 최첨단 결과를 달성했습니다.",
-      "paper_nlp_rag": "M3-Embedding 모델의 핵심 기여는 다음과 같습니다:\n\n1. **다양한 기능성 지원**: 이 모델은 Multi-Linguality(다중언어), Multi-Functionality(다중기능성), Multi-Granularity(다중세분성) 측면에서 구별되며, 100개 이상의 작동 언어에 대한 의미적 평가를 균일하게 지원합니다.\n\n2. **다양한 검색 기능성 통합**: dense retrieval(밀집 검색), multi-vector retrieval(다중벡터 검색), sparse retrieval(희소 검색)이라는 세 가지 일반적인 검색 기능성을 동시에 수행할 수 있습니다.\n\n3. **다양한 입력 처리 능력**: 짧은 문장부터 최대 8192 토큰 길이의 긴 문서까지 다양한 규모의 입력을 처리할 수 있습니다.\n\n4. **기술적 기여**:\n   - 관련성 점수들을 교사 신호로 통합하는 새로운 self-knowledge dis Tillation 접근법 제안\n   - 배치 전략 최적화를 통한 대용량 배치와 높은 훈련 처리량으로 임베딩의 구별성 향상\n\n5. **우수한 성능**: 실험 결과를 통해 멀티언어, 교차언어, 장문 검색 벤치마크에서 새로운 최첨단 결과를 달성했습니다."
-    },
-    "ground_truth": "M3-Embedding 모델의 핵심 기여는 다음과 같습니다:\n\n1. **다언어 지원**: 100개 이상의 작동 언어에 대한 의미적 평가를 균일하게 지원합니다.\n\n2. **다양한 검색 기능성 제공**:\n   - dense retrieval(밀집 검색)\n   - multi-vector retrieval(다중 벡터 검색)\n   - sparse retrieval(희소 검색)\n\n3. **다양한 입력 수준 처리**: 짧은 문장부터 최대 8192 토큰의 긴 문서까지 다양한 수준의 입력을 처리할 수 있습니다.\n\n4. **훈련 기술적 기여**:\n   - 관련성 점수를 교사 신호로 통합하는 새로운 self-knowledge dis Tillation 접근법 제안\n   - 배치 전략 최적화를 통한 대용량 배치와 높은 훈련 처리량으로 임베딩의 구별력 향상\n\n5. **우수한 성능**: 실험 결과를 통해 멀티랭귀지, 크로스랭귀지, 장문 검색 벤치마크에서 새로운 최첨단 결과를 달성했습니다."
+    "track": "track1"
   },
   {
     "query": "결론 섹션에서 향후 연구 방향으로 제시한 게 뭐야?",
+    "ground_truth": "",
     "type": "section_conclusion",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# 결론 섹션의 향후 연구 방향 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 두 논문의 결론 섹션을 검토하여 향후 연구 방향으로 제시된 내용을 찾아 답변하겠습니다. 각 논문의 결론 부분을 면밀히 분석하여 향후 연구 방향에 대한 언급을 식별하고 종합하겠습니다.\n\n## 추론 단계\n1. 첫 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n2. 두 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n3. 두 논문의 향후 연구 방향을 종합하여 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 첫 번째 논문의 결론 섹션 분석\n첫 번째 논문의 결론 부분을 검토합니다. 첫 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"DKM-RAG w/o P refined w/o P translated [수식 참조]\"\n\n그리고 다음 문장이 이어집니다:\n\"In this work, we investigate language preferences in mRAG systems. We propose a metric that measures the language preference of retrievers by checking the rank difference between the translated passage and the original one. Our experiments reveal that retrievers prefer high-resource and query language but do not always yield better generation performance. We also find that generators often favor the query language or Latin scripts, resulting in inconsistent outputs. To address this, we propose DKM-RAG which integrates translated passages with internal knowledge. Empirical results show that DKM-RAG consistently enhances mRAG performance across diverse languages.\"\n\n이 논문의 결론에서는 향후 연구 방향에 대한 구체적인 언급이 없습니다. 단지 DKM-RAG 모델의 효과성과 향후 연구 방향에 대한 일반적인 언급만 있을 뿐입니다.\n\n### 2단계: 두 번째 논문의 결론 섹션 분석\n두 번째 논문의 결론 부분을 검토합니다. 두 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"M3-Embedding presents three technical contributions: self-knowledge distillation, efficient batching, and high-quality curation of data. The effectiveness of M3-Embedding is empirically verified, where it leads to superior performances on multi-lingual retrieval, cross-lingual retrieval, and multi-lingual long-document retrieval tasks.\"\n\n그리고 다음 문장이 이어집니다:\n\"Limitations First of all, while our proposed M3-Embedding model achieves state-of-the-art performance on popular multi-lingual and cross-lingual benchmarks such as MIRACL and MKQA, it is impor-\nimportant to acknowledge that the generalizability of our approach to diverse datasets and real-world scenarios needs to be further investigated. Dif- ferent datasets may have varying characteristics and challenges that could affect the performance of our model. Secondly, while M3-Embedding is designed to process inputs of different granularities, including long documents of up to 8192 tokens, we acknowledge that processing extremely long documents could pose challenges in terms of computational resources and model efficiency. The performance of our model on very long documents or documents exceeding the specified token limit needs to be further investigated. Furthermore, we claim support for more than 100 working languages in M3-Embedding. However, the potential varia- tions in performance across different languages are not thoroughly discussed. Further analysis and evaluation on a broader range of languages are neces- sary to understand the robustness and effectiveness of our model across different language families and linguistic characteristics.\"\n\n이 논문의 결론에서는 다음과 같은 향후 연구 방향이 제시되어 있습니다:\n1. 다양한 데이터셋과 실제 시나리오에 대한 일반화 가능성 추가 연구\n2. 매우 긴 문서에 대한 성능 추가 연구\n3. 더 넓은 범위의 언어에 대한 추가 분석 및 평가\n4. 다양한 언어 가족과 언어적 특성에 따른 모델의 강건성과 효과성에 대한 추가 연구\n\n## 최종 답변\n주어진 두 논문의 결론 섹션을 분석한 결과, 첫 번째 논문에서는 향후 연구 방향에 대한 구체적인 언급이 없습니다. 이 논문은 mRAG 시스템에서 언어 선호도를 조사하고 DKM-RAG 모델을 제안했지만, 결론에서는 이 모델의 효과성과 향후 연구 방향에 대한 일반적인 언급만 있을 뿐입니다.\n\n반면, 두 번째 논문에서는 향후 연구 방향에 대한 구체적인 제안이 제시되어 있습니다:\n\n1. 다양한 데이터셋과 실제 시나리오에 대한 일반화 가능성 추가 연구\n2. 매우 긴 문서(8192 토큰 초과)에 대한 성능 추가 연구\n3. 더 넓은 범위의 언어에 대한 추가 분석 및 평가\n4. 다양한 언어 가족과 언어적 특성에 따른 모델의 강건성과 효과성에 대한 추가 연구\n\n이러한 향후 연구 방향은 두 번째 논문의 결론 섹션에서 명시적으로 언급되어 있으며, 첫 번째 논문에서는 이러한 구체적인 향후 연구 방향이 제시되어 있지 않습니다.",
-      "paper_nlp_rag": "# 결론 섹션의 향후 연구 방향 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 두 논문의 결론 섹션을 검토하여 향후 연구 방향으로 제시된 내용을 찾아 답변하겠습니다. 각 논문의 결론 부분을 면밀히 검토하여 명시적으로 언급된 향후 연구 방향을 식별하겠습니다.\n\n## 추론 단계\n1. 첫 번째 논문의 결론 섹션에서 향후 연구 방향 확인\n2. 두 번째 논문의 결론 섹션에서 향후 연구 방향 확인\n3. 두 논문의 향후 연구 방향 비교 및 종합\n\n## 단계별 추론 결과\n### 1단계: 첫 번째 논문의 결론 섹션에서 향후 연구 방향 확인\n첫 번째 논문의 결론 부분을 살펴보면 다음과 같은 내용이 있습니다:\n\n\"DKM-RAG w/o P refined w/o P translated [수식 참조]\"\n\n그리고 이어지는 결론 부분에서는:\n\"In this work, we investigate language preferences in mRAG systems. We propose a metric that measures the language preference of retrievers by checking the rank difference between the translated passage and the original one. Our experiments reveal that retrievers prefer high-resource and query language but do not always yield better generation performance. We also find that generators often favor the query language or Latin scripts, resulting in inconsistent outputs. To address this, we propose DKM-RAG which integrates translated passages with internal knowledge. Empirical results show that DKM-RAG consistently enhances mRAG performance across diverse languages.\"\n\n이 논문에서는 향후 연구 방향으로 \"DKM-RAG를 더욱 개선하여 다양한 언어 환경에서의 성능을 지속적으로 향상시키는 것\"을 제시하고 있습니다. 그러나 구체적인 향후 연구 방향에 대한 명시적인 언급은 없습니다.\n\n### 2단계: 두 번째 논문의 결론 섹션에서 향후 연구 방향 확인\n두 번째 논문의 결론 부분을 살펴보면 다음과 같은 내용이 있습니다:\n\n\"M3-Embedding presents three technical contributions: self-knowledge distillation, efficient batching, and high-quality curation of data. The effectiveness of M3-Embedding is empirically verified, where it leads to superior performances on multi-lingual retrieval, cross-lingual retrieval, and multi-lingual long-document retrieval tasks.\"\n\n그리고 이어지는 결론 부분에서는:\n\"First of all, while our proposed M3-Embedding model achieves state-of-the-art performance on popular multi-lingual and cross-lingual benchmarks such as MIRACL and MKQA, it is impor-\nimportant to acknowledge that the generalizability of our approach to diverse datasets and real-world scenarios needs to be further investigated. Dif- ferent datasets may have varying characteristics and challenges that could affect the performance of our model. Secondly, while M3-Embedding is designed to process inputs of different granularities, including long documents of up to 8192 tokens, we acknowledge that processing extremely long documents could pose challenges in terms of computational resources and model efficiency. The performance of our model on very long documents or documents exceeding the specified token limit needs to be further investigated. Furthermore, we claim support for more than 100 working languages in M3-Embedding. However, the potential varia- tions in performance across different languages are not thoroughly discussed. Further analysis and evaluation on a broader range of languages are neces- sary to understand the robustness and effectiveness of our model across different language families and linguistic characteristics.\"\n\n이 논문에서는 향후 연구 방향으로:\n1. \"다양한 언어에 대한 모델의 일반화 가능성을 더 조사해야 함\"\n2. \"매우 긴 문서나 지정된 토큰 제한을 초과하는 문서에 대한 모델의 성능을 추가로 조사해야 함\"\n3. \"더 넓은 범위의 언어에 대한 추가 분석과 평가가 필요함\"\n4. \"다양한 언어 가족과 언어적 특성에 걸쳐 모델의 강건성과 효과성을 이해하기 위해\"\n\n이와 같은 구체적인 향후 연구 방향을 제시하고 있습니다.\n\n### 3단계: 두 논문의 향후 연구 방향 비교 및 종합\n두 논문의 결론 섹션에서 제시된 향후 연구 방향을 비교해보면:\n\n첫 번째 논문:\n- DKM-RAG의 지속적인 개선\n- 구체적인 향후 연구 방향에 대한 명시적인 언급 없음\n\n두 번째 논문:\n- 다양한 언어에 대한 모델의 일반화 가능성 조사\n- 매우 긴 문서에 대한 모델 성능 추가 조사\n- 더 넓은 범위의 언어에 대한 추가 분석과 평가\n- 다양한 언어 가족과 언어적 특성에 걸친 모델의 강건성과 효과성 이해\n\n두 논문 모두 구체적인 향후 연구 방향을 제시하고 있으나, 첫 번째 논문은 상대적으로 일반적인 방향만 제시하고 있고, 두 번째 논문은 더 구체적이고 다양한 연구 방향을 제시하고 있습니다.\n\n## 최종 답변\n주어진 두 논문의 결론 섹션을 분석한 결과, 두 논문 모두 향후 연구 방향에 대한 구체적인 제안을 포함하고 있습니다.\n\n첫 번째 논문에서는:\n- DKM-RAG 모델의 지속적인 개선을 향후 연구 방향으로 제시하고 있습니다.\n- 그러나 구체적인 향후 연구 방향에 대한 명시적인 언급은 없습니다.\n\n두 번째 논문에서는 다음과 같은 구체적인 향후 연구 방향을 제시하고 있습니다:\n1. 다양한 언어에 대한 모델의 일반화 가능성을 더 조사해야 함\n2. 매우 긴 문서나 지정된 토큰 제한을 초과하는 문서",
-      "paper_korean": "# 결론 섹션의 향후 연구 방향 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 두 논문의 결론 섹션을 검토하여 향후 연구 방향으로 제시된 내용을 찾아 답변하겠습니다. 각 논문의 결론 부분을 면밀히 검토하여 향후 연구 방향에 대한 언급을 식별하고 종합하겠습니다.\n\n## 추론 단계\n1. 첫 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n2. 두 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n3. 두 논문의 향후 연구 방향을 종합하여 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 첫 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n첫 번째 논문의 결론 부분을 검토합니다. 첫 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"In this work, we investigate language preferences in mRAG systems. We propose a metric that measures the language preference of retrievers by checking the rank difference between the translated passage and the original one. Our experiments reveal that retrievers prefer high-resource and query language but do not always yield better generation performance. We also find that generators often favor the query language or Latin scripts, resulting in inconsistent outputs. To address this, we propose DKM-RAG which integrates translated passages with internal knowledge. Empirical results show that DKM-RAG consistently enhances mRAG performance across diverse languages.\"\n\n이 부분에서 향후 연구 방향에 대한 직접적인 언급은 보이지 않습니다. 다만 \"To address this\"라는 표현이 있지만, 구체적인 후속 연구 방향이 명시되어 있지 않습니다.\n\n### 2단계: 두 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n두 번째 논문의 결론 부분을 검토합니다. 두 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"In this paper, we introduce M3-Embedding, which substantially advances the versatility of text embeddings in terms of supporting multi-lingual retrieval, handling input of diverse granularities, and unifying different retrieval functionalities. M3-Embedding presents three technical contributions: self-knowledge distillation, efficient batching, and high-quality curation of data. The effectiveness of M3-Embedding is empirically verified, where it leads to superior performances on multi-lingual retrieval, cross-lingual retrieval, and multi-lingual long-document retrieval tasks.\"\n\n그리고 한계점으로 다음과 같은 내용이 있습니다:\n\"First of all, while our proposed M3-Embedding model achieves state-of-the-art performance on popular multi-lingual and cross-lingual benchmarks such as MIRACL and MKQA, it is impor-\ntant to acknowledge that the generalizability of our approach to diverse datasets and real-world scenarios needs to be further investigated. Dif- ferent datasets may have varying characteristics and challenges that could affect the performance of our model. Secondly, while M3-Embedding is designed to process inputs of different granularities, including long documents of up to 8192 tokens, we acknowledge that processing extremely long documents could pose challenges in terms of computational resources and model efficiency. The performance of our model on very long documents or documents exceeding the specified token limit needs to be further investigated. Furthermore, we claim support for more than 100 working languages in M3-Embedding. However, the potential varia- tions in performance across different languages are not thoroughly discussed. Further analysis and evaluation on a broader range of languages are neces- sary to understand the robustness and effectiveness of our model across different language families and linguistic characteristics.\"\n\n이 부분에서 향후 연구 방향으로 다음과 같은 내용이 제시되어 있습니다:\n1. 다양한 언어에 대한 모델의 일반화 가능성을 더 조사\n2. 매우 긴 문서에 대한 모델의 성능 조사\n3. 더 넓은 범위의 언어에 대한 분석 및 평가\n\n## 최종 답변\n주어진 두 논문의 결론 섹션을 검토한 결과, 첫 번째 논문에서는 향후 연구 방향에 대한 구체적인 언급이 없습니다. 첫 번째 논문은 언어 선호도에 관한 연구와 이를 해결하기 위한 DKM-RAG 모델을 제안했지만, 구체적인 후속 연구 방향은 제시되지 않았습니다.\n\n반면, 두 번째 논문에서는 다음과 같은 향후 연구 방향이 명확하게 제시되어 있습니다:\n\n1. 다양한 언어에 대한 모델의 일반화 가능성을 더 조사\n2. 매우 긴 문서(8192 토큰 초과)에 대한 모델의 성능을 더 조사\n3. 더 넓은 범위의 언어에 대한 분석 및 평가\n\n두 번째 논문의 결론에서는 \"Furthermore, we claim support for more than 100 working languages in M3-Embedding. However, the potential variations in performance across different languages are not thoroughly discussed. Further analysis and evaluation on a broader range of languages are necessary to understand the robustness and effectiveness of our model across different language families and linguistic characteristics.\"라고 명시하고 있습니다.\n\n따라서 두 번째 논문의 결론에서 향후 연구 방향이 명확하게 제시되어 있으며, 첫 번째 논문에서는 구체적인 후속 연구 방향이 언급되지 않았습니다."
-    },
-    "ground_truth": "# 결론 섹션의 향후 연구 방향 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 두 논문의 결론 섹션을 검토하여 향후 연구 방향으로 제시된 내용을 찾아 답변하겠습니다. 각 논문의 결론 부분을 면밀히 분석하여 향후 연구 방향에 대한 언급을 식별하고 종합하겠습니다.\n\n## 추론 단계\n1. 첫 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n2. 두 번째 논문의 결론 섹션에서 향후 연구 방향 찾기\n3. 두 논문의 향후 연구 방향을 종합하여 최종 답변 작성\n\n## 단계별 추론 결과\n### 1단계: 첫 번째 논문의 결론 섹션 분석\n첫 번째 논문의 결론 부분을 검토합니다. 첫 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"DKM-RAG w/o P refined w/o P translated [수식 참조]\"\n\n그리고 다음 문장이 이어집니다:\n\"In this work, we investigate language preferences in mRAG systems. We propose a metric that measures the language preference of retrievers by checking the rank difference between the translated passage and the original one. Our experiments reveal that retrievers prefer high-resource and query language but do not always yield better generation performance. We also find that generators often favor the query language or Latin scripts, resulting in inconsistent outputs. To address this, we propose DKM-RAG which integrates translated passages with internal knowledge. Empirical results show that DKM-RAG consistently enhances mRAG performance across diverse languages.\"\n\n이 논문의 결론에서는 향후 연구 방향에 대한 구체적인 언급이 없습니다. 단지 DKM-RAG 모델의 효과성과 향후 연구 방향에 대한 일반적인 언급만 있을 뿐입니다.\n\n### 2단계: 두 번째 논문의 결론 섹션 분석\n두 번째 논문의 결론 부분을 검토합니다. 두 번째 논문의 결론 섹션에서는 다음과 같은 내용이 있습니다:\n\n\"M3-Embedding presents three technical contributions: self-knowledge distillation, efficient batching, and high-quality curation of data. The effectiveness of M3-Embedding is empirically verified, where it leads to superior performances on multi-lingual retrieval, cross-lingual retrieval, and multi-lingual long-document retrieval tasks.\"\n\n그리고 다음 문장이 이어집니다:\n\"Limitations First of all, while our proposed M3-Embedding model achieves state-of-the-art performance on popular multi-lingual and cross-lingual benchmarks such as MIRACL and MKQA, it is impor-\nimportant to acknowledge that the generalizability of our approach to diverse datasets and real-world scenarios needs to be further investigated. Dif- ferent datasets may have varying characteristics and challenges that could affect the performance of our model. Secondly, while M3-Embedding is designed to process inputs of different granularities, including long documents of up to 8192 tokens, we acknowledge that processing extremely long documents could pose challenges in terms of computational resources and model efficiency. The performance of our model on very long documents or documents exceeding the specified token limit needs to be further investigated. Furthermore, we claim support for more than 100 working languages in M3-Embedding. However, the potential varia- tions in performance across different languages are not thoroughly discussed. Further analysis and evaluation on a broader range of languages are neces- sary to understand the robustness and effectiveness of our model across different language families and linguistic characteristics.\"\n\n이 논문의 결론에서는 다음과 같은 향후 연구 방향이 제시되어 있습니다:\n1. 다양한 데이터셋과 실제 시나리오에 대한 일반화 가능성 추가 연구\n2. 매우 긴 문서에 대한 성능 추가 연구\n3. 더 넓은 범위의 언어에 대한 추가 분석 및 평가\n4. 다양한 언어 가족과 언어적 특성에 따른 모델의 강건성과 효과성에 대한 추가 연구\n\n## 최종 답변\n주어진 두 논문의 결론 섹션을 분석한 결과, 첫 번째 논문에서는 향후 연구 방향에 대한 구체적인 언급이 없습니다. 이 논문은 mRAG 시스템에서 언어 선호도를 조사하고 DKM-RAG 모델을 제안했지만, 결론에서는 이 모델의 효과성과 향후 연구 방향에 대한 일반적인 언급만 있을 뿐입니다.\n\n반면, 두 번째 논문에서는 향후 연구 방향에 대한 구체적인 제안이 제시되어 있습니다:\n\n1. 다양한 데이터셋과 실제 시나리오에 대한 일반화 가능성 추가 연구\n2. 매우 긴 문서(8192 토큰 초과)에 대한 성능 추가 연구\n3. 더 넓은 범위의 언어에 대한 추가 분석 및 평가\n4. 다양한 언어 가족과 언어적 특성에 따른 모델의 강건성과 효과성에 대한 추가 연구\n\n이러한 향후 연구 방향은 두 번째 논문의 결론 섹션에서 명시적으로 언급되어 있으며, 첫 번째 논문에서는 이러한 구체적인 향후 연구 방향이 제시되어 있지 않습니다."
+    "track": "track1"
   },
   {
     "query": "Discussion 섹션에서 분석한 실패 케이스가 있어?",
+    "ground_truth": "",
     "type": "section_result",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
-      "paper_nlp_rag"
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "# RAG 시스템에서의 실패 케이스 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 RAG 시스템의 실패 케이스나 문제점에 관한 내용을 찾아 분석해야 합니다. 문서를 검토하여 RAG 시스템의 한계점이나 문제점으로 언급된 부분을 식별하고, 이를 바탕으로 질문에 답변하겠습니다.\n\n## 추론 단계\n1. 문서에서 RAG 시스템의 한계점이나 문제점으로 언급된 부분 찾기\n2. Retrieval 과정에서의 문제점 식별하기\n3. 문서에서 언급된 실패 케이스나 문제점 종합하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 RAG 시스템의 한계점이나 문제점 찾기\n문서를 검토한 결과, RAG 시스템의 한계점이나 문제점으로 다음과 같은 내용이 언급되어 있습니다:\n\n1. \"LLMs often overlook the contexts Figure 3: Effect of the adjustment level α. The y-axis is the performance and the x-axis is α.\" - 문서에서 조정 수준 α의 효과에 대한 언급이 있으나, 구체적인 실패 케이스는 명시되어 있지 않습니다.\n\n2. \"Off-the-shelf language models may suffer from an insufficient attention to the supplied context compared to its learned prior knowledge, leading to an unfaithful generation to the input context.\" - LLM이 외부에서 제공된 컨텍스트에 충분히 주의를 기울이지 않아 입력 컨텍스트에 충실하지 않은 생성을 한다는 문제점이 언급되어 있습니다.\n\n3. \"existing approaches for improving model’s faithful- ness to the context, such as the prompting-based method ( Zhou et al., 2023 ), are limited in that they could only apply to large-scale instruction-finetuned LMs like OpenAI’s text-davinci-003.\" - 기존의 컨텍스트 충실성 개선 접근법이 대규모 지시형 파인튜닝된 LLM에만 적용 가능하다는 한계가 언급되어 있습니다.\n\n### 2단계: Retrieval 과정에서의 문제점 식별하기\n문서에서 Retrieval 과정과 관련된 문제점으로 다음 내용이 언급되어 있습니다:\n\n1. \"Neural models are at a disadvantage when evaluated on these datasets. Moreover, creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages.\" - 기존의 IR 작업을 위한 레이블이 있는 리소스를 만드는 것이 비용이 많이 들고, 많은 언어에 대해 신뢰할 수 있는 데이터셋이 부족하다는 문제점이 언급되어 있습니다.\n\n2. \"Creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages.\" - 데이터셋 부족 문제가 다시 언급되어 있습니다.\n\n3. \"As most languages have none or a limited number of labeled datasets, using automatic translation is an attainable way to derive the same resources for a wider range of languages.\" - 많은 언어에 대해 레이블이 있는 데이터셋이 부족하여 자동 번역을 통해 유사한 리소스를 만드는 방법이 언급되어 있습니다.\n\n### 3단계: 문서에서 언급된 실패 케이스나 문제점 종합하기\n문서에서 직접적으로 \"실패 케이스\"라고 명시적으로 언급된 부분은 찾기 어렵습니다. 그러나 다음과 같은 문제점들이 실패로 이어질 수 있는 요소들로 볼 수 있습니다:\n\n1. LLM이 외부 컨텍스트에 충분히 주의를 기울이지 않는 문제\n2. 많은 언어에 대해 신뢰할 수 있는 IR 작업용 데이터셋이 부족한 문제\n3. 기존의 컨텍스트 충실성 개선 접근법이 대규모 지시형 파인튜닝된 LLM에만 적용 가능한 한계\n\n문서에서는 이러한 문제점들을 해결하기 위한 다양한 접근법(예: Self-Knowledge Distillation, dual-signal 접근, adapter fine-tuning 등)이 제시되고 있지만, 구체적인 실패 케이스는 명시적으로 언급되지 않았습니다.\n\n## 최종 답변\n주어진 문서에서는 RAG 시스템의 실패 케이스를 직접적으로 명시하고 있지 않습니다. 그러나 문서에서 언급된 RAG 시스템의 한계점과 문제점을 통해 실패로 이어질 수 있는 요소들을 파악할 수 있습니다.\n\n문서에 따르면, LLM은 \"supplied context compared to its learned prior knowledge, leading to an unfaithful generation to the input context\"라는 문제가 있습니다. 즉, LLM이 외부에서 제공된 컨텍스트에 충분히 주의를 기울이지 않아 입력 컨텍스트에 충실하지 않은 생성을 한다는 것입니다.\n\n또한 문서는 \"creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages\"라는 문제점을 지적하고 있습니다. 이는 많은 언어에 대해 신뢰할 수 있는 데이터셋이 부족하여 IR 작업을 위한 파인튜닝과 평가에 어려움이 있다는 것을 의미합니다.\n\n문서에서는 이러한 문제를 해결하기 위한 다양한 접근법(예: dual-signal 접근, adapter fine-tuning, prompting-based 방법 등)을 제시하고 있지만, 구체적인 실패 케이스는 명시적으로 언급되지 않았습니다.\n\n따라서 주어진 문서만으로는 RAG 시스템의 구체적인 실패 케이스를 직접적으로 확인할 수 없으며, 문서에서 언급된 문제점들을 통해 실패로 이어질 수 있는 요소들을 파악할 수 있습니다.",
-      "paper_nlp_rag": "# RAG 시스템의 실패 케이스 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 RAG 시스템의 실패 케이스나 문제점에 관한 내용을 찾아 분석해야 합니다. 문서 내에서 Naive RAG, Advanced RAG, Modular RAG의 한계점과 실패 사례를 찾아 체계적으로 정리하겠습니다.\n\n## 추론 단계\n1. 문서에서 RAG 시스템의 실패 케이스나 문제점에 관한 내용 찾기\n2. Naive RAG의 실패 사례 분석\n3. Advanced RAG의 실패 사례 분석\n4. Modular RAG의 실패 사례 분석\n5. 종합적인 실패 케이스 정리\n\n## 단계별 추론 결과\n### 1단계: 문서에서 RAG 시스템의 실패 케이스나 문제점에 관한 내용 찾기\n문서의 \"3.3 Self-Knowledge Distillation\" 섹션에서 retrieval challenges에 대한 내용을 찾을 수 있습니다. 이 섹션에서는 Naive RAG의 문제점을 다루고 있습니다:\n\n\"Retrieval Challenges. The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.\"\n\n또한 \"Facing complex issues, a single retrieval based on the original query may not suffice to acquire adequate context information.\"라는 내용도 있습니다.\n\n### 2단계: Naive RAG의 실패 사례 분석\nNaive RAG의 실패 사례는 문서에서 다음과 같이 언급되어 있습니다:\n\n\"However, Naive RAG encounters notable drawbacks: Retrieval Challenges. The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.\"\n\n이는 Naive RAG 시스템이 다음과 같은 문제를 가진다는 것을 의미합니다:\n1. 정밀도와 재현율이 낮음\n2. 질문과 관련 없는 부적절한 정보를 선택함\n3. 중요한 정보를 누락함\n\n### 3단계: Advanced RAG의 실패 사례 분석\nAdvanced RAG의 실패 사례는 문서에서 다음과 같이 언급되어 있습니다:\n\n\"Moreover, there’s a concern that generation models might overly rely on augmented information, leading to outputs that simply echo retrieved content without adding insightful or synthesized information.\"\n\n이는 Advanced RAG가 다음과 같은 문제를 가진다는 것을 의미합니다:\n1. 생성된 응답이 단순히 검색된 내용을 반복하는 경향이 있음\n2. 통찰력이나 합성된 정보를 추가하지 않음\n\n### 4단계: Modular RAG의 실패 사례 분석\n문서에서 Modular RAG의 실패 사례에 대한 직접적인 언급은 찾을 수 없습니다. 다만, 문서에서는 Advanced RAG가 Naive RAG의 한계를 극복하기 위한 시도로 소개되고 있으며, Modular RAG는 Advanced RAG의 후속 발전으로 언급되고 있습니다. 그러나 Modular RAG의 구체적인 실패 사례는 문서에 명시되어 있지 않습니다.\n\n### 5단계: 종합적인 실패 케이스 정리\n문서에서 찾은 RAG 시스템의 실패 케이스를 종합하면:\n1. Naive RAG: \n   - 정밀도와 재현율이 낮음\n   - 관련 없는 정보 선택\n   - 중요한 정보 누락\n\n2. Advanced RAG:\n   - 검색된 정보에 과도하게 의존하여 통찰력이나 합성된 정보를 추가하지 않음\n\n3. Modular RAG:\n   - 문서에서 구체적인 실패 사례는 언급되지 않음\n\n## 최종 답변\n# RAG 시스템의 실패 케이스 분석\n\n주어진 문서를 분석한 결과, RAG 시스템의 실패 케이스는 주로 Naive RAG와 Advanced RAG에서 발견됩니다.\n\n## Naive RAG의 실패 케이스\n\nNaive RAG는 RAG 연구의 초기 방법론으로, 다음과 같은 주요 실패 케이스를 가지고 있습니다:\n\n1. **정밀도와 재현율 문제**: 문서에 따르면 \"The retrieval phase often struggles with precision and recall\"이라고 명시되어 있습니다. 이는 검색 과정에서 질문과 관련 없는 정보를 선택하거나 중요한 정보를 누락하는 문제를 야기합니다.\n\n2. **부적절한 정보 선택**: \"The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks\"라는 내용에서 알 수 있듯이, 질문과 관련 없는 부적절한 정보를 선택하는 문제가 있습니다.\n\n3. **중요한 정보 누락**: \"and the missing of crucial information\"이라는 표현에서 알 수 있듯이, 질문에 중요한 정보가 누락되는 문제가 발생합니다.\n\n## Advanced RAG의 실패 케이스\n\nAdvanced RAG는 Naive RAG의 한계를 극복하기 위한 시도로, 다음과 같은 실패 케이스를 가지고 있습니다:\n\n1. **검색된 정보에 대한 과도한 의존**: \"There’s a concern that generation models might overly rely on augmented information, leading to outputs that simply echo retrieved content without adding insightful or synthesized information\"라는 내용에서 알 수 있듯이, 생성된 응답이 단순히 검색된 내용을 반복하는 경향이 있습니다.\n\n2. **통찰력이나 합성된 정보 부족**: 검색된 정보를 단순히 반복하는 것을 넘어, 모델이 새로운 통찰력이나 합성된 정보를 생성하지 못하는 문제가 있습니다.\n\n## Modular RAG의 실패 케이스\n\n문서에서는 Modular RAG에 대한 구체적인 실패 사례를 직접적"
-    },
-    "ground_truth": "# RAG 시스템에서의 실패 케이스 분석\n\n## 질문 의도 파악 및 답변 계획\n주어진 문서에서 RAG 시스템의 실패 케이스나 문제점에 관한 내용을 찾아 분석해야 합니다. 문서를 검토하여 RAG 시스템의 한계점이나 문제점으로 언급된 부분을 식별하고, 이를 바탕으로 질문에 답변하겠습니다.\n\n## 추론 단계\n1. 문서에서 RAG 시스템의 한계점이나 문제점으로 언급된 부분 찾기\n2. Retrieval 과정에서의 문제점 식별하기\n3. 문서에서 언급된 실패 케이스나 문제점 종합하기\n\n## 단계별 추론 결과\n### 1단계: 문서에서 RAG 시스템의 한계점이나 문제점 찾기\n문서를 검토한 결과, RAG 시스템의 한계점이나 문제점으로 다음과 같은 내용이 언급되어 있습니다:\n\n1. \"LLMs often overlook the contexts Figure 3: Effect of the adjustment level α. The y-axis is the performance and the x-axis is α.\" - 문서에서 조정 수준 α의 효과에 대한 언급이 있으나, 구체적인 실패 케이스는 명시되어 있지 않습니다.\n\n2. \"Off-the-shelf language models may suffer from an insufficient attention to the supplied context compared to its learned prior knowledge, leading to an unfaithful generation to the input context.\" - LLM이 외부에서 제공된 컨텍스트에 충분히 주의를 기울이지 않아 입력 컨텍스트에 충실하지 않은 생성을 한다는 문제점이 언급되어 있습니다.\n\n3. \"existing approaches for improving model’s faithful- ness to the context, such as the prompting-based method ( Zhou et al., 2023 ), are limited in that they could only apply to large-scale instruction-finetuned LMs like OpenAI’s text-davinci-003.\" - 기존의 컨텍스트 충실성 개선 접근법이 대규모 지시형 파인튜닝된 LLM에만 적용 가능하다는 한계가 언급되어 있습니다.\n\n### 2단계: Retrieval 과정에서의 문제점 식별하기\n문서에서 Retrieval 과정과 관련된 문제점으로 다음 내용이 언급되어 있습니다:\n\n1. \"Neural models are at a disadvantage when evaluated on these datasets. Moreover, creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages.\" - 기존의 IR 작업을 위한 레이블이 있는 리소스를 만드는 것이 비용이 많이 들고, 많은 언어에 대해 신뢰할 수 있는 데이터셋이 부족하다는 문제점이 언급되어 있습니다.\n\n2. \"Creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages.\" - 데이터셋 부족 문제가 다시 언급되어 있습니다.\n\n3. \"As most languages have none or a limited number of labeled datasets, using automatic translation is an attainable way to derive the same resources for a wider range of languages.\" - 많은 언어에 대해 레이블이 있는 데이터셋이 부족하여 자동 번역을 통해 유사한 리소스를 만드는 방법이 언급되어 있습니다.\n\n### 3단계: 문서에서 언급된 실패 케이스나 문제점 종합하기\n문서에서 직접적으로 \"실패 케이스\"라고 명시적으로 언급된 부분은 찾기 어렵습니다. 그러나 다음과 같은 문제점들이 실패로 이어질 수 있는 요소들로 볼 수 있습니다:\n\n1. LLM이 외부 컨텍스트에 충분히 주의를 기울이지 않는 문제\n2. 많은 언어에 대해 신뢰할 수 있는 IR 작업용 데이터셋이 부족한 문제\n3. 기존의 컨텍스트 충실성 개선 접근법이 대규모 지시형 파인튜닝된 LLM에만 적용 가능한 한계\n\n문서에서는 이러한 문제점들을 해결하기 위한 다양한 접근법(예: Self-Knowledge Distillation, dual-signal 접근, adapter fine-tuning 등)이 제시되고 있지만, 구체적인 실패 케이스는 명시적으로 언급되지 않았습니다.\n\n## 최종 답변\n주어진 문서에서는 RAG 시스템의 실패 케이스를 직접적으로 명시하고 있지 않습니다. 그러나 문서에서 언급된 RAG 시스템의 한계점과 문제점을 통해 실패로 이어질 수 있는 요소들을 파악할 수 있습니다.\n\n문서에 따르면, LLM은 \"supplied context compared to its learned prior knowledge, leading to an unfaithful generation to the input context\"라는 문제가 있습니다. 즉, LLM이 외부에서 제공된 컨텍스트에 충분히 주의를 기울이지 않아 입력 컨텍스트에 충실하지 않은 생성을 한다는 것입니다.\n\n또한 문서는 \"creating new labeled resources for this task is an expensive process, resulting a lack of reliable datasets for finetuning and evaluating models for IR tasks in many languages\"라는 문제점을 지적하고 있습니다. 이는 많은 언어에 대해 신뢰할 수 있는 데이터셋이 부족하여 IR 작업을 위한 파인튜닝과 평가에 어려움이 있다는 것을 의미합니다.\n\n문서에서는 이러한 문제를 해결하기 위한 다양한 접근법(예: dual-signal 접근, adapter fine-tuning, prompting-based 방법 등)을 제시하고 있지만, 구체적인 실패 케이스는 명시적으로 언급되지 않았습니다.\n\n따라서 주어진 문서만으로는 RAG 시스템의 구체적인 실패 케이스를 직접적으로 확인할 수 없으며, 문서에서 언급된 문제점들을 통해 실패로 이어질 수 있는 요소들을 파악할 수 있습니다."
+    "track": "track1"
   },
   {
     "query": "related work에서 언급된 가장 유사한 선행 연구가 뭐야?",
+    "ground_truth": "",
     "type": "section_method",
-    "track": "track1",
     "expected_route": "B",
     "applicable_papers": [
       "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "두 논문의 방법론 차이가 뭐야?",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "1810.04805_bert"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "논문 A랑 B 성능 비교해줘",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "1810.04805_bert"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "두 접근법의 공통점과 차이점은?",
+    "ground_truth": "",
+    "type": "compare",
+    "expected_route": "C",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "1810.04805_bert"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "이 논문이 인용한 핵심 논문들이 뭐야?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "참고문헌 중에서 가장 관련 있는 논문은?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "이 논문이 arXiv에 등록된 논문을 인용한 게 있어?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "arXiv에 없는 논문만 인용한 경우 Pipeline D가 graceful fallback하는지 확인 가능",
+    "track": "track1"
+  },
+  {
+    "query": "이 연구에서 직접 비교한 baseline 논문들의 제목이 뭐야?",
+    "ground_truth": "",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "이 논문 전체 요약해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
+      "paper_korean"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "핵심 내용을 정리해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "1810.04805_bert",
+      "2101.08577",
+      "paper_korean"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "논문 개요를 설명해줘",
+    "ground_truth": "",
+    "type": "summary",
+    "expected_route": "E",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_korean"
+    ],
+    "track": "track1"
+  },
+  {
+    "query": "What hyperparameters were tuned in the training phase?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "scd_test_purpose": "영어 쿼리 → 답변이 한국어로 생성되는지 확인 (SCD 효과)",
+    "track": "track1"
+  },
+  {
+    "query": "이 논문에서 attention mechanism을 어떻게 수정했어?",
+    "ground_truth": "",
+    "type": "crosslingual_mixed",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "scd_test_purpose": "한영 혼합 쿼리 + 영어 기술 용어 → SCD가 한국어 답변을 유지하는지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "How does this method compare to the BERT baseline?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "expected_route": "C",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "scd_test_purpose": "영어 비교 쿼리 → C경로로 라우팅 + 한국어 답변 유지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 문서의 각 챕터나 절에서 다루는 내용은?",
+    "ground_truth": "",
+    "type": "general_doc",
+    "expected_route": "E",
+    "applicable_papers": [
       "paper_nlp_rag"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "is that it allows us to train BERT on a large corpus of text without the need for labeled data. Masked LM is the primary pre-training task for BERT. • 80% of the time: Replace the word with the [MASK] token, e.g., my dog is hairy → my dog is [MASK] • 10% of time: Replace the word with a random word, e.g., my dog is hairy → my dog is apple • 10% of the time: Keep the word un- changed, e.g., my dog is hairy → my dog is hairy. The purpose of this is to bias the representation towards the actual observed word. The advantage of this procedure is that it allows us to train BERT on a large corpus of text without the need for labeled data. Masked LM is the primary pre-training task for BERT.\n\n---\n\n다음 논문 컨텍스트를 참고하여 질문에 답변하세요.\nRAPTOR 시스템에서 클러스터링 알고리즘은 어떤 모델을 기반으로 하고 있나요?\n\n# RAPTOR 클러스터링 알고리즘 기반 모델\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 RAPTOR 시스템에서 사용되는 클러스터링 알고리즘의 기반 모델에 대해 묻고 있습니다. 주어진 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보를 찾아 어떤 모델이 사용되었는지 정확히 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보 찾기\n2. 클러스터링 알고리즘의 기반 모델 확인하기\n3. 최종 답변 도출하기\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보 찾기\nRAPTOR 시스템의 클러스터링 알고리즘에 관한 정보는 첫 번째 문서의 \"Clustering Algorithm\" 섹션에서 찾을 수 있습니다. 이 섹션에서는 RAPTOR의 클러스터링 역할과 특징에 대해 설명하고 있습니다.\n\n### 2단계: 클러스터링 알고리즘의 기반 모델 확인하기\n첫 번째 문서의 \"Clustering Algorithm\" 섹션에서 다음과 같은 내용을 확인할 수 있습니다:\n\n\"우리의 clustering algorithm is based on Gaussian Mixture Models (GMMs), an approach that offers both flexibility and a probabilistic framework.\"\n\n이 문장은 RAPTOR의 클러스터링 알고리즘이 Gaussian Mixture Models(GMMs)를 기반으로 하고 있음을 명확히 설명하고 있습니다. GMMs는 \"both flexibility and a probabilistic framework\"를 제공한다고 언급되어 있습니다.\n\n## 최종 답변\nRAPTOR 시스템의 클러스터링 알고리즘은 Gaussian Mixture Models(GMMs)를 기반으로 하고 있습니다. \n\n컨텍스트에 따르면, RAPTOR의 클러스터링 알고리즘은 \"Gaussian Mixture Models (GMMs), an approach that offers both flexibility and a probabilistic framework\"를 기반으로 합니다. GMMs는 관련 콘텐츠를 응집된 그룹으로 조직화하는 역할을 하며, 개별 텍스트 세그먼트가 다양한 주제에 관한 정보를 포함할 수 있어 여러 요약에 포함되는 유연성을 제공합니다.",
-      "paper_nlp_rag": "to train monolingual models on various languages. Rodrigues et al. ( 2019 ) translated sentences to English to use an English-based pretrained model outperforms its multilingual counterpart for semantic similarity and textual entailment tasks. In other stud- ies, the dataset translation goal is to train monolingual models on various languages. \n\n---\n\n3.1 Multilingual Pre-trained Models mBERT ( Devlin et al., 2018 ) is a multilingual pre-trained model that uses a Transformer architecture and is trained on a large corpus of 100 languages. XLM ( Lam ple and Conneau, 2019 ) is a multilingual pre-trained model that uses a Transformer architecture and is trained on a large corpus of 100 languages. XLM-R ( Conneau et al., 2019 ) is a multilingual pre-trained model that uses a Transformer architecture and is trained on a large corpus of 100 languages. mT5 ( Xue et al., 2020 ) is a multilingual pre-trained model that uses a Transformer architecture and is trained on a large corpus of 100 languages. mMiniLM ( Wang et al., 2020 ) is a multilingual pre-trained model that uses a Transformer architecture and is trained on a large corpus of 100 languages. \n\n3.2 Dataset Translation Techniques Isbister et al. ( 2021 ) investigated whether using automatically translated datasets is sufficient in these tasks and there is no need to train monolingual models on various languages. Rodrigues et al. ( 2019 ) demonstrated that translating sentences to English in order to use an English-based pretrained model outperforms its multilingual counterpart for semantic similarity and textual entailment tasks. In other studies, the dataset translation goal is to train monolingual models on various languages. \n\n3.3 Results and Discussion The results show that models finetuned on our translated dataset achieve superior effectiveness to models finetuned on the original English version alone. Additionally, we made avail- able the mMARCO dataset with 13 languages and all models finetuned on our translated dataset. One of them is a distilled multilingual reranker with a reduced number of parameters that is competitive with a much larger model. Others have shown that distilled models perform well on IR tasks ( Li et al., 2020 ; Gao et al., 2020 ; Lu et al., 2020 ; Hofstätter et al., 2020 ). Our experiments confirm those results in a multilingual setup. \n\n3.4 Conclusion The results show that models finetuned on our translated dataset achieve superior effectiveness to models finetuned on the original English version alone. Additionally, we made avail- able the mMARCO dataset with 13 languages and all models finetuned on our translated dataset. One of them is a distilled multilingual reranker with a reduced number of parameters that is competitive with a much larger model. Others have shown that distilled models perform well on IR tasks ( Li et al., 2020 ; Gao et al., 2020 ; Lu et al., 2020 ; Hofstätter et al., 2020 ). Our experiments confirm those results in a multilingual setup. \n\n3.5 Conclusion The introduction of the Transformer architecture, a variety of research was done on pretraining strate- gies and models. As a result of this, several multilingual pretrained models have emerged in recent years. These models extend the progress on NLP to a wide range of languages and inves- tigate whether using a diverse set of languages dur- ing language model pretraining is beneficial when finetuning on downstream tasks. Models such as mBERT ( Devlin et al., 2018 ), XLM ( Lam ple and Conneau, 2019 ), XLM-R ( Conneau et al., 2019 ), mT5 ( Xue et al., 2020 ), and mMiniLM ( Wang et al., 2020 ) achieved performance improve- ments in cross-lingual tasks, showing to be com- petitive with strong monolingual models. This evi- dence motivated Isbister et al. ( 2021 ) to investigate whether using automatically translated datasets is sufficient in these tasks and there is no need to train monolingual models on various languages. There are several successful attempts in the liter- ature reporting the use of dataset translation tech- niques. Rodrigues et al. ( 2019 ) demonstrated that translating sentences to English in order to use an English-based pretrained model outperforms its multilingual counterpart for semantic similarity and textual entailment tasks. In other studies, the dataset translation goal is to train monolingual models on various languages. \n\n---\n\n4.1 Multilingual Pre-trained Models mBERT ("
-    },
-    "ground_truth": "is that it allows us to train BERT on a large corpus of text without the need for labeled data. Masked LM is the primary pre-training task for BERT. • 80% of the time: Replace the word with the [MASK] token, e.g., my dog is hairy → my dog is [MASK] • 10% of time: Replace the word with a random word, e.g., my dog is hairy → my dog is apple • 10% of the time: Keep the word un- changed, e.g., my dog is hairy → my dog is hairy. The purpose of this is to bias the representation towards the actual observed word. The advantage of this procedure is that it allows us to train BERT on a large corpus of text without the need for labeled data. Masked LM is the primary pre-training task for BERT.\n\n---\n\n다음 논문 컨텍스트를 참고하여 질문에 답변하세요.\nRAPTOR 시스템에서 클러스터링 알고리즘은 어떤 모델을 기반으로 하고 있나요?\n\n# RAPTOR 클러스터링 알고리즘 기반 모델\n\n## 질문 의도 파악 및 답변 계획\n이 질문은 RAPTOR 시스템에서 사용되는 클러스터링 알고리즘의 기반 모델에 대해 묻고 있습니다. 주어진 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보를 찾아 어떤 모델이 사용되었는지 정확히 답변하겠습니다.\n\n## 추론 단계\n1. 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보 찾기\n2. 클러스터링 알고리즘의 기반 모델 확인하기\n3. 최종 답변 도출하기\n\n## 단계별 추론 결과\n### 1단계: 컨텍스트에서 RAPTOR의 클러스터링 알고리즘에 관한 정보 찾기\nRAPTOR 시스템의 클러스터링 알고리즘에 관한 정보는 첫 번째 문서의 \"Clustering Algorithm\" 섹션에서 찾을 수 있습니다. 이 섹션에서는 RAPTOR의 클러스터링 역할과 특징에 대해 설명하고 있습니다.\n\n### 2단계: 클러스터링 알고리즘의 기반 모델 확인하기\n첫 번째 문서의 \"Clustering Algorithm\" 섹션에서 다음과 같은 내용을 확인할 수 있습니다:\n\n\"우리의 clustering algorithm is based on Gaussian Mixture Models (GMMs), an approach that offers both flexibility and a probabilistic framework.\"\n\n이 문장은 RAPTOR의 클러스터링 알고리즘이 Gaussian Mixture Models(GMMs)를 기반으로 하고 있음을 명확히 설명하고 있습니다. GMMs는 \"both flexibility and a probabilistic framework\"를 제공한다고 언급되어 있습니다.\n\n## 최종 답변\nRAPTOR 시스템의 클러스터링 알고리즘은 Gaussian Mixture Models(GMMs)를 기반으로 하고 있습니다. \n\n컨텍스트에 따르면, RAPTOR의 클러스터링 알고리즘은 \"Gaussian Mixture Models (GMMs), an approach that offers both flexibility and a probabilistic framework\"를 기반으로 합니다. GMMs는 관련 콘텐츠를 응집된 그룹으로 조직화하는 역할을 하며, 개별 텍스트 세그먼트가 다양한 주제에 관한 정보를 포함할 수 있어 여러 요약에 포함되는 유연성을 제공합니다."
+    "note": "일반 문서의 장절 구조 감지 → chapter/section 섹션 태그가 표시되는지 확인",
+    "track": "track1"
   },
   {
-    "query": "What datasets were used in the experiments?",
-    "type": "crosslingual_en",
-    "track": "track1",
+    "query": "이 보고서의 결론이 뭐야?",
+    "ground_truth": "",
+    "type": "general_doc",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "note": "결론 섹션 감지 — 논문 conclusion 패턴 vs 일반 문서 결론 패턴 비교",
+    "track": "track1"
+  },
+  {
+    "query": "이 교재에서 다루는 핵심 개념이 뭐야?",
+    "ground_truth": "",
+    "type": "general_doc",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "note": "교재 문서 — 섹션 감지 실패 시 A경로 fallback 동작 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 논문에서 통계적으로 유의미한 결과가 있어? p-value가 얼마야?",
+    "ground_truth": "PAPER_SPECIFIC — 통계 논문(사회과학/의학)의 p-value로 채울 것",
+    "type": "cad_hallucination",
+    "expected_route": "B",
+    "applicable_papers": [
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "cad_test_purpose": "통계 결과 — 모델이 'p < 0.05'를 일반 지식으로 답할 위험",
+    "track": "track1"
+  },
+  {
+    "query": "이 실험의 표본 집단(대상자)은 어떤 특성을 가진 사람들이야?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "note": "의학/사회과학 논문 대상 — 섹션 B 라우팅이 비AI 도메인에서도 작동하는지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 논문에서 제안하는 방법이 기존 임상 가이드라인과 어떻게 다른가?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "1810.04805_bert",
+      "2101.08577"
+    ],
+    "note": "의학 논문 특화 — 도메인 전문용어 검색이 정상 작동하는지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 문서에서 제시된 권고사항 또는 결론이 뭐야?",
+    "ground_truth": "",
+    "type": "general_doc",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "note": "보고서/정책문서 — 결론/권고사항 섹션 감지",
+    "track": "track1"
+  },
+  {
+    "query": "한국어로 작성된 이 논문의 연구 방법이 뭐야?",
+    "ground_truth": "",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "한국어 논문 — 한국어 섹션명('방법론', '연구방법') 감지 + BGE-M3 크로스링구얼 검색 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 한국어 논문의 연구 결과와 시사점은?",
+    "ground_truth": "",
+    "type": "section_result",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "한국어 논문 결과 섹션 — 한국어 결과 섹션 패턴 감지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 강의에서 BNF의 정의가 정확히 뭐야?",
+    "ground_truth": "",
+    "type": "lecture",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
-      "paper_korean"
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "논문에서 사용된 실험 데이터셋은 다음과 같습니다:\n\n1. Pile (Gao et al., 2020)\n2. Wudao (Yuan et al., 2021)\n3. mC4 (Raffel et al., 2019)\n\n이 세 가지 데이터셋으로부터 총 184백만 개의 텍스트 샘플을 샘플링했으며, 105개 언어를 커버했습니다. 최대 시퀀스 길이는 8192로 설정되었고, 학습률은 7 × 10^-5로 설정되었습니다.",
-      "paper_nlp_rag": "thus retrieving more relevant passages compared to Dense Passage Retrieval methods. Figure 4: RAPTOR’s tree-based retrieval allows it to choose nodes from different tree layers, thus retrieving more relevant passages compared to Dense Passage Retrieval methods. We also provide a quantitative analysis of the retrieval process. Table 4 shows the results of the retrieval process. The results indicate that RAPTOR’s tree-based retrieval is more effective than Dense Passage Retrieval methods. Table 4: RAPTOR’s tree-based retrieval is more effective than Dense Passage Retrieval methods. RAPTOR DPR 1.00 0.98 0.97 2.00 0.99 0.98 3.00 0.99 0.98 4.00 0.99 0.98 5.00 0.99 0.98 6.00 0.99 0.98 7.00 0.99 0.98 8.00 0.99 0.98 9.00 0.99 0.98 10.00 0.99 0.98 11.00 0.99 0.98 12.00 0.99 0.98 13.00 0.99 0.98 14.00 0.99 0.98 15.00 0.99 0.98 16.00 0.99 0.98 17.00 0.99 0.98 18.00 0.99 0.98 19.00 0.99 0.98 20.00 0.99 0.98\n\n---\n\n[컨텍스트 종료]\n\n첫 번째 질문: mMARCO 번역 프로젝트에서 사용된 번역 방법은 무엇인가요?\n\n두 번째 질문: mMARCO 번역 프로젝트에서 사용된 GPU 사양은 무엇인가요?\n\n세 번째 질문: mMARCO 번역 프로젝트에서 사용된 최대 시퀀스 길이는 얼마인가요?\n\n네 번째 질문: mMARCO 번역 프로젝트에서 사용된 학습률은 얼마인가요?\n\n다섯 번째 질문: mMARCO 번역 프로젝트에서 사용된 배치 크기는 얼마인가요?\n\n여섯 번째 질문: mMARCO 번역 프로젝트에서 사용된 사전 훈련 기간은 얼마인가요?\n\n일곱 번째 질문: mMARCO 번역 프로젝트에서 사용된 파인 튜닝 기간은 얼마인가요?\n\n여덟 번째 질문: mMARCO 번역 프로젝트에서 사용된 배치 크기는 얼마인가요?",
-      "paper_korean": "do not measure translation time here, we note that translating the MS MARCO dataset to all target languages takes approximately 1.5 months. Table 9: Batch sizes for different sequence length ranges. 0-500 500-1000 1000-2000 2000-3000 3000-4000 4000-5000 5000-6000 6000-7000 7000-8000 8000-9000 9000-10000 10000-12000 12000-14000 14000-16000 16000-18000 18000-20000 20000-22000 22000-24000 24000-26000 26000-28000 28000-30000 30000-32000 32000-34000 34000-36000 36000-38000 38000-40000 40000-42000 42000-44000 44000-46000 46000-48000 48000-50000 50000-52000 52000-54000 54000-56000 56000-58000 58000-60000 60000-62000 62000-64000 64000-66000 66000-68000 68000-70000 70000-72000 72000-74000 74000-76000 76000-78000 78000-80000 80000-82000 82000-84000 84000-86000 86000-88000 88000-90000 90000-92000 92000-94000 94000-96000 96000-98000 98000-100000 100000-1020000 1020000-1040000 1040000-1060000 1060000-1080000 1080000-1100000 1100000-1120000 1120000-1140000 1140000-1160000 1160000-1180000 118000-120000 120000-1220000 1220000-1240000 1240000-1260000 1260000-1280000 1280000-1300000 1300000-1320000 1320000-1340000 1340000-1360000 1360000-1380000 1380000-1400000 1400000-1420000 1420000-1440000 1440000-1460000 1460000-1480000 1480000-150000 150000-1520000 1520000-1540000 1540000-1560000 1560000-1580000 1580000-1600000 1600000-1620000 1620000-1640000 1640000-1660000 1660000-1680000 1680000-170000 170000-1720000 1720000-1740000 1740000-1760000 1760000-1780000 1780000-180000 180000-1820000 1820000-1840000 1840000-1860000 1860000-1880000 1880000-190000 190000-1920000 1920000-1940000 1940000-1960000 1960000-1980000 1980000-200000 200000-2020000 2020000-2040000 2040000-2060000 2060000-2080000 2080000-210000 210000-2120000 2120000-2140000 2140000-2160000 2160000-2180000 2180000-220000 220000-2220000 2220000-2240000 2240000-2260000 2260000-2280000 2280000-230000 230000-2320000 2320000-2340000 2340000-2360000 2360000-2380000 2380000-240000 240000-2420000 2420000-2440000 2440000-2460000 2460000-2480000 2480000-250000 250000-2520000 2520000-2540000 2540000-2560000 2560000-2580000 2580000-260000 260000-2620000 2620000-2640000 2640000-2660000 2660000-2680000 2680000-"
-    },
-    "ground_truth": "논문에서 사용된 실험 데이터셋은 다음과 같습니다:\n\n1. Pile (Gao et al., 2020)\n2. Wudao (Yuan et al., 2021)\n3. mC4 (Raffel et al., 2019)\n\n이 세 가지 데이터셋으로부터 총 184백만 개의 텍스트 샘플을 샘플링했으며, 105개 언어를 커버했습니다. 최대 시퀀스 길이는 8192로 설정되었고, 학습률은 7 × 10^-5로 설정되었습니다."
+    "note": "강의 모드 — 코드 블록(BNF 문법) 보존 검증. block_type=code 청크가 원형 유지되는지 확인",
+    "track": "track1"
   },
   {
-    "query": "How did the proposed method perform compared to previous baselines?",
-    "type": "crosslingual_en",
-    "track": "track1",
+    "query": "Definition 2.1을 그대로 인용해줘",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — definition 섹션 검색. LECTURE_PATTERNS 정의 패턴 매칭 확인",
+    "track": "track1"
+  },
+  {
+    "query": "예제 3번의 풀이 과정을 단계별로 설명해줘",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — example 섹션 분리 검증. exercise와 example 구분 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 강의에서 EBNF가 BNF와 다른 점이 뭐야?",
+    "ground_truth": "",
+    "type": "lecture",
     "expected_route": "A",
     "applicable_papers": [
       "paper_nlp_bge",
       "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — 다중 정의(BNF/EBNF) 동시 검색. 두 코드 블록이 함께 반환되는지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "Theorem 3.2의 증명을 보여줘",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — theorem/proof 섹션 페어 검색. 정리와 증명이 함께 반환되는지 확인",
+    "track": "track1"
+  },
+  {
+    "query": "연습문제 5번의 정답이 뭐야?",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — exercise 섹션 검색. LECTURE_PATTERNS exercise 패턴 매칭 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 챕터의 핵심 개념을 정리해줘",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "E",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 + E경로(요약) — chapter 단위 요약. 강의 섹션 순서(LECTURE_SECTION_ORDER) 활용",
+    "track": "track1"
+  },
+  {
+    "query": "강의 슬라이드의 코드 예제를 그대로 출력해줘",
+    "ground_truth": "",
+    "type": "lecture",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor"
+    ],
+    "note": "강의 모드 — code_block 섹션 원형 보존. block_type=code + is_structured=True 청크 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 특허의 청구항 1번을 그대로 인용해줘",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "B",
+    "applicable_papers": [
       "paper_korean"
     ],
-    "ground_truth_by_paper": {
-      "paper_nlp_bge": "Data MultiLongDoc Fine-tuning Data EN Long Text 8192 8192 8192 8192 Medium Text 4096 4096 4096 4096 Short Text 1024 1024 1024 1024\n\n6 Dual Knowledge Multilingual RAG\nTranslating retrieved documents into the query lan- guage benefits mRAG, but it may also reflect re- trieval outputs from high-resource languages in- cluding irrelevant content. 따라서, LLM’s 내부 지식을 활용하여 번역된 문서의 관련성을 필터링하고, 더 신뢰할 수 있는 콘텐츠로 정보를 풍부하게 할 수 있습니다. 그래서 우리는 번역된 문서를 재작성하여 문서의 관련성을 향상시키기 위해 LLM의 내부 정보를 활용합니다. 기반 인사이트에 따라, Dual Knowl- edge Multilingual RAG (DKM-RAG), 프레임워크\nall en zh ko fr ja it pt es DKM-RAG [수식 참조]\n\n---\n\nQuestion: BM25와 XLM-R 모델의 성능 차이를 보여주는 표에서 XLM-R 모델이 BM25보다 높은 성능을 보인 경우는 어떤 경우인가요?\n\n• M3(Sparse) XLM-R 53.6\n• M3(Sparse) XLM-R 53.2\n• M3(Sparse) XLM-R 62.2\n• M3(Sparse) XLM-R 65.0\n\n이 중에서 XLM-R 모델이 BM25보다 높은 성능을 보인 경우는 어떤 경우인가요?\n\n• M3(Sparse) XLM-R 53.6\n• M3(Sparse) XLM-R 53.2\n• M3(Sparse) XLM-R 62.2\n• M3(Sparse) XLM-R 65.0\n\n답변\n해당 정보는 제공된 논문에서 찾을 수 없습니다.",
-      "paper_nlp_rag": "Data MultiLongDoc Fine-tuning Data EN xP3, CCNews, mC4 256 512 1024 2048 4096 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 8192 819",
-      "paper_korean": "Data MultiLongDoc Fine-tuning Data EN xP3, CCNews 32 256 32 256 zh CodeSearchNet Text-Code 32 256 32 256 MTP EN, ZH 32 256 32 256 S2ORC, Wikipeida EN 32 256 32 256 xP3, mC4, CCMatrix Multi-Lingual 32 256 32 256 NLLB, CCMatrix Cross-Lingual 32 256 32 256 CodeSearchNet Text-Code 32 256 32 256 Table 9: Batch size comparison between split-batch enabled and disabled."
-    },
-    "ground_truth": "Data MultiLongDoc Fine-tuning Data EN Long Text 8192 8192 8192 8192 Medium Text 4096 4096 4096 4096 Short Text 1024 1024 1024 1024\n\n6 Dual Knowledge Multilingual RAG\nTranslating retrieved documents into the query lan- guage benefits mRAG, but it may also reflect re- trieval outputs from high-resource languages in- cluding irrelevant content. 따라서, LLM’s 내부 지식을 활용하여 번역된 문서의 관련성을 필터링하고, 더 신뢰할 수 있는 콘텐츠로 정보를 풍부하게 할 수 있습니다. 그래서 우리는 번역된 문서를 재작성하여 문서의 관련성을 향상시키기 위해 LLM의 내부 정보를 활용합니다. 기반 인사이트에 따라, Dual Knowl- edge Multilingual RAG (DKM-RAG), 프레임워크\nall en zh ko fr ja it pt es DKM-RAG [수식 참조]\n\n---\n\nQuestion: BM25와 XLM-R 모델의 성능 차이를 보여주는 표에서 XLM-R 모델이 BM25보다 높은 성능을 보인 경우는 어떤 경우인가요?\n\n• M3(Sparse) XLM-R 53.6\n• M3(Sparse) XLM-R 53.2\n• M3(Sparse) XLM-R 62.2\n• M3(Sparse) XLM-R 65.0\n\n이 중에서 XLM-R 모델이 BM25보다 높은 성능을 보인 경우는 어떤 경우인가요?\n\n• M3(Sparse) XLM-R 53.6\n• M3(Sparse) XLM-R 53.2\n• M3(Sparse) XLM-R 62.2\n• M3(Sparse) XLM-R 65.0\n\n답변\n해당 정보는 제공된 논문에서 찾을 수 없습니다."
+    "note": "특허 모드 — claims 섹션 검색. PATENT_PATTERNS 청구항 패턴 매칭 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 특허의 배경기술에서 언급한 선행 기술이 뭐야?",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "특허 모드 — background 섹션 검색. 배경기술 패턴 매칭 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 특허가 해결하려는 과제가 뭐야?",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "특허 모드 — problem 섹션 검색. '해결하려는 과제' 패턴 매칭 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 특허와 유사한 특허를 찾아줘",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "특허 모드 — Pipeline D(patent 분기). patent_tracker.search_similar_patents() 실행 확인",
+    "track": "track1"
+  },
+  {
+    "query": "이 특허의 인용 특허 목록을 보여줘",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "특허 모드 — Pipeline D(patent 분기). patent_tracker.parse_cited_patents() 실행 확인",
+    "track": "track1"
+  },
+  {
+    "query": "발명의 상세한 설명에서 제시한 실시예가 몇 개야?",
+    "ground_truth": "",
+    "type": "patent",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_korean"
+    ],
+    "note": "특허 모드 — detailed_description 섹션 검색 + embodiment 카운팅",
+    "track": "track1"
   }
 ]
