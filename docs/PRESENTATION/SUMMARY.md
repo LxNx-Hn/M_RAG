@@ -41,7 +41,6 @@ flowchart LR
 
 - 로컬 기본 모델 MIDM Mini
 - Base 모델은 대형 GPU 환경에서 선택형 사용
-- 양자화 없이 bfloat16 + device_map=auto 사용
 - 전체 로컬 실험은 master_run.py 기준 실행
 
 ## 연구와 서비스 구분

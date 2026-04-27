@@ -1,6 +1,6 @@
 # M-RAG
 
-- 문서 기준 2026-04-26
+- 문서 기준 2026-04-27
 - 현재 기준 로컬 연구용 실험과 시연용 실행 경로를 반영한 메인 문서
 - 패키지 표식용 `__init__.py` 는 역할이 단순해 코드 맵에서 생략
 
@@ -9,9 +9,8 @@
 - 한국어 중심 학술 문서 질의응답과 환각 억제를 위한 Modular RAG 시스템
 - FastAPI 백엔드와 React 프론트엔드로 구성
 - 논문 업로드, 하이브리드 검색, 라우팅 기반 파이프라인, 인용 추적, 퀴즈 생성 지원
-- 로컬 연구 실행 기본 모델은 `K-intelligence/Midm-2.0-Mini-Instruct`
-- `K-intelligence/Midm-2.0-Base-Instruct` 도 유지하되 환경변수로 명시적으로 선택
-- 양자화 경로는 현재 사용하지 않음
+- 논문 기준 기본 모델은 `K-intelligence/Midm-2.0-Base-Instruct`
+- 로컬 스모크 테스트용 `K-intelligence/Midm-2.0-Mini-Instruct` 경로도 유지
 
 ## 표준 실행 경로
 
@@ -29,8 +28,8 @@ cd ..
 ```
 
 - 여러 Python 환경이 섞여 있으면 `python` 대신 `.venv\Scripts\python.exe` 사용 권장
-- 로컬 기본 DB는 SQLAlchemy가 여는 `backend/mrag.db` SQLite 파일
-- PostgreSQL을 쓰려면 `DATABASE_URL` 환경변수로 별도 지정
+- SQLAlchemy ORM을 유지한 상태에서 기본 DB URL은 PostgreSQL 기준으로 설정
+- 로컬 임시 검증이 필요할 때만 `DATABASE_URL=sqlite+aiosqlite:///...` 로 명시 전환
 
 ### 2 모델 캐시 준비
 
@@ -57,6 +56,7 @@ python scripts\master_run.py --skip-download
 
 - 이미 준비된 PDF를 그대로 사용하면 `--skip-download`
 - API 서버를 별도로 띄운 상태면 `--skip-server`
+- `master_run.py` 기본 DB는 실험 편의상 SQLite(`sqlite+aiosqlite:///./mrag.db`)로 강제 실행
 - 표준 성공 기준은 `backend/scripts/master_run.log` 의 아래 세 줄
   - `STEP 12 - Validate results completed successfully.`
   - `STEP 13 - Stop the API server subprocess cleanly completed successfully.`
@@ -77,12 +77,11 @@ npm run dev
 
 ## 모델 운영 기준
 
-- 기본 로컬 실험 모델은 Mini
-- Base 모델은 `GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct` 로만 선택
+- 기본 실험 모델은 Base
+- Mini 모델은 `GENERATION_MODEL=K-intelligence/Midm-2.0-Mini-Instruct` 로 명시 선택
 - Mini와 Base 모두 `bfloat16 + device_map=auto` 로 로드
-- 현재 저장소에는 4-bit 양자화와 `bitsandbytes` 의존 경로를 두지 않음
-- 로컬 12GB급 GPU는 Mini 기준으로 운영
-- 24GB 이상 GPU가 있을 때만 Base 사용 권장
+- 로컬 12GB급 GPU는 Mini 스모크 검증 경로로 운영
+- 논문 실험 본 실행은 24GB 이상 GPU에서 Base 사용 권장
 
 ## 연구 경로와 서비스 경로
 
@@ -102,6 +101,7 @@ npm run dev
 - 자동 실행 로그 `backend/scripts/master_run.log`
 - 업로드 문서와 실험 PDF `backend/data/`
 - 벡터 저장소 `backend/chroma_db/`
+- RunPod A100 무SSH 실행 가이드 `docs/USAGE/RUNPOD_A100_NO_SSH.md`
 
 ## 코드 맵
 
@@ -154,15 +154,16 @@ npm run dev
 
 - `backend/evaluation/ablation_study.py` 모듈별 ablation 실험 로직
 - `backend/evaluation/decoder_ablation.py` CAD와 SCD 실험 로직
-- `backend/evaluation/ragas_eval.py` RAGAS 평가와 휴리스틱 폴백
+- `backend/evaluation/ragas_eval.py` LLM judge 기반 RAGAS 평가
 - `backend/evaluation/run_track1.py` Track 1 실행기
 - `backend/evaluation/run_track2.py` Track 2 실행기
-- `backend/evaluation/test_queries.json` 기본 실험 질의 세트
 - `backend/evaluation/data/korquad_25.json` KorQuAD 샘플 쿼리
-- `backend/evaluation/data/crag_ko_25.json` CRAG 기반 한국어 샘플 쿼리
-- `backend/evaluation/data/pseudo_gt.json` pseudo ground truth 저장
 - `backend/evaluation/data/track1_queries.json` Track 1 통합 질의 세트
 - `backend/evaluation/data/track2_queries.json` Track 2 통합 질의 세트
+- `backend/evaluation/data/pseudo_gt_track1.json` Track 1 pseudo ground truth 결과
+- `backend/evaluation/data/pseudo_gt_track2.json` Track 2 pseudo ground truth 결과
+- 현재 canonical 재평가 입력은 `track1_queries.json`, `track2_queries.json`, `pseudo_gt_track1.json`, `pseudo_gt_track2.json`
+- `korquad_25.json` 과 CRAG 정규화 출력은 보조 준비 자산이며, 현재 로컬 paper-grounded 재평가의 직접 입력으로는 사용하지 않음
 
 ### Backend Scripts
 
@@ -172,13 +173,13 @@ npm run dev
 - `backend/scripts/index_papers.py` 실험용 문서를 API로 일괄 업로드
 - `backend/scripts/generate_pseudo_gt.py` pseudo ground truth 생성
 - `backend/scripts/prepare_korquad.py` KorQuAD 샘플링
-- `backend/scripts/prepare_crag.py` CRAG 샘플링과 변환
+- `backend/scripts/prepare_crag.py` 실제 번역된 CRAG 입력 파일 정규화
 - `backend/scripts/results_to_markdown.py` 결과 JSON을 `TABLES.md` 로 변환
+- `backend/scripts/runpod_start.sh` RunPod A100 무SSH 서버 기동 보조 스크립트
 - `backend/scripts/experiments/run_all_experiments.py` 단일 논문 기준 레거시 실험 실행기
 - `backend/scripts/experiments/run_c3_experiment.py` C3 관련 별도 실험 실행기
 - `backend/scripts/verify_deployment.py` 배포 환경 체크
-- `backend/scripts/experiments/runpod_experiment.sh` RunPod 실험 보조 스크립트
-- `backend/scripts/experiments/README.md` 보존형 실험 스크립트 묶음 설명
+- `.github/workflows/publish-backend-image.yml` GHCR 백엔드 이미지 자동 발행
 - `backend/scripts/backup.sh` Postgres, Chroma, data 백업
 - `backend/scripts/entrypoint.sh` 컨테이너 엔트리포인트와 마이그레이션 실행
 
@@ -229,6 +230,7 @@ npm run dev
 
 - `docs/USAGE/README.md` 사용법 문서 묶음 시작점
 - `docs/USAGE/DEPLOY.md` 로컬 실행, Docker 실행, GPU 서버 실행 방법
+- `docs/USAGE/RUNPOD_A100_NO_SSH.md` RunPod A100 무SSH 실행 절차
 - `docs/USAGE/WORK_PLAN.md` 최신 실험 실행 계획
 - `docs/USAGE/HANDOFF.md` 세션 재개용 인수인계 문서
 - `docs/USAGE/POSTGRES_GUIDE.md` PostgreSQL 전환과 운영 기준
@@ -259,7 +261,6 @@ npm run dev
 ## 운영 메모
 
 - 로컬 연구 실행은 `backend/scripts/master_run.py` 를 기준으로 유지
-- 로컬 기본 영속 계층은 SQLAlchemy + SQLite, PostgreSQL은 운영과 확장 경로로 사용
-- 문서와 코드에서 양자화 경로를 다시 넣지 않음
-- Base 모델은 유지하지만 기본값으로 강제하지 않음
+- SQLAlchemy ORM은 유지하고 기본 영속 계층은 PostgreSQL 기준으로 운영
+- Base 모델을 기본값으로 유지하고 Mini는 로컬 검증 경로로만 사용
 - 삭제 후보가 보여도 사용자 확인 전에는 제거하지 않음

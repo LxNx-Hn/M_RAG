@@ -1,6 +1,6 @@
 # M-RAG 아키텍처
 
-- 문서 기준 2026-04-25
+- 문서 기준 2026-04-27
 - 현재 저장소의 실제 실행 경로와 디렉터리 구조 기준
 
 ## 전체 구조도
@@ -122,10 +122,9 @@ flowchart LR
 
 ## 모델 운영 정책
 
-- 기본 로컬 생성 모델은 `K-intelligence/Midm-2.0-Mini-Instruct`
-- Base 모델은 `GENERATION_MODEL` 환경변수로 선택형 유지
+- 논문 기준 기본 생성 모델은 `K-intelligence/Midm-2.0-Base-Instruct`
+- Mini 모델은 `GENERATION_MODEL` 환경변수로 로컬 스모크 점검 시 선택
 - Mini와 Base 모두 `bfloat16 + device_map=auto`
-- 현재 아키텍처에는 양자화 경로를 포함하지 않음
 
 ## 실행 기준
 

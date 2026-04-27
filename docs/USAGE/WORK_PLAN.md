@@ -1,6 +1,6 @@
 # M-RAG 최신 작업 계획
 
-- 문서 기준 2026-04-26
+- 문서 기준 2026-04-27
 - 목적 내일 바로 로컬 실험을 시작할 수 있게 실행 경로와 확인 기준을 고정
 
 ## 목표
@@ -60,11 +60,10 @@ Get-Content C:\Users\KiKi\Desktop\CODE\M_RAG\backend\scripts\master_run.log -Wai
 
 ## 현재 운영 기준
 
-- 기본 생성 모델은 Mini
-- Base 모델은 필요할 때만 환경변수로 전환
-- 양자화는 사용하지 않음
-- 로컬 기본 DB는 SQLAlchemy + SQLite
-- PostgreSQL 은 별도 운영 경로
+- 기본 생성 모델은 Base
+- Mini 모델은 로컬 스모크 검증에서만 환경변수로 전환
+- SQLAlchemy ORM은 유지하고 기본 DB는 PostgreSQL
+- SQLite는 로컬 임시 점검 경로
 
 ## 실패 시 우선 확인
 

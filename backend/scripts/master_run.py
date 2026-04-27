@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import io
+import importlib.util
 import json
 import os
 import signal
@@ -229,10 +230,43 @@ class MasterRunner:
             return False
 
     def step_install_packages(self) -> None:
-        self.run_subprocess(
+        required = ["ragas", "datasets"]
+        missing = [
+            package
+            for package in required
+            if importlib.util.find_spec(package) is None
+        ]
+        if not missing:
+            self._write_line(
+                "STEP 1 dependencies already available: ragas, datasets"
+            )
+            return
+
+        self._write_line(f"Missing STEP 1 dependencies detected: {', '.join(missing)}")
+        attempt = self.run_subprocess(
             "STEP 1",
-            [sys.executable, "-m", "pip", "install", "ragas", "datasets"],
+            [sys.executable, "-m", "pip", "install", *missing],
+            check=False,
         )
+        if attempt.returncode != 0:
+            self._write_line(
+                "Default pip install failed. Retrying with --user scope for non-root container runs."
+            )
+            self.run_subprocess(
+                "STEP 1",
+                [sys.executable, "-m", "pip", "install", "--user", *missing],
+                check=True,
+            )
+
+        still_missing = [
+            package
+            for package in required
+            if importlib.util.find_spec(package) is None
+        ]
+        if still_missing:
+            raise RuntimeError(
+                f"STEP 1 dependency install incomplete: {', '.join(still_missing)}"
+            )
 
     def step_download_pdfs(self) -> None:
         if self.args.skip_download:

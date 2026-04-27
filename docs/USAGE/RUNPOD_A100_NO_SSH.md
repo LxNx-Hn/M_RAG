@@ -3,12 +3,13 @@
 - 문서 기준 2026-04-27
 - 목적 GHCR 컨테이너를 RunPod에서 pull해서 논문 실험 실행
 - 기준 설정 Base 모델 + SQLite + SQLAlchemy
+- 패키지가 public이면 GHCR 로그인이나 시크릿 설정 없이 바로 실행 가능
 
 ## 0) 가장 빠른 방법 원샷 스크립트
 
 ```bash
 cd /workspace/M_RAG
-GHCR_OWNER_LC=<github-owner-lowercase> bash backend/scripts/runpod_one_shot.sh
+bash backend/scripts/runpod_one_shot.sh
 ```
 
 - private 패키지면 아래 환경변수 추가 후 실행
@@ -16,7 +17,6 @@ GHCR_OWNER_LC=<github-owner-lowercase> bash backend/scripts/runpod_one_shot.sh
 ```bash
 GHCR_USERNAME=<github-username> \
 GHCR_TOKEN=<pat_read_packages> \
-GHCR_OWNER_LC=<github-owner-lowercase> \
 bash backend/scripts/runpod_one_shot.sh
 ```
 
@@ -35,8 +35,8 @@ bash backend/scripts/runpod_one_shot.sh
   - `main` 또는 `master` push
   - 수동 실행 `workflow_dispatch`
 - 발행 이미지
-  - `ghcr.io/<github-owner-lowercase>/m-rag-backend:latest`
-  - `ghcr.io/<github-owner-lowercase>/m-rag-backend:sha-<commit>`
+  - `ghcr.io/lxnx-hn/m-rag-backend:latest`
+  - `ghcr.io/lxnx-hn/m-rag-backend:sha-<commit>`
 
 확인 순서
 1. GitHub Actions에서 `Publish Backend Image` 성공 확인
@@ -49,13 +49,13 @@ bash backend/scripts/runpod_one_shot.sh
 
 public 패키지
 ```bash
-docker pull ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+docker pull ghcr.io/lxnx-hn/m-rag-backend:latest
 ```
 
 private 패키지
 ```bash
 echo "<github_pat_with_read_packages>" | docker login ghcr.io -u <github-username> --password-stdin
-docker pull ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+docker pull ghcr.io/lxnx-hn/m-rag-backend:latest
 ```
 
 ### 2-2. 컨테이너 실행
@@ -74,7 +74,7 @@ docker run -d \
   -v /workspace/mrag_chroma:/app/chroma_db \
   -v /workspace/mrag_results:/app/evaluation/results \
   -v /workspace/hf_cache:/home/appuser/.cache/huggingface \
-  ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+  ghcr.io/lxnx-hn/m-rag-backend:latest
 ```
 
 ### 2-3. 상태 확인
@@ -104,4 +104,3 @@ cat /workspace/mrag_results/TABLES.md
 - GPU 미사용 시 `docker logs mrag-backend`에서 모델 로드 로그 확인
 - 중단 후 재실행은 `run_track1.py`, `run_track2.py`의 `--resume` 사용
 - SQLite 파일 경로는 컨테이너 내부 `./mrag.db` 기준
-

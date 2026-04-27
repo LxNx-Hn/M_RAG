@@ -1,14 +1,13 @@
 # M-RAG 인수인계
 
-- 문서 기준 2026-04-26
+- 문서 기준 2026-04-27
 - 목적 다음 세션에서 바로 실험을 이어받을 수 있게 현재 상태와 첫 명령을 고정
 
 ## 현재 상태
 
 - 로컬 연구 실행 주 경로는 `backend/scripts/master_run.py`
-- 생성 모델 기본값은 Mini
-- Base 모델 경로는 유지
-- 양자화 경로는 사용하지 않음
+- 생성 모델 기본값은 Base
+- Mini 모델 경로는 로컬 스모크 검증용으로 유지
 - `master_run.py` 에 stale `uvicorn` 정리 로직 반영
 - README 에 파일 단위 코드 맵 반영
 - 문서 구조는 `README` 중심으로 정리 완료
@@ -57,6 +56,5 @@ Get-Content C:\Users\KiKi\Desktop\CODE\M_RAG\backend\scripts\master_run.log -Wai
 ## 사용자 규칙 메모
 
 - 삭제 전에는 사용자 확인 필요
-- Base 모델 경로는 유지
-- 양자화는 다시 넣지 않음
+- Base 모델 기본 경로 유지
 - 최신 문서 기준으로만 갱신

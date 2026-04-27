@@ -53,7 +53,6 @@ flowchart LR
 
 - 기본 모델은 Base
 - Mini 모델은 로컬 스모크 검증 전용 선택지
-- 양자화는 사용하지 않음
 - 전체 로컬 실험 기준 러너는 `backend/scripts/master_run.py`
 
 ## 필수 환경변수
@@ -125,13 +124,12 @@ docker compose up --build
 
 - GPU 모델을 쓸 때는 `LOAD_GPU_MODELS=true`
 - Base 모델을 쓸 때는 `GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct`
-- Docker 실행에서도 양자화는 사용하지 않음
 
 ## RunPod 또는 원격 GPU 서버
 
 - 무SSH Web Terminal 절차는 `RUNPOD_A100_NO_SSH.md` 우선 사용
 - 원샷 실행은 `backend/scripts/runpod_one_shot.sh` 사용
-- 컨테이너 Pull 방식은 GHCR 이미지 `ghcr.io/<github-owner-lowercase>/m-rag-backend:latest` 기준
+- 컨테이너 Pull 방식은 GHCR 이미지 `ghcr.io/lxnx-hn/m-rag-backend:latest` 기준
 - GHCR 패키지가 private 면 RunPod 에서 `docker login ghcr.io` 선행 필요
 - GHCR 발행 워크플로우는 `.github/workflows/publish-backend-image.yml`
 
@@ -147,14 +145,14 @@ docker compose up --build
 ### 예시
 
 ```bash
-docker pull ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+docker pull ghcr.io/lxnx-hn/m-rag-backend:latest
 docker run --gpus all -p 8000:8000 \
   -e DATABASE_URL=sqlite+aiosqlite:///./mrag.db \
   -e JWT_SECRET_KEY=mrag-experiment-local-secret-2026 \
   -e GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct \
   -e LOAD_GPU_MODELS=true \
   -e SKIP_MIGRATIONS=true \
-  ghcr.io/<github-owner-lowercase>/m-rag-backend:latest
+  ghcr.io/lxnx-hn/m-rag-backend:latest
 ```
 
 ## 검증 체크리스트

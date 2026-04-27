@@ -5,7 +5,7 @@ set -euo pipefail
 # pull image -> run container -> wait health -> run full thesis experiment.
 #
 # Usage examples:
-#   GHCR_OWNER_LC=lxnx-hn bash backend/scripts/runpod_one_shot.sh
+#   bash backend/scripts/runpod_one_shot.sh
 #   GHCR_IMAGE=ghcr.io/lxnx-hn/m-rag-backend:latest bash backend/scripts/runpod_one_shot.sh
 #
 # Optional private package auth:
@@ -14,14 +14,9 @@ set -euo pipefail
 CONTAINER_NAME="${CONTAINER_NAME:-mrag-backend}"
 API_PORT="${API_PORT:-8000}"
 
-GHCR_OWNER_LC="${GHCR_OWNER_LC:-}"
+GHCR_OWNER_LC="${GHCR_OWNER_LC:-lxnx-hn}"
 GHCR_IMAGE="${GHCR_IMAGE:-}"
 if [ -z "$GHCR_IMAGE" ]; then
-  if [ -z "$GHCR_OWNER_LC" ]; then
-    echo "Set GHCR_IMAGE or GHCR_OWNER_LC first."
-    echo "Example: GHCR_OWNER_LC=lxnx-hn bash backend/scripts/runpod_one_shot.sh"
-    exit 1
-  fi
   GHCR_IMAGE="ghcr.io/${GHCR_OWNER_LC}/m-rag-backend:latest"
 fi
 
@@ -30,6 +25,7 @@ JWT_SECRET_KEY="${JWT_SECRET_KEY:-mrag-experiment-local-secret-2026}"
 GENERATION_MODEL="${GENERATION_MODEL:-K-intelligence/Midm-2.0-Base-Instruct}"
 LOAD_GPU_MODELS="${LOAD_GPU_MODELS:-true}"
 SKIP_MIGRATIONS="${SKIP_MIGRATIONS:-true}"
+SKIP_DOWNLOAD="${SKIP_DOWNLOAD:-false}"
 
 mkdir -p /workspace/mrag_data /workspace/mrag_chroma /workspace/mrag_results /workspace/hf_cache
 
@@ -77,12 +73,16 @@ for i in $(seq 1 120); do
 done
 
 echo "[one-shot] running full experiment via master_run.py"
-docker exec "${CONTAINER_NAME}" \
-  python scripts/master_run.py \
-  --skip-server \
-  --database-url "${DATABASE_URL}" \
-  --jwt-secret "${JWT_SECRET_KEY}" \
+MASTER_RUN_ARGS=(
+  --skip-server
+  --database-url "${DATABASE_URL}"
+  --jwt-secret "${JWT_SECRET_KEY}"
   --generation-model "${GENERATION_MODEL}"
+)
+if [ "${SKIP_DOWNLOAD}" = "true" ]; then
+  MASTER_RUN_ARGS+=(--skip-download)
+fi
+docker exec "${CONTAINER_NAME}" python scripts/master_run.py "${MASTER_RUN_ARGS[@]}"
 
 echo "[one-shot] completed. results:"
 ls -lah /workspace/mrag_results || true
@@ -92,4 +92,3 @@ if [ -f /workspace/mrag_results/TABLES.md ]; then
 else
   echo "TABLES.md not found"
 fi
-

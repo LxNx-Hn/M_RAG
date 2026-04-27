@@ -36,13 +36,14 @@ cd frontend && npm run build
 
 ## Current Operating Rules
 
-- Default local generation model is `K-intelligence/Midm-2.0-Mini-Instruct`
-- `K-intelligence/Midm-2.0-Base-Instruct` stays available through `GENERATION_MODEL`
-- Do not reintroduce quantization or `bitsandbytes`
+- Default thesis/runtime generation model is `K-intelligence/Midm-2.0-Base-Instruct`
+- `K-intelligence/Midm-2.0-Mini-Instruct` remains as a local smoke-test fallback via `GENERATION_MODEL`
+- Default DB runtime is PostgreSQL through SQLAlchemy (`DATABASE_URL`)
 - Use `backend/scripts/master_run.py` as the standard local experiment path
 - Do not delete code, documents, or generated artifacts without explicit user confirmation
 - Treat diagrams, tables, flowcharts, and checklists in docs as active documentation assets
 - Update those assets to match the current system instead of removing them during cleanup
+- CAD adaptive alpha codepath is retained, but thesis experiments run with fixed alpha (`cad_adaptive=False`)
 
 ## Architecture Snapshot
 
@@ -67,5 +68,5 @@ cd frontend && npm run build
 
 - `master_run.py` now kills only stale `uvicorn api.main:app` listeners on the target port
 - `download_models.py` follows the configured generation model by default
-- Mini is the default local path because it fits 12GB-class GPUs
-- Base is still supported for larger GPU environments
+- Base is the default thesis path
+- Mini is only the fallback path for constrained local GPU smoke checks
