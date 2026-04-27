@@ -43,6 +43,18 @@ PAPERS = [
         "title": "RAPTOR (Sarthi et al., ICLR 2024)",
         "desc": "MODULE 3 RAPTOR 청킹 기반. Track 2 요약 경로(E) 실험 대상.",
     },
+    {
+        "id": "1810.04805_bert",
+        "arxiv_id": "1810.04805",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al., NAACL 2019)",
+        "desc": "Track 1 Table 1~3 ablation 대상 (7번째 논문). 사전학습 지식 풍부 → CAD 효과 측정.",
+    },
+    {
+        "id": "2101.08577",
+        "arxiv_id": "2101.08577",
+        "title": "Unsupervised Cross-lingual Representation Learning (arXiv 2021)",
+        "desc": "Track 1 ablation 대상 (7번째 논문 보완). 다국어 도메인 쿼리 평가.",
+    },
 ]
 
 # 한국어 논문: arXiv cs.CL 에서 한국어 포함 논문
