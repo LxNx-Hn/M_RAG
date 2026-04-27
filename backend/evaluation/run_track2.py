@@ -529,6 +529,7 @@ def run_domain_mode(
             LOGGER.info("[domain] %s | paper=%s", config["name"], paper)
             citation_data = track_citations_if_needed(ctx, paper, config)
             samples: list[EvalSample] = []
+            query_failures = 0
             for index, query_item in enumerate(paper_queries, start=1):
                 LOGGER.info(
                     "[domain] %s | paper=%s | query %s/%s",
@@ -537,7 +538,15 @@ def run_domain_mode(
                     index,
                     len(paper_queries),
                 )
-                answer, contexts, api_data = run_query(ctx, paper, query_item, config)
+                try:
+                    answer, contexts, api_data = run_query(ctx, paper, query_item, config)
+                except Exception as exc:
+                    LOGGER.warning(
+                        "Query %s/%s skipped after all retries (%s: %s)",
+                        index, len(paper_queries), type(exc).__name__, exc,
+                    )
+                    query_failures += 1
+                    continue
                 samples.append(
                     EvalSample(
                         query=query_item["query"],
@@ -546,6 +555,18 @@ def run_domain_mode(
                         contexts=contexts,
                         pipeline=api_data.get("pipeline", ""),
                     )
+                )
+            if not samples:
+                LOGGER.error(
+                    "All %s queries failed for config=%s paper=%s. Skipping config.",
+                    len(paper_queries), config["name"], paper,
+                )
+                continue
+            if query_failures:
+                LOGGER.warning(
+                    "%s/%s queries failed for config=%s paper=%s. "
+                    "Evaluation continues with %s samples.",
+                    query_failures, len(paper_queries), config["name"], paper, len(samples),
                 )
 
             evaluation = evaluate_samples(ctx, samples)

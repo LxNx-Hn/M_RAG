@@ -11,10 +11,9 @@
 
 ## 포함 문서
 
+- `ALICE_CLOUD_GUIDE.md` Alice Cloud GPU 초기 설정부터 실험 완주까지 전체 가이드
 - `DEPLOY.md` 로컬 실행, Docker 실행, GPU 서버 실행
-- `RUNPOD_A100_NO_SSH.md` RunPod A100 무SSH 실행 절차
-- `RUNPOD_A100_NO_SSH.md` 는 GHCR 컨테이너 Pull 방식 우선 절차 포함
-- `backend/scripts/runpod_one_shot.sh` 원샷 실행 스크립트
+- `RUNPOD_A100_NO_SSH.md` RunPod A100 무SSH 실행 절차 (GHCR 컨테이너 Pull 방식 포함)
 - `WORK_PLAN.md` 최신 실험 실행 계획
 - `HANDOFF.md` 다음 세션 인수인계
 - `POSTGRES_GUIDE.md` PostgreSQL 전환과 운영 기준
@@ -22,8 +21,8 @@
 
 ## 기본 순서
 
-- 먼저 `README.md` 에서 전체 구조 확인
-- 실행은 `WORK_PLAN.md` 또는 `DEPLOY.md` 기준으로 진행
+- Alice Cloud 에서 처음 실행하는 경우 `ALICE_CLOUD_GUIDE.md` 부터 시작
+- 로컬 실행 또는 Docker 실행은 `DEPLOY.md` 기준으로 진행
 - 세션 재개가 필요하면 `HANDOFF.md` 확인
 - DB 전환이 필요할 때만 `POSTGRES_GUIDE.md` 확인
 - 테스트 기준은 `TESTING_GUIDE.md` 확인

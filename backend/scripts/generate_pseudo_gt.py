@@ -472,7 +472,22 @@ def main() -> int:
     print(f"Completed. Success: {success}, Failed: {failed}", flush=True)
     print(f"Saved GT results to {args.output}", flush=True)
     print(f"Updated source file: {args.input}", flush=True)
-    return 0 if failed == 0 else 1
+    if success == 0 and len(targets) > 0:
+        # Nothing at all was generated — downstream evaluation cannot proceed.
+        print(
+            "ERROR: 0 ground-truth answers were generated. "
+            "Check API connectivity and model availability.",
+            file=sys.stderr,
+        )
+        return 1
+    if failed > 0:
+        print(
+            f"WARNING: {failed}/{len(targets)} queries could not be completed. "
+            "Their ground_truth fields remain empty; context_recall will be skipped "
+            "for those queries. All other metrics will be evaluated normally.",
+            file=sys.stderr,
+        )
+    return 0
 
 
 if __name__ == "__main__":

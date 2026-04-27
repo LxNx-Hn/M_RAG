@@ -477,6 +477,7 @@ def run_ragas_mode(
                 LOGGER.info("Skipping completed config=%s paper=%s", config_name, paper)
                 continue
             samples: list[EvalSample] = []
+            query_failures = 0
             for index, query_item in enumerate(paper_queries, start=1):
                 LOGGER.info(
                     "[%s] %s | paper=%s | query %s/%s",
@@ -486,9 +487,17 @@ def run_ragas_mode(
                     index,
                     len(paper_queries),
                 )
-                answer, contexts, api_data = query_answer(
-                    ctx, query_item, paper, config
-                )
+                try:
+                    answer, contexts, api_data = query_answer(
+                        ctx, query_item, paper, config
+                    )
+                except Exception as exc:
+                    LOGGER.warning(
+                        "Query %s/%s skipped after all retries (%s: %s)",
+                        index, len(paper_queries), type(exc).__name__, exc,
+                    )
+                    query_failures += 1
+                    continue
                 samples.append(
                     EvalSample(
                         query=query_item["query"],
@@ -497,6 +506,18 @@ def run_ragas_mode(
                         contexts=contexts,
                         pipeline=api_data.get("pipeline", ""),
                     )
+                )
+            if not samples:
+                LOGGER.error(
+                    "All %s queries failed for config=%s paper=%s. Skipping config.",
+                    len(paper_queries), config_name, paper,
+                )
+                continue
+            if query_failures:
+                LOGGER.warning(
+                    "%s/%s queries failed for config=%s paper=%s. "
+                    "Evaluation continues with %s samples.",
+                    query_failures, len(paper_queries), config_name, paper, len(samples),
                 )
 
             evaluation = evaluate_samples(ctx, samples)
@@ -582,6 +603,7 @@ def run_decoder_mode(
             answers: list[str] = []
             gts: list[str] = []
             samples: list[EvalSample] = []
+            query_failures = 0
             for index, query_item in enumerate(paper_queries, start=1):
                 LOGGER.info(
                     "[%s] %s | paper=%s | query %s/%s",
@@ -591,9 +613,17 @@ def run_decoder_mode(
                     index,
                     len(paper_queries),
                 )
-                answer, contexts, api_data = query_answer(
-                    ctx, query_item, paper, config
-                )
+                try:
+                    answer, contexts, api_data = query_answer(
+                        ctx, query_item, paper, config
+                    )
+                except Exception as exc:
+                    LOGGER.warning(
+                        "Query %s/%s skipped after all retries (%s: %s)",
+                        index, len(paper_queries), type(exc).__name__, exc,
+                    )
+                    query_failures += 1
+                    continue
                 answers.append(answer)
                 gts.append(resolve_ground_truth(query_item, paper))
                 samples.append(
@@ -604,6 +634,18 @@ def run_decoder_mode(
                         contexts=contexts,
                         pipeline=api_data.get("pipeline", ""),
                     )
+                )
+            if not samples:
+                LOGGER.error(
+                    "All %s queries failed for config=%s paper=%s. Skipping config.",
+                    len(paper_queries), config["name"], paper,
+                )
+                continue
+            if query_failures:
+                LOGGER.warning(
+                    "%s/%s queries failed for config=%s paper=%s. "
+                    "Evaluation continues with %s samples.",
+                    query_failures, len(paper_queries), config["name"], paper, len(samples),
                 )
 
             ragas_result = evaluate_samples(ctx, samples)
