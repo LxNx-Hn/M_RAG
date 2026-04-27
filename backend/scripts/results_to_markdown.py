@@ -6,7 +6,7 @@ import argparse
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 def parse_args() -> argparse.Namespace:
@@ -52,87 +52,127 @@ def md_table(headers: list[str], rows: list[list[Any]]) -> str:
     return "\n".join(lines)
 
 
+def _avg_across_papers(
+    data: dict[str, Any],
+    get_values: "Callable[[dict[str, Any]], dict[str, float | None]]",
+) -> list[tuple[str, dict[str, float | None]]]:
+    """Return (config_name, {metric: mean_across_papers}) preserving config order."""
+    config_order: list[str] = []
+    accum: dict[str, dict[str, list[float]]] = {}
+    for _paper, configs in data.get("results", {}).items():
+        for config_name, result in configs.items():
+            if config_name not in accum:
+                config_order.append(config_name)
+                accum[config_name] = {}
+            for metric, val in get_values(result).items():
+                if val is not None:
+                    accum[config_name].setdefault(metric, []).append(float(val))
+    out: list[tuple[str, dict[str, float | None]]] = []
+    for name in config_order:
+        vals = accum[name]
+        out.append((name, {m: (sum(v) / len(v) if v else None) for m, v in vals.items()}))
+    return out
+
+
 def flatten_track1_table1(data: dict[str, Any]) -> list[list[Any]]:
+    def _get(result: dict[str, Any]) -> dict[str, float | None]:
+        avg = result.get("average", {})
+        return {
+            "faithfulness": avg.get("faithfulness"),
+            "answer_relevancy": avg.get("answer_relevancy"),
+            "overall": avg.get("overall"),
+            "context_precision": avg.get("context_precision"),
+        }
     rows: list[list[Any]] = []
-    for paper, configs in data.get("results", {}).items():
-        for system_name, result in configs.items():
-            avg = result.get("average", {})
-            rows.append(
-                [
-                    f"{paper} / {system_name}",
-                    avg.get("faithfulness"),
-                    avg.get("answer_relevancy"),
-                    avg.get("overall"),
-                    avg.get("context_precision"),
-                ]
-            )
+    for name, means in _avg_across_papers(data, _get):
+        rows.append([
+            name,
+            means.get("faithfulness"),
+            means.get("answer_relevancy"),
+            means.get("overall"),
+            means.get("context_precision"),
+        ])
     return rows
 
 
 def flatten_table2_decoder(data: dict[str, Any]) -> list[list[Any]]:
+    def _get(result: dict[str, Any]) -> dict[str, float | None]:
+        return {
+            "numeric_hallucination_rate": result.get("numeric_hallucination_rate"),
+            "language_drift_rate": result.get("language_drift_rate"),
+            "faithfulness": result.get("faithfulness"),
+        }
     rows: list[list[Any]] = []
-    for paper, configs in data.get("results", {}).items():
-        for config_name, result in configs.items():
-            rows.append(
-                [
-                    f"{paper} / {config_name}",
-                    "on" if "CAD" in config_name else "off",
-                    "on" if "SCD" in config_name else "off",
-                    result.get("numeric_hallucination_rate"),
-                    result.get("language_drift_rate"),
-                    result.get("faithfulness"),
-                ]
-            )
+    for name, means in _avg_across_papers(data, _get):
+        rows.append([
+            name,
+            "on" if "CAD" in name else "off",
+            "on" if "SCD" in name else "off",
+            means.get("numeric_hallucination_rate"),
+            means.get("language_drift_rate"),
+            means.get("faithfulness"),
+        ])
     return rows
 
 
 def flatten_table2_alpha(data: dict[str, Any]) -> list[list[Any]]:
+    def _get(result: dict[str, Any]) -> dict[str, float | None]:
+        # alpha-sweep uses run_decoder_mode → top-level keys
+        return {
+            "faithfulness": result.get("faithfulness"),
+            "numeric_hallucination_rate": result.get("numeric_hallucination_rate"),
+            "answer_relevancy": result.get("answer_relevancy"),
+            "overall": result.get("overall"),
+        }
     rows: list[list[Any]] = []
-    for paper, configs in data.get("results", {}).items():
-        for config_name, result in configs.items():
-            # alpha-sweep uses run_decoder_mode → top-level keys include numeric_hallucination_rate
-            rows.append(
-                [
-                    f"{paper} / {config_name}",
-                    result.get("faithfulness"),
-                    result.get("numeric_hallucination_rate"),
-                    result.get("answer_relevancy"),
-                    result.get("overall"),
-                ]
-            )
+    for name, means in _avg_across_papers(data, _get):
+        rows.append([
+            name,
+            means.get("faithfulness"),
+            means.get("numeric_hallucination_rate"),
+            means.get("answer_relevancy"),
+            means.get("overall"),
+        ])
     return rows
 
 
 def flatten_table2_beta(data: dict[str, Any]) -> list[list[Any]]:
+    def _get(result: dict[str, Any]) -> dict[str, float | None]:
+        # beta-sweep uses run_decoder_mode → top-level keys
+        return {
+            "faithfulness": result.get("faithfulness"),
+            "language_drift_rate": result.get("language_drift_rate"),
+            "answer_relevancy": result.get("answer_relevancy"),
+            "overall": result.get("overall"),
+        }
     rows: list[list[Any]] = []
-    for paper, configs in data.get("results", {}).items():
-        for config_name, result in configs.items():
-            # beta-sweep uses run_decoder_mode → top-level keys include language_drift_rate
-            rows.append(
-                [
-                    f"{paper} / {config_name}",
-                    result.get("faithfulness"),
-                    result.get("language_drift_rate"),
-                    result.get("answer_relevancy"),
-                    result.get("overall"),
-                ]
-            )
+    for name, means in _avg_across_papers(data, _get):
+        rows.append([
+            name,
+            means.get("faithfulness"),
+            means.get("language_drift_rate"),
+            means.get("answer_relevancy"),
+            means.get("overall"),
+        ])
     return rows
 
 
 def flatten_track2_table3(data: dict[str, Any]) -> list[list[Any]]:
+    def _get(result: dict[str, Any]) -> dict[str, float | None]:
+        avg = result.get("average", {})
+        return {
+            "faithfulness": avg.get("faithfulness"),
+            "context_precision": avg.get("context_precision"),
+            "answer_relevancy": avg.get("answer_relevancy"),
+        }
     rows: list[list[Any]] = []
-    for paper, configs in data.get("results", {}).items():
-        for system_name, result in configs.items():
-            avg = result.get("average", {})
-            rows.append(
-                [
-                    f"{paper} / {system_name}",
-                    avg.get("faithfulness"),
-                    avg.get("context_precision"),
-                    avg.get("answer_relevancy"),
-                ]
-            )
+    for name, means in _avg_across_papers(data, _get):
+        rows.append([
+            name,
+            means.get("faithfulness"),
+            means.get("context_precision"),
+            means.get("answer_relevancy"),
+        ])
     return rows
 
 
