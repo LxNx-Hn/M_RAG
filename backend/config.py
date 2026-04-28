@@ -18,7 +18,7 @@ CHROMA_DIR.mkdir(exist_ok=True)
 # HuggingFace cache: 환경변수 우선, 미설정 시 backend/.cache/huggingface로 fallback
 # Alice Cloud / RunPod 등 외부 환경에서는 export HF_HOME=...로 영구볼륨 경로 지정 권장
 # ─────────────────────────────────────────────
-_HF_CACHE_DEFAULT = str(PROJECT_ROOT / ".cache" / "huggingface")
+_HF_CACHE_DEFAULT = str(Path.home() / ".cache" / "huggingface")
 os.environ.setdefault("HF_HOME", _HF_CACHE_DEFAULT)
 os.environ.setdefault("TRANSFORMERS_CACHE", os.environ["HF_HOME"])
 os.environ.setdefault("HF_HUB_CACHE", os.environ["HF_HOME"])

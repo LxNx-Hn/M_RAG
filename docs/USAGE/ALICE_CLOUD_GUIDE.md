@@ -57,6 +57,9 @@ export LOAD_GPU_MODELS=true
 export GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct
 export DATABASE_URL=sqlite+aiosqlite:///./mrag.db
 export MRAG_API_BASE=http://127.0.0.1:8000
+export HF_HOME=$HOME/.cache/huggingface
+export TRANSFORMERS_CACHE=$HF_HOME
+export HF_HUB_CACHE=$HF_HOME
 ```
 
 ## 모델 및 PDF 준비
