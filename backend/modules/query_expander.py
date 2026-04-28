@@ -92,9 +92,13 @@ class QueryExpander:
             result["translated"] = translated
             result["queries"].append(translated)
 
-        # HyDE
+        # HyDE — 한국어 쿼리는 영문 번역본으로 가상 문서 생성
+        # 근거: HyDE(Gao et al. 2022)는 검색 코퍼스와 동일 언어로 가상 문서를 생성해야 함.
+        # 영문 논문 코퍼스 대상이므로 한→영 번역 후 expand_hyde 호출 → BGE-M3 매칭 품질 향상.
+        # 번역 실패 시 원본 쿼리 사용(기존 동작 유지).
         if use_hyde:
-            hyde_doc = self.expand_hyde(query)
+            hyde_query = translated if translated else query
+            hyde_doc = self.expand_hyde(hyde_query)
             result["hyde_doc"] = hyde_doc
 
         # Multi-query
