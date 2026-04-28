@@ -70,7 +70,9 @@ def _avg_across_papers(
     out: list[tuple[str, dict[str, float | None]]] = []
     for name in config_order:
         vals = accum[name]
-        out.append((name, {m: (sum(v) / len(v) if v else None) for m, v in vals.items()}))
+        out.append(
+            (name, {m: (sum(v) / len(v) if v else None) for m, v in vals.items()})
+        )
     return out
 
 
@@ -83,15 +85,18 @@ def flatten_track1_table1(data: dict[str, Any]) -> list[list[Any]]:
             "overall": avg.get("overall"),
             "context_precision": avg.get("context_precision"),
         }
+
     rows: list[list[Any]] = []
     for name, means in _avg_across_papers(data, _get):
-        rows.append([
-            name,
-            means.get("faithfulness"),
-            means.get("answer_relevancy"),
-            means.get("overall"),
-            means.get("context_precision"),
-        ])
+        rows.append(
+            [
+                name,
+                means.get("faithfulness"),
+                means.get("answer_relevancy"),
+                means.get("overall"),
+                means.get("context_precision"),
+            ]
+        )
     return rows
 
 
@@ -102,16 +107,19 @@ def flatten_table2_decoder(data: dict[str, Any]) -> list[list[Any]]:
             "language_drift_rate": result.get("language_drift_rate"),
             "faithfulness": result.get("faithfulness"),
         }
+
     rows: list[list[Any]] = []
     for name, means in _avg_across_papers(data, _get):
-        rows.append([
-            name,
-            "on" if "CAD" in name else "off",
-            "on" if "SCD" in name else "off",
-            means.get("numeric_hallucination_rate"),
-            means.get("language_drift_rate"),
-            means.get("faithfulness"),
-        ])
+        rows.append(
+            [
+                name,
+                "on" if "CAD" in name else "off",
+                "on" if "SCD" in name else "off",
+                means.get("numeric_hallucination_rate"),
+                means.get("language_drift_rate"),
+                means.get("faithfulness"),
+            ]
+        )
     return rows
 
 
@@ -124,15 +132,18 @@ def flatten_table2_alpha(data: dict[str, Any]) -> list[list[Any]]:
             "answer_relevancy": result.get("answer_relevancy"),
             "overall": result.get("overall"),
         }
+
     rows: list[list[Any]] = []
     for name, means in _avg_across_papers(data, _get):
-        rows.append([
-            name,
-            means.get("faithfulness"),
-            means.get("numeric_hallucination_rate"),
-            means.get("answer_relevancy"),
-            means.get("overall"),
-        ])
+        rows.append(
+            [
+                name,
+                means.get("faithfulness"),
+                means.get("numeric_hallucination_rate"),
+                means.get("answer_relevancy"),
+                means.get("overall"),
+            ]
+        )
     return rows
 
 
@@ -145,15 +156,18 @@ def flatten_table2_beta(data: dict[str, Any]) -> list[list[Any]]:
             "answer_relevancy": result.get("answer_relevancy"),
             "overall": result.get("overall"),
         }
+
     rows: list[list[Any]] = []
     for name, means in _avg_across_papers(data, _get):
-        rows.append([
-            name,
-            means.get("faithfulness"),
-            means.get("language_drift_rate"),
-            means.get("answer_relevancy"),
-            means.get("overall"),
-        ])
+        rows.append(
+            [
+                name,
+                means.get("faithfulness"),
+                means.get("language_drift_rate"),
+                means.get("answer_relevancy"),
+                means.get("overall"),
+            ]
+        )
     return rows
 
 
@@ -165,14 +179,17 @@ def flatten_track2_table3(data: dict[str, Any]) -> list[list[Any]]:
             "context_precision": avg.get("context_precision"),
             "answer_relevancy": avg.get("answer_relevancy"),
         }
+
     rows: list[list[Any]] = []
     for name, means in _avg_across_papers(data, _get):
-        rows.append([
-            name,
-            means.get("faithfulness"),
-            means.get("context_precision"),
-            means.get("answer_relevancy"),
-        ])
+        rows.append(
+            [
+                name,
+                means.get("faithfulness"),
+                means.get("context_precision"),
+                means.get("answer_relevancy"),
+            ]
+        )
     return rows
 
 

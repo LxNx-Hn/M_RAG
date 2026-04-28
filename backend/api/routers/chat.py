@@ -394,7 +394,9 @@ def _run_pipeline(
     qe = m.query_expander
     doc_id_filter = getattr(req, "doc_id_filter", None)
     # req.section_filter overrides the router decision (evaluation explicit control)
-    effective_section_filter = getattr(req, "section_filter", None) or decision.section_filter
+    effective_section_filter = (
+        getattr(req, "section_filter", None) or decision.section_filter
+    )
 
     if decision.route == RouteType.SECTION:
         return pipeline_b_section.run(

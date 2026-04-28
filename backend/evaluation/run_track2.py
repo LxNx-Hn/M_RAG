@@ -95,6 +95,7 @@ class RunContext:
     max_retries: int
     retry_backoff: float
     resume: bool
+    config_names: set[str]
 
 
 def parse_args() -> argparse.Namespace:
@@ -171,6 +172,12 @@ def parse_args() -> argparse.Namespace:
         "--resume",
         action="store_true",
         help="Resume from existing output JSON and skip completed configs.",
+    )
+    parser.add_argument(
+        "--config-names",
+        nargs="+",
+        default=None,
+        help="Optional config names to run. Matching configs are re-run and overwrite existing results.",
     )
     return parser.parse_args()
 
@@ -333,6 +340,20 @@ def is_domain_config_completed(result: Any) -> bool:
     if not isinstance(result, dict):
         return False
     return result.get("status") == "completed"
+
+
+def select_requested_configs(
+    configs: list[dict[str, Any]],
+    requested_names: set[str],
+) -> list[dict[str, Any]]:
+    if not requested_names:
+        return configs
+
+    selected = [config for config in configs if config["name"] in requested_names]
+    missing = sorted(requested_names - {config["name"] for config in selected})
+    if missing:
+        raise SystemExit("Unknown config names: " + ", ".join(missing))
+    return selected
 
 
 def save_json(path_str: str, payload: dict[str, Any]) -> None:
@@ -500,7 +521,7 @@ def run_domain_mode(
     papers: list[str],
     output_path: str,
 ) -> dict[str, Any]:
-    existing = load_existing_results(output_path, ctx.resume)
+    existing = load_existing_results(output_path, ctx.resume or bool(ctx.config_names))
     results: dict[str, Any] = {
         "meta": {
             "mode": "domain",
@@ -509,15 +530,22 @@ def run_domain_mode(
             "papers": papers,
             "generated_at": datetime.now().isoformat(),
             "resume": ctx.resume,
+            "config_names": sorted(ctx.config_names),
         },
-        "results": existing.get("results", {}) if isinstance(existing.get("results"), dict) else {},
+        "results": (
+            existing.get("results", {})
+            if isinstance(existing.get("results"), dict)
+            else {}
+        ),
     }
 
     for paper in papers:
         paper_queries = select_queries_or_fail(queries, paper)
         paper_result: dict[str, Any] = dict(results["results"].get(paper, {}))
-        for config in TRACK2_CONFIGS:
-            if is_domain_config_completed(paper_result.get(config["name"])):
+        for config in select_requested_configs(TRACK2_CONFIGS, ctx.config_names):
+            if not ctx.config_names and is_domain_config_completed(
+                paper_result.get(config["name"])
+            ):
                 LOGGER.info(
                     "Skipping completed config=%s paper=%s",
                     config["name"],
@@ -537,11 +565,16 @@ def run_domain_mode(
                     len(paper_queries),
                 )
                 try:
-                    answer, contexts, api_data = run_query(ctx, paper, query_item, config)
+                    answer, contexts, api_data = run_query(
+                        ctx, paper, query_item, config
+                    )
                 except Exception as exc:
                     LOGGER.warning(
                         "Query %s/%s skipped after all retries (%s: %s)",
-                        index, len(paper_queries), type(exc).__name__, exc,
+                        index,
+                        len(paper_queries),
+                        type(exc).__name__,
+                        exc,
                     )
                     query_failures += 1
                     continue
@@ -557,14 +590,20 @@ def run_domain_mode(
             if not samples:
                 LOGGER.error(
                     "All %s queries failed for config=%s paper=%s. Skipping config.",
-                    len(paper_queries), config["name"], paper,
+                    len(paper_queries),
+                    config["name"],
+                    paper,
                 )
                 continue
             if query_failures:
                 LOGGER.warning(
                     "%s/%s queries failed for config=%s paper=%s. "
                     "Evaluation continues with %s samples.",
-                    query_failures, len(paper_queries), config["name"], paper, len(samples),
+                    query_failures,
+                    len(paper_queries),
+                    config["name"],
+                    paper,
+                    len(samples),
                 )
 
             evaluation = evaluate_samples(ctx, samples)
@@ -632,6 +671,7 @@ def main() -> int:
         max_retries=args.max_retries,
         retry_backoff=args.retry_backoff,
         resume=args.resume,
+        config_names=set(args.config_names or []),
     )
 
     ensure_api_available(ctx)

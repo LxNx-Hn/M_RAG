@@ -118,6 +118,7 @@ def run(
             logits_processor=logits_processor if (use_cad or use_scd) else None,
             context_a=context_a,
             context_b=context_b,
+            force_greedy=use_cad,
         )
         sources = generator.format_sources(all_docs)
 

@@ -59,6 +59,7 @@ class RunContext:
     max_retries: int
     retry_backoff: float
     resume: bool
+    config_names: set[str]
 
 
 def parse_args() -> argparse.Namespace:
@@ -135,6 +136,12 @@ def parse_args() -> argparse.Namespace:
         "--resume",
         action="store_true",
         help="Resume from an existing output JSON and skip completed configs.",
+    )
+    parser.add_argument(
+        "--config-names",
+        nargs="+",
+        default=None,
+        help="Optional config names to run. Matching configs are re-run and overwrite existing results.",
     )
     return parser.parse_args()
 
@@ -331,6 +338,20 @@ def is_decoder_config_completed(result: Any) -> bool:
     return result.get("status") == "completed"
 
 
+def select_requested_configs(
+    configs: list[dict[str, Any]],
+    requested_names: set[str],
+) -> list[dict[str, Any]]:
+    if not requested_names:
+        return configs
+
+    selected = [config for config in configs if config["name"] in requested_names]
+    missing = sorted(requested_names - {config["name"] for config in selected})
+    if missing:
+        raise SystemExit("Unknown config names: " + ", ".join(missing))
+    return selected
+
+
 def print_table(headers: list[str], rows: list[list[str]]) -> None:
     widths = [len(header) for header in headers]
     for row in rows:
@@ -467,7 +488,7 @@ def run_ragas_mode(
     mode: str,
     output_path: str,
 ) -> dict[str, Any]:
-    existing = load_existing_results(output_path, ctx.resume)
+    existing = load_existing_results(output_path, ctx.resume or bool(ctx.config_names))
     results: dict[str, Any] = {
         "meta": {
             "mode": mode,
@@ -477,16 +498,23 @@ def run_ragas_mode(
             "queries_path": None,
             "generated_at": datetime.now().isoformat(),
             "resume": ctx.resume,
+            "config_names": sorted(ctx.config_names),
         },
-        "results": existing.get("results", {}) if isinstance(existing.get("results"), dict) else {},
+        "results": (
+            existing.get("results", {})
+            if isinstance(existing.get("results"), dict)
+            else {}
+        ),
     }
 
     for paper in papers:
         paper_queries = select_queries_or_fail(queries, paper)
         paper_result: dict[str, Any] = dict(results["results"].get(paper, {}))
-        for config in configs:
+        for config in select_requested_configs(configs, ctx.config_names):
             config_name = config["name"]
-            if is_ragas_config_completed(paper_result.get(config_name)):
+            if not ctx.config_names and is_ragas_config_completed(
+                paper_result.get(config_name)
+            ):
                 LOGGER.info("Skipping completed config=%s paper=%s", config_name, paper)
                 continue
             samples: list[EvalSample] = []
@@ -507,7 +535,10 @@ def run_ragas_mode(
                 except Exception as exc:
                     LOGGER.warning(
                         "Query %s/%s skipped after all retries (%s: %s)",
-                        index, len(paper_queries), type(exc).__name__, exc,
+                        index,
+                        len(paper_queries),
+                        type(exc).__name__,
+                        exc,
                     )
                     query_failures += 1
                     continue
@@ -523,14 +554,20 @@ def run_ragas_mode(
             if not samples:
                 LOGGER.error(
                     "All %s queries failed for config=%s paper=%s. Skipping config.",
-                    len(paper_queries), config_name, paper,
+                    len(paper_queries),
+                    config_name,
+                    paper,
                 )
                 continue
             if query_failures:
                 LOGGER.warning(
                     "%s/%s queries failed for config=%s paper=%s. "
                     "Evaluation continues with %s samples.",
-                    query_failures, len(paper_queries), config_name, paper, len(samples),
+                    query_failures,
+                    len(paper_queries),
+                    config_name,
+                    paper,
+                    len(samples),
                 )
 
             evaluation = evaluate_samples(ctx, samples)
@@ -589,8 +626,8 @@ def run_decoder_mode(
     mode: str,
     output_path: str,
 ) -> dict[str, Any]:
-    configs = build_decoder_configs(mode)
-    existing = load_existing_results(output_path, ctx.resume)
+    configs = select_requested_configs(build_decoder_configs(mode), ctx.config_names)
+    existing = load_existing_results(output_path, ctx.resume or bool(ctx.config_names))
     results: dict[str, Any] = {
         "meta": {
             "mode": mode,
@@ -599,15 +636,22 @@ def run_decoder_mode(
             "papers": papers,
             "generated_at": datetime.now().isoformat(),
             "resume": ctx.resume,
+            "config_names": sorted(ctx.config_names),
         },
-        "results": existing.get("results", {}) if isinstance(existing.get("results"), dict) else {},
+        "results": (
+            existing.get("results", {})
+            if isinstance(existing.get("results"), dict)
+            else {}
+        ),
     }
 
     for paper in papers:
         paper_queries = select_queries_or_fail(queries, paper)
         paper_result: dict[str, Any] = dict(results["results"].get(paper, {}))
         for config in configs:
-            if is_decoder_config_completed(paper_result.get(config["name"])):
+            if not ctx.config_names and is_decoder_config_completed(
+                paper_result.get(config["name"])
+            ):
                 LOGGER.info(
                     "Skipping completed config=%s paper=%s",
                     config["name"],
@@ -634,7 +678,10 @@ def run_decoder_mode(
                 except Exception as exc:
                     LOGGER.warning(
                         "Query %s/%s skipped after all retries (%s: %s)",
-                        index, len(paper_queries), type(exc).__name__, exc,
+                        index,
+                        len(paper_queries),
+                        type(exc).__name__,
+                        exc,
                     )
                     query_failures += 1
                     continue
@@ -652,14 +699,20 @@ def run_decoder_mode(
             if not samples:
                 LOGGER.error(
                     "All %s queries failed for config=%s paper=%s. Skipping config.",
-                    len(paper_queries), config["name"], paper,
+                    len(paper_queries),
+                    config["name"],
+                    paper,
                 )
                 continue
             if query_failures:
                 LOGGER.warning(
                     "%s/%s queries failed for config=%s paper=%s. "
                     "Evaluation continues with %s samples.",
-                    query_failures, len(paper_queries), config["name"], paper, len(samples),
+                    query_failures,
+                    len(paper_queries),
+                    config["name"],
+                    paper,
+                    len(samples),
                 )
 
             ragas_result = evaluate_samples(ctx, samples)
@@ -756,6 +809,7 @@ def main() -> int:
         max_retries=args.max_retries,
         retry_backoff=args.retry_backoff,
         resume=args.resume,
+        config_names=set(args.config_names or []),
     )
 
     ensure_api_available(ctx)

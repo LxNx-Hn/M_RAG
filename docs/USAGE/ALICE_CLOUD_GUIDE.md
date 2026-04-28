@@ -1,37 +1,40 @@
 # Alice Cloud GPU 실험 가이드
 
-- 기준 날짜: 2026-04-28
-- 대상 환경: Alice Cloud GPU 인스턴스 (A100 40GB 이상 권장)
-- 작업 경로: `/home/elicer/M_RAG`
+## 목적
 
----
+Alice Cloud 환경에서 M-RAG 논문 실험을 실행하고, CAD 영향 구간만 선별 재실행한다.
 
-## 순서 요약
+## SSH 접속
 
-```text
-1. 레포 클론
-2. 패키지 설치
-3. .env 파일 설정 (OPENAI_API_KEY)
-4. git push 자격증명 설정
-5. HuggingFace 모델 다운로드
-6. 논문 PDF 다운로드
-7. 실험 실행 (백그라운드)
-8. 로그 확인
-9. 결과 수신 (로컬 PC git pull)
+Windows PowerShell 기준 접속 명령
+
+```powershell
+ssh -i "C:\Users\KiKi\Downloads\elice-cloud-ondemand-8f830e65-6dc9-4a87-b14a-dddf119010e5.pem" elicer@central-01.tcp.tunnel.elice.io -p 36319
 ```
 
----
+## 권장 인스턴스
 
-## 1단계. 레포 클론
+- A100 40GB 이상
+- Storage 256GB 이상
+- CUDA 포함 환경
+- Docker가 없다면 `git clone + venv + SQLite` 경로 사용
+
+## 저장소 준비
 
 ```bash
-git clone https://github.com/lxnx-hn/M_RAG.git /home/elicer/M_RAG
-cd /home/elicer/M_RAG
+cd ~
+git clone https://github.com/LxNx-Hn/M_RAG.git
+cd M_RAG
 ```
 
----
+이미 clone되어 있으면 fast-forward 기준으로 최신화한다.
 
-## 2단계. 패키지 설치
+```bash
+git fetch origin
+git pull --ff-only origin main
+```
+
+## 가상환경 준비
 
 ```bash
 python -m venv .venv
@@ -40,231 +43,112 @@ pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install -r backend/requirements.txt
 ```
 
-설치 확인:
-```bash
-python -c "import torch; print(torch.cuda.is_available())"
-# True
-```
-
----
-
-## 3단계. .env 파일 설정
+CUDA 확인
 
 ```bash
-cp backend/.env.example backend/.env
-nano backend/.env
+python -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
 ```
 
-`nano` 편집기가 열리면 `OPENAI_API_KEY=` 오른쪽에 키를 입력합니다:
-
-```env
-OPENAI_API_KEY=sk-...여기에입력
-```
-
-저장: `Ctrl+O` → `Enter` → `Ctrl+X`
-
-> OPENAI_API_KEY 없이도 실행은 됩니다. 단, 평가 기준점(GT)을 로컬 모델로 생성해서 논문 결과 신뢰도가 낮아집니다.
-
----
-
-## 4단계. git push 자격증명 설정
-
-실험 완료 후 결과를 자동으로 push하려면 필요합니다.
-
-**GitHub에서 토큰 발급:**
-
-```text
-github.com → Settings → Developer settings
-→ Personal access tokens → Tokens (classic)
-→ Generate new token → repo 권한 체크 → 생성
-```
-
-**Alice Cloud 터미널에서 입력 (작은따옴표로 감싸야 함):**
-```bash
-git remote set-url origin 'https://lxnx-hn:<발급한토큰>@github.com/lxnx-hn/M_RAG.git'
-git config user.email "lxnx.kiki@gmail.com"
-git config user.name "KiKi"
-```
-
-확인:
-```bash
-git push --dry-run origin main
-# 오류 없으면 정상
-```
-
-> 이 설정 없이도 실험은 완주됩니다. 결과 파일은 Alice Cloud에 남아있고 나중에 수동 push 하면 됩니다.
-
----
-
-## 5단계. HuggingFace 모델 다운로드
+## 환경변수
 
 ```bash
-cd /home/elicer/M_RAG/backend
+export JWT_SECRET_KEY=mrag-experiment-local-secret-2026
+export LOAD_GPU_MODELS=true
+export GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct
+export DATABASE_URL=sqlite+aiosqlite:///./mrag.db
+export MRAG_API_BASE=http://127.0.0.1:8000
+```
+
+## 모델 및 PDF 준비
+
+```bash
+cd ~/M_RAG/backend
 source ../.venv/bin/activate
-python scripts/download_models.py
-```
-
-다운로드 대상 (첫 실행에 30–60분 소요):
-
-- `K-intelligence/Midm-2.0-Base-Instruct` — 생성 모델
-- `BAAI/bge-m3` — 임베딩 모델
-- `cross-encoder/ms-marco-MiniLM-L-6-v2` — 리랭커
-
----
-
-## 6단계. 논문 PDF 다운로드
-
-```bash
-cd /home/elicer/M_RAG/backend
+python scripts/download_models.py --llm-model K-intelligence/Midm-2.0-Base-Instruct
 python scripts/download_test_papers.py
 ```
 
-다운로드 확인:
-```bash
-ls data/*.pdf
-```
-
-7개 파일이 있어야 합니다:
-
-```text
-paper_nlp_bge.pdf  paper_nlp_rag.pdf  paper_nlp_cad.pdf
-paper_nlp_raptor.pdf  1810.04805_bert.pdf  2101.08577.pdf
-paper_korean.pdf
-```
-
-> 스크립트 다운로드가 실패하면 로컬 PC에서 파일을 준비해 Alice Cloud 파일 업로드 기능으로 `backend/data/` 경로에 올립니다.
-
----
-
-## 7단계. 실험 실행 (백그라운드)
-
-세션이 끊겨도 실험이 계속 돌도록 `nohup`으로 실행합니다.
+## 전체 실험 실행
 
 ```bash
-cd /home/elicer/M_RAG/backend
+cd ~/M_RAG/backend
 source ../.venv/bin/activate
-nohup python scripts/master_run.py --skip-download \
-  > scripts/master_run_stdout.log 2>&1 &
-echo "PID: $!"
+nohup python scripts/master_run.py --skip-download > scripts/master_run_stdout.log 2>&1 &
+echo $!
 ```
 
----
-
-## 8단계. 실험 진행 확인
+진행 확인
 
 ```bash
-tail -f /home/elicer/M_RAG/backend/scripts/master_run.log
+tail -f ~/M_RAG/backend/scripts/master_run.log
 ```
 
-`Ctrl+C` 로 로그 보기를 빠져나와도 실험은 계속 실행됩니다.
+## CAD 영향 구간 부분 재실행
 
-진행 단계별 예상 시간:
+부분 재실행은 다음 절차를 따른다.
 
-| 단계 | 내용 | 예상 시간 |
-|---|---|---|
-| STEP 3 | API 서버 기동 + 모델 로드 | 5–15분 |
-| STEP 4 | 논문 7편 인덱싱 | 10–20분 |
-| STEP 5 | GT 생성 (GPT-4o) | 20–40분 |
-| STEP 6–10 | 평가 전체 실행 | 4–8시간 |
-| **합계** | | **5–10시간** |
+1. 현재 진행 상태 확인
+2. 로그와 결과 백업
+3. `git pull --ff-only`
+4. API 서버 기동
+5. CAD 영향 구간만 재실행
 
-완료 확인:
-```bash
-grep "MASTER RUN COMPLETE\|failed" /home/elicer/M_RAG/backend/scripts/master_run.log
-```
-
----
-
-## 9단계. 결과 수신
-
-실험이 완료되면 결과가 자동으로 push됩니다. 로컬 PC에서:
+현재 단계 확인
 
 ```bash
-cd C:\Users\KiKi\Desktop\CODE\M_RAG
-git pull origin main
-type backend\evaluation\results\TABLES.md
+cd ~/M_RAG/backend
+grep -n "STEP " scripts/master_run.log | tail -n 20
 ```
 
-Alice Cloud에서 직접 확인하려면:
-```bash
-cat /home/elicer/M_RAG/backend/evaluation/results/TABLES.md
-```
-
----
-
-## 중단 후 재개
-
-중단됐다면 그냥 7단계 명령을 다시 실행하면 됩니다.  
-완료된 config/paper는 자동으로 건너뜁니다.
+백업
 
 ```bash
-cd /home/elicer/M_RAG/backend
-source ../.venv/bin/activate
-nohup python scripts/master_run.py --skip-download \
-  > scripts/master_run_stdout.log 2>&1 &
+bash scripts/experiments/backup_alice_run.sh
 ```
 
----
-
-## 트러블슈팅
-
-### `.env.example` 복사 실패
+부분 재실행
 
 ```bash
-ls backend/.env.example
-# 없으면:
-git pull origin main
-cp backend/.env.example backend/.env
+bash scripts/experiments/rerun_cad_affected.sh
 ```
 
-### `git remote set-url` 오류 (No such file or directory)
+이 스크립트는 다음을 수행한다.
 
-URL 전체를 반드시 **작은따옴표**로 감싸야 합니다:
-```bash
-git remote set-url origin 'https://lxnx-hn:<토큰>@github.com/lxnx-hn/M_RAG.git'
-```
+- `scripts/master_run.log` 백업
+- `evaluation/results/` 백업
+- 기존 `master_run.py` 및 `uvicorn` 프로세스 정리
+- `git pull --ff-only origin main`
+- SQLite + Base 모델 기준 API 서버 기동
+- Track 1 Full System 재실행
+- Track 1 decoder 중 CAD 영향 config 재실행
+- Track 1 alpha/beta sweep 재실행
+- Track 2 domain 재실행
+- `TABLES.md` 재생성
 
-### CUDA out of memory
-
-```bash
-nvidia-smi
-# VRAM 확인 후 인스턴스 업그레이드
-```
-
-### STEP 5 abort (GT 0개)
-
-`backend/.env` 에서 OPENAI_API_KEY 확인. 키 없이 실행하려면:
-```bash
-# .env에서 OPENAI_API_KEY 줄 비워두거나 삭제 후 재실행
-python scripts/master_run.py --skip-download
-```
-
-### 락 파일 잔존
+## 결과 확인
 
 ```bash
-rm /home/elicer/M_RAG/backend/scripts/master_run.lock
+cat ~/M_RAG/backend/evaluation/results/TABLES.md
 ```
 
-### 결과 파일 수동 push (STEP 13 실패 시)
+## 자주 나는 문제
+
+### Docker command not found
+
+Alice 환경에 Docker가 없다는 뜻이다. `git clone + venv` 경로를 사용한다.
+
+### GPU 사용량이 0
+
+CPU용 torch가 설치되었을 가능성이 있다. CUDA wheel로 다시 설치한다.
 
 ```bash
-cd /home/elicer/M_RAG
-git add backend/evaluation/results/
-git commit -m "feat: add experiment results"
-git push origin main
+pip install --force-reinstall torch --index-url https://download.pytorch.org/whl/cu121
 ```
 
----
+### 503 during indexing
 
-## 파일 경로 참조
+API 서버가 DB 또는 모델 초기화를 끝내지 못했을 수 있다. `scripts/master_run.log`와 `/health` 상태를 확인한다.
 
-| 파일 | 설명 |
-|---|---|
-| `backend/scripts/master_run.py` | 실험 오케스트레이터 |
-| `backend/scripts/master_run.log` | 실험 전체 로그 |
-| `backend/.env` | 환경변수 (gitignore) |
-| `backend/data/` | PDF 원본 (gitignore) |
-| `backend/evaluation/data/track1_queries.json` | Track 1 쿼리 60개 |
-| `backend/evaluation/data/track2_queries.json` | Track 2 쿼리 28개 |
-| `backend/evaluation/results/` | 결과 JSON + TABLES.md |
-| `backend/.cache/huggingface/` | 모델 캐시 (gitignore) |
+### git pull 전 로그나 결과가 사라질까 걱정되는 경우
+
+`scripts/master_run.log`는 git 추적 대상이 아니고, `evaluation/results`는 재실행 중 같은 경로에 다시 기록된다. Alice에서는 항상 `backup_alice_run.sh`를 먼저 실행한 뒤 pull한다.

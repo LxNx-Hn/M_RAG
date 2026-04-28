@@ -42,7 +42,12 @@ def run(
             collection = vs.get_or_create_collection(collection_name)
             raptor_where: dict = {"chunk_level": {"$gte": 1}}
             if doc_id_filter:
-                raptor_where = {"$and": [{"chunk_level": {"$gte": 1}}, {"doc_id": {"$eq": doc_id_filter}}]}
+                raptor_where = {
+                    "$and": [
+                        {"chunk_level": {"$gte": 1}},
+                        {"doc_id": {"$eq": doc_id_filter}},
+                    ]
+                }
             raptor_data = collection.get(
                 where=raptor_where,
                 include=["documents", "metadatas"],
@@ -126,6 +131,7 @@ def run(
             context=context,
             template="summary",
             logits_processor=logits_processor if (use_cad or use_scd) else None,
+            force_greedy=use_cad,
         )
         sources = generator.format_sources(compressed)
 

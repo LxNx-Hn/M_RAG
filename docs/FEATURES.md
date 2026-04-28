@@ -1,100 +1,78 @@
-# M-RAG 기능 문서
+# M-RAG 기능 정리
 
-- 문서 기준 2026-04-27
-- 현재 코드 기준 제공 기능만 정리
+## 문서 목적
 
-## 문서 처리
+이 문서는 현재 코드에 존재하는 기능을 연구 기능, 대화 기능, 운영 기능, 실험 기능으로 나누어 설명한다
 
-- PDF 업로드 지원
-- DOCX 업로드 지원
-- TXT 업로드 지원
-- 업로드 크기 제한 적용
-- 확장자와 MIME 검증 적용
-- 사용자별 컬렉션 네임스페이스 분리
-- 문서 유형 자동 분류 `paper`, `lecture`, `patent`, `general`
-- 섹션 메타데이터 생성
+---
 
-## 검색과 생성
+## 연구 기능
 
-- 질의 라우팅 기반 A~F 파이프라인
-- Dense 임베딩 검색
-- BM25 검색
-- RRF 결합 검색
-- Cross-Encoder 리랭킹
-- 컨텍스트 압축
-- MIDM Base 기반 생성 기본 경로
-- MIDM Mini 로컬 스모크 검증 경로
-- CAD 기반 환각 억제
-- SCD 기반 언어 이탈 억제
-- SSE 스트리밍 응답
-- 후속 질문 후보 생성
-- PPT 내보내기
-- 연구용 기본 생성 경로는 내부 `transformers` 로더 기준
-- 외부 상용 LLM API와 `vLLM` 기반 생성 백엔드는 현재 미구현
+논문 클레임과 실험 ablation에 직접 연결되는 기능이다
 
-## 현재 구현에서 진행하지 않는 옵션
+| 기능 | 코드 근거 | 목적 |
+|---|---|---|
+| A~E 연구 질의 라우팅 | `backend/modules/query_router.py` | 단순 QA, 섹션 질의, 비교, 인용, 요약 경로 선택 |
+| 하이브리드 검색 | `backend/modules/hybrid_retriever.py` | dense 검색, BM25, RRF 결합 |
+| 재랭킹 | `backend/modules/reranker.py` | 검색 결과 순서 개선 |
+| 컨텍스트 압축 | `backend/modules/context_compressor.py` | 생성 가능한 길이로 근거 압축 |
+| CAD | `backend/modules/cad_decoder.py` | 파라메트릭 지식 개입 억제 |
+| SCD | `backend/modules/scd_decoder.py` | Language Drift 억제 |
+| 인용 추적 | `backend/modules/citation_tracker.py` | 인용/참고문헌 질문 지원 |
 
-- 외부 상용 LLM API 연동
-- `vLLM` 기반 생성 백엔드 전환
-- 이유는 현재 구현의 핵심 클레임이 CAD와 SCD 기반 환각 억제와 언어 이탈 억제에 있기 때문
-- OpenAI 같은 외부 API는 연결은 쉽지만 생성 중간 제어를 그대로 유지하기 어려움
-- `vLLM` 은 추론 효율 측면의 장점이 있지만 CAD와 SCD, 특히 CAD를 유지하려면 별도 연구와 재구현이 필요
-- 따라서 이 옵션들은 이번 구현 범위가 아니라 후속 서비스 경로나 다음 단계 연구 과제로 분리
+---
 
-## 인용과 특허
+## 대화 기능
 
-- 참고문헌 목록 조회
-- 인용 추적 실행
-- 인용 결과 다운로드
-- arXiv 연동
-- 특허 번호 파싱
-- 특허형 문서 기준 Google Patents 기반 특허 추적
+서비스에서 사용자의 논문 탐색 흐름을 이어 주는 기능이다
 
-## 인증과 권한
+| 기능 | 코드 근거 | 실행 위치 |
+|---|---|---|
+| 후속 질문 제안 | `backend/modules/followup_generator.py` | A~F 답변 이후 |
+| 퀴즈 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 |
+| 플래시카드 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 |
 
-- 회원가입
-- 로그인
-- 로그아웃
-- 현재 사용자 조회
-- JWT 기반 인증
-- refresh 전용 공개 플로우는 아직 별도 문서 범위 밖
-- 사용자별 데이터 격리
-- 대화 이력 저장과 삭제
-- 파일 기반 구조화 요청 로그 저장
+F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 표는 A~E 연구 경로와 CAD/SCD 효과를 중심으로 구성하고, F 경로는 실제 챗봇 기능 설명과 시연 문서에서 다룬다
 
-## 프론트엔드
+---
 
-- 3열 레이아웃
-- 로그인과 회원가입 화면
-- 문서 목록 패널
-- PDF 뷰어와 하이라이트
-- 채팅 응답 스트리밍 표시
-- 파이프라인 배지 표시
-- 퀴즈와 플래시카드 UI
-- 대화 이력 목록
-- 401 자동 로그아웃 처리
-- 한국어 중심 UI
+## 운영 기능
 
-## 운영과 관측
+서비스 사용성과 운영에 필요한 기능이다
 
-- JSON 구조화 로그
-- 요청 ID 미들웨어
-- 보안 헤더 미들웨어
-- 레이트 리밋
-- 전역 예외 처리
-- 로그 로테이션
-- 헬스체크 엔드포인트
-- Alembic 마이그레이션
-- 백업 스크립트
-- CI 파이프라인
+| 기능 | 코드 근거 | 목적 |
+|---|---|---|
+| PDF/DOCX/TXT 업로드 | `backend/api/routers/papers.py` | 문서 수집과 인덱싱 |
+| 사용자별 collection 격리 | `namespace_collection_name` in `papers.py` | 사용자 데이터 분리 |
+| SSE 스트리밍 | `/api/chat/query/stream` | 답변을 점진적으로 전달 |
+| 검색 전용 API | `/api/chat/search` | 검색 결과 점검 |
+| Judge API | `/api/chat/judge` | 실험 평가와 라벨 판정 |
+| PPT Export | `/api/chat/export/ppt` | 답변과 출처를 발표 자료로 변환 |
+| 특허 추적 | `backend/modules/patent_tracker.py` | 특허 문서와 prior art 질의 지원 |
+| 대화 이력 | `backend/api/routers/history.py` | 채팅 세션 저장 |
 
-## 실험 지원
+---
 
-- KorQuAD 준비 스크립트
-- CRAG 준비 스크립트
-- pseudo ground truth 생성
-- Track 1 실행기
-- Track 2 실행기
-- 결과 JSON 생성
-- 결과 Markdown 표 변환
-- 전체 자동 실행 러너
+## 실험 기능
+
+논문 결과 재현을 위한 기능이다
+
+| 기능 | 코드 근거 | 목적 |
+|---|---|---|
+| 전체 실행 | `backend/scripts/master_run.py` | end-to-end 실험 자동화 |
+| Track 1 실행 | `backend/evaluation/run_track1.py` | 모듈 누적 ablation, decoder ablation |
+| Track 2 실행 | `backend/evaluation/run_track2.py` | 논문 도메인 특화 비교 |
+| RAGAS 스타일 평가 | `backend/evaluation/ragas_eval.py` | 자동 평가 점수 산출 |
+| Markdown 표 변환 | `backend/scripts/results_to_markdown.py` | 결과 JSON을 논문 표로 변환 |
+| 배포 검증 | `backend/scripts/verify_deployment.py` | 필수 import와 실행 환경 확인 |
+
+---
+
+## 실행 경로 선택 기준
+
+| 목적 | 기준 경로 |
+|---|---|
+| 논문 실험 | MIDM Base + transformers 직접 디코딩 + SQLite + SQLAlchemy |
+| 로컬 스모크 검증 | MIDM Mini + SQLite + SQLAlchemy |
+| 운영/서비스 | MIDM Base + PostgreSQL + SQLAlchemy + ChromaDB |
+| 다음 단계 추론 최적화 연구 | vLLM 기반 별도 연구 계획 |
