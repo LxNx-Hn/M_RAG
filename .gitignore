@@ -22,6 +22,8 @@ backend/evaluation/data/track1_crag_translated.json
 *.bin
 *.safetensors
 *.onnx
+backend/.cache/
+backend/artifacts/
 
 # IDE
 .vscode/

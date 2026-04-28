@@ -37,6 +37,9 @@ export JWT_SECRET_KEY="${JWT_SECRET_KEY:-mrag-experiment-local-secret-2026}"
 export LOAD_GPU_MODELS="${LOAD_GPU_MODELS:-true}"
 export GENERATION_MODEL="${GENERATION_MODEL:-K-intelligence/Midm-2.0-Base-Instruct}"
 export DATABASE_URL="${DATABASE_URL:-sqlite+aiosqlite:///./mrag.db}"
+export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
+export TRANSFORMERS_CACHE="${TRANSFORMERS_CACHE:-$HF_HOME}"
+export HF_HUB_CACHE="${HF_HUB_CACHE:-$HF_HOME}"
 
 nohup "${VENV_PYTHON}" -m uvicorn api.main:app --host 0.0.0.0 --port 8000 > "${SERVER_LOG}" 2>&1 &
 SERVER_PID=$!
