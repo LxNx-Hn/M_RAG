@@ -146,30 +146,41 @@ def _search_contexts(
     doc_id_filter: str | None,
     top_k: int,
 ) -> list[str]:
-    """Retrieve document contexts from the M-RAG search endpoint."""
+    """Retrieve document contexts via the M-RAG query endpoint with HyDE enabled.
+
+    Using /api/chat/query (use_hyde=True) instead of /api/chat/search because
+    the search-only endpoint does not support HyDE query expansion. Korean queries
+    against English paper chunks need HyDE to produce relevant retrieval results.
+    CAD/SCD are disabled so the MIDM generation step is minimal-impact; we only
+    use the returned `sources` (retrieved chunks), not the generated answer.
+    """
     payload: dict = {
         "query": query,
         "collection_name": collection_name,
-        "top_k": top_k,
+        "use_cad": False,
+        "use_scd": False,
+        "use_hyde": True,
+        "top_k": min(top_k, 20),  # QueryRequest.top_k max = 20
     }
     if doc_id_filter:
         payload["doc_id_filter"] = doc_id_filter
     try:
         resp = requests.post(
-            f"{api_url.rstrip('/')}/api/chat/search",
+            f"{api_url.rstrip('/')}/api/chat/query",
             json=payload,
             headers=_build_headers(token),
             timeout=timeout,
         )
         resp.raise_for_status()
         data = resp.json()
+        # QueryResponse.sources contains the retrieved SourceDocument list
         return [
             item.get("content", "")
-            for item in data.get("results", [])
+            for item in data.get("sources", [])
             if item.get("content")
         ]
     except Exception as exc:
-        print(f"  Search failed ({exc}); using empty context.", file=sys.stderr)
+        print(f"  Context retrieval failed ({exc}); using empty context.", file=sys.stderr)
         return []
 
 
