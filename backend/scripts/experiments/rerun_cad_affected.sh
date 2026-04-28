@@ -16,15 +16,15 @@ fi
 
 cd "${BACKEND_DIR}"
 
-bash "${SCRIPT_DIR}/backup_alice_run.sh"
-
 status_lines="$(git -C "${REPO_ROOT}" status --porcelain || true)"
-code_changes="$(printf '%s\n' "${status_lines}" | grep -v '^$' | grep -v 'backend/evaluation/results/' || true)"
+code_changes="$(printf '%s\n' "${status_lines}" | grep -v '^$' | grep -v 'backend/evaluation/results/' | grep -v 'backend/artifacts/' || true)"
 if [[ -n "${code_changes}" ]]; then
   echo "[rerun] git working tree has non-result changes; aborting before pull" >&2
   printf '%s\n' "${code_changes}" >&2
   exit 1
 fi
+
+bash "${SCRIPT_DIR}/backup_alice_run.sh"
 
 pkill -f "scripts/master_run.py" || true
 pkill -f "uvicorn api.main:app" || true
