@@ -71,6 +71,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="List target queries without calling the API or modifying files.",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help=(
+            "Regenerate pseudo ground truth even when ground_truth fields are already "
+            "filled in the input file."
+        ),
+    )
     # ── External GT generation ──────────────────────────────────────────────
     parser.add_argument(
         "--gt-model",
@@ -92,6 +100,14 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=5,
         help="Number of contexts retrieved per paper when using --gt-model (default: 5).",
+    )
+    parser.add_argument(
+        "--update-source",
+        action="store_true",
+        help=(
+            "Also write generated ground_truth values back into the input query file. "
+            "Disabled by default so evaluation source files stay clean."
+        ),
     )
     return parser.parse_args()
 
@@ -212,6 +228,10 @@ def _query_api(
                 json={
                     "query": query,
                     "collection_name": collection_name,
+                    "use_cad": False,
+                    "use_scd": False,
+                    "use_hyde": False,
+                    "top_k": 5,
                     **({"doc_id_filter": doc_id_filter} if doc_id_filter else {}),
                 },
                 headers=_build_headers(token),
@@ -303,6 +323,7 @@ def _persist_state(
     attempted: int,
     success: int,
     failed: int,
+    update_source: bool,
 ) -> None:
     output_payload = {
         "_meta": {
@@ -322,12 +343,13 @@ def _persist_state(
         json.dumps(output_payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    updated_payload = root_payload if root_payload is not None else queries
-    if root_payload is not None:
-        root_payload["queries"] = queries
-    source_path.write_text(
-        json.dumps(updated_payload, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    if update_source:
+        updated_payload = root_payload if root_payload is not None else queries
+        if root_payload is not None:
+            root_payload["queries"] = queries
+        source_path.write_text(
+            json.dumps(updated_payload, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
 
 
 def main() -> int:
@@ -355,8 +377,15 @@ def main() -> int:
         print("[gt-model] Using local M-RAG API (Naive RAG) to generate ground truth.")
 
     root_payload, queries = _load_payload(args.input)
-    targets = [item for item in queries if _needs_pseudo_gt(item)]
-    print(f"Found {len(targets)} queries with empty ground_truth.")
+    targets = (
+        queries if args.force else [item for item in queries if _needs_pseudo_gt(item)]
+    )
+    if args.force:
+        print(
+            f"Force mode enabled. Regenerating ground truth for {len(targets)} queries."
+        )
+    else:
+        print(f"Found {len(targets)} queries with empty ground_truth.")
     if args.dry_run:
         for index, item in enumerate(targets, start=1):
             print(f"Query {index}/{len(targets)}: {item.get('query', '')}")
@@ -392,6 +421,7 @@ def main() -> int:
                 attempted=len(targets),
                 success=success,
                 failed=failed,
+                update_source=args.update_source,
             )
             continue
 
@@ -413,6 +443,7 @@ def main() -> int:
                 attempted=len(targets),
                 success=success,
                 failed=failed,
+                update_source=args.update_source,
             )
             continue
 
@@ -426,7 +457,7 @@ def main() -> int:
                 by_paper = item.setdefault("ground_truth_by_paper", {})
                 for paper in target_papers:
                     existing = str(by_paper.get(paper, "")).strip()
-                    if existing:
+                    if existing and not args.force:
                         continue
 
                     if use_openai:
@@ -460,7 +491,9 @@ def main() -> int:
                     if args.min_interval > 0:
                         time.sleep(args.min_interval)
 
-                if not str(item.get("ground_truth", "")).strip() and by_paper:
+                if (
+                    args.force or not str(item.get("ground_truth", "")).strip()
+                ) and by_paper:
                     first_paper = target_papers[0]
                     item["ground_truth"] = str(by_paper.get(first_paper, "")).strip()
             else:
@@ -503,6 +536,7 @@ def main() -> int:
                 attempted=len(targets),
                 success=success,
                 failed=failed,
+                update_source=args.update_source,
             )
         except Exception as exc:
             last_attempt_at = time.time()
@@ -521,11 +555,13 @@ def main() -> int:
                 attempted=len(targets),
                 success=success,
                 failed=failed,
+                update_source=args.update_source,
             )
 
     print(f"Completed. Success: {success}, Failed: {failed}", flush=True)
     print(f"Saved GT results to {args.output}", flush=True)
-    print(f"Updated source file: {args.input}", flush=True)
+    if args.update_source:
+        print(f"Updated source file: {args.input}", flush=True)
     if success == 0 and len(targets) > 0:
         # Nothing at all was generated — downstream evaluation cannot proceed.
         print(

@@ -6,8 +6,10 @@ BACKEND_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 REPO_ROOT="$(cd "${BACKEND_DIR}/.." && pwd)"
 VENV_PYTHON="${REPO_ROOT}/.venv/bin/python"
 API_BASE="${MRAG_API_BASE:-http://127.0.0.1:8000}"
+COLLECTION_NAME="${MRAG_COLLECTION_NAME:-papers}"
 RESULTS_DIR="${BACKEND_DIR}/evaluation/results"
 SERVER_LOG="${BACKEND_DIR}/scripts/rerun_uvicorn_stdout.log"
+RERUN_LOG="${BACKEND_DIR}/scripts/rerun_cad_affected_stdout.log"
 
 if [[ ! -x "${VENV_PYTHON}" ]]; then
   echo "[rerun] missing venv python at ${VENV_PYTHON}" >&2
@@ -40,6 +42,24 @@ export DATABASE_URL="${DATABASE_URL:-sqlite+aiosqlite:///./mrag.db}"
 export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
 export TRANSFORMERS_CACHE="${TRANSFORMERS_CACHE:-$HF_HOME}"
 export HF_HUB_CACHE="${HF_HUB_CACHE:-$HF_HOME}"
+export OPENAI_JUDGE_MODEL="${OPENAI_JUDGE_MODEL:-gpt-4o}"
+
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+  echo "[rerun] OPENAI_API_KEY is required for clean STEP 5 rerun." >&2
+  exit 1
+fi
+
+mkdir -p "${RESULTS_DIR}"
+find "${RESULTS_DIR}" -maxdepth 1 -type f \( -name "*.json" -o -name "TABLES.md" \) -delete
+rm -f "${BACKEND_DIR}/evaluation/data/pseudo_gt_track1.json"
+rm -f "${BACKEND_DIR}/evaluation/data/pseudo_gt_track2.json"
+rm -f "${BACKEND_DIR}/scripts/master_run.log"
+rm -f "${BACKEND_DIR}/logs/manual_uvicorn.err"
+rm -f "${BACKEND_DIR}/logs/manual_uvicorn.out"
+find "${BACKEND_DIR}/logs" -maxdepth 1 -type f -name "run_all_experiments_*.err" -delete
+find "${BACKEND_DIR}/logs" -maxdepth 1 -type f -name "run_all_experiments_*.out" -delete
+: > "${SERVER_LOG}"
+: > "${RERUN_LOG}"
 
 nohup "${VENV_PYTHON}" -m uvicorn api.main:app --host 0.0.0.0 --port 8000 > "${SERVER_LOG}" 2>&1 &
 SERVER_PID=$!
@@ -78,14 +98,39 @@ print(jwt.encode(payload, secret, algorithm="HS256"))
 PY
 )"
 
+"${VENV_PYTHON}" scripts/generate_pseudo_gt.py \
+  --collection "${COLLECTION_NAME}" \
+  --api-url "${API_BASE}" \
+  --input evaluation/data/track1_queries.json \
+  --output evaluation/data/pseudo_gt_track1.json \
+  --timeout 180 \
+  --max-retries 8 \
+  --retry-backoff 2.0 \
+  --min-interval 1.0 \
+  --gt-model gpt-4o \
+  --search-top-k 5 \
+  --force
+
+"${VENV_PYTHON}" scripts/generate_pseudo_gt.py \
+  --collection "${COLLECTION_NAME}" \
+  --api-url "${API_BASE}" \
+  --input evaluation/data/track2_queries.json \
+  --output evaluation/data/pseudo_gt_track2.json \
+  --timeout 180 \
+  --max-retries 8 \
+  --retry-backoff 2.0 \
+  --min-interval 1.0 \
+  --gt-model gpt-4o \
+  --search-top-k 5 \
+  --force
+
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode ablation \
   --queries evaluation/data/pseudo_gt_track1.json \
   --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor 1810.04805_bert 2101.08577 paper_korean \
   --output evaluation/results/table1_track1.json \
   --api-base "${API_BASE}" \
-  --resume \
-  --config-names "Full System: + CAD + SCD + Compression"
+  --judge-model "${OPENAI_JUDGE_MODEL}"
 
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode decoder \
@@ -93,8 +138,7 @@ PY
   --papers paper_nlp_cad paper_korean \
   --output evaluation/results/table2_decoder.json \
   --api-base "${API_BASE}" \
-  --resume \
-  --config-names "CAD only (alpha=0.5)" "CAD+SCD (alpha=0.5, beta=0.3)"
+  --judge-model "${OPENAI_JUDGE_MODEL}"
 
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode alpha-sweep \
@@ -102,7 +146,7 @@ PY
   --papers paper_nlp_cad paper_nlp_bge \
   --output evaluation/results/table2_alpha.json \
   --api-base "${API_BASE}" \
-  --resume
+  --judge-model "${OPENAI_JUDGE_MODEL}"
 
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode beta-sweep \
@@ -110,7 +154,7 @@ PY
   --papers paper_korean \
   --output evaluation/results/table2_beta.json \
   --api-base "${API_BASE}" \
-  --resume
+  --judge-model "${OPENAI_JUDGE_MODEL}"
 
 "${VENV_PYTHON}" evaluation/run_track2.py \
   --mode domain \
@@ -121,7 +165,7 @@ PY
   --timeout 240 \
   --max-retries 8 \
   --retry-backoff 3.0 \
-  --resume
+  --judge-model "${OPENAI_JUDGE_MODEL}"
 
 "${VENV_PYTHON}" scripts/results_to_markdown.py \
   --input "${RESULTS_DIR}" \

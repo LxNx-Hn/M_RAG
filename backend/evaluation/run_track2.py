@@ -24,6 +24,9 @@ if str(PROJECT_ROOT) not in sys.path:
 _ragas_module = import_module("evaluation.ragas_eval")
 EvalSample = _ragas_module.EvalSample
 RAGASEvaluator = _ragas_module.RAGASEvaluator
+_openai_judge_module = import_module("evaluation.openai_judge")
+OpenAIJudgeConfig = _openai_judge_module.OpenAIJudgeConfig
+judge_with_openai = _openai_judge_module.judge_with_openai
 
 PLACEHOLDER_PAPER_RE = re.compile(
     r"(paper_[A-Z]_[A-Za-z0-9_]+|doc_[A-Z]_[A-Za-z0-9_]+|lecture_[A-Z]_[A-Za-z0-9_]+|patent_[A-Z]_[A-Za-z0-9_]+)"
@@ -96,6 +99,8 @@ class RunContext:
     retry_backoff: float
     resume: bool
     config_names: set[str]
+    judge_model: str | None
+    openai_api_key: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -178,6 +183,16 @@ def parse_args() -> argparse.Namespace:
         nargs="+",
         default=None,
         help="Optional config names to run. Matching configs are re-run and overwrite existing results.",
+    )
+    parser.add_argument(
+        "--judge-model",
+        default=os.environ.get("OPENAI_JUDGE_MODEL", ""),
+        help="Optional OpenAI judge model for RAGAS-style evaluation, e.g. gpt-4o.",
+    )
+    parser.add_argument(
+        "--openai-api-key",
+        default=os.environ.get("OPENAI_API_KEY", ""),
+        help="OpenAI API key used when --judge-model is set.",
     )
     return parser.parse_args()
 
@@ -296,6 +311,16 @@ def load_queries(path_str: str) -> list[dict[str, Any]]:
 
 
 def judge_text(ctx: RunContext, prompt: str, labels: list[str] | None = None) -> str:
+    if ctx.judge_model and ctx.openai_api_key:
+        return judge_with_openai(
+            config=OpenAIJudgeConfig(
+                model=ctx.judge_model,
+                api_key=ctx.openai_api_key,
+                timeout=ctx.timeout,
+            ),
+            prompt=prompt,
+            labels=labels,
+        )
     # Prefer label ranking when candidate labels are provided for deterministic scoring.
     payload: dict[str, Any] = {"prompt": prompt, "max_new_tokens": 32}
     if labels:
@@ -672,7 +697,15 @@ def main() -> int:
         retry_backoff=args.retry_backoff,
         resume=args.resume,
         config_names=set(args.config_names or []),
+        judge_model=(args.judge_model or "").strip() or None,
+        openai_api_key=(args.openai_api_key or "").strip(),
     )
+
+    if ctx.judge_model and not ctx.openai_api_key:
+        raise SystemExit(
+            "--judge-model was provided but no OpenAI API key is available. "
+            "Set OPENAI_API_KEY or pass --openai-api-key."
+        )
 
     ensure_api_available(ctx)
     queries = load_queries(args.queries)
