@@ -77,6 +77,7 @@ rm -f "${BACKEND_DIR}/logs/manual_uvicorn.err"
 rm -f "${BACKEND_DIR}/logs/manual_uvicorn.out"
 find "${BACKEND_DIR}/logs" -maxdepth 1 -type f -name "run_all_experiments_*.err" -delete
 find "${BACKEND_DIR}/logs" -maxdepth 1 -type f -name "run_all_experiments_*.out" -delete
+: > "${BACKEND_DIR}/logs/mrag.log"
 : > "${SERVER_LOG}"
 : > "${RERUN_LOG}"
 
