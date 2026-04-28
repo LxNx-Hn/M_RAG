@@ -112,20 +112,19 @@ def run(
         logits_processor = create_combined_processor(
             generator=generator,
             query=query,
-            use_cad=True,
-            cad_alpha=max(cad_alpha, 0.5),
+            use_cad=use_cad,
+            cad_alpha=cad_alpha,
             use_scd=use_scd,
             scd_beta=scd_beta,
         )
         steps.append(
             {
                 "step": "decoder",
-                "cad_enabled": True,
-                "cad_alpha": max(cad_alpha, 0.5),
+                "cad_enabled": use_cad,
+                "cad_alpha": cad_alpha,
                 "scd_enabled": use_scd,
                 "scd_beta": scd_beta,
                 "mode": mode,
-                "note": f"CAD forced for {mode} fidelity",
             }
         )
 
@@ -140,6 +139,7 @@ def run(
             template="raw",
             raw_prompt=prompt,
             logits_processor=logits_processor,
+            force_greedy=use_cad,
         )
         sources = generator.format_sources(compressed)
 

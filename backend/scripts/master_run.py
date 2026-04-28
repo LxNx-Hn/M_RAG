@@ -202,7 +202,7 @@ class MasterRunner:
                 args,
                 output=completed.stdout,
                 stderr=completed.stderr,
-        )
+            )
         return completed
 
     def _script_supports_retry_args(self, script_path: Path) -> bool:
@@ -245,14 +245,10 @@ class MasterRunner:
     def step_install_packages(self) -> None:
         required = ["ragas", "datasets"]
         missing = [
-            package
-            for package in required
-            if importlib.util.find_spec(package) is None
+            package for package in required if importlib.util.find_spec(package) is None
         ]
         if not missing:
-            self._write_line(
-                "STEP 1 dependencies already available: ragas, datasets"
-            )
+            self._write_line("STEP 1 dependencies already available: ragas, datasets")
             return
 
         self._write_line(f"Missing STEP 1 dependencies detected: {', '.join(missing)}")
@@ -272,9 +268,7 @@ class MasterRunner:
             )
 
         still_missing = [
-            package
-            for package in required
-            if importlib.util.find_spec(package) is None
+            package for package in required if importlib.util.find_spec(package) is None
         ]
         if still_missing:
             raise RuntimeError(
@@ -461,6 +455,7 @@ class MasterRunner:
             secret_source = ".env / OS env"
         else:
             import secrets as _secrets
+
             env["JWT_SECRET_KEY"] = _secrets.token_hex(32)
             secret_source = "ephemeral (auto-generated)"
             self._write_line(

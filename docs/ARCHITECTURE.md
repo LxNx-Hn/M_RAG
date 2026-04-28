@@ -1,140 +1,188 @@
 # M-RAG 아키텍처
 
-- 문서 기준 2026-04-27
-- 현재 저장소의 실제 실행 경로와 디렉터리 구조 기준
+## 문서 목적
 
-## 전체 구조도
+이 문서는 현재 코드 기준으로 M-RAG가 어떤 층으로 나뉘고, 질문 유형 A~F마다 어떤 모듈이 실제로 동작하는지 설명한다
+
+코드 근거
+
+- 라우팅 정의 `backend/modules/query_router.py`
+- 파이프라인 구현 `backend/pipelines/pipeline_a_simple_qa.py` ~ `backend/pipelines/pipeline_f_quiz.py`
+- API 연결부 `backend/api/routers/chat.py`
+- 모듈 구현 `backend/modules`
+
+---
+
+## 전체 흐름
 
 ```mermaid
 flowchart TD
-    U["사용자"] --> FE["Frontend<br/>React + TypeScript + Zustand"]
-    FE --> API["FastAPI API Layer<br/>auth / papers / chat / citations / history"]
-    API --> DEP["Dependency Layer<br/>ModuleManager + DB Session + Auth"]
-    DEP --> MOD["RAG Modules<br/>parser / section / chunk / embed / retrieve / rerank / compress / generate"]
-    MOD --> PIPE["Pipelines A-F<br/>simple QA / section / compare / citation / summary / quiz"]
-    MOD --> STORE["Storage<br/>SQLAlchemy DB(SQLite local / PostgreSQL deploy)<br/>+ ChromaDB + backend/data"]
-    PIPE --> MOD
-    API --> STORE
+    U["사용자"] --> FE["React 프론트엔드"]
+    FE --> API["FastAPI API"]
+    API --> AUTH["JWT 인증"]
+    API --> PAPERS["문서 업로드"]
+    API --> CHAT["채팅 라우터"]
+
+    PAPERS --> PARSE["PDF/DOCX/TXT 파서"]
+    PARSE --> SECTION["섹션 감지"]
+    SECTION --> CHUNK["청킹"]
+    CHUNK --> EMBED["BGE-M3 임베딩"]
+    EMBED --> CHROMA["ChromaDB 저장"]
+
+    CHAT --> ROUTER["쿼리 라우터 A~F"]
+    ROUTER --> PIPE["경로별 파이프라인"]
+    PIPE --> RET["하이브리드 검색"]
+    RET --> RERANK["재랭킹"]
+    RERANK --> COMP["컨텍스트 압축"]
+    COMP --> GEN["MIDM Base 생성"]
+    GEN --> DEC["CAD + SCD 생성 제어"]
+    DEC --> OUT["답변 + 출처 + 후속 질문"]
+
+    PIPE --> QUIZ["퀴즈/플래시카드 생성"]
+    PIPE --> CITE["인용/특허 추적"]
+    PIPE --> PPT["PPT 내보내기"]
 ```
 
-## 질의응답 흐름도
+---
 
-```mermaid
-flowchart LR
-    Q["질문 입력"] --> R["QueryRouter"]
-    R --> PA["A 일반 QA"]
-    R --> PB["B 섹션 QA"]
-    R --> PC["C 비교"]
-    R --> PD["D 인용 추적"]
-    R --> PE["E 요약"]
-    R --> PF["F 퀴즈"]
+## 런타임 계층
 
-    PA --> X["QueryExpander<br/>HyDE"]
-    X --> H["HybridRetriever<br/>Dense + BM25 + RRF"]
-    PB --> H
-    PC --> H
-    PD --> H
-    PE --> H
-    PF --> H
-    H --> RR["Reranker"]
-    RR --> C["ContextCompressor"]
-    C --> G["Generator<br/>MIDM Mini or Base"]
-    G --> D["CAD / SCD"]
-    D --> A["답변 + 출처 + follow-ups"]
-```
+| 계층 | 주요 경로 | 역할 |
+|---|---|---|
+| API | `backend/api` | 인증, 문서 업로드, 채팅, 검색, 평가, 이력 |
+| 모듈 | `backend/modules` | 파싱, 검색, 생성, 디코딩 제어, 추적, 질문 생성 |
+| 파이프라인 | `backend/pipelines` | A~F 질문 유형별 실행 순서 |
+| 실험 | `backend/evaluation` | Track 1/2 실험, RAGAS 평가, ablation |
+| 스크립트 | `backend/scripts` | 모델 다운로드, 문서 인덱싱, 전체 실험 실행 |
+| 프론트엔드 | `frontend/src` | 업로드, 채팅, PDF 뷰어, 출처, 퀴즈/플래시카드 표시 |
 
-## 계층 구조
+---
 
-### 1 프론트엔드
+## 모듈 분류
 
-- 위치 `frontend/src`
-- React + TypeScript + Zustand 기반
-- 문서 목록, PDF 뷰어, 채팅, 인용 패널, 대화 이력을 담당
+현재 `backend/modules` 기준 실제 모듈 파일은 18개다
 
-### 2 API 계층
+### 연구 핵심 모듈
 
-- 위치 `backend/api`
-- FastAPI 기반
-- 인증, 업로드, 검색, 스트리밍, 인용, 대화 이력 API 제공
+| 모듈 | 파일 | 역할 |
+|---|---|---|
+| 임베딩 | `embedder.py` | BGE-M3로 문서와 질문을 벡터화 |
+| 청킹 | `chunker.py` | 섹션/명제/RAPTOR 성격의 문서 조각 생성 |
+| 재랭커 | `reranker.py` | 검색 결과를 질문 적합도 기준으로 재정렬 |
+| 하이브리드 검색 | `hybrid_retriever.py` | dense 검색, BM25, RRF 결합 |
+| 쿼리 라우터 | `query_router.py` | 질문을 A~F 경로로 분류 |
+| 섹션 감지 | `section_detector.py` | 논문/강의/특허/일반 문서의 섹션 구분 |
+| 생성기 | `generator.py` | MIDM 기반 답변 생성과 judge 보조 |
+| CAD 디코더 | `cad_decoder.py` | 문서 없는 생성 로짓을 빼서 파라메트릭 지식 개입 억제 |
+| SCD 디코더 | `scd_decoder.py` | 비목표 언어 토큰을 낮춰 Language Drift 억제 |
+| 컨텍스트 압축 | `context_compressor.py` | 긴 검색 결과를 생성 가능한 길이로 압축 |
+| 쿼리 확장 | `query_expander.py` | HyDE, 다중 질의, 번역 보조 |
+| 인용 추적 | `citation_tracker.py` | arXiv/참고문헌 기반 인용 정보 추적 |
+| 후속 질문 생성 | `followup_generator.py` | 답변 이후 이어질 질문 후보 생성 |
 
-### 3 RAG 모듈 계층
+### 확장/운영 모듈
 
-- 위치 `backend/modules`
-- 파서, 섹션 감지, 청킹, 임베딩, 벡터 저장, 검색, 리랭킹, 압축, 생성, 디코더를 담당
+| 모듈 | 파일 | 역할 |
+|---|---|---|
+| PDF 파서 | `pdf_parser.py` | PDF 텍스트 추출 |
+| DOCX 파서 | `docx_parser.py` | DOCX/TXT 텍스트 추출 |
+| 특허 추적 | `patent_tracker.py` | 특허 문서와 특허 질의 보조 |
+| PPTX 내보내기 | `pptx_exporter.py` | 답변/출처를 발표 자료로 변환 |
+| 벡터 저장소 | `vector_store.py` | ChromaDB collection 생성, 조회, 삭제 |
 
-### 4 파이프라인 계층
+### 질문 생성 계층
 
-- 위치 `backend/pipelines`
-- 질의 유형에 따라 A~F 경로를 선택
+질문 생성 계층은 사용자가 논문을 읽고 다음 탐색으로 넘어가게 하는 대화형 학습 계층이다
 
-### 5 실험과 자동 실행 계층
+현재 구현은 두 갈래로 구성된다
 
-- 위치 `backend/evaluation`, `backend/scripts`
-- 데이터 준비, track 실행, 결과 변환, 전체 자동 실행 담당
+| 기능 | 현재 코드 위치 | 분류 |
+|---|---|---|
+| 후속 질문 제안 | `backend/modules/followup_generator.py` | 대화 모듈 |
+| 퀴즈/플래시카드 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 생성 파이프라인 |
 
-## 요청 흐름
+후속 질문은 모든 답변 경로 뒤에서 다음 탐색 후보를 만든다
 
-### 문서 업로드 흐름
+퀴즈/플래시카드 생성은 F 경로에서 검색, 재랭킹, 압축, 퀴즈 프롬프트, 생성기를 묶어 실행한다
 
-1. `routers/papers.py` 가 업로드 파일과 사용자 권한 검증
-2. `pdf_parser.py` 또는 `docx_parser.py` 가 원문 추출
-3. `section_detector.py` 가 문서 유형과 섹션 태깅
-4. `chunker.py` 가 검색 단위 생성
-5. `embedder.py` 가 임베딩 생성
-6. `vector_store.py` 가 ChromaDB 저장
-7. `models.py` 의 `Paper` 레코드에 메타데이터 저장
+---
 
-### 질의응답 흐름
+## A~F 경로별 활성 모듈
 
-1. `routers/chat.py` 가 요청과 인증 정보 수신
-2. `query_router.py` 가 의도에 맞는 파이프라인 선택
-3. Route A는 `query_expander.py` 로 HyDE 확장을 수행
-4. `hybrid_retriever.py` 가 Dense와 BM25를 결합 검색
-5. `reranker.py` 가 상위 문맥 재정렬
-6. `context_compressor.py` 가 LLM 입력 길이에 맞게 컨텍스트 압축
-7. `generator.py` 가 최종 응답 생성
-8. 필요 시 `cad_decoder.py` 와 `scd_decoder.py` 가 로짓 보정
+| 경로 | 질문 유형 | 라우터 기준 | 주로 동작하는 모듈 | 출력 |
+|---|---|---|---|---|
+| A | 단순 QA | 일반 질문 | 쿼리 확장, 하이브리드 검색, 재랭커, 압축, 생성기, CAD, SCD, 후속 질문 | 근거 기반 답변 |
+| B | 섹션 특화 | 방법론, 결과, 한계, 결론 | 섹션 감지, 섹션 필터 검색, 재랭커, 생성기, CAD, SCD, 후속 질문 | 특정 섹션 중심 답변 |
+| C | 문서 비교 | 비교, 차이, vs | 문서별 검색, 비교 합성, 생성기, CAD, SCD, 후속 질문 | 여러 논문 비교 답변 |
+| D | 인용/특허 | 인용, 참고문헌, 특허, prior art | 인용 추적, 특허 추적, 하이브리드 검색, 생성기, CAD, SCD, 후속 질문 | 인용/특허 맥락 답변 |
+| E | 전체 요약 | 요약, overview | 계층적 청킹, 컨텍스트 압축, 생성기, CAD, SCD, 후속 질문 | 문서 요약 |
+| F | 퀴즈/플래시카드 | 퀴즈, 문제, flashcard | 하이브리드 검색, 재랭커, 압축, 퀴즈 프롬프트, 생성기, CAD, SCD | 객관식 문제 또는 플래시카드 |
 
-## 파이프라인 맵
+---
 
-- Route A `pipeline_a_simple_qa.py`
-  - 일반 QA
-- Route B `pipeline_b_section.py`
-  - 섹션 필터 기반 QA
-- Route C `pipeline_c_compare.py`
-  - 다중 문서 비교
-- Route D `pipeline_d_citation.py`
-  - 참고문헌과 특허 추적
-  - `paper` 문서는 `citation_tracker.py`, `patent` 문서는 `patent_tracker.py` 사용
-- Route E `pipeline_e_summary.py`
-  - 전체 요약
-- Route F `pipeline_f_quiz.py`
-  - 퀴즈와 플래시카드 생성
-  - `query_expander` 인자를 받지만 현재 본문 로직에서 직접 사용하지 않음
+## 경로별 모듈 매트릭스
 
-## 저장소 경계
+| 모듈 | A QA | B 섹션 | C 비교 | D 인용/특허 | E 요약 | F 퀴즈 |
+|---|---:|---:|---:|---:|---:|---:|
+| `query_router.py` | O | O | O | O | O | O |
+| `query_expander.py` | O | 선택 | - | - | - | - |
+| `section_detector.py` | 색인 시 | O | 색인 시 | 색인 시 | 색인 시 | 색인 시 |
+| `hybrid_retriever.py` | O | O | O | O | O | O |
+| `reranker.py` | O | O | 선택 | - | - | O |
+| `context_compressor.py` | O | O | 선택 | 선택 | O | O |
+| `citation_tracker.py` | - | - | - | O | - | - |
+| `patent_tracker.py` | - | - | - | 특허 질의 시 | - | - |
+| `generator.py` | O | O | O | O | O | O |
+| `cad_decoder.py` | O | O | O | O | O | O |
+| `scd_decoder.py` | O | O | O | O | O | O |
+| `followup_generator.py` | O | O | O | O | O | O |
+| `pipeline_f_quiz.py` 내부 퀴즈 생성 | - | - | - | - | - | O |
 
-- 업로드 원본 파일 `backend/data`
-- 벡터 저장소 `backend/chroma_db`
-- 실험 입력과 결과 `backend/evaluation`
-- 애플리케이션 로그 `backend/logs`
-- DB 모델과 대화 이력은 SQLAlchemy 세션을 통해 관리
+표기 기준
 
-## 모델 운영 정책
+- `O`는 해당 경로에서 명시적으로 사용하는 모듈
+- `선택`은 코드 경로나 설정에 따라 사용되는 모듈
+- `색인 시`는 업로드/인덱싱 단계에서 적용되는 모듈
+- `-`는 해당 경로의 핵심 동작이 아닌 모듈
 
-- 논문 기준 기본 생성 모델은 `K-intelligence/Midm-2.0-Base-Instruct`
-- Mini 모델은 `GENERATION_MODEL` 환경변수로 로컬 스모크 점검 시 선택
-- Mini와 Base 모두 `bfloat16 + device_map=auto`
+---
 
-## 실행 기준
+## 채팅 API와 파이프라인 연결
 
-- 연구용 로컬 실험의 기준 러너는 `backend/scripts/master_run.py`
-- 결과 검증은 `backend/evaluation/results/*.json` 과 `TABLES.md`
-- 로그 기준 완료 문구는 `MASTER RUN COMPLETE`
+| API | 역할 |
+|---|---|
+| `POST /api/chat/query` | 라우터 결정 후 A~F 파이프라인 실행 |
+| `POST /api/chat/query/stream` | SSE 기반 스트리밍 답변 |
+| `POST /api/chat/search` | 검색 결과 확인 |
+| `POST /api/chat/judge` | 실험 평가용 judge 텍스트 생성 |
+| `POST /api/chat/export/ppt` | 답변/출처를 PPTX로 내보내기 |
 
-## 확장 가이드
+`backend/api/routers/chat.py`는 `RouteType`에 따라 `pipeline_a_simple_qa.py`부터 `pipeline_f_quiz.py`까지 분기한다
 
-- 새 라우트를 추가할 때는 `config.ROUTE_MAP`, `query_router.py`, `pipelines/`, `routers/chat.py` 를 함께 갱신
-- 새 문서 파서를 추가할 때는 업로드 라우터와 메타데이터 저장 구조를 함께 갱신
-- 새 평가 지표를 추가할 때는 `ragas_eval.py`, `run_track1.py`, `run_track2.py`, `results_to_markdown.py` 를 함께 갱신
-- 코드나 문서 삭제는 사용자 확인 후 진행
+---
+
+## 모델 정책
+
+- 논문 실험 경로는 `K-intelligence/Midm-2.0-Base-Instruct`와 transformers 직접 디코딩을 기준으로 한다
+- 로컬 스모크 검증 경로는 `K-intelligence/Midm-2.0-Mini-Instruct`를 사용한다
+- CAD/SCD 실험은 생성 logits 제어가 가능한 직접 디코딩 경로에서 수행한다
+- vLLM과 외부 LLM API 논의는 `docs/PAPER/NEXT_STAGE_VLLM_CLAIM.md`에서 다룬다
+
+---
+
+## 데이터베이스 정책
+
+- 논문 실험의 빠른 실행은 SQLite + SQLAlchemy
+- 운영/서비스 경로는 PostgreSQL + SQLAlchemy
+- 벡터 데이터는 ChromaDB에 저장
+- 문서 collection은 사용자 기준으로 격리
+
+---
+
+## 문서 해석 주의
+
+13개 연구 핵심 모듈은 논문 실험과 클레임의 중심 모듈이다
+
+18개 전체 모듈 파일은 연구 핵심 모듈과 운영/입출력 모듈을 합친 현재 구현 단위다
+
+F 경로의 퀴즈 생성은 `pipeline_f_quiz.py`가 담당한다. 후속 질문 생성은 `followup_generator.py`가 담당한다

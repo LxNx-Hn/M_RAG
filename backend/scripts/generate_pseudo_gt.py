@@ -147,7 +147,11 @@ def _search_contexts(
         )
         resp.raise_for_status()
         data = resp.json()
-        return [item.get("content", "") for item in data.get("results", []) if item.get("content")]
+        return [
+            item.get("content", "")
+            for item in data.get("results", [])
+            if item.get("content")
+        ]
     except Exception as exc:
         print(f"  Search failed ({exc}); using empty context.", file=sys.stderr)
         return []
@@ -174,7 +178,9 @@ def _query_openai_gt(
     ctx_text = "\n\n".join(
         f"[Excerpt {i + 1}]\n{ctx[:600]}" for i, ctx in enumerate(contexts[:5])
     )
-    prompt = _OPENAI_GT_PROMPT.format(contexts=ctx_text or "(no excerpts retrieved)", query=query)
+    prompt = _OPENAI_GT_PROMPT.format(
+        contexts=ctx_text or "(no excerpts retrieved)", query=query
+    )
     response = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],
@@ -214,7 +220,10 @@ def _query_api(
         except requests.RequestException as exc:
             if attempt < attempts - 1:
                 sleep_seconds = retry_backoff * (2**attempt)
-                print(f"  Retryable network error: {exc} (sleep {sleep_seconds:.1f}s)", file=sys.stderr)
+                print(
+                    f"  Retryable network error: {exc} (sleep {sleep_seconds:.1f}s)",
+                    file=sys.stderr,
+                )
                 time.sleep(sleep_seconds)
                 continue
             raise
@@ -339,7 +348,9 @@ def main() -> int:
                 file=sys.stderr,
             )
             return 1
-        print(f"[gt-model] Using {args.gt_model} to generate ground truth from paper contexts.")
+        print(
+            f"[gt-model] Using {args.gt_model} to generate ground truth from paper contexts."
+        )
     else:
         print("[gt-model] Using local M-RAG API (Naive RAG) to generate ground truth.")
 
@@ -370,11 +381,17 @@ def main() -> int:
             failed += 1
             failures.append({"query": query, "error": "Empty query field"})
             _persist_state(
-                source_path=args.input, output_path=args.output,
-                root_payload=root_payload, queries=queries, failures=failures,
-                collection_name=args.collection, api_url=args.api_url,
-                gt_model=args.gt_model, attempted=len(targets),
-                success=success, failed=failed,
+                source_path=args.input,
+                output_path=args.output,
+                root_payload=root_payload,
+                queries=queries,
+                failures=failures,
+                collection_name=args.collection,
+                api_url=args.api_url,
+                gt_model=args.gt_model,
+                attempted=len(targets),
+                success=success,
+                failed=failed,
             )
             continue
 
@@ -385,11 +402,17 @@ def main() -> int:
             failures.append({"query": query, "error": str(exc)})
             print(f"  Failed: {exc}", file=sys.stderr)
             _persist_state(
-                source_path=args.input, output_path=args.output,
-                root_payload=root_payload, queries=queries, failures=failures,
-                collection_name=args.collection, api_url=args.api_url,
-                gt_model=args.gt_model, attempted=len(targets),
-                success=success, failed=failed,
+                source_path=args.input,
+                output_path=args.output,
+                root_payload=root_payload,
+                queries=queries,
+                failures=failures,
+                collection_name=args.collection,
+                api_url=args.api_url,
+                gt_model=args.gt_model,
+                attempted=len(targets),
+                success=success,
+                failed=failed,
             )
             continue
 
@@ -408,8 +431,13 @@ def main() -> int:
 
                     if use_openai:
                         contexts = _search_contexts(
-                            args.api_url, args.collection, query,
-                            args.token, args.timeout, paper, args.search_top_k,
+                            args.api_url,
+                            args.collection,
+                            query,
+                            args.token,
+                            args.timeout,
+                            paper,
+                            args.search_top_k,
                         )
                         answer = _query_openai_gt(
                             args.openai_api_key, args.gt_model, query, contexts
@@ -417,9 +445,14 @@ def main() -> int:
                         print(f"  [{paper}] GPT GT: {answer[:80]}...")
                     else:
                         answer = _query_api(
-                            args.api_url, args.collection, query,
-                            args.timeout, args.token, args.max_retries,
-                            args.retry_backoff, doc_id_filter=paper,
+                            args.api_url,
+                            args.collection,
+                            query,
+                            args.timeout,
+                            args.token,
+                            args.max_retries,
+                            args.retry_backoff,
+                            doc_id_filter=paper,
                         )
 
                     by_paper[paper] = answer
@@ -433,16 +466,25 @@ def main() -> int:
             else:
                 if use_openai:
                     contexts = _search_contexts(
-                        args.api_url, args.collection, query,
-                        args.token, args.timeout, None, args.search_top_k,
+                        args.api_url,
+                        args.collection,
+                        query,
+                        args.token,
+                        args.timeout,
+                        None,
+                        args.search_top_k,
                     )
                     answer = _query_openai_gt(
                         args.openai_api_key, args.gt_model, query, contexts
                     )
                 else:
                     answer = _query_api(
-                        args.api_url, args.collection, query,
-                        args.timeout, args.token, args.max_retries,
+                        args.api_url,
+                        args.collection,
+                        query,
+                        args.timeout,
+                        args.token,
+                        args.max_retries,
                         args.retry_backoff,
                     )
                 last_attempt_at = time.time()
@@ -450,11 +492,17 @@ def main() -> int:
 
             success += 1
             _persist_state(
-                source_path=args.input, output_path=args.output,
-                root_payload=root_payload, queries=queries, failures=failures,
-                collection_name=args.collection, api_url=args.api_url,
-                gt_model=args.gt_model, attempted=len(targets),
-                success=success, failed=failed,
+                source_path=args.input,
+                output_path=args.output,
+                root_payload=root_payload,
+                queries=queries,
+                failures=failures,
+                collection_name=args.collection,
+                api_url=args.api_url,
+                gt_model=args.gt_model,
+                attempted=len(targets),
+                success=success,
+                failed=failed,
             )
         except Exception as exc:
             last_attempt_at = time.time()
@@ -462,11 +510,17 @@ def main() -> int:
             failures.append({"query": query, "error": str(exc)})
             print(f"  Failed: {exc}", file=sys.stderr)
             _persist_state(
-                source_path=args.input, output_path=args.output,
-                root_payload=root_payload, queries=queries, failures=failures,
-                collection_name=args.collection, api_url=args.api_url,
-                gt_model=args.gt_model, attempted=len(targets),
-                success=success, failed=failed,
+                source_path=args.input,
+                output_path=args.output,
+                root_payload=root_payload,
+                queries=queries,
+                failures=failures,
+                collection_name=args.collection,
+                api_url=args.api_url,
+                gt_model=args.gt_model,
+                attempted=len(targets),
+                success=success,
+                failed=failed,
             )
 
     print(f"Completed. Success: {success}, Failed: {failed}", flush=True)

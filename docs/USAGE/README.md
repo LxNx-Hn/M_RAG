@@ -1,39 +1,29 @@
-# M-RAG 사용법 문서
+﻿# M-RAG 사용법 문서
 
-## 현재 평가 입력 기준
+## 문서 역할
 
-- 현재 재평가의 기준 입력은 `backend/evaluation/data/track1_queries.json` 과 `backend/evaluation/data/track2_queries.json`
-- pseudo ground truth는 `backend/evaluation/data/pseudo_gt_track1.json` 과 `backend/evaluation/data/pseudo_gt_track2.json` 으로 별도 생성
-- `korquad_25.json` 과 번역 CRAG 정규화 결과는 보조 준비 자산이며, 현재 로컬 paper-grounded 재평가의 직접 입력으로는 사용하지 않음
+| 문서 | 목적 |
+|---|---|
+| `DEPLOY.md` | 로컬, Docker, GPU 서버 실행 기준 |
+| `RUNPOD_A100_NO_SSH.md` | RunPod A100에서 웹 터미널로 실험 실행 |
+| `ALICE_CLOUD_GUIDE.md` | Alice Cloud에서 실험 실행 |
+| `POSTGRES_GUIDE.md` | PostgreSQL 운영 DB 사용 |
+| `TESTING_GUIDE.md` | 로컬 검증과 CI 검증 |
 
-- 문서 기준 2026-04-27
-- 실행, 검증, 운영에 바로 쓰는 문서를 모아둔 시작점
+## 실행 경로 선택
 
-## 포함 문서
+| 목적 | 추천 경로 |
+|---|---|
+| 논문 실험 빠른 실행 | SQLite + SQLAlchemy + MIDM Base |
+| 로컬 스모크 확인 | SQLite + SQLAlchemy + MIDM Mini |
+| 운영/서비스 시연 | PostgreSQL + SQLAlchemy + MIDM Base |
+| RunPod A100 실험 | GHCR image 또는 git clone + SQLite |
+| Alice Cloud 실험 | git clone + venv + SQLite |
 
-- `ALICE_CLOUD_GUIDE.md` Alice Cloud GPU 초기 설정부터 실험 완주까지 전체 가이드
-- `DEPLOY.md` 로컬 실행, Docker 실행, GPU 서버 실행
-- `RUNPOD_A100_NO_SSH.md` RunPod A100 무SSH 실행 절차 (GHCR 컨테이너 Pull 방식 포함)
-- `WORK_PLAN.md` 최신 실험 실행 계획
-- `HANDOFF.md` 다음 세션 인수인계
-- `POSTGRES_GUIDE.md` PostgreSQL 전환과 운영 기준
-- `TESTING_GUIDE.md` 테스트와 스모크 검증 기준
+## 중요한 기준
 
-## 기본 순서
-
-- Alice Cloud 에서 처음 실행하는 경우 `ALICE_CLOUD_GUIDE.md` 부터 시작
-- 로컬 실행 또는 Docker 실행은 `DEPLOY.md` 기준으로 진행
-- 세션 재개가 필요하면 `HANDOFF.md` 확인
-- DB 전환이 필요할 때만 `POSTGRES_GUIDE.md` 확인
-- 테스트 기준은 `TESTING_GUIDE.md` 확인
-
-## 경로 선택 기준
-
-- 논문과 연구 검증이 목표면 현재 로컬 실행 경로를 유지
-- 이 경로에서는 CAD와 SCD를 포함한 생성 제어를 유지하는 것이 우선
-- 따라서 이번 구현에서는 plain generation 전환이나 외부 상용 LLM API 연동, `vLLM` 전환을 진행하지 않음
-- 이유는 현재 연구 검증 범위가 CAD와 SCD 기반 생성 제어를 포함한 논문 경로이기 때문
-- OpenAI 같은 외부 API 연결은 쉬운 편이지만 CAD와 SCD 유지에는 적합하지 않음
-- `vLLM` 은 아직 미구현이며, plain generation 서빙은 비교적 단순하지만 CAD와 SCD 유지형 연동은 별도 연구 과제
-- 서비스 배포가 목표면 plain generation 기반 외부 추론 서버 분리를 후속 경로로 검토 가능
-- 현재 기본 운영 기준은 PostgreSQL + Base 모델이며, Mini는 로컬 스모크 검증에만 사용
+- 논문 기준 기본 모델은 MIDM Base
+- Mini는 로컬 스모크 검증용
+- 논문 실험 경로는 MIDM Base 직접 디코딩을 기준으로 함
+- vLLM과 외부 LLM API는 별도 추론 최적화/서비스 비교 문서에서 다룸
+- 논문 실험에서는 DB 엔진보다 동일한 실험 경로와 결과 재현성이 중요

@@ -196,7 +196,9 @@ def check_gpu_env() -> str:
     val = os.environ.get("LOAD_GPU_MODELS", "true")
     if val.lower() == "true":
         return "LOAD_GPU_MODELS=true (generator runtime enabled)"
-    raise RuntimeError("LOAD_GPU_MODELS must be true for supported service/experiment runs.")
+    raise RuntimeError(
+        "LOAD_GPU_MODELS must be true for supported service/experiment runs."
+    )
 
 
 @check("track query files validity")

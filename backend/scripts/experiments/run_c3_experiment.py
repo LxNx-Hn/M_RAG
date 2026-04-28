@@ -18,7 +18,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from config import CHROMA_DIR
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -39,7 +41,11 @@ def main() -> None:
 
     logger.info("=== Loading modules ===")
     from evaluation.ablation_study import AblationStudy
-    from evaluation.ragas_eval import RAGASEvaluator, compare_cad_on_off, load_test_queries
+    from evaluation.ragas_eval import (
+        RAGASEvaluator,
+        compare_cad_on_off,
+        load_test_queries,
+    )
     from modules.chunker import Chunker
     from modules.context_compressor import ContextCompressor
     from modules.embedder import Embedder
@@ -82,7 +88,9 @@ def main() -> None:
     )
     logger.info("Loaded %s CAD evaluation samples", len(samples))
     if not samples:
-        logger.error("No cad_ablation samples found in evaluation/data/track2_queries.json")
+        logger.error(
+            "No cad_ablation samples found in evaluation/data/track2_queries.json"
+        )
         sys.exit(1)
 
     logger.info("=== Running CAD on/off comparison ===")
@@ -139,9 +147,7 @@ def main() -> None:
     logger.info("Saved results to %s", output_path)
     print("\n=== C3 Results ===")
     print(f"CAD alpha baseline: {cad_on_off['alpha']}")
-    print(
-        f"Faithfulness delta (CAD on - off): {cad_on_off['faithfulness_delta']:.3f}"
-    )
+    print(f"Faithfulness delta (CAD on - off): {cad_on_off['faithfulness_delta']:.3f}")
     print(
         f"Best alpha: {alpha_results['summary']['best_alpha']} "
         f"(delta={alpha_results['summary']['max_faithfulness_delta']:.3f})"

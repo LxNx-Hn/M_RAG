@@ -135,6 +135,7 @@ def run(
             context=context,
             template="qa",
             logits_processor=logits_processor if (use_cad or use_scd) else None,
+            force_greedy=use_cad,
         )
         sources = generator.format_sources(compressed)
 

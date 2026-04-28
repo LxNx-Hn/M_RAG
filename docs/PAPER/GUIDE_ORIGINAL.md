@@ -1,49 +1,141 @@
-# 국문 논문 원본 초안 복구본
-
-- 복구일 2026-04-26
-- 원본 경로 `Guide.md` → `docs/Guide.md`
-- 원본 생성 커밋 `578c2c0`
-- 삭제 확인 커밋 `8ff8917`
-- 상태 과거 초안 보존용
-- 주의 현재 코드 기준 문서가 아니며 EXAONE, Streamlit, RunPod 등 과거 설계를 포함
-
----
-
-# 모듈러 RAG 기반 논문 리뷰 챗봇 에이전트
+﻿# 모듈러 RAG 기반 논문 리뷰 챗봇 에이전트
 ## 종합 설계 가이드라인 및 관련 연구 보고서
 
-> 졸업작품 / 취업 포트폴리오 프로젝트  
+> 졸업작품 / 취업 포트폴리오 프로젝트
 > 작성일: 2026년 4월
 
 ---
 
 ## 0. 프로젝트 개요
 
-본 프로젝트는 학술 논문 PDF를 입력으로 받아 **한국어 질의응답, 다중 논문 비교, 인용 논문 추적**을 제공하는 모듈러 RAG 기반 챗봇 에이전트를 구현한다. 쿼리 유형에 따라 파이프라인이 동적으로 변경되는 진정한 의미의 Modular RAG이며, 대조 해독(Contrastive Decoding) 기반 환각 억제 모듈을 포함한다.
+### 한 줄 요약
 
-### 핵심 차별점
+> **"범용 다국어 RAG에서 모듈별 한/영 질의 성능 갭을 정량 분해하고(Track 1), 논문 도메인에서 섹션 특화 모듈의 추가 효과를 실증한다(Track 2). CAD+SCD 조합으로 Language Drift와 파라메트릭 지식 개입을 동시 억제한다."**
 
-- 논문 섹션 구조(Abstract/Method/Result/Conclusion) 인식 청킹
-- **쿼리 라우터**: 질의 유형에 따라 파이프라인 자체가 동적으로 변경
-- BGE-M3 기반 한국어↔영어 크로스링구얼 검색
-- arXiv API 기반 인용 논문 자동 수집
-- **Context-Aware Contrastive Decoding** 적용 환각 억제 (학습 불필요)
-- RAGAS 기반 정량 평가로 일반 RAG 대비 성능 실증
+---
+
+### 세 가지 기여 (Contribution)
+
+| # | 유형 | 내용 | 근거 |
+|---|---|---|---|
+| C1 | 분석 | 범용 + 논문 도메인에서 모듈별 갭 해소 기여도 정량 분해 | 선행 연구는 파이프라인 전체 or 2단계만 분리 |
+| C2 | 알고리즘 | CAD+SCD 조합으로 두 문제 동시 억제 + alpha/beta ablation | CAD는 지식 억제, SCD는 언어 이탈 억제로 목적이 다름 |
+| C3 | 시스템 | 오픈소스 모듈러 RAG 구현 및 공개 | 논문 도메인 특화 + 범용 동작 |
+
+---
+
+### 두 가지 생성 단계 문제와 해결책
+
+```
+문제 1 — 파라메트릭 지식 개입
+  문서가 있어도 모델의 사전학습 기억이 개입
+  → 수치 오류, 사실 왜곡 발생
+  → CAD로 해결 (Shi et al., 2023) [3]
+
+문제 2 — Language Drift
+  영문 청크가 컨텍스트로 들어오면
+  한국어 질의에도 영어로 답변하거나
+  영어 구간을 우선 참조
+  → SCD로 해결 (Li et al., 2025) [34]
+
+두 모듈을 LogitsProcessor로 병렬 적용
+→ 두 문제 동시 억제
+```
+
+---
+
+### 직접 실험 vs 인용 대체
+
+```
+인용으로 대체:
+  ✅ "언어 불일치 시 RAG 성능 저하"
+     → Chirkova et al.(2024) [31], Park & Lee(2025) [32]
+  ✅ "LLM은 언어별 환각률이 다르다"
+     → mFAVA, Ul Islam et al.(2025) [30]
+  ✅ "Language Drift 발생"
+     → Li et al.(2025) [34]
+
+직접 실험 (새로운 것):
+  🔬 Table 1: 모듈별 갭 해소 기여도 Ablation (Track 1)
+  🔬 Table 2: CAD/SCD 조합 Ablation
+  🔬 Table 3: 논문 도메인 특화 모듈 추가 효과 (Track 2)
+```
+
+---
 
 ### 기술 스택
 
-| 구분 | 기술 | 선택 근거 |
+| 구분 | 기술 | 비고 |
 |---|---|---|
-| PDF 파싱 | pymupdf | 속도 빠르고 레이아웃 정보 보존 |
-| 임베딩 | BGE-M3 | 한영 동시 처리, 크로스링구얼 매칭 |
-| 벡터DB | ChromaDB | 로컬 실행, 메타데이터 필터링 지원 |
-| 생성 모델 | EXAONE-7.8B | 한국어 성능 우수, 오픈소스 |
-| 보조 생성 | Llama-3.1-8B | 비교 실험 baseline |
-| 환각 억제 | Contrastive Decoding | 학습 없이 LogitsProcessor로 구현 |
-| 평가 | RAGAS | RAG 특화 자동 평가 프레임워크 |
-| UI | Streamlit | 빠른 데모 구현, 파일 업로드 지원 |
-| 인용 수집 | arXiv API | 무료, 공개 학술 논문 대량 수집 |
-| GPU | RunPod A100 | 로컬 LLM 추론 환경 |
+| PDF 파싱 | pymupdf | 속도, 레이아웃 보존 |
+| 임베딩 | BGE-M3 | 한영 크로스링구얼 |
+| 벡터DB | ChromaDB | 로컬, 메타데이터 필터 |
+| 생성 모델 | MIDM-2.0 Base (11.5B) | KT 한국 중심 AI |
+| 환각 억제 | CAD + SCD | 학습 불필요 |
+| 평가 | RAGAS | RAG 특화 자동 평가 |
+| API | FastAPI | 인증, 업로드, 질의응답, SSE, Judge, PPT Export |
+| UI | React + Vite | 논문 업로드, 채팅, PDF 뷰어, 결과 확인 |
+| 실험 자동화 | master_run.py | SQLite + SQLAlchemy 기반 전체 실험 실행 |
+| GPU | RunPod/Alice A100 | MIDM Base 기반 실험 추론 |
+
+### 현재 코드 반영 요약
+
+이 문서는 사용자 제공 35편 기준 설계안을 원형으로 유지하되, 현재 저장소 코드 기준으로 다음 사항을 보정한다.
+
+| 항목 | 현재 코드 기준 |
+|---|---|
+| 연구 핵심 모듈 | 13개 |
+| 확장/운영 모듈 | 5개 |
+| 전체 모듈 파일 | 18개 |
+| 파이프라인 | A~F 6개 |
+| 운영 대화 기능 | follow-up 질문, F 퀴즈/플래시카드 생성 |
+| 제품/운영 기능 | PPT Export, Search API, Judge API, SSE 스트리밍 |
+| 논문 기본 모델 | MIDM Base |
+| 로컬 스모크 모델 | MIDM Mini |
+| 논문 실험 DB | SQLite + SQLAlchemy |
+| 운영/서비스 DB | PostgreSQL + SQLAlchemy |
+
+13개 연구 핵심 모듈은 논문 클레임과 ablation의 중심이 되는 모듈이다. 18개 전체 모듈 파일은 연구 핵심 모듈과 입력 처리, 저장소, 특허 추적, PPT 내보내기 모듈을 합친 현재 구현 단위다.
+
+연구 핵심 13개 모듈
+
+- `embedder.py`
+- `chunker.py`
+- `reranker.py`
+- `hybrid_retriever.py`
+- `query_router.py`
+- `section_detector.py`
+- `generator.py`
+- `cad_decoder.py`
+- `scd_decoder.py`
+- `context_compressor.py`
+- `query_expander.py`
+- `citation_tracker.py`
+- `followup_generator.py`
+
+확장/운영 5개 모듈
+
+- `pdf_parser.py`
+- `docx_parser.py`
+- `patent_tracker.py`
+- `pptx_exporter.py`
+- `vector_store.py`
+
+```python
+# MIDM-2.0 로드 (transformers >= 4.45.0)
+from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
+import torch
+
+model = AutoModelForCausalLM.from_pretrained(
+    "K-intelligence/Midm-2.0-Base-Instruct",
+    torch_dtype=torch.bfloat16,
+    trust_remote_code=True,
+    device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained(
+    "K-intelligence/Midm-2.0-Base-Instruct"
+)
+```
 
 ---
 
@@ -51,653 +143,756 @@
 
 ### 1.1 RAG 패러다임의 진화
 
-대규모 언어 모델(LLM)은 환각, 지식 단절, 불투명한 추론이라는 구조적 한계를 가진다. RAG는 외부 데이터베이스 검색 결과를 생성 과정에 결합하여 이를 보완하는 패러다임이다 [1].
-
 | 패러다임 | 구조 | 한계 |
 |---|---|---|
-| Naive RAG | 고정 파이프라인: 청킹→검색→생성 | 복잡한 질의 처리 불가 |
-| Advanced RAG | 사전/사후 검색 최적화 추가 | 여전히 순차적 고정 구조 |
-| **Modular RAG** | 쿼리 유형에 따라 동적 파이프라인 구성 | 구현 복잡도 높음 (본 프로젝트) |
+| Naive RAG | 고정 파이프라인: 청킹→검색→생성 | 모든 질의가 같은 경로 |
+| Advanced RAG | 사전/사후 검색 최적화 추가 | 순차적 고정 구조 |
+| **Modular RAG** | 쿼리 유형에 따라 파이프라인 동적 변경 | 본 프로젝트 |
 
-### 1.2 논문 도메인의 특수성
+### 1.2 선행 연구가 확립한 사실 (인용으로 대체)
 
-기존 범용 RAG는 논문의 구조적 특성을 무시한다. 논문은 명확한 섹션 구조를 가지며 각 섹션은 서로 다른 유형의 정보를 담는다.
+**사실 1: LLM은 언어별 환각률이 다르다**
+→ mFAVA [30]: 30개 언어 × 11개 LLM에서 실증
 
-- `"결과가 어떻게 나왔어?"` → Result 섹션 우선 검색 필요
-- `"방법론 설명해줘"` → Method 섹션 우선 검색 필요
-- `"A 논문이랑 B 논문 비교해줘"` → 병렬 멀티 문서 검색 필요
-- `"인용 논문도 같이 분석해줘"` → arXiv 외부 수집 + 확장 검색 필요
+**사실 2: 다국어 RAG에서 언어 불일치 시 성능 저하**
+→ Chirkova et al.(2024) [31]: 13개 언어 mRAG 실험
+→ Park & Lee(2025) [32]: 한국어 포함 언어 선호도 측정, 표 직접 인용 가능
 
-### 1.3 한국어 특화 필요성
+**사실 3: Language Drift 발생**
+→ Li et al.(2025) [34]: 영어가 의미적 끌개로 작용함을 실증
 
-영어 논문에 한국어로 질의할 때 발생하는 크로스링구얼 갭이 검색 및 생성 품질에 영향을 미친다. BGE-M3는 동일 임베딩 공간에서 다국어를 처리하여 이 문제를 해결한다 [2]. 생성 단계의 환각은 Context-Aware Contrastive Decoding으로 추가 억제한다 [3, 4].
+### 1.3 선행 연구의 한계 (본 연구가 채울 것)
+
+```
+공통 한계:
+  - 파이프라인 전체 or 검색/생성 2단계만 분리
+  - 모듈 단위 기여도 분해 없음
+  - 범용 다국어 LLM 사용 (한국어 특화 LLM 없음)
+
+추가 한계:
+  - SCD [34]: Language Drift만 억제, 지식 개입 미해결
+  - CAD [3]: 지식 개입만 억제, Language Drift 미해결
+```
+
+### 1.4 Modular RAG 정의
+
+> 쿼리 유형에 따라 **어떤 모듈을 어떤 순서로 실행할지가 동적으로 결정**되는 시스템.
+> 핵심은 쿼리 라우터(MODULE 6). 없으면 그냥 파이프라인.
+
+```
+❌ 파이프라인: 모든 질의 → 고정 순서 실행
+✅ Modular RAG: 질의 유형 → 경로 선택 → 해당 모듈 조합 활성화
+```
 
 ---
 
-## 2. 관련 연구
+## 2. 관련 연구 (35편)
 
-### 2.1 핵심 논문 목록 (30편)
-
-| # | 논문 | Venue | arXiv | 적용 모듈 |
+| # | 논문 | Venue | arXiv | 역할 |
 |---|---|---|---|---|
-| 1 | Gao et al. — RAG Survey | ICLR 2024 | 2312.10997 | 전체 설계 근거 |
-| 2 | Chen et al. — BGE M3-Embedding | ACL 2024 | 2402.03216 | MODULE 4 임베딩 |
-| 3 | Shi et al. — Context-Aware Decoding (CAD) | NAACL 2024 | 2305.14739 | MODULE 13 환각 억제 |
-| 4 | Li et al. — Contrastive Decoding | ACL 2023 | 2210.15097 | MODULE 13 기반 이론 |
-| 5 | Sarthi et al. — RAPTOR | ICLR 2024 | 2401.18059 | MODULE 3 계층 청킹 |
-| 6 | Gao et al. — HyDE | ACL 2023 | 2212.10496 | MODULE 7 쿼리 확장 |
-| 7 | Asai et al. — Self-RAG | ICLR 2024 | 2310.11511 | MODULE 6 라우터 설계 |
-| 8 | Yan et al. — CRAG | ICLR 2024 | 2401.15884 | MODULE 8 검색 교정 |
-| 9 | Edge et al. — GraphRAG | EMNLP 2024 | 2404.16130 | MODULE 11 인용 그래프 |
+| 1 | Gao et al. — RAG Survey | ICLR 2024 | 2312.10997 | 전체 설계 |
+| 2 | Chen et al. — BGE M3 | ACL 2024 | 2402.03216 | MODULE 4 |
+| 3 | Shi et al. — CAD | NAACL 2024 | 2305.14739 | MODULE 13A |
+| 4 | Li et al. — Contrastive Decoding | ACL 2023 | 2210.15097 | MODULE 13A 기반 |
+| 5 | Sarthi et al. — RAPTOR | ICLR 2024 | 2401.18059 | MODULE 3 |
+| 6 | Gao et al. — HyDE | ACL 2023 | 2212.10496 | MODULE 7 |
+| 7 | Asai et al. — Self-RAG | ICLR 2024 | 2310.11511 | MODULE 6 |
+| 8 | Yan et al. — CRAG | ICLR 2024 | 2401.15884 | MODULE 8 |
+| 9 | Edge et al. — GraphRAG | EMNLP 2024 | 2404.16130 | MODULE 11 |
 | 10 | Es et al. — RAGAS | EACL 2024 | 2309.15217 | 평가 프레임워크 |
-| 11 | Jiang et al. — LLMLingua | EMNLP 2023 | 2310.05736 | MODULE 10 컨텍스트 압축 |
-| 12 | Jiang et al. — LongLLMLingua | ACL 2024 | 2310.05736 | MODULE 10 쿼리 의존 압축 |
-| 13 | Wang et al. — Best Practices in RAG | arXiv 2024 | 2407.01219 | MODULE 8 하이브리드 검색 |
-| 14 | Santhanam et al. — ColBERTv2 | NAACL 2022 | 2112.01488 | MODULE 9 재랭킹 |
-| 15 | Jha et al. — Jina-ColBERT-v2 | MRL 2024 | 2408.16672 | MODULE 9 다국어 재랭킹 |
-| 16 | Wang et al. — Speculative RAG | arXiv 2024 | 2407.08223 | MODULE 12 초안-검증 생성 |
-| 17 | Jiang et al. — FLARE | EMNLP 2023 | 2305.06983 | MODULE 6 적응적 검색 |
-| 18 | Shao et al. — ITER-RETGEN | arXiv 2023 | 2305.15294 | MODULE 6 반복 검색 |
-| 19 | Xu et al. — RECOMP | ICLR 2024 | 2310.04408 | MODULE 10 추출/요약 압축 |
-| 20 | Lewis et al. — RAG (Original) | NeurIPS 2020 | 2005.11401 | 전체 기반 이론 |
-| 21 | Khattab & Zaharia — ColBERT | SIGIR 2020 | 2004.12832 | MODULE 9 레이트 인터랙션 |
-| 22 | Robertson et al. — BM25 | TREC 1994 | - | MODULE 8 희소 검색 |
-| 23 | Cormack et al. — RRF | SIGIR 2009 | - | MODULE 8 결과 융합 |
-| 24 | Chen et al. — Dense-X Retrieval | arXiv 2023 | 2312.06648 | MODULE 3 명제 단위 청킹 |
-| 25 | Trivedi et al. — IRCoT | ACL 2023 | 2212.10509 | MODULE 6 멀티홉 추론 |
-| 26 | Rackauckas — RAG-Fusion | arXiv 2024 | 2402.03367 | MODULE 7 다중 쿼리 |
-| 27 | Gutiérrez et al. — HippoRAG2 | arXiv 2025 | 2502.14802 | MODULE 11 장기 기억 검색 |
-| 28 | Zhong et al. — Meta-Chunking | arXiv 2024 | 2410.12788 | MODULE 3 논리 인식 청킹 |
-| 29 | Liu et al. — Lost in the Middle | TACL 2024 | 2307.03172 | MODULE 9 위치 편향 보정 |
-| 30 | Ge et al. — ICAE (컨텍스트 압축) | NeurIPS 2024 | 2307.06945 | MODULE 10 임베딩 압축 |
+| 11 | Jiang et al. — LLMLingua | EMNLP 2023 | 2310.05736 | MODULE 10 |
+| 12 | Jiang et al. — LongLLMLingua | ACL 2024 | 2310.06839 | MODULE 10 |
+| 13 | Wang et al. — Best Practices RAG | arXiv 2024 | 2407.01219 | MODULE 8 |
+| 14 | Santhanam et al. — ColBERTv2 | NAACL 2022 | 2112.01488 | MODULE 9 |
+| 15 | Jha et al. — Jina-ColBERT-v2 | MRL 2024 | 2408.16672 | MODULE 9 |
+| 16 | Wang et al. — Speculative RAG | arXiv 2024 | 2407.08223 | MODULE 12 |
+| 17 | Jiang et al. — FLARE | EMNLP 2023 | 2305.06983 | MODULE 6 |
+| 18 | Shao et al. — ITER-RETGEN | EMNLP 2023 | 2305.15294 | MODULE 6 |
+| 19 | Xu et al. — RECOMP | ICLR 2024 | 2310.04408 | MODULE 10 |
+| 20 | Lewis et al. — RAG Original | NeurIPS 2020 | 2005.11401 | 전체 기반 |
+| 21 | Khattab & Zaharia — ColBERT | SIGIR 2020 | 2004.12832 | MODULE 9 |
+| 22 | Robertson et al. — BM25 | TREC 1994 | — | MODULE 8 |
+| 23 | Cormack et al. — RRF | SIGIR 2009 | — | MODULE 8 |
+| 24 | Chen et al. — Dense-X Retrieval | arXiv 2023 | 2312.06648 | MODULE 3 |
+| 25 | Trivedi et al. — IRCoT | ACL 2023 | 2212.10509 | MODULE 6 |
+| 26 | Rackauckas — RAG-Fusion | arXiv 2024 | 2402.03367 | MODULE 7 |
+| 27 | Gutiérrez et al. — HippoRAG2 | arXiv 2025 | 2502.14802 | MODULE 11 |
+| 28 | Zhong et al. — Meta-Chunking | arXiv 2024 | 2410.12788 | MODULE 3 |
+| 29 | Liu et al. — Lost in the Middle | TACL 2024 | 2307.03172 | MODULE 9 |
+| 30 | Ul Islam et al. — mFAVA | EMNLP 2025 | 2502.12769 | 배경: 언어별 환각률 |
+| 31 | Chirkova et al. — mRAG | KnowLLM@ACL 2024 | 2407.01463 | 배경: 언어 불일치 성능 저하 |
+| 32 | Park & Lee — Language Preference | ACL 2025 Findings | 2502.11175 | 배경: 표 직접 인용 |
+| 33 | Ranaldi et al. — Multilingual RAG | arXiv 2025 | 2504.03616 | 다국어 RAG 전략 비교 |
+| 34 | Li et al. — Language Drift & SCD | arXiv 2025 | 2511.09984 | MODULE 13B |
+| 35 | Rau et al. — BERGEN | arXiv 2024 | 2407.01102 | mRAG 벤치마킹 기반 |
 
 ---
 
-### 2.2 핵심 기술 상세 설명
-
-#### 2.2.1 RAPTOR — 계층적 요약 트리 [5]
-
-문서를 청킹한 뒤 유사 청크를 클러스터링하고 LLM으로 요약하여 계층 트리를 구성한다. 검색 시 트리의 다양한 레벨에서 검색하여 세부 사실과 전체 맥락을 동시에 포착한다.
-
-```
-원본 청크 (leaf) → 클러스터 요약 (mid) → 전체 요약 (root)
-                 ↕ 검색 시 모든 레벨 활용
-```
-
-#### 2.2.2 HyDE — 가상 문서 임베딩 [6]
-
-쿼리를 직접 검색하는 대신, LLM이 가상의 답변 문서를 먼저 생성하고 그 문서로 검색한다.
-
-```
-한국어 쿼리 → LLM → 가상 영문 답변 → 영문 논문 검색
-             (크로스링구얼 갭 해소)
-```
-
-#### 2.2.3 Self-RAG — 적응적 검색 [7]
-
-LLM이 reflection token(`[Retrieve]`, `[Relevant]`, `[Supported]`)을 사용해 검색 필요 여부를 스스로 판단한다. 쿼리 라우터 설계의 이론적 기반이 된다.
-
-#### 2.2.4 CRAG — 교정적 RAG [8]
-
-검색 결과의 관련성을 평가기로 판정하여 낮으면 웹 검색(본 시스템에서는 arXiv 검색)으로 보완한다.
-
-#### 2.2.5 Hybrid Search + RRF [13, 23]
-
-BM25(키워드)와 벡터 검색(의미)을 결합한다. Reciprocal Rank Fusion으로 두 결과를 통합한다.
-
-```
-RRF score(d) = Σ 1 / (k + rank_i(d))   (k=60)
-```
-
-#### 2.2.6 ColBERTv2 — 레이트 인터랙션 재랭킹 [14]
-
-토큰 레벨 다중 벡터로 쿼리-문서 관련성을 세밀하게 평가한다. MaxSim 연산으로 각 쿼리 토큰과 가장 유사한 문서 토큰을 매칭한다.
-
-```
-score(q, d) = Σ_i max_j (E_q[i] · E_d[j])
-```
-
-#### 2.2.7 LLMLingua / LongLLMLingua — 컨텍스트 압축 [11, 12]
-
-쿼리 조건부 퍼플렉시티로 각 토큰의 중요도를 계산하여 불필요한 토큰을 제거한다.
-
-#### 2.2.8 Context-Aware Contrastive Decoding (CAD) [3, 4]
-
-본 프로젝트의 핵심 추가 모듈. 파인튜닝 없이 LogitsProcessor 하나로 구현.
-
-$$\text{Logit}_{\text{final}} = \text{Logit}(\text{문서 포함 프롬프트}) - \alpha \cdot \text{Logit}(\text{문서 없는 프롬프트})$$
-
-모델이 다음 토큰을 예측할 때 파라메트릭 지식(사전 학습 기억)의 개입을 실시간으로 억제한다. Shi et al.(2023)의 CAD를 한국어 RAG 수치 환각 억제에 적용한다.
-
-#### 2.2.9 Speculative RAG [16]
-
-소형 specialist LM이 병렬로 여러 draft를 생성하고, 대형 generalist LM이 검증한다. 지연 시간을 줄이면서 품질을 유지하는 효율적 생성 전략이다.
-
-#### 2.2.10 RECOMP — 추출/요약 압축 [19]
-
-검색된 문서를 쿼리 관련 부분만 추출(extractive) 또는 요약(abstractive)하여 압축한다. LLMLingua와 상호보완적으로 사용 가능하다.
-
-#### 2.2.11 Dense-X Retrieval — 명제 단위 청킹 [24]
-
-문장 대신 `"명제(proposition)"` 단위로 청킹한다. 각 청크가 하나의 원자적 사실을 담도록 하여 검색 정밀도를 높인다.
-
-#### 2.2.12 IRCoT — 추론 연계 반복 검색 [25]
-
-Chain-of-Thought 추론과 검색을 교차하며 반복한다. 멀티홉 질문(여러 논문에 걸친 정보)에 효과적이다.
-
-#### 2.2.13 Lost in the Middle [29]
-
-긴 컨텍스트에서 LLM은 처음과 끝 정보를 잘 기억하고 중간 정보를 잘 잊는다. 재랭킹 시 중요 청크를 컨텍스트 앞/뒤에 배치하는 전략의 근거가 된다.
-
----
-
-## 3. 시스템 아키텍처
+## 3. 시스템 아키텍처 (13개 연구 핵심 모듈 + 5개 확장 모듈)
 
 ### 3.1 전체 구조
 
 ```
-PDF 업로드
-    │
-    ▼
-┌─────────────────────────────────────┐
-│          입력 처리 레이어            │
-│  MODULE 1: PDF 파서                 │
-│  MODULE 2: 섹션 인식기              │
-│  MODULE 3: 청킹 모듈                │
-└───────────────┬─────────────────────┘
-                │
-    ▼
-┌─────────────────────────────────────┐
-│          인덱싱 레이어              │
-│  MODULE 4: 임베딩 (BGE-M3)         │
-│  MODULE 5: 벡터DB (ChromaDB)       │
-└───────────────┬─────────────────────┘
-                │
-사용자 질의 ──▶ │
-    ▼
-┌─────────────────────────────────────┐
-│         쿼리 처리 레이어            │
-│  MODULE 6: 쿼리 라우터 ★핵심       │
-│  MODULE 7: 쿼리 확장기 (HyDE)      │
-└───────┬──────┬──────┬──────┬───────┘
-        │A     │B     │C     │D/E
-    ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼
-┌─────────────────────────────────────┐
-│          검색 레이어                │
-│  MODULE 8: 하이브리드 검색기        │
-│  MODULE 9: 재랭커 (ColBERT)        │
-│  MODULE 10: 컨텍스트 압축기        │
-│  MODULE 11: 인용 트래커             │
-└───────────────┬─────────────────────┘
-                │
-    ▼
-┌─────────────────────────────────────┐
-│          생성 레이어                │
-│  MODULE 12: 생성 모듈 (EXAONE)     │
-│  MODULE 13: 대조 해독 환각 억제    │
-└─────────────────────────────────────┘
-                │
-    ▼
-         최종 답변 (출처 포함)
+                    ┌─────────────────────────┐
+PDF 업로드 ────────▶│     공통 인덱싱 레이어   │
+                    │  MODULE 1: PDF 파서      │
+                    │  MODULE 2: 섹션 인식기   │
+                    │  MODULE 3: 청킹          │
+                    │  MODULE 4: BGE-M3        │ ← Table 1 측정점
+                    │  MODULE 5: ChromaDB      │
+                    └──────────┬──────────────┘
+                               │
+한/영 질의 ────────────────────▼
+                    ┌─────────────────────────┐
+                    │  MODULE 6: 쿼리 라우터  │ ★ Modular RAG 핵심
+                    └──┬──┬──┬──┬──┬─────────┘
+              A경로  B  C  D  E  F
+                    ┌──▼──────────────────────┐
+                    │  경로별 파이프라인       │
+                    │  A 단순 QA               │
+                    │  B 섹션 특화             │
+                    │  C 문서 비교             │
+                    │  D 인용/특허 추적         │ ← MODULE 11
+                    │  E 전체 요약             │
+                    │  F 퀴즈/플래시카드        │
+                    └──────────┬──────────────┘
+                               │
+                    ┌──────────▼──────────────┐
+                    │  MODULE 7: 쿼리 확장     │
+                    │  MODULE 8: 하이브리드    │ ← Table 1 측정점
+                    │  MODULE 9: 재랭커        │ ← Table 1 측정점
+                    │  MODULE 10: 컨텍스트 압축 │
+                    └──────────┬──────────────┘
+                               │
+                    ┌──────────▼──────────────┐
+                    │  MODULE 12: MIDM-2.0    │
+                    │  MODULE 13A: CAD        │ ← Table 2 측정점
+                    │  MODULE 13B: SCD        │ ← Table 2 측정점
+                    └─────────────────────────┘
+                               │
+                    ┌──────────▼──────────────┐
+                    │  답변/출처/후속질문       │
+                    └─────────────────────────┘
+
+운영 API
+  Search API: 검색 결과 점검
+  Judge API: 실험 평가 라벨 생성
+  PPT Export: 답변과 출처를 발표 자료로 변환
 ```
 
-### 3.2 모듈 상세 명세
+### 3.2 경로별 활성화 모듈
+
+| 경로 | 트리거 | 활성화 모듈 | 비활성화 |
+|---|---|---|---|
+| A. 단순 QA | 일반 질문 | 4,5,7,8,9,12,13A,13B | 11 |
+| B. 섹션 특화 | "결과", "방법론" | 4,5,8(섹션필터),9,12,13A,13B | 7,11 |
+| C. 멀티 논문 비교 | "비교", "vs" | 4,5,8(병렬),합성,12,13A,13B | 7,9,11 |
+| D. 인용 트래커 | "인용", "reference" | 4,5,11,8(확장),12,13A,13B | 7,9 |
+| E. 전체 요약 | "요약" | 3(RAPTOR),4,5,10,12,13A,13B | 7,9,11 |
+| F. 퀴즈/플래시카드 | "퀴즈", "문제", "flashcard" | 4,5,8,9,12,13A,13B | 7,11 |
+
+현재 파이프라인 파일은 `backend/pipelines/pipeline_a_simple_qa.py`부터 `pipeline_f_quiz.py`까지 6개다. F 경로는 논문 리뷰 챗봇의 학습형 질문 생성 경로이며, 운영 대화 기능 문서와 시연 문서에서 중심적으로 다룬다.
+
+질문 생성 계층은 두 부분으로 나뉜다.
+
+| 기능 | 코드 위치 | 분류 |
+|---|---|---|
+| 후속 질문 생성 | `backend/modules/followup_generator.py` | 독립 핵심 모듈 |
+| 퀴즈/플래시카드 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 내부 생성 로직 |
+
+퀴즈/플래시카드 생성의 구현 단위는 `pipeline_f_quiz.py`다. 이 파일이 검색, 재랭킹, 압축, 퀴즈 프롬프트, 생성을 묶어 F 경로를 실행한다.
+
+### 3.3 핵심 모듈 명세
 
 ---
 
-#### MODULE 1: PDF 파서 `pdf_parser.py`
+#### MODULE 3: 청킹 `chunker.py`
+기반: **RAPTOR** [5], **Dense-X** [24], **Meta-Chunking** [28]
 
-**역할**: PDF → 텍스트/표/수식 구조화 추출
-
-- 입력: PDF 파일 경로
-- 출력: `{section, content, page, has_table, font_size}` 리스트
-- 도구: `pymupdf (fitz)`
-- 핵심: 블록 단위 추출 → 폰트 크기로 헤더 감지 → 2단 레이아웃 처리
-
-```bash
-pip install pymupdf
-```
+| 전략 | 설명 | 활성 경로 | 트랙 |
+|---|---|---|---|
+| 섹션 단위 | 섹션 경계 유지 | A,B,C,D | Track 1+2 |
+| 명제 단위 | 원자적 사실 단위 | B | Track 1+2 |
+| RAPTOR 계층 | 클러스터→요약→트리 | E | **Track 2 핵심** |
 
 ---
 
-#### MODULE 2: 섹션 인식기 `section_detector.py`
-
-**역할**: 논문 섹션 경계 감지 및 레이블 부착
-
-- 감지 대상: Abstract, Introduction, Related Work, Method, Experiment, Result, Discussion, Conclusion, References
-- 방법: 규칙 기반(섹션명 키워드) + 폰트 크기 기반 헤더 감지
-- 출력: 각 텍스트 블록에 `section_type` 메타데이터 부착
-
----
-
-#### MODULE 3: 청킹 모듈 `chunker.py`
-
-**역할**: 섹션 구조를 존중하는 검색 단위 분할
-
-기반 논문: **RAPTOR** [5], **Dense-X Retrieval** [24], **Meta-Chunking** [28]
-
-전략 선택:
-- `섹션 단위`: 섹션 경계를 절대 넘지 않음 (기본값)
-- `명제 단위`: Dense-X 방식, 원자적 사실 단위로 분리
-- `RAPTOR 계층`: 청크 클러스터링 → LLM 요약 → 트리 구성
+#### MODULE 4: 임베딩 `embedder.py` ★ Table 1 핵심
+기반: **BGE M3-Embedding** [2]
 
 ```python
-# 메타데이터 스키마
-{
-    "doc_id": str,
-    "section_type": str,   # "abstract" | "method" | "result" | ...
-    "chunk_id": str,
-    "page": int,
-    "char_start": int,
-    "char_end": int,
-    "chunk_level": int     # RAPTOR: 0=leaf, 1=mid, 2=root
-}
-```
-
----
-
-#### MODULE 4: 임베딩 모듈 `embedder.py`
-
-**역할**: 텍스트 → 벡터 변환
-
-기반 논문: **BGE M3-Embedding** [2]
-
-- 모델: `BAAI/bge-m3`
-- 특징: 한영 동일 임베딩 공간 → 크로스링구얼 매칭 가능
-- 배치 처리: GPU 메모리 고려한 자동 배치 크기 조절
-
-```bash
-pip install sentence-transformers
-```
-
----
-
-#### MODULE 5: 벡터DB 관리자 `vector_store.py`
-
-**역할**: 임베딩 저장 및 메타데이터 필터 검색
-
-- DB: `ChromaDB` (로컬 persistent 모드)
-- 메타데이터 필터: `section_type`으로 특정 섹션만 검색 가능
-- 컬렉션 구조: 문서별 컬렉션 분리
-
-```bash
-pip install chromadb
+# 한영 동일 임베딩 공간
+# Baseline 2→3 구간에서 갭 변화 가장 클 것으로 예상
+model = SentenceTransformer("BAAI/bge-m3")
 ```
 
 ---
 
 #### MODULE 6: 쿼리 라우터 `query_router.py` ★ Modular RAG 핵심
-
-**역할**: 질의 분석 → 최적 파이프라인 경로 동적 결정
-
-기반 논문: **Self-RAG** [7], **FLARE** [17], **CRAG** [8]
-
-| 경로 | 쿼리 패턴 | 파이프라인 |
-|---|---|---|
-| A. 단순 QA | 일반 사실 질문 | 벡터검색 → 생성 |
-| B. 섹션 특화 | "결과가", "방법론", "한계점" | 섹션 필터 검색 → 생성 |
-| C. 멀티 논문 비교 | "A랑 B 비교", "vs" | 병렬 검색 → 합성 → 생성 |
-| D. 인용 트래커 | "인용 논문", "reference" | arXiv 수집 → 확장 검색 → 생성 |
-| E. 전체 요약 | "요약해줘", "summarize" | RAPTOR 계층 검색 → 생성 |
+기반: **Self-RAG** [7], **FLARE** [17], **CRAG** [8]
 
 ```python
-# 쿼리 라우터 키워드 맵
 ROUTE_MAP = {
-    "section_result":  ["결과", "성능", "result", "performance", "accuracy"],
-    "section_method":  ["방법론", "어떻게", "method", "approach", "architecture"],
-    "section_limit":   ["한계", "limitation", "future work", "단점"],
-    "compare":         ["비교", "차이", "vs", "compare", "versus"],
-    "citation":        ["인용", "참고문헌", "reference", "cited by"],
-    "summary":         ["요약", "summarize", "전체", "overview"],
+    "section_result": ["결과", "성능", "result", "accuracy"],
+    "section_method": ["방법론", "method", "approach"],
+    "section_limit":  ["한계", "limitation", "future work"],
+    "compare":        ["비교", "vs", "compare"],
+    "citation":       ["인용", "reference", "cited"],
+    "summary":        ["요약", "summarize", "overview"],
 }
+
+def route(query: str) -> str:
+    for route_name, keywords in ROUTE_MAP.items():
+        if any(kw in query.lower() for kw in keywords):
+            return route_name
+    return llm_classify(query)  # 불명확 시 LLM 분류
 ```
-
----
-
-#### MODULE 7: 쿼리 확장기 `query_expander.py`
-
-**역할**: 검색 성능 향상을 위한 쿼리 변환
-
-기반 논문: **HyDE** [6], **RAG-Fusion** [26], **IRCoT** [25]
-
-- `HyDE`: LLM으로 가상 답변 문서 생성 → 그 문서로 검색
-- `다중 쿼리 (RAG-Fusion)`: 쿼리를 3가지 표현으로 확장 → RRF로 결과 합산
-- `한→영 번역`: 한국어 쿼리를 영어로도 번역하여 병렬 검색
 
 ---
 
 #### MODULE 8: 하이브리드 검색기 `hybrid_retriever.py`
-
-**역할**: Dense + Sparse 검색 결합
-
-기반 논문: **Best Practices in RAG** [13], **BM25** [22], **RRF** [23], **CRAG** [8]
+기반: **Best Practices** [13], **BM25** [22], **RRF** [23]
 
 ```python
-# Reciprocal Rank Fusion
-def rrf(dense_ranks, sparse_ranks, k=60):
-    scores = {}
-    for rank, doc_id in enumerate(dense_ranks):
-        scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank + 1)
-    for rank, doc_id in enumerate(sparse_ranks):
-        scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank + 1)
-    return sorted(scores, key=scores.get, reverse=True)
-```
-
-- Dense: BGE-M3 벡터 유사도 (의미적 매칭)
-- Sparse: BM25 키워드 (정확한 용어, 저자명, 모델명)
-- 섹션 필터: 쿼리 라우터의 섹션 정보를 ChromaDB 메타데이터 필터로 전달
-
----
-
-#### MODULE 9: 재랭커 `reranker.py`
-
-**역할**: 검색 결과 관련성 재정렬
-
-기반 논문: **ColBERTv2** [14], **Jina-ColBERT-v2** [15], **Lost in the Middle** [29]
-
-- 모델: `cross-encoder/ms-marco-MiniLM-L-6-v2` (경량 cross-encoder)
-- ColBERT 레이트 인터랙션: 토큰 레벨 MaxSim으로 정밀 관련성 계산
-- 위치 편향 보정: 중요 청크를 컨텍스트 앞/뒤에 배치 (Lost in the Middle [29])
-- 섹션 가중치: 쿼리 유형에 따라 특정 섹션 청크에 가중치 부여
-
----
-
-#### MODULE 10: 컨텍스트 압축기 `context_compressor.py`
-
-**역할**: LLM 컨텍스트 윈도우 한계 내 정보 밀도 최대화
-
-기반 논문: **LLMLingua** [11], **LongLLMLingua** [12], **RECOMP** [19], **ICAE** [30]
-
-```python
-# 압축 전략 선택
-if len(context_tokens) > THRESHOLD:
-    if query_dependent:
-        compress_with_longllmlingua(context, query)  # 쿼리 의존적
+def retrieve(query, route, section_filter=None, docs=None):
+    if route == "section_b":
+        # 경로 B: 섹션 필터 (Track 2 핵심)
+        return vector_search(query, filter={"section_type": section_filter})
+    elif route == "compare":
+        # 경로 C: 병렬 검색
+        return [vector_search(query, filter={"doc_id": d}) for d in docs]
     else:
-        compress_with_recomp(context)               # 추출 요약
+        # 경로 A/D/E: BM25 + 벡터 + RRF
+        return rrf(vector_search(query), bm25_search(query))
 ```
 
-- LLMLingua: 토큰 레벨 퍼플렉시티 기반 압축
-- LongLLMLingua: 쿼리 조건부 대조 퍼플렉시티 압축
-- RECOMP: 쿼리 관련 문장만 추출 또는 요약 생성
-
 ---
 
-#### MODULE 11: 인용 트래커 `citation_tracker.py`
+#### MODULE 13A: CAD `cad_decoder.py`
+기반: **CAD** [3], **Contrastive Decoding** [4]
 
-**역할**: Reference 파싱 → 인용 논문 자동 수집
+**목적: 파라메트릭 지식 개입 억제**
 
-기반 논문: **GraphRAG** [9], **HippoRAG2** [27]
+$$\text{Logit}_{\text{CAD}} = \text{Logit}(\text{문서 포함}) - \alpha \cdot \text{Logit}(\text{문서 없음})$$
 
-```python
-# 처리 흐름
-Reference 섹션 파싱 (정규식 + LLM)
-    → 저자/제목/연도 추출
-    → arXiv API 검색
-    → 실패 시 Semantic Scholar API 보조
-    → 수집 논문 자동 인덱싱
-```
-
-- 실패 처리: arXiv에 없는 경우 스킵 후 메타데이터만 저장
-- 수집된 논문을 벡터DB에 추가하여 멀티 논문 검색 확장
-
----
-
-#### MODULE 12: 생성 모듈 `generator.py`
-
-**역할**: 컨텍스트 + 질의 → 최종 답변 생성
-
-기반 논문: **Speculative RAG** [16], **RAG (Original)** [20]
-
-- 모델: `EXAONE-7.8B` (한국어 우선) / `Llama-3.1-8B` (비교 baseline)
-- Speculative RAG 적용: 소형 모델이 draft 생성 → 대형 모델 검증 (선택적)
-- 출처 추적: 각 주장이 어느 논문/섹션에서 왔는지 인라인 표시
-- 언어 제어: 질의 언어(한/영)로 답변 생성 강제
-
----
-
-#### MODULE 13: 대조 해독 환각 억제기 `contrastive_decoder.py` ★ 차별화 포인트
-
-**역할**: 생성 단계에서 파라메트릭 지식 개입 실시간 억제
-
-기반 논문: **CAD (Shi et al., 2023)** [3], **Contrastive Decoding (Li et al., 2023)** [4]
-
-$$\text{Logit}_{\text{final}} = \text{Logit}(\text{문서 포함 프롬프트}) - \alpha \cdot \text{Logit}(\text{문서 없는 프롬프트})$$
+문서 없음 경로는 질문 단독 입력을 사용한다. CAD가 활성화된 생성은 greedy decoding으로 수행한다.
 
 ```python
 from transformers import LogitsProcessor
 import torch
 
-class ContrastiveDecoder(LogitsProcessor):
-    """
-    Context-Aware Contrastive Decoding
-    Shi et al. (2023) 기반, 학습 불필요
-    HuggingFace LogitsProcessor 인터페이스 활용
-    """
-    def __init__(self, model, tokenizer, empty_input_ids, alpha=0.5):
+class CADDecoder(LogitsProcessor):
+    def __init__(self, model, empty_input_ids, alpha=0.5):
         self.model = model
-        self.empty_input_ids = empty_input_ids  # 문서 없는 프롬프트
-        self.alpha = alpha                       # 억제 강도 (0~1)
+        self.empty_input_ids = empty_input_ids
+        self.alpha = alpha  # Grid Search 대상
 
     def __call__(self, input_ids, scores):
         with torch.no_grad():
-            # 문서 없는 프롬프트로 logit 계산
             empty_logits = self.model(
                 self.empty_input_ids
             ).logits[:, -1, :]
+        return scores - self.alpha * empty_logits
+```
 
-        # 수식 적용: 파라메트릭 지식 억제
-        scores = scores - self.alpha * empty_logits
+---
+
+#### MODULE 13B: SCD `scd_decoder.py`
+기반: **Language Drift & SCD** [34]
+
+**목적: Language Drift 억제 (영문 컨텍스트 입력 시 한국어 답변 강제)**
+
+```python
+class SCDDecoder(LogitsProcessor):
+    def __init__(self, tokenizer, target_lang="ko", beta=0.3):
+        self.tokenizer = tokenizer
+        self.beta = beta  # Grid Search 대상
+        self.non_target_ids = self._get_non_korean_ids()
+
+    def _get_non_korean_ids(self):
+        non_target = []
+        for token_id in range(self.tokenizer.vocab_size):
+            token = self.tokenizer.decode([token_id])
+            if token and not self._is_korean_or_common(token):
+                non_target.append(token_id)
+        return torch.tensor(non_target)
+
+    def _is_korean_or_common(self, token):
+        for ch in token:
+            code = ord(ch)
+            if not (0xAC00 <= code <= 0xD7A3 or
+                    0x1100 <= code <= 0x11FF or
+                    ch in ' \n\t.,!?()[]{}:;"\'-0123456789'):
+                return False
+        return True
+
+    def __call__(self, input_ids, scores):
+        if len(self.non_target_ids) > 0:
+            scores[:, self.non_target_ids] -= self.beta
         return scores
+```
 
-# 사용법
-decoder = ContrastiveDecoder(model, tokenizer, empty_ids, alpha=0.5)
+---
+
+#### MODULE 13 병렬 적용
+
+```python
+cad = CADDecoder(model, empty_input_ids, alpha=0.5)
+scd = SCDDecoder(tokenizer, target_lang="ko", beta=0.3)
+
 output = model.generate(
-    input_ids,
-    logits_processor=[decoder],
-    max_new_tokens=512
+    input_ids.to("cuda"),
+    generation_config=generation_config,
+    logits_processor=[cad, scd],  # 병렬 적용
+    max_new_tokens=512,
 )
 ```
 
-**왜 논문에 넣을 수 있나:**
-- 기존 CAD를 **한국어 RAG 수치 환각 억제** 용도로 특화 적용
-- 학습 없이 inference-time intervention
-- `alpha` 파라미터 조절 실험으로 ablation study 가능
-
----
-
-## 4. 쿼리 경로별 파이프라인
-
-### 경로 A: 단순 QA
-```
-"이 논문에서 사용한 데이터셋이 뭐야?"
-
-쿼리 → [라우터: A] → [HyDE 쿼리 확장] → [하이브리드 검색]
-     → [재랭커] → [컨텍스트 압축] → [생성] → [CAD 억제] → 답변
-```
-
-### 경로 B: 섹션 특화
-```
-"결과가 어떻게 나왔어?" / "방법론 설명해줘"
-
-쿼리 → [라우터: B, section=result] → [ChromaDB 섹션 필터 검색]
-     → [ColBERT 재랭킹] → [생성] → [CAD 억제] → 답변
-```
-
-### 경로 C: 멀티 논문 비교
-```
-"논문 A랑 B의 방법론 차이가 뭐야?"
-
-쿼리 → [라우터: C] → [논문A 병렬 검색 + 논문B 병렬 검색]
-     → [결과 합성기] → [구조화 비교 생성] → 표 형식 답변
-```
-
-### 경로 D: 인용 트래커
-```
-"이 논문이 인용한 핵심 논문들도 분석해줘"
-
-쿼리 → [라우터: D] → [Reference 파싱] → [arXiv API 수집]
-     → [자동 인덱싱] → [확장 검색] → [생성] → 인용 관계 포함 답변
-```
-
-### 경로 E: 전체 요약
-```
-"이 논문 전체 요약해줘"
-
-쿼리 → [라우터: E] → [RAPTOR 계층 트리 검색]
-     → [섹션별 핵심 추출] → [LLMLingua 압축] → [생성] → 구조화 요약
-```
-
----
-
-## 5. 평가 설계
-
-### 5.1 Ablation Study
-
-| 시스템 | 구성 | 목적 |
+| | CAD [3] | SCD [34] |
 |---|---|---|
-| Baseline 1 | 고정 500토큰 청킹 + 벡터 검색 + 생성 | 최단순 RAG |
-| Baseline 2 | + 섹션 인식 청킹 | 섹션 청킹 효과 |
-| Baseline 3 | + 하이브리드 검색 | Hybrid Search 효과 |
-| Baseline 4 | + ColBERT 재랭커 | Reranking 효과 |
-| Baseline 5 | + 쿼리 라우터 + HyDE | Modular RAG 효과 |
-| **Full System** | + CAD 환각 억제 + 컨텍스트 압축 | 완전 시스템 |
-
-### 5.2 평가 지표 (RAGAS [10])
-
-- **Faithfulness**: 답변이 검색 컨텍스트에 근거하는 정도 (환각 방지)
-- **Answer Relevancy**: 답변이 질의와 관련된 정도
-- **Context Precision**: 검색 청크 중 실제 관련 청크 비율
-- **Context Recall**: 정답에 필요한 컨텍스트 검색 비율
-
-### 5.3 평가 데이터셋
-
-- 논문 20편 (NLP 분야 arXiv 논문)
-- 질의 100개 (유형별: 단순 QA 40%, 섹션 특화 30%, 비교 20%, 요약 10%)
-- CAD alpha 값 ablation: α ∈ {0.1, 0.3, 0.5, 0.7, 1.0}
+| 억제 대상 | 파라메트릭 지식 개입 | 비목표 언어 토큰 |
+| 해결 문제 | 수치 오류, 사실 왜곡 | Language Drift |
+| 파라미터 | alpha | beta |
 
 ---
 
-## 6. 3개월 개발 로드맵
+## 4. 개발 섹션
 
-| 기간 | 목표 | 산출물 |
-|---|---|---|
-| 1주차 | 환경 구성, PDF 파서, 섹션 인식기 | `pdf_parser.py`, `section_detector.py` |
-| 2주차 | 청킹, 임베딩, ChromaDB 연동 | `chunker.py`, `embedder.py`, `vector_store.py` |
-| 3주차 | 기본 QA 파이프라인 완성 (Baseline 1) | 기본 동작 데모 |
-| 4주차 | 하이브리드 검색 + ColBERT 재랭커 | `hybrid_retriever.py`, `reranker.py` |
-| 5주차 | **쿼리 라우터 구현** (핵심) | `query_router.py` |
-| 6주차 | HyDE + 다중 쿼리 + RAPTOR 계층 요약 | `query_expander.py`, `raptor.py` |
-| 7주차 | 인용 트래커 + arXiv API 연동 | `citation_tracker.py` |
-| 8주차 | **CAD 환각 억제** + 컨텍스트 압축 | `contrastive_decoder.py`, `context_compressor.py` |
-| 9주차 | Streamlit UI + 데모 완성 | `app.py`, 데모 영상 |
-| 10주차 | RAGAS 평가 + Ablation Study | 평가 결과 표 |
-| 11주차 | 졸업작품 보고서 작성 | 보고서 초안 |
-| 12주차 | GitHub 정리 + README + 최종 제출 | GitHub repo 공개 |
-
-**우선순위**: 1~3주차(Core) → 4~5주차(차별점) → 6~8주차(킬러 기능) → 9~12주차(마무리)
-
----
-
-## 7. 프로젝트 구조
+### 4.1 개발 / 실험 / 논문 완전 분리 원칙
 
 ```
-modular-rag-paper-agent/
-├── app.py                        # Streamlit UI 진입점
-├── config.py                     # 전역 설정 (모델명, 파라미터 등)
-├── modules/
-│   ├── pdf_parser.py             # MODULE 1: PDF 파싱
-│   ├── section_detector.py       # MODULE 2: 섹션 인식
-│   ├── chunker.py                # MODULE 3: 섹션/RAPTOR/명제 청킹
-│   ├── embedder.py               # MODULE 4: BGE-M3 임베딩
-│   ├── vector_store.py           # MODULE 5: ChromaDB 관리
-│   ├── query_router.py           # MODULE 6: ★ 쿼리 라우터
-│   ├── query_expander.py         # MODULE 7: HyDE + 다중 쿼리
-│   ├── hybrid_retriever.py       # MODULE 8: BM25 + 벡터 + RRF
-│   ├── reranker.py               # MODULE 9: ColBERT 재랭킹
-│   ├── context_compressor.py     # MODULE 10: LLMLingua + RECOMP
-│   ├── citation_tracker.py       # MODULE 11: 인용 추적 + arXiv API
-│   ├── generator.py              # MODULE 12: EXAONE 생성
-│   └── contrastive_decoder.py    # MODULE 13: ★ CAD 환각 억제
-├── pipelines/
-│   ├── pipeline_a_simple_qa.py
-│   ├── pipeline_b_section.py
-│   ├── pipeline_c_compare.py
-│   ├── pipeline_d_citation.py
-│   └── pipeline_e_summary.py
-├── evaluation/
-│   ├── ragas_eval.py             # RAGAS 자동 평가
-│   ├── ablation_study.py         # Ablation Study 실험
-│   └── test_queries.json         # 당시 기준 평가 질의 100개
-├── data/                         # 테스트 논문 PDF
-├── notebooks/                    # 실험 노트북
-├── requirements.txt
+개발 (1~8주차): 시스템 구현에만 집중
+               데이터셋은 다운로드만, 건드리지 않음
+
+실험 (9~10주차): 구현 완료 후 데이터셋 투입
+                RAGAS 자동 평가로 Table 생성
+
+논문 (11~12주차): 결과 해석 + 보고서 작성
+```
+
+### 4.2 개발 원칙
+
+```
+원칙 1 — 모듈 독립성: 각 모듈 on/off 가능 → Ablation 필수 조건
+원칙 2 — 경로 분리: pipelines/ 폴더에 경로별 파일 분리
+원칙 3 — 실험 재현성: 모든 결과 JSON 자동 저장
+원칙 4 — 한/영 쌍 강제: 동일 질의를 항상 한/영 쌍으로 실행
+```
+
+### 4.3 개발 로드맵 (1~8주차)
+
+#### Phase 1 — Core 파이프라인 (1~3주차)
+
+**1주차:**
+```bash
+pip install pymupdf chromadb sentence-transformers
+pip install transformers>=4.45.0 ragas datasets
+```
+- MODULE 1, 2 구현 (PDF 파서, 섹션 인식기)
+- 검증: 논문 5편 섹션 감지 수동 확인
+
+**2주차:**
+- MODULE 3 (섹션 단위 청킹)
+- MODULE 4 (BGE-M3 임베딩)
+- MODULE 5 (ChromaDB)
+- 검증: 한국어 쿼리 → 영문 청크 검색 확인
+
+**3주차:**
+- MODULE 12 (MIDM-2.0 생성)
+- Baseline 1 완성
+
+> **⚠️ 3주차 체크포인트**: KorQuAD 샘플 10쌍으로 초기 갭 + Language Drift 실측
+> 갭 + Drift 확인 → Phase 2 진행 / 없으면 → 설계 재조정
+
+---
+
+#### Phase 2 — Modular RAG 핵심 (4~5주차)
+
+**4주차:**
+- MODULE 8 (하이브리드 검색 + RRF)
+- MODULE 9 (ColBERT 재랭커)
+- Baseline 2, 3, 4 순차 완성
+
+**5주차:**
+- MODULE 6 (쿼리 라우터) ★
+- MODULE 7 (HyDE + 다중 쿼리)
+- Baseline 5 완성
+- pipelines/ 경로별 파일 분리
+
+---
+
+#### Phase 3 — 킬러 기능 (6~8주차)
+
+**6주차:**
+- MODULE 3 확장: RAPTOR 계층 요약 트리
+- Dense-X 명제 단위 청킹
+
+**7주차:**
+- MODULE 11 (인용 트래커 + arXiv API)
+- 경로 D 파이프라인 완성
+
+**8주차:**
+- MODULE 13A (CAD 구현)
+- MODULE 13B (SCD 구현)
+- MODULE 10 (LLMLingua + RECOMP)
+- Full System 완성
+
+---
+
+### 4.4 프로젝트 구조
+
+```
+M_RAG/
+├── backend/
+│   ├── api/                      # FastAPI, auth, SQLAlchemy models, routers
+│   ├── modules/                  # 연구 핵심 13 + 확장 5 모듈
+│   ├── pipelines/                # A~F 질의 경로
+│   ├── evaluation/               # Track 1/2, RAGAS, decoder ablation
+│   ├── scripts/                  # master_run, 모델/PDF 준비, 표 변환
+│   └── data/                     # 실험 PDF 입력
+├── frontend/                     # React + Vite UI
+├── docs/
+│   ├── PAPER/                    # 논문, 기준 설계, PPT 요약
+│   ├── EXPLAIN/                  # 비전공자용 상세 설명
+│   └── USAGE/                    # 실행, 배포, 테스트, DB 문서
 └── README.md
 ```
 
+현재 구현의 전체 API와 코드 지도는 저장소 루트 `README.md`, 세부 구조는 `docs/ARCHITECTURE.md`를 기준으로 한다.
+
 ---
 
-## 8. 참고 문헌
+## 5. 실험 섹션 (9~10주차)
 
-[1] Gao, Y. et al. (2023). *Retrieval-Augmented Generation for Large Language Models: A Survey.* ICLR 2024. arXiv:2312.10997
+### 5.1 데이터셋 구성
 
-[2] Chen, J. et al. (2024). *BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation.* ACL 2024. arXiv:2402.03216
+#### Track 1 — 범용 검증 (공개 데이터셋)
 
-[3] Shi, W. et al. (2023). *Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding.* NAACL 2024. arXiv:2305.14739
+**한국어 질의: KorQuAD 2.1 (그대로 사용)**
 
-[4] Li, X. et al. (2022). *Contrastive Decoding: Open-ended Text Generation as Optimization.* ACL 2023. arXiv:2210.15097
+```python
+from datasets import load_dataset
+ds = load_dataset("squad_kor_v2")
+# context + question + answer 구조
+# 표/계층 구조 포함, 공개 검증된 데이터셋
+# 한국어 질의 150쌍 샘플링
+```
 
-[5] Sarthi, P. et al. (2024). *RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval.* ICLR 2024. arXiv:2401.18059
+**영어 질의: CRAG (KDD Cup 2024) 번역 사용**
 
-[6] Gao, L. et al. (2022). *Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE).* ACL 2023. arXiv:2212.10496
+```python
+# CRAG 영문 QA → GPT-4로 한국어 번역
+# 번역 품질 검증 후 사용
+# 영어 질의 150쌍 샘플링
+```
 
-[7] Asai, A. et al. (2023). *Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection.* ICLR 2024. arXiv:2310.11511
+**Track 1 총합:**
 
-[8] Yan, S. et al. (2024). *Corrective Retrieval Augmented Generation (CRAG).* ICLR 2024. arXiv:2401.15884
+| | 한국어 질의 | 영어 질의 |
+|---|---|---|
+| KorQuAD 기반 | 150쌍 | 150쌍 (영어 번역) |
+| CRAG 기반 | 150쌍 (한국어 번역) | 150쌍 |
+| **합계** | **300쌍** | **300쌍** |
 
-[9] Edge, D. et al. (2024). *From Local to Global: A Graph RAG Approach to Query-Focused Summarization.* EMNLP 2024. arXiv:2404.16130
+---
 
-[10] Es, S. et al. (2023). *RAGAS: Automated Evaluation of Retrieval Augmented Generation.* EACL 2024. arXiv:2309.15217
+#### Track 2 — 논문 도메인 특화 (arXiv 기반)
 
-[11] Jiang, H. et al. (2023). *LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models.* EMNLP 2023. arXiv:2310.05736
+```python
+# arXiv NLP 논문 20편 PDF 수집
+# RAGAS testset generator로 QA 자동 생성
+from ragas.testset import TestsetGenerator
 
-[12] Jiang, H. et al. (2023). *LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression.* ACL 2024. arXiv:2310.06839
+generator = TestsetGenerator.from_langchain(
+    generator_llm=llm,
+    critic_llm=llm,
+    embeddings=embeddings
+)
+testset = generator.generate_with_langchain_docs(
+    docs, test_size=100
+)
+# 생성된 영어 QA → GPT-4로 한국어 번역
+```
 
-[13] Wang, X. et al. (2024). *Searching for Best Practices in Retrieval-Augmented Generation.* arXiv:2407.01219
+**Track 2 총합:**
 
-[14] Santhanam, K. et al. (2022). *ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction.* NAACL 2022. arXiv:2112.01488
+| | 한국어 질의 | 영어 질의 |
+|---|---|---|
+| arXiv 논문 기반 | 100쌍 | 100쌍 |
 
-[15] Jha, R. et al. (2024). *Jina-ColBERT-v2: A General-Purpose Multilingual Late Interaction Retriever.* MRL 2024. arXiv:2408.16672
+---
 
-[16] Wang, Z. et al. (2024). *Speculative RAG: Enhancing Retrieval Augmented Generation through Drafting.* arXiv:2407.08223
+### 5.2 실험 Table 구조
 
-[17] Jiang, Z. et al. (2023). *Active Retrieval Augmented Generation (FLARE).* EMNLP 2023. arXiv:2305.06983
+#### Table 1: 모듈별 갭 해소 기여도 (Track 1, 직접 실험)
 
-[18] Shao, Z. et al. (2023). *Enhancing Retrieval-Augmented Large Language Models with Iterative Retrieval-Generation Synergy (ITER-RETGEN).* EMNLP 2023 Findings. arXiv:2305.15294
+| 시스템 | EN 질의 | KO 질의 | 갭(↓) | Faithfulness | 언어이탈률 |
+|---|---|---|---|---|---|
+| Baseline 1 (naive RAG) | — | — | — | — | — |
+| Baseline 2 (+섹션 청킹) | — | — | — | — | — |
+| Baseline 3 (+BGE-M3) | — | — | **↓ 최대 예상** | — | — |
+| Baseline 4 (+하이브리드) | — | — | — | — | — |
+| Baseline 5 (+재랭커+라우터) | — | — | — | — | — |
+| Full System (+CAD+SCD) | — | — | **↓ 최소** | — | **↓ 최소** |
 
-[19] Xu, F. et al. (2023). *RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation.* ICLR 2024. arXiv:2310.04408
+> Baseline 2→3 구간(BGE-M3 교체)에서 갭 최대 감소 예상.
+> 실제 숫자는 실험 후 채워짐.
 
-[20] Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* NeurIPS 2020. arXiv:2005.11401
+---
 
-[21] Khattab, O. & Zaharia, M. (2020). *ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT.* SIGIR 2020. arXiv:2004.12832
+#### Table 2: CAD/SCD 조합 Ablation (Track 1, 직접 실험)
 
-[22] Robertson, S. et al. (1994). *Okapi at TREC-3.* TREC 1994. (BM25 원논문)
+**조합 비교:**
 
-[23] Cormack, G. et al. (2009). *Reciprocal Rank Fusion outperforms Condorcet and Individual Rank Learning Methods.* SIGIR 2009.
+| 시스템 | 수치환각률 | 언어이탈률 | Faithfulness | Answer Relevancy |
+|---|---|---|---|---|
+| 디코더 없음 | — | — | — | — |
+| CAD만 (α=0.5) | **↓** | — | ↑ | — |
+| SCD만 (β=0.3) | — | **↓** | — | — |
+| CAD+SCD | **↓↓** | **↓↓** | ↑↑ | — |
 
-[24] Chen, T. et al. (2023). *Dense X Retrieval: What Retrieval Granularity Should We Use?* arXiv:2312.06648
+**Alpha Grid Search (CAD):**
 
-[25] Trivedi, H. et al. (2022). *Interleaving Retrieval with Chain-of-Thought Reasoning for Knowledge-Intensive Multi-Step Questions (IRCoT).* ACL 2023. arXiv:2212.10509
+```python
+alphas = [0.0, 0.1, 0.3, 0.5, 0.7, 1.0]
+betas  = [0.1, 0.3, 0.5]
 
-[26] Rackauckas, A. (2024). *RAG-Fusion: a New Take on Retrieval-Augmented Generation.* arXiv:2402.03367
+# 18개 조합 × 200쌍 = 3,600회 추론
+# RunPod A100 기준 약 2~3일
+for alpha, beta in itertools.product(alphas, betas):
+    result = evaluate(cad_alpha=alpha, scd_beta=beta)
+    save_to_json(result)
+```
 
-[27] Gutiérrez, B.J. et al. (2025). *From RAG to Memory: Non-Parametric Continual Learning for Large Language Models (HippoRAG2).* arXiv:2502.14802
+| alpha | 수치환각률 | Faithfulness | Answer Relevancy |
+|---|---|---|---|
+| 0.0 | — | — | — |
+| 0.1 | — | — | — |
+| 0.3 | — | — | — |
+| 0.5 | — | — | — |
+| 0.7 | — | — | — |
+| 1.0 | — | — | — |
 
-[28] Zhong, Q. et al. (2024). *Meta-Chunking: Learning Efficient Text Segmentation via Logical Perception.* arXiv:2410.12788
+**Beta Grid Search (SCD):**
 
-[29] Liu, N.F. et al. (2023). *Lost in the Middle: How Language Models Use Long Contexts.* TACL 2024. arXiv:2307.03172
+| beta | 언어이탈률 | Answer Relevancy |
+|---|---|---|
+| 0.1 | — | — |
+| 0.3 | — | — |
+| 0.5 | — | — |
 
-[30] Ge, T. et al. (2023). *In-context Autoencoder for Context Compression in a Large Language Model (ICAE).* ICLR 2024. arXiv:2307.06945
+---
+
+#### Table 3: 논문 도메인 특화 모듈 추가 효과 (Track 2, 직접 실험)
+
+| 시스템 | Faithfulness | Context Precision | Answer Relevancy |
+|---|---|---|---|
+| 범용 RAG (Track 1 Full System) | — | — | — |
+| +섹션 인식 청킹 (논문 특화) | ↑ | ↑ | — |
+| +쿼리 라우터 섹션 필터 | ↑↑ | ↑↑ | — |
+| +RAPTOR 계층 검색 | — | — | ↑ |
+| +인용 트래커 | — | ↑ | ↑ |
+| Full Track 2 System | ↑↑↑ | ↑↑↑ | ↑↑ |
+
+> "논문 도메인에서 섹션 인식 청킹이 범용 청킹 대비 X% 향상"
+> → 논문 도메인 특화의 정당성 확보
+
+---
+
+### 5.3 평가 지표
+
+| 지표 | 측정 대상 | 사용 Table |
+|---|---|---|
+| Answer Relevancy | 답변-질의 관련도 | Table 1, 2, 3 |
+| Faithfulness | 답변-컨텍스트 근거 비율 | Table 1, 2, 3 |
+| Context Precision | 검색 청크 중 관련 비율 | Table 1, 3 |
+| Context Recall | 필요 컨텍스트 검색 비율 | Table 1, 3 |
+| 수치 환각률 | 수치 오류 포함 답변 비율 | Table 2 |
+| 언어 이탈률 | 한국어 질의에 비한국어 답변 비율 | Table 2 |
+
+---
+
+## 6. 논문 작성 섹션 (11~12주차)
+
+### 6.1 논문 구조
+
+```
+1. Introduction         (1.5p)
+   - 배경: mFAVA [30], Chirkova [31], Park&Lee [32] 인용
+   - 두 문제: Language Drift + 파라메트릭 지식 개입
+   - "모듈별 분해 없었다" 갭 지적
+   - C1, C2, C3 bullet
+
+2. Related Work         (1p)
+   - mRAG 선행 연구 [31, 32, 33, 35]
+   - 언어별 환각률 [30]
+   - 디코딩 개입 기법 [3, 4, 34]
+
+3. System Design        (2p)
+   - Modular RAG 구조 (쿼리 라우터 중심)
+   - CAD + SCD 병렬 적용
+   - 경로별 활성화 모듈 표
+
+4. Experiments          (2.5p)
+   - Table 0: 선행 연구 갭 인용 [31, 32]
+   - Table 1: 모듈별 Ablation (Track 1)
+   - Table 2: CAD/SCD Ablation
+   - Table 3: 논문 도메인 특화 효과 (Track 2)
+
+5. Conclusion           (0.5p)
+   - Track 1: 범용 일반화 주장
+   - Track 2: 논문 도메인 특화 효과
+   - 한계 및 향후 연구
+```
+
+### 6.2 핵심 포지셔닝 문장
+
+**Track 1 → Track 2 전환:**
+```
+"Track 1에서 범용 다국어 RAG 설정으로
+ 모듈별 갭 해소 기여도를 검증한 뒤,
+ Track 2에서 논문 도메인 특화 모듈
+ (섹션 인식 청킹, RAPTOR, 인용 트래커)의
+ 추가 효과를 실증한다."
+```
+
+**CAD + SCD 조합 포지셔닝:**
+```
+"SCD [34]는 Language Drift를 억제하나
+ 파라메트릭 지식 개입은 다루지 않는다.
+ CAD [3]는 반대다. 본 연구는 두 기법을
+ 조합하여 Table 2에서 상호보완 효과를 실증한다."
+```
+
+**최적값 한계 명시:**
+```
+"실험 범위 내 최적 alpha, beta 값은
+ 이 데이터셋과 도메인에 특화된
+ 경험적 값이며, 타 도메인 적용 시
+ 재조정이 필요할 수 있다."
+```
+
+### 6.3 주의할 표현
+
+| 쓰면 안 되는 표현 | 대신 쓸 표현 |
+|---|---|
+| "Language Drift를 최초 발견" | Li et al.(2025) 인용 |
+| "언어 갭이 존재한다" | 선행 연구 [31, 32] 인용 |
+| "최적값이다" | "실험 범위 내 경험적 최적값" |
+| "모든 환각 해결" | "X%p 감소" |
+
+### 6.4 한계 솔직하게 쓰기
+
+```
+Limitations:
+- alpha, beta 최적값은 이 설정에 특화된 경험적 값
+- CAD+SCD 병렬 적용으로 추론 속도 약 2배 감소
+- SCD의 한국어 판별이 음절 기반
+  (영어 전문용어 억제 가능성)
+- Track 1은 번역 품질이 실험에 영향을 줄 수 있음
+- Track 2는 20편의 소규모 논문 샘플
+```
+
+---
+
+### 6.5 면접 Q&A
+
+```
+Q: 선행 연구랑 뭐가 달라요?
+A: Chirkova(2024), Park&Lee(2025)가 언어 갭을
+   확인했지만 모듈별 분해는 없었습니다.
+   저는 13개 모듈 단위로 분해했고,
+   BGE-M3 교체 시 갭이 가장 크게 줄었습니다.
+   또한 CAD+SCD 조합으로 두 문제를 동시에 잡았습니다.
+
+Q: Track 1이랑 Track 2를 나눈 이유가 뭔가요?
+A: 시스템이 논문 도메인이 아니어도 동작하는 걸
+   먼저 보이고 (Track 1 범용 검증),
+   그 위에서 논문 도메인 특화 모듈이
+   추가로 얼마나 효과적인지 보였습니다 (Track 2).
+   일반성과 특수성을 동시에 주장할 수 있습니다.
+
+Q: CAD랑 SCD 같이 쓰는 이유가 뭔가요?
+A: 역할이 다릅니다. CAD는 모델의 사전학습 기억
+   개입을 막고, SCD는 영문 컨텍스트가 들어와도
+   한국어로 답하게 강제합니다.
+   Table 2에서 둘을 각각 썼을 때와 같이 썼을 때를
+   비교해서 상호보완 효과를 보였습니다.
+```
+
+---
+
+## 7. 참고 문헌
+
+[1] Gao, Y. et al. (2023). *RAG Survey.* ICLR 2024. arXiv:2312.10997
+
+[2] Chen, J. et al. (2024). *BGE M3-Embedding.* ACL 2024. arXiv:2402.03216
+
+[3] Shi, W. et al. (2023). *Context-Aware Decoding (CAD).* NAACL 2024. arXiv:2305.14739
+
+[4] Li, X. et al. (2022). *Contrastive Decoding.* ACL 2023. arXiv:2210.15097
+
+[5] Sarthi, P. et al. (2024). *RAPTOR.* ICLR 2024. arXiv:2401.18059
+
+[6] Gao, L. et al. (2022). *HyDE.* ACL 2023. arXiv:2212.10496
+
+[7] Asai, A. et al. (2023). *Self-RAG.* ICLR 2024. arXiv:2310.11511
+
+[8] Yan, S. et al. (2024). *CRAG.* ICLR 2024. arXiv:2401.15884
+
+[9] Edge, D. et al. (2024). *GraphRAG.* EMNLP 2024. arXiv:2404.16130
+
+[10] Es, S. et al. (2023). *RAGAS.* EACL 2024. arXiv:2309.15217
+
+[11] Jiang, H. et al. (2023). *LLMLingua.* EMNLP 2023. arXiv:2310.05736
+
+[12] Jiang, H. et al. (2023). *LongLLMLingua.* ACL 2024. arXiv:2310.06839
+
+[13] Wang, X. et al. (2024). *Best Practices in RAG.* arXiv:2407.01219
+
+[14] Santhanam, K. et al. (2022). *ColBERTv2.* NAACL 2022. arXiv:2112.01488
+
+[15] Jha, R. et al. (2024). *Jina-ColBERT-v2.* MRL 2024. arXiv:2408.16672
+
+[16] Wang, Z. et al. (2024). *Speculative RAG.* arXiv:2407.08223
+
+[17] Jiang, Z. et al. (2023). *FLARE.* EMNLP 2023. arXiv:2305.06983
+
+[18] Shao, Z. et al. (2023). *ITER-RETGEN.* EMNLP 2023. arXiv:2305.15294
+
+[19] Xu, F. et al. (2023). *RECOMP.* ICLR 2024. arXiv:2310.04408
+
+[20] Lewis, P. et al. (2020). *RAG Original.* NeurIPS 2020. arXiv:2005.11401
+
+[21] Khattab, O. & Zaharia, M. (2020). *ColBERT.* SIGIR 2020. arXiv:2004.12832
+
+[22] Robertson, S. et al. (1994). *BM25.* TREC 1994.
+
+[23] Cormack, G. et al. (2009). *Reciprocal Rank Fusion.* SIGIR 2009.
+
+[24] Chen, T. et al. (2023). *Dense-X Retrieval.* arXiv:2312.06648
+
+[25] Trivedi, H. et al. (2022). *IRCoT.* ACL 2023. arXiv:2212.10509
+
+[26] Rackauckas, A. (2024). *RAG-Fusion.* arXiv:2402.03367
+
+[27] Gutiérrez, B.J. et al. (2025). *HippoRAG2.* arXiv:2502.14802
+
+[28] Zhong, Q. et al. (2024). *Meta-Chunking.* arXiv:2410.12788
+
+[29] Liu, N.F. et al. (2023). *Lost in the Middle.* TACL 2024. arXiv:2307.03172
+
+[30] Ul Islam, S.O. et al. (2025). *mFAVA.* EMNLP 2025. arXiv:2502.12769
+
+[31] Chirkova, N. et al. (2024). *RAG in Multilingual Settings.* KnowLLM@ACL 2024. arXiv:2407.01463
+
+[32] Park, J. & Lee, H. (2025). *Language Preference of Multilingual RAG.* ACL 2025 Findings. arXiv:2502.11175
+
+[33] Ranaldi, L. et al. (2025). *Multilingual RAG.* arXiv:2504.03616
+
+[34] Li, B. et al. (2025). *Language Drift in Multilingual RAG & SCD.* arXiv:2511.09984
+
+[35] Rau, D. et al. (2024). *BERGEN: Benchmarking Library for RAG.* arXiv:2407.01102
 
 ---
 

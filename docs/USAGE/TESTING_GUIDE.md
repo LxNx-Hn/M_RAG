@@ -1,19 +1,10 @@
-# M-RAG 테스트 가이드
+﻿# M-RAG 테스트 가이드
 
-- 기준일 2026-04-15
-- 목적 로컬 검증 절차와 CI 절차 일치
+## 목적
 
-## 1 로컬 사전 준비
+로컬 검증과 CI 검증 절차를 정리한다.
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r backend/requirements.txt
-pip install ruff black pytest
-cd frontend && npm ci
-```
-
-## 2 백엔드 정적 검사
+## Backend 정적 검사
 
 ```bash
 cd backend
@@ -21,25 +12,21 @@ python -m ruff check .
 python -m black --check .
 ```
 
-## 3 백엔드 테스트 실행 규칙
-
-- `backend/tests/conftest.py` 에서 `test_api.py` 를 pytest 수집에서 제외
-- `backend/tests/test_api.py` 는 보호 라우트까지 확인하는 별도 통합 스모크 스크립트
-- pytest는 나머지 단위 테스트 파일 기준으로 실행
+## Backend 테스트
 
 ```bash
 cd backend
 python -m pytest -q
 ```
 
+`backend/tests/test_api.py`는 API 통합 스모크 성격이 강하다. 보호 라우트는 bearer token이 필요하므로 스크립트 내부 토큰 생성 경로를 확인하고 실행한다.
+
 ```bash
 cd backend
 python -X utf8 tests/test_api.py
 ```
 
-- `test_api.py` 는 실행 중 테스트 계정을 생성하고 bearer 토큰으로 보호 라우트를 호출
-
-## 4 프론트엔드 검사
+## Frontend 검사
 
 ```bash
 cd frontend
@@ -47,36 +34,26 @@ npm run lint
 npm run build
 ```
 
-## 5 도커 검증
+## Docker build 확인
 
 ```bash
 cd backend
 docker build -t mrag-backend-ci .
+```
 
-cd ../frontend
+```bash
+cd frontend
 docker build -t mrag-frontend-ci .
 ```
 
-## 6 CI 구성 체크포인트
+## 수동 API 체크
 
-- backend job
-- frontend job
-- docker build 단계
-- GitHub Actions Node24 런타임 강제 변수 적용
-- checkout setup-node setup-python 최신 메이저 사용
-
-## 7 연구용 수동 시나리오
-
-- 로그인 후 `/api/auth/me` 200 확인
-- 토큰 없이 보호 라우트 호출 시 401 확인
-- 문서 업로드 후 `/api/papers/list` 반영 확인
-- `/api/chat/query` 응답의 route follow_ups 확인
-- `/api/chat/query/stream` done 이벤트 수신 확인
-- `/api/citations/list` `/api/citations/download` 응답 확인
-
-## 8 실패 대응 우선순위
-
-- 1순위 보안 관련 실패 인증 인가 데이터 격리
-- 2순위 데이터 무결성 실패 업로드 삭제 롤백
-- 3순위 스트리밍 안정성 실패 타임아웃 에러 프레임
-- 4순위 문서 정합성 실패 README FEATURES GUIDE 불일치
+- `/health` 200 확인
+- 토큰 없이 보호 라우트 401 확인
+- 로그인 후 `/api/auth/me` 확인
+- 문서 업로드 확인
+- `/api/chat/search` 검색 결과 확인
+- `/api/chat/query` 답변과 follow_ups 확인
+- `/api/chat/query/stream` done 이벤트 확인
+- `/api/chat/judge` label 판정 확인
+- `/api/chat/export/ppt` PPTX 반환 확인
