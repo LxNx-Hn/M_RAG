@@ -128,7 +128,7 @@ PY
   --retry-backoff 2.0 \
   --min-interval 1.0 \
   --gt-model gpt-4o \
-  --search-top-k 5 \
+  --search-top-k 10 \
   --force
 
 "${VENV_PYTHON}" scripts/generate_pseudo_gt.py \
@@ -141,7 +141,7 @@ PY
   --retry-backoff 2.0 \
   --min-interval 1.0 \
   --gt-model gpt-4o \
-  --search-top-k 5 \
+  --search-top-k 10 \
   --force
 
 "${VENV_PYTHON}" evaluation/run_track1.py \
