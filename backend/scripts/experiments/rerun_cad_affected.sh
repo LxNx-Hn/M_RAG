@@ -45,6 +45,9 @@ fi
 bash "${SCRIPT_DIR}/backup_alice_run.sh"
 
 pkill -f "scripts/master_run.py" || true
+pkill -f "scripts/generate_pseudo_gt.py" || true
+pkill -f "evaluation/run_track1.py" || true
+pkill -f "evaluation/run_track2.py" || true
 pkill -f "uvicorn api.main:app" || true
 sleep 3
 
