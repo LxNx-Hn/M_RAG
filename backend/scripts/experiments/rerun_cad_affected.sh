@@ -18,6 +18,22 @@ fi
 
 cd "${BACKEND_DIR}"
 
+set +u
+for env_file in \
+  "$HOME/.bashrc" \
+  "$HOME/.profile" \
+  "${REPO_ROOT}/.env" \
+  "${BACKEND_DIR}/.env"
+do
+  if [[ -f "${env_file}" ]]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "${env_file}"
+    set +a
+  fi
+done
+set -u
+
 status_lines="$(git -C "${REPO_ROOT}" status --porcelain || true)"
 code_changes="$(printf '%s\n' "${status_lines}" | grep -v '^$' | grep -v 'backend/evaluation/results/' | grep -v 'backend/artifacts/' || true)"
 if [[ -n "${code_changes}" ]]; then
