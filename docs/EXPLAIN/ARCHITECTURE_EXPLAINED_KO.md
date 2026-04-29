@@ -344,9 +344,13 @@ paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad
 
 | 선택 | 이유 |
 |---|---|
-| MIDM Base (생성 모델) | 논문 기준 모델. 한국어 특화. Mini는 로컬 스모크 테스트 전용 |
-| BGE-M3 (임베딩) | 한영 동일 벡터 공간 → 한국어 질문으로 영어 논문 검색 가능 |
+| MIDM Base (11.5B, 생성 모델) | 논문 기준 모델. 한국어 특화. Mini는 로컬 스모크 테스트 전용 [36] |
+| BGE-M3 (임베딩) | 한영 동일 벡터 공간 → 한국어 질문으로 영어 논문 검색 가능 [2] |
 | ChromaDB (벡터 저장소) | 오픈소스, 설치 간단, 소규모 실험에 적합 |
-| SQLite (실험 DB) | 설치 없이 파일 하나로 운영. PostgreSQL은 운영 환경에서만 |
+| SQLite (실험 DB) | 설치 없이 파일 하나로 운영. PostgreSQL은 운영 환경에서 사용 |
 | GPT-4o (GT 생성) | 평가 모델(MIDM)과 독립된 외부 모델로 정답 생성 → 신뢰도 높음 |
 | FastAPI (API 서버) | 비동기 처리, 빠른 개발, OpenAPI 문서 자동 생성 |
+
+---
+
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)

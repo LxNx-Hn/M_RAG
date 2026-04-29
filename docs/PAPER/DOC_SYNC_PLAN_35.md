@@ -1,9 +1,9 @@
-# 35편 기준 문서 동기화 기록
+# 39편 기준 문서 동기화 기록
 
 ## 기준
 
 - 기준 원문 `C:/Users/KiKi/Downloads/modular_rag_guideline.md`
-- 기준 성격 35편 참고문헌 기반 전체 설계 가이드
+- 기준 성격 39편 참고문헌 기반 전체 설계 가이드 (35편 + 한국어 코퍼스 4편)
 - 코드 기준 `backend/modules`, `backend/pipelines`, `backend/api/routers`, `backend/evaluation`, `backend/scripts`
 
 ## 현재 문서 체계
@@ -13,8 +13,8 @@
 | 루트 소개 | `README.md` | 프로젝트 개요와 핵심 실행 경로 |
 | 아키텍처 | `docs/ARCHITECTURE.md` | 현재 코드 구조와 A~F 경로별 모듈 동작 |
 | 기능 | `docs/FEATURES.md` | 연구 기능, 대화 기능, 운영 기능, 실험 기능 분리 |
-| 논문 | `docs/PAPER/THESIS.md` | 제출용 논문 본문 초안 |
-| 설계 기준 | `docs/PAPER/GUIDE_ORIGINAL.md` | 35편 기준 전체 설계 문서 |
+| 논문 | `docs/PAPER/THESIS.md` | 투고용 논문 본문 (9개 장, 39편 참고문헌) |
+| 설계 기준 | `docs/PAPER/GUIDE_ORIGINAL.md` | 35편 기준 전체 설계 문서 (논문 기반 참고용) |
 | 발표 요약 | `docs/PAPER/PPT_SUMMARY.md` | PPT 제작용 개조식 요약 |
 | 발표 키워드 | `docs/PAPER/PPT_KEYWORDS.md` | PPT 제작용 키워드 요약 |
 | 설명 문서 | `docs/EXPLAIN` | 비전공자용 구조, 용어, 흐름, 표 해석 설명 |
@@ -81,8 +81,8 @@
 
 ## 검증 항목
 
-- `GUIDE_ORIGINAL.md`에 35편 참고문헌 반영
-- `THESIS.md`에 연구 범위와 운영 기능 분리
+- `GUIDE_ORIGINAL.md`에 35편 참고문헌 반영 (+ 한국어 4편은 THESIS.md에서 별도 반영)
+- `THESIS.md`에 9개 장 구조와 39편 참고문헌 반영
 - `ARCHITECTURE.md`에 A~F 경로별 활성 모듈 표 반영
 - `FEATURES.md`에 연구 기능, 대화 기능, 운영 기능, 실험 기능 분리
 - `EXPLAIN`에 용어, 구조, 흐름, 경로별 모듈, 참고문헌, 표 해석 문서 반영
@@ -94,5 +94,5 @@
 ## 완료 상태
 
 - 상태 완료
-- 기준 현재 코드와 35편 설계 문서
-- 후속 문서 수정 조건 코드 구조, 실험 경로, 모델 정책, DB 정책 변경
+- 기준 현재 코드와 39편 참고문헌
+- 후속 문서 수정 조건 코드 구조, 실험 경로, 모델 정책, DB 정책, 참고문헌 변경
