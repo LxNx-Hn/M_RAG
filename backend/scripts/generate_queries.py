@@ -425,7 +425,14 @@ def generate_for_paper(
     )
     content = response.choices[0].message.content or ""
     payload = _extract_json(content)
-    queries = payload.get("queries")
+    if isinstance(payload, list):
+        queries = payload
+    elif isinstance(payload, dict):
+        queries = payload.get("queries")
+    else:
+        raise ValueError(
+            "OpenAI response must be a JSON object with 'queries' or a list."
+        )
     if not isinstance(queries, list):
         raise ValueError("OpenAI response did not contain a queries list.")
     return queries
