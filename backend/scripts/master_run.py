@@ -61,6 +61,9 @@ RESULT_FILES = [
     "table3_domain.json",
 ]
 
+MAX_PSEUDO_GT_NOT_FOUND_RATIO = 0.20
+MAX_PSEUDO_GT_NOT_FOUND_PER_DOC = 0.50
+
 
 @dataclass
 class StepResult:
@@ -863,6 +866,46 @@ class MasterRunner:
                 # OPENAI_API_KEY is passed via env (inherited by subprocess), not CLI flag.
                 cmd += ["--gt-model", "gpt-4o"]
             self.run_subprocess("STEP 5", cmd)
+            self._validate_pseudo_gt_quality(PROJECT_ROOT / output_path)
+
+    def _validate_pseudo_gt_quality(self, path: Path) -> None:
+        with path.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+
+        queries = payload.get("queries", []) if isinstance(payload, dict) else []
+        if not isinstance(queries, list) or not queries:
+            raise RuntimeError(f"Pseudo GT file is empty or invalid: {path}")
+
+        total = 0
+        not_found = 0
+        per_doc: dict[str, list[int]] = {}
+
+        for item in queries:
+            if not isinstance(item, dict):
+                continue
+            total += 1
+            gt = str(item.get("ground_truth", "")).strip()
+            is_not_found = gt == "Not found in document."
+            not_found += int(is_not_found)
+            for doc_id in item.get("applicable_papers") or []:
+                counters = per_doc.setdefault(str(doc_id), [0, 0])
+                counters[0] += 1
+                counters[1] += int(is_not_found)
+
+        overall_ratio = not_found / max(total, 1)
+        if overall_ratio > MAX_PSEUDO_GT_NOT_FOUND_RATIO:
+            raise RuntimeError(
+                "Pseudo GT quality check failed: "
+                f"{path.name} overall Not found ratio={overall_ratio:.3f}"
+            )
+
+        for doc_id, (doc_total, doc_not_found) in sorted(per_doc.items()):
+            doc_ratio = doc_not_found / max(doc_total, 1)
+            if doc_ratio > MAX_PSEUDO_GT_NOT_FOUND_PER_DOC:
+                raise RuntimeError(
+                    "Pseudo GT quality check failed: "
+                    f"{path.name} {doc_id} Not found ratio={doc_ratio:.3f}"
+                )
 
     def step_track1_ablation(self) -> None:
         # Track 1 ablation uses the current 8-document corpus.

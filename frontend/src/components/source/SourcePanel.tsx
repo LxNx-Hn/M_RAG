@@ -1,5 +1,6 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import axios from 'axios'
 import { Upload, FileText, Trash2, Loader2 } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
 import { usePaperStore } from '@/stores/paperStore'
@@ -8,6 +9,7 @@ import { SECTION_COLORS } from '@/types/paper'
 
 export default function SourcePanel() {
   const { t } = useTranslation()
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const { papers, activePaperId, uploading, setPapers, addPaper, removePaper, setActivePaper, setUploading } =
     usePaperStore()
 
@@ -29,11 +31,13 @@ export default function SourcePanel() {
 
   const onDrop = useCallback(
     async (files: File[]) => {
+      setUploadError(null)
       for (const file of files) {
         setUploading(true)
         try {
           const res = await uploadPaper(file)
           if (res.success && res.paper) {
+            setUploadError(null)
             addPaper({
               doc_id: res.paper.doc_id,
               title: res.paper.title,
@@ -46,6 +50,11 @@ export default function SourcePanel() {
           }
         } catch (err) {
           console.error('Upload failed:', err)
+          if (axios.isAxiosError(err) && typeof err.response?.data?.detail === 'string') {
+            setUploadError(err.response.data.detail)
+          } else {
+            setUploadError(t('source.uploadErrorDefault'))
+          }
         } finally {
           setUploading(false)
         }
@@ -111,6 +120,21 @@ export default function SourcePanel() {
           )}
         </div>
       </div>
+
+      {uploadError && (
+        <div className="px-4 pb-3">
+          <div
+            className="rounded-xl px-3 py-2 text-xs"
+            style={{
+              background: 'rgba(185, 28, 28, 0.08)',
+              border: '1px solid rgba(185, 28, 28, 0.18)',
+              color: 'rgb(153, 27, 27)',
+            }}
+          >
+            {uploadError}
+          </div>
+        </div>
+      )}
 
       {/* 논문 목록 */}
       <div className="flex-1 overflow-y-auto px-4 pb-4">
