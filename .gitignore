@@ -46,6 +46,10 @@ Thumbs.db
 logs/
 *.log
 backend/scripts/master_run.lock
+backend/.alice_runtime_env.sh
+backend/run_alice_full.sh
+backend/watch_alice_log.sh
+backend/check_alice_status.sh
 
 # Environment
 .env
