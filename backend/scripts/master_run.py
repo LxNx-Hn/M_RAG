@@ -5,6 +5,7 @@ import io
 import importlib.util
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -79,6 +80,47 @@ class MasterRunner:
         self.api_token: str | None = None  # JWT token obtained after server start
         self._lock_acquired = False
         self.runtime_env: dict[str, str] | None = None
+
+    def _redact_text(self, text: str) -> str:
+        redacted = text
+        secrets = [
+            self.api_token,
+            (self.runtime_env or {}).get("MRAG_API_TOKEN"),
+            (self.runtime_env or {}).get("OPENAI_API_KEY"),
+            (self.runtime_env or {}).get("JWT_SECRET_KEY"),
+            os.environ.get("MRAG_API_TOKEN"),
+            os.environ.get("OPENAI_API_KEY"),
+            os.environ.get("JWT_SECRET_KEY"),
+        ]
+        for secret in secrets:
+            if secret:
+                redacted = redacted.replace(secret, "[REDACTED]")
+        redacted = re.sub(
+            r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+",
+            "[REDACTED_JWT]",
+            redacted,
+        )
+        redacted = re.sub(
+            r"sk-[A-Za-z0-9_-]{20,}",
+            "[REDACTED_OPENAI_KEY]",
+            redacted,
+        )
+        return redacted
+
+    @staticmethod
+    def _redact_command_args(args: list[str]) -> list[str]:
+        redacted: list[str] = []
+        redact_next = False
+        sensitive_flags = {"--token", "--openai-api-key"}
+        for arg in args:
+            if redact_next:
+                redacted.append("[REDACTED]")
+                redact_next = False
+                continue
+            redacted.append(arg)
+            if arg in sensitive_flags:
+                redact_next = True
+        return redacted
 
     def __enter__(self) -> "MasterRunner":
         SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -155,6 +197,7 @@ class MasterRunner:
             self._lock_acquired = False
 
     def _write_line(self, message: str) -> None:
+        message = self._redact_text(message)
         line = f"[{self._timestamp()}] {message}"
         print(line)
         if self.log_handle is not None:
@@ -190,7 +233,8 @@ class MasterRunner:
         check: bool = True,
         env: dict[str, str] | None = None,
     ) -> subprocess.CompletedProcess[str]:
-        self._write_line(f"Running command: {subprocess.list2cmdline(args)}")
+        display_args = self._redact_command_args(args)
+        self._write_line(f"Running command: {subprocess.list2cmdline(display_args)}")
         # Inject API token into environment so experiment scripts pick it up
         merged_env = dict(self.runtime_env or os.environ) if env is None else dict(env)
         merged_env["PYTHONIOENCODING"] = "utf-8"
