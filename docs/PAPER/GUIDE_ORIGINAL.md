@@ -501,7 +501,7 @@ pip install transformers>=4.45.0 ragas datasets
 - MODULE 12 (MIDM-2.0 생성)
 - Baseline 1 완성
 
-> **⚠️ 3주차 체크포인트**: KorQuAD 샘플 10쌍으로 초기 갭 + Language Drift 실측
+> **⚠️ 3주차 체크포인트**: 7개 문서 샘플 쿼리로 초기 갭 + Language Drift 실측
 > 갭 + Drift 확인 → Phase 2 진행 / 없으면 → 설계 재조정
 
 ---
@@ -566,59 +566,27 @@ M_RAG/
 
 ### 5.1 데이터셋 구성
 
-#### Track 1 — 범용 검증 (공개 데이터셋)
+#### Track 1 — 7개 문서 기반 모듈 검증
 
-**한국어 질의: KorQuAD 2.1 (그대로 사용)**
+현재 Alice 실행 기준 코퍼스는 다음 7개 문서다.
 
-```python
-from datasets import load_dataset
-ds = load_dataset("squad_kor_v2")
-# context + question + answer 구조
-# 표/계층 구조 포함, 공개 검증된 데이터셋
-# 한국어 질의 150쌍 샘플링
-```
+| doc_id | 역할 |
+|---|---|
+| `paper_nlp_bge` | BGE M3-Embedding |
+| `paper_nlp_rag` | RAG Survey |
+| `paper_nlp_cad` | CAD |
+| `paper_nlp_raptor` | RAPTOR |
+| `paper_klue` | 한국어 NLP 도메인 |
+| `paper_hyperclova` | 한국어 LLM 도메인 |
+| `patent_korean_ai` | 한국어 원문 소스 |
 
-**영어 질의: CRAG (KDD Cup 2024) 번역 사용**
-
-```python
-# CRAG 영문 QA → GPT-4로 한국어 번역
-# 번역 품질 검증 후 사용
-# 영어 질의 150쌍 샘플링
-```
-
-**Track 1 총합:**
-
-| | 한국어 질의 | 영어 질의 |
-|---|---|---|
-| KorQuAD 기반 | 150쌍 | 150쌍 (영어 번역) |
-| CRAG 기반 | 150쌍 (한국어 번역) | 150쌍 |
-| **합계** | **300쌍** | **300쌍** |
+Track 1은 7개 문서 × 8개 쿼리 = 56개 논문별 특화 쿼리로 구성한다. 기본 쿼리는 한국어로 생성하고, `crosslingual_en` 타입만 영어 대조군으로 둔다.
 
 ---
 
-#### Track 2 — 논문 도메인 특화 (arXiv 기반)
+#### Track 2 — 논문 도메인 특화
 
-```python
-# arXiv NLP 논문 20편 PDF 수집
-# RAGAS testset generator로 QA 자동 생성
-from ragas.testset import TestsetGenerator
-
-generator = TestsetGenerator.from_langchain(
-    generator_llm=llm,
-    critic_llm=llm,
-    embeddings=embeddings
-)
-testset = generator.generate_with_langchain_docs(
-    docs, test_size=100
-)
-# 생성된 영어 QA → GPT-4로 한국어 번역
-```
-
-**Track 2 총합:**
-
-| | 한국어 질의 | 영어 질의 |
-|---|---|---|
-| arXiv 논문 기반 | 100쌍 | 100쌍 |
+Track 2는 `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor` 네 편을 대상으로 한다. 쿼리는 28개이며, cad_ablation, section_method, section_abstract, citation 유형을 유지한다.
 
 ---
 
@@ -789,8 +757,9 @@ Limitations:
 - CAD+SCD 병렬 적용으로 추론 속도 약 2배 감소
 - SCD의 한국어 판별이 음절 기반
   (영어 전문용어 억제 가능성)
-- Track 1은 번역 품질이 실험에 영향을 줄 수 있음
-- Track 2는 20편의 소규모 논문 샘플
+- Track 1은 자동 생성 쿼리 품질이 실험에 영향을 줄 수 있음
+- Track 2는 4편의 NLP 논문 샘플
+- 한국어 원문 논문 확장은 후속 재실험에서 보강
 ```
 
 ---

@@ -346,7 +346,7 @@ async def judge_prompt(
             text = await asyncio.to_thread(
                 m.generator.generate_judge,
                 req.prompt,
-                min(req.max_new_tokens, 64),
+                req.max_new_tokens,
             )
             scores = None
     finally:
@@ -412,6 +412,8 @@ def _run_pipeline(
             req.use_scd,
             req.scd_beta,
             doc_id_filter=doc_id_filter,
+            query_expander=qe,
+            use_hyde=req.use_hyde,
         )
     if decision.route == RouteType.COMPARE:
         return pipeline_c_compare.run(
@@ -470,17 +472,18 @@ def _run_pipeline(
         )
     if decision.route == RouteType.QUIZ:
         return pipeline_f_quiz.run(
-            req.query,
-            col,
-            hr,
-            rr,
-            comp,
-            gen,
-            qe,
-            req.use_cad,
-            req.cad_alpha,
-            req.use_scd,
-            req.scd_beta,
+            query=req.query,
+            collection_name=col,
+            hybrid_retriever=hr,
+            reranker=rr,
+            compressor=comp,
+            generator=gen,
+            query_expander=qe,
+            use_hyde=req.use_hyde,
+            use_cad=req.use_cad,
+            cad_alpha=req.cad_alpha,
+            use_scd=req.use_scd,
+            scd_beta=req.scd_beta,
             doc_id_filter=doc_id_filter,
         )
     return pipeline_a_simple_qa.run(

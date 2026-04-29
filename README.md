@@ -9,6 +9,7 @@ M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시
 - 논문 실험 빠른 실행은 SQLite + SQLAlchemy
 - 운영/서비스 경로는 PostgreSQL + SQLAlchemy
 - 논문 실험 경로는 MIDM Base 직접 디코딩을 기준으로 함
+- Alice 기준 실험 코퍼스는 영어 NLP 4편, 한국어 NLP 도메인 2편, 한국어 원문 소스 1건으로 구성
 
 ## 주요 기능
 
@@ -37,6 +38,9 @@ pip install -r backend\requirements.txt
 cd backend
 $env:JWT_SECRET_KEY = "mrag-experiment-local-secret-2026"
 $env:LOAD_GPU_MODELS = "true"
+$env:OPENAI_API_KEY = "sk-..."
+python scripts\download_test_papers.py --dry-run
+python scripts\download_test_papers.py
 python scripts\master_run.py --skip-download
 ```
 
@@ -118,6 +122,8 @@ npm run dev
 ### Experiment
 
 - `backend/scripts/master_run.py`
+- `backend/scripts/download_test_papers.py`
+- `backend/scripts/generate_queries.py`
 - `backend/evaluation/run_track1.py`
 - `backend/evaluation/run_track2.py`
 - `backend/evaluation/ragas_eval.py`

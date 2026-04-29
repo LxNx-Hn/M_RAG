@@ -109,7 +109,7 @@ now = datetime.now(timezone.utc)
 payload = {
     "sub": "master_runner_bypass",
     "email": "runner@mrag.local",
-    "exp": now + timedelta(hours=24),
+    "exp": now + timedelta(hours=48),
     "iat": now,
     "jti": str(uuid.uuid4()),
     "token_type": "access",
@@ -147,7 +147,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode ablation \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor 1810.04805_bert 2101.08577 paper_korean \
+  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_klue paper_hyperclova patent_korean_ai \
   --output evaluation/results/table1_track1.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -155,7 +155,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode decoder \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_nlp_cad paper_korean \
+  --papers paper_nlp_cad paper_klue \
   --output evaluation/results/table2_decoder.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -171,7 +171,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode beta-sweep \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_korean \
+  --papers paper_klue \
   --output evaluation/results/table2_beta.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"

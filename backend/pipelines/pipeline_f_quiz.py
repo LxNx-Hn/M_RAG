@@ -77,6 +77,7 @@ def run(
     compressor,
     generator,
     query_expander=None,
+    use_hyde: bool = True,
     use_cad: bool = True,
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
@@ -87,9 +88,33 @@ def run(
     mode = _detect_mode(query)
     steps = []
     try:
+        hyde_doc = None
+        if query_expander and use_hyde:
+            corpus_lang = hybrid_retriever.get_collection_lang(
+                collection_name,
+                doc_id_filter=doc_id_filter,
+            )
+            expansion = query_expander.expand(
+                query,
+                use_hyde=True,
+                use_multi=False,
+                corpus_lang=corpus_lang,
+            )
+            hyde_doc = expansion.get("hyde_doc")
+            steps.append(
+                {
+                    "step": "query_expansion",
+                    "hyde_used": hyde_doc is not None,
+                    "corpus_lang": corpus_lang,
+                }
+            )
+        else:
+            steps.append({"step": "query_expansion", "hyde_used": False})
+
         search_results = hybrid_retriever.search(
             collection_name=collection_name,
             query=query,
+            hyde_doc=hyde_doc,
             top_k=10,
             doc_id_filter=doc_id_filter,
         )

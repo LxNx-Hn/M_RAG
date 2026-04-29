@@ -41,9 +41,24 @@ def run(
     try:
         hyde_doc = None
         if query_expander and use_hyde:
-            expansion = query_expander.expand(query, use_hyde=True, use_multi=False)
+            corpus_lang = hybrid_retriever.get_collection_lang(
+                collection_name,
+                doc_id_filter=doc_id_filter,
+            )
+            expansion = query_expander.expand(
+                query,
+                use_hyde=True,
+                use_multi=False,
+                corpus_lang=corpus_lang,
+            )
             hyde_doc = expansion.get("hyde_doc")
-            steps.append({"step": "query_expansion", "hyde_used": hyde_doc is not None})
+            steps.append(
+                {
+                    "step": "query_expansion",
+                    "hyde_used": hyde_doc is not None,
+                    "corpus_lang": corpus_lang,
+                }
+            )
         else:
             steps.append({"step": "query_expansion", "hyde_used": False})
 

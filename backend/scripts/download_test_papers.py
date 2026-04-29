@@ -1,69 +1,58 @@
-"""
-테스트 논문 PDF 자동 다운로드 스크립트
-arXiv API를 사용하여 실험에 필요한 논문을 backend/data/에 다운로드
+#!/usr/bin/env python3
+"""Download the paper PDFs used by the M-RAG Alice experiment."""
 
-사용법:
-    cd backend
-    python scripts/download_test_papers.py
-    python scripts/download_test_papers.py --skip-korean   # 한국어 논문 건너뜀
-"""
+from __future__ import annotations
 
 import argparse
-import sys
 import time
 import urllib.request
 from pathlib import Path
-
-# ─────────────────────────────────────────────────────────
-# 다운로드 대상 논문
-# ─────────────────────────────────────────────────────────
 
 PAPERS = [
     {
         "id": "paper_nlp_bge",
         "arxiv_id": "2402.03216",
         "title": "BGE M3-Embedding (Chen et al., ACL 2024)",
-        "desc": "MODULE 4 기반 논문. Table 1~3 기본 실험 대상.",
+        "desc": "Embedding model reference for the retrieval stack.",
     },
     {
         "id": "paper_nlp_rag",
         "arxiv_id": "2312.10997",
-        "title": "RAG Survey (Gao et al., ICLR 2024)",
-        "desc": "Track 1 범용 QA 실험 대상. LLM 사전학습 지식 ↑ → CAD 효과 측정에 적합.",
+        "title": "Retrieval-Augmented Generation for Large Language Models",
+        "desc": "RAG survey reference for the system baseline.",
     },
     {
         "id": "paper_nlp_cad",
         "arxiv_id": "2305.14739",
-        "title": "CAD: Context-Aware Decoding (Shi et al., NAACL 2024)",
-        "desc": "MODULE 13A 기반 논문. CAD on/off 비교 시 수치환각률 측정에 최적.",
+        "title": "Trusting Your Evidence: Hallucinate Less with CAD",
+        "desc": "Context-aware decoding reference.",
     },
     {
         "id": "paper_nlp_raptor",
         "arxiv_id": "2401.18059",
         "title": "RAPTOR (Sarthi et al., ICLR 2024)",
-        "desc": "MODULE 3 RAPTOR 청킹 기반. Track 2 요약 경로(E) 실험 대상.",
-    },
-    {
-        "id": "1810.04805_bert",
-        "arxiv_id": "1810.04805",
-        "title": "BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al., NAACL 2019)",
-        "desc": "Track 1 Table 1~3 ablation 대상 (7번째 논문). 사전학습 지식 풍부 → CAD 효과 측정.",
-    },
-    {
-        "id": "2101.08577",
-        "arxiv_id": "2101.08577",
-        "title": "Unsupervised Cross-lingual Representation Learning (arXiv 2021)",
-        "desc": "Track 1 ablation 대상 (7번째 논문 보완). 다국어 도메인 쿼리 평가.",
+        "desc": "Hierarchical retrieval and chunking reference.",
     },
 ]
 
-# 한국어 논문: arXiv cs.CL 에서 한국어 포함 논문
 KOREAN_PAPERS = [
     {
-        "id": "paper_korean",
-        "arxiv_id": "2502.11175",
-        "title": "Language Preference of Multilingual RAG (Park & Lee, ACL 2025 Findings)",
-        "desc": "SCD 언어이탈률 측정 대상. 한/영 혼합 도메인.",
+        "id": "paper_klue",
+        "arxiv_id": "2105.09680",
+        "title": "KLUE: Korean Language Understanding Evaluation",
+        "desc": "Korean NLP benchmark paper.",
+    },
+    {
+        "id": "paper_hyperclova",
+        "arxiv_id": "2404.01954",
+        "title": "HyperCLOVA X Technical Report",
+        "desc": "Korean LLM domain paper.",
+    },
+    {
+        "id": "patent_korean_ai",
+        "arxiv_id": None,
+        "title": "Korean AI patent PDF",
+        "desc": "Korean source material for language-aware HyDE validation.",
     },
 ]
 
@@ -81,86 +70,115 @@ def download_paper(arxiv_id: str, dest_path: Path, retries: int = 3) -> bool:
                 end="",
                 flush=True,
             )
-            req = urllib.request.Request(
-                url, headers={"User-Agent": "M-RAG/1.0 (research)"}
+            request = urllib.request.Request(
+                url,
+                headers={"User-Agent": "M-RAG/1.0 (research)"},
             )
-            with urllib.request.urlopen(req, timeout=60) as resp:
-                data = resp.read()
+            with urllib.request.urlopen(request, timeout=60) as response:
+                data = response.read()
             dest_path.write_bytes(data)
             size_kb = len(data) // 1024
             print(f" done ({size_kb} KB)")
             return True
-        except Exception as e:
-            print(f" FAIL ({e})")
+        except Exception as exc:
+            print(f" FAIL ({exc})")
             if attempt < retries:
                 time.sleep(5)
     return False
 
 
-def main():
-    parser = argparse.ArgumentParser(description="테스트 논문 PDF 다운로드")
-    parser.add_argument("--skip-korean", action="store_true", help="한국어 논문 건너뜀")
-    parser.add_argument(
-        "--data-dir", default=None, help="저장 디렉토리 (기본: backend/data)"
+def _manual_message(dest_path: Path) -> str:
+    return (
+        "KIPRIS(kipris.or.kr)에서 한국어 AI 특허 PDF를 수동 다운로드한 뒤 "
+        f"{dest_path} 로 저장하세요."
     )
-    args = parser.parse_args()
 
-    # 경로 설정
-    here = Path(__file__).parent.parent  # backend/
-    data_dir = Path(args.data_dir) if args.data_dir else here / "data"
-    data_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"[download_test_papers] 저장 경로: {data_dir}")
-    print()
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Download M-RAG experiment PDFs.")
+    parser.add_argument(
+        "--skip-korean",
+        action="store_true",
+        help="Skip Korean-domain papers and manual Korean patent guidance.",
+    )
+    parser.add_argument(
+        "--data-dir",
+        default=None,
+        help="Target directory. Default: backend/data",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print target files without downloading or writing anything.",
+    )
+    return parser.parse_args()
 
+
+def main() -> int:
+    args = parse_args()
+
+    backend_dir = Path(__file__).resolve().parents[1]
+    data_dir = Path(args.data_dir) if args.data_dir else backend_dir / "data"
     targets = PAPERS if args.skip_korean else PAPERS + KOREAN_PAPERS
-    success, failed = [], []
+
+    print(f"[download_test_papers] target directory: {data_dir}")
+    if args.dry_run:
+        print("[dry-run] planned targets:")
+        for paper in targets:
+            dest = data_dir / f"{paper['id']}.pdf"
+            arxiv_id = paper.get("arxiv_id")
+            source = arxiv_pdf_url(arxiv_id) if arxiv_id else "manual"
+            print(f"  - {paper['id']}: {source} -> {dest}")
+        return 0
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    success: list[str] = []
+    failed: list[str] = []
+    manual: list[str] = []
 
     for paper in targets:
-        dest = data_dir / f"{paper['id']}.pdf"
-        print(f"[{paper['id']}] {paper['title']}")
-        print(f"  용도: {paper['desc']}")
+        doc_id = paper["id"]
+        dest = data_dir / f"{doc_id}.pdf"
+        print(f"[{doc_id}] {paper['title']}")
+        print(f"  purpose: {paper['desc']}")
 
         if dest.exists():
             size_kb = dest.stat().st_size // 1024
-            print(f"  이미 존재함 ({size_kb} KB) → 건너뜀")
-            success.append(paper["id"])
+            print(f"  already exists ({size_kb} KB); skipping")
+            success.append(doc_id)
             continue
 
-        ok = download_paper(paper["arxiv_id"], dest)
-        if ok:
-            success.append(paper["id"])
-        else:
-            failed.append(paper["id"])
-            print(
-                f"  ⚠️  수동 다운로드 필요: https://arxiv.org/pdf/{paper['arxiv_id']}.pdf"
-            )
-            print(f"     → {dest}에 저장하세요.")
+        arxiv_id = paper.get("arxiv_id")
+        if not arxiv_id:
+            message = _manual_message(dest)
+            print(f"  manual: {message}")
+            manual.append(message)
+            print()
+            continue
 
-        time.sleep(2)  # arXiv rate limit 준수
+        if download_paper(arxiv_id, dest):
+            success.append(doc_id)
+        else:
+            failed.append(doc_id)
+            print(f"  manual download needed: {arxiv_pdf_url(arxiv_id)}")
+            print(f"  save as: {dest}")
+
+        time.sleep(2)
         print()
 
     print("=" * 50)
-    print(f"성공: {len(success)} / {len(targets)}")
+    print(f"success: {len(success)} / {len(targets)}")
+    if manual:
+        print("manual items:")
+        for message in manual:
+            print(f"  - {message}")
     if failed:
-        print(f"실패 (수동 필요): {failed}")
-
-    # 한국어 논문 없을 때 안내
-    korean_dest = data_dir / "paper_korean.pdf"
-    if not korean_dest.exists() and not args.skip_korean:
-        print()
-        print("⚠️  한국어 논문(paper_korean.pdf)이 없습니다.")
-        print("   SCD 언어이탈률 측정을 위해 한국어 논문이 필요합니다.")
-        print("   아래 중 하나를 선택하세요:")
-        print(
-            "   1) arXiv 2502.11175 PDF를 수동 다운로드 후 backend/data/paper_korean.pdf 로 저장"
-        )
-        print("   2) RISS/KISS에서 한국어 NLP 논문 다운로드 후 저장")
-        print("   3) --skip-korean 플래그로 SCD 측정 제외하고 실행")
+        print(f"failed: {failed}")
 
     if failed and len(failed) == len(targets):
-        sys.exit(1)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

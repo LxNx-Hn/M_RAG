@@ -14,6 +14,14 @@ from config import CHUNK_SIZE, CHUNK_OVERLAP, MIN_CHUNK_SIZE
 from modules.pdf_parser import ParsedDocument, TextBlock
 
 
+def detect_lang(text: str) -> str:
+    """Return 'ko' when Hangul is at least 15% of the text."""
+    if not text:
+        return "en"
+    korean = sum(1 for char in text if "가" <= char <= "힣")
+    return "ko" if korean / max(len(text), 1) >= 0.15 else "en"
+
+
 @dataclass
 class Chunk:
     """검색 단위 청크"""
@@ -26,6 +34,7 @@ class Chunk:
     char_start: int = 0
     char_end: int = 0
     chunk_level: int = 0  # RAPTOR: 0=leaf, 1=mid, 2=root
+    lang: str = "en"
     metadata: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
@@ -38,6 +47,7 @@ class Chunk:
             "char_start": self.char_start,
             "char_end": self.char_end,
             "chunk_level": self.chunk_level,
+            "lang": self.lang,
         }
 
 
@@ -262,6 +272,7 @@ class Chunker:
             char_start=char_start,
             char_end=char_end,
             chunk_level=level,
+            lang=detect_lang(text),
             metadata=metadata or {},
         )
 
@@ -326,6 +337,7 @@ class RAPTORChunker:
                 content=summary,
                 section_type=section_type,
                 chunk_level=1,
+                lang=detect_lang(summary),
                 metadata={"raptor_level": "mid", "source_chunks": len(chunks)},
             )
             mid_chunks.append(mid_chunk)
@@ -353,6 +365,7 @@ class RAPTORChunker:
             content=summary,
             section_type="summary",
             chunk_level=2,
+            lang=detect_lang(summary),
             metadata={"raptor_level": "root"},
         )
         return [root_chunk]

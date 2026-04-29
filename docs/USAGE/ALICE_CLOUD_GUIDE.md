@@ -68,7 +68,26 @@ export HF_HUB_CACHE=$HF_HOME
 cd ~/M_RAG/backend
 source ../.venv/bin/activate
 python scripts/download_models.py --llm-model K-intelligence/Midm-2.0-Base-Instruct
+python scripts/download_test_papers.py --dry-run
 python scripts/download_test_papers.py
+```
+
+`patent_korean_ai.pdf`는 KIPRIS에서 내려받아 `backend/data/patent_korean_ai.pdf`에 둔다. 현재 실행 기준 문서는 `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor`, `paper_klue`, `paper_hyperclova`, `patent_korean_ai`다.
+
+## 쿼리 생성
+
+`OPENAI_API_KEY`가 설정되어 있으면 `master_run.py`가 인덱싱 뒤 Track 1 논문별 특화 쿼리를 자동 생성한다. 저장소의 `track1_queries.json`은 런타임 생성을 위한 자리표시 파일이다. 생성 결과를 미리 확인하거나 수동 재생성할 때는 다음 명령을 사용한다.
+
+```bash
+export OPENAI_API_KEY=sk-...
+export MRAG_API_TOKEN=...
+python scripts/generate_queries.py \
+  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor \
+           paper_klue paper_hyperclova patent_korean_ai \
+  --output evaluation/data/track1_queries.json \
+  --openai-model gpt-4o \
+  --token "$MRAG_API_TOKEN" \
+  --overwrite
 ```
 
 ## 전체 실험 실행
@@ -76,7 +95,8 @@ python scripts/download_test_papers.py
 ```bash
 cd ~/M_RAG/backend
 source ../.venv/bin/activate
-nohup python scripts/master_run.py --skip-download > scripts/master_run_stdout.log 2>&1 &
+export OPENAI_API_KEY=sk-...
+nohup python scripts/master_run.py --skip-download --push-results > scripts/master_run_stdout.log 2>&1 &
 echo $!
 ```
 

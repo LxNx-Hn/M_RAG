@@ -19,13 +19,16 @@ cd frontend && npm run dev
 # Model cache
 cd backend && python scripts/download_models.py
 cd backend && python scripts/download_models.py --llm-model K-intelligence/Midm-2.0-Base-Instruct
+cd backend && python scripts/download_test_papers.py --dry-run
+cd backend && python scripts/download_test_papers.py
 
 # Full experiment pipeline (Alice Cloud / any GPU server)
 export OPENAI_API_KEY=sk-...          # for GPT-4o ground-truth generation
+# master_run.py regenerates Track 1 queries after indexing when OPENAI_API_KEY is set
 cd backend && python scripts/master_run.py --skip-download --push-results
 
 # Local verification
-cd backend && python scripts/master_run.py --skip-download
+cd backend && python scripts/master_run.py --skip-download --no-push-results
 
 # Backend checks
 cd backend && python -m ruff check .
@@ -53,24 +56,25 @@ cd frontend && npm run build
 
 ## Evaluation Dataset
 
-- Track 1: `backend/evaluation/data/track1_queries.json` — 60 queries, 7 papers
-  - Papers: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
-            1810.04805_bert, 2101.08577, paper_korean
-  - Query types: simple_qa, section_method/result/abstract/limit/conclusion,
-                 summary, compare, citation, crosslingual, lecture, patent, cad_hallucination
+- Track 1: `backend/evaluation/data/track1_queries.json` — runtime-generated 56 paper-specific queries, 7 documents
+  - Documents: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
+               paper_klue, paper_hyperclova, patent_korean_ai
+  - Query types: simple_qa, section_method, section_result, section_abstract,
+                 cad_hallucination, citation, crosslingual_en
 - Track 2: `backend/evaluation/data/track2_queries.json` — 28 queries, 4 NLP papers
   - Papers: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor
   - Query types: cad_ablation (7), section_method (7), section_abstract (7), citation (7)
 - Pseudo GT: generated in STEP 5 via GPT-4o from retrieved contexts; gitignored (generated at runtime)
+- Current Korean-language validation source: `patent_korean_ai`; expansion with additional Korean papers is tracked as follow-up work.
 
 ## Experiment Configuration
 
 | STEP | Output file | Papers | Configs |
 |------|-------------|--------|---------|
-| 6 ablation | table1_track1.json | 7 papers | 6 ablation configs |
-| 7 decoder | table2_decoder.json | cad + korean | 4 decoder configs |
+| 6 ablation | table1_track1.json | 7 documents | 6 ablation configs |
+| 7 decoder | table2_decoder.json | cad + klue | 4 decoder configs |
 | 8 alpha-sweep | table2_alpha.json | cad + bge | alpha=[0.0,0.1,0.3,0.5,0.7,1.0] |
-| 9 beta-sweep | table2_beta.json | korean | beta=[0.1,0.3,0.5] |
+| 9 beta-sweep | table2_beta.json | klue | beta=[0.1,0.3,0.5] |
 | 10 domain | table3_domain.json | 4 NLP papers | 6 Track 2 configs |
 
 ## Architecture Snapshot
@@ -95,7 +99,8 @@ cd frontend && npm run build
 - `master_run.py` kills only stale `uvicorn api.main:app` listeners on the target port
 - `download_models.py` follows the configured generation model by default
 - Base model is the default thesis path; Mini is only for local smoke checks
-- OPENAI_API_KEY in env → STEP 5 uses GPT-4o for GT; absent → local Naive RAG fallback
+- OPENAI_API_KEY in env → STEP 5 regenerates Track 1 queries and uses GPT-4o for GT
+- OPENAI_API_KEY absent → existing query files are validated, then local Naive RAG GT fallback is used
 - Per-query errors in run_track1/2.py are skipped (logged as WARNING) so configs complete
 - generate_pseudo_gt.py exits 0 on partial success (only fails if zero GT generated)
 - `backend/evaluation/results/` is git-tracked so `git pull` on local PC retrieves results

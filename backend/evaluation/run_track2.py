@@ -495,7 +495,7 @@ def run_query(
     search_payload = {
         "query": query_item["query"],
         "collection_name": ctx.collection_name,
-        "top_k": 5,
+        "top_k": 5,  # thesis default; see config.TOP_K_RERANK
         "doc_id_filter": paper,
     }
     if config.get("section_filter"):
@@ -509,7 +509,7 @@ def run_query(
         "cad_alpha": 0.5,
         "use_scd": bool(config.get("use_scd", True)),
         "scd_beta": 0.3,
-        "top_k": 5,
+        "top_k": 5,  # thesis default; see config.TOP_K_RERANK
         "doc_id_filter": paper,
         "section_filter": config.get("section_filter"),
     }
@@ -631,19 +631,37 @@ def run_domain_mode(
                     len(samples),
                 )
 
-            evaluation = evaluate_samples(ctx, samples)
+            try:
+                evaluation = evaluate_samples(ctx, samples)
+                average = evaluation["average"]
+                per_sample = evaluation["per_sample"]
+                status = "completed"
+                error = None
+            except Exception as exc:
+                LOGGER.error(
+                    "evaluate_samples failed for config=%s paper=%s: %s",
+                    config["name"],
+                    paper,
+                    exc,
+                    exc_info=True,
+                )
+                average = {}
+                per_sample = []
+                status = "failed"
+                error = str(exc)
             paper_result[config["name"]] = {
                 "config": config["name"],
                 "paper": paper,
-                "average": evaluation["average"],
-                "per_sample": evaluation["per_sample"],
+                "average": average,
+                "per_sample": per_sample,
                 "citation_tracking": {
                     "enabled": bool(config.get("track_citations")),
                     "fetched_count": (citation_data or {}).get("fetched_count", 0),
                     "indexed_count": (citation_data or {}).get("indexed_count", 0),
                 },
                 "section_filter": config.get("section_filter"),
-                "status": "completed",
+                "status": status,
+                **({"error": error} if error else {}),
             }
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:
