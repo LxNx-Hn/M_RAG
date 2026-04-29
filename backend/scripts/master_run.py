@@ -534,6 +534,8 @@ class MasterRunner:
             )
 
         server_env = self.runtime_env or self._load_env()
+        # Ensure bearer tokens outlive the full experiment run (can exceed 24 h).
+        server_env.setdefault("ACCESS_TOKEN_EXPIRE_MINUTES", "2880")
 
         command = [
             sys.executable,
