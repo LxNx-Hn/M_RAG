@@ -430,7 +430,8 @@ def _run_pipeline(
             req.scd_beta,
         )
     if decision.route == RouteType.CITATION:
-        doc = papers[available_docs[0]]
+        target_doc_id = doc_id_filter if doc_id_filter in papers else available_docs[0]
+        doc = papers[target_doc_id]
         from modules.chunker import Chunker
         from modules.pdf_parser import PDFParser
         from pipelines import pipeline_d_citation

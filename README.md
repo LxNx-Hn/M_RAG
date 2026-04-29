@@ -1,4 +1,4 @@
-﻿# M-RAG
+# M-RAG
 
 M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다. 질문 유형을 A~F 경로로 라우팅하고, BGE-M3 기반 검색, BM25, RRF, reranker, context compression, MIDM Base 생성, CAD/SCD 생성 제어를 결합한다.
 
@@ -9,7 +9,9 @@ M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시
 - 논문 실험 빠른 실행은 SQLite + SQLAlchemy
 - 운영/서비스 경로는 PostgreSQL + SQLAlchemy
 - 논문 실험 경로는 MIDM Base 직접 디코딩을 기준으로 함
-- Alice 기준 실험 코퍼스는 영어 NLP 4편, 한국어 NLP 도메인 2편, 한국어 원문 소스 1건으로 구성
+- 실험 코퍼스: 8편 (영어 NLP 4편 + 한국어/MIDM 4편)
+  - 영어: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor
+  - 한국어/MIDM: paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive
 
 ## 주요 기능
 

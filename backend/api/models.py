@@ -123,22 +123,8 @@ try:
         expires_at = Column(DateTime, nullable=False)
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-except ImportError:
-
-    class Base:
-        metadata = type("obj", (object,), {"create_all": lambda *a, **k: None})()
-
-    class User:
-        pass
-
-    class Conversation:
-        pass
-
-    class Message:
-        pass
-
-    class Paper:
-        pass
-
-    class RevokedToken:
-        pass
+except ImportError as _sqlalchemy_import_error:
+    raise ImportError(
+        "sqlalchemy is required for M-RAG API models. "
+        "Install with: pip install sqlalchemy aiosqlite"
+    ) from _sqlalchemy_import_error

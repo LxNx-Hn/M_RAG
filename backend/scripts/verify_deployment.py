@@ -108,20 +108,29 @@ def check_pipelines() -> str:
 
 @check("evaluation imports")
 def check_evaluation() -> str:
-    from evaluation.ragas_eval import (
-        RAGASEvaluator,
-        load_test_queries,
+    from evaluation.ragas_eval import RAGASEvaluator, load_test_queries
+    from evaluation.decoder_ablation import (
+        DecoderAblationStudy,
         compare_cad_on_off,
     )
-    from evaluation.ablation_study import AblationStudy
+    from evaluation.ablation_study import (
+        AblationConfig,
+        ABLATION_CONFIGS,
+        CAD_ALPHA_VALUES,
+        SCD_BETA_VALUES,
+    )
 
     assert all(
         item is not None
         for item in (
             RAGASEvaluator,
             load_test_queries,
+            DecoderAblationStudy,
             compare_cad_on_off,
-            AblationStudy,
+            AblationConfig,
+            ABLATION_CONFIGS,
+            CAD_ALPHA_VALUES,
+            SCD_BETA_VALUES,
         )
     )
     return "evaluation imports OK"
@@ -129,6 +138,9 @@ def check_evaluation() -> str:
 
 @check("API routers + schemas")
 def check_api() -> str:
+    if not os.environ.get("JWT_SECRET_KEY"):
+        return "WARN: JWT_SECRET_KEY not set - skipping API router import check"
+
     from api.routers.chat import router as chat_router
     from api.routers.papers import router as papers_router
     from api.routers.citations import router as citations_router
@@ -203,11 +215,37 @@ def check_gpu_env() -> str:
 
 @check("track query files validity")
 def check_track_queries() -> str:
+    import json
+    from pathlib import Path as _Path
+
     from evaluation.ragas_eval import load_test_queries
 
-    track1_samples = load_test_queries("evaluation/data/track1_queries.json")
+    # track1: runtime-generated placeholder — empty [] is allowed (WARN)
+    track1_status = "missing"
+    track1_path = _Path("evaluation/data/track1_queries.json")
+    if track1_path.exists():
+        try:
+            with track1_path.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+            items = (
+                data
+                if isinstance(data, list)
+                else (data.get("queries") or data.get("samples") or [])
+            )
+            if not items:
+                track1_status = "warn(empty runtime-generated placeholder)"
+            else:
+                track1_status = str(len(items))
+        except Exception:
+            track1_status = "warn(parse error)"
+
+    # track2: checked-in evaluation asset — must exist and be populated
     track2_samples = load_test_queries("evaluation/data/track2_queries.json")
-    return f"track1={len(track1_samples)}, track2={len(track2_samples)}"
+    track2_status = str(len(track2_samples))
+
+    if track1_status.startswith("warn") or track1_status == "missing":
+        return f"WARN: track1={track1_status}, track2={track2_status}"
+    return f"track1={track1_status}, track2={track2_status}"
 
 
 def main() -> None:

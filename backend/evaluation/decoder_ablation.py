@@ -239,6 +239,39 @@ class DecoderAblationStudy:
         print("=" * 70)
 
 
+def compare_cad_on_off(
+    study: DecoderAblationStudy,
+    test_samples: list[dict],
+    cad_alpha: float = 0.5,
+) -> dict:
+    """Compare baseline (no decoder) vs CAD-only and return delta metrics.
+
+    Returns dict with keys: baseline, cad_on, faithfulness_delta, alpha.
+    """
+    baseline_config = DecoderConfig(name="Baseline (no decoder)")
+    cad_config = DecoderConfig(
+        name=f"CAD only (alpha={cad_alpha})",
+        use_cad=True,
+        cad_alpha=cad_alpha,
+    )
+    baseline_result = study.run_single(baseline_config, test_samples)
+    cad_result = study.run_single(cad_config, test_samples)
+
+    baseline_halluc = baseline_result.get("numeric_hallucination_rate", 0.0)
+    cad_halluc = cad_result.get("numeric_hallucination_rate", 0.0)
+
+    return {
+        "alpha": cad_alpha,
+        "baseline": baseline_result,
+        "cad_on": cad_result,
+        "hallucination_delta": cad_halluc - baseline_halluc,
+        "drift_delta": (
+            cad_result.get("language_drift_rate", 0.0)
+            - baseline_result.get("language_drift_rate", 0.0)
+        ),
+    }
+
+
 def _load_cli_queries(queries_path: str) -> list[dict]:
     path = Path(queries_path)
     with open(path, "r", encoding="utf-8") as f:

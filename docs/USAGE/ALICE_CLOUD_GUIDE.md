@@ -60,6 +60,10 @@ export MRAG_API_BASE=http://127.0.0.1:8000
 export HF_HOME=$HOME/.cache/huggingface
 export TRANSFORMERS_CACHE=$HF_HOME
 export HF_HUB_CACHE=$HF_HOME
+# Runner account credentials (defaults shown, env-overridable)
+export MRAG_RUNNER_EMAIL=runner@mrag.local
+export MRAG_RUNNER_USERNAME=master_runner
+export MRAG_RUNNER_PASSWORD=MragRunner!2026x
 ```
 
 ## 모델 및 PDF 준비
@@ -72,7 +76,16 @@ python scripts/download_test_papers.py --dry-run
 python scripts/download_test_papers.py
 ```
 
-`patent_korean_ai.pdf`는 KIPRIS에서 내려받아 `backend/data/patent_korean_ai.pdf`에 둔다. 현재 실행 기준 문서는 `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor`, `paper_klue`, `paper_hyperclova`, `patent_korean_ai`다.
+`git pull` 후 `backend/data/`에 8편 전부 포함되어 있다. 별도 수동 복사는
+필요 없다. 영어 NLP 4편은 필요하면 `download_test_papers.py`로 최신 arXiv
+PDF로 다시 받아 덮어쓸 수 있다.
+
+현재 기본 8편 논문 자산:
+
+| 언어 | doc_id |
+|------|--------|
+| 영어 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor |
+| 한국어/MIDM | paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive |
 
 ## 쿼리 생성
 
@@ -83,7 +96,7 @@ export OPENAI_API_KEY=sk-...
 export MRAG_API_TOKEN=...
 python scripts/generate_queries.py \
   --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor \
-           paper_klue paper_hyperclova patent_korean_ai \
+           paper_midm paper_ko_rag_eval_framework paper_ko_rag_rrf_chunking paper_ko_cad_contrastive \
   --output evaluation/data/track1_queries.json \
   --openai-model gpt-4o \
   --token "$MRAG_API_TOKEN" \
@@ -142,11 +155,13 @@ bash scripts/experiments/rerun_cad_affected.sh
 - 기존 `master_run.py` 및 `uvicorn` 프로세스 정리
 - `git pull --ff-only origin main`
 - SQLite + Base 모델 기준 API 서버 기동
+- runner 계정으로 토큰 획득 (register-or-login)
 - Track 1 Full System 재실행
 - Track 1 decoder 중 CAD 영향 config 재실행
 - Track 1 alpha/beta sweep 재실행
 - Track 2 domain 재실행
 - `TABLES.md` 재생성
+- 기존 결과 파일은 `_archive/<timestamp>/`로 보존 (삭제하지 않음)
 
 ## 결과 확인
 

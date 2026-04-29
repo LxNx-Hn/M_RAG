@@ -1,4 +1,4 @@
-﻿# M-RAG 실행 및 배포 가이드
+# M-RAG 실행 및 배포 가이드
 
 ## 기준
 
@@ -67,6 +67,17 @@ python scripts\master_run.py --skip-download
 - `DATABASE_URL=sqlite+aiosqlite:///./mrag.db`
 - `GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct`
 - `LOAD_GPU_MODELS=true`
+- 토큰 획득: API health check 후 runner 계정 register-or-login
+
+논문 자산 (8편, 전부 저장소 포함)
+
+| 언어 | doc_id |
+|------|--------|
+| 영어 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor |
+| 한국어/MIDM | paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive |
+
+`git pull` 후 `backend/data/`에 8편 전부 존재한다. 별도 수동 배치 없이
+기본 실험을 재현할 수 있다.
 
 성공 기준
 
@@ -89,3 +100,14 @@ docker compose up --build
 - 실행 로그 `backend/scripts/master_run.log`
 - 업로드/실험 PDF `backend/data/`
 - ChromaDB `backend/chroma_db/`
+
+## 배포 검증
+
+```powershell
+cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
+..\.venv\Scripts\python.exe scripts\verify_deployment.py
+```
+
+- `track1_queries.json`이 비어 있어도 WARN (런타임 생성 placeholder)
+- `track2_queries.json`이 비어 있으면 FAIL
+- `JWT_SECRET_KEY` 미설정 시 API router 검사는 WARN/skip

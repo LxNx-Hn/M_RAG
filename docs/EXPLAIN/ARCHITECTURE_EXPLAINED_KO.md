@@ -314,11 +314,11 @@ followup_generator.py → 후속 질문 생성
 ### Track 1 (Table 1, 2)
 
 ```
-7편 논문 × 60개 질문 × 6개 설정 = 2,520 API 호출
+8편 논문 × 쿼리 × 6개 설정 = API 호출
 ```
 
-7개 문서: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
-paper_klue, paper_hyperclova, patent_korean_ai
+8개 문서: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
+paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive
 
 6개 설정:
 - Naive RAG

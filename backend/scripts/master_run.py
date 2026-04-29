@@ -38,9 +38,10 @@ REQUIRED_PDFS = [
     "paper_nlp_rag.pdf",
     "paper_nlp_cad.pdf",
     "paper_nlp_raptor.pdf",
-    "paper_klue.pdf",
-    "paper_hyperclova.pdf",
-    "patent_korean_ai.pdf",
+    "paper_midm.pdf",
+    "paper_ko_rag_eval_framework.pdf",
+    "paper_ko_rag_rrf_chunking.pdf",
+    "paper_ko_cad_contrastive.pdf",
 ]
 
 CURRENT_DOC_IDS = [Path(filename).stem for filename in REQUIRED_PDFS]
@@ -291,18 +292,28 @@ class MasterRunner:
             self._write_line(
                 "Skipping download step because --skip-download was provided."
             )
-            return
+        else:
+            if all((DATA_DIR / name).exists() for name in REQUIRED_PDFS):
+                self._write_line(
+                    "All required PDFs already exist in data/. Skipping download."
+                )
+            else:
+                self.run_subprocess(
+                    "STEP 2",
+                    [
+                        sys.executable,
+                        str(PROJECT_ROOT / "scripts" / "download_test_papers.py"),
+                    ],
+                )
 
-        if all((DATA_DIR / name).exists() for name in REQUIRED_PDFS):
-            self._write_line(
-                "All required PDFs already exist in data/. Skipping download."
+        missing = [name for name in REQUIRED_PDFS if not (DATA_DIR / name).exists()]
+        if missing:
+            raise RuntimeError(
+                "Required PDFs are still missing after STEP 2. "
+                + ", ".join(missing)
+                + ". Ensure the repository checkout includes the tracked paper "
+                "assets and rerun download_test_papers.py if needed."
             )
-            return
-
-        self.run_subprocess(
-            "STEP 2",
-            [sys.executable, str(PROJECT_ROOT / "scripts" / "download_test_papers.py")],
-        )
 
     def _healthcheck(self, api_url: str, timeout_seconds: int = 60) -> tuple[bool, str]:
         url = f"{api_url.rstrip('/')}/health"
@@ -490,6 +501,11 @@ class MasterRunner:
             self._write_line(
                 "Skipping server start because --skip-server was provided."
             )
+            healthy, detail = self._healthcheck(self.args.api_url)
+            if not healthy:
+                raise RuntimeError(
+                    f"--skip-server requires a running API server, but health check failed: {detail}"
+                )
             self._acquire_api_token()
             return
 
@@ -578,38 +594,68 @@ class MasterRunner:
         return secret
 
     def _acquire_api_token(self) -> None:
-        """Generate a JWT token directly for authenticated experiment APIs."""
-        import uuid as _uuid
-        from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+        """Bootstrap a runner account via register-or-login and acquire a bearer token.
 
-        jwt_secret = self._read_jwt_secret()
-        if not jwt_secret:
-            raise RuntimeError(
-                "JWT_SECRET_KEY not found in env or .env. Supported experiment runs require direct JWT token generation."
-            )
+        This replaces the previous bypass JWT approach so that the runner user
+        exists in the database, making FK-dependent paths (logout, history) safe
+        even on PostgreSQL with FK enforcement.
+        """
+        import json as _json
 
+        email = os.environ.get("MRAG_RUNNER_EMAIL", "runner@mrag.local")
+        username = os.environ.get("MRAG_RUNNER_USERNAME", "master_runner")
+        password = os.environ.get("MRAG_RUNNER_PASSWORD", "MragRunner!2026x")
+
+        api_base = self.args.api_url.rstrip("/")
+
+        # 1) Try register
+        register_payload = _json.dumps(
+            {"email": email, "username": username, "password": password}
+        ).encode("utf-8")
+        register_req = urllib_request.Request(
+            f"{api_base}/api/auth/register",
+            data=register_payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
         try:
-            from jose import jwt as _jose_jwt
-
-            expire = _dt.now(_tz.utc) + _td(hours=48)
-            tok_payload = {
-                "sub": "master_runner_bypass",
-                "email": "master@runner.local",
-                "exp": expire,
-                "iat": _dt.now(_tz.utc),
-                "jti": str(_uuid.uuid4()),
-                "token_type": "access",
-            }
-            self.api_token = _jose_jwt.encode(
-                tok_payload, jwt_secret, algorithm="HS256"
-            )
+            with urllib_request.urlopen(register_req, timeout=30) as resp:
+                data = _json.loads(resp.read().decode("utf-8"))
+                self.api_token = data["access_token"]
+                self._write_line(
+                    f"Runner account registered and token acquired (email={email})."
+                )
+                return
+        except urllib_error.HTTPError as exc:
+            if exc.code != 409:
+                body = exc.read().decode("utf-8", errors="replace")
+                raise RuntimeError(
+                    f"Runner registration failed ({exc.code}): {body}"
+                ) from exc
             self._write_line(
-                f"Generated API token directly via jose "
-                f"(sub=master_runner_bypass, expires={expire.strftime('%H:%M UTC')})."
+                f"Runner account already exists (email={email}). Falling back to login."
             )
+
+        # 2) Fallback to login
+        login_payload = _json.dumps({"email": email, "password": password}).encode(
+            "utf-8"
+        )
+        login_req = urllib_request.Request(
+            f"{api_base}/api/auth/login",
+            data=login_payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib_request.urlopen(login_req, timeout=30) as resp:
+                data = _json.loads(resp.read().decode("utf-8"))
+                self.api_token = data["access_token"]
+                self._write_line(
+                    f"Runner login successful and token acquired (email={email})."
+                )
         except Exception as exc:
             raise RuntimeError(
-                f"Direct API token generation failed: {type(exc).__name__}: {exc}"
+                f"Runner login failed: {type(exc).__name__}: {exc}"
             ) from exc
 
     def step_index_papers(self) -> None:
@@ -620,6 +666,8 @@ class MasterRunner:
             "--api-url",
             self.args.api_url,
         ]
+        for filename in REQUIRED_PDFS:
+            command.extend(["--paper", filename])
         if self._script_supports_retry_args(script_path):
             command.extend(
                 [
@@ -771,7 +819,7 @@ class MasterRunner:
             self.run_subprocess("STEP 5", cmd)
 
     def step_track1_ablation(self) -> None:
-        # Track 1 ablation uses the current 7-document Alice corpus.
+        # Track 1 ablation uses the current 8-document corpus.
         self.run_subprocess(
             "STEP 6",
             [
@@ -782,13 +830,7 @@ class MasterRunner:
                 "--queries",
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
-                "paper_nlp_bge",
-                "paper_nlp_rag",
-                "paper_nlp_cad",
-                "paper_nlp_raptor",
-                "paper_klue",
-                "paper_hyperclova",
-                "patent_korean_ai",
+                *CURRENT_DOC_IDS,
                 "--output",
                 "evaluation/results/table1_track1.json",
                 "--api-base",
@@ -798,7 +840,7 @@ class MasterRunner:
         )
 
     def step_track1_decoder(self) -> None:
-        # Decoder ablation compares CAD/SCD on CAD and KLUE domains.
+        # Decoder ablation compares CAD/SCD on CAD (English) and Korean CAD contrastive domains.
         self.run_subprocess(
             "STEP 7",
             [
@@ -810,7 +852,7 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
-                "paper_klue",
+                "paper_ko_cad_contrastive",
                 "--output",
                 "evaluation/results/table2_decoder.json",
                 "--api-base",
@@ -842,7 +884,7 @@ class MasterRunner:
         )
 
     def step_scd_beta(self) -> None:
-        # SCD beta sweep on the KLUE domain paper.
+        # SCD beta sweep on a Korean-language paper.
         self.run_subprocess(
             "STEP 9",
             [
@@ -853,7 +895,7 @@ class MasterRunner:
                 "--queries",
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
-                "paper_klue",
+                "paper_ko_rag_rrf_chunking",
                 "--output",
                 "evaluation/results/table2_beta.json",
                 "--api-base",

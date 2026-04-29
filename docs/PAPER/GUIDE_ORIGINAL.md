@@ -1,4 +1,4 @@
-﻿# 모듈러 RAG 기반 논문 리뷰 챗봇 에이전트
+# 모듈러 RAG 기반 논문 리뷰 챗봇 에이전트
 ## 종합 설계 가이드라인 및 관련 연구 보고서
 
 > 졸업작품 / 취업 포트폴리오 프로젝트
@@ -501,7 +501,7 @@ pip install transformers>=4.45.0 ragas datasets
 - MODULE 12 (MIDM-2.0 생성)
 - Baseline 1 완성
 
-> **⚠️ 3주차 체크포인트**: 7개 문서 샘플 쿼리로 초기 갭 + Language Drift 실측
+> **⚠️ 3주차 체크포인트**: 8개 문서 샘플 쿼리로 초기 갭 + Language Drift 실측
 > 갭 + Drift 확인 → Phase 2 진행 / 없으면 → 설계 재조정
 
 ---
@@ -566,9 +566,9 @@ M_RAG/
 
 ### 5.1 데이터셋 구성
 
-#### Track 1 — 7개 문서 기반 모듈 검증
+#### Track 1 — 8개 문서 기반 모듈 검증
 
-현재 Alice 실행 기준 코퍼스는 다음 7개 문서다.
+현재 Alice 실행 기준 코퍼스는 다음 8개 문서다.
 
 | doc_id | 역할 |
 |---|---|
@@ -576,11 +576,12 @@ M_RAG/
 | `paper_nlp_rag` | RAG Survey |
 | `paper_nlp_cad` | CAD |
 | `paper_nlp_raptor` | RAPTOR |
-| `paper_klue` | 한국어 NLP 도메인 |
-| `paper_hyperclova` | 한국어 LLM 도메인 |
-| `patent_korean_ai` | 한국어 원문 소스 |
+| `paper_midm` | MIDM-2.0 Technical Report |
+| `paper_ko_rag_eval_framework` | 한국어 RAG 평가 프레임워크 |
+| `paper_ko_rag_rrf_chunking` | 한국어 RAG RRF/청킹 |
+| `paper_ko_cad_contrastive` | 한국어 CAD 대조적 디코딩 |
 
-Track 1은 7개 문서 × 8개 쿼리 = 56개 논문별 특화 쿼리로 구성한다. 기본 쿼리는 한국어로 생성하고, `crosslingual_en` 타입만 영어 대조군으로 둔다.
+Track 1은 8개 문서에 대해 논문별 특화 쿼리로 구성한다. 기본 쿼리는 한국어로 생성하고, `crosslingual_en` 타입만 영어 대조군으로 둔다.
 
 ---
 
