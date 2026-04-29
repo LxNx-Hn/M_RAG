@@ -139,7 +139,7 @@ section_detector.py → 섹션 태깅
 chunker.py → 512토큰 단위 분할 (64토큰 겹침)
   출력 예시 (청크 47번):
   {"text": "We use a multi-layer bidirectional Transformer...",
-   "section": "method", "chunk_id": 47, "paper_id": "1810.04805_bert"}
+   "section": "method", "chunk_id": 47, "paper_id": "paper_nlp_bge"}
     │
     ▼
 embedder.py → BGE-M3로 벡터화
@@ -317,7 +317,8 @@ followup_generator.py → 후속 질문 생성
 7편 논문 × 60개 질문 × 6개 설정 = 2,520 API 호출
 ```
 
-7편: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, 1810.04805_bert, 2101.08577, paper_korean
+7개 문서: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
+paper_klue, paper_hyperclova, patent_korean_ai
 
 6개 설정:
 - Naive RAG

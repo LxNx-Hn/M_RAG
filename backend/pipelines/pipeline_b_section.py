@@ -33,14 +33,40 @@ def run(
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
     doc_id_filter: str | None = None,
+    query_expander=None,
+    use_hyde: bool = False,
 ) -> dict:
     """Run section-specific pipeline."""
     steps = []
     pipeline_name = f"B_section_{section_filter}"
     try:
+        hyde_doc = None
+        if query_expander and use_hyde:
+            corpus_lang = hybrid_retriever.get_collection_lang(
+                collection_name,
+                doc_id_filter=doc_id_filter,
+            )
+            expansion = query_expander.expand(
+                query,
+                use_hyde=True,
+                use_multi=False,
+                corpus_lang=corpus_lang,
+            )
+            hyde_doc = expansion.get("hyde_doc")
+            steps.append(
+                {
+                    "step": "query_expansion",
+                    "hyde_used": hyde_doc is not None,
+                    "corpus_lang": corpus_lang,
+                }
+            )
+        else:
+            steps.append({"step": "query_expansion", "hyde_used": False})
+
         search_results = hybrid_retriever.search(
             collection_name=collection_name,
             query=query,
+            hyde_doc=hyde_doc,
             section_filter=section_filter,
             doc_id_filter=doc_id_filter,
         )
@@ -56,6 +82,7 @@ def run(
             fallback_results = hybrid_retriever.search(
                 collection_name=collection_name,
                 query=query,
+                hyde_doc=hyde_doc,
                 doc_id_filter=doc_id_filter,
             )
             existing_ids = {r["chunk_id"] for r in search_results}

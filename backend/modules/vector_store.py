@@ -71,6 +71,7 @@ class VectorStore:
                 "chunk_level": c.chunk_level,
                 "char_start": c.char_start,
                 "char_end": c.char_end,
+                "lang": c.lang,
             }
             for c in chunks
         ]
@@ -152,6 +153,23 @@ class VectorStore:
             }
         except Exception:
             return {"name": safe_name, "count": 0}
+
+    def get_sample_chunks(
+        self,
+        collection_name: str,
+        n: int = 20,
+        doc_id_filter: str | None = None,
+    ) -> list[dict]:
+        """Return lightweight sample chunk metadata for collection inspection."""
+        collection = self.get_or_create_collection(collection_name)
+        kwargs = {"limit": n, "include": ["metadatas"]}
+        if doc_id_filter:
+            kwargs["where"] = {"doc_id": doc_id_filter}
+        results = collection.get(**kwargs)
+        return [
+            {"metadata": metadata or {}}
+            for metadata in (results.get("metadatas") or [])
+        ]
 
     def delete_collection(self, collection_name: str):
         """컬렉션 삭제"""

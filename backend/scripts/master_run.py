@@ -37,7 +37,18 @@ REQUIRED_PDFS = [
     "paper_nlp_bge.pdf",
     "paper_nlp_rag.pdf",
     "paper_nlp_cad.pdf",
-    "paper_korean.pdf",
+    "paper_nlp_raptor.pdf",
+    "paper_klue.pdf",
+    "paper_hyperclova.pdf",
+    "patent_korean_ai.pdf",
+]
+
+CURRENT_DOC_IDS = [Path(filename).stem for filename in REQUIRED_PDFS]
+TRACK2_DOC_IDS = [
+    "paper_nlp_bge",
+    "paper_nlp_rag",
+    "paper_nlp_cad",
+    "paper_nlp_raptor",
 ]
 
 RESULT_FILES = [
@@ -580,7 +591,7 @@ class MasterRunner:
         try:
             from jose import jwt as _jose_jwt
 
-            expire = _dt.now(_tz.utc) + _td(minutes=1440)
+            expire = _dt.now(_tz.utc) + _td(hours=48)
             tok_payload = {
                 "sub": "master_runner_bypass",
                 "email": "master@runner.local",
@@ -630,7 +641,96 @@ class MasterRunner:
             command,
         )
 
+    def step_generate_queries(self) -> None:
+        if self.args.skip_query_generation:
+            self._write_line(
+                "Skipping Track 1 query generation because "
+                "--skip-query-generation was provided."
+            )
+            return
+
+        openai_key = (self.runtime_env or os.environ).get("OPENAI_API_KEY", "").strip()
+        if not openai_key:
+            self._write_line(
+                "OPENAI_API_KEY is absent; using existing query files after validation."
+            )
+            return
+        api_token = self.api_token or (self.runtime_env or os.environ).get(
+            "MRAG_API_TOKEN", ""
+        )
+        if not api_token:
+            raise RuntimeError(
+                "API token is required before generating queries. "
+                "Start the server through master_run.py or set MRAG_API_TOKEN."
+            )
+
+        cmd = [
+            sys.executable,
+            str(PROJECT_ROOT / "scripts" / "generate_queries.py"),
+            "--collection",
+            "papers",
+            "--api-url",
+            self.args.api_url,
+            "--token",
+            api_token,
+            "--output",
+            "evaluation/data/track1_queries.json",
+            "--openai-model",
+            "gpt-4o",
+            "--queries-per-paper",
+            "8",
+            "--overwrite",
+            "--papers",
+            *CURRENT_DOC_IDS,
+        ]
+        self.run_subprocess("STEP 4.5", cmd)
+
+    def _validate_query_file(
+        self,
+        query_file: Path,
+        allowed_doc_ids: set[str],
+        label: str,
+    ) -> None:
+        if not query_file.exists():
+            raise FileNotFoundError(f"{label} query file not found: {query_file}")
+        with query_file.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+        if not isinstance(payload, list) or not payload:
+            raise RuntimeError(f"{label} query file is empty or invalid: {query_file}")
+
+        unknown_ids: set[str] = set()
+        for item in payload:
+            if not isinstance(item, dict):
+                raise RuntimeError(f"{label} query item is invalid: {item!r}")
+            applicable = item.get("applicable_papers") or []
+            if not isinstance(applicable, list) or not applicable:
+                raise RuntimeError(
+                    f"{label} query is missing applicable_papers: {item!r}"
+                )
+            unknown_ids.update(str(doc_id) for doc_id in applicable)
+
+        unknown_ids.difference_update(allowed_doc_ids)
+        if unknown_ids:
+            unknown_preview = ", ".join(sorted(unknown_ids))
+            raise RuntimeError(
+                f"{label} query file contains unknown document IDs: "
+                f"{unknown_preview}. Regenerate it with "
+                "scripts/generate_queries.py after indexing."
+            )
+
     def step_generate_pseudo_gt(self) -> None:
+        self.step_generate_queries()
+        self._validate_query_file(
+            PROJECT_ROOT / "evaluation" / "data" / "track1_queries.json",
+            set(CURRENT_DOC_IDS),
+            "Track 1",
+        )
+        self._validate_query_file(
+            PROJECT_ROOT / "evaluation" / "data" / "track2_queries.json",
+            set(TRACK2_DOC_IDS),
+            "Track 2",
+        )
+
         openai_key = (self.runtime_env or os.environ).get("OPENAI_API_KEY", "").strip()
         use_gpt = bool(openai_key)
         for input_path, output_path in [
@@ -660,16 +760,18 @@ class MasterRunner:
                 "2.0",
                 "--min-interval",
                 "3.2",
+                "--search-top-k",
+                "10",
+                "--force",
             ]
             if use_gpt:
                 # GPT-4o generates GT from retrieved paper contexts — independent of Midm.
                 # OPENAI_API_KEY is passed via env (inherited by subprocess), not CLI flag.
-                cmd += ["--gt-model", "gpt-4o", "--search-top-k", "5"]
+                cmd += ["--gt-model", "gpt-4o"]
             self.run_subprocess("STEP 5", cmd)
 
     def step_track1_ablation(self) -> None:
-        # 7개 PDF 전체에 대해 ablation 실시 (paper_korean 포함). 67-쿼리 매핑 결과
-        # paper_nlp_* 4편 + 1810.04805_bert + 2101.08577 + paper_korean 모두 매칭됨.
+        # Track 1 ablation uses the current 7-document Alice corpus.
         self.run_subprocess(
             "STEP 6",
             [
@@ -684,9 +786,9 @@ class MasterRunner:
                 "paper_nlp_rag",
                 "paper_nlp_cad",
                 "paper_nlp_raptor",
-                "1810.04805_bert",
-                "2101.08577",
-                "paper_korean",
+                "paper_klue",
+                "paper_hyperclova",
+                "patent_korean_ai",
                 "--output",
                 "evaluation/results/table1_track1.json",
                 "--api-base",
@@ -696,8 +798,7 @@ class MasterRunner:
         )
 
     def step_track1_decoder(self) -> None:
-        # decoder ablation: CAD/SCD on/off — paper_nlp_cad 와 paper_korean 으로
-        # CAD(파라메트릭 억제) 와 SCD(언어이탈 억제) 모두 실험.
+        # Decoder ablation compares CAD/SCD on CAD and KLUE domains.
         self.run_subprocess(
             "STEP 7",
             [
@@ -709,7 +810,7 @@ class MasterRunner:
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
                 "paper_nlp_cad",
-                "paper_korean",
+                "paper_klue",
                 "--output",
                 "evaluation/results/table2_decoder.json",
                 "--api-base",
@@ -719,7 +820,7 @@ class MasterRunner:
         )
 
     def step_cad_alpha(self) -> None:
-        # alpha sweep: paper_nlp_cad + paper_nlp_bge 두 NLP 논문에서 alpha 변동
+        # Alpha sweep on CAD and BGE papers.
         self.run_subprocess(
             "STEP 8",
             [
@@ -741,7 +842,7 @@ class MasterRunner:
         )
 
     def step_scd_beta(self) -> None:
-        # SCD beta sweep: 한국어 논문 — 언어이탈 억제 효과 측정
+        # SCD beta sweep on the KLUE domain paper.
         self.run_subprocess(
             "STEP 9",
             [
@@ -752,7 +853,7 @@ class MasterRunner:
                 "--queries",
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
-                "paper_korean",
+                "paper_klue",
                 "--output",
                 "evaluation/results/table2_beta.json",
                 "--api-base",
@@ -762,7 +863,7 @@ class MasterRunner:
         )
 
     def step_track2_domain(self) -> None:
-        # Track 2: NLP 4편 모두 — 도메인 특화 비교
+        # Track 2 domain comparison across the 4 NLP papers.
         self.run_subprocess(
             "STEP 10",
             [
@@ -1039,6 +1140,14 @@ def parse_args() -> argparse.Namespace:
         help="Skip STEP 3 and STEP 13 and assume the API server is already running.",
     )
     parser.add_argument(
+        "--skip-query-generation",
+        action="store_true",
+        help=(
+            "Use existing evaluation/data/track1_queries.json instead of "
+            "regenerating Track 1 queries after indexing."
+        ),
+    )
+    parser.add_argument(
         "--api-url",
         default="http://localhost:8000",
         help="API base URL used for health checks and downstream scripts.",
@@ -1105,7 +1214,7 @@ def main() -> int:
             )
             runner.run_step(
                 5,
-                "Generate pseudo ground truth",
+                "Generate Track 1 queries and pseudo ground truth",
                 runner.step_generate_pseudo_gt,
                 abort_on_failure=True,
             )

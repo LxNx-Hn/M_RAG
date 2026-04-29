@@ -16,14 +16,27 @@ if str(PROJECT_ROOT) not in sys.path:
 TEST_QUERIES_PATH = PROJECT_ROOT / "evaluation" / "data" / "track1_queries.json"
 OUTPUT_PATH = PROJECT_ROOT / "evaluation" / "data" / "pseudo_gt_track1.json"
 
-PLACEHOLDER_PAPER_RE = re.compile(
-    r"(paper_[A-Z]_[A-Za-z0-9_]+|doc_[A-Z]_[A-Za-z0-9_]+|lecture_[A-Z]_[A-Za-z0-9_]+|patent_[A-Z]_[A-Za-z0-9_]+)"
+PLACEHOLDER_PAPER_PATTERN = (
+    r"paper_[A-Z]_[A-Za-z0-9_]+"
+    r"|doc_[A-Z]_[A-Za-z0-9_]+"
+    r"|lecture_[A-Z]_[A-Za-z0-9_]+"
+    r"|patent_[A-Z]_[A-Za-z0-9_]+"
 )
+PLACEHOLDER_PAPER_RE = re.compile(f"({PLACEHOLDER_PAPER_PATTERN})")
+
+_TYPE_TO_SECTION: dict[str, str] = {
+    "section_method": "method",
+    "section_result": "result",
+    "section_abstract": "abstract",
+    "section_conclusion": "conclusion",
+    "section_limit": "conclusion",
+}
 
 _OPENAI_GT_PROMPT = (
     "You are an expert academic assistant. "
     "Answer the question using ONLY information from the provided document excerpts. "
-    "Be concise and factual. If the answer is not in the excerpts, write 'Not found in document.'\n\n"
+    "Be concise and factual. If the answer is not in the excerpts, write "
+    "'Not found in document.'\n\n"
     "Document excerpts:\n{contexts}\n\n"
     "Question: {query}\n\n"
     "Answer:"
@@ -145,6 +158,7 @@ def _search_contexts(
     timeout: int,
     doc_id_filter: str | None,
     top_k: int,
+    section_filter: str | None = None,
 ) -> list[str]:
     """Retrieve document contexts via the M-RAG query endpoint with HyDE enabled.
 
@@ -164,6 +178,8 @@ def _search_contexts(
     }
     if doc_id_filter:
         payload["doc_id_filter"] = doc_id_filter
+    if section_filter:
+        payload["section_filter"] = section_filter
     try:
         resp = requests.post(
             f"{api_url.rstrip('/')}/api/chat/query",
@@ -180,7 +196,10 @@ def _search_contexts(
             if item.get("content")
         ]
     except Exception as exc:
-        print(f"  Context retrieval failed ({exc}); using empty context.", file=sys.stderr)
+        print(
+            f"  Context retrieval failed ({exc}); using empty context.",
+            file=sys.stderr,
+        )
         return []
 
 
@@ -199,7 +218,8 @@ def _query_openai_gt(
         )
     if not api_key:
         raise RuntimeError(
-            "OpenAI API key required. Set OPENAI_API_KEY env variable or use --openai-api-key."
+            "OpenAI API key required. Set OPENAI_API_KEY env variable "
+            "or use --openai-api-key."
         )
     client = OpenAI(api_key=api_key)
     ctx_text = "\n\n".join(
@@ -229,6 +249,7 @@ def _query_api(
     max_retries: int,
     retry_backoff: float,
     doc_id_filter: str | None = None,
+    section_filter: str | None = None,
 ) -> str:
     """Generate a ground truth answer via the local M-RAG query API (Naive RAG)."""
     attempts = max(0, max_retries) + 1
@@ -244,6 +265,7 @@ def _query_api(
                     "use_hyde": False,
                     "top_k": 5,
                     **({"doc_id_filter": doc_id_filter} if doc_id_filter else {}),
+                    **({"section_filter": section_filter} if section_filter else {}),
                 },
                 headers=_build_headers(token),
                 timeout=timeout,
@@ -463,6 +485,8 @@ def main() -> int:
             if elapsed < args.min_interval:
                 time.sleep(args.min_interval - elapsed)
 
+        section_filter = _TYPE_TO_SECTION.get(str(item.get("type", "")))
+
         try:
             if target_papers:
                 by_paper = item.setdefault("ground_truth_by_paper", {})
@@ -480,6 +504,7 @@ def main() -> int:
                             args.timeout,
                             paper,
                             args.search_top_k,
+                            section_filter=section_filter,
                         )
                         answer = _query_openai_gt(
                             args.openai_api_key, args.gt_model, query, contexts
@@ -495,6 +520,7 @@ def main() -> int:
                             args.max_retries,
                             args.retry_backoff,
                             doc_id_filter=paper,
+                            section_filter=section_filter,
                         )
 
                     by_paper[paper] = answer
@@ -517,6 +543,7 @@ def main() -> int:
                         args.timeout,
                         None,
                         args.search_top_k,
+                        section_filter=section_filter,
                     )
                     answer = _query_openai_gt(
                         args.openai_api_key, args.gt_model, query, contexts
@@ -530,6 +557,7 @@ def main() -> int:
                         args.token,
                         args.max_retries,
                         args.retry_backoff,
+                        section_filter=section_filter,
                     )
                 last_attempt_at = time.time()
                 item["ground_truth"] = answer

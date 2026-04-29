@@ -410,7 +410,7 @@ def track1_query_payload(
         "cad_alpha": float(config.get("cad_alpha", 0.5)),
         "use_scd": bool(config.get("use_scd", False)),
         "scd_beta": float(config.get("scd_beta", 0.3)),
-        "top_k": 5,
+        "top_k": 5,  # thesis default; see config.TOP_K_RERANK
         "doc_id_filter": paper,
     }
 
@@ -472,7 +472,7 @@ def query_answer(
     search_payload = {
         "query": query_item["query"],
         "collection_name": ctx.collection_name,
-        "top_k": 5,
+        "top_k": 5,  # thesis default; see config.TOP_K_RERANK
         "doc_id_filter": paper,
     }
     if config.get("section_filter"):
@@ -595,10 +595,25 @@ def run_ragas_mode(
                     len(samples),
                 )
 
-            evaluation = evaluate_samples(ctx, samples)
+            try:
+                evaluation = evaluate_samples(ctx, samples)
+                evaluation["status"] = "completed"
+            except Exception as exc:
+                LOGGER.error(
+                    "evaluate_samples failed for config=%s paper=%s: %s",
+                    config_name,
+                    paper,
+                    exc,
+                    exc_info=True,
+                )
+                evaluation = {
+                    "average": {},
+                    "per_sample": [],
+                    "status": "failed",
+                    "error": str(exc),
+                }
             evaluation["config"] = config_name
             evaluation["paper"] = paper
-            evaluation["status"] = "completed"
             paper_result[config_name] = evaluation
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:
@@ -740,7 +755,22 @@ def run_decoder_mode(
                     len(samples),
                 )
 
-            ragas_result = evaluate_samples(ctx, samples)
+            try:
+                ragas_result = evaluate_samples(ctx, samples)
+                ragas_average = ragas_result["average"]
+                status = "completed"
+                error = None
+            except Exception as exc:
+                LOGGER.error(
+                    "evaluate_samples failed for config=%s paper=%s: %s",
+                    config["name"],
+                    paper,
+                    exc,
+                    exc_info=True,
+                )
+                ragas_average = {}
+                status = "failed"
+                error = str(exc)
             paper_result[config["name"]] = {
                 "config": config["name"],
                 "paper": paper,
@@ -748,12 +778,13 @@ def run_decoder_mode(
                 "numeric_hallucination_rate": compute_numeric_hallucination_rate(
                     answers, gts
                 ),
-                "faithfulness": ragas_result["average"]["faithfulness"],
-                "answer_relevancy": ragas_result["average"]["answer_relevancy"],
-                "context_precision": ragas_result["average"]["context_precision"],
-                "context_recall": ragas_result["average"]["context_recall"],
-                "overall": ragas_result["average"]["overall"],
-                "status": "completed",
+                "faithfulness": ragas_average.get("faithfulness", 0.0),
+                "answer_relevancy": ragas_average.get("answer_relevancy", 0.0),
+                "context_precision": ragas_average.get("context_precision", 0.0),
+                "context_recall": ragas_average.get("context_recall", 0.0),
+                "overall": ragas_average.get("overall", 0.0),
+                "status": status,
+                **({"error": error} if error else {}),
             }
             results["results"][paper] = paper_result
             if ctx.checkpoint_every > 0:

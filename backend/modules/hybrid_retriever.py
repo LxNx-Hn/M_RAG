@@ -145,6 +145,34 @@ class HybridRetriever:
     def has_bm25_for_collection(self, collection_name: str) -> bool:
         return collection_name in self.bm25_map
 
+    def get_collection_lang(
+        self,
+        collection_name: str,
+        doc_id_filter: str | None = None,
+    ) -> str:
+        """Return the representative collection language from sampled chunks."""
+        try:
+            results = self.vector_store.get_sample_chunks(
+                collection_name,
+                n=20,
+                doc_id_filter=doc_id_filter,
+            )
+            if not results:
+                return "en"
+            ko_count = sum(
+                1
+                for result in results
+                if result.get("metadata", {}).get("lang") == "ko"
+            )
+            return "ko" if ko_count / max(len(results), 1) >= 0.5 else "en"
+        except Exception as exc:
+            logger.warning(
+                "Failed to infer collection language for '%s': %s",
+                collection_name,
+                exc,
+            )
+            return "en"
+
     def fit_bm25(self, collection_name: str):
         """Build BM25 index for a single collection."""
         collection = self.vector_store.get_or_create_collection(collection_name)

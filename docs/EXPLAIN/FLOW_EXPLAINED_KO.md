@@ -177,7 +177,7 @@ ChromaDB 저장 내용 (청크 1개):
     "embedding": [0.021, -0.143, ...],  ← 검색에 사용
     "document": "We use alpha=0.3 as the optimal...",  ← 검색 후 반환
     "metadata": {
-      "paper_id": "1810.04805_bert",
+      "paper_id": "paper_nlp_bge",
       "section": "method",
       "chunk_index": 47
     }
@@ -488,8 +488,8 @@ SCD 적용 (beta=0.3):
 {
   "answer": "BERT의 핵심 아이디어는...",
   "sources": [
-    {"paper": "1810.04805_bert", "section": "method", "text": "We use bidirectional..."},
-    {"paper": "1810.04805_bert", "section": "abstract", "text": "BERT stands for..."}
+    {"paper": "paper_nlp_bge", "section": "method", "text": "BGE M3 supports dense..."},
+    {"paper": "paper_nlp_bge", "section": "abstract", "text": "M3-Embedding introduces..."}
   ],
   "route": "A",
   "steps": ["query_expansion", "hybrid_retrieval", "reranking", "compression", "CAD+SCD"],

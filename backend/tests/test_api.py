@@ -33,7 +33,7 @@ def _prepare_request_kwargs(kwargs):
     return prepared
 
 
-def test(name, method, path, expected_status=200, **kwargs):
+def request_check(name, method, path, expected_status=200, **kwargs):
     global PASS, FAIL
     url = f"{BASE}{path}"
     try:
@@ -79,7 +79,7 @@ def bootstrap_auth():
     username = f"mrag_smoke_{unique}"
     password = "MragSmoke!2026"
 
-    data = test(
+    data = request_check(
         "Register test user",
         "POST",
         "/api/auth/register",
@@ -91,7 +91,7 @@ def bootstrap_auth():
         return False
 
     AUTH_HEADERS = {"Authorization": f"Bearer {token}"}
-    me = test("Get current user", "GET", "/api/auth/me")
+    me = request_check("Get current user", "GET", "/api/auth/me")
     return isinstance(me, dict) and me.get("email") == email
 
 
@@ -102,9 +102,9 @@ def main():
 
     # ─── 1. System ───
     print("\n--- System ---")
-    test("Root endpoint", "GET", "/")
-    test("Health check", "GET", "/health")
-    test("Swagger docs accessible", "GET", "/docs")
+    request_check("Root endpoint", "GET", "/")
+    request_check("Health check", "GET", "/health")
+    request_check("Swagger docs accessible", "GET", "/docs")
 
     print("\n--- Auth bootstrap ---")
     if not bootstrap_auth():
@@ -114,8 +114,10 @@ def main():
 
     # ─── 2. Papers (empty) ───
     print("\n--- Papers (before upload) ---")
-    test("List collections (empty)", "GET", "/api/papers/list")
-    test("Get nonexistent paper", "GET", "/api/papers/nonexistent", expected_status=404)
+    request_check("List collections (empty)", "GET", "/api/papers/list")
+    request_check(
+        "Get nonexistent paper", "GET", "/api/papers/nonexistent", expected_status=404
+    )
 
     # ─── 3. PDF Upload ───
     print("\n--- PDF Upload ---")
@@ -184,7 +186,7 @@ def main():
     print(f"  (Created test PDF: {pdf_path})")
 
     with open(pdf_path, "rb") as f:
-        data = test(
+        data = request_check(
             "Upload PDF",
             "POST",
             "/api/papers/upload",
@@ -226,7 +228,7 @@ def main():
     doc2.close()
 
     with open(pdf_path2, "rb") as f:
-        test(
+        request_check(
             "Upload second PDF",
             "POST",
             "/api/papers/upload",
@@ -235,16 +237,16 @@ def main():
 
     # ─── 4. List after upload ───
     print("\n--- Papers (after upload) ---")
-    data = test("List collections", "GET", "/api/papers/list")
+    data = request_check("List collections", "GET", "/api/papers/list")
     if data:
         for col in data.get("collections", []):
             print(f"         Collection: {col['name']} ({col['count']} chunks)")
 
-    test("Get paper info", "GET", "/api/papers/test_paper")
+    request_check("Get paper info", "GET", "/api/papers/test_paper")
 
     # ─── 5. Search ───
     print("\n--- Search ---")
-    data = test(
+    data = request_check(
         "Search: accuracy",
         "POST",
         "/api/chat/search",
@@ -256,7 +258,7 @@ def main():
                 f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}..."
             )
 
-    data = test(
+    data = request_check(
         "Search: Korean query",
         "POST",
         "/api/chat/search",
@@ -268,14 +270,14 @@ def main():
                 f"         [{r['section_type']}] score={r['score']:.4f}: {r['content'][:60]}..."
             )
 
-    data = test(
+    data = request_check(
         "Search: section filter (method)",
         "POST",
         "/api/chat/search",
         json={"query": "model architecture", "section_filter": "method", "top_k": 3},
     )
 
-    data = test(
+    data = request_check(
         "Search: doc_id filter",
         "POST",
         "/api/chat/search",
@@ -286,7 +288,7 @@ def main():
     print("\n--- Chat (Query Router) ---")
 
     # Route A: 단순 QA
-    data = test(
+    data = request_check(
         "Route A: 단순 QA",
         "POST",
         "/api/chat/query",
@@ -299,7 +301,7 @@ def main():
         print(f"         Answer: {data.get('answer', '')[:100]}...")
 
     # Route B: 섹션 특화
-    data = test(
+    data = request_check(
         "Route B: 결과 섹션",
         "POST",
         "/api/chat/query",
@@ -311,7 +313,7 @@ def main():
         )
 
     # Route B: 방법론
-    data = test(
+    data = request_check(
         "Route B: 방법론 섹션",
         "POST",
         "/api/chat/query",
@@ -323,7 +325,7 @@ def main():
         )
 
     # Route C: 비교
-    data = test(
+    data = request_check(
         "Route C: 논문 비교",
         "POST",
         "/api/chat/query",
@@ -335,7 +337,7 @@ def main():
         )
 
     # Route E: 요약
-    data = test(
+    data = request_check(
         "Route E: 전체 요약",
         "POST",
         "/api/chat/query",
@@ -347,7 +349,7 @@ def main():
         )
 
     # Route D: 인용
-    data = test(
+    data = request_check(
         "Route D: 인용 논문",
         "POST",
         "/api/chat/query",
@@ -360,14 +362,14 @@ def main():
 
     # ─── 7. Error Cases ───
     print("\n--- Error Handling ---")
-    test(
+    request_check(
         "Empty query",
         "POST",
         "/api/chat/query",
         json={"query": ""},
         expected_status=422,
     )
-    test(
+    request_check(
         "Invalid file type",
         "POST",
         "/api/papers/upload",
@@ -377,7 +379,7 @@ def main():
 
     # ─── 8. Citations ───
     print("\n--- Citations ---")
-    data = test(
+    data = request_check(
         "Track citations",
         "POST",
         "/api/citations/track",
@@ -390,8 +392,8 @@ def main():
 
     # ─── 9. Cleanup ───
     print("\n--- Cleanup ---")
-    test("Delete collection", "DELETE", "/api/papers/papers")
-    test("Logout", "POST", "/api/auth/logout")
+    request_check("Delete collection", "DELETE", "/api/papers/papers")
+    request_check("Logout", "POST", "/api/auth/logout")
 
     # ─── Summary ───
     print("\n" + "=" * 60)
@@ -400,10 +402,16 @@ def main():
     if FAIL == 0:
         print("ALL TESTS PASSED!")
     else:
-        print(f"WARNING: {FAIL} test(s) failed")
+        print(f"WARNING: {FAIL} request_check(s) failed")
     print("=" * 60)
 
     return FAIL == 0
+
+
+def test_script_entrypoints_are_importable():
+    """Keep pytest discovery green while preserving script-style API checks."""
+    assert callable(main)
+    assert callable(request_check)
 
 
 if __name__ == "__main__":
