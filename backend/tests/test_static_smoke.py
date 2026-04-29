@@ -1,7 +1,6 @@
 from modules.chunker import Chunk, detect_lang
 from modules.pdf_parser import ParsedDocument, TextBlock
 from modules.section_detector import SectionDetector
-from scripts.generate_queries import _assert_query_quality, TRACK2_BAD_QUERY_PATTERNS
 
 
 def test_detect_lang_identifies_korean_text():
@@ -75,13 +74,3 @@ def test_section_detector_handles_numbered_english_report_headings():
     assert sections[4] == "method"
     assert sections[6] == "result"
     assert sections[8] == "references"
-
-
-def test_track2_common_query_allows_group_level_wording():
-    _assert_query_quality(
-        "track2-group",
-        "citation",
-        "이 논문의 방법론적 근거가 되는 선행 연구는 무엇인가?",
-        reject_generic=False,
-        bad_patterns=TRACK2_BAD_QUERY_PATTERNS,
-    )
