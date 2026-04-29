@@ -632,7 +632,7 @@ alphas = [0.0, 0.1, 0.3, 0.5, 0.7, 1.0]
 betas  = [0.1, 0.3, 0.5]
 
 # 18개 조합 × 200쌍 = 3,600회 추론
-# RunPod A100 기준 약 2~3일
+# RunPod A100 기준 약 50시간 소요 (8편 확장 기준)
 for alpha, beta in itertools.product(alphas, betas):
     result = evaluate(cad_alpha=alpha, scd_beta=beta)
     save_to_json(result)
