@@ -1,8 +1,8 @@
 [
   {
-    "query": "이 논문에서 기존 연구 혹은 기준선(Baseline)들이 공통적으로 실패하거나 부족하다고 지적한 가장 치명적인 한계점(Limitations)은 무엇이며, 그로 인해 초래되는 구체적인 문제 현상은 어떻게 묘사되어 있는가?",
+    "query": "이 논문의 초록(Abstract)에서 제안하거나 중점적으로 분석하고 있는 핵심 시스템(또는 프레임워크, 모델)의 공식 명칭은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "discussion",
+    "ground_truth_source_section": "abstract",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -12,59 +12,11 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "기존 연구의 한계점에 대한 환각 방어",
+    "cad_test_purpose": "논문 핵심 제안 시스템 명칭에 대한 환각 억제 테스트",
     "track": "track2"
   },
   {
-    "query": "논문 내 주요 실험 혹은 프레임워크 설계에 있어서, 가장 핵심적인 제약 조건(Constraints)이나 기술적 병목 현상(Bottleneck)으로 언급된 요소는 무엇이며, 이를 피하기 위해 어떤 원칙이 강조되었는가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_nlp_bge",
-      "paper_nlp_rag",
-      "paper_nlp_cad",
-      "paper_nlp_raptor",
-      "paper_midm"
-    ],
-    "cad_test_purpose": "설계 제약 조건에 대한 구체적 묘사 환각 제어",
-    "track": "track2"
-  },
-  {
-    "query": "이 연구 또는 조사에서 다루는 주요 시스템/분류체계를 구성하는 여러 하위 모듈(혹은 단계) 중, 전체 성능이나 파급 효과에 가장 결정적인 영향을 미치는 것으로 서술된 특정 모듈(또는 단계)과 그 이유는 무엇인가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_nlp_bge",
-      "paper_nlp_rag",
-      "paper_nlp_cad",
-      "paper_nlp_raptor",
-      "paper_midm"
-    ],
-    "cad_test_purpose": "모듈별 중요도 및 근거에 대한 환각 억제",
-    "track": "track2"
-  },
-  {
-    "query": "본문에서 가장 비중 있게 다뤄지거나 평가된 벤치마크/데이터셋의 명칭은 무엇이며, 해당 데이터셋이 이 특정 연구(또는 조사)의 목적을 달성하는 데 왜 적합한지 그 논리적 근거는 어떻게 서술되었는가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "experiment",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_nlp_bge",
-      "paper_nlp_rag",
-      "paper_nlp_cad",
-      "paper_nlp_raptor",
-      "paper_midm"
-    ],
-    "cad_test_purpose": "벤치마크 채택 근거에 대한 지식 기반 환각 방지",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문이 최종적으로 제시하는 여러 결론 중, 향후 후속 연구(Future Work)를 위해 제안된 가장 시급한 과제(Open Problem)는 무엇이며, 그것을 해결해야 하는 이유는 무엇으로 제시되었는가?",
+    "query": "결론(Conclusion) 섹션에서 저자들이 요약하여 강조하는 본 논문의 가장 핵심적인 달성 성과(또는 시사점)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "conclusion",
     "type": "cad_ablation",
@@ -76,13 +28,13 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "후속 연구 방향성에 대한 자의적 추론 억제",
+    "cad_test_purpose": "결론부 성과 요약에 대한 구체적 팩트 기반 환각 방어",
     "track": "track2"
   },
   {
-    "query": "논문에서 시스템 성능이나 연구 결과의 타당성을 입증하기 위해 가장 중요하게 사용된 정성적 또는 정량적 평가 기준(Evaluation Criterion)은 무엇이며, 이 기준이 기존의 일반적인 평가 방식과 어떻게 다른지(혹은 왜 선택되었는지) 설명하시오.",
+    "query": "서론(Introduction)에서 이 논문의 연구(또는 조사)가 시작된 핵심적인 동기(Motivation)나 배경으로 명시된 현상은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "experiment",
+    "ground_truth_source_section": "introduction",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -92,11 +44,27 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "평가 메트릭 선택의 구체적 근거 환각 방어",
+    "cad_test_purpose": "연구 동기 서술에 대한 자의적 추론 환각 제어",
     "track": "track2"
   },
   {
-    "query": "이 연구가 학술적 영역을 넘어 실제 애플리케이션(Real-world Application)이나 산업 현장에 적용될 때 발생할 수 있는 주요 장애물(Obstacle)이나 고려해야 할 현실적 문제점은 본문에서 어떻게 논의되고 있는가?",
+    "query": "본문의 주요 방법론(또는 리뷰 분석 내용)을 구성하는 전체 아키텍처(파이프라인)에서 언급된 주요 단계(Phase)나 핵심 분류 기준들은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "cad_test_purpose": "시스템 아키텍처 분류 체계에 대한 사전 지식 환각 방지",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 기존 방식(또는 선행 연구)들이 가지고 있다고 명시적으로 지적한 주요 단점이나 한계(Limitations) 중 하나는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "discussion",
     "type": "cad_ablation",
@@ -108,11 +76,43 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "실무 적용 한계점에 대한 과장된 환각 통제",
+    "cad_test_purpose": "기존 기술 한계점에 대한 환각 통제",
     "track": "track2"
   },
   {
-    "query": "논문의 방법론(Methodology) 또는 전체 시스템 아키텍처(System Architecture) 파트에서, 입력 데이터(Input)가 최종 출력(Output)으로 변환되기까지 거치는 가장 첫 번째 핵심 단계(Initial Step)의 구체적인 역할과 목적은 무엇인가?",
+    "query": "논문의 참고문헌(References)이나 관련 연구 파트에서, 본 연구 주제와 밀접하게 관련되어 언급되는 대표적인 기존 기술(혹은 모델)의 명칭은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "related_work",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "cad_test_purpose": "관련 선행 기술 명칭 환각 방어",
+    "track": "track2"
+  },
+  {
+    "query": "결론(Conclusion)의 마지막 부분에서, 저자들이 본 논문의 연구 결과를 바탕으로 향후 필요하다고 제안한 미래 연구 방향(Future Work)은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "conclusion",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "cad_test_purpose": "후속 연구 과제에 대한 논리적 비약 및 환각 억제",
+    "track": "track2"
+  },
+  {
+    "query": "논문의 본문(Method, Approach 등)에서 제시하는 핵심 시스템(혹은 분류 체계)의 가장 첫 번째 처리 단계(또는 첫 번째 하위 카테고리)의 명칭과 역할은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -127,7 +127,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하거나 정리한 전체 프레임워크(Framework) 내에서, 서로 다른 두 개의 모듈(또는 개념적 분류) 간의 정보 흐름(Information Flow)이나 상호작용 방식은 구체적으로 어떻게 설계되어 있는가?",
+    "query": "이 논문에서 설명하는 주요 파이프라인 내부에서, 핵심 정보나 데이터가 변환(또는 처리)되는 구체적인 과정은 어떻게 서술되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -142,7 +142,7 @@
     "track": "track2"
   },
   {
-    "query": "방법론 섹션(Method/Approach)에 서술된 여러 설계 결정(Design Choices) 중에서, 연구진이 직관적 혹은 휴리스틱(Heuristic)하게 결정했다고 명시하거나, 대안 대신 특정 방식을 채택한 합리적 근거는 무엇인가?",
+    "query": "방법론(Method) 파트에서, 제안된 시스템(혹은 조사된 프레임워크)이 기존 기술 대비 개선되었다고 서술된 주요 작동 원리나 구조적 특징은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -157,7 +157,7 @@
     "track": "track2"
   },
   {
-    "query": "논문에서 제시된 전체 파이프라인(Pipeline) 또는 로직 구성 시, 중간 과정에서 발생할 수 있는 노이즈(Noise)나 오류(Error)를 보정/처리하기 위해 설계된 구체적인 메커니즘이나 방어 로직은 무엇인가?",
+    "query": "논문의 주요 아키텍처 구조 설명 부분에서, 핵심 모듈들 간의 상호작용이나 정보 전달 흐름은 어떻게 정의되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -172,7 +172,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구에서 제안된 핵심 메커니즘(또는 조사된 주요 기술 동향)이 기존의 전통적인 방식(Traditional Approach)과 비교할 때, 아키텍처나 구조적 측면에서 가지는 가장 뚜렷한 기술적 차별성(Technical Distinction)은 무엇으로 서술되는가?",
+    "query": "본문에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입되었다고 명시된 구체적인 기법이나 설정 항목은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -187,7 +187,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 방법론(Method)에서 연산 효율성 향상, 확장성 보장, 혹은 품질 개선을 달성하기 위해 도입된 핵심적인 기술적 장치(Technical Component)의 명칭과 그 작동 원리는 어떻게 요약할 수 있는가?",
+    "query": "이 연구에서 다루는 주요 시스템(또는 분석 프레임워크)이 복잡한 작업이나 다양한 입력을 처리하기 위해 내부적으로 나누어 놓은 구체적인 역할 분담 구조는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -202,7 +202,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 다루고 있는 핵심 프레임워크(또는 방법론적 파이프라인)를 실제로 구현(Implementation)하거나 재현(Reproduction)하고자 할 때, 본문에 명시된 가장 까다로운 기술적 요구사항이나 세부 설정 항목은 무엇인가?",
+    "query": "논문의 방법론 파트 마지막 부분에서, 제안된(또는 분석된) 시스템 구조가 최종적으로 산출하는 결과물의 형태나 특징은 어떻게 서술되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -217,7 +217,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 초록(Abstract)에서 가장 첫 문단 혹은 도입부에 걸쳐 제기하고 있는 현재 도메인의 가장 근본적이고 시급한 문제 상황(Problem Statement)은 정확히 무엇인가?",
+    "query": "초록(Abstract)의 첫 문단에서 현재 이 연구 분야가 직면하고 있다고 서술한 가장 근본적인 문제 상황(Problem)이나 배경은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -232,7 +232,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에 명시된 바에 따르면, 이 논문이 달성하고자 하는 궁극적인 연구 목표(Research Objective) 혹은 가장 핵심적인 기여도(Key Contribution) 하나는 무엇으로 규정되어 있는가?",
+    "query": "초록에 명시된 바에 따르면, 이 논문이 제안(또는 포괄적 분석)하는 솔루션의 구체적인 명칭과 그 연구 목적은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -247,7 +247,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 초록에서 기존 연구(Previous Works)가 해결하지 못한 치명적인 공백(Gap)이나 단점을 언급하고 있다면, 그것은 구체적으로 어떤 한계로 묘사되어 있는가?",
+    "query": "이 논문의 초록에서 기존 연구들이 해결하지 못한 공백(Gap)이나 부족한 점으로 지적한 내용은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -262,7 +262,7 @@
     "track": "track2"
   },
   {
-    "query": "초록의 마지막 부분에서 이 논문의 제안(또는 리뷰 분석 결과)이 가져올 궁극적인 파급 효과(Impact)나 미래 연구에 미치는 영향력은 어떤 긍정적인 기대 효과로 서술되어 있는가?",
+    "query": "초록에서 저자들이 본 논문의 접근법(또는 조사 결과)을 통해 얻을 수 있다고 주장하는 가장 중요한 기대 효과(Expected Benefit)나 개선점은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -277,7 +277,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에 요약된 이 논문의 접근법(Approach)이나 방법론적 차별성이, 문제 상황을 타개하기 위해 채택한 가장 핵심적인 아이디어(Core Idea) 혹은 직관(Intuition)은 무엇인가?",
+    "query": "논문의 초록에서, 본 연구가 자체적으로 포괄하고 있는 실험(또는 조사)의 범위(Scope)와 검증 대상에 대해 어떻게 요약하고 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -292,7 +292,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 초록에서, 본 연구가 자체적으로 검증했거나 포괄하고 있는 실험/조사 범위(Scope of Study)에 대해 어떻게 요약하여 설명하고 있는가?",
+    "query": "초록에서 본 논문의 제안(또는 분석 체계)이 기존의 일반적인 방식과 비교하여 가지는 뚜렷한 방법론적 차별성은 무엇으로 서술되는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -307,7 +307,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에서 저자들이 자신들의 연구 결과(실험 수치, 발견 사항 등)를 강조할 때, 가장 강한 어조로 확언(Claim)하거나 혁신적이라고 주장하는 특정 성과는 무엇인가?",
+    "query": "초록의 마지막 부분에서 이 논문의 성과가 해당 학계나 실무에 미칠 긍정적인 파급 효과(Impact)나 기여도는 어떻게 요약되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -322,7 +322,7 @@
     "track": "track2"
   },
   {
-    "query": "관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제와 가장 밀접하게 연관되어 발전해 온 핵심 선행 기술(Prior Technology) 또는 선행 패러다임의 역사적 흐름은 어떻게 요약되어 있는가?",
+    "query": "서론(Introduction)이나 관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제가 발전하게 된 주요 선행 기술(Prior Technology)의 흐름은 어떻게 설명되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -337,7 +337,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 본인들의 우수성이나 차별성을 입증하기 위해, 관련 연구 섹션에서 주로 비교 대상으로 삼고 있는 대표적인 베이스라인(Baseline) 계열이나 기존 방법론의 명칭들은 주로 어떤 것들인가?",
+    "query": "이 논문이 본인들의 차별성을 입증하기 위해 주요 비교 대상(Baseline)으로 삼고 있는 기존 프레임워크나 주요 모델들의 명칭은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -352,7 +352,7 @@
     "track": "track2"
   },
   {
-    "query": "관련 연구(Related Work)에서 기존 문헌들이 공통적으로 간과하고 있거나 제대로 다루지 못했다고 지적받는 특정 연구 주제(Unexplored Area)는 무엇인가?",
+    "query": "관련 연구(Related Work)에서 기존 문헌들이 아직 완벽하게 해결하지 못했다고 언급되는 구체적인 한계점이나 미개척 영역은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -367,7 +367,7 @@
     "track": "track2"
   },
   {
-    "query": "논문 내에서 이론적 배경(Background)이나 관련 연구를 서술할 때, 본 연구의 기반이 되는 가장 핵심적인 개념(Core Concept)이나 선행 연구의 근거는 무엇으로 제시되고 있는가?",
+    "query": "이 논문의 기반이 되는 핵심 개념(Core Concept)을 설명할 때, 본문에서 근거로 삼아 주로 인용하는 주요 이론적 배경이나 선행 논문은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "introduction",
     "type": "citation",
@@ -382,7 +382,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 속한 분야의 관련 연구 동향(Trends)을 서술하는 부분에서, 최근 해당 분야 연구자들이 가장 집중적으로 해결하고자 노력하고 있는 주요 트렌드는 어떻게 설명되어 있는가?",
+    "query": "본 연구와 관련된 분야의 연구 동향(Trends)을 서술하는 부분에서, 최근 연구자들이 극복하고자 집중하고 있는 주요 과제는 어떻게 묘사되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -397,7 +397,7 @@
     "track": "track2"
   },
   {
-    "query": "논문에서 자신들의 기여(Contribution)를 돋보이게 하기 위해, 기존 선행 연구들이 겪고 있는 Trade-off(예: 속도와 정확도의 반비례 등)의 딜레마를 관련 연구 파트에서 어떻게 설명하고 있는가?",
+    "query": "논문에서 자신들의 기여(Contribution)를 명확히 하기 위해, 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 어떻게 설명하고 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -412,7 +412,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 참고문헌(References)이나 관련 연구 맥락을 종합해 볼 때, 이 연구가 가장 강하게 영향(Inspiration)을 받았다고 본문 내에서 명시적으로 언급하는 선행 연구의 방법론적 철학이나 이론은 무엇인가?",
+    "query": "논문 전반에 걸쳐 본 연구의 방법론 구축에 영감(Inspiration)을 주었거나 기반 구조로 채택되었다고 서술된 대표적인 외부 연구나 시스템의 이름은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -427,9 +427,9 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 기존 연구 혹은 기준선(Baseline)들이 공통적으로 실패하거나 부족하다고 지적한 가장 치명적인 한계점(Limitations)은 무엇이며, 그로 인해 초래되는 구체적인 문제 현상은 어떻게 묘사되어 있는가?",
+    "query": "이 논문의 초록(Abstract)에서 제안하거나 중점적으로 분석하고 있는 핵심 시스템(또는 프레임워크, 모델)의 공식 명칭은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "discussion",
+    "ground_truth_source_section": "abstract",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -437,53 +437,11 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "기존 연구의 한계점에 대한 환각 방어",
+    "cad_test_purpose": "논문 핵심 제안 시스템 명칭에 대한 환각 억제 테스트",
     "track": "track2"
   },
   {
-    "query": "논문 내 주요 실험 혹은 프레임워크 설계에 있어서, 가장 핵심적인 제약 조건(Constraints)이나 기술적 병목 현상(Bottleneck)으로 언급된 요소는 무엇이며, 이를 피하기 위해 어떤 원칙이 강조되었는가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework",
-      "paper_ko_hyde_multihop",
-      "paper_ko_cad_contrastive"
-    ],
-    "cad_test_purpose": "설계 제약 조건에 대한 구체적 묘사 환각 제어",
-    "track": "track2"
-  },
-  {
-    "query": "이 연구 또는 조사에서 다루는 주요 시스템/분류체계를 구성하는 여러 하위 모듈(혹은 단계) 중, 전체 성능이나 파급 효과에 가장 결정적인 영향을 미치는 것으로 서술된 특정 모듈(또는 단계)과 그 이유는 무엇인가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework",
-      "paper_ko_hyde_multihop",
-      "paper_ko_cad_contrastive"
-    ],
-    "cad_test_purpose": "모듈별 중요도 및 근거에 대한 환각 억제",
-    "track": "track2"
-  },
-  {
-    "query": "본문에서 가장 비중 있게 다뤄지거나 평가된 벤치마크/데이터셋의 명칭은 무엇이며, 해당 데이터셋이 이 특정 연구(또는 조사)의 목적을 달성하는 데 왜 적합한지 그 논리적 근거는 어떻게 서술되었는가?",
-    "ground_truth": "",
-    "ground_truth_source_section": "experiment",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework",
-      "paper_ko_hyde_multihop",
-      "paper_ko_cad_contrastive"
-    ],
-    "cad_test_purpose": "벤치마크 채택 근거에 대한 지식 기반 환각 방지",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문이 최종적으로 제시하는 여러 결론 중, 향후 후속 연구(Future Work)를 위해 제안된 가장 시급한 과제(Open Problem)는 무엇이며, 그것을 해결해야 하는 이유는 무엇으로 제시되었는가?",
+    "query": "결론(Conclusion) 섹션에서 저자들이 요약하여 강조하는 본 논문의 가장 핵심적인 달성 성과(또는 시사점)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "conclusion",
     "type": "cad_ablation",
@@ -493,13 +451,13 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "후속 연구 방향성에 대한 자의적 추론 억제",
+    "cad_test_purpose": "결론부 성과 요약에 대한 구체적 팩트 기반 환각 방어",
     "track": "track2"
   },
   {
-    "query": "논문에서 시스템 성능이나 연구 결과의 타당성을 입증하기 위해 가장 중요하게 사용된 정성적 또는 정량적 평가 기준(Evaluation Criterion)은 무엇이며, 이 기준이 기존의 일반적인 평가 방식과 어떻게 다른지(혹은 왜 선택되었는지) 설명하시오.",
+    "query": "서론(Introduction)에서 이 논문의 연구(또는 조사)가 시작된 핵심적인 동기(Motivation)나 배경으로 명시된 현상은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "experiment",
+    "ground_truth_source_section": "introduction",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -507,11 +465,25 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "평가 메트릭 선택의 구체적 근거 환각 방어",
+    "cad_test_purpose": "연구 동기 서술에 대한 자의적 추론 환각 제어",
     "track": "track2"
   },
   {
-    "query": "이 연구가 학술적 영역을 넘어 실제 애플리케이션(Real-world Application)이나 산업 현장에 적용될 때 발생할 수 있는 주요 장애물(Obstacle)이나 고려해야 할 현실적 문제점은 본문에서 어떻게 논의되고 있는가?",
+    "query": "본문의 주요 방법론(또는 리뷰 분석 내용)을 구성하는 전체 아키텍처(파이프라인)에서 언급된 주요 단계(Phase)나 핵심 분류 기준들은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "시스템 아키텍처 분류 체계에 대한 사전 지식 환각 방지",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 기존 방식(또는 선행 연구)들이 가지고 있다고 명시적으로 지적한 주요 단점이나 한계(Limitations) 중 하나는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "discussion",
     "type": "cad_ablation",
@@ -521,11 +493,39 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "실무 적용 한계점에 대한 과장된 환각 통제",
+    "cad_test_purpose": "기존 기술 한계점에 대한 환각 통제",
     "track": "track2"
   },
   {
-    "query": "논문의 방법론(Methodology) 또는 전체 시스템 아키텍처(System Architecture) 파트에서, 입력 데이터(Input)가 최종 출력(Output)으로 변환되기까지 거치는 가장 첫 번째 핵심 단계(Initial Step)의 구체적인 역할과 목적은 무엇인가?",
+    "query": "논문의 참고문헌(References)이나 관련 연구 파트에서, 본 연구 주제와 밀접하게 관련되어 언급되는 대표적인 기존 기술(혹은 모델)의 명칭은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "related_work",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "관련 선행 기술 명칭 환각 방어",
+    "track": "track2"
+  },
+  {
+    "query": "결론(Conclusion)의 마지막 부분에서, 저자들이 본 논문의 연구 결과를 바탕으로 향후 필요하다고 제안한 미래 연구 방향(Future Work)은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "conclusion",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "후속 연구 과제에 대한 논리적 비약 및 환각 억제",
+    "track": "track2"
+  },
+  {
+    "query": "논문의 본문(Method, Approach 등)에서 제시하는 핵심 시스템(혹은 분류 체계)의 가장 첫 번째 처리 단계(또는 첫 번째 하위 카테고리)의 명칭과 역할은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -538,7 +538,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하거나 정리한 전체 프레임워크(Framework) 내에서, 서로 다른 두 개의 모듈(또는 개념적 분류) 간의 정보 흐름(Information Flow)이나 상호작용 방식은 구체적으로 어떻게 설계되어 있는가?",
+    "query": "이 논문에서 설명하는 주요 파이프라인 내부에서, 핵심 정보나 데이터가 변환(또는 처리)되는 구체적인 과정은 어떻게 서술되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -551,7 +551,7 @@
     "track": "track2"
   },
   {
-    "query": "방법론 섹션(Method/Approach)에 서술된 여러 설계 결정(Design Choices) 중에서, 연구진이 직관적 혹은 휴리스틱(Heuristic)하게 결정했다고 명시하거나, 대안 대신 특정 방식을 채택한 합리적 근거는 무엇인가?",
+    "query": "방법론(Method) 파트에서, 제안된 시스템(혹은 조사된 프레임워크)이 기존 기술 대비 개선되었다고 서술된 주요 작동 원리나 구조적 특징은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -564,7 +564,7 @@
     "track": "track2"
   },
   {
-    "query": "논문에서 제시된 전체 파이프라인(Pipeline) 또는 로직 구성 시, 중간 과정에서 발생할 수 있는 노이즈(Noise)나 오류(Error)를 보정/처리하기 위해 설계된 구체적인 메커니즘이나 방어 로직은 무엇인가?",
+    "query": "논문의 주요 아키텍처 구조 설명 부분에서, 핵심 모듈들 간의 상호작용이나 정보 전달 흐름은 어떻게 정의되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -577,7 +577,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구에서 제안된 핵심 메커니즘(또는 조사된 주요 기술 동향)이 기존의 전통적인 방식(Traditional Approach)과 비교할 때, 아키텍처나 구조적 측면에서 가지는 가장 뚜렷한 기술적 차별성(Technical Distinction)은 무엇으로 서술되는가?",
+    "query": "본문에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입되었다고 명시된 구체적인 기법이나 설정 항목은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -590,7 +590,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 방법론(Method)에서 연산 효율성 향상, 확장성 보장, 혹은 품질 개선을 달성하기 위해 도입된 핵심적인 기술적 장치(Technical Component)의 명칭과 그 작동 원리는 어떻게 요약할 수 있는가?",
+    "query": "이 연구에서 다루는 주요 시스템(또는 분석 프레임워크)이 복잡한 작업이나 다양한 입력을 처리하기 위해 내부적으로 나누어 놓은 구체적인 역할 분담 구조는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -603,7 +603,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 다루고 있는 핵심 프레임워크(또는 방법론적 파이프라인)를 실제로 구현(Implementation)하거나 재현(Reproduction)하고자 할 때, 본문에 명시된 가장 까다로운 기술적 요구사항이나 세부 설정 항목은 무엇인가?",
+    "query": "논문의 방법론 파트 마지막 부분에서, 제안된(또는 분석된) 시스템 구조가 최종적으로 산출하는 결과물의 형태나 특징은 어떻게 서술되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -616,7 +616,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 초록(Abstract)에서 가장 첫 문단 혹은 도입부에 걸쳐 제기하고 있는 현재 도메인의 가장 근본적이고 시급한 문제 상황(Problem Statement)은 정확히 무엇인가?",
+    "query": "초록(Abstract)의 첫 문단에서 현재 이 연구 분야가 직면하고 있다고 서술한 가장 근본적인 문제 상황(Problem)이나 배경은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -629,7 +629,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에 명시된 바에 따르면, 이 논문이 달성하고자 하는 궁극적인 연구 목표(Research Objective) 혹은 가장 핵심적인 기여도(Key Contribution) 하나는 무엇으로 규정되어 있는가?",
+    "query": "초록에 명시된 바에 따르면, 이 논문이 제안(또는 포괄적 분석)하는 솔루션의 구체적인 명칭과 그 연구 목적은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -642,7 +642,7 @@
     "track": "track2"
   },
   {
-    "query": "논문의 초록에서 기존 연구(Previous Works)가 해결하지 못한 치명적인 공백(Gap)이나 단점을 언급하고 있다면, 그것은 구체적으로 어떤 한계로 묘사되어 있는가?",
+    "query": "이 논문의 초록에서 기존 연구들이 해결하지 못한 공백(Gap)이나 부족한 점으로 지적한 내용은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -655,7 +655,7 @@
     "track": "track2"
   },
   {
-    "query": "초록의 마지막 부분에서 이 논문의 제안(또는 리뷰 분석 결과)이 가져올 궁극적인 파급 효과(Impact)나 미래 연구에 미치는 영향력은 어떤 긍정적인 기대 효과로 서술되어 있는가?",
+    "query": "초록에서 저자들이 본 논문의 접근법(또는 조사 결과)을 통해 얻을 수 있다고 주장하는 가장 중요한 기대 효과(Expected Benefit)나 개선점은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -668,7 +668,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에 요약된 이 논문의 접근법(Approach)이나 방법론적 차별성이, 문제 상황을 타개하기 위해 채택한 가장 핵심적인 아이디어(Core Idea) 혹은 직관(Intuition)은 무엇인가?",
+    "query": "논문의 초록에서, 본 연구가 자체적으로 포괄하고 있는 실험(또는 조사)의 범위(Scope)와 검증 대상에 대해 어떻게 요약하고 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -681,7 +681,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 초록에서, 본 연구가 자체적으로 검증했거나 포괄하고 있는 실험/조사 범위(Scope of Study)에 대해 어떻게 요약하여 설명하고 있는가?",
+    "query": "초록에서 본 논문의 제안(또는 분석 체계)이 기존의 일반적인 방식과 비교하여 가지는 뚜렷한 방법론적 차별성은 무엇으로 서술되는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -694,7 +694,7 @@
     "track": "track2"
   },
   {
-    "query": "초록에서 저자들이 자신들의 연구 결과(실험 수치, 발견 사항 등)를 강조할 때, 가장 강한 어조로 확언(Claim)하거나 혁신적이라고 주장하는 특정 성과는 무엇인가?",
+    "query": "초록의 마지막 부분에서 이 논문의 성과가 해당 학계나 실무에 미칠 긍정적인 파급 효과(Impact)나 기여도는 어떻게 요약되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -707,7 +707,7 @@
     "track": "track2"
   },
   {
-    "query": "관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제와 가장 밀접하게 연관되어 발전해 온 핵심 선행 기술(Prior Technology) 또는 선행 패러다임의 역사적 흐름은 어떻게 요약되어 있는가?",
+    "query": "서론(Introduction)이나 관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제가 발전하게 된 주요 선행 기술(Prior Technology)의 흐름은 어떻게 설명되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -720,7 +720,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 본인들의 우수성이나 차별성을 입증하기 위해, 관련 연구 섹션에서 주로 비교 대상으로 삼고 있는 대표적인 베이스라인(Baseline) 계열이나 기존 방법론의 명칭들은 주로 어떤 것들인가?",
+    "query": "이 논문이 본인들의 차별성을 입증하기 위해 주요 비교 대상(Baseline)으로 삼고 있는 기존 프레임워크나 주요 모델들의 명칭은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -733,7 +733,7 @@
     "track": "track2"
   },
   {
-    "query": "관련 연구(Related Work)에서 기존 문헌들이 공통적으로 간과하고 있거나 제대로 다루지 못했다고 지적받는 특정 연구 주제(Unexplored Area)는 무엇인가?",
+    "query": "관련 연구(Related Work)에서 기존 문헌들이 아직 완벽하게 해결하지 못했다고 언급되는 구체적인 한계점이나 미개척 영역은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -746,7 +746,7 @@
     "track": "track2"
   },
   {
-    "query": "논문 내에서 이론적 배경(Background)이나 관련 연구를 서술할 때, 본 연구의 기반이 되는 가장 핵심적인 개념(Core Concept)이나 선행 연구의 근거는 무엇으로 제시되고 있는가?",
+    "query": "이 논문의 기반이 되는 핵심 개념(Core Concept)을 설명할 때, 본문에서 근거로 삼아 주로 인용하는 주요 이론적 배경이나 선행 논문은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "introduction",
     "type": "citation",
@@ -759,7 +759,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 속한 분야의 관련 연구 동향(Trends)을 서술하는 부분에서, 최근 해당 분야 연구자들이 가장 집중적으로 해결하고자 노력하고 있는 주요 트렌드는 어떻게 설명되어 있는가?",
+    "query": "본 연구와 관련된 분야의 연구 동향(Trends)을 서술하는 부분에서, 최근 연구자들이 극복하고자 집중하고 있는 주요 과제는 어떻게 묘사되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -772,7 +772,7 @@
     "track": "track2"
   },
   {
-    "query": "논문에서 자신들의 기여(Contribution)를 돋보이게 하기 위해, 기존 선행 연구들이 겪고 있는 Trade-off(예: 속도와 정확도의 반비례 등)의 딜레마를 관련 연구 파트에서 어떻게 설명하고 있는가?",
+    "query": "논문에서 자신들의 기여(Contribution)를 명확히 하기 위해, 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 어떻게 설명하고 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
@@ -785,7 +785,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 참고문헌(References)이나 관련 연구 맥락을 종합해 볼 때, 이 연구가 가장 강하게 영향(Inspiration)을 받았다고 본문 내에서 명시적으로 언급하는 선행 연구의 방법론적 철학이나 이론은 무엇인가?",
+    "query": "논문 전반에 걸쳐 본 연구의 방법론 구축에 영감(Inspiration)을 주었거나 기반 구조로 채택되었다고 서술된 대표적인 외부 연구나 시스템의 이름은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "related_work",
     "type": "citation",
