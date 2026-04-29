@@ -397,6 +397,9 @@ Output: non_target_ids (cached tensor)
 ### 4.4 외부 서지 데이터 동적 연계 및 컨텍스트 최적화
 사용자 질의 중 인용 문맥 추적이 필요한 경우(경로 D), 제한된 내부 코퍼스의 한계를 보완하기 위해 arXiv 및 Semantic Scholar 등 외부 서지 데이터베이스를 동적으로 참조(Dynamic grounding)한다. 이는 Yasunaga et al. [9]의 QA-GNN 구조에서 착안한 지식 확장 기법으로, 참고문헌 간의 관계성 및 선행 연구 흐름을 모델 프롬프트에 동적으로 주입하여 답변의 정보량을 증강시킨다. 또한 Liu et al. [29]이 지적한 "Lost in the Middle" 현상을 완화하기 위해, Jiang et al. [11]의 컨텍스트 압축 방법론을 적용하여 질문과 관련성이 높은 핵심 문장만을 정보 밀도가 높은 상태로 유지하여 모델에 입력한다.
 
+### 4.5 기반 언어 모델(Foundation Model) 선정 및 추론 전략
+답변 생성을 위한 기반 모델(Foundation Model)로는 KT Corp. [36]이 발표한 Midm-2.0-Base-Instruct 모델을 채택하였다. 이 모델은 한국어와 영어 코퍼스에 대해 균형 잡힌 다국어 토큰화(Tokenization) 사전을 보유하고 있으며, 한국어 지시어 지향성(Instruction-following)이 우수하여 한국어 질의와 영어 컨텍스트가 혼재된 다국어 RAG 환경에서 발생할 수 있는 언어 간 오정렬(Cross-lingual misalignment)을 최소화하는 데 적합하다. 추론 과정에서는 VRAM 자원의 효율적 활용을 위해 모델 가중치를 bfloat16 정밀도로 적재하며, 디코딩 파이프라인 전반에 걸쳐 컨텍스트 준수(Context-grounding)를 강제하는 엄격한 시스템 프롬프트를 주입하여 대형 모델의 파라메트릭 환각 발생 가능성을 선제적으로 차단한다.
+
 ## 5. 실험 설계
 
 ### 5.1 실험 코퍼스
