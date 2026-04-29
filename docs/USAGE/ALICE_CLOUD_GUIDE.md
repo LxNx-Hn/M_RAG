@@ -87,6 +87,8 @@ PDF로 다시 받아 덮어쓸 수 있다.
 | 영어 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor |
 | 한국어/MIDM | paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive |
 
+`paper_ko_rag_rrf_chunking`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다.
+
 ## 쿼리 생성
 
 `OPENAI_API_KEY`가 설정되어 있으면 `master_run.py`가 인덱싱 뒤 Track 1 논문별 특화 쿼리를 자동 생성한다. 저장소의 `track1_queries.json`은 런타임 생성을 위한 자리표시 파일이다. 생성 결과를 미리 확인하거나 수동 재생성할 때는 다음 명령을 사용한다.
@@ -186,6 +188,10 @@ pip install --force-reinstall torch --index-url https://download.pytorch.org/whl
 ### 503 during indexing
 
 API 서버가 DB 또는 모델 초기화를 끝내지 못했을 수 있다. `scripts/master_run.log`와 `/health` 상태를 확인한다.
+
+### PDF 업로드가 바로 거부되는 경우
+
+텍스트 추출 품질이 낮은 PDF는 색인 전에 차단된다. OCR 처리본이나 다른 원본 PDF로 다시 시도한다.
 
 ### git pull 전 로그나 결과가 사라질까 걱정되는 경우
 

@@ -51,8 +51,8 @@ REPO_INCLUDED_PAPERS = [
     {
         "id": "paper_ko_rag_rrf_chunking",
         "arxiv_id": None,
-        "title": "Korean RAG with RRF and Chunking",
-        "desc": "Korean RAG chunking/fusion paper (tracked in repo).",
+        "title": "HyDE-Based Multi-Hop Retrieval Approach",
+        "desc": "Korean HyDE multi-hop retrieval paper (tracked in repo).",
     },
     {
         "id": "paper_ko_cad_contrastive",

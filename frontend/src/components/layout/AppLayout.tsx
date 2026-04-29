@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FileText, MessageCircle, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen } from 'lucide-react'
 import TopBar from './TopBar'
-import SourcePanel from '@/components/source/SourcePanel'
-import PDFViewer from '@/components/viewer/PDFViewer'
-import ChatPanel from '@/components/chat/ChatPanel'
 import { useUIStore } from '@/stores/uiStore'
+
+const SourcePanel = lazy(() => import('@/components/source/SourcePanel'))
+const PDFViewer = lazy(() => import('@/components/viewer/PDFViewer'))
+const ChatPanel = lazy(() => import('@/components/chat/ChatPanel'))
 
 export default function AppLayout() {
   const { t } = useTranslation()
@@ -91,12 +92,18 @@ export default function AppLayout() {
           }`}
           style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-color)' }}
         >
-          {leftPanelOpen && <SourcePanel />}
+          {leftPanelOpen && (
+            <Suspense fallback={<PanelFallback label={t('source.title')} />}>
+              <SourcePanel />
+            </Suspense>
+          )}
         </div>
 
         {/* 중앙 패널 */}
         <div className="flex-1 flex flex-col min-w-0">
-          <PDFViewer />
+          <Suspense fallback={<PanelFallback label={t('viewer.title')} />}>
+            <PDFViewer />
+          </Suspense>
         </div>
 
         {/* 우측 패널 */}
@@ -106,16 +113,42 @@ export default function AppLayout() {
           }`}
           style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-color)' }}
         >
-          {rightPanelOpen && <ChatPanel />}
+          {rightPanelOpen && (
+            <Suspense fallback={<PanelFallback label={t('chat.title')} />}>
+              <ChatPanel />
+            </Suspense>
+          )}
         </div>
       </div>
 
       {/* 모바일 콘텐츠 */}
       <div className="flex-1 md:hidden overflow-hidden">
-        {mobileTab === 'source' && <SourcePanel />}
-        {mobileTab === 'viewer' && <PDFViewer />}
-        {mobileTab === 'chat' && <ChatPanel />}
+        {mobileTab === 'source' && (
+          <Suspense fallback={<PanelFallback label={t('source.title')} />}>
+            <SourcePanel />
+          </Suspense>
+        )}
+        {mobileTab === 'viewer' && (
+          <Suspense fallback={<PanelFallback label={t('viewer.title')} />}>
+            <PDFViewer />
+          </Suspense>
+        )}
+        {mobileTab === 'chat' && (
+          <Suspense fallback={<PanelFallback label={t('chat.title')} />}>
+            <ChatPanel />
+          </Suspense>
+        )}
       </div>
+    </div>
+  )
+}
+
+function PanelFallback({ label }: { label: string }) {
+  return (
+    <div className="flex h-full items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
+      <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+        {label}
+      </p>
     </div>
   )
 }

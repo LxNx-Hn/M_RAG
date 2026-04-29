@@ -84,7 +84,7 @@ download script is still useful for refreshing the English PDFs, but a fresh
 | paper_nlp_raptor | English | arXiv 2401.18059 |
 | paper_midm | Korean | MIDM-2.0 Technical Report |
 | paper_ko_rag_eval_framework | Korean | Korean RAG Evaluation Framework |
-| paper_ko_rag_rrf_chunking | Korean | Korean RAG RRF/Chunking |
+| paper_ko_rag_rrf_chunking | Korean | HyDE-Based Multi-Hop Retrieval Approach |
 | paper_ko_cad_contrastive | Korean | Korean CAD Contrastive Decoding |
 
 Alice setup: `git pull` -> all 8 papers immediately available in `backend/data/`.
@@ -132,3 +132,5 @@ Alice setup: `git pull` -> all 8 papers immediately available in `backend/data/`
 - `rerun_cad_affected.sh` archives previous results to `_archive/<timestamp>/` instead of deleting them
 - `hybrid_retriever.py` uses a restricted unpickler for BM25 index loading (hardening)
 - `limiter.py` only trusts proxy headers when `TRUST_PROXY_HEADERS=true` is set
+- `generate_queries.py` now uses Korean grounding prompts plus exact `answer_span` validation to reduce `Not found in document.`
+- low-quality PDF uploads are rejected before indexing and surfaced in the source panel UI

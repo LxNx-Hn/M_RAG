@@ -103,6 +103,9 @@ _PATENT_SIGNALS = re.compile(
     r"|배경\s*기술|해결하려는\s*과제|과제의\s*해결\s*수단|【청구항)"
 )
 
+_REFERENCE_ENTRY_RE = re.compile(r"^\s*(\[\d+\]|\d+\.)\s+")
+_AUTHOR_BIO_RE = re.compile(r"(?i)(저\s*자\s*소\s*개|author\s*bio(?:graphy)?)")
+
 # 패턴 맵: doc_type → 패턴 dict
 _PATTERN_MAP = {
     "paper": SECTION_PATTERNS,
@@ -157,6 +160,9 @@ class SectionDetector:
                 current_section = detected
 
             block.section_type = current_section
+
+        if doc_type == "paper":
+            self._infer_reference_section(document, body_font, patterns)
 
         return document
 
@@ -250,6 +256,100 @@ class SectionDetector:
                     return section_type
 
         return None
+
+    def _infer_reference_section(
+        self,
+        document: ParsedDocument,
+        body_font: float,
+        patterns: dict,
+    ) -> None:
+        if any(block.section_type == "references" for block in document.blocks):
+            return
+
+        min_reference_page = max(
+            int(document.total_pages * 0.65), document.total_pages - 5
+        )
+        start_idx: Optional[int] = None
+
+        for index, block in enumerate(document.blocks):
+            if block.block_type not in ("text", "heading"):
+                continue
+            if block.page < min_reference_page:
+                continue
+            if not self._looks_like_reference_entry(block.content):
+                continue
+
+            window = [
+                candidate
+                for candidate in document.blocks[index : index + 16]
+                if candidate.block_type in ("text", "heading")
+            ]
+            reference_like = sum(
+                1
+                for candidate in window
+                if self._looks_like_reference_entry(candidate.content)
+            )
+            if reference_like >= 3:
+                start_idx = index
+                break
+
+        if start_idx is None:
+            return
+
+        stop_idx = len(document.blocks)
+        start_page = document.blocks[start_idx].page
+        for index in range(start_idx + 1, len(document.blocks)):
+            block = document.blocks[index]
+            if block.block_type not in ("text", "heading"):
+                continue
+            if block.page <= start_page:
+                continue
+            if self._is_post_reference_restart(block, body_font, patterns):
+                stop_idx = index
+                break
+
+        for index in range(start_idx, stop_idx):
+            document.blocks[index].section_type = "references"
+
+    @staticmethod
+    def _looks_like_reference_entry(text: str) -> bool:
+        compact = " ".join(text.split())
+        numbered_match = _REFERENCE_ENTRY_RE.match(compact)
+        if numbered_match:
+            remainder = compact[numbered_match.end() :].strip()
+            if re.match(r"^[A-Z][A-Za-z'`\-]+,\s+[A-Z]\.", remainder):
+                return True
+            if re.search(r"\bet al\.", remainder, flags=re.IGNORECASE):
+                return True
+            if re.search(
+                r"\bdoi\b|arxiv|retrieval|generation|language model",
+                remainder,
+                flags=re.IGNORECASE,
+            ):
+                return True
+            return False
+        return bool(
+            re.match(
+                r"^[A-Z][A-Za-z'`\-]+,\s+[A-Z]\.",
+                compact,
+            )
+        )
+
+    def _is_post_reference_restart(
+        self,
+        block: TextBlock,
+        body_font: float,
+        patterns: dict,
+    ) -> bool:
+        text = block.content.strip()
+        if _AUTHOR_BIO_RE.search(text):
+            return True
+
+        detected = self._detect_section_type(block, body_font, patterns)
+        if detected and detected != "references":
+            return True
+
+        return block.font_size >= body_font * 1.5 and len(text) >= 20
 
     def get_section_blocks(
         self, document: ParsedDocument, section_type: str

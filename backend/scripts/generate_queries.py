@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Generate paper-specific evaluation queries with an OpenAI model.
-
-The source is intentionally ASCII-only. Korean output is requested through
-English prompts and validated with Unicode escape based patterns so the script
-does not depend on terminal code pages or editor encoding heuristics.
-"""
+"""Generate paper-specific evaluation queries with an OpenAI model."""
 
 from __future__ import annotations
 
@@ -54,14 +49,14 @@ EXPECTED_ROUTE = {
 }
 
 MAIN_SECTION_QUERIES = [
-    ("abstract", "specific contribution claim problem setting abstract"),
-    ("method", "specific method architecture algorithm training objective"),
-    ("result", "specific results metrics ablation performance numbers"),
-    ("related_work", "specific prior work baseline comparison"),
+    ("abstract", "초록 abstract 핵심 기여 contribution problem setting"),
+    ("method", "방법 method architecture 알고리즘 training objective 구현"),
+    ("result", "결과 result metric 실험 성능 수치 비교 ablation"),
+    ("related_work", "관련 연구 related work baseline comparison prior work"),
 ]
 CITATION_SECTION_QUERIES = [
-    ("related_work", "specific cited work baseline author comparison"),
-    ("references", "specific cited work author title baseline reference"),
+    ("related_work", "인용 cited work baseline author comparison related work"),
+    ("references", "참고문헌 cited work author title baseline reference"),
 ]
 
 # Korean phrases are written with Unicode escapes to keep this file ASCII-only.
@@ -89,7 +84,14 @@ GENERIC_QUERY_PATTERNS = [
     "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc81c\uc548\ub41c\\s+\ubaa8\ub378",
     "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc0ac\uc6a9\ub41c\\s+\ub370\uc774\ud130\uc14b",
     "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc778\uc6a9\ub41c\\s+\uc8fc\uc694",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc5b8\uae09\ub41c\\s+\ud2b9\uc815",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc0ac\uc6a9\ub41c\\s+\uc8fc\uc694",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc81c\uc548\ub41c\\s+\ubc29\ubc95\\s+\uc911\\s+\ud558\ub098",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc81c\uc2dc\ub41c\\s+\ud2b9\uc815\\s+\uacb0\uacfc\\s+\uac12",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc8fc\uc7a5\ud558\ub294\\s+\ud2b9\uc815\\s+\uc0ac\uc2e4",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc778\uc6a9\ub41c\\s+\ud2b9\uc815\\s+\uc5f0\uad6c",
     "^what\\s+are\\s+the\\s+key\\s+contributions\\s+of\\s+the\\s+model",
+    "^what\\s+is\\s+one\\s+specific\\s+method\\s+mentioned\\s+in\\s+the\\s+paper",
 ]
 
 KOREAN_RE = re.compile("[\uac00-\ud7a3]")
@@ -244,7 +246,7 @@ def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
             args.collection,
             paper,
             None,
-            f"{paper} main contribution method result",
+            f"{paper} 핵심 기여 main contribution method result 결과",
             args.top_k,
             args.timeout,
         )
@@ -261,7 +263,7 @@ def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
                 args.collection,
                 paper,
                 None,
-                f"{paper} cited work author baseline reference",
+                f"{paper} 인용 cited work author baseline reference 참고문헌",
                 args.top_k,
                 args.timeout,
             )
@@ -294,11 +296,20 @@ def _schema_json(first_type: str, paper: str) -> str:
                     "query": "...",
                     "type": first_type,
                     "applicable_papers": [paper],
+                    "answer_span": "...",
                 }
             ]
         },
         ensure_ascii=False,
     )
+
+
+def _normalize_text(text: str) -> str:
+    return " ".join(text.lower().split())
+
+
+def _context_contains_answer_span(context: str, answer_span: str) -> bool:
+    return _normalize_text(answer_span) in _normalize_text(context)
 
 
 def _prompt_for_track(
@@ -310,69 +321,58 @@ def _prompt_for_track(
     feedback_block = ""
     if feedback:
         feedback_block = (
-            "\nPrevious attempt was rejected for this reason:\n"
+            "\n이전 시도가 다음 이유로 거부되었습니다:\n"
             f"{feedback}\n"
-            "Regenerate all queries and avoid the rejected pattern.\n"
+            "거부된 패턴을 피해서 8개/7개 전체를 다시 생성하세요.\n"
         )
 
     if track == "track1":
         types = ", ".join(TRACK1_TYPES)
         return (
-            "You are building a high-precision academic RAG evaluation set.\n"
-            f"Use only the excerpts below for doc_id '{paper}'.\n"
-            "Generate exactly eight queries in this order:\n"
+            "당신은 학술 RAG 평가 데이터셋을 만드는 전문가입니다.\n"
+            f"아래 발췌문은 doc_id '{paper}'의 내용만 포함합니다.\n"
+            "아래 순서대로 정확히 8개의 쿼리를 생성하세요:\n"
             f"{types}\n\n"
-            "Rules:\n"
-            "- All queries must be natural Korean, except crosslingual_en, "
-            "which must be natural English.\n"
-            "- Each query must ask about a concrete fact, method, dataset, "
-            "metric, number, or cited work explicitly present in the excerpts.\n"
-            "- Do not ask meta questions such as which section contains "
-            "something, what the abstract says in general, or where a "
-            "reference is located.\n"
-            "- Do not invent terms from nearby references unless the main "
-            f"excerpts clearly state that they are central to '{paper}'.\n"
-            "- Only the citation query may use Citation-only excerpts. All "
-            "other query types must be grounded in Main excerpts.\n"
-            "- For section_method, ask about one named method or implementation "
-            "detail from the method/main excerpts.\n"
-            "- For section_result, ask about one specific result, metric, "
-            "comparison, or numeric value from the result/main excerpts.\n"
-            "- For section_abstract, ask about one specific claim from the "
-            "abstract/main excerpts, not a summary of the abstract itself.\n"
-            "- For citation, ask about a specific cited prior work, author, or "
-            "baseline that appears in Citation-only or Main excerpts.\n"
-            f"- applicable_papers must be exactly ['{paper}'].\n"
+            "규칙:\n"
+            "- 모든 쿼리는 자연스러운 한국어로 작성하세요. 단, crosslingual_en만 자연스러운 영어로 작성하세요.\n"
+            "- 각 쿼리는 발췌문에 명시된 구체적 사실, 수치, 메트릭, 데이터셋, 모델명, 방법명, 저자명 중 하나 이상에 근거해야 합니다.\n"
+            "- '이 논문에서 언급된 특정 ...' 같은 포괄적 문장을 쓰지 마세요.\n"
+            "- 어느 섹션에 있는지, 초록이 일반적으로 무엇을 말하는지, 참고문헌이 어디 있는지 묻는 메타 질문을 만들지 마세요.\n"
+            f"- Main excerpts에 명시되지 않은 용어를 '{paper}'의 핵심 사실처럼 만들지 마세요.\n"
+            "- citation 타입만 Citation-only excerpts를 사용할 수 있습니다. 나머지 타입은 모두 Main excerpts만 근거로 삼으세요.\n"
+            "- section_method는 방법 섹션에 실제로 등장하는 구현 세부사항, 알고리즘, 설계 선택 중 하나를 물어야 합니다.\n"
+            "- section_result는 실제 결과값, 비교 결과, 메트릭, 수치 중 하나를 물어야 합니다.\n"
+            "- section_abstract는 초록 전체 요약이 아니라 초록에 명시된 구체적 주장 하나를 물어야 합니다.\n"
+            "- citation은 실제로 인용된 선행연구, 저자, baseline 하나를 구체적으로 물어야 합니다.\n"
+            "- 각 항목에는 answer_span 필드를 반드시 포함하세요. answer_span은 발췌문에 그대로 등장하는 5~80자 길이의 짧은 답 단서여야 합니다.\n"
+            "- answer_span은 질문에 대한 답을 직접 뒷받침해야 하며, 발췌문에 없는 표현을 쓰면 안 됩니다.\n"
+            f"- applicable_papers는 정확히 ['{paper}'] 이어야 합니다.\n"
             f"{feedback_block}\n"
-            "[Paper excerpts]\n"
+            "[발췌문]\n"
             f"{context[:14000]}\n\n"
-            "[Output format - JSON only]\n"
+            "[출력 형식 - JSON only]\n"
             f"{_schema_json('simple_qa', paper)}"
         )
 
     types = ", ".join(TRACK2_TYPES)
     return (
-        "You are building high-precision Track 2 RAG evaluation queries.\n"
-        f"Use only the excerpts below for doc_id '{paper}'.\n"
-        "Generate exactly seven Korean queries in this order:\n"
+        "당신은 Track 2 학술 RAG 평가 쿼리를 만드는 전문가입니다.\n"
+        f"아래 발췌문은 doc_id '{paper}'의 내용만 포함합니다.\n"
+        "아래 순서대로 정확히 7개의 한국어 쿼리를 생성하세요:\n"
         f"{types}\n\n"
-        "Rules:\n"
-        "- Every query must be answerable from the excerpts.\n"
-        "- cad_ablation queries must ask about a concrete number, parameter, "
-        "experimental setting, or result stated in the main excerpts.\n"
-        "- section_method and section_abstract queries must ask about a "
-        "specific named detail, not the section as a document structure.\n"
-        "- Only the citation query may use Citation-only excerpts. All other "
-        "query types must be grounded in Main excerpts.\n"
-        "- citation queries must mention a concrete cited work, baseline, or "
-        "author name found in the excerpts.\n"
-        "- Do not ask generic questions beginning with 'this paper'.\n"
-        "- Do not ask where a section or reference is located.\n"
-        f"- applicable_papers must be exactly ['{paper}'].\n"
+        "규칙:\n"
+        "- 모든 쿼리는 발췌문만으로 답할 수 있어야 합니다.\n"
+        "- cad_ablation은 실제 수치, 파라미터, 실험 설정, 결과값을 물어야 합니다.\n"
+        "- section_method와 section_abstract는 섹션 구조가 아니라 실제 고유명사, 설계 선택, 핵심 주장 하나를 물어야 합니다.\n"
+        "- citation 타입만 Citation-only excerpts를 사용할 수 있습니다. 나머지 타입은 모두 Main excerpts만 근거로 삼으세요.\n"
+        "- citation은 실제로 등장하는 선행연구, baseline, 저자명 중 하나를 구체적으로 물어야 합니다.\n"
+        "- '이 논문에서...'처럼 일반적인 질문이나, 섹션/참고문헌 위치를 묻는 질문은 금지합니다.\n"
+        "- 각 항목에는 answer_span 필드를 반드시 포함하세요. answer_span은 발췌문에 그대로 등장하는 5~80자 길이의 짧은 답 단서여야 합니다.\n"
+        f"- applicable_papers는 정확히 ['{paper}'] 이어야 합니다.\n"
         f"{feedback_block}\n"
-        "[Paper excerpts]\n"
+        "[발췌문]\n"
         f"{context[:14000]}\n\n"
-        "[Output format - JSON only]\n"
+        "[출력 형식 - JSON only]\n"
         f"{_schema_json('cad_ablation', paper)}"
     )
 
@@ -454,7 +454,12 @@ def _assert_query_quality(paper: str, query_type: str, query: str) -> None:
         raise ValueError(f"{paper}/{query_type}: expected Korean query.")
 
 
-def normalise_queries(track: str, paper: str, queries: list[dict]) -> list[dict]:
+def normalise_queries(
+    track: str,
+    paper: str,
+    queries: list[dict],
+    context: str,
+) -> list[dict]:
     expected = TRACK1_TYPES if track == "track1" else TRACK2_TYPES
     if len(queries) != len(expected):
         raise ValueError(
@@ -470,6 +475,15 @@ def normalise_queries(track: str, paper: str, queries: list[dict]) -> list[dict]
         if query_type != expected_type:
             raise ValueError(
                 f"{paper}: expected type {expected_type}, got {query_type}."
+            )
+        answer_span = str(item.get("answer_span", "")).strip()
+        if not answer_span:
+            raise ValueError(f"{paper}/{query_type}: missing answer_span.")
+        if len(answer_span) < 5 or len(answer_span) > 80:
+            raise ValueError(f"{paper}/{query_type}: invalid answer_span length.")
+        if not _context_contains_answer_span(context, answer_span):
+            raise ValueError(
+                f"{paper}/{query_type}: answer_span not grounded in excerpts."
             )
         _assert_query_quality(paper, query_type, query)
         normalised.append(
@@ -502,7 +516,7 @@ def generate_validated_queries(
     for attempt in range(1, attempts + 1):
         generated = generate_for_paper(args, paper, context, feedback=feedback)
         try:
-            return normalise_queries(args.track, paper, generated)
+            return normalise_queries(args.track, paper, generated, context)
         except ValueError as exc:
             feedback = str(exc)
             if attempt >= attempts:
