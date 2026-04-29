@@ -28,25 +28,6 @@ TRACK1_TYPES = [
     "citation",
     "crosslingual_en",
 ]
-TRACK2_TYPE_COUNTS = {
-    "cad_ablation": 7,
-    "section_method": 7,
-    "section_abstract": 7,
-    "citation": 7,
-}
-TRACK2_GROUP_QUERY_COUNT = sum(TRACK2_TYPE_COUNTS.values())
-TRACK2_SOURCE_SECTIONS = {
-    "abstract",
-    "introduction",
-    "related_work",
-    "method",
-    "experiment",
-    "result",
-    "discussion",
-    "conclusion",
-    "references",
-}
-
 EXPECTED_ROUTE = {
     "simple_qa": "A",
     "section_method": "B",
@@ -88,17 +69,6 @@ BAD_QUERY_PATTERNS = [
     "methodology\\s+section",
     "results?\\s+section",
 ]
-TRACK2_BAD_QUERY_PATTERNS = [
-    pattern
-    for pattern in BAD_QUERY_PATTERNS
-    if pattern
-    not in {
-        "\uc774\\s+\ub17c\ubb38\uc758\\s+\ucd08\ub85d",
-        "\uc774\\s+\ub17c\ubb38\uc758\\s+\ubc29\ubc95\ub860",
-        "\uc774\\s+\ub17c\ubb38\uc758\\s+\uacb0\uacfc",
-    }
-]
-
 GENERIC_QUERY_PATTERNS = [
     "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc81c\uc548\ub41c\\s+\ubaa8\ub378",
     "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc0ac\uc6a9\ub41c\\s+\ub370\uc774\ud130\uc14b",
@@ -114,7 +84,6 @@ GENERIC_QUERY_PATTERNS = [
 ]
 
 KOREAN_RE = re.compile("[\uac00-\ud7a3]")
-TRACK2_ALLOWED_TYPES = tuple(TRACK2_TYPE_COUNTS.keys())
 
 
 def parse_args() -> argparse.Namespace:
@@ -144,13 +113,7 @@ def parse_args() -> argparse.Namespace:
         "--queries-per-paper",
         type=int,
         default=8,
-        help="Track 1 expects 8. Track 2 group generation expects 28.",
-    )
-    parser.add_argument(
-        "--track",
-        choices=["track1", "track2"],
-        default="track1",
-        help="Query schema to generate.",
+        help="Number of queries to generate per paper (Track 1 expects 8).",
     )
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--timeout", type=int, default=120)
@@ -319,16 +282,6 @@ def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
     return "\n\n".join(part for part in parts if part)
 
 
-def collect_group_context(args: argparse.Namespace, papers: list[str]) -> str:
-    group_parts: list[str] = []
-    for paper in papers:
-        context = collect_paper_context(args, paper)
-        if not context:
-            continue
-        group_parts.append(f"===== {paper} =====\n{context}")
-    return "\n\n".join(group_parts)
-
-
 def _track1_schema_json(paper: str) -> str:
     return json.dumps(
         {
@@ -338,23 +291,6 @@ def _track1_schema_json(paper: str) -> str:
                     "type": "simple_qa",
                     "applicable_papers": [paper],
                     "answer_span": "...",
-                }
-            ]
-        },
-        ensure_ascii=False,
-    )
-
-
-def _track2_schema_json(papers: list[str]) -> str:
-    return json.dumps(
-        {
-            "queries": [
-                {
-                    "query": "...",
-                    "type": "cad_ablation",
-                    "ground_truth_source_section": "result",
-                    "cad_test_purpose": "...",
-                    "applicable_papers": papers,
                 }
             ]
         },
@@ -409,49 +345,6 @@ def _track1_prompt(
         f"{context[:14000]}\n\n"
         "[출력 형식 - JSON only]\n"
         f"{_track1_schema_json(paper)}"
-    )
-
-
-def _track2_prompt(
-    papers: list[str],
-    context: str,
-    feedback: str | None = None,
-) -> str:
-    feedback_block = ""
-    if feedback:
-        feedback_block = (
-            "\n이전 시도가 다음 이유로 거절되었습니다.\n"
-            f"{feedback}\n"
-            "거절된 규칙을 반영해서 28개 전체를 다시 생성하세요.\n"
-        )
-
-    paper_list = ", ".join(papers)
-    type_counts = ", ".join(
-        f"{query_type} {count}개" for query_type, count in TRACK2_TYPE_COUNTS.items()
-    )
-    return (
-        "당신은 Track 2 학술 RAG 평가 쿼리를 만드는 전문가입니다.\n"
-        "아래 발췌문은 하나의 논문이 아니라 동일 언어 그룹에 속한 여러 논문에서 모은 excerpts입니다.\n"
-        f"대상 doc_id 묶음: {paper_list}\n"
-        f"정확히 28개 쿼리를 생성하세요: {type_counts}.\n\n"
-        "핵심 규칙:\n"
-        "- 모든 쿼리는 자연스러운 한국어입니다.\n"
-        "- Track 2는 config 비교용 공통 쿼리셋입니다. 따라서 각 쿼리는 applicable_papers에 들어 있는 모든 논문에서 반복 적용 가능해야 합니다.\n"
-        "- 특정 한 논문 이름, 고유 모델명, 고유 데이터셋 이름에만 매달린 질문은 금지합니다.\n"
-        "- 대신 각 논문에서 서로 다른 정답으로 답할 수 있는 공통 질문이어야 합니다. 예: 성능 수치, 핵심 방법 단계, 초록의 문제 정의, 인용 baseline.\n"
-        "- cad_ablation은 수치/실험 설정/세부 결과처럼 hallucination 위험이 높은 질문이어야 합니다.\n"
-        "- section_method는 방법 섹션의 구체적 단계, objective, 설계 선택을 묻습니다.\n"
-        "- section_abstract는 초록에 명시된 문제, 기여, 핵심 주장만 묻습니다.\n"
-        "- citation은 실제 인용된 선행 연구, 비교 baseline, 데이터셋 출처처럼 references/related work로 답할 수 있어야 합니다.\n"
-        "- 메타 질문, 섹션 위치 질문, generic 질문은 금지합니다.\n"
-        "- 각 항목은 query, type, ground_truth_source_section, applicable_papers를 포함해야 합니다.\n"
-        "- cad_ablation 항목은 cad_test_purpose도 반드시 포함해야 합니다.\n"
-        f"- applicable_papers는 정확히 {json.dumps(papers, ensure_ascii=False)} 이어야 합니다.\n"
-        f"{feedback_block}\n"
-        "[발췌문]\n"
-        f"{context[:22000]}\n\n"
-        "[출력 형식 - JSON only]\n"
-        f"{_track2_schema_json(papers)}"
     )
 
 
@@ -582,79 +475,6 @@ def _validate_track1_queries(
     return normalised
 
 
-def _validate_track2_queries(
-    papers: list[str],
-    queries: list[dict[str, Any]],
-) -> list[dict[str, Any]]:
-    label = ",".join(papers)
-    expected_paper_set = set(papers)
-    if len(queries) != TRACK2_GROUP_QUERY_COUNT:
-        raise ValueError(
-            f"{label}: expected {TRACK2_GROUP_QUERY_COUNT} track2 queries."
-        )
-
-    normalised: list[dict[str, Any]] = []
-    counts: Counter[str] = Counter()
-    for item in queries:
-        query = str(item.get("query", "")).strip()
-        query_type = str(item.get("type", "")).strip()
-        if not query:
-            raise ValueError(f"{label}: empty track2 query.")
-        if query_type not in TRACK2_ALLOWED_TYPES:
-            raise ValueError(f"{label}: invalid track2 type {query_type}.")
-
-        applicable = item.get("applicable_papers")
-        if not isinstance(applicable, list) or not applicable:
-            raise ValueError(f"{label}/{query_type}: missing applicable_papers.")
-        applicable_set = {
-            str(doc_id).strip() for doc_id in applicable if str(doc_id).strip()
-        }
-        if applicable_set != expected_paper_set:
-            raise ValueError(
-                f"{label}/{query_type}: applicable_papers must match the full group."
-            )
-
-        source_section = str(item.get("ground_truth_source_section", "")).strip()
-        if not source_section:
-            raise ValueError(
-                f"{label}/{query_type}: missing ground_truth_source_section."
-            )
-        if source_section not in TRACK2_SOURCE_SECTIONS:
-            raise ValueError(
-                f"{label}/{query_type}: invalid source section {source_section}."
-            )
-
-        cad_test_purpose = str(item.get("cad_test_purpose", "")).strip()
-        if query_type == "cad_ablation" and not cad_test_purpose:
-            raise ValueError(f"{label}/{query_type}: missing cad_test_purpose.")
-
-        _assert_query_quality(
-            label,
-            query_type,
-            query,
-            reject_generic=False,
-            bad_patterns=TRACK2_BAD_QUERY_PATTERNS,
-        )
-
-        normalised_item = {
-            "query": query,
-            "ground_truth": "",
-            "ground_truth_source_section": source_section,
-            "type": query_type,
-            "expected_route": EXPECTED_ROUTE[query_type],
-            "applicable_papers": papers,
-            "track": "track2",
-        }
-        if cad_test_purpose:
-            normalised_item["cad_test_purpose"] = cad_test_purpose
-        normalised.append(normalised_item)
-        counts[query_type] += 1
-
-    if counts != Counter(TRACK2_TYPE_COUNTS):
-        raise ValueError(f"{label}: type counts mismatch {counts}.")
-    return normalised
-
-
 def _generate_track1_queries(
     args: argparse.Namespace,
     paper: str,
@@ -679,30 +499,6 @@ def _generate_track1_queries(
     raise RuntimeError(f"{paper}: query generation retry loop exhausted.")
 
 
-def _generate_track2_queries(
-    args: argparse.Namespace,
-    papers: list[str],
-    context: str,
-) -> list[dict[str, Any]]:
-    feedback: str | None = None
-    attempts = max(args.max_generation_attempts, 1)
-    for attempt in range(1, attempts + 1):
-        generated = _call_openai(
-            api_key=args.openai_api_key,
-            model=args.openai_model,
-            prompt=_track2_prompt(papers, context, feedback=feedback),
-            max_tokens=3200,
-        )
-        try:
-            return _validate_track2_queries(papers, generated)
-        except ValueError as exc:
-            feedback = str(exc)
-            if attempt >= attempts:
-                raise
-            print(f"  retry={attempt} reason={feedback}", file=sys.stderr)
-    raise RuntimeError("track2 query generation retry loop exhausted.")
-
-
 def _load_existing_queries(path: Path) -> list[dict[str, Any]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(payload, list):
@@ -712,11 +508,9 @@ def _load_existing_queries(path: Path) -> list[dict[str, Any]]:
 
 def main() -> int:
     args = parse_args()
-    expected_count = (
-        len(TRACK1_TYPES) if args.track == "track1" else TRACK2_GROUP_QUERY_COUNT
-    )
+    expected_count = len(TRACK1_TYPES)
     if args.queries_per_paper != expected_count:
-        raise SystemExit(f"{args.track} requires --queries-per-paper {expected_count}.")
+        raise SystemExit(f"track1 requires --queries-per-paper {expected_count}.")
 
     output = (
         args.output
@@ -728,29 +522,19 @@ def main() -> int:
             f"Output already exists. Use --overwrite or --append: {output}"
         )
 
-    if args.track == "track1":
-        if len(args.papers) == 0:
-            raise SystemExit("track1 requires at least one paper.")
-        all_queries: list[dict[str, Any]] = []
-        for paper in args.papers:
-            print(f"[sample] {paper}")
-            context = collect_paper_context(args, paper)
-            if args.dry_run:
-                print(f"  sampled_chars={len(context)}")
-                continue
-            generated = _generate_track1_queries(args, paper, context)
-            all_queries.extend(generated)
-            print(f"  generated={len(generated)}")
-    else:
-        print(f"[sample-group] {', '.join(args.papers)}")
-        context = collect_group_context(args, args.papers)
+    if len(args.papers) == 0:
+        raise SystemExit("Requires at least one paper.")
+
+    all_queries: list[dict[str, Any]] = []
+    for paper in args.papers:
+        print(f"[sample] {paper}")
+        context = collect_paper_context(args, paper)
         if args.dry_run:
             print(f"  sampled_chars={len(context)}")
-            print(f"  group_size={len(args.papers)}")
-            print("[dry-run] no query file was written.")
-            return 0
-        all_queries = _generate_track2_queries(args, args.papers, context)
-        print(f"  generated={len(all_queries)}")
+            continue
+        generated = _generate_track1_queries(args, paper, context)
+        all_queries.extend(generated)
+        print(f"  generated={len(generated)}")
 
     if args.dry_run:
         print("[dry-run] no query file was written.")

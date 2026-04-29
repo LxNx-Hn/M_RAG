@@ -1,6 +1,6 @@
 [
   {
-    "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
+    "query": "이 논문에서 핵심적으로 다루거나 제안/분석한 프레임워크 또는 주요 패러다임의 명칭은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -12,11 +12,11 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "AI 도메인 수치 → 모델이 파라메트릭 지식으로 답할 위험. CAD 억제 효과 측정.",
+    "cad_test_purpose": "AI 모델/프레임워크 명칭에 대한 환각 억제 테스트",
     "track": "track2"
   },
   {
-    "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
+    "query": "이 논문이 다루는 기술이나 시스템을 평가/설명하기 위해 본문에 언급된 주요 데이터셋(또는 벤치마크) 이름 중 하나는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "experiment",
     "type": "cad_ablation",
@@ -28,13 +28,13 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 흔한 LR을 파라메트릭 지식으로 답할 위험",
+    "cad_test_purpose": "데이터셋 이름에 대한 사전 지식 환각 방지",
     "track": "track2"
   },
   {
-    "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
+    "query": "이 논문에서 기존 연구 혹은 기존 시스템이 가지는 주요 한계점(Limitations)이나 문제점 중 하나로 명시된 것은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "experiment",
+    "ground_truth_source_section": "discussion",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -44,27 +44,11 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
+    "cad_test_purpose": "논문의 한계점을 임의로 지어내는 환각 억제",
     "track": "track2"
   },
   {
-    "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_nlp_bge",
-      "paper_nlp_rag",
-      "paper_nlp_cad",
-      "paper_nlp_raptor",
-      "paper_midm"
-    ],
-    "cad_test_purpose": "모델 규모 수치 — 유사 모델 파라미터 수와 혼동할 위험",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
+    "query": "본문에서 구체적인 결과(또는 수치)를 동반하여 가장 중요하게 보고된 주요 발견(Finding) 또는 주요 분석 결과는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -76,27 +60,11 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
+    "cad_test_purpose": "실험 결과에 대한 임의 생성 방지",
     "track": "track2"
   },
   {
-    "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
-    "ground_truth": "",
-    "ground_truth_source_section": "experiment",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_nlp_bge",
-      "paper_nlp_rag",
-      "paper_nlp_cad",
-      "paper_nlp_raptor",
-      "paper_midm"
-    ],
-    "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문에서 ablation study 결과의 구체적 수치가 얼마야?",
+    "query": "이 논문에서 가장 중점적으로 설명하거나 성능에 큰 영향을 미친다고 강조한 핵심 모듈이나 알고리즘의 이름은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -108,11 +76,43 @@
       "paper_nlp_raptor",
       "paper_midm"
     ],
-    "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
+    "cad_test_purpose": "아키텍처 모듈명 환각 방지",
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 모델의 전체 아키텍처를 설명하라.",
+    "query": "이 논문이 적용될 수 있는 주요 다운스트림 태스크(Downstream Task)나 응용 분야로 본문에서 언급된 것은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "cad_test_purpose": "적용 도메인 환각 방지",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 본문(또는 결론부)에서 향후 연구 방향(Future Work)이나 개선이 필요한 과제로 지적된 사항은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "discussion",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_nlp_bge",
+      "paper_nlp_rag",
+      "paper_nlp_cad",
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "cad_test_purpose": "향후 과제를 지어내는 환각 억제",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 제안하거나 분석하는 전체 파이프라인(Pipeline) 또는 주요 절차의 핵심 단계들을 순서대로 설명하라.",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -127,7 +127,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 사용한 핵심 학습 방법을 단계별로 설명하라.",
+    "query": "이 연구에서 다루는 방법론이 입력(input) 데이터를 전처리하거나 문서를 처리하는 방식은 어떻게 설계되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -142,7 +142,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문 모델 학습에 사용된 목적함수(objective function)는 무엇인가?",
+    "query": "기존 방법의 단점을 보완하기 위해 이 논문에서 중점적으로 논의된 새로운 모듈이나 프레임워크의 역할은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -157,7 +157,7 @@
     "track": "track2"
   },
   {
-    "query": "데이터 전처리 및 입력 표현 방식은 어떻게 설계되었는가?",
+    "query": "이 논문에서 설명하는 텍스트 생성(Generation) 단계 또는 검색(Retrieval) 과정은 구체적으로 어떻게 이루어지는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -172,7 +172,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 방법의 추론(inference) 과정을 설명하라.",
+    "query": "이 연구의 방법론이 성능 향상이나 효율성을 달성하기 위해 사용한 주요 전략(Strategy)이나 아키텍처적 특징은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -187,7 +187,7 @@
     "track": "track2"
   },
   {
-    "query": "제안된 방법이 기존 방법과 다른 핵심 구성 요소는 무엇인가?",
+    "query": "본문에서 시스템이나 프레임워크를 구성하는 세부 모듈들이 서로 어떻게 상호작용하는 것으로 설명되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -202,7 +202,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 사용한 정규화(regularization) 또는 안정화 기법은 무엇인가?",
+    "query": "이 연구의 핵심 알고리즘이나 프레임워크가 최적화하고자 하는 주요 목표(Objective)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -217,7 +217,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 해결하려는 핵심 문제는 무엇인가?",
+    "query": "이 논문이 다루고 있는 가장 핵심적인 연구 문제(Research Problem)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -232,7 +232,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 주요 기여(contribution)를 세 가지로 요약하라.",
+    "query": "이 논문의 초록에서 요약하여 제시하는 주요 기여(Main Contribution) 세 가지는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -247,7 +247,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구의 동기와 배경을 설명하라.",
+    "query": "이 연구가 시작된 동기(Motivation)나 연구의 배경은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -262,7 +262,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 시스템 또는 방법의 이름과 전체 목적은 무엇인가?",
+    "query": "이 논문에서 제안하는 접근법이 기존 기술들과 비교할 때 갖는 가장 큰 차별점은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -277,7 +277,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구가 기존 연구 대비 어떤 점에서 새로운가?",
+    "query": "초록에 명시된 이 논문의 최종 목표(Goal) 또는 달성하고자 하는 궁극적인 목적은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -292,7 +292,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 결론에서 강조하는 핵심 메시지는 무엇인가?",
+    "query": "이 논문의 초록에서 가장 강조하고 있는 실험적 성과나 방법론의 우수성은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -307,7 +307,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구의 한계점은 무엇이고 향후 방향으로 무엇을 제시하는가?",
+    "query": "이 연구가 향후 가져올 수 있는 파급 효과나 적용 가능한 도메인으로 언급된 것은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -322,7 +322,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 가장 직접적으로 발전시킨 선행 연구는 무엇인가?",
+    "query": "이 논문이 제안하는 아이디어의 근간이 되거나 가장 직접적으로 확장한 선행 연구의 이름이나 저자는 누구인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -337,7 +337,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 비교 baseline으로 사용된 방법들은 무엇인가?",
+    "query": "관련 연구(Related Work) 섹션에서 이 논문의 연구 분야와 가장 밀접하다고 언급된 주요 연구 동향은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -352,7 +352,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 사용한 데이터셋은 어떤 선행 연구에서 왔는가?",
+    "query": "이 논문의 본문에서 방법론을 비교하거나 분석하기 위해 주로 인용한 최신 선행 연구들은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -367,7 +367,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 인용하는 가장 중요한 기반 논문 세 편의 제목은 무엇인가?",
+    "query": "이 논문이 사용하거나 언급한 주요 벤치마크/데이터셋을 처음 제안한 원출처 논문은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -382,7 +382,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 방법론적 근거가 되는 선행 연구는 무엇인가?",
+    "query": "이 논문의 방법론이나 이론적 배경을 뒷받침하는 데 가장 중요한 역할을 한 세 편의 참고문헌을 나열하라.",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -397,7 +397,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문과 동시대에 경쟁 관계에 있는 주요 연구들은 무엇인가?",
+    "query": "이 논문에서 기존 연구들의 단점으로 지적하고 있는 부분은 어떤 선행 연구에 대한 비판인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -412,7 +412,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 관련 연구(related work) 섹션에서 언급하는 핵심 연구 흐름은 무엇인가?",
+    "query": "이 논문과 가장 밀접하게 경쟁 관계에 있거나 비교 대상으로 설정된 선행 연구의 핵심 주장은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -427,7 +427,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
+    "query": "이 연구에서 한국어(Korean) 텍스트의 처리나 검색/생성 품질을 높이기 위해 핵심적으로 다루거나 제안한 기법(또는 프레임워크)의 명칭은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -437,11 +437,11 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "AI 도메인 수치 → 모델이 파라메트릭 지식으로 답할 위험. CAD 억제 효과 측정.",
+    "cad_test_purpose": "한국어 특화 모델/기법명 환각 방지",
     "track": "track2"
   },
   {
-    "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
+    "query": "이 논문에서 한국어 모델 혹은 시스템의 성능을 평가하고 검증하기 위해 본문에 언급된 주요 벤치마크나 평가 도구의 이름은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "experiment",
     "type": "cad_ablation",
@@ -451,13 +451,13 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 흔한 LR을 파라메트릭 지식으로 답할 위험",
+    "cad_test_purpose": "한국어 평가 도구/벤치마크명 환각 방지",
     "track": "track2"
   },
   {
-    "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
+    "query": "이 논문에서 기존 연구 혹은 기존 시스템이 가지는 주요 한계점(Limitations)이나 문제점 중 하나로 명시된 것은 무엇인가?",
     "ground_truth": "",
-    "ground_truth_source_section": "experiment",
+    "ground_truth_source_section": "discussion",
     "type": "cad_ablation",
     "expected_route": "B",
     "applicable_papers": [
@@ -465,25 +465,11 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
+    "cad_test_purpose": "논문의 한계점을 임의로 지어내는 환각 억제",
     "track": "track2"
   },
   {
-    "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
-    "ground_truth": "",
-    "ground_truth_source_section": "method",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework",
-      "paper_ko_hyde_multihop",
-      "paper_ko_cad_contrastive"
-    ],
-    "cad_test_purpose": "모델 규모 수치 — 유사 모델 파라미터 수와 혼동할 위험",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
+    "query": "본문에서 구체적인 결과(또는 수치)를 동반하여 가장 중요하게 보고된 주요 발견(Finding) 또는 주요 분석 결과는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -493,25 +479,11 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
+    "cad_test_purpose": "실험 결과에 대한 임의 생성 방지",
     "track": "track2"
   },
   {
-    "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
-    "ground_truth": "",
-    "ground_truth_source_section": "experiment",
-    "type": "cad_ablation",
-    "expected_route": "B",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework",
-      "paper_ko_hyde_multihop",
-      "paper_ko_cad_contrastive"
-    ],
-    "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
-    "track": "track2"
-  },
-  {
-    "query": "이 논문에서 ablation study 결과의 구체적 수치가 얼마야?",
+    "query": "이 논문에서 가장 중점적으로 설명하거나 성능에 큰 영향을 미친다고 강조한 핵심 모듈이나 알고리즘의 이름은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "result",
     "type": "cad_ablation",
@@ -521,11 +493,39 @@
       "paper_ko_hyde_multihop",
       "paper_ko_cad_contrastive"
     ],
-    "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
+    "cad_test_purpose": "아키텍처 모듈명 환각 방지",
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 모델의 전체 아키텍처를 설명하라.",
+    "query": "이 논문이 적용될 수 있는 주요 다운스트림 태스크(Downstream Task)나 응용 분야로 본문에서 언급된 것은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "적용 도메인 환각 방지",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 본문(또는 결론부)에서 향후 연구 방향(Future Work)이나 개선이 필요한 과제로 지적된 사항은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "discussion",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "향후 과제를 지어내는 환각 억제",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 제안하거나 분석하는 전체 파이프라인(Pipeline) 또는 주요 절차의 핵심 단계들을 순서대로 설명하라.",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -538,7 +538,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 사용한 핵심 학습 방법을 단계별로 설명하라.",
+    "query": "이 연구에서 다루는 방법론이 입력(input) 데이터를 전처리하거나 문서를 처리하는 방식은 어떻게 설계되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -551,7 +551,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문 모델 학습에 사용된 목적함수(objective function)는 무엇인가?",
+    "query": "기존 방법의 단점을 보완하기 위해 이 논문에서 중점적으로 논의된 새로운 모듈이나 프레임워크의 역할은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -564,7 +564,7 @@
     "track": "track2"
   },
   {
-    "query": "데이터 전처리 및 입력 표현 방식은 어떻게 설계되었는가?",
+    "query": "이 논문에서 설명하는 텍스트 생성(Generation) 단계 또는 검색(Retrieval) 과정은 구체적으로 어떻게 이루어지는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -577,7 +577,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 방법의 추론(inference) 과정을 설명하라.",
+    "query": "이 연구의 방법론이 성능 향상이나 효율성을 달성하기 위해 사용한 주요 전략(Strategy)이나 아키텍처적 특징은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -590,7 +590,7 @@
     "track": "track2"
   },
   {
-    "query": "제안된 방법이 기존 방법과 다른 핵심 구성 요소는 무엇인가?",
+    "query": "본문에서 시스템이나 프레임워크를 구성하는 세부 모듈들이 서로 어떻게 상호작용하는 것으로 설명되어 있는가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -603,7 +603,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 사용한 정규화(regularization) 또는 안정화 기법은 무엇인가?",
+    "query": "이 연구의 핵심 알고리즘이나 프레임워크가 최적화하고자 하는 주요 목표(Objective)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "method",
     "type": "section_method",
@@ -616,7 +616,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 해결하려는 핵심 문제는 무엇인가?",
+    "query": "이 논문이 다루고 있는 가장 핵심적인 연구 문제(Research Problem)는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -629,7 +629,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 주요 기여(contribution)를 세 가지로 요약하라.",
+    "query": "이 논문의 초록에서 요약하여 제시하는 주요 기여(Main Contribution) 세 가지는 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -642,7 +642,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구의 동기와 배경을 설명하라.",
+    "query": "이 연구가 시작된 동기(Motivation)나 연구의 배경은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -655,7 +655,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 제안하는 시스템 또는 방법의 이름과 전체 목적은 무엇인가?",
+    "query": "이 논문에서 제안하는 접근법이 기존 기술들과 비교할 때 갖는 가장 큰 차별점은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -668,7 +668,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구가 기존 연구 대비 어떤 점에서 새로운가?",
+    "query": "초록에 명시된 이 논문의 최종 목표(Goal) 또는 달성하고자 하는 궁극적인 목적은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -681,7 +681,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 결론에서 강조하는 핵심 메시지는 무엇인가?",
+    "query": "이 논문의 초록에서 가장 강조하고 있는 실험적 성과나 방법론의 우수성은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -694,7 +694,7 @@
     "track": "track2"
   },
   {
-    "query": "이 연구의 한계점은 무엇이고 향후 방향으로 무엇을 제시하는가?",
+    "query": "이 연구가 향후 가져올 수 있는 파급 효과나 적용 가능한 도메인으로 언급된 것은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "abstract",
     "type": "section_abstract",
@@ -707,7 +707,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 가장 직접적으로 발전시킨 선행 연구는 무엇인가?",
+    "query": "이 논문이 제안하는 아이디어의 근간이 되거나 가장 직접적으로 확장한 선행 연구의 이름이나 저자는 누구인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -720,7 +720,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문에서 비교 baseline으로 사용된 방법들은 무엇인가?",
+    "query": "관련 연구(Related Work) 섹션에서 이 논문의 연구 분야와 가장 밀접하다고 언급된 주요 연구 동향은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -733,7 +733,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 사용한 데이터셋은 어떤 선행 연구에서 왔는가?",
+    "query": "이 논문의 본문에서 방법론을 비교하거나 분석하기 위해 주로 인용한 최신 선행 연구들은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -746,7 +746,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 인용하는 가장 중요한 기반 논문 세 편의 제목은 무엇인가?",
+    "query": "이 논문이 사용하거나 언급한 주요 벤치마크/데이터셋을 처음 제안한 원출처 논문은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -759,7 +759,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문의 방법론적 근거가 되는 선행 연구는 무엇인가?",
+    "query": "이 논문의 방법론이나 이론적 배경을 뒷받침하는 데 가장 중요한 역할을 한 세 편의 참고문헌을 나열하라.",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -772,7 +772,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문과 동시대에 경쟁 관계에 있는 주요 연구들은 무엇인가?",
+    "query": "이 논문에서 기존 연구들의 단점으로 지적하고 있는 부분은 어떤 선행 연구에 대한 비판인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
@@ -785,7 +785,7 @@
     "track": "track2"
   },
   {
-    "query": "이 논문이 관련 연구(related work) 섹션에서 언급하는 핵심 연구 흐름은 무엇인가?",
+    "query": "이 논문과 가장 밀접하게 경쟁 관계에 있거나 비교 대상으로 설정된 선행 연구의 핵심 주장은 무엇인가?",
     "ground_truth": "",
     "ground_truth_source_section": "references",
     "type": "citation",
