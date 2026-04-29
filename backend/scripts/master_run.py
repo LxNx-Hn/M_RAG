@@ -41,17 +41,24 @@ REQUIRED_PDFS = [
     "paper_nlp_raptor.pdf",
     "paper_midm.pdf",
     "paper_ko_rag_eval_framework.pdf",
-    "paper_ko_rag_rrf_chunking.pdf",
+    "paper_ko_hyde_multihop.pdf",
     "paper_ko_cad_contrastive.pdf",
 ]
 
 CURRENT_DOC_IDS = [Path(filename).stem for filename in REQUIRED_PDFS]
-TRACK2_DOC_IDS = [
+TRACK2_ENGLISH_BODY_DOC_IDS = [
     "paper_nlp_bge",
     "paper_nlp_rag",
     "paper_nlp_cad",
     "paper_nlp_raptor",
+    "paper_midm",
 ]
+TRACK2_KOREAN_BODY_DOC_IDS = [
+    "paper_ko_rag_eval_framework",
+    "paper_ko_hyde_multihop",
+    "paper_ko_cad_contrastive",
+]
+TRACK2_DOC_IDS = TRACK2_ENGLISH_BODY_DOC_IDS + TRACK2_KOREAN_BODY_DOC_IDS
 
 RESULT_FILES = [
     "table1_track1.json",
@@ -984,7 +991,7 @@ class MasterRunner:
                 "--queries",
                 "evaluation/data/pseudo_gt_track1.json",
                 "--papers",
-                "paper_ko_rag_rrf_chunking",
+                "paper_ko_hyde_multihop",
                 "--output",
                 "evaluation/results/table2_beta.json",
                 "--api-base",
@@ -994,7 +1001,7 @@ class MasterRunner:
         )
 
     def step_track2_domain(self) -> None:
-        # Track 2 domain comparison across the 4 NLP papers.
+        # Track 2 common-query comparison across the English-body and Korean-body groups.
         self.run_subprocess(
             "STEP 10",
             [
@@ -1005,10 +1012,7 @@ class MasterRunner:
                 "--queries",
                 "evaluation/data/pseudo_gt_track2.json",
                 "--papers",
-                "paper_nlp_bge",
-                "paper_nlp_rag",
-                "paper_nlp_cad",
-                "paper_nlp_raptor",
+                *TRACK2_DOC_IDS,
                 "--output",
                 "evaluation/results/table3_domain.json",
                 "--api-base",

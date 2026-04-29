@@ -9,7 +9,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "AI 도메인 수치 → 모델이 파라메트릭 지식으로 답할 위험. CAD 억제 효과 측정.",
     "track": "track2"
@@ -24,7 +25,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 흔한 LR을 파라메트릭 지식으로 답할 위험",
     "track": "track2"
@@ -39,7 +41,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
     "track": "track2"
@@ -54,7 +57,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "모델 규모 수치 — 유사 모델 파라미터 수와 혼동할 위험",
     "track": "track2"
@@ -69,7 +73,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
     "track": "track2"
@@ -84,7 +89,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
     "track": "track2"
@@ -99,7 +105,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
     "track": "track2"
@@ -114,7 +121,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -128,7 +136,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -142,7 +151,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -156,7 +166,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -170,7 +181,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -184,7 +196,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -198,7 +211,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -212,7 +226,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -226,7 +241,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -240,7 +256,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -254,7 +271,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -268,7 +286,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -282,7 +301,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -296,7 +316,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -310,7 +331,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -324,7 +346,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -338,7 +361,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -352,7 +376,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -366,7 +391,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -380,7 +406,8 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
     ],
     "track": "track2"
   },
@@ -394,7 +421,379 @@
       "paper_nlp_bge",
       "paper_nlp_rag",
       "paper_nlp_cad",
-      "paper_nlp_raptor"
+      "paper_nlp_raptor",
+      "paper_midm"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 보고한 주요 성능 지표 수치는 정확히 얼마야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "AI 도메인 수치 → 모델이 파라메트릭 지식으로 답할 위험. CAD 억제 효과 측정.",
+    "track": "track2"
+  },
+  {
+    "query": "논문에서 사용한 학습률(learning rate)이 정확히 얼마야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "하이퍼파라미터 — 1e-4, 2e-5 같은 흔한 LR을 파라메트릭 지식으로 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "실험에 사용된 GPU 사양과 학습 시간은 얼마야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "실험 환경 — A100/V100 같은 흔한 GPU를 추측해서 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "제안된 방법의 파라미터 수(parameter count)는 몇 개야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "모델 규모 수치 — 유사 모델 파라미터 수와 혼동할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 test set 정확도는 정확히 몇 퍼센트야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "결과 수치 — 해당 벤치마크의 일반적 SOTA 수준으로 답할 위험",
+    "track": "track2"
+  },
+  {
+    "query": "이 실험에서 사용한 샘플 수(sample size)가 정확히 몇 개야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "experiment",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "태스크별 학습 샘플 수 — 모델이 정확한 수를 컨텍스트에서 가져와야 함",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 ablation study 결과의 구체적 수치가 얼마야?",
+    "ground_truth": "",
+    "ground_truth_source_section": "result",
+    "type": "cad_ablation",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "cad_test_purpose": "ablation 수치 — 세부 실험 결과를 정확히 가져오는지 확인",
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 제안하는 모델의 전체 아키텍처를 설명하라.",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 사용한 핵심 학습 방법을 단계별로 설명하라.",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문 모델 학습에 사용된 목적함수(objective function)는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "데이터 전처리 및 입력 표현 방식은 어떻게 설계되었는가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 제안하는 방법의 추론(inference) 과정을 설명하라.",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "제안된 방법이 기존 방법과 다른 핵심 구성 요소는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 사용한 정규화(regularization) 또는 안정화 기법은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "method",
+    "type": "section_method",
+    "expected_route": "B",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문이 해결하려는 핵심 문제는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 주요 기여(contribution)를 세 가지로 요약하라.",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 연구의 동기와 배경을 설명하라.",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 제안하는 시스템 또는 방법의 이름과 전체 목적은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 연구가 기존 연구 대비 어떤 점에서 새로운가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 결론에서 강조하는 핵심 메시지는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 연구의 한계점은 무엇이고 향후 방향으로 무엇을 제시하는가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "abstract",
+    "type": "section_abstract",
+    "expected_route": "A",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문이 가장 직접적으로 발전시킨 선행 연구는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문에서 비교 baseline으로 사용된 방법들은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문이 사용한 데이터셋은 어떤 선행 연구에서 왔는가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문이 인용하는 가장 중요한 기반 논문 세 편의 제목은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문의 방법론적 근거가 되는 선행 연구는 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문과 동시대에 경쟁 관계에 있는 주요 연구들은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
+    ],
+    "track": "track2"
+  },
+  {
+    "query": "이 논문이 관련 연구(related work) 섹션에서 언급하는 핵심 연구 흐름은 무엇인가?",
+    "ground_truth": "",
+    "ground_truth_source_section": "references",
+    "type": "citation",
+    "expected_route": "D",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework",
+      "paper_ko_hyde_multihop",
+      "paper_ko_cad_contrastive"
     ],
     "track": "track2"
   }

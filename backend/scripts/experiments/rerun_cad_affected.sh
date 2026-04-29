@@ -168,7 +168,7 @@ fi
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode ablation \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_midm paper_ko_rag_eval_framework paper_ko_rag_rrf_chunking paper_ko_cad_contrastive \
+  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_midm paper_ko_rag_eval_framework paper_ko_hyde_multihop paper_ko_cad_contrastive \
   --output evaluation/results/table1_track1.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -192,7 +192,7 @@ fi
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode beta-sweep \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_ko_rag_rrf_chunking \
+  --papers paper_ko_hyde_multihop \
   --output evaluation/results/table2_beta.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -200,7 +200,7 @@ fi
 "${VENV_PYTHON}" evaluation/run_track2.py \
   --mode domain \
   --queries evaluation/data/pseudo_gt_track2.json \
-  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor \
+  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_midm paper_ko_rag_eval_framework paper_ko_hyde_multihop paper_ko_cad_contrastive \
   --output evaluation/results/table3_domain.json \
   --api-base "${API_BASE}" \
   --timeout 240 \

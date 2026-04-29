@@ -49,7 +49,7 @@ REPO_INCLUDED_PAPERS = [
         "desc": "Korean RAG evaluation paper (tracked in repo).",
     },
     {
-        "id": "paper_ko_rag_rrf_chunking",
+        "id": "paper_ko_hyde_multihop",
         "arxiv_id": None,
         "title": "HyDE-Based Multi-Hop Retrieval Approach",
         "desc": "Korean HyDE multi-hop retrieval paper (tracked in repo).",

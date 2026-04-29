@@ -3,7 +3,6 @@
 """
 
 import logging
-import re
 from dataclasses import asdict
 from pathlib import Path
 from uuid import uuid4
@@ -30,10 +29,6 @@ router = APIRouter(prefix="/api/papers", tags=["papers"])
 MAX_UPLOAD_SIZE_BYTES = 50 * 1024 * 1024
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 ALLOWED_DOC_TYPES = {"paper", "lecture", "patent"}
-UPLOAD_QUALITY_ERROR = (
-    "PDF 텍스트를 안정적으로 추출하지 못했습니다. "
-    "OCR 처리된 PDF나 다른 원본 파일로 다시 업로드해 주세요."
-)
 
 
 def _is_text_like(data: bytes) -> bool:
@@ -71,58 +66,23 @@ def _validate_upload_signature(ext: str, content: bytes) -> None:
     detected_mime = _detect_mime_type(content)
     if ext == ".pdf":
         if not content.startswith(b"%PDF-") or detected_mime not in {"application/pdf"}:
-            raise HTTPException(400, "PDF 파일 형식이 올바르지 않습니다.")
+            raise HTTPException(400, "Invalid PDF file signature.")
     elif ext == ".docx":
         allowed = {
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             "application/zip",
         }
         if not content.startswith(b"PK\x03\x04") or detected_mime not in allowed:
-            raise HTTPException(400, "DOCX 파일 형식이 올바르지 않습니다.")
+            raise HTTPException(400, "Invalid DOCX file signature.")
     elif ext == ".txt":
         if detected_mime not in {
             "text/plain",
             "text/markdown",
             "application/octet-stream",
         }:
-            raise HTTPException(400, "TXT 파일 형식이 올바르지 않습니다.")
+            raise HTTPException(400, "Invalid TXT file signature.")
         if not _is_text_like(content[:4096]):
-            raise HTTPException(400, "텍스트 파일 검증에 실패했습니다.")
-
-
-def _contains_hangul(text: str) -> bool:
-    return bool(re.search(r"[가-힣]", text or ""))
-
-
-def _document_quality_metrics(document) -> dict[str, float]:
-    texts = [
-        block.content
-        for block in document.blocks
-        if block.block_type != "image" and block.content
-    ]
-    total_chars = sum(len(text) for text in texts)
-    fffd_count = sum(text.count("\ufffd") for text in texts)
-    hangul_count = sum(
-        1 for text in texts for char in text if "\uac00" <= char <= "\ud7a3"
-    )
-    return {
-        "chars": total_chars,
-        "fffd_count": fffd_count,
-        "fffd_ratio": fffd_count / max(total_chars, 1),
-        "hangul_ratio": hangul_count / max(total_chars, 1),
-    }
-
-
-def _validate_pdf_quality(document, filename: str) -> None:
-    metrics = _document_quality_metrics(document)
-    if metrics["chars"] < 1000:
-        raise HTTPException(400, UPLOAD_QUALITY_ERROR)
-    if metrics["fffd_count"] >= 20 or metrics["fffd_ratio"] > 0.005:
-        raise HTTPException(400, UPLOAD_QUALITY_ERROR)
-
-    expects_korean = _contains_hangul(filename) or _contains_hangul(document.title)
-    if expects_korean and metrics["hangul_ratio"] < 0.10:
-        raise HTTPException(400, UPLOAD_QUALITY_ERROR)
+            raise HTTPException(400, "Text file validation failed.")
 
 
 def namespace_collection_name(user_id: str, collection_name: str) -> str:
@@ -219,7 +179,6 @@ async def upload_paper(
 
         if ext == ".pdf":
             document = m.pdf_parser.parse(temp_path)
-            _validate_pdf_quality(document, safe_filename)
             document = m.section_detector.detect(document)
         elif ext == ".docx":
             from modules.docx_parser import DocxParser

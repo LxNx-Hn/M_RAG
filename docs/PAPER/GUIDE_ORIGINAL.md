@@ -578,7 +578,7 @@ M_RAG/
 | `paper_nlp_raptor` | RAPTOR |
 | `paper_midm` | MIDM-2.0 Technical Report |
 | `paper_ko_rag_eval_framework` | 한국어 RAG 평가 프레임워크 |
-| `paper_ko_rag_rrf_chunking` | 한국어 RAG RRF/청킹 |
+| `paper_ko_hyde_multihop` | HyDE 기반 멀티 홉 검색 |
 | `paper_ko_cad_contrastive` | 한국어 CAD 대조적 디코딩 |
 
 Track 1은 8개 문서에 대해 논문별 특화 쿼리로 구성한다. 기본 쿼리는 한국어로 생성하고, `crosslingual_en` 타입만 영어 대조군으로 둔다.
@@ -587,7 +587,12 @@ Track 1은 8개 문서에 대해 논문별 특화 쿼리로 구성한다. 기본
 
 #### Track 2 — 논문 도메인 특화
 
-Track 2는 `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor` 네 편을 대상으로 한다. 쿼리는 28개이며, cad_ablation, section_method, section_abstract, citation 유형을 유지한다.
+Track 2는 Track 1처럼 논문별 질문을 따로 만드는 대신, 같은 쿼리 세트를 여러 설정에 반복 적용해 config 차이만 비교하는 구조다. 현재 자산은 총 56개이며 다음 두 그룹으로 나뉜다.
+
+- 영어 본문 그룹 28개: `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor`, `paper_midm`
+- 한국어 본문 그룹 28개: `paper_ko_rag_eval_framework`, `paper_ko_hyde_multihop`, `paper_ko_cad_contrastive`
+
+각 그룹은 `cad_ablation`, `section_method`, `section_abstract`, `citation` 유형을 7개씩 유지한다. `paper_midm`은 한국어 도메인 기술 보고서지만 본문 언어가 영어이므로 영어 본문 그룹에 포함한다.
 
 ---
 
@@ -759,7 +764,7 @@ Limitations:
 - SCD의 한국어 판별이 음절 기반
   (영어 전문용어 억제 가능성)
 - Track 1은 자동 생성 쿼리 품질이 실험에 영향을 줄 수 있음
-- Track 2는 4편의 NLP 논문 샘플
+- Track 2는 56개의 공통 query asset을 사용하지만, 영어 본문 5편과 한국어 본문 3편에 대한 그룹 비교이므로 더 넓은 한국어 논문 집합으로의 일반화는 후속 검증이 필요
 - 한국어 원문 논문 확장은 후속 재실험에서 보강
 ```
 
