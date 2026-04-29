@@ -1,0 +1,13 @@
+export JWT_SECRET_KEY='mrag-experiment-local-secret-2026'
+export LOAD_GPU_MODELS='true'
+export GENERATION_MODEL='K-intelligence/Midm-2.0-Base-Instruct'
+export DATABASE_URL='sqlite+aiosqlite:///./mrag.db'
+export MRAG_API_BASE='http://127.0.0.1:8000'
+export HF_HOME="$HOME/.cache/huggingface"
+export TRANSFORMERS_CACHE="$HF_HOME"
+export HF_HUB_CACHE="$HF_HOME"
+export MRAG_RUNNER_EMAIL='runner@mrag.local'
+export MRAG_RUNNER_USERNAME='master_runner'
+export MRAG_RUNNER_PASSWORD='MragRunner!2026x'
+export OPENAI_JUDGE_MODEL='gpt-4o'
+export OPENAI_API_KEY='PUT_YOUR_OPENAI_API_KEY_HERE'
