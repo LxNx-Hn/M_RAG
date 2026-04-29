@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Generate paper-specific evaluation queries with an OpenAI model."""
+"""Generate paper-specific evaluation queries with an OpenAI model.
+
+The source is intentionally ASCII-only. Korean output is requested through
+English prompts and validated with Unicode escape based patterns so the script
+does not depend on terminal code pages or editor encoding heuristics.
+"""
 
 from __future__ import annotations
 
@@ -48,12 +53,46 @@ EXPECTED_ROUTE = {
     "crosslingual_en": "A",
 }
 
-SECTION_QUERIES = [
-    ("abstract", "main contribution abstract overview"),
-    ("method", "method architecture algorithm training objective"),
-    ("result", "results metrics ablation performance numbers"),
-    ("references", "related work cited papers baseline references"),
+MAIN_SECTION_QUERIES = [
+    ("abstract", "specific contribution claim problem setting abstract"),
+    ("method", "specific method architecture algorithm training objective"),
+    ("result", "specific results metrics ablation performance numbers"),
+    ("related_work", "specific prior work baseline comparison"),
 ]
+CITATION_SECTION_QUERIES = [
+    ("related_work", "specific cited work baseline author comparison"),
+    ("references", "specific cited work author title baseline reference"),
+]
+
+# Korean phrases are written with Unicode escapes to keep this file ASCII-only.
+BAD_QUERY_PATTERNS = [
+    "\uc5b4\ub5a4\\s+\uc139\uc158",  # what section
+    "\uc5b4\ub290\\s+\uc139\uc158",  # which section
+    "\uc5b4\ub514\uc5d0\\s+\uc788",  # where is
+    "\ucd08\ub85d(?:\uc5d0\ub294|\uc740)?\\s+\uc5b4\ub5a4\\s+\ub0b4\uc6a9",
+    "\ucd08\ub85d(?:\uc5d0\uc11c\ub294|\uc5d0\uc11c)?\\s+\ub2e4\ub8e8",
+    "\ubc29\ubc95\ub860\\s+\uc139\uc158",
+    "\uacb0\uacfc\\s+\uc139\uc158",
+    "\uc774\\s+\ub17c\ubb38\uc758\\s+\ucd08\ub85d",
+    "\uc774\\s+\ub17c\ubb38\uc758\\s+\ubc29\ubc95\ub860",
+    "\uc774\\s+\ub17c\ubb38\uc758\\s+\uacb0\uacfc",
+    "\ucc38\uace0\\s*\ubb38\ud5cc(?:\uc740|\ub294)?\\s+\uc5b4\ub514",
+    "what\\s+section",
+    "where\\s+(?:is|are).*(?:reference|section)",
+    "what\\s+does\\s+the\\s+abstract",
+    "what\\s+is\\s+in\\s+the\\s+abstract",
+    "methodology\\s+section",
+    "results?\\s+section",
+]
+
+GENERIC_QUERY_PATTERNS = [
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc81c\uc548\ub41c\\s+\ubaa8\ub378",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc0ac\uc6a9\ub41c\\s+\ub370\uc774\ud130\uc14b",
+    "^\uc774\\s+\ub17c\ubb38\uc5d0\uc11c\\s+\uc778\uc6a9\ub41c\\s+\uc8fc\uc694",
+    "^what\\s+are\\s+the\\s+key\\s+contributions\\s+of\\s+the\\s+model",
+]
+
+KOREAN_RE = re.compile("[\uac00-\ud7a3]")
 
 
 def parse_args() -> argparse.Namespace:
@@ -99,6 +138,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Overwrite output when it already exists.",
     )
+    parser.add_argument(
+        "--max-generation-attempts",
+        type=int,
+        default=3,
+        help="Retry query generation when validation rejects generic queries.",
+    )
     return parser.parse_args()
 
 
@@ -142,9 +187,15 @@ def _search_chunks(
     ]
 
 
-def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
+def _sample_excerpts(
+    args: argparse.Namespace,
+    paper: str,
+    section_queries: list[tuple[str, str]],
+    label: str,
+) -> list[str]:
     excerpts: list[str] = []
-    for section, query in SECTION_QUERIES:
+    seen: set[str] = set()
+    for section, query in section_queries:
         try:
             chunks = _search_chunks(
                 args.api_url,
@@ -162,63 +213,167 @@ def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
                 file=sys.stderr,
             )
             chunks = []
-        for index, chunk in enumerate(chunks[: args.top_k], start=1):
-            excerpts.append(f"[{paper} | {section} | {index}]\n{chunk[:900]}")
 
-    if not excerpts:
+        for index, chunk in enumerate(chunks[: args.top_k], start=1):
+            preview = chunk[:900]
+            if preview in seen:
+                continue
+            seen.add(preview)
+            excerpts.append(f"[{label} | {paper} | {section} | {index}]\n{preview}")
+    return excerpts
+
+
+def collect_paper_context(args: argparse.Namespace, paper: str) -> str:
+    main_excerpts = _sample_excerpts(
+        args,
+        paper,
+        MAIN_SECTION_QUERIES,
+        "main",
+    )
+    citation_excerpts = _sample_excerpts(
+        args,
+        paper,
+        CITATION_SECTION_QUERIES,
+        "citation-only",
+    )
+
+    if not main_excerpts:
         chunks = _search_chunks(
             args.api_url,
             args.token,
             args.collection,
             paper,
             None,
-            f"{paper} main contribution method result citation",
+            f"{paper} main contribution method result",
             args.top_k,
             args.timeout,
         )
-        excerpts.extend(
-            f"[{paper} | general | {i}]\n{chunk[:900]}"
+        main_excerpts.extend(
+            f"[main | {paper} | general | {i}]\n{chunk[:900]}"
             for i, chunk in enumerate(chunks, start=1)
         )
 
-    return "\n\n".join(excerpts)
+    if not citation_excerpts:
+        try:
+            chunks = _search_chunks(
+                args.api_url,
+                args.token,
+                args.collection,
+                paper,
+                None,
+                f"{paper} cited work author baseline reference",
+                args.top_k,
+                args.timeout,
+            )
+        except Exception:
+            chunks = []
+        citation_excerpts.extend(
+            f"[citation-only | {paper} | general | {i}]\n{chunk[:900]}"
+            for i, chunk in enumerate(chunks, start=1)
+        )
+
+    parts = [
+        "[Main excerpts: use for all non-citation query types]",
+        "\n\n".join(main_excerpts),
+    ]
+    if citation_excerpts:
+        parts.extend(
+            [
+                "[Citation-only excerpts: use only for citation query types]",
+                "\n\n".join(citation_excerpts),
+            ]
+        )
+    return "\n\n".join(part for part in parts if part)
 
 
-def _prompt_for_track(track: str, paper: str, context: str) -> str:
+def _schema_json(first_type: str, paper: str) -> str:
+    return json.dumps(
+        {
+            "queries": [
+                {
+                    "query": "...",
+                    "type": first_type,
+                    "applicable_papers": [paper],
+                }
+            ]
+        },
+        ensure_ascii=False,
+    )
+
+
+def _prompt_for_track(
+    track: str,
+    paper: str,
+    context: str,
+    feedback: str | None = None,
+) -> str:
+    feedback_block = ""
+    if feedback:
+        feedback_block = (
+            "\nPrevious attempt was rejected for this reason:\n"
+            f"{feedback}\n"
+            "Regenerate all queries and avoid the rejected pattern.\n"
+        )
+
     if track == "track1":
         types = ", ".join(TRACK1_TYPES)
         return (
-            "당신은 학술 RAG 평가 데이터셋 전문가입니다.\n"
-            f"아래 논문 내용만 근거로 doc_id '{paper}'에 대한 평가 쿼리를 "
-            "생성하세요.\n"
-            "- 쿼리는 모두 자연스러운 한국어로 작성하세요.\n"
-            "- crosslingual_en 타입만 자연스러운 영어 질문으로 작성하세요.\n"
-            "- 논문명, 모델명, 데이터셋명 같은 고유명사는 영어 그대로 쓰세요.\n"
-            "- 논문에서 실제로 답할 수 있는 구체적 내용만 질문하세요.\n"
-            f"- 타입 순서는 반드시 다음과 같아야 합니다: {types}\n"
-            f"- applicable_papers는 반드시 ['{paper}']만 사용하세요.\n\n"
-            "[논문 내용]\n"
-            f"{context[:12000]}\n\n"
-            '[출력 형식 - JSON only]\n{"queries": ['
-            '{"query": "...", "type": "simple_qa", '
-            f'"applicable_papers": ["{paper}"]}}]}}'
+            "You are building a high-precision academic RAG evaluation set.\n"
+            f"Use only the excerpts below for doc_id '{paper}'.\n"
+            "Generate exactly eight queries in this order:\n"
+            f"{types}\n\n"
+            "Rules:\n"
+            "- All queries must be natural Korean, except crosslingual_en, "
+            "which must be natural English.\n"
+            "- Each query must ask about a concrete fact, method, dataset, "
+            "metric, number, or cited work explicitly present in the excerpts.\n"
+            "- Do not ask meta questions such as which section contains "
+            "something, what the abstract says in general, or where a "
+            "reference is located.\n"
+            "- Do not invent terms from nearby references unless the main "
+            f"excerpts clearly state that they are central to '{paper}'.\n"
+            "- Only the citation query may use Citation-only excerpts. All "
+            "other query types must be grounded in Main excerpts.\n"
+            "- For section_method, ask about one named method or implementation "
+            "detail from the method/main excerpts.\n"
+            "- For section_result, ask about one specific result, metric, "
+            "comparison, or numeric value from the result/main excerpts.\n"
+            "- For section_abstract, ask about one specific claim from the "
+            "abstract/main excerpts, not a summary of the abstract itself.\n"
+            "- For citation, ask about a specific cited prior work, author, or "
+            "baseline that appears in Citation-only or Main excerpts.\n"
+            f"- applicable_papers must be exactly ['{paper}'].\n"
+            f"{feedback_block}\n"
+            "[Paper excerpts]\n"
+            f"{context[:14000]}\n\n"
+            "[Output format - JSON only]\n"
+            f"{_schema_json('simple_qa', paper)}"
         )
 
     types = ", ".join(TRACK2_TYPES)
     return (
-        "당신은 논문 도메인 RAG 평가 쿼리 작성자입니다.\n"
-        f"아래 논문 내용만 근거로 doc_id '{paper}'에 대한 Track 2 평가 "
-        "쿼리를 생성하세요.\n"
-        "- 모든 쿼리는 자연스러운 한국어로 작성하세요.\n"
-        "- 논문에서 실제로 답할 수 있는 내용만 질문하세요.\n"
-        "- cad_ablation은 수치, 파라미터, 실험 세부값을 묻는 질문입니다.\n"
-        f"- 타입 순서는 반드시 다음과 같아야 합니다: {types}\n"
-        f"- applicable_papers는 반드시 ['{paper}']만 사용하세요.\n\n"
-        "[논문 내용]\n"
-        f"{context[:12000]}\n\n"
-        '[출력 형식 - JSON only]\n{"queries": ['
-        '{"query": "...", "type": "cad_ablation", '
-        f'"applicable_papers": ["{paper}"]}}]}}'
+        "You are building high-precision Track 2 RAG evaluation queries.\n"
+        f"Use only the excerpts below for doc_id '{paper}'.\n"
+        "Generate exactly seven Korean queries in this order:\n"
+        f"{types}\n\n"
+        "Rules:\n"
+        "- Every query must be answerable from the excerpts.\n"
+        "- cad_ablation queries must ask about a concrete number, parameter, "
+        "experimental setting, or result stated in the main excerpts.\n"
+        "- section_method and section_abstract queries must ask about a "
+        "specific named detail, not the section as a document structure.\n"
+        "- Only the citation query may use Citation-only excerpts. All other "
+        "query types must be grounded in Main excerpts.\n"
+        "- citation queries must mention a concrete cited work, baseline, or "
+        "author name found in the excerpts.\n"
+        "- Do not ask generic questions beginning with 'this paper'.\n"
+        "- Do not ask where a section or reference is located.\n"
+        f"- applicable_papers must be exactly ['{paper}'].\n"
+        f"{feedback_block}\n"
+        "[Paper excerpts]\n"
+        f"{context[:14000]}\n\n"
+        "[Output format - JSON only]\n"
+        f"{_schema_json('cad_ablation', paper)}"
     )
 
 
@@ -237,7 +392,10 @@ def _extract_json(text: str) -> dict[str, Any]:
 
 
 def generate_for_paper(
-    args: argparse.Namespace, paper: str, context: str
+    args: argparse.Namespace,
+    paper: str,
+    context: str,
+    feedback: str | None = None,
 ) -> list[dict]:
     try:
         from openai import OpenAI
@@ -252,9 +410,17 @@ def generate_for_paper(
     response = client.chat.completions.create(
         model=args.openai_model,
         messages=[
-            {"role": "user", "content": _prompt_for_track(args.track, paper, context)}
+            {
+                "role": "user",
+                "content": _prompt_for_track(
+                    args.track,
+                    paper,
+                    context,
+                    feedback=feedback,
+                ),
+            }
         ],
-        temperature=0.2,
+        temperature=0.1,
         max_tokens=1800,
     )
     content = response.choices[0].message.content or ""
@@ -263,6 +429,22 @@ def generate_for_paper(
     if not isinstance(queries, list):
         raise ValueError("OpenAI response did not contain a queries list.")
     return queries
+
+
+def _assert_query_quality(paper: str, query_type: str, query: str) -> None:
+    query_lower = query.lower()
+    for pattern in BAD_QUERY_PATTERNS:
+        if re.search(pattern, query_lower, flags=re.IGNORECASE):
+            raise ValueError(f"{paper}/{query_type}: rejected meta query: {query!r}")
+    for pattern in GENERIC_QUERY_PATTERNS:
+        if re.search(pattern, query_lower, flags=re.IGNORECASE):
+            raise ValueError(f"{paper}/{query_type}: rejected generic query: {query!r}")
+    has_korean = bool(KOREAN_RE.search(query))
+    if query_type == "crosslingual_en":
+        if has_korean:
+            raise ValueError(f"{paper}/{query_type}: expected English query.")
+    elif not has_korean:
+        raise ValueError(f"{paper}/{query_type}: expected Korean query.")
 
 
 def normalise_queries(track: str, paper: str, queries: list[dict]) -> list[dict]:
@@ -282,6 +464,7 @@ def normalise_queries(track: str, paper: str, queries: list[dict]) -> list[dict]
             raise ValueError(
                 f"{paper}: expected type {expected_type}, got {query_type}."
             )
+        _assert_query_quality(paper, query_type, query)
         normalised.append(
             {
                 "query": query,
@@ -300,6 +483,25 @@ def normalise_queries(track: str, paper: str, queries: list[dict]) -> list[dict]
             f"{paper}: type counts mismatch {counts} != {expected_counts}."
         )
     return normalised
+
+
+def generate_validated_queries(
+    args: argparse.Namespace,
+    paper: str,
+    context: str,
+) -> list[dict]:
+    feedback: str | None = None
+    attempts = max(args.max_generation_attempts, 1)
+    for attempt in range(1, attempts + 1):
+        generated = generate_for_paper(args, paper, context, feedback=feedback)
+        try:
+            return normalise_queries(args.track, paper, generated)
+        except ValueError as exc:
+            feedback = str(exc)
+            if attempt >= attempts:
+                raise
+            print(f"  retry={attempt} reason={feedback}", file=sys.stderr)
+    raise RuntimeError(f"{paper}: query generation retry loop exhausted.")
 
 
 def main() -> int:
@@ -321,9 +523,9 @@ def main() -> int:
         if args.dry_run:
             print(f"  sampled_chars={len(context)}")
             continue
-        generated = generate_for_paper(args, paper, context)
-        all_queries.extend(normalise_queries(args.track, paper, generated))
-        print(f"  generated={len(generated)}")
+        normalised = generate_validated_queries(args, paper, context)
+        all_queries.extend(normalised)
+        print(f"  generated={len(normalised)}")
 
     if args.dry_run:
         print("[dry-run] no query file was written.")
