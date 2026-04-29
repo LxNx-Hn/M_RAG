@@ -40,19 +40,17 @@ def main() -> None:
         sys.exit(1)
 
     logger.info("=== Loading modules ===")
-    from evaluation.ablation_study import AblationStudy
-    from evaluation.ragas_eval import (
-        RAGASEvaluator,
+    from evaluation.decoder_ablation import (
+        DecoderAblationStudy,
         compare_cad_on_off,
-        load_test_queries,
     )
+    from evaluation.ragas_eval import load_test_queries
     from modules.chunker import Chunker
     from modules.context_compressor import ContextCompressor
     from modules.embedder import Embedder
     from modules.generator import Generator
     from modules.hybrid_retriever import HybridRetriever
     from modules.pdf_parser import PDFParser
-    from modules.query_expander import QueryExpander
     from modules.reranker import Reranker
     from modules.section_detector import SectionDetector
     from modules.vector_store import VectorStore
@@ -66,7 +64,6 @@ def main() -> None:
     reranker = Reranker()
     generator = Generator()
     compressor = ContextCompressor(generator=generator)
-    evaluator = RAGASEvaluator(generator=generator)
 
     logger.info("=== Indexing document %s ===", pdf_path)
     parsed = pdf_parser.parse(str(pdf_path))
@@ -82,56 +79,63 @@ def main() -> None:
     logger.info("Indexed %s chunks", len(chunks))
 
     logger.info("=== Loading evaluation queries ===")
-    samples = load_test_queries(
+    eval_samples = load_test_queries(
         filepath="evaluation/data/track2_queries.json",
         query_types=["cad_ablation"],
     )
-    logger.info("Loaded %s CAD evaluation samples", len(samples))
-    if not samples:
+    logger.info("Loaded %s CAD evaluation samples", len(eval_samples))
+    if not eval_samples:
         logger.error(
             "No cad_ablation samples found in evaluation/data/track2_queries.json"
         )
         sys.exit(1)
 
-    logger.info("=== Running CAD on/off comparison ===")
-    cad_on_off = compare_cad_on_off(
-        evaluator=evaluator,
-        samples=samples,
-        generator=generator,
-        collection_name=args.collection,
-        retriever=hybrid_retriever,
-        reranker=reranker,
-        compressor=compressor,
-        cad_alpha=0.5,
-    )
+    # Convert EvalSample objects to dicts expected by DecoderAblationStudy.run_single
+    test_samples = [
+        {"query": s.query, "ground_truth": s.ground_truth} for s in eval_samples
+    ]
 
-    logger.info("=== Running CAD alpha ablation ===")
-    query_expander = QueryExpander(generator=generator)
-    ablation = AblationStudy(
-        pdf_parser=pdf_parser,
-        section_detector=section_detector,
-        chunker=chunker,
-        embedder=embedder,
-        vector_store=vector_store,
+    study = DecoderAblationStudy(
+        generator=generator,
         hybrid_retriever=hybrid_retriever,
         reranker=reranker,
         compressor=compressor,
-        generator=generator,
-        query_router=None,
-        query_expander=query_expander,
-    )
-    alpha_results = ablation.run_cad_korean_evaluation(
-        test_samples=samples,
         collection_name=args.collection,
     )
 
+    logger.info("=== Running CAD on/off comparison ===")
+    cad_on_off = compare_cad_on_off(
+        study=study, test_samples=test_samples, cad_alpha=0.5
+    )
+
+    logger.info("=== Running CAD alpha ablation ===")
+    alpha_results = study.run_alpha_sweep(test_samples)
+
+    # Build summary from alpha sweep
+    best_alpha = None
+    best_delta = float("-inf")
+    baseline_halluc = cad_on_off.get("baseline", {}).get(
+        "numeric_hallucination_rate", 0.0
+    )
+    for name, result in alpha_results.items():
+        delta = result.get("numeric_hallucination_rate", 0.0) - baseline_halluc
+        if delta < best_delta or best_alpha is None:
+            best_delta = delta
+            best_alpha = name
+
     combined = {
         "cad_on_off": cad_on_off,
-        "alpha_ablation": alpha_results,
+        "alpha_ablation": {
+            "results": alpha_results,
+            "summary": {
+                "best_alpha": best_alpha,
+                "max_hallucination_reduction": abs(best_delta),
+            },
+        },
         "metadata": {
             "paper": str(pdf_path),
             "collection": args.collection,
-            "n_samples": len(samples),
+            "n_samples": len(test_samples),
             "timestamp": datetime.now().isoformat(),
             "mode": "generator",
         },
@@ -147,11 +151,10 @@ def main() -> None:
     logger.info("Saved results to %s", output_path)
     print("\n=== C3 Results ===")
     print(f"CAD alpha baseline: {cad_on_off['alpha']}")
-    print(f"Faithfulness delta (CAD on - off): {cad_on_off['faithfulness_delta']:.3f}")
     print(
-        f"Best alpha: {alpha_results['summary']['best_alpha']} "
-        f"(delta={alpha_results['summary']['max_faithfulness_delta']:.3f})"
+        f"Hallucination delta (CAD on - off): {cad_on_off['hallucination_delta']:.3f}"
     )
+    print(f"Best alpha config: {best_alpha}")
     print(f"Result file: {output_path}")
 
 

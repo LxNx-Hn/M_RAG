@@ -69,7 +69,17 @@ if [[ -z "${OPENAI_API_KEY:-}" ]]; then
 fi
 
 mkdir -p "${RESULTS_DIR}"
-find "${RESULTS_DIR}" -maxdepth 1 -type f \( -name "*.json" -o -name "TABLES.md" \) -delete
+
+# Archive existing result files instead of deleting
+ARCHIVE_TS="$(date +%Y%m%d_%H%M%S)"
+ARCHIVE_DIR="${RESULTS_DIR}/_archive/${ARCHIVE_TS}"
+ARCHIVE_FILES="$(find "${RESULTS_DIR}" -maxdepth 1 -type f \( -name "*.json" -o -name "TABLES.md" \) 2>/dev/null)"
+if [[ -n "${ARCHIVE_FILES}" ]]; then
+  mkdir -p "${ARCHIVE_DIR}"
+  echo "${ARCHIVE_FILES}" | xargs -I{} mv {} "${ARCHIVE_DIR}/"
+  echo "[rerun] archived previous results to ${ARCHIVE_DIR}"
+fi
+
 rm -f "${BACKEND_DIR}/evaluation/data/pseudo_gt_track1.json"
 rm -f "${BACKEND_DIR}/evaluation/data/pseudo_gt_track2.json"
 rm -f "${BACKEND_DIR}/scripts/master_run.log"
@@ -97,26 +107,37 @@ if ! curl -fsS "${API_BASE}/health" >/dev/null 2>&1; then
   exit 1
 fi
 
-export MRAG_API_TOKEN="$("${VENV_PYTHON}" - <<'PY'
-from datetime import datetime, timedelta, timezone
-import os
-import uuid
+# Bootstrap runner account: register, then login if already exists
+RUNNER_EMAIL="${MRAG_RUNNER_EMAIL:-runner@mrag.local}"
+RUNNER_USERNAME="${MRAG_RUNNER_USERNAME:-master_runner}"
+RUNNER_PASSWORD="${MRAG_RUNNER_PASSWORD:-MragRunner!2026x}"
 
-from jose import jwt
+REGISTER_RESP="$(curl -s -w '\n%{http_code}' -X POST "${API_BASE}/api/auth/register" \
+  -H 'Content-Type: application/json' \
+  -d "{\"email\":\"${RUNNER_EMAIL}\",\"username\":\"${RUNNER_USERNAME}\",\"password\":\"${RUNNER_PASSWORD}\"}")"
+REGISTER_HTTP="$(echo "${REGISTER_RESP}" | tail -n1)"
+REGISTER_BODY="$(echo "${REGISTER_RESP}" | sed '$d')"
 
-secret = os.environ["JWT_SECRET_KEY"]
-now = datetime.now(timezone.utc)
-payload = {
-    "sub": "master_runner_bypass",
-    "email": "runner@mrag.local",
-    "exp": now + timedelta(hours=48),
-    "iat": now,
-    "jti": str(uuid.uuid4()),
-    "token_type": "access",
-}
-print(jwt.encode(payload, secret, algorithm="HS256"))
-PY
-)"
+if [[ "${REGISTER_HTTP}" == "200" ]] || [[ "${REGISTER_HTTP}" == "201" ]]; then
+  export MRAG_API_TOKEN="$(echo "${REGISTER_BODY}" | "${VENV_PYTHON}" -c 'import sys,json; print(json.load(sys.stdin)["access_token"])')"
+  echo "[rerun] runner account registered, token acquired"
+elif [[ "${REGISTER_HTTP}" == "409" ]]; then
+  echo "[rerun] runner account exists, logging in"
+  LOGIN_RESP="$(curl -s -w '\n%{http_code}' -X POST "${API_BASE}/api/auth/login" \
+    -H 'Content-Type: application/json' \
+    -d "{\"email\":\"${RUNNER_EMAIL}\",\"password\":\"${RUNNER_PASSWORD}\"}")"
+  LOGIN_HTTP="$(echo "${LOGIN_RESP}" | tail -n1)"
+  LOGIN_BODY="$(echo "${LOGIN_RESP}" | sed '$d')"
+  if [[ "${LOGIN_HTTP}" != "200" ]]; then
+    echo "[rerun] login failed (HTTP ${LOGIN_HTTP}): ${LOGIN_BODY}" >&2
+    exit 1
+  fi
+  export MRAG_API_TOKEN="$(echo "${LOGIN_BODY}" | "${VENV_PYTHON}" -c 'import sys,json; print(json.load(sys.stdin)["access_token"])')"
+  echo "[rerun] login successful, token acquired"
+else
+  echo "[rerun] register failed (HTTP ${REGISTER_HTTP}): ${REGISTER_BODY}" >&2
+  exit 1
+fi
 
 "${VENV_PYTHON}" scripts/generate_pseudo_gt.py \
   --collection "${COLLECTION_NAME}" \
@@ -147,7 +168,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode ablation \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_klue paper_hyperclova patent_korean_ai \
+  --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor paper_midm paper_ko_rag_eval_framework paper_ko_rag_rrf_chunking paper_ko_cad_contrastive \
   --output evaluation/results/table1_track1.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -155,7 +176,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode decoder \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_nlp_cad paper_klue \
+  --papers paper_nlp_cad paper_ko_cad_contrastive \
   --output evaluation/results/table2_decoder.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"
@@ -171,7 +192,7 @@ PY
 "${VENV_PYTHON}" evaluation/run_track1.py \
   --mode beta-sweep \
   --queries evaluation/data/pseudo_gt_track1.json \
-  --papers paper_klue \
+  --papers paper_ko_rag_rrf_chunking \
   --output evaluation/results/table2_beta.json \
   --api-base "${API_BASE}" \
   --judge-model "${OPENAI_JUDGE_MODEL}"

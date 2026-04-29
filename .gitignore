@@ -7,7 +7,15 @@ venv/
 
 # Data & DB
 data/*.pdf
-backend/data/
+backend/data/*
+!backend/data/paper_nlp_bge.pdf
+!backend/data/paper_nlp_rag.pdf
+!backend/data/paper_nlp_cad.pdf
+!backend/data/paper_nlp_raptor.pdf
+!backend/data/paper_midm.pdf
+!backend/data/paper_ko_rag_eval_framework.pdf
+!backend/data/paper_ko_rag_rrf_chunking.pdf
+!backend/data/paper_ko_cad_contrastive.pdf
 chroma_db/
 *.sqlite3
 backend/mrag.db

@@ -17,7 +17,11 @@ def parse_args() -> argparse.Namespace:
         description="Upload PDFs from backend/data to the local M-RAG API for indexing."
     )
     parser.add_argument("--api-url", default="http://localhost:8000")
-    parser.add_argument("--paper", help="Specific PDF filename in data/ to upload.")
+    parser.add_argument(
+        "--paper",
+        action="append",
+        help="Specific PDF filename in data/ to upload. Repeat to upload multiple files.",
+    )
     parser.add_argument("--collection", default="papers")
     parser.add_argument("--doc-type", default="paper")
     parser.add_argument("--timeout", type=int, default=300)
@@ -53,11 +57,21 @@ def _build_headers(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
 
 
-def _collect_pdfs(target_name: str | None) -> list[Path]:
+def _collect_pdfs(target_names: list[str] | None) -> tuple[list[Path], list[str]]:
     pdfs = sorted(DATA_DIR.glob("*.pdf"))
-    if target_name:
-        pdfs = [path for path in pdfs if path.name == target_name]
-    return pdfs
+    if not target_names:
+        return pdfs, []
+
+    name_to_path = {path.name: path for path in pdfs}
+    selected: list[Path] = []
+    missing: list[str] = []
+    for name in target_names:
+        path = name_to_path.get(name)
+        if path is None:
+            missing.append(name)
+            continue
+        selected.append(path)
+    return selected, missing
 
 
 def _upload_pdf(
@@ -134,9 +148,12 @@ def _list_indexed(api_url: str, timeout: int, token: str) -> list[dict]:
 
 def main() -> int:
     args = parse_args()
-    pdfs = _collect_pdfs(args.paper)
-    if args.paper and not pdfs:
-        print(f"Target PDF not found in data/: {args.paper}", file=sys.stderr)
+    pdfs, missing = _collect_pdfs(args.paper)
+    if missing:
+        print(
+            "Target PDF(s) not found in data/: " + ", ".join(missing),
+            file=sys.stderr,
+        )
         return 1
     if not pdfs:
         print(f"No PDF files found in {DATA_DIR}", file=sys.stderr)

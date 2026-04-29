@@ -56,25 +56,47 @@ cd frontend && npm run build
 
 ## Evaluation Dataset
 
-- Track 1: `backend/evaluation/data/track1_queries.json` — runtime-generated 56 paper-specific queries, 7 documents
+- Track 1: `backend/evaluation/data/track1_queries.json` -- runtime-generated paper-specific queries, 8 documents
   - Documents: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
-               paper_klue, paper_hyperclova, patent_korean_ai
+               paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking,
+               paper_ko_cad_contrastive
   - Query types: simple_qa, section_method, section_result, section_abstract,
                  cad_hallucination, citation, crosslingual_en
+  - This file is a runtime-generated placeholder (`[]` in repo); populated by `master_run.py` STEP 5
 - Track 2: `backend/evaluation/data/track2_queries.json` — 28 queries, 4 NLP papers
   - Papers: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor
   - Query types: cad_ablation (7), section_method (7), section_abstract (7), citation (7)
+  - This file is a checked-in evaluation asset; must be populated in the repo
 - Pseudo GT: generated in STEP 5 via GPT-4o from retrieved contexts; gitignored (generated at runtime)
-- Current Korean-language validation source: `patent_korean_ai`; expansion with additional Korean papers is tracked as follow-up work.
+- Korean-language validation uses 4 Korean/MIDM papers (paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive)
+
+## Paper Assets (8 papers)
+
+All 8 papers are included in the repository under `backend/data/`. The arXiv
+download script is still useful for refreshing the English PDFs, but a fresh
+`git pull` on Alice is enough to populate the default corpus.
+
+| doc_id | Language | Source |
+|--------|----------|--------|
+| paper_nlp_bge | English | arXiv 2402.03216 |
+| paper_nlp_rag | English | arXiv 2312.10997 |
+| paper_nlp_cad | English | arXiv 2305.14739 |
+| paper_nlp_raptor | English | arXiv 2401.18059 |
+| paper_midm | Korean | MIDM-2.0 Technical Report |
+| paper_ko_rag_eval_framework | Korean | Korean RAG Evaluation Framework |
+| paper_ko_rag_rrf_chunking | Korean | Korean RAG RRF/Chunking |
+| paper_ko_cad_contrastive | Korean | Korean CAD Contrastive Decoding |
+
+Alice setup: `git pull` -> all 8 papers immediately available in `backend/data/`.
 
 ## Experiment Configuration
 
 | STEP | Output file | Papers | Configs |
 |------|-------------|--------|---------|
-| 6 ablation | table1_track1.json | 7 documents | 6 ablation configs |
-| 7 decoder | table2_decoder.json | cad + klue | 4 decoder configs |
+| 6 ablation | table1_track1.json | 8 documents | 6 ablation configs |
+| 7 decoder | table2_decoder.json | cad + ko_cad_contrastive | 4 decoder configs |
 | 8 alpha-sweep | table2_alpha.json | cad + bge | alpha=[0.0,0.1,0.3,0.5,0.7,1.0] |
-| 9 beta-sweep | table2_beta.json | klue | beta=[0.1,0.3,0.5] |
+| 9 beta-sweep | table2_beta.json | ko_rag_rrf_chunking | beta=[0.1,0.3,0.5] |
 | 10 domain | table3_domain.json | 4 NLP papers | 6 Track 2 configs |
 
 ## Architecture Snapshot
@@ -104,3 +126,9 @@ cd frontend && npm run build
 - Per-query errors in run_track1/2.py are skipped (logged as WARNING) so configs complete
 - generate_pseudo_gt.py exits 0 on partial success (only fails if zero GT generated)
 - `backend/evaluation/results/` is git-tracked so `git pull` on local PC retrieves results
+- Experiment tokens are acquired via register-or-login (`/api/auth/register` → 409 fallback `/api/auth/login`), not bypass JWT
+- `verify_deployment.py` treats empty `track1_queries.json` as WARN (runtime placeholder), `track2_queries.json` as required asset
+- `verify_deployment.py` skips API router import check when JWT_SECRET_KEY is not set (WARN)
+- `rerun_cad_affected.sh` archives previous results to `_archive/<timestamp>/` instead of deleting them
+- `hybrid_retriever.py` uses a restricted unpickler for BM25 index loading (hardening)
+- `limiter.py` only trusts proxy headers when `TRUST_PROXY_HEADERS=true` is set

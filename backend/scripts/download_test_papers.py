@@ -35,24 +35,30 @@ PAPERS = [
     },
 ]
 
-KOREAN_PAPERS = [
+REPO_INCLUDED_PAPERS = [
     {
-        "id": "paper_klue",
-        "arxiv_id": "2105.09680",
-        "title": "KLUE: Korean Language Understanding Evaluation",
-        "desc": "Korean NLP benchmark paper.",
-    },
-    {
-        "id": "paper_hyperclova",
-        "arxiv_id": "2404.01954",
-        "title": "HyperCLOVA X Technical Report",
-        "desc": "Korean LLM domain paper.",
-    },
-    {
-        "id": "patent_korean_ai",
+        "id": "paper_midm",
         "arxiv_id": None,
-        "title": "Korean AI patent PDF",
-        "desc": "Korean source material for language-aware HyDE validation.",
+        "title": "MIDM-2.0 Technical Report",
+        "desc": "Korean LLM model reference (tracked in repo).",
+    },
+    {
+        "id": "paper_ko_rag_eval_framework",
+        "arxiv_id": None,
+        "title": "Korean RAG Evaluation Framework",
+        "desc": "Korean RAG evaluation paper (tracked in repo).",
+    },
+    {
+        "id": "paper_ko_rag_rrf_chunking",
+        "arxiv_id": None,
+        "title": "Korean RAG with RRF and Chunking",
+        "desc": "Korean RAG chunking/fusion paper (tracked in repo).",
+    },
+    {
+        "id": "paper_ko_cad_contrastive",
+        "arxiv_id": None,
+        "title": "Korean CAD Contrastive Decoding",
+        "desc": "Korean CAD contrastive decoding paper (tracked in repo).",
     },
 ]
 
@@ -88,10 +94,7 @@ def download_paper(arxiv_id: str, dest_path: Path, retries: int = 3) -> bool:
 
 
 def _manual_message(dest_path: Path) -> str:
-    return (
-        "KIPRIS(kipris.or.kr)에서 한국어 AI 특허 PDF를 수동 다운로드한 뒤 "
-        f"{dest_path} 로 저장하세요."
-    )
+    return f"Repo-included asset expected at {dest_path}; restore from git if missing"
 
 
 def parse_args() -> argparse.Namespace:
@@ -99,7 +102,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skip-korean",
         action="store_true",
-        help="Skip Korean-domain papers and manual Korean patent guidance.",
+        help="Skip Korean/MIDM repo-included papers.",
     )
     parser.add_argument(
         "--data-dir",
@@ -119,7 +122,7 @@ def main() -> int:
 
     backend_dir = Path(__file__).resolve().parents[1]
     data_dir = Path(args.data_dir) if args.data_dir else backend_dir / "data"
-    targets = PAPERS if args.skip_korean else PAPERS + KOREAN_PAPERS
+    targets = PAPERS if args.skip_korean else PAPERS + REPO_INCLUDED_PAPERS
 
     print(f"[download_test_papers] target directory: {data_dir}")
     if args.dry_run:
@@ -127,7 +130,7 @@ def main() -> int:
         for paper in targets:
             dest = data_dir / f"{paper['id']}.pdf"
             arxiv_id = paper.get("arxiv_id")
-            source = arxiv_pdf_url(arxiv_id) if arxiv_id else "manual"
+            source = arxiv_pdf_url(arxiv_id) if arxiv_id else "repo-included"
             print(f"  - {paper['id']}: {source} -> {dest}")
         return 0
 

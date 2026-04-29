@@ -18,6 +18,42 @@ from config import BM25_WEIGHT, CHROMA_DIR, DENSE_WEIGHT, RRF_K, TOP_K_RETRIEVAL
 logger = logging.getLogger(__name__)
 
 
+class _RestrictedUnpickler(pickle.Unpickler):
+    """Unpickler that only allows BM25 and basic Python types."""
+
+    _ALLOWED_MODULES = {
+        "collections": {"defaultdict"},
+        "builtins": {
+            "dict",
+            "list",
+            "set",
+            "tuple",
+            "int",
+            "float",
+            "str",
+            "bool",
+            "bytes",
+        },
+    }
+
+    def find_class(self, module: str, name: str) -> type:
+        # Allow BM25 from this module
+        if module == "modules.hybrid_retriever" and name == "BM25":
+            return super().find_class(module, name)
+        # Allow basic safe types
+        allowed_names = self._ALLOWED_MODULES.get(module)
+        if allowed_names and name in allowed_names:
+            return super().find_class(module, name)
+        raise pickle.UnpicklingError(
+            f"Restricted unpickle: {module}.{name} is not allowed"
+        )
+
+
+def _restricted_unpickle(f):
+    """Load a pickle file using the restricted unpickler."""
+    return _RestrictedUnpickler(f).load()
+
+
 class BM25:
     """Simple BM25 implementation."""
 
@@ -130,7 +166,7 @@ class HybridRetriever:
         for path in self._bm25_dir.glob("*.pkl"):
             try:
                 with path.open("rb") as f:
-                    payload = pickle.load(f)
+                    payload = _restricted_unpickle(f)
                 collection_name = payload.get("collection_name")
                 bm25_index = payload.get("bm25")
                 if collection_name and isinstance(bm25_index, BM25):
