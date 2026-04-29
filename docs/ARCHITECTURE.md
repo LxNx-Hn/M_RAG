@@ -66,19 +66,19 @@ flowchart TD
 
 | 모듈 | 파일 | 역할 |
 |---|---|---|
-| 임베딩 | `embedder.py` | BGE-M3로 문서와 질문을 벡터화 |
-| 청킹 | `chunker.py` | 섹션/명제/RAPTOR 성격의 문서 조각 생성 |
-| 재랭커 | `reranker.py` | 검색 결과를 질문 적합도 기준으로 재정렬 |
-| 하이브리드 검색 | `hybrid_retriever.py` | dense 검색, BM25, RRF 결합 |
-| 쿼리 라우터 | `query_router.py` | 질문을 A~F 경로로 분류 |
+| 임베딩 | `embedder.py` | BGE-M3 [2]로 문서와 질문을 1024차원 벡터로 변환 |
+| 청킹 | `chunker.py` | 섹션 단위, 고정 크기, 문장 단위 청킹 [5, 24, 28] |
+| 재랭커 | `reranker.py` | Cross-encoder로 검색 결과 재정렬 [14, 21] |
+| 하이브리드 검색 | `hybrid_retriever.py` | Dense + BM25 + RRF 결합 검색 [22, 23] |
+| 쿼리 라우터 | `query_router.py` | 질문을 A~F 경로로 분류 [7, 8, 17] |
 | 섹션 감지 | `section_detector.py` | 논문/강의/특허/일반 문서의 섹션 구분 |
-| 생성기 | `generator.py` | MIDM 기반 답변 생성과 judge 보조 |
-| CAD 디코더 | `cad_decoder.py` | 문서 없는 생성 로짓을 빼서 파라메트릭 지식 개입 억제 |
-| SCD 디코더 | `scd_decoder.py` | 비목표 언어 토큰을 낮춰 Language Drift 억제 |
-| 컨텍스트 압축 | `context_compressor.py` | 긴 검색 결과를 생성 가능한 길이로 압축 |
-| 쿼리 확장 | `query_expander.py` | HyDE, 다중 질의, 번역 보조 |
-| 인용 추적 | `citation_tracker.py` | arXiv/참고문헌 기반 인용 정보 추적 |
-| 후속 질문 생성 | `followup_generator.py` | 답변 이후 이어질 질문 후보 생성 |
+| 생성기 | `generator.py` | MIDM-2.0 Base Instruct 기반 답변 생성과 judge 보조 |
+| CAD 디코더 | `cad_decoder.py` | 파라메트릭 지식 개입 억제 (logit 차감) [3, 4] |
+| SCD 디코더 | `scd_decoder.py` | Language Drift 억제 (비목표 언어 토큰 패널티) [34] |
+| 컨텍스트 압축 | `context_compressor.py` | 검색 결과를 생성 가능한 길이로 압축 [11, 12, 19] |
+| 쿼리 확장 | `query_expander.py` | HyDE [6], 다중 쿼리 [26], 한영 번역 |
+| 인용 추적 | `citation_tracker.py` | arXiv/Semantic Scholar 기반 인용 정보 추적 |
+| 후속 질문 생성 | `followup_generator.py` | 답변 이후 후속 질문 후보 생성 |
 
 ### 확장/운영 모듈
 
@@ -186,3 +186,5 @@ flowchart TD
 18개 전체 모듈 파일은 연구 핵심 모듈과 운영/입출력 모듈을 합친 현재 구현 단위다
 
 F 경로의 퀴즈 생성은 `pipeline_f_quiz.py`가 담당한다. 후속 질문 생성은 `followup_generator.py`가 담당한다
+
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)

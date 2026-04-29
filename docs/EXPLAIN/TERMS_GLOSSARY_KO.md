@@ -764,3 +764,7 @@ Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레
 ### 코드 위치
 
 `backend/evaluation/run_track1.py`, `backend/evaluation/ablation_study.py`
+
+---
+
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)

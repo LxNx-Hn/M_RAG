@@ -520,3 +520,7 @@ SSE를 쓰면 단어가 생성되는 즉시 화면에 나타난다:
 - **UNSUPPORTED**: 컨텍스트에 없는 내용 → Faithfulness = 0.0점
 
 관련 코드: `backend/api/routers/chat.py`, `backend/evaluation/ragas_eval.py`
+
+---
+
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
