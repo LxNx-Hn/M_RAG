@@ -29,7 +29,7 @@ _TYPE_TO_SECTION: dict[str, str] = {
     "section_result": "result",
     "section_abstract": "abstract",
     "section_conclusion": "conclusion",
-    "section_limit": "conclusion",
+    "section_limit": "discussion",
 }
 
 _OPENAI_GT_PROMPT = (
@@ -160,47 +160,78 @@ def _search_contexts(
     top_k: int,
     section_filter: str | None = None,
 ) -> list[str]:
-    """Retrieve document contexts via the M-RAG query endpoint with HyDE enabled.
+    """Retrieve paper contexts with stepwise fallback based on actual chunk count."""
 
-    Using /api/chat/query (use_hyde=True) instead of /api/chat/search because
-    the search-only endpoint does not support HyDE query expansion. Korean queries
-    against English paper chunks need HyDE to produce relevant retrieval results.
-    CAD/SCD are disabled so the MIDM generation step is minimal-impact; we only
-    use the returned `sources` (retrieved chunks), not the generated answer.
-    """
-    payload: dict = {
-        "query": query,
-        "collection_name": collection_name,
-        "use_cad": False,
-        "use_scd": False,
-        "use_hyde": True,
-        "top_k": min(top_k, 20),  # QueryRequest.top_k max = 20
-    }
-    if doc_id_filter:
-        payload["doc_id_filter"] = doc_id_filter
-    if section_filter:
-        payload["section_filter"] = section_filter
-    try:
-        resp = requests.post(
+    def _run_once(
+        *,
+        use_hyde: bool,
+        active_section_filter: str | None,
+    ) -> list[str]:
+        payload: dict = {
+            "query": query,
+            "collection_name": collection_name,
+            "use_cad": False,
+            "use_scd": False,
+            "use_hyde": use_hyde,
+            "top_k": min(top_k, 20),  # QueryRequest.top_k max = 20
+        }
+        if doc_id_filter:
+            payload["doc_id_filter"] = doc_id_filter
+        if active_section_filter:
+            payload["section_filter"] = active_section_filter
+
+        response = requests.post(
             f"{api_url.rstrip('/')}/api/chat/query",
             json=payload,
             headers=_build_headers(token),
             timeout=timeout,
         )
-        resp.raise_for_status()
-        data = resp.json()
-        # QueryResponse.sources contains the retrieved SourceDocument list
+        response.raise_for_status()
+        data = response.json()
         return [
             item.get("content", "")
             for item in data.get("sources", [])
             if item.get("content")
         ]
-    except Exception as exc:
+
+    attempts = [
+        (1, section_filter, True),
+        (2, section_filter, False),
+        (3, None, True),
+        (4, None, False),
+    ]
+
+    last_error: Exception | None = None
+    for step, active_section_filter, use_hyde in attempts:
+        try:
+            contexts = _run_once(
+                use_hyde=use_hyde,
+                active_section_filter=active_section_filter,
+            )
+            section_label = active_section_filter or "None"
+            print(
+                f"  [FALLBACK step={step}] section={section_label} "
+                f"hyde={use_hyde} -> {len(contexts)} chunks",
+                flush=True,
+            )
+            if contexts:
+                return contexts
+        except Exception as exc:
+            last_error = exc
+            section_label = active_section_filter or "None"
+            print(
+                f"  [FALLBACK step={step}] section={section_label} "
+                f"hyde={use_hyde} -> error: {exc}",
+                file=sys.stderr,
+                flush=True,
+            )
+
+    if last_error is not None:
         print(
-            f"  Context retrieval failed ({exc}); using empty context.",
+            f"  Context retrieval exhausted all fallbacks ({last_error}); using empty context.",
             file=sys.stderr,
         )
-        return []
+    return []
 
 
 def _query_openai_gt(

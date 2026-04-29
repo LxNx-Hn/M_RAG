@@ -32,6 +32,7 @@ cd M_RAG
 ```bash
 git fetch origin
 git pull --ff-only origin main
+git log --oneline -1
 ```
 
 ## 가상환경 준비
@@ -84,26 +85,49 @@ PDF로 다시 받아 덮어쓸 수 있다.
 
 | 언어 | doc_id |
 |------|--------|
-| 영어 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor |
-| 한국어/MIDM | paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive |
+| 영어 본문 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm |
+| 한국어 본문 | paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive |
 
-`paper_ko_rag_rrf_chunking`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다.
+`paper_ko_hyde_multihop`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다.
+`paper_midm`은 한국어 도메인 기술 보고서이지만 본문 언어는 영어로 취급한다.
 
 ## 쿼리 생성
 
-`OPENAI_API_KEY`가 설정되어 있으면 `master_run.py`가 인덱싱 뒤 Track 1 논문별 특화 쿼리를 자동 생성한다. 저장소의 `track1_queries.json`은 런타임 생성을 위한 자리표시 파일이다. 생성 결과를 미리 확인하거나 수동 재생성할 때는 다음 명령을 사용한다.
+`OPENAI_API_KEY`가 설정되어 있으면 `master_run.py`가 인덱싱 뒤 Track 1 논문별 특화 쿼리를 자동 생성한다. 저장소의 `track1_queries.json`은 런타임 생성을 위한 자리표시 파일이다.
+
+Track 2는 checked-in 공통 자산(`track2_queries.json`)을 사용한다.
+
+- 영어 본문 그룹 공통 28개
+- 한국어 본문 그룹 공통 28개
+- 총 56개
+
+Track 1 생성 결과를 미리 확인하거나 수동 재생성할 때는 다음 명령을 사용한다.
 
 ```bash
 export OPENAI_API_KEY=sk-...
 export MRAG_API_TOKEN=...
 python scripts/generate_queries.py \
   --papers paper_nlp_bge paper_nlp_rag paper_nlp_cad paper_nlp_raptor \
-           paper_midm paper_ko_rag_eval_framework paper_ko_rag_rrf_chunking paper_ko_cad_contrastive \
+           paper_midm paper_ko_rag_eval_framework paper_ko_hyde_multihop paper_ko_cad_contrastive \
   --output evaluation/data/track1_queries.json \
   --openai-model gpt-4o \
   --token "$MRAG_API_TOKEN" \
   --overwrite
 ```
+
+## Alice 실행 전 stale 파일 정리
+
+```bash
+cd ~/M_RAG/backend
+rm -f scripts/master_run.lock
+rm -f scripts/master_run.log
+rm -f evaluation/data/track1_queries.json
+rm -f evaluation/data/pseudo_gt_track1.json
+rm -f evaluation/data/pseudo_gt_track2.json
+```
+
+`track1_queries.json`은 런타임 생성 placeholder라서 비워진 상태가 정상이다.  
+`pseudo_gt_track1.json`, `pseudo_gt_track2.json`은 이전 실패 런 산출물일 수 있으므로 새 런 전 삭제한다.
 
 ## 전체 실험 실행
 
@@ -111,9 +135,11 @@ python scripts/generate_queries.py \
 cd ~/M_RAG/backend
 source ../.venv/bin/activate
 export OPENAI_API_KEY=sk-...
-nohup python scripts/master_run.py --skip-download --push-results > scripts/master_run_stdout.log 2>&1 &
-echo $!
+bash run_alice_full.sh
 ```
+
+`run_alice_full.sh`가 Alice의 유일한 실행 진입점이다.  
+`nohup python scripts/master_run.py ... &`와 `bash run_alice_full.sh`를 동시에 실행하면 lock 충돌이 난다.
 
 진행 확인
 
@@ -188,10 +214,6 @@ pip install --force-reinstall torch --index-url https://download.pytorch.org/whl
 ### 503 during indexing
 
 API 서버가 DB 또는 모델 초기화를 끝내지 못했을 수 있다. `scripts/master_run.log`와 `/health` 상태를 확인한다.
-
-### PDF 업로드가 바로 거부되는 경우
-
-텍스트 추출 품질이 낮은 PDF는 색인 전에 차단된다. OCR 처리본이나 다른 원본 PDF로 다시 시도한다.
 
 ### git pull 전 로그나 결과가 사라질까 걱정되는 경우
 

@@ -73,11 +73,17 @@ python scripts\master_run.py --skip-download
 
 | 언어 | doc_id |
 |------|--------|
-| 영어 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor |
-| 한국어/MIDM | paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive |
+| 영어 본문 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm |
+| 한국어 본문 | paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive |
 
 `git pull` 후 `backend/data/`에 8편 전부 존재한다. 별도 수동 배치 없이
 기본 실험을 재현할 수 있다.
+
+Track 2는 checked-in 공통 query asset을 사용한다.
+
+- 영어 본문 그룹 28개
+- 한국어 본문 그룹 28개
+- 총 56개
 
 성공 기준
 

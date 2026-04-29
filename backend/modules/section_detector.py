@@ -105,6 +105,8 @@ _PATENT_SIGNALS = re.compile(
 
 _REFERENCE_ENTRY_RE = re.compile(r"^\s*(\[\d+\]|\d+\.)\s+")
 _AUTHOR_BIO_RE = re.compile(r"(?i)(저\s*자\s*소\s*개|author\s*bio(?:graphy)?)")
+_SPACED_HANGUL_RE = re.compile(r"(?<=[\uac00-\ud7a3])\s+(?=[\uac00-\ud7a3])")
+_LEADING_SECTION_NUMBER_RE = re.compile(r"^\s*(?:\d+(?:\.\d+)*[\.\)]?\s*)+")
 
 # 패턴 맵: doc_type → 패턴 dict
 _PATTERN_MAP = {
@@ -132,6 +134,15 @@ class SectionDetector:
 
     def __init__(self):
         self.header_font_threshold = 1.2  # 본문 대비 이 비율 이상이면 헤더
+
+    @staticmethod
+    def _normalize_match_text(text: str) -> str:
+        text = " ".join(text.split())
+        return _SPACED_HANGUL_RE.sub("", text)
+
+    @staticmethod
+    def _strip_heading_numbering(text: str) -> str:
+        return _LEADING_SECTION_NUMBER_RE.sub("", text).strip()
 
     def detect(self, document: ParsedDocument) -> ParsedDocument:
         """블록에 섹션 타입 부착. 문서 유형을 자동 판별하여 적합한 패턴 적용."""
@@ -173,10 +184,12 @@ class SectionDetector:
         우선순위: patent > lecture > paper > general.
         특허는 키워드가 매우 독특하여 오판 위험 낮음.
         """
-        sample_text = " ".join(
-            b.content
-            for b in document.blocks[:30]
-            if b.block_type in ("text", "heading")
+        sample_text = self._normalize_match_text(
+            " ".join(
+                b.content
+                for b in document.blocks[:30]
+                if b.block_type in ("text", "heading")
+            )
         )
 
         patent_count = len(_PATENT_SIGNALS.findall(sample_text))
@@ -232,14 +245,38 @@ class SectionDetector:
     ) -> Optional[str]:
         """블록이 섹션 헤더인지 판단하고, 맞다면 섹션 타입 반환"""
         text = block.content.strip()
+        normalized_text = self._normalize_match_text(text)
+        stripped_text = self._strip_heading_numbering(text)
+        normalized_stripped_text = self._strip_heading_numbering(normalized_text)
+        candidate_texts = []
+        for candidate in (
+            text,
+            normalized_text,
+            stripped_text,
+            normalized_stripped_text,
+        ):
+            if candidate and candidate not in candidate_texts:
+                candidate_texts.append(candidate)
 
         # heading block_type은 이미 헤더로 확인됨
         if block.block_type == "heading":
             for section_type, pats in patterns.items():
                 for pattern in pats:
-                    if re.search(pattern, text):
+                    if any(
+                        re.search(pattern, candidate) for candidate in candidate_texts
+                    ):
                         return section_type
             return None
+
+        # 실제 PDF에서 헤더가 일반 text 블록으로 추출되는 경우가 많아서,
+        # 짧은 독립 라인은 폰트 임계값 이전에도 패턴 매칭을 시도한다.
+        if len(text) <= 80:
+            for section_type, pats in patterns.items():
+                for pattern in pats:
+                    if any(
+                        re.search(pattern, candidate) for candidate in candidate_texts
+                    ):
+                        return section_type
 
         # 짧은 텍스트 + (큰 폰트 또는 볼드) → 헤더 후보
         is_header_candidate = len(text) < 100 and (
@@ -252,7 +289,7 @@ class SectionDetector:
         # 패턴 매칭
         for section_type, pats in patterns.items():
             for pattern in pats:
-                if re.search(pattern, text):
+                if any(re.search(pattern, candidate) for candidate in candidate_texts):
                     return section_type
 
         return None

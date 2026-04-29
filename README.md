@@ -9,10 +9,11 @@ M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시
 - 논문 실험 빠른 실행은 SQLite + SQLAlchemy
 - 운영/서비스 경로는 PostgreSQL + SQLAlchemy
 - 논문 실험 경로는 MIDM Base 직접 디코딩을 기준으로 함
-- 실험 코퍼스: 8편 (영어 NLP 4편 + 한국어/MIDM 4편)
-  - 영어: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor
-  - 한국어/MIDM: paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive
-  - `paper_ko_rag_rrf_chunking`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다
+- 실험 코퍼스: 8편
+  - 영어 본문: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm
+  - 한국어 본문: paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
+  - `paper_midm`은 한국어 도메인 기술 보고서이지만 본문 언어는 영어로 취급한다
+  - `paper_ko_hyde_multihop`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다
 
 ## 주요 기능
 
@@ -26,6 +27,14 @@ M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시
 - 퀴즈/플래시카드 생성
 - SSE 스트리밍
 - Judge/Search/PPT Export API
+
+## 평가 구조
+
+- Track 1: 논문별 특화 쿼리로 각 문서 안에서 config 성능을 비교한다
+- Track 2: 공통 쿼리셋으로 config 차이만 비교한다
+  - 영어 본문 그룹 28개
+  - 한국어 본문 그룹 28개
+  - 총 56개 checked-in query asset
 
 ## 빠른 실행
 
@@ -132,8 +141,8 @@ npm run dev
 - `backend/evaluation/ragas_eval.py`
 - `backend/scripts/results_to_markdown.py`
 
-## 업로드 품질 정책
+## Alice 실행 메모
 
-- PDF는 파싱 직후 품질 검사를 통과해야만 색인된다
-- 텍스트 추출이 심하게 깨진 PDF는 UI와 API에서 즉시 업로드 거부된다
-- 거부된 문서는 papers 목록, 검색, 채팅 대상에 포함되지 않는다
+- Alice에서는 `backend/run_alice_full.sh`를 단일 진입점으로 사용한다
+- `python scripts/master_run.py ...` 백그라운드 실행과 `run_alice_full.sh` 동시 실행은 금지한다
+- 새 런 전에는 `backend/scripts/master_run.lock`, `backend/scripts/master_run.log`, `backend/evaluation/data/track1_queries.json`, `backend/evaluation/data/pseudo_gt_track1.json`, `backend/evaluation/data/pseudo_gt_track2.json` 정리 여부를 확인한다

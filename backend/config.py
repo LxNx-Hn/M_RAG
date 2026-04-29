@@ -166,8 +166,12 @@ SECTION_PATTERNS = {
         r"(?i)approach",
         r"(?i)model\b",
         r"(?i)proposed",
+        r"(?i)^방법\b",
         r"(?i)방법론",
         r"(?i)연구\s*방법",
+        r"(?i)data\s*foundations?",
+        r"(?i)pre-?training",
+        r"(?i)post-?training",
     ],
     "experiment": [r"(?i)experiment", r"(?i)setup", r"(?i)실험", r"(?i)연구\s*설계"],
     "result": [

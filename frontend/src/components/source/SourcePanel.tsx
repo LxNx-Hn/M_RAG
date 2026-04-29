@@ -60,7 +60,7 @@ export default function SourcePanel() {
         }
       }
     },
-    [addPaper, activePaperId, setActivePaper, setUploading]
+    [addPaper, activePaperId, setActivePaper, setUploading, t]
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

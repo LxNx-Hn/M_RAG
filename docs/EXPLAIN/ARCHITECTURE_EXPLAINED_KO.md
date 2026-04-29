@@ -318,7 +318,7 @@ followup_generator.py → 후속 질문 생성
 ```
 
 8개 문서: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
-paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad_contrastive
+paper_midm, paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
 
 6개 설정:
 - Naive RAG
@@ -333,10 +333,15 @@ paper_midm, paper_ko_rag_eval_framework, paper_ko_rag_rrf_chunking, paper_ko_cad
 ### Track 2 (Table 3)
 
 ```
-4편 NLP 논문 × 28개 전문 질문 × 6개 설정 = 672 API 호출
+영어 본문 그룹 28개 + 한국어 본문 그룹 28개 = 총 56개 공통 질문
 ```
 
-논문 도메인 특화 효과 측정. CAD ablation 쿼리(의도적으로 논문에 없는 정보를 물어봄)로 Hallucination 억제 효과를 정밀 측정한다.
+Track 2는 논문별 질문이 아니라 공통 질문셋으로 설정 차이만 비교한다.
+
+- 영어 본문 그룹: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm
+- 한국어 본문 그룹: paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
+
+같은 그룹 안에서는 동일한 28개 쿼리를 모든 config에 반복 적용한다. 이렇게 해야 설정 차이인지, 질문 난이도 차이인지가 섞이지 않는다.
 
 ---
 
