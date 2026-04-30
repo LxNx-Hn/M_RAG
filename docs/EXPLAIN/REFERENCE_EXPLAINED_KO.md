@@ -590,3 +590,10 @@ HyDE 기반 멀티 홉 검색 성능 향상을 제안하는 논문이다.
 **M-RAG에서 어떻게 쓰이는가**
 
 실험 코퍼스(`paper_ko_cad_contrastive`)로 활용되어 한국어 환경의 CAD 검증 파이프라인에서 테스트된다.
+
+<!-- 
+[영문 번역본 제출 시 사용할 대체 인용 포맷 / Alternative English Citations for 38-40]
+[38] B. Kim and J. Yang — Comparative Analysis Study on Automated Dataset Generation Frameworks for RAG System Performance Evaluation (2025)
+[39] Y. Kim et al. — HyDE-Based Multi-Hop Retrieval Approach for Enhancing Retrieval Performance (2025)
+[40] G. Jang et al. — Contrastive CAD: Contrastive Context-Aware Decoding for Mitigating Hallucinations of Large Language Models (2024)
+-->
