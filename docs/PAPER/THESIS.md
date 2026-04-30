@@ -432,12 +432,12 @@ Output: non_target_ids (cached tensor)
 
 | 문서 ID | 논문 | 역할 |
 |---|---|---|
-| paper_midm | Tech. Innovation Group, KT (2026) Mi:dm K 2.5 Pro [37] | 생성 모델 참고 (영어 본문) |
+| paper_midm | Tech. Innovation Group, KT (2026) Mi:dm K 2.5 Pro [37] | 최신 LLM 기술 보고서 (영어 본문) |
 | paper_ko_rag_eval_framework | 한국어 RAG 평가 프레임워크 [38] | 한국어 RAG 평가 기준 |
 | paper_ko_hyde_multihop | HyDE 기반 멀티 홉 검색 [39] | 한국어 환경 검색 최적화 |
 | paper_ko_cad_contrastive | 한국어 CAD 대조적 디코딩 [40] | 한국어 환경 CAD 검증 |
 
-영어 본문 문서 5편은 관련 연구의 핵심 참고문헌과 생성 모델 기술 보고서를 포함하므로, 시스템이 참고문헌의 내용을 올바르게 검색하고 인용하는지와 영어 본문 기술 보고서에 대한 crosslingual 질의를 모두 검증할 수 있다. 한국어 본문 문서 3편은 한국어 질의-한국어 컨텍스트 환경에서의 CAD/섹션 필터/인용 추적 효과를 검증한다. `paper_midm`은 한국어 도메인의 기술 보고서이지만 본문 언어는 영어이므로 영어 본문 그룹으로 취급한다.
+영어 본문 문서 5편은 관련 연구의 핵심 참고문헌과 최신 LLM 기술 보고서를 포함하므로, 시스템이 참고문헌의 내용을 올바르게 검색하고 인용하는지와 영어 본문 기술 보고서에 대한 crosslingual 질의를 모두 검증할 수 있다. 한국어 본문 문서 3편은 한국어 질의-한국어 컨텍스트 환경에서의 CAD/섹션 필터/인용 추적 효과를 검증한다. `paper_midm`은 한국어 도메인의 기술 보고서이지만 본문 언어는 영어이므로 영어 본문 그룹으로 취급한다.
 
 ### 5.2 연구 질문
 
