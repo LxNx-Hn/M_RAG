@@ -865,7 +865,7 @@ class MasterRunner:
                 "--min-interval",
                 "3.2",
                 "--search-top-k",
-                "10",
+                "30",
                 "--force",
             ]
             if use_gpt:

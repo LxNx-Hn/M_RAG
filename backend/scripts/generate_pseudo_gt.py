@@ -34,12 +34,12 @@ _TYPE_TO_SECTION: dict[str, str] = {
 
 _OPENAI_GT_PROMPT = (
     "You are an expert academic assistant. "
-    "Answer the question using ONLY information from the provided document excerpts. "
-    "Be concise and factual. If the answer is not in the excerpts, write "
-    "'Not found in document.'\n\n"
+    "Answer the question in Korean using ONLY information from the provided document excerpts. "
+    "Be concise and factual. If a key passage hint is provided, it is an exact excerpt from the paper — use it.\n\n"
     "Document excerpts:\n{contexts}\n\n"
+    "{hint}"
     "Question: {query}\n\n"
-    "Answer:"
+    "Answer (Korean):"
 )
 
 
@@ -239,6 +239,7 @@ def _query_openai_gt(
     model: str,
     query: str,
     contexts: list[str],
+    answer_span: str = "",
 ) -> str:
     """Generate a ground truth answer using OpenAI, grounded in retrieved contexts."""
     try:
@@ -254,10 +255,11 @@ def _query_openai_gt(
         )
     client = OpenAI(api_key=api_key)
     ctx_text = "\n\n".join(
-        f"[Excerpt {i + 1}]\n{ctx[:600]}" for i, ctx in enumerate(contexts[:5])
+        f"[Excerpt {i + 1}]\n{ctx[:1000]}" for i, ctx in enumerate(contexts[:15])
     )
+    hint = f"Key passage from paper: \"{answer_span}\"\n\n" if answer_span else ""
     prompt = _OPENAI_GT_PROMPT.format(
-        contexts=ctx_text or "(no excerpts retrieved)", query=query
+        contexts=ctx_text or "(no excerpts retrieved)", query=query, hint=hint
     )
     response = client.chat.completions.create(
         model=model,
@@ -538,7 +540,8 @@ def main() -> int:
                             section_filter=section_filter,
                         )
                         answer = _query_openai_gt(
-                            args.openai_api_key, args.gt_model, query, contexts
+                            args.openai_api_key, args.gt_model, query, contexts,
+                            answer_span=str(item.get("answer_span", "")),
                         )
                         print(f"  [{paper}] GPT GT: {answer[:80]}...")
                     else:
@@ -577,7 +580,8 @@ def main() -> int:
                         section_filter=section_filter,
                     )
                     answer = _query_openai_gt(
-                        args.openai_api_key, args.gt_model, query, contexts
+                        args.openai_api_key, args.gt_model, query, contexts,
+                        answer_span=str(item.get("answer_span", "")),
                     )
                 else:
                     answer = _query_api(
