@@ -1,6 +1,6 @@
 # M-RAG
 
-M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다. 질문 유형을 A~F 경로로 라우팅하고, BGE-M3 기반 검색, BM25, RRF, reranker, context compression, MIDM Base 생성, CAD/SCD 생성 제어를 결합한다.
+M-RAG는 교차 언어 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다. 질문 유형을 A~F 경로로 라우팅하고, BGE-M3 기반 검색, BM25, RRF, reranker, context compression, MIDM Base 생성, CAD/SCD 생성 제어를 결합한다.
 
 ## 핵심
 
