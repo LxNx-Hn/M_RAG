@@ -10,7 +10,7 @@
 
 ### 한 줄 요약
 
-> **"범용 다국어 RAG에서 모듈별 한/영 질의 성능 갭을 정량 분해하고(Track 1), 논문 도메인에서 섹션 특화 모듈의 추가 효과를 실증한다(Track 2). CAD+SCD 조합으로 Language Drift와 파라메트릭 지식 개입을 동시 억제한다."**
+> **"범용 다국어 RAG에서 모듈별 한/영 질의 성능 갭을 정량 분해하고(Track 1), 논문 도메인에서 섹션 특화 모듈의 추가 효과를 비교한다(Track 2). CAD+SCD 조합으로 Language Drift와 파라메트릭 지식 개입을 동시 억제한다."**
 
 ---
 
@@ -587,7 +587,7 @@ Track 1은 8개 문서에 대해 논문별 특화 쿼리로 구성한다. 기본
 
 #### Track 2 — 논문 도메인 특화
 
-Track 2는 Track 1처럼 논문별 질문을 따로 만드는 대신, 같은 쿼리 세트를 여러 설정에 반복 적용해 config 차이만 비교하는 구조다. 현재 자산은 총 56개이며 다음 두 그룹으로 나뉜다.
+Track 2는 Track 1처럼 논문별 질문을 따로 만드는 대신, 같은 쿼리 세트를 여러 설정에 반복 적용해 config 차이만 비교하는 구조다. 현재 자산은 총 56개이며 다음 두 그룹으로 나뉜다. 이 자산은 비교 조건을 고정하는 구조적 기반이고, 실제 효과 크기는 Track 2 실측 결과로 별도 판단한다.
 
 - 영어 본문 그룹 28개: `paper_nlp_bge`, `paper_nlp_rag`, `paper_nlp_cad`, `paper_nlp_raptor`, `paper_midm`
 - 한국어 본문 그룹 28개: `paper_ko_rag_eval_framework`, `paper_ko_hyde_multihop`, `paper_ko_cad_contrastive`
@@ -727,7 +727,7 @@ for alpha, beta in itertools.product(alphas, betas):
  모듈별 갭 해소 기여도를 검증한 뒤,
  Track 2에서 논문 도메인 특화 모듈
  (섹션 인식 청킹, RAPTOR, 인용 트래커)의
- 추가 효과를 실증한다."
+ 추가 효과를 비교한다."
 ```
 
 **CAD + SCD 조합 포지셔닝:**
@@ -735,7 +735,7 @@ for alpha, beta in itertools.product(alphas, betas):
 "SCD [34]는 Language Drift를 억제하나
  파라메트릭 지식 개입은 다루지 않는다.
  CAD [3]는 반대다. 본 연구는 두 기법을
- 조합하여 Table 2에서 상호보완 효과를 실증한다."
+ 조합하여 Table 2에서 상호보완 효과를 비교한다."
 ```
 
 **최적값 한계 명시:**

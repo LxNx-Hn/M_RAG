@@ -8,6 +8,7 @@ from modules.scd_decoder import SCDDecoder
 class MockTokenizer:
     def __init__(self):
         self.vocab_size = 1000
+
     def decode(self, token_ids):
         # Return Korean for some tokens, English for others
         if isinstance(token_ids, list):
@@ -19,6 +20,7 @@ class MockTokenizer:
         elif token_id < 200:
             return "a"
         return "1"
+
 
 @pytest.fixture(scope="module")
 def mock_tokenizer():

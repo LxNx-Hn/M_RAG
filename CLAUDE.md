@@ -68,8 +68,11 @@ cd frontend && npm run build
   - Korean-body group papers: paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
   - Query types: cad_ablation (14), section_method (14), section_abstract (14), citation (14)
   - This file is a checked-in evaluation asset; must be populated in the repo
+  - This is a structural reproducibility asset, not proof of measured quality by itself
 - Pseudo GT: generated in STEP 5 via GPT-4o from retrieved contexts; gitignored (generated at runtime)
 - Track 2 uses common query sets because it compares config deltas under matched query difficulty
+- For factual claims about Track 2 answerability or CAD gaps, inspect generated
+  `pseudo_gt_track2.json` and `evaluation/results/table3_domain.json`
 
 ## Paper Assets (8 papers)
 
