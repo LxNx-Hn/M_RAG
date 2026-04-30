@@ -533,48 +533,60 @@ Track 1 쿼리 설계의 참고 기준이다. "실제 논문 독자가 논문에
 
 아래 4편은 M-RAG 실험 코퍼스로 사용된 한국어/MIDM 문서다. 영어 코퍼스 4편은 관련 연구의 [1], [2], [3], [5]와 동일 논문이다.
 
-### [36] KT Corp. — MIDM-2.0 Technical Report (2024)
+### [36] K-intelligence — Mi:dm 2.0 Technical Report (2025)
 
 **역할**
 
-M-RAG의 생성 모델인 MIDM-2.0 Base Instruct의 기술 보고서다. 한국어 특화 사전학습과 Instruct fine-tuning 방법을 설명한다.
+M-RAG의 기반 모델(Foundation Model)인 Midm-2.0 Base Instruct의 기술 보고서다. 모델 아키텍처 및 다국어 지원 토크나이저 역량을 설명한다.
 
 **M-RAG에서 어떻게 쓰이는가**
 
-`generator.py`가 로드하는 모델의 공식 문서다. 모델의 한국어 성능 특성과 토크나이저 구조를 이해하는 데 필요하다. 실험 코퍼스에서 한국어 문서로 사용되며, CAD/SCD 효과를 한국어 환경에서 검증하는 근거가 된다.
+시스템이 사용하는 기반 모델의 근거로 사용되며, 모델의 영어 독해 및 한국어 지시 따르기 역량을 정당화한다.
 
 ---
 
-### [37] 한국어 RAG 평가 프레임워크 (2024)
+### [37] Tech. Innovation Group, KT — Mi:dm K 2.5 Pro (2026)
 
 **역할**
 
-한국어 환경에서 RAG 시스템을 평가하는 프레임워크를 제안한 논문이다.
+2026년에 발표된 Midm Pro 버전 기술 보고서로, 실험에서 사용하는 평가 말뭉치(`paper_midm`)로 채택되었다.
 
 **M-RAG에서 어떻게 쓰이는가**
 
-실험 코퍼스에서 한국어 문서로 사용되며, 한국어 RAG 평가 관련 질의의 근거 문서가 된다.
+한국어와 영어가 혼재된 도메인 기술 문서 환경(영어 본문 + 한국어 도메인)에서 RAG 시스템 성능 평가를 위한 테스트 코퍼스로 활용된다.
 
 ---
 
-### [38] HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안 (2024)
+### [38] B. Kim and J. Yang — Comparative Analysis Study on Automated Dataset Generation Frameworks for RAG System Performance Evaluation (2025)
 
 **역할**
 
-한국어 환경에서 HyDE 기반 멀티 홉 검색이 retrieval 품질에 미치는 영향을 다룬 논문이다.
+RAG 시스템 성능 평가를 위한 테스트 데이터셋 생성 프레임워크 비교 연구 논문이다.
 
 **M-RAG에서 어떻게 쓰이는가**
 
-한국어 본문 실험 자산 `paper_ko_hyde_multihop`의 근거 문서다. HyDE를 활용한 한국어 검색 강화와 멀티 홉 retrieval 질문에 대한 실험 근거를 제공한다.
+실험 코퍼스(`paper_ko_rag_eval_framework`)로 사용되어, 한국어 RAG 평가 지표 관련 쿼리의 검증을 돕는다.
 
 ---
 
-### [39] 한국어 환경에서의 CAD 대조적 디코딩 효과 검증 (2024)
+### [39] Y. Kim et al. — HyDE-Based Multi-Hop Retrieval Approach for Enhancing Retrieval Performance (2025)
 
 **역할**
 
-한국어 환경에서 CAD의 효과를 검증한 논문이다.
+HyDE 기반 멀티 홉 검색 성능 향상을 제안하는 논문이다.
 
 **M-RAG에서 어떻게 쓰이는가**
 
-`cad_decoder.py`의 한국어 환경 효과를 지지하는 근거다. 영어 논문 [3]에서 제안된 CAD가 한국어에서도 유효한지를 검증하는 선행 연구로, 실험 코퍼스에서 CAD 관련 질의의 근거 문서가 된다.
+실험 코퍼스(`paper_ko_hyde_multihop`)로 사용되어 한국어 환경에서의 검색 최적화 역량 검증에 활용된다.
+
+---
+
+### [40] G. Jang et al. — Contrastive CAD: Contrastive Context-Aware Decoding for Mitigating Hallucinations of Large Language Models (2024)
+
+**역할**
+
+한국어 거대언어모델의 환각을 완화하기 위한 대조적 디코딩에 관한 연구 논문이다.
+
+**M-RAG에서 어떻게 쓰이는가**
+
+실험 코퍼스(`paper_ko_cad_contrastive`)로 활용되어 한국어 환경의 CAD 검증 파이프라인에서 테스트된다.
