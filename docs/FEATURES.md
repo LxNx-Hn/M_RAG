@@ -32,7 +32,7 @@
 | 퀴즈 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 |
 | 플래시카드 생성 | `backend/pipelines/pipeline_f_quiz.py` | F 경로 |
 
-F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 표는 A~E 연구 경로와 CAD/SCD 효과를 중심으로 구성하고, F 경로는 실제 챗봇 기능 설명과 시연 문서에서 다룬다
+F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 표는 A–E 연구 경로와 CAD/SCD 효과를 중심으로 구성하고, F 경로는 실제 챗봇 기능 설명과 시연 문서에서 다룬다
 
 ---
 

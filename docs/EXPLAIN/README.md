@@ -10,7 +10,7 @@
 | `ARCHITECTURE_EXPLAINED_KO.md` | 전체 구조를 쉬운 말로 설명 |
 | `FLOW_EXPLAINED_KO.md` | 업로드부터 답변까지의 흐름 설명 |
 | `FEATURES_EXPLAINED_KO.md` | 사용자 기능과 연구 기능 설명 |
-| `ROUTE_MODULE_MATRIX_KO.md` | A~F 경로별 동작 모듈 설명 |
+| `ROUTE_MODULE_MATRIX_KO.md` | A–F 경로별 동작 모듈 설명 |
 | `REFERENCE_EXPLAINED_KO.md` | 39편 참고문헌 역할 설명 |
 | `TABLE_INTERPRETATION_GUIDE.md` | 실험 표 읽는 법 설명 |
 
