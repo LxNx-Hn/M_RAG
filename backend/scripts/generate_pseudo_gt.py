@@ -32,15 +32,29 @@ _TYPE_TO_SECTION: dict[str, str] = {
     "section_limit": "discussion",
 }
 
-_OPENAI_GT_PROMPT = (
+# GT for English-body papers: answer in English (the language of the source)
+_OPENAI_GT_PROMPT_EN = (
     "You are an expert academic assistant. "
-    "Answer the question in Korean using ONLY information from the provided document excerpts. "
+    "Answer the question in English using ONLY information from the provided document excerpts. "
     "Be concise and factual. If the answer is not in the excerpts, write "
     "'Not found in document.'\n\n"
     "Document excerpts:\n{contexts}\n\n"
     "Question: {query}\n\n"
-    "Answer (Korean):"
+    "Answer (English):"
 )
+
+# GT for Korean-body papers: answer in Korean (the language of the source)
+_OPENAI_GT_PROMPT_KO = (
+    "당신은 학술 논문 전문가입니다. "
+    "아래 문서 발췌문에 있는 정보만을 사용하여 질문에 한국어로 간결하고 정확하게 답변하세요. "
+    "발췌문에 답이 없으면 '문서에서 찾을 수 없습니다.'라고만 쓰세요.\n\n"
+    "문서 발췌문:\n{contexts}\n\n"
+    "질문: {query}\n\n"
+    "답변 (한국어):"
+)
+
+# Korean-body paper doc_id prefix
+_KO_PAPER_PREFIX = "paper_ko_"
 
 
 def parse_args() -> argparse.Namespace:
@@ -230,8 +244,14 @@ def _query_openai_gt(
     model: str,
     query: str,
     contexts: list[str],
+    doc_id: str = "",
 ) -> str:
-    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts."""
+    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts.
+
+    Uses English prompt for English-body papers and Korean prompt for Korean-body
+    papers so that GT language matches the source document language.
+    RAGAS evaluates via multilingual embeddings, so cross-lingual comparison works.
+    """
     try:
         from openai import OpenAI
     except ImportError:
@@ -247,7 +267,12 @@ def _query_openai_gt(
     ctx_text = "\n\n".join(
         f"[Excerpt {i + 1}]\n{ctx[:1000]}" for i, ctx in enumerate(contexts[:15])
     )
-    prompt = _OPENAI_GT_PROMPT.format(
+    prompt_template = (
+        _OPENAI_GT_PROMPT_KO
+        if doc_id.startswith(_KO_PAPER_PREFIX)
+        else _OPENAI_GT_PROMPT_EN
+    )
+    prompt = prompt_template.format(
         contexts=ctx_text or "(no excerpts retrieved)", query=query
     )
     response = client.chat.completions.create(
@@ -529,7 +554,11 @@ def main() -> int:
                             section_filter=section_filter,
                         )
                         answer = _query_openai_gt(
-                            args.openai_api_key, args.gt_model, query, contexts
+                            args.openai_api_key,
+                            args.gt_model,
+                            query,
+                            contexts,
+                            doc_id=paper,
                         )
                         print(f"  [{paper}] GPT GT: {answer[:80]}...")
                     else:
@@ -572,7 +601,6 @@ def main() -> int:
                         args.gt_model,
                         query,
                         contexts,
-                        answer_span=str(item.get("answer_span", "")),
                     )
                 else:
                     answer = _query_api(
