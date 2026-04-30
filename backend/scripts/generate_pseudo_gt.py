@@ -32,29 +32,53 @@ _TYPE_TO_SECTION: dict[str, str] = {
     "section_limit": "discussion",
 }
 
-# GT for English-body papers: answer in English (the language of the source)
-_OPENAI_GT_PROMPT_EN = (
-    "You are an expert academic assistant. "
-    "Answer the question in English using ONLY information from the provided document excerpts. "
-    "Be concise and factual. If the answer is not in the excerpts, write "
-    "'Not found in document.'\n\n"
-    "Document excerpts:\n{contexts}\n\n"
-    "Question: {query}\n\n"
-    "Answer (English):"
-)
-
-# GT for Korean-body papers: answer in Korean (the language of the source)
-_OPENAI_GT_PROMPT_KO = (
-    "당신은 학술 논문 전문가입니다. "
-    "아래 문서 발췌문에 있는 정보만을 사용하여 질문에 한국어로 간결하고 정확하게 답변하세요. "
-    "발췌문에 답이 없으면 '문서에서 찾을 수 없습니다.'라고만 쓰세요.\n\n"
+# Unified Korean GT prompt — all documents produce Korean reference answers.
+# English technical terms (model names, dataset names, proper nouns) may remain in English.
+_OPENAI_GT_PROMPT = (
+    "당신은 한국어 RAG 평가용 기준답안을 생성한다.\n\n"
+    "입력으로 주어진 질문과 문서 근거만 사용하여 답하라.\n"
+    "최종 답변은 반드시 한국어로 작성하라.\n"
+    "영어 논문 제목, 모델명, 방법명, 데이터셋명, 고유명사는 원문 표기를 유지할 수 있다.\n"
+    "질문에 직접 답하는 핵심 사실만 포함하라.\n"
+    "질문이 요구하지 않은 배경 설명, 관련 연구, 부가 실험 결과를 과도하게 포함하지 말라.\n"
+    "문서 근거에서 답을 확인할 수 없으면 '문서에서 확인할 수 없음'이라고 답하라.\n"
+    "답변은 가능하면 2~5개의 핵심 claim으로 제한하라.\n\n"
     "문서 발췌문:\n{contexts}\n\n"
     "질문: {query}\n\n"
     "답변 (한국어):"
 )
 
-# Korean-body paper doc_id prefix
-_KO_PAPER_PREFIX = "paper_ko_"
+# Prompt for normalizing an English GT answer into Korean.
+_NORMALIZE_TO_KOREAN_PROMPT = (
+    "아래 영어 답변을 한국어로 정확하게 번역하라.\n"
+    "영어 논문 제목, 모델명, 방법명, 데이터셋명, 고유명사는 원문 표기를 유지하라.\n"
+    "내용을 추가하거나 제거하지 말라.\n\n"
+    "원문 질문: {query}\n\n"
+    "영어 답변:\n{answer}\n\n"
+    "한국어 번역:"
+)
+
+# Prompt for translating a Korean query to English for auxiliary retrieval.
+# This is a conservative faithful translation — NOT query expansion or HyDE.
+_TRANSLATE_QUERY_PROMPT = (
+    "한국어 질문을 영어 논문 검색용 질의로 번역하라.\n"
+    "의미를 추가하거나 확장하지 말라.\n"
+    "질문 의도를 바꾸지 말라.\n"
+    "출력은 영어 질의 한 줄만 작성하라.\n\n"
+    "Korean: {query}\n\n"
+    "English:"
+)
+
+# English-body paper doc_ids
+_ENGLISH_BODY_PAPERS = frozenset({
+    "paper_nlp_bge",
+    "paper_nlp_rag",
+    "paper_nlp_cad",
+    "paper_nlp_raptor",
+    "paper_midm",
+})
+
+_KOREAN_CHAR_RE = re.compile(r"[\uac00-\ud7a3]")
 
 
 def parse_args() -> argparse.Namespace:
@@ -127,6 +151,15 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=5,
         help="Number of contexts retrieved per paper when using --gt-model (default: 5).",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help=(
+            "Process at most N queries (0 = no limit). "
+            "Useful for small-sample testing before a full run."
+        ),
     )
     parser.add_argument(
         "--update-source",
@@ -239,19 +272,24 @@ def _search_contexts(
     return []
 
 
-def _query_openai_gt(
-    api_key: str,
-    model: str,
-    query: str,
-    contexts: list[str],
-    doc_id: str = "",
-) -> str:
-    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts.
+def _is_english_body_paper(doc_id: str) -> bool:
+    """Return True if the document is an English-body paper."""
+    return doc_id in _ENGLISH_BODY_PAPERS
 
-    Uses English prompt for English-body papers and Korean prompt for Korean-body
-    papers so that GT language matches the source document language.
-    RAGAS evaluates via multilingual embeddings, so cross-lingual comparison works.
-    """
+
+def _is_korean_answer(text: str) -> bool:
+    """Check if the answer contains sufficient Korean characters."""
+    if not text:
+        return False
+    korean_chars = len(_KOREAN_CHAR_RE.findall(text))
+    total_alpha = sum(1 for ch in text if ch.isalpha())
+    if total_alpha == 0:
+        return True  # numbers/symbols only — not a language issue
+    return korean_chars / total_alpha >= 0.15
+
+
+def _get_openai_client(api_key: str):
+    """Lazily import and instantiate the OpenAI client."""
     try:
         from openai import OpenAI
     except ImportError:
@@ -263,16 +301,66 @@ def _query_openai_gt(
             "OpenAI API key required. Set OPENAI_API_KEY env variable "
             "or use --openai-api-key."
         )
-    client = OpenAI(api_key=api_key)
+    return OpenAI(api_key=api_key)
+
+
+def _translate_query_ko_to_en(api_key: str, model: str, query_ko: str) -> str:
+    """Translate a Korean query to English for auxiliary retrieval on English docs.
+
+    This is NOT HyDE — it is a simple 1:1 translation used only to boost evidence
+    recall when searching English-body documents with a Korean query.
+    """
+    client = _get_openai_client(api_key)
+    prompt = _TRANSLATE_QUERY_PROMPT.format(query=query_ko)
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=256,
+        temperature=0.0,
+    )
+    translated = response.choices[0].message.content.strip()
+    if not translated:
+        return query_ko  # fallback to original
+    return translated
+
+
+def _normalize_answer_to_korean(
+    api_key: str,
+    model: str,
+    answer_en: str,
+    query_ko: str,
+) -> str:
+    """Normalize an English GT answer to Korean using GPT."""
+    client = _get_openai_client(api_key)
+    prompt = _NORMALIZE_TO_KOREAN_PROMPT.format(query=query_ko, answer=answer_en)
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=512,
+        temperature=0.0,
+    )
+    normalized = response.choices[0].message.content.strip()
+    return normalized or answer_en
+
+
+def _query_openai_gt(
+    api_key: str,
+    model: str,
+    query: str,
+    contexts: list[str],
+) -> str:
+    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts.
+
+    Always produces Korean GT regardless of document language.
+    Do not use HyDE for pseudo-GT construction because HyDE is an evaluated
+    retrieval condition.  For English documents, we only use a translated
+    auxiliary query for evidence recall (handled by the caller).
+    """
+    client = _get_openai_client(api_key)
     ctx_text = "\n\n".join(
         f"[Excerpt {i + 1}]\n{ctx[:1000]}" for i, ctx in enumerate(contexts[:15])
     )
-    prompt_template = (
-        _OPENAI_GT_PROMPT_KO
-        if doc_id.startswith(_KO_PAPER_PREFIX)
-        else _OPENAI_GT_PROMPT_EN
-    )
-    prompt = prompt_template.format(
+    prompt = _OPENAI_GT_PROMPT.format(
         contexts=ctx_text or "(no excerpts retrieved)", query=query
     )
     response = client.chat.completions.create(
@@ -466,6 +554,9 @@ def main() -> int:
         )
     else:
         print(f"Found {len(targets)} queries with empty ground_truth.")
+    if args.limit > 0:
+        targets = targets[: args.limit]
+        print(f"Limiting to {len(targets)} queries (--limit {args.limit}).")
     if args.dry_run:
         for index, item in enumerate(targets, start=1):
             print(f"Query {index}/{len(targets)}: {item.get('query', '')}")
@@ -543,7 +634,8 @@ def main() -> int:
                         continue
 
                     if use_openai:
-                        contexts = _search_contexts(
+                        # --- Retrieve contexts (KO query) ---
+                        contexts_ko = _search_contexts(
                             args.api_url,
                             args.collection,
                             query,
@@ -553,14 +645,102 @@ def main() -> int:
                             args.search_top_k,
                             section_filter=section_filter,
                         )
+
+                        # --- Auxiliary EN search for English-body papers ---
+                        aux_query_en = ""
+                        if _is_english_body_paper(paper):
+                            try:
+                                aux_query_en = _translate_query_ko_to_en(
+                                    args.openai_api_key,
+                                    args.gt_model,
+                                    query,
+                                )
+                                print(
+                                    f"  [{paper}] aux_query_en: {aux_query_en[:80]}",
+                                    flush=True,
+                                )
+                                contexts_en = _search_contexts(
+                                    args.api_url,
+                                    args.collection,
+                                    aux_query_en,
+                                    args.token,
+                                    args.timeout,
+                                    paper,
+                                    args.search_top_k,
+                                    section_filter=section_filter,
+                                )
+                                # Merge and deduplicate
+                                seen = set(contexts_ko)
+                                for ctx in contexts_en:
+                                    if ctx not in seen:
+                                        contexts_ko.append(ctx)
+                                        seen.add(ctx)
+                            except Exception as exc:
+                                print(
+                                    f"  [{paper}] aux EN search failed: {exc}",
+                                    file=sys.stderr,
+                                    flush=True,
+                                )
+
+                        contexts = contexts_ko
+
+                        # --- Generate Korean GT ---
                         answer = _query_openai_gt(
                             args.openai_api_key,
                             args.gt_model,
                             query,
                             contexts,
-                            doc_id=paper,
                         )
+
+                        # --- Korean normalization safety net ---
+                        gt_raw = answer
+                        normalization_applied = False
+                        normalization_failed = False
+                        if not _is_korean_answer(answer):
+                            # Retry normalization up to 2 times
+                            for _norm_attempt in range(2):
+                                try:
+                                    normalized = _normalize_answer_to_korean(
+                                        args.openai_api_key,
+                                        args.gt_model,
+                                        answer,
+                                        query,
+                                    )
+                                    if _is_korean_answer(normalized):
+                                        answer = normalized
+                                        normalization_applied = True
+                                        print(
+                                            f"  [{paper}] Normalized EN->KO GT",
+                                            flush=True,
+                                        )
+                                        break
+                                except Exception as exc:
+                                    print(
+                                        f"  [{paper}] Normalization attempt "
+                                        f"{_norm_attempt + 1} failed: {exc}",
+                                        file=sys.stderr,
+                                        flush=True,
+                                    )
+                            else:
+                                # All attempts exhausted — mark as failed
+                                normalization_failed = True
+                                print(
+                                    f"  WARNING: [{paper}] GT is still non-Korean "
+                                    f"after normalization retries. Requires review.",
+                                    file=sys.stderr,
+                                    flush=True,
+                                )
+
                         print(f"  [{paper}] GPT GT: {answer[:80]}...")
+
+                        # Store metadata alongside GT for traceability
+                        item.setdefault("_gt_meta", {})[paper] = {
+                            "aux_query_en": aux_query_en,
+                            "normalization_applied": normalization_applied,
+                            "normalization_failed": normalization_failed,
+                            "requires_review": normalization_failed,
+                            "gt_raw": gt_raw if normalization_applied or normalization_failed else "",
+                        }
                     else:
                         answer = _query_api(
                             args.api_url,
@@ -602,6 +782,28 @@ def main() -> int:
                         query,
                         contexts,
                     )
+                    # Korean normalization for non-paper-specific queries too
+                    if not _is_korean_answer(answer):
+                        for _norm_attempt in range(2):
+                            try:
+                                normalized = _normalize_answer_to_korean(
+                                    args.openai_api_key,
+                                    args.gt_model,
+                                    answer,
+                                    query,
+                                )
+                                if _is_korean_answer(normalized):
+                                    answer = normalized
+                                    break
+                            except Exception:
+                                pass
+                        else:
+                            print(
+                                f"  WARNING: non-paper GT is still non-Korean. "
+                                f"Requires review.",
+                                file=sys.stderr,
+                                flush=True,
+                            )
                 else:
                     answer = _query_api(
                         args.api_url,
@@ -670,6 +872,35 @@ def main() -> int:
             "for those queries. All other metrics will be evaluated normally.",
             file=sys.stderr,
         )
+
+    # --- Post-run: count normalization failures across all generated GT ---
+    norm_fail_count = 0
+    norm_fail_samples: list[str] = []
+    for item in queries:
+        gt_meta = item.get("_gt_meta", {})
+        if isinstance(gt_meta, dict):
+            for doc_id, meta in gt_meta.items():
+                if meta.get("normalization_failed"):
+                    norm_fail_count += 1
+                    norm_fail_samples.append(
+                        f"{doc_id}: {str(item.get('query', ''))[:60]}"
+                    )
+    if norm_fail_count > 0:
+        print(
+            f"\nWARNING: {norm_fail_count} GT samples remain non-Korean "
+            f"after normalization retries. These require manual review:",
+            file=sys.stderr,
+            flush=True,
+        )
+        for sample_desc in norm_fail_samples[:20]:
+            print(f"  - {sample_desc}", file=sys.stderr, flush=True)
+        if len(norm_fail_samples) > 20:
+            print(
+                f"  ... and {len(norm_fail_samples) - 20} more.",
+                file=sys.stderr,
+                flush=True,
+            )
+
     return 0
 
 

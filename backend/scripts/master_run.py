@@ -892,7 +892,11 @@ class MasterRunner:
                 continue
             total += 1
             gt = str(item.get("ground_truth", "")).strip()
-            is_not_found = gt == "Not found in document."
+            is_not_found = gt in {
+                "Not found in document.",
+                "문서에서 확인할 수 없음",
+                "문서에서 찾을 수 없습니다.",
+            }
             not_found += int(is_not_found)
             for doc_id in item.get("applicable_papers") or []:
                 counters = per_doc.setdefault(str(doc_id), [0, 0])
