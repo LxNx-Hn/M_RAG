@@ -86,7 +86,7 @@ download script is still useful for refreshing the English PDFs, but a fresh
 | paper_nlp_rag | English | arXiv 2312.10997 |
 | paper_nlp_cad | English | arXiv 2305.14739 |
 | paper_nlp_raptor | English | arXiv 2401.18059 |
-| paper_midm | English body / Korean domain | MIDM-2.0 Technical Report |
+| paper_midm | English body / Korean domain | Mi:dm K 2.5 Pro Technical Report |
 | paper_ko_rag_eval_framework | Korean | Korean RAG Evaluation Framework |
 | paper_ko_hyde_multihop | Korean | HyDE-Based Multi-Hop Retrieval Approach |
 | paper_ko_cad_contrastive | Korean | Korean CAD Contrastive Decoding |

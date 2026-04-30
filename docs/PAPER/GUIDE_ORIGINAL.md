@@ -576,7 +576,7 @@ M_RAG/
 | `paper_nlp_rag` | RAG Survey |
 | `paper_nlp_cad` | CAD |
 | `paper_nlp_raptor` | RAPTOR |
-| `paper_midm` | MIDM-2.0 Technical Report |
+| `paper_midm` | Mi:dm K 2.5 Pro Technical Report |
 | `paper_ko_rag_eval_framework` | 한국어 RAG 평가 프레임워크 |
 | `paper_ko_hyde_multihop` | HyDE 기반 멀티 홉 검색 |
 | `paper_ko_cad_contrastive` | 한국어 CAD 대조적 디코딩 |
