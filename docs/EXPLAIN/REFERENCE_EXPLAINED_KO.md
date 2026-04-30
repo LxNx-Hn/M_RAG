@@ -557,7 +557,7 @@ M-RAG의 기반 모델(Foundation Model)인 Midm-2.0 Base Instruct의 기술 보
 
 ---
 
-### [38] B. Kim and J. Yang — Comparative Analysis Study on Automated Dataset Generation Frameworks for RAG System Performance Evaluation (2025)
+### [38] 김범석, 양진홍 — RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구 (2025)
 
 **역할**
 
@@ -569,7 +569,7 @@ RAG 시스템 성능 평가를 위한 테스트 데이터셋 생성 프레임워
 
 ---
 
-### [39] Y. Kim et al. — HyDE-Based Multi-Hop Retrieval Approach for Enhancing Retrieval Performance (2025)
+### [39] 김예은 외 — HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안 (2025)
 
 **역할**
 
@@ -581,7 +581,7 @@ HyDE 기반 멀티 홉 검색 성능 향상을 제안하는 논문이다.
 
 ---
 
-### [40] G. Jang et al. — Contrastive CAD: Contrastive Context-Aware Decoding for Mitigating Hallucinations of Large Language Models (2024)
+### [40] 장규식 외 — Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding (2024)
 
 **역할**
 
