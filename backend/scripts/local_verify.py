@@ -59,7 +59,7 @@ def get_token() -> str:
         return sys.argv[2]
     t = os.environ.get("MRAG_API_TOKEN", "")
     if not t:
-        print(f"[{WARN}] MRAG_API_TOKEN not set — requests may fail with 401")
+        print(f"[{WARN}] MRAG_API_TOKEN not set -- requests may fail with 401")
     return t
 
 
@@ -171,7 +171,7 @@ def step_search(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
                     "top_k": 3,
                     "doc_id_filter": paper,
                 },
-                timeout=30,
+                timeout=300,
             )
             r.raise_for_status()
             results = r.json().get("results", [])
@@ -196,7 +196,7 @@ def step_generate(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
             status[paper] = False
             continue
         try:
-            time.sleep(3)  # avoid 429 rate-limit between consecutive generation calls
+            time.sleep(10)  # avoid 429 rate-limit and GPU heat between generation calls
             t0 = time.perf_counter()
             r = requests.post(
                 f"{API_BASE}/api/chat/query",
@@ -209,7 +209,7 @@ def step_generate(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
                     "top_k": 3,
                     "doc_id_filter": paper,
                 },
-                timeout=120,
+                timeout=300,
             )
             elapsed = round(time.perf_counter() - t0, 1)
             r.raise_for_status()
