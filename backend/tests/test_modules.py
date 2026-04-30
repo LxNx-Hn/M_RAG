@@ -1,6 +1,5 @@
 import pytest
 import torch
-from transformers import AutoTokenizer
 
 from modules.query_router import QueryRouter, RouteType
 from modules.scd_decoder import SCDDecoder
