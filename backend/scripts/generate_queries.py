@@ -337,7 +337,7 @@ def _track1_prompt(
         "- citation 타입만 Citation-only excerpts를 사용하고, 나머지 타입은 모두 Main excerpts만 근거로 삼으세요.\n"
         "- section_method는 방법 섹션의 구현/알고리즘/설계 선택을 묻고, section_result는 결과 섹션의 수치/비교 결과를, section_abstract는 초록에 명시된 핵심 주장 하나를 묻습니다.\n"
         "- citation은 실제로 인용된 선행 연구, 데이터셋 출처, baseline 중 하나를 구체적으로 물어야 합니다.\n"
-        "- 각 항목은 answer_span 필드를 반드시 포함하세요. answer_span은 발췌문에 그대로 존재하는 5~80자 길이의 짧은 문구여야 합니다.\n"
+        "- 각 항목은 answer_span 필드를 반드시 포함하세요. answer_span은 발췌문에 그대로 존재하는 5~200자 길이의 문구여야 합니다.\n"
         "- answer_span이 발췌문에 없는 표현이면 안 됩니다.\n"
         f"- applicable_papers는 정확히 ['{paper}'] 이어야 합니다.\n"
         f"{feedback_block}\n"
