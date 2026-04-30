@@ -39,7 +39,7 @@ REPO_INCLUDED_PAPERS = [
     {
         "id": "paper_midm",
         "arxiv_id": None,
-        "title": "MIDM-2.0 Technical Report",
+        "title": "Mi:dm K 2.5 Pro Technical Report",
         "desc": "Korean LLM model reference (tracked in repo).",
     },
     {
