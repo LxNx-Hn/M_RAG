@@ -36,13 +36,13 @@
     "answer_span": "M3-Embedding, which is distinguished for its versatility in Multi-Linguality, Multi-Functionality, and Multi-Granularity."
   },
   {
-    "query": "M3-Embedding의 self-knowledge distillation 접근 방식에서 어떤 점수가 통합되어 학습 신호로 사용되나요?",
+    "query": "M3-Embedding은 밀집 검색(dense retrieval)만 지원하나요, 아니면 희소 검색(sparse retrieval)도 지원하나요?",
     "ground_truth": "",
     "type": "cad_hallucination",
     "applicable_papers": [
       "paper_nlp_bge"
     ],
-    "answer_span": "we propose a novel self-knowledge distillation approach, where the relevance scores from different retrieval functionalities can be integrated as the teacher signal to enhance the training quality."
+    "answer_span": "multi-functionality (dense retrieval, multi-vector retrieval and sparse retrieval)"
   },
   {
     "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
@@ -252,7 +252,7 @@
     "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up."
   },
   {
-    "query": "RAPTOR에서 제안된 클러스터링 알고리즘의 독특한 측면은 무엇인가요?",
+    "query": "RAPTOR의 클러스터링에서 각 노드는 반드시 하나의 클러스터에만 속해야 하나요?",
     "ground_truth": "",
     "type": "cad_hallucination",
     "applicable_papers": [
@@ -324,13 +324,13 @@
     "answer_span": "address enterprise-grade complexity through reasoning-focused optimization"
   },
   {
-    "query": "Mi:dm K 2.5 Pro의 퓨전 훈련(Fusion Training)은 어떤 균형을 맞추기 위해 사용됩니까?",
+    "query": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?",
     "ground_truth": "",
     "type": "cad_hallucination",
     "applicable_papers": [
       "paper_midm"
     ],
-    "answer_span": "rebalances these capabilities with conversational fluency, consistent response styling, and reliable tool-use"
+    "answer_span": "128K context window"
   },
   {
     "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
@@ -477,13 +477,13 @@
     "answer_span": "LLM의 우수한 언어 생성 능력의 이면에는 데이터에 존재하지 않거나 맥락에 부합하지 않는 정보를 생성하는 환각(hallucination) 현상이 존재한다."
   },
   {
-    "query": "RAG 시스템의 검색 단계에서 성능 저하를 초래하는 주요 이슈는 무엇인가요?",
+    "query": "이 논문에서 HyDE 기법의 원논문으로 인용한 연구의 제목은 무엇인가요?",
     "ground_truth": "",
     "type": "citation",
     "applicable_papers": [
       "paper_ko_hyde_multihop"
     ],
-    "answer_span": "RAG 시스템은 검색 단계에서 코사인 유사도를 기반으로 문서를 선택하지만 높은 유사도를 가진 문서가 질문과 맥락적으로 적합하지 않은 경우 답변의 성능이 저하될 수 있다(Cuconasu et al., 2024)."
+    "answer_span": "Precise Zero-Shot Dense Retrieval without Relevance Labels"
   },
   {
     "query": "RAG 시스템의 멀티홉 쿼리 처리 성능을 평가하기 위해 구축된 벤치마크 데이터셋은 무엇인가요?",
