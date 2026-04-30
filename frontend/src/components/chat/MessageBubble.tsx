@@ -151,7 +151,7 @@ export default memo(function MessageBubble({ message, onFollowUpClick }: Props) 
                 >
                   <FileText size={10} />
                   <span className="truncate">
-                    [{src.section_type}] p.{src.page} — {src.content.slice(0, 60)}...
+                    [{src.section_type}] p.{src.page}
                   </span>
                 </button>
               ))}

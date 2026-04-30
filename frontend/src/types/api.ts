@@ -51,6 +51,8 @@ export interface QueryRequest {
   scd_beta?: number
   use_hyde?: boolean
   top_k?: number
+  doc_id_filter?: string | null
+  section_filter?: string | null
   conversation_id?: string
 }
 

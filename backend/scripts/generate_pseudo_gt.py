@@ -32,15 +32,29 @@ _TYPE_TO_SECTION: dict[str, str] = {
     "section_limit": "discussion",
 }
 
-_OPENAI_GT_PROMPT = (
+# GT for English-body papers: answer in English (the language of the source)
+_OPENAI_GT_PROMPT_EN = (
     "You are an expert academic assistant. "
-    "Answer the question using ONLY information from the provided document excerpts. "
+    "Answer the question in English using ONLY information from the provided document excerpts. "
     "Be concise and factual. If the answer is not in the excerpts, write "
     "'Not found in document.'\n\n"
     "Document excerpts:\n{contexts}\n\n"
     "Question: {query}\n\n"
-    "Answer:"
+    "Answer (English):"
 )
+
+# GT for Korean-body papers: answer in Korean (the language of the source)
+_OPENAI_GT_PROMPT_KO = (
+    "당신은 학술 논문 전문가입니다. "
+    "아래 문서 발췌문에 있는 정보만을 사용하여 질문에 한국어로 간결하고 정확하게 답변하세요. "
+    "발췌문에 답이 없으면 '문서에서 찾을 수 없습니다.'라고만 쓰세요.\n\n"
+    "문서 발췌문:\n{contexts}\n\n"
+    "질문: {query}\n\n"
+    "답변 (한국어):"
+)
+
+# Korean-body paper doc_id prefix
+_KO_PAPER_PREFIX = "paper_ko_"
 
 
 def parse_args() -> argparse.Namespace:
@@ -160,20 +174,17 @@ def _search_contexts(
     top_k: int,
     section_filter: str | None = None,
 ) -> list[str]:
-    """Retrieve paper contexts with stepwise fallback based on actual chunk count."""
+    """Retrieve paper contexts via /api/chat/search with section-filter fallback.
 
-    def _run_once(
-        *,
-        use_hyde: bool,
-        active_section_filter: str | None,
-    ) -> list[str]:
+    Uses retrieval-only endpoint (no GPU generation). Falls back from
+    section-filtered search to unfiltered search when zero chunks are returned.
+    """
+
+    def _run_once(active_section_filter: str | None) -> list[str]:
         payload: dict = {
             "query": query,
             "collection_name": collection_name,
-            "use_cad": False,
-            "use_scd": False,
-            "use_hyde": use_hyde,
-            "top_k": min(top_k, 20),  # QueryRequest.top_k max = 20
+            "top_k": min(top_k, 50),  # SearchRequest.top_k max = 50
         }
         if doc_id_filter:
             payload["doc_id_filter"] = doc_id_filter
@@ -181,7 +192,7 @@ def _search_contexts(
             payload["section_filter"] = active_section_filter
 
         response = requests.post(
-            f"{api_url.rstrip('/')}/api/chat/query",
+            f"{api_url.rstrip('/')}/api/chat/search",
             json=payload,
             headers=_build_headers(token),
             timeout=timeout,
@@ -190,28 +201,23 @@ def _search_contexts(
         data = response.json()
         return [
             item.get("content", "")
-            for item in data.get("sources", [])
+            for item in data.get("results", [])
             if item.get("content")
         ]
 
     attempts = [
-        (1, section_filter, True),
-        (2, section_filter, False),
-        (3, None, True),
-        (4, None, False),
+        (1, section_filter),
+        (2, None),
     ]
 
     last_error: Exception | None = None
-    for step, active_section_filter, use_hyde in attempts:
+    for step, active_section_filter in attempts:
         try:
-            contexts = _run_once(
-                use_hyde=use_hyde,
-                active_section_filter=active_section_filter,
-            )
+            contexts = _run_once(active_section_filter)
             section_label = active_section_filter or "None"
             print(
                 f"  [FALLBACK step={step}] section={section_label} "
-                f"hyde={use_hyde} -> {len(contexts)} chunks",
+                f"-> {len(contexts)} chunks",
                 flush=True,
             )
             if contexts:
@@ -220,8 +226,7 @@ def _search_contexts(
             last_error = exc
             section_label = active_section_filter or "None"
             print(
-                f"  [FALLBACK step={step}] section={section_label} "
-                f"hyde={use_hyde} -> error: {exc}",
+                f"  [FALLBACK step={step}] section={section_label} " f"-> error: {exc}",
                 file=sys.stderr,
                 flush=True,
             )
@@ -239,8 +244,14 @@ def _query_openai_gt(
     model: str,
     query: str,
     contexts: list[str],
+    doc_id: str = "",
 ) -> str:
-    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts."""
+    """Generate a ground truth answer using OpenAI, grounded in retrieved contexts.
+
+    Uses English prompt for English-body papers and Korean prompt for Korean-body
+    papers so that GT language matches the source document language.
+    RAGAS evaluates via multilingual embeddings, so cross-lingual comparison works.
+    """
     try:
         from openai import OpenAI
     except ImportError:
@@ -254,9 +265,14 @@ def _query_openai_gt(
         )
     client = OpenAI(api_key=api_key)
     ctx_text = "\n\n".join(
-        f"[Excerpt {i + 1}]\n{ctx[:600]}" for i, ctx in enumerate(contexts[:5])
+        f"[Excerpt {i + 1}]\n{ctx[:1000]}" for i, ctx in enumerate(contexts[:15])
     )
-    prompt = _OPENAI_GT_PROMPT.format(
+    prompt_template = (
+        _OPENAI_GT_PROMPT_KO
+        if doc_id.startswith(_KO_PAPER_PREFIX)
+        else _OPENAI_GT_PROMPT_EN
+    )
+    prompt = prompt_template.format(
         contexts=ctx_text or "(no excerpts retrieved)", query=query
     )
     response = client.chat.completions.create(
@@ -538,7 +554,11 @@ def main() -> int:
                             section_filter=section_filter,
                         )
                         answer = _query_openai_gt(
-                            args.openai_api_key, args.gt_model, query, contexts
+                            args.openai_api_key,
+                            args.gt_model,
+                            query,
+                            contexts,
+                            doc_id=paper,
                         )
                         print(f"  [{paper}] GPT GT: {answer[:80]}...")
                     else:
@@ -577,7 +597,10 @@ def main() -> int:
                         section_filter=section_filter,
                     )
                     answer = _query_openai_gt(
-                        args.openai_api_key, args.gt_model, query, contexts
+                        args.openai_api_key,
+                        args.gt_model,
+                        query,
+                        contexts,
                     )
                 else:
                     answer = _query_api(
