@@ -451,7 +451,7 @@ def _validate_track1_queries(
         answer_span = str(item.get("answer_span", "")).strip()
         if not answer_span:
             raise ValueError(f"{paper}/{query_type}: missing answer_span.")
-        if len(answer_span) < 5 or len(answer_span) > 80:
+        if len(answer_span) < 5 or len(answer_span) > 200:
             raise ValueError(f"{paper}/{query_type}: invalid answer_span length.")
         if not _context_contains_answer_span(context, answer_span):
             raise ValueError(
