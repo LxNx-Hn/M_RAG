@@ -87,7 +87,7 @@
 | 연구 핵심 모듈 | 13개 |
 | 확장/운영 모듈 | 5개 |
 | 전체 모듈 파일 | 18개 |
-| 파이프라인 | A~F 6개 |
+| 파이프라인 | A–F 6개 |
 | 운영 대화 기능 | follow-up 질문, F 퀴즈/플래시카드 생성 |
 | 제품/운영 기능 | PPT Export, Search API, Judge API, SSE 스트리밍 |
 | 논문 기본 모델 | MIDM Base |
@@ -461,13 +461,13 @@ output = model.generate(
 ### 4.1 개발 / 실험 / 논문 완전 분리 원칙
 
 ```
-개발 (1~8주차): 시스템 구현에만 집중
+개발 (1–8주차): 시스템 구현에만 집중
                데이터셋은 다운로드만, 건드리지 않음
 
-실험 (9~10주차): 구현 완료 후 데이터셋 투입
+실험 (9–10주차): 구현 완료 후 데이터셋 투입
                 RAGAS 자동 평가로 Table 생성
 
-논문 (11~12주차): 결과 해석 + 보고서 작성
+논문 (11–12주차): 결과 해석 + 보고서 작성
 ```
 
 ### 4.2 개발 원칙
@@ -479,9 +479,9 @@ output = model.generate(
 원칙 4 — 한/영 쌍 강제: 동일 질의를 항상 한/영 쌍으로 실행
 ```
 
-### 4.3 개발 로드맵 (1~8주차)
+### 4.3 개발 로드맵 (1–8주차)
 
-#### Phase 1 — Core 파이프라인 (1~3주차)
+#### Phase 1 — Core 파이프라인 (1–3주차)
 
 **1주차:**
 ```bash
@@ -506,7 +506,7 @@ pip install transformers>=4.45.0 ragas datasets
 
 ---
 
-#### Phase 2 — Modular RAG 핵심 (4~5주차)
+#### Phase 2 — Modular RAG 핵심 (4–5주차)
 
 **4주차:**
 - MODULE 8 (하이브리드 검색 + RRF)
@@ -521,7 +521,7 @@ pip install transformers>=4.45.0 ragas datasets
 
 ---
 
-#### Phase 3 — 킬러 기능 (6~8주차)
+#### Phase 3 — 킬러 기능 (6–8주차)
 
 **6주차:**
 - MODULE 3 확장: RAPTOR 계층 요약 트리
@@ -546,7 +546,7 @@ M_RAG/
 ├── backend/
 │   ├── api/                      # FastAPI, auth, SQLAlchemy models, routers
 │   ├── modules/                  # 연구 핵심 13 + 확장 5 모듈
-│   ├── pipelines/                # A~F 질의 경로
+│   ├── pipelines/                # A–F 질의 경로
 │   ├── evaluation/               # Track 1/2, RAGAS, decoder ablation
 │   ├── scripts/                  # master_run, 모델/PDF 준비, 표 변환
 │   └── data/                     # 실험 PDF 입력
@@ -562,7 +562,7 @@ M_RAG/
 
 ---
 
-## 5. 실험 섹션 (9~10주차)
+## 5. 실험 섹션 (9–10주차)
 
 ### 5.1 데이터셋 구성
 
@@ -686,7 +686,7 @@ for alpha, beta in itertools.product(alphas, betas):
 
 ---
 
-## 6. 논문 작성 섹션 (11~12주차)
+## 6. 논문 작성 섹션 (11–12주차)
 
 ### 6.1 논문 구조
 

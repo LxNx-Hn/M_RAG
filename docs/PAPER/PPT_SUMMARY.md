@@ -18,7 +18,7 @@
 
 ## 3. 핵심 아이디어
 
-- 질문을 먼저 A~F 여섯 경로로 라우팅 (query_router.py)
+- 질문을 먼저 A–F 여섯 경로로 라우팅 (query_router.py)
 - 경로별로 다른 검색과 생성 전략 적용
 - 검색: BGE-M3 [2] + BM25 [22] + RRF [23] + Cross-encoder 재랭킹
 - 생성 제어: CAD(α=0.5) [3] + SCD(β=0.3) [34] LogitsProcessor 병렬 적용
@@ -37,13 +37,13 @@
 - 청킹과 임베딩
 - ChromaDB 저장
 - 질문 입력
-- query router가 A~F 경로 선택
+- query router가 A–F 경로 선택
 - hybrid retrieval와 reranking
 - context compression
 - MIDM Base 생성
 - CAD/SCD 생성 제어
 
-## 6. A~F 파이프라인
+## 6. A–F 파이프라인
 
 - A 단순 QA
 - B 섹션 특화 QA

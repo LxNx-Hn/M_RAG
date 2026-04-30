@@ -2,12 +2,12 @@
 
 ## 문서 목적
 
-이 문서는 현재 코드 기준으로 M-RAG가 어떤 층으로 나뉘고, 질문 유형 A~F마다 어떤 모듈이 실제로 동작하는지 설명한다
+이 문서는 현재 코드 기준으로 M-RAG가 어떤 층으로 나뉘고, 질문 유형 A–F마다 어떤 모듈이 실제로 동작하는지 설명한다
 
 코드 근거
 
 - 라우팅 정의 `backend/modules/query_router.py`
-- 파이프라인 구현 `backend/pipelines/pipeline_a_simple_qa.py` ~ `backend/pipelines/pipeline_f_quiz.py`
+- 파이프라인 구현 `backend/pipelines/pipeline_a_simple_qa.py` – `backend/pipelines/pipeline_f_quiz.py`
 - API 연결부 `backend/api/routers/chat.py`
 - 모듈 구현 `backend/modules`
 
@@ -29,7 +29,7 @@ flowchart TD
     CHUNK --> EMBED["BGE-M3 임베딩"]
     EMBED --> CHROMA["ChromaDB 저장"]
 
-    CHAT --> ROUTER["쿼리 라우터 A~F"]
+    CHAT --> ROUTER["쿼리 라우터 A–F"]
     ROUTER --> PIPE["경로별 파이프라인"]
     PIPE --> RET["하이브리드 검색"]
     RET --> RERANK["재랭킹"]
@@ -51,7 +51,7 @@ flowchart TD
 |---|---|---|
 | API | `backend/api` | 인증, 문서 업로드, 채팅, 검색, 평가, 이력 |
 | 모듈 | `backend/modules` | 파싱, 검색, 생성, 디코딩 제어, 추적, 질문 생성 |
-| 파이프라인 | `backend/pipelines` | A~F 질문 유형별 실행 순서 |
+| 파이프라인 | `backend/pipelines` | A–F 질문 유형별 실행 순서 |
 | 실험 | `backend/evaluation` | Track 1/2 실험, RAGAS 평가, ablation |
 | 스크립트 | `backend/scripts` | 모델 다운로드, 문서 인덱싱, 전체 실험 실행 |
 | 프론트엔드 | `frontend/src` | 업로드, 채팅, PDF 뷰어, 출처, 퀴즈/플래시카드 표시 |
@@ -70,7 +70,7 @@ flowchart TD
 | 청킹 | `chunker.py` | 섹션 단위, 고정 크기, 문장 단위 청킹 [5, 24, 28] |
 | 재랭커 | `reranker.py` | Cross-encoder로 검색 결과 재정렬 [14, 21] |
 | 하이브리드 검색 | `hybrid_retriever.py` | Dense + BM25 + RRF 결합 검색 [22, 23] |
-| 쿼리 라우터 | `query_router.py` | 질문을 A~F 경로로 분류 [7, 8, 17] |
+| 쿼리 라우터 | `query_router.py` | 질문을 A–F 경로로 분류 [7, 8, 17] |
 | 섹션 감지 | `section_detector.py` | 논문/강의/특허/일반 문서의 섹션 구분 |
 | 생성기 | `generator.py` | MIDM-2.0 Base Instruct 기반 답변 생성과 judge 보조 |
 | CAD 디코더 | `cad_decoder.py` | 파라메트릭 지식 개입 억제 (logit 차감) [3, 4] |
@@ -107,7 +107,7 @@ flowchart TD
 
 ---
 
-## A~F 경로별 활성 모듈
+## A–F 경로별 활성 모듈
 
 | 경로 | 질문 유형 | 라우터 기준 | 주로 동작하는 모듈 | 출력 |
 |---|---|---|---|---|
@@ -151,7 +151,7 @@ flowchart TD
 
 | API | 역할 |
 |---|---|
-| `POST /api/chat/query` | 라우터 결정 후 A~F 파이프라인 실행 |
+| `POST /api/chat/query` | 라우터 결정 후 A–F 파이프라인 실행 |
 | `POST /api/chat/query/stream` | SSE 기반 스트리밍 답변 |
 | `POST /api/chat/search` | 검색 결과 확인 |
 | `POST /api/chat/judge` | 실험 평가용 judge 텍스트 생성 |

@@ -103,7 +103,7 @@ SCD beta:  [0.1, 0.3, 0.5] × 1편 논문 (한국어)
 
 **구현 위치**:
 ```
-backend/pipelines/          ← A~F 6개 파이프라인
+backend/pipelines/          ← A–F 6개 파이프라인
 backend/modules/            ← 18개 모듈
 backend/api/                ← FastAPI 서버
 frontend/src/               ← React 프론트엔드
@@ -194,7 +194,7 @@ reranker.py → Cross-encoder 재정렬
   각 청크를 질문과 함께 평가:
   입력: "[질문] BERT 핵심 아이디어? [청크] BERT는 양방향 Transformer..."
   출력: 관련도 점수 0.94
-  → 상위 5~10개로 줄임
+  → 상위 5–10개로 줄임
     │
     ▼
 context_compressor.py → 핵심 문장만 남겨 압축
@@ -218,7 +218,7 @@ followup_generator.py → 후속 질문 생성
   - 답변 텍스트
   - 출처 청크 (어느 논문 어느 섹션에서 왔는지)
   - 실행된 경로 (A)
-  - 후속 질문 2~3개
+  - 후속 질문 2–3개
 ```
 
 ---
@@ -233,7 +233,7 @@ followup_generator.py → 후속 질문 생성
 | chunker | 전체 문서 텍스트 | 청크 리스트 (텍스트+메타) | 논문 전체를 하나로 저장, 검색 불가 |
 | reranker | 질문+청크 쌍 | 관련도 점수 목록 | 재정렬 없이 초기 검색 순서 그대로 |
 | hybrid_retriever | 쿼리, 컬렉션명 | 청크 목록 (점수 포함) | Dense 또는 BM25 단독만 가능 |
-| query_router | 질문 텍스트 | 경로 코드 (A~F) | 모든 질문이 A 경로로 처리 |
+| query_router | 질문 텍스트 | 경로 코드 (A–F) | 모든 질문이 A 경로로 처리 |
 | section_detector | 문서 텍스트 | 섹션 태그 목록 | B 경로 섹션 필터링 불가 |
 | generator | 컨텍스트+질문 | 답변 텍스트 | 답변 생성 자체 불가 |
 | cad_decoder | logits (두 벌) | 조정된 logits | Hallucination 억제 없음 |
@@ -255,7 +255,7 @@ followup_generator.py → 후속 질문 생성
 
 ---
 
-## A~F 경로의 핵심 차이점
+## A–F 경로의 핵심 차이점
 
 ### 경로 A (일반 QA) — 모든 모듈 활성
 

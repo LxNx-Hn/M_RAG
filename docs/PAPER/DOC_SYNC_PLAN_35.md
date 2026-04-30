@@ -11,7 +11,7 @@
 | 영역 | 위치 | 역할 |
 |---|---|---|
 | 루트 소개 | `README.md` | 프로젝트 개요와 핵심 실행 경로 |
-| 아키텍처 | `docs/ARCHITECTURE.md` | 현재 코드 구조와 A~F 경로별 모듈 동작 |
+| 아키텍처 | `docs/ARCHITECTURE.md` | 현재 코드 구조와 A–F 경로별 모듈 동작 |
 | 기능 | `docs/FEATURES.md` | 연구 기능, 대화 기능, 운영 기능, 실험 기능 분리 |
 | 논문 | `docs/PAPER/THESIS.md` | 투고용 논문 본문 (9개 장, 39편 참고문헌) |
 | 설계 기준 | `docs/PAPER/GUIDE_ORIGINAL.md` | 35편 기준 전체 설계 문서 (논문 기반 참고용) |
@@ -24,7 +24,7 @@
 
 | 분류 | 문서 중심 | 코드 중심 |
 |---|---|---|
-| 연구 | Track 1, Track 2, CAD, SCD, A~E 경로 | `run_track1.py`, `run_track2.py`, `ragas_eval.py`, 검색/생성 모듈 |
+| 연구 | Track 1, Track 2, CAD, SCD, A–E 경로 | `run_track1.py`, `run_track2.py`, `ragas_eval.py`, 검색/생성 모듈 |
 | 운영/서비스 | F 퀴즈, 후속 질문, PPT Export, Search/Judge API, SSE | `pipeline_f_quiz.py`, `followup_generator.py`, `pptx_exporter.py`, `chat.py` |
 | 실행 | SQLite 실험, PostgreSQL 운영, RunPod/Alice 실행 | `master_run.py`, `database.py`, `docker-compose.yml` |
 
@@ -56,7 +56,7 @@
 - `pptx_exporter.py`
 - `vector_store.py`
 
-## A~F 경로 기준
+## A–F 경로 기준
 
 | 경로 | 분류 | 설명 |
 |---|---|---|
@@ -83,7 +83,7 @@
 
 - `GUIDE_ORIGINAL.md`에 35편 참고문헌 반영 (+ 한국어 4편은 THESIS.md에서 별도 반영)
 - `THESIS.md`에 9개 장 구조와 39편 참고문헌 반영
-- `ARCHITECTURE.md`에 A~F 경로별 활성 모듈 표 반영
+- `ARCHITECTURE.md`에 A–F 경로별 활성 모듈 표 반영
 - `FEATURES.md`에 연구 기능, 대화 기능, 운영 기능, 실험 기능 분리
 - `EXPLAIN`에 용어, 구조, 흐름, 경로별 모듈, 참고문헌, 표 해석 문서 반영
 - `USAGE`에 로컬, RunPod, Alice, PostgreSQL, 테스트 문서 반영
