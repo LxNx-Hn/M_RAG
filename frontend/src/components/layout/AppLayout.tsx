@@ -8,14 +8,14 @@ const SourcePanel = lazy(() => import('@/components/source/SourcePanel'))
 const PDFViewer = lazy(() => import('@/components/viewer/PDFViewer'))
 const ChatPanel = lazy(() => import('@/components/chat/ChatPanel'))
 
-export default function AppLayout() {
+export default function AppLayout({ onBackToSessions }: { onBackToSessions?: () => void }) {
   const { t } = useTranslation()
   const { leftPanelOpen, rightPanelOpen, toggleLeftPanel, toggleRightPanel } = useUIStore()
   const [mobileTab, setMobileTab] = useState<'source' | 'viewer' | 'chat'>('viewer')
 
   return (
     <div className="h-screen flex flex-col" style={{ background: 'var(--bg-primary)' }}>
-      <TopBar />
+      <TopBar onBackToSessions={onBackToSessions} showBack={!!onBackToSessions} />
 
       {/* 데스크탑: 패널 토글 바 */}
       <div

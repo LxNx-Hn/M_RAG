@@ -66,13 +66,13 @@ export default function FlashcardViewer({ content }: Props) {
             className="text-[10px] font-medium mb-2"
             style={{ color: 'var(--text-muted)' }}
           >
-            {flipped ? 'ANSWER' : 'QUESTION'} — {currentIdx + 1}/{cards.length}
+            {flipped ? '정답' : '문제'} — {currentIdx + 1}/{cards.length}
           </p>
           <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
             {flipped ? card.back : card.front}
           </p>
           <p className="text-[10px] mt-3" style={{ color: 'var(--text-muted)' }}>
-            click to flip
+            클릭하여 뒤집기
           </p>
         </div>
       </div>
@@ -91,7 +91,7 @@ export default function FlashcardViewer({ content }: Props) {
           onClick={() => setFlipped(!flipped)}
           className="p-1.5 rounded-lg transition-colors"
           style={{ color: 'var(--accent)' }}
-          title="Flip card"
+          title="카드 뒤집기"
         >
           <RotateCcw size={14} />
         </button>

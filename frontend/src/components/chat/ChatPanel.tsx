@@ -1,11 +1,34 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Send, Plus, Loader2, Sparkles, Download } from 'lucide-react'
+import {
+  Send, Plus, Loader2, Sparkles, Download,
+  MessageSquare, Layers, GitCompare, Link2, FileText, HelpCircle,
+} from 'lucide-react'
 import { useChatStore } from '@/stores/chatStore'
 import { usePaperStore } from '@/stores/paperStore'
 import { queryRAG, queryRAGStream } from '@/api/chat'
 import { formatConversationAsMarkdown, downloadAsMarkdown } from '@/utils/export'
 import MessageBubble from './MessageBubble'
+
+const GUIDE_ICONS = {
+  a: MessageSquare,
+  b: Layers,
+  c: GitCompare,
+  d: Link2,
+  e: FileText,
+  f: HelpCircle,
+}
+
+const GUIDE_COLORS = {
+  a: { bg: 'rgba(56,189,248,0.08)', border: 'rgba(56,189,248,0.2)', accent: '#38bdf8' },
+  b: { bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.2)', accent: '#34d399' },
+  c: { bg: 'rgba(139,92,246,0.08)', border: 'rgba(139,92,246,0.2)', accent: '#8b5cf6' },
+  d: { bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.2)', accent: '#fbbf24' },
+  e: { bg: 'rgba(251,113,133,0.08)', border: 'rgba(251,113,133,0.2)', accent: '#fb7185' },
+  f: { bg: 'rgba(251,146,60,0.08)', border: 'rgba(251,146,60,0.2)', accent: '#fb923c' },
+}
+
+const GUIDE_KEYS = ['a', 'b', 'c', 'd', 'e', 'f'] as const
 
 export default function ChatPanel() {
   const { t } = useTranslation()
@@ -30,14 +53,6 @@ export default function ChatPanel() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
-
-  const suggestions = [
-    t('chat.suggestions.q1'),
-    t('chat.suggestions.q2'),
-    t('chat.suggestions.q3'),
-    t('chat.suggestions.q4'),
-    t('chat.suggestions.q5'),
-  ]
 
   const handleSend = async (query?: string) => {
     const text = query || input.trim()
@@ -133,7 +148,7 @@ export default function ChatPanel() {
               }}
               className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium transition-all hover:scale-105"
               style={{ background: 'var(--bg-secondary)', color: 'var(--text-muted)' }}
-              title="Export conversation"
+              title={t('chat.exportConversation')}
             >
               <Download size={12} />
             </button>
@@ -154,33 +169,53 @@ export default function ChatPanel() {
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center">
             <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+              className="w-14 h-14 rounded-2xl flex items-center justify-center mb-3"
               style={{ background: 'var(--accent-light)' }}
             >
               <Sparkles size={22} style={{ color: 'var(--accent)' }} />
             </div>
-            <p className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>
-              {t('chat.noMessages')}
+            <h3 className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+              {t('chat.welcomeTitle')}
+            </h3>
+            <p className="text-[11px] mb-4 text-center leading-relaxed max-w-[280px]" style={{ color: 'var(--text-muted)' }}>
+              {t('chat.welcomeDesc')}
             </p>
 
-            {/* 추천 질문 */}
-            {papers.length > 0 && (
+            {/* A-F 기능 안내 카드 */}
+            {papers.length > 0 ? (
               <div className="w-full space-y-1.5">
-                {suggestions.map((q, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSend(q)}
-                    className="w-full text-left px-3 py-2.5 rounded-xl text-xs transition-all hover:scale-[0.99]"
-                    style={{
-                      background: 'var(--bg-primary)',
-                      border: '1px solid var(--border-light)',
-                      color: 'var(--text-secondary)',
-                    }}
-                  >
-                    {q}
-                  </button>
-                ))}
+                <div className="grid grid-cols-2 gap-1.5 mb-2">
+                  {GUIDE_KEYS.map((key) => {
+                    const Icon = GUIDE_ICONS[key]
+                    const colors = GUIDE_COLORS[key]
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => handleSend(t(`chat.guides.${key}_example`))}
+                        className="flex flex-col items-start p-2.5 rounded-xl text-left transition-all hover:scale-[0.98] active:scale-95"
+                        style={{
+                          background: colors.bg,
+                          border: `1px solid ${colors.border}`,
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <Icon size={12} style={{ color: colors.accent }} />
+                          <span className="text-[10px] font-semibold" style={{ color: colors.accent }}>
+                            {t(`chat.guides.${key}_title`)}
+                          </span>
+                        </div>
+                        <span className="text-[10px] leading-tight" style={{ color: 'var(--text-muted)' }}>
+                          {t(`chat.guides.${key}_desc`)}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
+            ) : (
+              <p className="text-[11px] text-center" style={{ color: 'var(--text-muted)' }}>
+                {t('chat.uploadFirst')}
+              </p>
             )}
           </div>
         ) : (

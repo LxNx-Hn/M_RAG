@@ -28,7 +28,7 @@ from api.database import get_engine, init_db
 from api.dependencies import modules
 from api.limiter import limiter
 from api.routers import auth as auth_router
-from api.routers import chat, citations, history as history_router, papers
+from api.routers import chat, citations, conversations, history as history_router, papers, sessions
 from api.schemas import HealthResponse
 
 
@@ -146,6 +146,8 @@ app.include_router(chat.router)
 app.include_router(citations.router)
 app.include_router(auth_router.router)
 app.include_router(history_router.router)
+app.include_router(sessions.router)
+app.include_router(conversations.router)
 
 data_dir = Path(__file__).parent.parent / "data"
 data_dir.mkdir(exist_ok=True)

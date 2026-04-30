@@ -7,7 +7,7 @@ import re
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
-from sqlalchemy import select
+from sqlalchemy import delete, select
 
 from api.auth import (
     create_access_token,
@@ -19,7 +19,7 @@ from api.auth import (
 )
 from api.database import get_db
 from api.limiter import limiter
-from api.models import User
+from api.models import Conversation, Message, Paper, RevokedToken, Session, User
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -99,6 +99,12 @@ async def login(request: Request, req: LoginRequest, db=Depends(get_db)):
         if not user or not verify_password(req.password, user.hashed_password):
             raise HTTPException(401, "이메일 또는 비밀번호가 올바르지 않습니다.")
 
+        # Update last login timestamp
+        from datetime import datetime, timezone
+        user.last_login_at = datetime.now(timezone.utc)
+        await db.commit()
+        await db.refresh(user)
+
         token = create_access_token({"sub": user.id, "email": user.email})
         return TokenResponse(
             access_token=token,
@@ -139,3 +145,40 @@ async def get_me(
         raise HTTPException(404, "사용자를 찾을 수 없습니다.")
 
     return {"id": user.id, "email": user.email, "username": user.username}
+
+
+class DeleteAccountRequest(BaseModel):
+    confirm_text: str
+
+
+@router.delete("/account")
+@limiter.limit("3/minute")
+async def delete_account(
+    request: Request,
+    req: DeleteAccountRequest,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Delete user account permanently. Requires typing '탈퇴합니다' to confirm."""
+    if db is None:
+        raise HTTPException(503, "데이터베이스를 사용할 수 없습니다.")
+
+    if req.confirm_text != "탈퇴합니다":
+        raise HTTPException(400, "탈퇴 확인 텍스트가 올바르지 않습니다.")
+
+    try:
+        result = await db.execute(select(User).where(User.id == user_id))
+        user = result.scalar_one_or_none()
+        if user is None:
+            raise HTTPException(404, "사용자를 찾을 수 없습니다.")
+
+        # CASCADE will clean up conversations, messages, papers, sessions, tokens
+        await db.delete(user)
+        await db.commit()
+        logger.info("Account deleted: user_id=%s, email=%s", user_id, user.email)
+        return {"message": "회원 탈퇴가 완료되었습니다."}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Account deletion failed: %s", exc)
+        raise HTTPException(500, "회원 탈퇴 처리 중 오류가 발생했습니다.")

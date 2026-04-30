@@ -29,9 +29,13 @@ try:
         username = Column(String(100), nullable=False)
         hashed_password = Column(String(255), nullable=False)
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+        last_login_at = Column(DateTime, nullable=True, default=None)
 
         conversations = relationship(
             "Conversation", back_populates="user", cascade="all, delete-orphan"
+        )
+        sessions = relationship(
+            "Session", back_populates="user", cascade="all, delete-orphan"
         )
         revoked_tokens = relationship("RevokedToken", cascade="all, delete-orphan")
 
@@ -122,6 +126,29 @@ try:
         jti = Column(String(128), nullable=False, unique=True, index=True)
         expires_at = Column(DateTime, nullable=False)
         created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    class Session(Base):
+        """A study session groups papers and conversations together."""
+        __tablename__ = "sessions"
+
+        id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+        user_id = Column(
+            String(36),
+            ForeignKey("users.id", ondelete="CASCADE"),
+            nullable=False,
+            index=True,
+        )
+        title = Column(String(255), default="제목 없는 세션")
+        icon = Column(String(10), default="📄")
+        collection_name = Column(String(255), nullable=False, index=True)
+        created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+        updated_at = Column(
+            DateTime,
+            default=lambda: datetime.now(timezone.utc),
+            onupdate=lambda: datetime.now(timezone.utc),
+        )
+
+        user = relationship("User", back_populates="sessions")
 
 except ImportError as _sqlalchemy_import_error:
     raise ImportError(

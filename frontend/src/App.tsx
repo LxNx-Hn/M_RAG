@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import AppLayout from '@/components/layout/AppLayout'
 import LoginPage from '@/components/auth/LoginPage'
+import SessionHub from '@/components/session/SessionHub'
 import { useUIStore } from '@/stores/uiStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useSessionStore, type SessionItem } from '@/stores/sessionStore'
 import api from '@/api/client'
 import '@/i18n'
 
 export default function App() {
   const darkMode = useUIStore((s) => s.darkMode)
   const { isAuthenticated, login } = useAuthStore()
+  const { setActiveSession } = useSessionStore()
+  const [view, setView] = useState<'hub' | 'workspace'>('hub')
 
   useEffect(() => {
     if (darkMode) {
@@ -36,6 +40,15 @@ export default function App() {
     }
   }
 
+  const handleSelectSession = (session: SessionItem) => {
+    setActiveSession(session.id)
+    setView('workspace')
+  }
+
+  const handleBackToSessions = () => {
+    setView('hub')
+  }
+
   if (!isAuthenticated) {
     return (
       <LoginPage
@@ -45,5 +58,9 @@ export default function App() {
     )
   }
 
-  return <AppLayout />
+  if (view === 'hub') {
+    return <SessionHub onSelectSession={handleSelectSession} />
+  }
+
+  return <AppLayout onBackToSessions={handleBackToSessions} />
 }
