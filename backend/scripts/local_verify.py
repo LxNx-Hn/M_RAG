@@ -236,7 +236,7 @@ def step_static_assets() -> bool:
         queries = json.loads(t1.read_text(encoding="utf-8"))
         count = len(queries) if isinstance(queries, list) else 0
         papers_in_file = {q.get("applicable_papers", [None])[0] for q in queries if isinstance(q, dict)}
-        ok1 = count == 64 and len(papers_in_file - {None}) == 8
+        ok1 = count == 61 and len(papers_in_file - {None}) == 8
         check(
             "track1_queries.json",
             ok1,

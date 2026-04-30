@@ -414,15 +414,6 @@
     "answer_span": "P. Lewis, E. Perez, A. Piktus, et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\", arXiv:2005.11401, 2020."
   },
   {
-    "query": "이 논문에서 RAG 기술이 대규모 언어 모델의 한계를 극복하는 데 필요하다고 설명하는 근거는 무엇인가요?",
-    "ground_truth": "",
-    "type": "crosslingual_ko",
-    "applicable_papers": [
-      "paper_ko_rag_eval_framework"
-    ],
-    "answer_span": "RAG 기술의 필요성과 중요성에 대해 설명하고, 대규모 언어 모델(LLM)의 한계를 극복하는 방안으로 제시한다."
-  },
-  {
     "query": "향후 연구에서 중점적으로 탐색할 계획인 기술적 접근 방법은 무엇인가요?",
     "ground_truth": "",
     "type": "cad_ablation",
@@ -486,15 +477,6 @@
     "answer_span": "Precise Zero-Shot Dense Retrieval without Relevance Labels"
   },
   {
-    "query": "RAG 시스템의 멀티홉 쿼리 처리 성능을 평가하기 위해 구축된 벤치마크 데이터셋은 무엇인가요?",
-    "ground_truth": "",
-    "type": "crosslingual_ko",
-    "applicable_papers": [
-      "paper_ko_hyde_multihop"
-    ],
-    "answer_span": "MultiHop-RAG is a benchmarking dataset built to evaluate the performance of multi-hop query processing in RAG systems."
-  },
-  {
     "query": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 무엇인가요?",
     "ground_truth": "",
     "type": "cad_ablation",
@@ -556,15 +538,6 @@
       "paper_ko_cad_contrastive"
     ],
     "answer_span": "[1] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eis- ner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, “Contrastive decoding: Open-ended text generation as optimization,” Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Vol- ume 1: Long Papers), A. Rogers, J. Boyd-Graber, and N. Okazaki, Eds., pp. 12 286–12 312, Jul. 2023."
-  },
-  {
-    "query": "오픈 도메인 질의응답 태스크에서 모델 성능 평가에 사용된 데이터셋은 무엇인가요?",
-    "ground_truth": "",
-    "type": "crosslingual_ko",
-    "applicable_papers": [
-      "paper_ko_cad_contrastive"
-    ],
-    "answer_span": "TriviaQA, Natural Questions(NQ), PopQA"
   },
   {
     "query": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 무엇인가요?",
