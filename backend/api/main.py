@@ -80,7 +80,12 @@ logger = configure_logging()
 def parse_cors_origins() -> list[str]:
     raw = os.environ.get("CORS_ALLOW_ORIGINS", "").strip()
     if not raw:
-        return ["http://localhost:3000", "http://localhost:5173"]
+        return [
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175",
+        ]
     return [origin.strip() for origin in raw.split(",") if origin.strip()]
 
 

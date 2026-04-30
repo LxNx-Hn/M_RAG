@@ -1,10 +1,23 @@
 import { useTranslation } from 'react-i18next'
-import { Moon, Sun, Globe, BookOpen } from 'lucide-react'
+import { Moon, Sun, LogOut, BookOpen, User } from 'lucide-react'
 import { useUIStore } from '@/stores/uiStore'
+import { useAuthStore } from '@/stores/authStore'
+import api from '@/api/client'
 
 export default function TopBar() {
   const { t } = useTranslation()
-  const { darkMode, toggleDarkMode, language, setLanguage } = useUIStore()
+  const { darkMode, toggleDarkMode } = useUIStore()
+  const { user, logout } = useAuthStore()
+
+  const handleLogout = async () => {
+    try {
+      await api.post('/api/auth/logout')
+    } catch {
+      // 서버 에러여도 클라이언트는 로그아웃 처리
+    }
+    logout()
+    window.location.replace('/')
+  }
 
   return (
     <header
@@ -33,20 +46,17 @@ export default function TopBar() {
       </div>
 
       {/* 컨트롤 */}
-      <div className="flex items-center gap-1.5">
-        {/* 언어 토글 */}
-        <button
-          onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105"
-          style={{
-            background: 'var(--accent-light)',
-            color: 'var(--accent)',
-          }}
-          title={t('topbar.language')}
-        >
-          <Globe size={14} />
-          <span>{language === 'ko' ? 'EN' : 'KO'}</span>
-        </button>
+      <div className="flex items-center gap-2">
+        {/* 사용자 정보 */}
+        {user && (
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs"
+            style={{ background: 'var(--bg-primary)', color: 'var(--text-secondary)' }}
+          >
+            <User size={13} />
+            <span className="font-medium max-w-[120px] truncate">{user.username || user.email}</span>
+          </div>
+        )}
 
         {/* 다크모드 토글 */}
         <button
@@ -59,6 +69,20 @@ export default function TopBar() {
           title={darkMode ? t('topbar.lightMode') : t('topbar.darkMode')}
         >
           {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+
+        {/* 로그아웃 */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105"
+          style={{
+            background: 'rgba(239,68,68,0.08)',
+            color: '#ef4444',
+          }}
+          title={t('topbar.logout')}
+        >
+          <LogOut size={13} />
+          <span className="hidden sm:inline">{t('topbar.logout')}</span>
         </button>
       </div>
     </header>

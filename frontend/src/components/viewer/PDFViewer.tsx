@@ -35,10 +35,13 @@ export default function PDFViewer() {
     const loadPdf = async () => {
       try {
         const pdfjsLib = await import('pdfjs-dist')
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
 
-        const url = `/static/data/${activePaperId}.pdf`
-        const doc = await pdfjsLib.getDocument(url).promise
+        const url = `/api/papers/${activePaperId}/view`
+        const doc = await pdfjsLib.getDocument({
+          url,
+          withCredentials: true,
+        }).promise
         setPdfDoc(doc)
         setTotalPages(doc.numPages)
         setActivePage(1)

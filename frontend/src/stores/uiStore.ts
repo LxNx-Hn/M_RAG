@@ -1,22 +1,24 @@
 import { create } from 'zustand'
-import i18n from 'i18next'
 
 interface UIState {
   darkMode: boolean
-  language: 'ko' | 'en'
   leftPanelOpen: boolean
   rightPanelOpen: boolean
   mobileActivePanel: 'left' | 'center' | 'right'
   toggleDarkMode: () => void
-  setLanguage: (lang: 'ko' | 'en') => void
   toggleLeftPanel: () => void
   toggleRightPanel: () => void
   setMobileActivePanel: (panel: 'left' | 'center' | 'right') => void
 }
 
+const getInitialDarkMode = (): boolean => {
+  const stored = localStorage.getItem('darkMode')
+  if (stored !== null) return stored === 'true'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
 export const useUIStore = create<UIState>((set) => ({
-  darkMode: localStorage.getItem('darkMode') === 'true',
-  language: (localStorage.getItem('language') as 'ko' | 'en') || 'ko',
+  darkMode: getInitialDarkMode(),
   leftPanelOpen: true,
   rightPanelOpen: true,
   mobileActivePanel: 'center',
@@ -30,11 +32,6 @@ export const useUIStore = create<UIState>((set) => ({
       return { darkMode: next }
     }),
 
-  setLanguage: (lang) => {
-    localStorage.setItem('language', lang)
-    i18n.changeLanguage(lang) // 실시간 언어 전환 (새로고침 불필요)
-    set({ language: lang })
-  },
 
   toggleLeftPanel: () => set((s) => ({ leftPanelOpen: !s.leftPanelOpen })),
   toggleRightPanel: () => set((s) => ({ rightPanelOpen: !s.rightPanelOpen })),

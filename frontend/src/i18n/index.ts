@@ -138,7 +138,7 @@ i18n.use(initReactI18next).init({
     ko: { translation: ko },
     en: { translation: en },
   },
-  lng: localStorage.getItem('language') || 'ko',
+  lng: 'ko',
   fallbackLng: 'ko',
   interpolation: { escapeValue: false },
 })

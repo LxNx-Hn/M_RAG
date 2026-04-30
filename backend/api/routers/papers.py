@@ -363,6 +363,39 @@ async def get_paper_info(
     }
 
 
+@router.get("/{doc_id}/view")
+async def view_paper_pdf(
+    doc_id: str,
+    user_id: str = Depends(get_current_user_id),
+    db=Depends(get_db),
+):
+    """Stream the uploaded PDF file for the in-browser viewer."""
+    if db is None:
+        raise HTTPException(503, "Database not available")
+
+    result = await db.execute(
+        select(Paper).where(
+            Paper.doc_id == doc_id,
+            Paper.user_id == user_id,
+        )
+    )
+    paper = result.scalar_one_or_none()
+    if paper is None:
+        raise HTTPException(404, "Paper not found.")
+
+    file_path = Path(paper.file_path) if paper.file_path else None
+    if file_path is None or not file_path.exists():
+        raise HTTPException(404, "PDF file not found on disk.")
+
+    from fastapi.responses import FileResponse
+
+    return FileResponse(
+        path=str(file_path),
+        media_type="application/pdf",
+        filename=paper.file_name or f"{doc_id}.pdf",
+    )
+
+
 @router.delete("/{collection_name}")
 async def delete_collection(
     collection_name: str,

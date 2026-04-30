@@ -50,9 +50,12 @@ export default function ChatPanel() {
     let streamRoute: import('@/types/api').RouteInfo | undefined
     let streamSources: import('@/types/api').SourceDocument[] | undefined
 
+    const activePaperId = usePaperStore.getState().activePaperId
+    const queryReq = { query: text, doc_id_filter: activePaperId }
+
     try {
       await queryRAGStream(
-        { query: text },
+        queryReq,
         (metadata) => {
           streamRoute = metadata.route
           streamSources = metadata.sources
@@ -73,7 +76,7 @@ export default function ChatPanel() {
         async () => {
           // SSE 실패 시 일반 쿼리 폴백
           try {
-            const res = await queryRAG({ query: text })
+            const res = await queryRAG(queryReq)
             finalizeAssistantMessage(
               res.answer,
               res.route,
@@ -89,7 +92,7 @@ export default function ChatPanel() {
       )
     } catch {
       try {
-        const res = await queryRAG({ query: text })
+        const res = await queryRAG(queryReq)
         finalizeAssistantMessage(
           res.answer,
           res.route,

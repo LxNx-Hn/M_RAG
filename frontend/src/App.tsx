@@ -8,8 +8,7 @@ import '@/i18n'
 
 export default function App() {
   const darkMode = useUIStore((s) => s.darkMode)
-  const { isAuthenticated, login, skipAuth } = useAuthStore()
-  const canSkipAuth = import.meta.env.DEV
+  const { isAuthenticated, login } = useAuthStore()
 
   useEffect(() => {
     if (darkMode) {
@@ -24,9 +23,6 @@ export default function App() {
       const { data } = await api.post('/api/auth/login', { email, password })
       login(data.access_token, data.user)
     } catch (error) {
-      if (canSkipAuth && skipAuth()) {
-        return
-      }
       throw error instanceof Error ? error : new Error('Login failed')
     }
   }
@@ -36,9 +32,6 @@ export default function App() {
       const { data } = await api.post('/api/auth/register', { email, username, password })
       login(data.access_token, data.user)
     } catch (error) {
-      if (canSkipAuth && skipAuth()) {
-        return
-      }
       throw error instanceof Error ? error : new Error('Signup failed')
     }
   }
@@ -48,7 +41,6 @@ export default function App() {
       <LoginPage
         onLogin={handleLogin}
         onSignup={handleSignup}
-        onSkip={canSkipAuth ? () => { skipAuth() } : undefined}
       />
     )
   }

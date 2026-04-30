@@ -5,10 +5,9 @@ import { BookOpen, Mail, Lock, User, Loader2 } from 'lucide-react'
 interface Props {
   onLogin: (email: string, password: string) => Promise<void>
   onSignup: (email: string, username: string, password: string) => Promise<void>
-  onSkip?: () => void
 }
 
-export default function LoginPage({ onLogin, onSignup, onSkip }: Props) {
+export default function LoginPage({ onLogin, onSignup }: Props) {
   const { t } = useTranslation()
   const [isSignup, setIsSignup] = useState(false)
   const [email, setEmail] = useState('')
@@ -167,16 +166,7 @@ export default function LoginPage({ onLogin, onSignup, onSkip }: Props) {
           </button>
         </form>
 
-        {/* 스킵 옵션 */}
-        {onSkip && (
-          <button
-            onClick={onSkip}
-            className="w-full mt-4 py-2 text-xs transition-colors"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            로그인 없이 사용하기
-          </button>
-        )}
+
       </div>
     </div>
   )
