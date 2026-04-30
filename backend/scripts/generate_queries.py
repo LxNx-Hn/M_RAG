@@ -131,7 +131,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-generation-attempts",
         type=int,
-        default=3,
+        default=6,
         help="Retry query generation when validation rejects the output.",
     )
     return parser.parse_args()
