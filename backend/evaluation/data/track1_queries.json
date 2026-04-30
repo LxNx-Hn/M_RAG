@@ -258,7 +258,7 @@
     "applicable_papers": [
       "paper_nlp_raptor"
     ],
-    "answer_span": "One of the unique aspects of our clustering approach is the"
+    "answer_span": "One of the unique aspects of our clustering approach is the use of soft clustering, where nodes can belong to multiple clusters without requiring a fixed number of clusters."
   },
   {
     "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
@@ -510,7 +510,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "대규모언어모델은자연어처리, 기계번역, 텍스트생성, 질의응답시스템등다양한분야에서뛰어난성능을발휘하고있다. 그러나디코딩과정에서발생하는환각(hallucination)은잘못된토큰선택으로이어져생성된텍스트의신뢰성을저하시키는문제가있다."
+    "answer_span": "디코딩 과정에서 발생하는 환각(hallucination)은 잘못된 토큰 선택으로 이어져 생성된 텍스트의 신뢰성을 저하시키는 문제가 있다."
   },
   {
     "query": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 무엇인가요?",
@@ -519,7 +519,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "이방법은모델이신뢰할수있는토큰만을남기게하여더높은신뢰도의텍스트생성을유도한다. 제안된기법은LLaMA기반모델의질의응답작업에서성능을향상시킬수있었다."
+    "answer_span": "이 방법은 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도한다. 제안된 기법은 LLaMA 기반 모델의 질의응답 작업에서 성능을 향상시킬 수 있었다."
   },
   {
     "query": "제안된 방법의 성능이 CAD와 비교했을 때 어떤 차이를 보였나요?",
@@ -528,7 +528,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "Trivia QA 데이터셋에서LLaMA2-7b 모델을사용할경우, 제안된방법이CAD와그리디디코딩보다크게성능이향상된것을확인할수있었다."
+    "answer_span": "Trivia QA 데이터셋에서 LLaMA2-7b 모델을 사용할 경우, 제안된 방법이 CAD와 그리디 디코딩보다 크게 성능이 향상된 것을 확인할 수 있었다."
   },
   {
     "query": "본 연구의 주요 기여는 무엇인가요?",
@@ -537,7 +537,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "우리는컨텍스트의확률분포를기반으로낮은확률의토큰을제거하여모델이신뢰할수있는부분만을남기고, 필터링된토큰과온전한컨텍스트를합산하여디코딩하는새로운기법을제안한다. 이방법은언어모델이더높은신뢰도를바탕으로텍스트를생성하도록유도한다."
+    "answer_span": "우리는 컨텍스트의 확률 분포를 기반으로 낮은 확률의 토큰을 제거하여 모델이 신뢰할 수 있는 부분만을 남기고, 필터링된 토큰과 온전한 컨텍스트를 합산하여 디코딩하는 새로운 기법을 제안한다."
   },
   {
     "query": "이 논문에서 사용된 Contrastive CAD 방법은 어떤 문제를 완화하려고 하나요?",
@@ -546,7 +546,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "Contrastive CAD: 대형언어모델의환각완화를위한대조적Context-Aware Decoding"
+    "answer_span": "이를 해결하기 위해 본 연구에서는 확률 분포를 기반으로 낮은 확률의 토큰을 제거하고, 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩하는 새로운 방식을 제안한다."
   },
   {
     "query": "대조 디코딩에 대한 연구는 어떤 문헌을 기반으로 하고 있나요?",
@@ -564,7 +564,7 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "본연구에서는세가지대표적인질의응답(QA) 벤치마크를사용하여모델의성능을평가하였다: TriviaQA, Natural Questions(NQ), 그리고PopQA를사용하였다."
+    "answer_span": "본 연구에서는 세 가지 대표적인 질의응답(QA) 벤치마크를 사용하여 모델의 성능을 평가하였다: TriviaQA, Natural Questions(NQ), 그리고 PopQA를 사용하였다."
   },
   {
     "query": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 무엇인가요?",
@@ -573,6 +573,6 @@
     "applicable_papers": [
       "paper_ko_cad_contrastive"
     ],
-    "answer_span": "확률이낮은토큰을제거함으로써 모델이신뢰하는주요컨텍스트의맥락을유지하고, 혼동을야 기할수있는토큰을제거하여신뢰하는정보에집중할수있게 한다. 이를통해제안된디코딩방식이효과적임을확인할수 있다."
+    "answer_span": "확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지하고, 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 한다. 이를 통해 제안된 디코딩 방식이 효과적임을 확인할 수 있다."
   }
 ]
