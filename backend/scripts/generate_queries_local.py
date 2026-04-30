@@ -3,6 +3,7 @@ Standalone Track 1 query generator — no API server required.
 Reads PDFs directly with PyMuPDF, calls GPT-4o, saves track1_queries.json.
 Same prompt/validation logic as generate_queries.py.
 """
+
 from __future__ import annotations
 
 import json
@@ -45,6 +46,7 @@ MAX_ATTEMPTS = 6
 
 # ── PDF text extraction ────────────────────────────────────────────────────────
 
+
 def extract_pdf_text(paper_id: str) -> str:
     pdf_path = DATA_DIR / f"{paper_id}.pdf"
     doc = fitz.open(str(pdf_path))
@@ -71,6 +73,7 @@ def build_context(paper_id: str) -> str:
 
 # ── Text normalisation ─────────────────────────────────────────────────────────
 
+
 def _normalize_text(text: str) -> str:
     text = unicodedata.normalize("NFKC", text)
     text = text.replace("­", "")
@@ -84,10 +87,19 @@ def _context_contains_answer_span(context: str, answer_span: str) -> bool:
 
 # ── Prompt & OpenAI call ───────────────────────────────────────────────────────
 
+
 def _track1_schema_json(paper: str) -> str:
     return json.dumps(
-        {"queries": [{"query": "...", "type": "simple_qa",
-                      "applicable_papers": [paper], "answer_span": "..."}]},
+        {
+            "queries": [
+                {
+                    "query": "...",
+                    "type": "simple_qa",
+                    "applicable_papers": [paper],
+                    "answer_span": "...",
+                }
+            ]
+        },
         ensure_ascii=False,
     )
 
@@ -129,6 +141,7 @@ def _build_prompt(paper: str, context: str, feedback: str | None = None) -> str:
 
 def _call_openai(api_key: str, prompt: str) -> list[dict]:
     from openai import OpenAI
+
     client = OpenAI(api_key=api_key)
     resp = client.chat.completions.create(
         model="gpt-4o",
@@ -149,10 +162,13 @@ def _call_openai(api_key: str, prompt: str) -> list[dict]:
 
 # ── Validation ────────────────────────────────────────────────────────────────
 
+
 def _validate(paper: str, queries: list[dict], context: str) -> list[dict]:
     expected_types = TRACK1_TYPES[:]
     if len(queries) != len(expected_types):
-        raise ValueError(f"{paper}: expected {len(expected_types)} queries, got {len(queries)}")
+        raise ValueError(
+            f"{paper}: expected {len(expected_types)} queries, got {len(queries)}"
+        )
 
     normalised = []
     for item, expected_type in zip(queries, expected_types):
@@ -167,9 +183,14 @@ def _validate(paper: str, queries: list[dict], context: str) -> list[dict]:
         if not answer_span:
             raise ValueError(f"{paper}/{query_type}: missing answer_span")
         if len(answer_span) < 5 or len(answer_span) > 500:
-            raise ValueError(f"{paper}/{query_type}: invalid answer_span length ({len(answer_span)})")
+            raise ValueError(
+                f"{paper}/{query_type}: invalid answer_span length ({len(answer_span)})"
+            )
         if not _context_contains_answer_span(context, answer_span):
-            print(f"  [WARN] {paper}/{query_type}: answer_span not grounded (kept)", file=sys.stderr)
+            print(
+                f"  [WARN] {paper}/{query_type}: answer_span not grounded (kept)",
+                file=sys.stderr,
+            )
 
         # Korean check (except crosslingual_en)
         if query_type != "crosslingual_en":
@@ -177,17 +198,20 @@ def _validate(paper: str, queries: list[dict], context: str) -> list[dict]:
             if korean_chars < 2:
                 raise ValueError(f"{paper}/{query_type}: expected Korean query")
 
-        normalised.append({
-            "query": query,
-            "ground_truth": "",
-            "type": query_type,
-            "applicable_papers": [paper],
-            "answer_span": answer_span,
-        })
+        normalised.append(
+            {
+                "query": query,
+                "ground_truth": "",
+                "type": query_type,
+                "applicable_papers": [paper],
+                "answer_span": answer_span,
+            }
+        )
     return normalised
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
+
 
 def main() -> int:
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -219,12 +243,17 @@ def main() -> int:
             except (ValueError, json.JSONDecodeError) as exc:
                 feedback = str(exc)
                 if attempt >= MAX_ATTEMPTS:
-                    print(f"  FAILED after {MAX_ATTEMPTS} attempts: {feedback}", file=sys.stderr)
+                    print(
+                        f"  FAILED after {MAX_ATTEMPTS} attempts: {feedback}",
+                        file=sys.stderr,
+                    )
                     return 1
                 print(f"  retry={attempt} reason={feedback}", file=sys.stderr)
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(all_queries, ensure_ascii=False, indent=2), encoding="utf-8")
+    OUTPUT.write_text(
+        json.dumps(all_queries, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     print(f"\nSaved {len(all_queries)} queries to {OUTPUT}", file=sys.stderr)
     return 0
 

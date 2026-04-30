@@ -12,6 +12,7 @@ Usage:
     python scripts/local_verify.py --token <JWT>
     python scripts/local_verify.py  (MRAG_API_TOKEN 환경변수 사용)
 """
+
 from __future__ import annotations
 
 import json
@@ -39,14 +40,14 @@ PAPERS = [
 
 # 논문별 대표 쿼리 (track1_queries.json에서 simple_qa 타입 발췌)
 REPRESENTATIVE_QUERIES: dict[str, str] = {
-    "paper_nlp_bge":             "M3-Embedding 모델은 몇 개의 언어를 지원하나요?",
-    "paper_nlp_rag":             "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
-    "paper_nlp_cad":             "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
-    "paper_nlp_raptor":          "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
-    "paper_midm":                "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
+    "paper_nlp_bge": "M3-Embedding 모델은 몇 개의 언어를 지원하나요?",
+    "paper_nlp_rag": "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
+    "paper_nlp_cad": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
+    "paper_nlp_raptor": "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
+    "paper_midm": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
     "paper_ko_rag_eval_framework": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 어떤 성능을 보였나요?",
-    "paper_ko_hyde_multihop":    "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall과 hit rate는 각각 얼마나 증가했나요?",
-    "paper_ko_cad_contrastive":  "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 무엇인가요?",
+    "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall과 hit rate는 각각 얼마나 증가했나요?",
+    "paper_ko_cad_contrastive": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 무엇인가요?",
 }
 
 PASS = "\033[92mPASS\033[0m"
@@ -78,6 +79,7 @@ def check(label: str, ok: bool, detail: str = "") -> bool:
 
 # ── STEP 1: Health ──────────────────────────────────────────────────────────
 
+
 def step_health(token: str) -> bool:
     print("\n[STEP 1] Server health check")
     try:
@@ -103,6 +105,7 @@ def step_health(token: str) -> bool:
 
 
 # ── STEP 2: Paper index check ───────────────────────────────────────────────
+
 
 def step_index_check(token: str) -> dict[str, bool]:
     print("\n[STEP 2] Paper index check")
@@ -153,6 +156,7 @@ def upload_paper(token: str, paper_id: str) -> bool:
 
 # ── STEP 3: Search test ─────────────────────────────────────────────────────
 
+
 def step_search(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
     print("\n[STEP 3] Search test (top-3 per paper)")
     status = {}
@@ -186,6 +190,7 @@ def step_search(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
 
 
 # ── STEP 4: Generation test ─────────────────────────────────────────────────
+
 
 def step_generate(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
     print("\n[STEP 4] Generation test (naive RAG, no CAD)")
@@ -226,6 +231,7 @@ def step_generate(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
 
 # ── STEP 5: Static asset check ──────────────────────────────────────────────
 
+
 def step_static_assets() -> bool:
     print("\n[STEP 5] Static asset check")
     t1 = PROJECT_ROOT / "evaluation" / "data" / "track1_queries.json"
@@ -235,7 +241,11 @@ def step_static_assets() -> bool:
     try:
         queries = json.loads(t1.read_text(encoding="utf-8"))
         count = len(queries) if isinstance(queries, list) else 0
-        papers_in_file = {q.get("applicable_papers", [None])[0] for q in queries if isinstance(q, dict)}
+        papers_in_file = {
+            q.get("applicable_papers", [None])[0]
+            for q in queries
+            if isinstance(q, dict)
+        }
         ok1 = count == 61 and len(papers_in_file - {None}) == 8
         check(
             "track1_queries.json",
@@ -263,6 +273,7 @@ def step_static_assets() -> bool:
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
+
 
 def main() -> int:
     token = get_token()
