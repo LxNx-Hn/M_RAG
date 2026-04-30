@@ -35,6 +35,9 @@ M-RAG는 교차 언어 학술 문서 질의응답을 위한 모듈러 RAG 시스
   - 영어 본문 그룹 28개
   - 한국어 본문 그룹 28개
   - 총 56개 checked-in query asset
+  - 이 자산은 비교 조건을 고정하는 구조적 사실이다
+  - 실제 answerability와 CAD gap은 `pseudo_gt_track2.json`,
+    `table3_domain.json`으로 별도 측정한다
 
 ## 빠른 실행
 
