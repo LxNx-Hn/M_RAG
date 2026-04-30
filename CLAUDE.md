@@ -61,7 +61,8 @@ cd frontend && npm run build
                paper_midm, paper_ko_rag_eval_framework, paper_ko_hyde_multihop,
                paper_ko_cad_contrastive
   - Query types: simple_qa, section_method, section_result, section_abstract,
-                 cad_hallucination, citation, crosslingual_en
+                 cad_hallucination, citation, crosslingual_ko, cad_ablation
+  - crosslingual_ko: Korean-language queries targeting English-body papers (cross-lingual retrieval test)
   - This file is a runtime-generated placeholder (`[]` in repo); populated by `master_run.py` STEP 4.5
 - Track 2: `backend/evaluation/data/track2_queries.json` -- 56 checked-in common queries
   - English-body group papers: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm
