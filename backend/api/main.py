@@ -224,14 +224,30 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     )
 
 
+def _safe_validation_errors(errors: list) -> list:
+    """Pydantic v2 error dicts may contain bytes (raw request body) — make JSON-safe."""
+    safe = []
+    for err in errors:
+        safe_err = {}
+        for k, v in err.items():
+            try:
+                json.dumps(v, ensure_ascii=False)
+                safe_err[k] = v
+            except TypeError:
+                safe_err[k] = repr(v)
+        safe.append(safe_err)
+    return safe
+
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    safe_errors = _safe_validation_errors(exc.errors())
     logger.warning(
         json.dumps(
             {
                 "event": "validation_error",
                 "path": request.url.path,
-                "errors": exc.errors(),
+                "errors": safe_errors,
             },
             ensure_ascii=False,
         ),
@@ -242,7 +258,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
     return JSONResponse(
         status_code=422,
-        content={"error": "validation_error", "detail": exc.errors()},
+        content={"error": "validation_error", "detail": safe_errors},
     )
 
 

@@ -121,7 +121,7 @@ def step_index_check(token: str) -> dict[str, bool]:
     status = {}
     for paper in PAPERS:
         ok = paper in available
-        check(paper, ok, "" if ok else "NOT INDEXED — upload needed")
+        check(paper, ok, "" if ok else "NOT INDEXED -- upload needed")
         status[paper] = ok
     return status
 
@@ -138,7 +138,7 @@ def upload_paper(token: str, paper_id: str) -> bool:
                 headers=headers(token),
                 files={"file": (pdf.name, f, "application/pdf")},
                 data={"collection_name": COLLECTION, "doc_id": paper_id},
-                timeout=120,
+                timeout=300,
             )
         if r.status_code == 200:
             print(f"  [{PASS}] uploaded {paper_id}")
@@ -196,6 +196,7 @@ def step_generate(token: str, indexed: dict[str, bool]) -> dict[str, bool]:
             status[paper] = False
             continue
         try:
+            time.sleep(3)  # avoid 429 rate-limit between consecutive generation calls
             t0 = time.perf_counter()
             r = requests.post(
                 f"{API_BASE}/api/chat/query",
