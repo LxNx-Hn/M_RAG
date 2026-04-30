@@ -1,1 +1,578 @@
-[]
+[
+  {
+    "query": "M3-Embedding 모델은 몇 개의 언어를 지원하나요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "M3-Embedding, which is able to support more than 100 world languages."
+  },
+  {
+    "query": "M3-Embedding의 학습에서 배치 전략은 어떻게 최적화되었나요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "we optimize the batching strategy, which enables a large batch size and high training throughput to improve the discriminativeness of embeddings."
+  },
+  {
+    "query": "M3-Embedding 모델의 실험에서 어떤 벤치마크에서 새로운 state-of-the-art 성능을 보였나요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "It achieves superior retrieval quality for a variety of languages, leading to state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIR-ACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)."
+  },
+  {
+    "query": "M3-Embedding 모델의 주요 특징은 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "M3-Embedding, which is distinguished for its versatility in Multi-Linguality, Multi-Functionality, and Multi-Granularity."
+  },
+  {
+    "query": "M3-Embedding의 self-knowledge distillation 접근 방식에서 어떤 점수가 통합되어 학습 신호로 사용되나요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "we propose a novel self-knowledge distillation approach, where the relevance scores from different retrieval functionalities can be integrated as the teacher signal to enhance the training quality."
+  },
+  {
+    "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)"
+  },
+  {
+    "query": "What is one of the key benchmarks where M3-Embedding achieved state-of-the-art performance?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)."
+  },
+  {
+    "query": "M3-Embedding의 ablation study에서 어떤 기능들이 결합되어 더 강력한 검색 품질을 제공하나요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_nlp_bge"
+    ],
+    "answer_span": "It effectively learns the three retrieval functionalities, which can not only work individually but also work together for an even stronger retrieval quality."
+  },
+  {
+    "query": "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content."
+  },
+  {
+    "query": "RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework."
+  },
+  {
+    "query": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 무엇입니까?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information."
+  },
+  {
+    "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information."
+  },
+  {
+    "query": "Naive RAG에서 LLM의 응답 생성 시 발생할 수 있는 문제는 무엇입니까?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "In generating responses, the model may face the issue of hallucination, where it produces content not supported by the retrieved context."
+  },
+  {
+    "query": "RAG 연구에서 'Raft: Adapting language model to domain specific rag' 논문을 인용한 부분은 어디입니까?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "T. Zhang, S. G. Patil, N. Jain, S. Shen, M. Zaharia, I. Stoica, and J. E. Gonzalez, “Raft: Adapting language model to domain specific rag,” arXiv preprint arXiv:2403.10131, 2024."
+  },
+  {
+    "query": "What are the key technologies integral to the RAG process?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "We identify and discuss the central technologies integral to the RAG process, specifically focusing on the aspects of “Retrieval”, “Generation” and “Augmentation”, and delve into their synergies."
+  },
+  {
+    "query": "RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_nlp_rag"
+    ],
+    "answer_span": "We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools."
+  },
+  {
+    "query": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "LLaMA (Touvron et al., 2023) is presented with a latest document “Argentina won the FIFA World Cups in 1978,1986 and 2022 ...” in its context (Figure 1), it still predicts “Two” in response to the question “How many World Cups have Argentina won?”, due in part to the outdated training data."
+  },
+  {
+    "query": "Context-aware Decoding (CAD) 방법은 어떻게 작동하나요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "To mitigate such issues, we factor out the prior knowledge from the model’s original output distribution contrastively. Here, we model the prior knowledge as pθ(yt ∣x, y<t) and adjust the model’s original output probability distribution using the pointwise mutual information (PMI) between the context c and the generation yt, conditioned on x, y<t. Formally, we have: yt ∼˜pθ(yt ∣c, x, y<t) ∝pθ(yt ∣c, x, y<t) (pθ(yt ∣c, x, y<t) / pθ(yt ∣x, y<t) ) α"
+  },
+  {
+    "query": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P."
+  },
+  {
+    "query": "이 연구의 핵심 주장은 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context."
+  },
+  {
+    "query": "CAD는 어떻게 잘못된 정보 생성을 줄이나요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information."
+  },
+  {
+    "query": "XSUM 데이터셋의 출처는 어디인가요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "Shashi Narayan, Shay B. Cohen, and Mirella Lapata. 2018. Don’t give me the details, just the summary! topic-aware convolutional neural networks for extreme summarization. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, pages 1797–1807, Brussels, Belgium. Association for Computational Linguistics."
+  },
+  {
+    "query": "Does CAD improve the factuality of summaries generated by language models?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022)."
+  },
+  {
+    "query": "CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_nlp_cad"
+    ],
+    "answer_span": "CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021)."
+  },
+  {
+    "query": "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy."
+  },
+  {
+    "query": "RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up."
+  },
+  {
+    "query": "RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022)."
+  },
+  {
+    "query": "RAPTOR의 새로운 접근 방식은 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up."
+  },
+  {
+    "query": "RAPTOR에서 제안된 클러스터링 알고리즘의 독특한 측면은 무엇인가요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "One of the unique aspects of our clustering approach is the"
+  },
+  {
+    "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "Lewis et al., 2020"
+  },
+  {
+    "query": "What are the two strategies introduced for querying within the RAPTOR tree?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "For querying within this tree, we introduce two distinct strategies: tree traversal and collapsed tree."
+  },
+  {
+    "query": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_nlp_raptor"
+    ],
+    "answer_span": "We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes."
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "32B parameters"
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "abstract syntax tree (AST) analysis for code"
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "sets state-of-the-art results on Korean-specific benchmarks"
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "address enterprise-grade complexity through reasoning-focused optimization"
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro의 퓨전 훈련(Fusion Training)은 어떤 균형을 맞추기 위해 사용됩니까?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "rebalances these capabilities with conversational fluency, consistent response styling, and reliable tool-use"
+  },
+  {
+    "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71760"
+  },
+  {
+    "query": "What languages does the Mi:dm K 2.5 Pro model support besides Korean and English?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "Japanese and Chinese"
+  },
+  {
+    "query": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_midm"
+    ],
+    "answer_span": "improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution"
+  },
+  {
+    "query": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 어떤 성능을 보였나요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "AutoRAG가 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였으며"
+  },
+  {
+    "query": "AutoRAG 프레임워크의 데이터 셋 생성 흐름에서 첫 번째 단계는 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "첫 번째 단계인 코퍼스 준비(Corpus Prep) 과정에서는 원시 문서를 수집하고 정제한다."
+  },
+  {
+    "query": "RAGAS, AutoRAG, DeepEval의 성능 비교 결과, 어떤 프레임워크가 한국어 지원 부족으로 인해 상대적으로 낮은 성능을 보였나요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "DeepEval은 한국어 지원 부족으로 인해 성능이 상대적으로 낮았다."
+  },
+  {
+    "query": "이 논문은 RAG 시스템의 성능 평가를 위한 데이터셋 생성 방법에 대해 어떤 분석을 수행하였나요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "본 논문은 최근 주목받고 있는 검색 증강 생성(RAG) 시스템의 성능 평가를 위한 테스트 데이터셋 생성 방법을 비교 분석하였다."
+  },
+  {
+    "query": "RAGAS는 문서 처리 과정에서 어떤 오류를 보였나요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "RAGAS는 문서 처리 과정에서 불필요한 정보 포함 등의 오류가 많았고"
+  },
+  {
+    "query": "RAG 기술을 제안한 연구팀은 누구인가요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "P. Lewis, E. Perez, A. Piktus, et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\", arXiv:2005.11401, 2020."
+  },
+  {
+    "query": "What does the paper say about the necessity of RAG technology in overcoming the limitations of large language models?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "It explains the necessity and importance of RAG technology in overcoming the limitations of large language models (LLMs)"
+  },
+  {
+    "query": "향후 연구에서 중점적으로 탐색할 계획인 기술적 접근 방법은 무엇인가요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_ko_rag_eval_framework"
+    ],
+    "answer_span": "향후 연구에서는 LLM을 활용하여 사용자의 의도와 컨텍스트를 더욱 정확히 반영하는 고급 프롬프팅 기법과 자동화된 데이터 품질 평가 및 개선 전략을 중점적으로 탐색할 계획이다."
+  },
+  {
+    "query": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall과 hit rate는 각각 얼마나 증가했나요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "recall이 약 19.53%, hit rate가 21.21% 증가하였다."
+  },
+  {
+    "query": "HyDE 기반 멀티 홉 검색 기법에서는 복잡한 질의를 어떻게 처리하나요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "복잡한 질의를 단계적으로 단일 홉 질의로 분해하고 각 단계에서 HyDE를 적용하는 방식을 채택하였다."
+  },
+  {
+    "query": "HyDE 기반 멀티 홉 검색 기법의 실험에서 사용된 지표들은 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "precision@k, recall@k, F1 score, MAP, MRR, hit rate와 같은 지표를 사용하여 진행되었다."
+  },
+  {
+    "query": "이 논문에서 제안한 프레임워크가 해결하고자 하는 주요 문제는 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "LLM의 환각(hallucination) 문제와 도메인 적합성 부족을 해결하기 위한 Retrieval-Augmented Generation(RAG) 시스템은 검색 단계에서 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪는다."
+  },
+  {
+    "query": "이 논문에서 언급된 LLM의 환각 문제는 어떤 결과를 초래할 수 있나요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "LLM의 우수한 언어 생성 능력의 이면에는 데이터에 존재하지 않거나 맥락에 부합하지 않는 정보를 생성하는 환각(hallucination) 현상이 존재한다."
+  },
+  {
+    "query": "RAG 시스템의 검색 단계에서 성능 저하를 초래하는 주요 이슈는 무엇인가요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "RAG 시스템은 검색 단계에서 코사인 유사도를 기반으로 문서를 선택하지만 높은 유사도를 가진 문서가 질문과 맥락적으로 적합하지 않은 경우 답변의 성능이 저하될 수 있다(Cuconasu et al., 2024)."
+  },
+  {
+    "query": "What benchmarking dataset was built to evaluate the performance of multi-hop query processing in RAG systems?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "MultiHop-RAG is a benchmarking dataset built to evaluate the performance of multi-hop query processing in RAG systems."
+  },
+  {
+    "query": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 무엇인가요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "answer_span": "HyDE 기법은 질문의 의미를 반영한 가상 문서를 생성하여 검색 정확성을 향상시키며, 이는 특히 초기 단계의 검색 정확도를 높여 오류 전파 문제를 완화한다."
+  },
+  {
+    "query": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 무엇인가요?",
+    "ground_truth": "",
+    "type": "simple_qa",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "대규모언어모델은자연어처리, 기계번역, 텍스트생성, 질의응답시스템등다양한분야에서뛰어난성능을발휘하고있다. 그러나디코딩과정에서발생하는환각(hallucination)은잘못된토큰선택으로이어져생성된텍스트의신뢰성을저하시키는문제가있다."
+  },
+  {
+    "query": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_method",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "이방법은모델이신뢰할수있는토큰만을남기게하여더높은신뢰도의텍스트생성을유도한다. 제안된기법은LLaMA기반모델의질의응답작업에서성능을향상시킬수있었다."
+  },
+  {
+    "query": "제안된 방법의 성능이 CAD와 비교했을 때 어떤 차이를 보였나요?",
+    "ground_truth": "",
+    "type": "section_result",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "Trivia QA 데이터셋에서LLaMA2-7b 모델을사용할경우, 제안된방법이CAD와그리디디코딩보다크게성능이향상된것을확인할수있었다."
+  },
+  {
+    "query": "본 연구의 주요 기여는 무엇인가요?",
+    "ground_truth": "",
+    "type": "section_abstract",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "우리는컨텍스트의확률분포를기반으로낮은확률의토큰을제거하여모델이신뢰할수있는부분만을남기고, 필터링된토큰과온전한컨텍스트를합산하여디코딩하는새로운기법을제안한다. 이방법은언어모델이더높은신뢰도를바탕으로텍스트를생성하도록유도한다."
+  },
+  {
+    "query": "이 논문에서 사용된 Contrastive CAD 방법은 어떤 문제를 완화하려고 하나요?",
+    "ground_truth": "",
+    "type": "cad_hallucination",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "Contrastive CAD: 대형언어모델의환각완화를위한대조적Context-Aware Decoding"
+  },
+  {
+    "query": "대조 디코딩에 대한 연구는 어떤 문헌을 기반으로 하고 있나요?",
+    "ground_truth": "",
+    "type": "citation",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "[1] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eis- ner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, “Contrastive decoding: Open-ended text generation as optimization,” Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Vol- ume 1: Long Papers), A. Rogers, J. Boyd-Graber, and N. Okazaki, Eds., pp. 12 286–12 312, Jul. 2023."
+  },
+  {
+    "query": "What datasets were used to evaluate the model's performance in open-domain question answering?",
+    "ground_truth": "",
+    "type": "crosslingual_en",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "본연구에서는세가지대표적인질의응답(QA) 벤치마크를사용하여모델의성능을평가하였다: TriviaQA, Natural Questions(NQ), 그리고PopQA를사용하였다."
+  },
+  {
+    "query": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 무엇인가요?",
+    "ground_truth": "",
+    "type": "cad_ablation",
+    "applicable_papers": [
+      "paper_ko_cad_contrastive"
+    ],
+    "answer_span": "확률이낮은토큰을제거함으로써 모델이신뢰하는주요컨텍스트의맥락을유지하고, 혼동을야 기할수있는토큰을제거하여신뢰하는정보에집중할수있게 한다. 이를통해제안된디코딩방식이효과적임을확인할수 있다."
+  }
+]
