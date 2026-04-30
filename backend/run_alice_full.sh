@@ -19,4 +19,4 @@ if [[ "${OPENAI_API_KEY:-}" == "PUT_YOUR_OPENAI_API_KEY_HERE" ]] || [[ -z "${OPE
 fi
 
 python scripts/verify_deployment.py
-python scripts/master_run.py --skip-download --push-results
+python scripts/master_run.py --skip-download --push-results --skip-query-generation
