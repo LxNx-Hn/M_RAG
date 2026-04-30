@@ -577,7 +577,10 @@ def main() -> int:
                         section_filter=section_filter,
                     )
                     answer = _query_openai_gt(
-                        args.openai_api_key, args.gt_model, query, contexts,
+                        args.openai_api_key,
+                        args.gt_model,
+                        query,
+                        contexts,
                         answer_span=str(item.get("answer_span", "")),
                     )
                 else:
