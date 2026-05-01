@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "mode": "beta-sweep",
+    "api_base": "http://localhost:8000",
+    "collection_name": "papers",
+    "papers": [
+      "paper_ko_hyde_multihop"
+    ],
+    "generated_at": "2026-05-01T13:28:15.671226",
+    "resume": true,
+    "config_names": []
+  },
+  "results": {
+    "paper_ko_hyde_multihop": {
+      "SCD beta=0.1": {
+        "config": "SCD beta=0.1",
+        "paper": "paper_ko_hyde_multihop",
+        "language_drift_rate": 0.0,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 1.0,
+        "context_precision": 0.5714285714285714,
+        "context_recall": 0.5714285714285714,
+        "overall": 0.7678571428571428,
+        "status": "completed"
+      },
+      "SCD beta=0.3": {
+        "config": "SCD beta=0.3",
+        "paper": "paper_ko_hyde_multihop",
+        "language_drift_rate": 0.0,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.7142857142857143,
+        "context_precision": 0.6428571428571429,
+        "context_recall": 0.7142857142857143,
+        "overall": 0.6964285714285715,
+        "status": "completed"
+      },
+      "SCD beta=0.5": {
+        "config": "SCD beta=0.5",
+        "paper": "paper_ko_hyde_multihop",
+        "language_drift_rate": 0.0,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5,
+        "context_precision": 0.5,
+        "context_recall": 0.5,
+        "overall": 0.5,
+        "status": "completed"
+      }
+    }
+  }
+}

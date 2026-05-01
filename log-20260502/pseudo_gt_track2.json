@@ -1,0 +1,2828 @@
+{
+  "_meta": {
+    "source_file": "evaluation/data/track2_queries.json",
+    "collection_name": "papers",
+    "api_url": "http://localhost:8000",
+    "gt_model": "gpt-4o",
+    "attempted": 56,
+    "succeeded": 56,
+    "failed": 0
+  },
+  "queries": [
+    {
+      "query": "이 논문의 초록(Abstract)에서 제안하거나 중점적으로 분석하고 있는 핵심 시스템(또는 프레임워크, 모델)의 공식 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "논문 핵심 제안 시스템 명칭에 대한 환각 억제 테스트",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the official name of the key system (or framework, model) proposed or primarily analyzed in the abstract of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the official name of the key system (or framework, model) proposed or primarily analyzed in the abstract of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the official name of the key system (or framework, model) proposed or primarily analyzed in the abstract of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is the official name of the key system (or framework, model) proposed or primarily analyzed in the abstract of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is the official name of the key system (or framework, model) proposed or primarily analyzed in the abstract of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "결론(Conclusion) 섹션에서 저자들이 요약하여 강조하는 본 논문의 가장 핵심적인 달성 성과(또는 시사점)는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "conclusion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "결론부 성과 요약에 대한 구체적 팩트 기반 환각 방어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the key achievements (or implications) of the paper that the authors summarize and highlight in the Conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the key achievements or implications highlighted by the authors in the Conclusion section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the key achievements or implications highlighted by the authors in the Conclusion section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the key achievements or implications highlighted by the authors in the Conclusion section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the key achievements (or implications) of this paper that the authors summarize and highlight in the Conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "서론(Introduction)에서 이 논문의 연구(또는 조사)가 시작된 핵심적인 동기(Motivation)나 배경으로 명시된 현상은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "introduction",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "연구 동기 서술에 대한 자의적 추론 환각 제어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What phenomenon is identified as the key motivation or background for the study in the introduction of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What phenomenon is identified as the key motivation or background for the study in the introduction of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What phenomenon is identified as the key motivation or background for the study in the introduction of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What phenomenon is identified as the key motivation or background for the research in the introduction of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What phenomenon is identified as the key motivation or background for the study in the introduction of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본문의 주요 방법론(또는 리뷰 분석 내용)을 구성하는 전체 아키텍처(파이프라인)에서 언급된 주요 단계(Phase)나 핵심 분류 기준들은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "시스템 아키텍처 분류 체계에 대한 사전 지식 환각 방지",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the main phases or key classification criteria mentioned in the overall architecture (pipeline) that constitutes the main methodology (or review analysis content) of the text?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the main phases or key classification criteria mentioned in the overall architecture (pipeline) that constitute the main methodology (or review analysis content) of the text?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the main phases or key classification criteria mentioned in the overall architecture (pipeline) that constitute the main methodology (or review analysis content) of the text?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the main phases or key classification criteria mentioned in the overall architecture (pipeline) that constitutes the main methodology (or review analysis content) of the text?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the main phases or key classification criteria mentioned in the overall architecture (pipeline) that constitute the main methodology (or review analysis content) of the text?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 기존 방식(또는 선행 연구)들이 가지고 있다고 명시적으로 지적한 주요 단점이나 한계(Limitations) 중 하나는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "discussion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "기존 기술 한계점에 대한 환각 통제",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is one major limitation of existing methods (or previous studies) explicitly pointed out in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is one major limitation of existing methods (or previous studies) explicitly pointed out in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is one major limitation of existing methods (or previous studies) explicitly pointed out in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is one major limitation explicitly pointed out in this paper regarding existing methods or previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is one major limitation of existing methods (or previous studies) explicitly pointed out in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 참고문헌(References)이나 관련 연구 파트에서, 본 연구 주제와 밀접하게 관련되어 언급되는 대표적인 기존 기술(혹은 모델)의 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "관련 선행 기술 명칭 환각 방어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the names of prominent existing technologies (or models) closely related to the subject of this study, as mentioned in the references or related work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the names of prominent existing technologies (or models) closely related to the subject of this study, as mentioned in the references or related work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the names of the representative existing technologies (or models) closely related to the subject of this study, as mentioned in the references or related work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the names of prominent existing technologies (or models) closely related to the subject of this study, as mentioned in the references or related work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the names of prominent existing technologies or models closely related to the research topic mentioned in the references or related work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "결론(Conclusion)의 마지막 부분에서, 저자들이 본 논문의 연구 결과를 바탕으로 향후 필요하다고 제안한 미래 연구 방향(Future Work)은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "conclusion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "cad_test_purpose": "후속 연구 과제에 대한 논리적 비약 및 환각 억제",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What future research directions do the authors propose based on the study's findings in the conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What future research directions do the authors propose based on the study's findings in the conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What future research directions do the authors propose based on the study's findings in the conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What future research directions do the authors propose based on the study's findings in the conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What future research directions do the authors propose based on the study's findings in the conclusion section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 본문(Method, Approach 등)에서 제시하는 핵심 시스템(혹은 분류 체계)의 가장 첫 번째 처리 단계(또는 첫 번째 하위 카테고리)의 명칭과 역할은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the name and role of the first processing stage (or first subcategory) of the core system (or classification scheme) presented in the main body of the paper (e.g., Method, Approach)?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the name and role of the first processing stage (or first subcategory) of the core system (or classification scheme) presented in the main body (Method, Approach, etc.) of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the name and role of the first processing stage (or first subcategory) of the core system (or classification scheme) presented in the main body of the paper (e.g., Method, Approach)?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is the name and role of the first processing stage (or first subcategory) of the core system (or classification scheme) presented in the main body of the paper (e.g., Method, Approach)?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is the name and role of the first processing stage (or first subcategory) of the core system (or classification scheme) presented in the main body of the paper (e.g., Method, Approach)?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 설명하는 주요 파이프라인 내부에서, 핵심 정보나 데이터가 변환(또는 처리)되는 구체적인 과정은 어떻게 서술되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How is the specific process of transforming (or processing) key information or data described within the main pipeline explained in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the specific process of transforming (or processing) key information or data described within the main pipeline explained in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How is the specific process of transforming (or processing) key information or data described within the main pipeline explained in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the specific process of transforming (or processing) key information or data described within the main pipeline explained in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How is the specific process of transforming (or processing) key information or data described within the main pipeline explained in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "방법론(Method) 파트에서, 제안된 시스템(혹은 조사된 프레임워크)이 기존 기술 대비 개선되었다고 서술된 주요 작동 원리나 구조적 특징은 무엇인가?",
+      "ground_truth": "1) M3-Embedding은 다국어, 다기능, 다중 세분성을 지원하는 뛰어난 다재다능성을 제공합니다.\n2) MCLS(Multiple CLS) 방법은 긴 텍스트의 의미를 효과적으로 포착하기 위해 여러 CLS 토큰을 사용하여 최종 텍스트 임베딩을 생성합니다.\n3) Split-batch 방법은 큰 배치를 여러 하위 배치로 나누어 효율적인 훈련을 가능하게 합니다.\n4) 자기 지식 증류(self-knowledge distillation) 프레임워크를 통해 여러 검색 기능을 공동으로 학습하고 상호 강화합니다.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "1) M3-Embedding은 다국어, 다기능, 다중 세분성을 지원하는 뛰어난 다재다능성을 제공합니다.\n2) MCLS(Multiple CLS) 방법은 긴 텍스트의 의미를 효과적으로 포착하기 위해 여러 CLS 토큰을 사용하여 최종 텍스트 임베딩을 생성합니다.\n3) Split-batch 방법은 큰 배치를 여러 하위 배치로 나누어 효율적인 훈련을 가능하게 합니다.\n4) 자기 지식 증류(self-knowledge distillation) 프레임워크를 통해 여러 검색 기능을 공동으로 학습하고 상호 강화합니다.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "RAPTOR는 긴 텍스트의 의미적 깊이와 연결성을 개선하기 위해 재귀적 트리 구조를 구축하여, 주제의 폭넓은 이해와 세부 사항을 균형 있게 다룬다. 이 트리는 텍스트 내 순서가 아닌 의미적 유사성에 따라 노드를 그룹화할 수 있도록 한다. 또한, RAPTOR는 SBERT를 사용하여 텍스트를 임베딩하고, 트리 탐색 및 축소된 트리 접근 방식을 통해 다층 트리를 탐색하여 관련 정보를 검색한다. 이러한 구조적 특징은 기존 기술 대비 더 나은 성능을 제공한다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the key operational principles or structural features described in the Method section that indicate the proposed system or investigated framework is an improvement over existing technologies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "1) M3-Embedding은 다국어, 다기능, 다중 세분성을 지원하는 뛰어난 다재다능성을 제공합니다.\n2) MCLS(Multiple CLS) 방법은 긴 텍스트의 의미를 효과적으로 포착하기 위해 여러 CLS 토큰을 사용하여 최종 텍스트 임베딩을 생성합니다.\n3) Split-batch 방법은 큰 배치를 여러 하위 배치로 나누어 효율적인 훈련을 가능하게 합니다.\n4) 자기 지식 증류(self-knowledge distillation) 프레임워크를 통해 여러 검색 기능을 공동으로 학습하고 상호 강화합니다."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the key operational principles or structural features described in the Method section that indicate the proposed system or investigated framework is an improvement over existing technologies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the key operating principles or structural features described in the Method section that indicate the proposed system or investigated framework is an improvement over existing technologies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the key operational principles or structural features described in the Method section that indicate the proposed system or investigated framework is an improvement over existing technologies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR는 긴 텍스트의 의미적 깊이와 연결성을 개선하기 위해 재귀적 트리 구조를 구축하여, 주제의 폭넓은 이해와 세부 사항을 균형 있게 다룬다. 이 트리는 텍스트 내 순서가 아닌 의미적 유사성에 따라 노드를 그룹화할 수 있도록 한다. 또한, RAPTOR는 SBERT를 사용하여 텍스트를 임베딩하고, 트리 탐색 및 축소된 트리 접근 방식을 통해 다층 트리를 탐색하여 관련 정보를 검색한다. 이러한 구조적 특징은 기존 기술 대비 더 나은 성능을 제공한다."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the key operational principles or structural features described in the Method section that indicate the proposed system or investigated framework is an improvement over existing technologies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 주요 아키텍처 구조 설명 부분에서, 핵심 모듈들 간의 상호작용이나 정보 전달 흐름은 어떻게 정의되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How is the interaction or information flow between core modules defined in the main architecture description section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the interaction or information flow between core modules defined in the main architecture description section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How is the interaction or information flow between core modules defined in the main architecture description section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the interaction or information flow between core modules defined in the main architecture description section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How is the interaction or information flow between core modules defined in the main architecture description section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본문에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입되었다고 명시된 구체적인 기법이나 설정 항목은 무엇인가?",
+      "ground_truth": "문서에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입된 구체적인 기법이나 설정 항목은 다음과 같습니다:\n\n1. MCLS(Multiple CLS) 방법: 긴 텍스트에 대한 파인튜닝 없이 모델의 성능을 향상시키기 위해 여러 CLS 토큰을 활용하여 긴 텍스트의 의미를 포착하는 방법입니다. 각 CLS 토큰은 인접한 토큰의 의미 정보를 캡처하며, 최종 텍스트 임베딩은 모든 CLS 토큰의 마지막 히든 상태를 평균하여 얻습니다.\n\n2. Split-batch 방법: 긴 텍스트의 배치 크기를 증가시키기 위해 대형 배치를 여러 하위 배치로 나누는 방법입니다. 이 방법은 특히 긴 텍스트 길이에서 배치 크기를 20배 이상 증가시킵니다.\n\n3. Self-knowledge distillation 프레임워크: 여러 검색 기능을 공동으로 학습하고 상호 강화하여 임베딩 품질을 최적화하는 새로운 학습 프레임워크입니다.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입된 구체적인 기법이나 설정 항목은 다음과 같습니다:\n\n1. MCLS(Multiple CLS) 방법: 긴 텍스트에 대한 파인튜닝 없이 모델의 성능을 향상시키기 위해 여러 CLS 토큰을 활용하여 긴 텍스트의 의미를 포착하는 방법입니다. 각 CLS 토큰은 인접한 토큰의 의미 정보를 캡처하며, 최종 텍스트 임베딩은 모든 CLS 토큰의 마지막 히든 상태를 평균하여 얻습니다.\n\n2. Split-batch 방법: 긴 텍스트의 배치 크기를 증가시키기 위해 대형 배치를 여러 하위 배치로 나누는 방법입니다. 이 방법은 특히 긴 텍스트 길이에서 배치 크기를 20배 이상 증가시킵니다.\n\n3. Self-knowledge distillation 프레임워크: 여러 검색 기능을 공동으로 학습하고 상호 강화하여 임베딩 품질을 최적화하는 새로운 학습 프레임워크입니다.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "1. RAPTOR는 긴 텍스트의 주제와 계층 구조를 다루기 위해 재귀적 트리 구조를 사용하여 주제의 폭넓은 이해와 세부 사항을 균형 있게 유지합니다. (Excerpt 6)\n2. RAPTOR는 SBERT 임베딩을 사용하여 텍스트의 문맥적 및 의미적 일관성을 유지합니다. (Excerpt 6)\n3. 트리 탐색 및 collapsed tree 방법을 사용하여 RAPTOR 트리에서 관련 정보를 효율적으로 검색합니다. (Excerpt 3)\n4. UMAP을 사용하여 고차원 공간에서의 거리 측정 문제를 완화하고 계층적 클러스터링 구조를 생성합니다. (Excerpt 8)",
+        "paper_midm": "1. Fusion SFT는 추론과 비추론 데이터의 혼합을 제어하여 비추론 작업을 강화하고 훈련 안정성을 개선합니다.\n2. Fusion RL은 보상 설계를 정제하여 모델의 방향성을 강화하고 도구 환각을 줄이며, 비동기 LLM-as-a-Judge 기반 보상 계산을 통해 효율성을 향상시킵니다.\n3. Mi:dm K 2.5 Pro는 데이터 구성을 확장하여 한국어 특정 취약성 완화, 긴 대화 맥락 처리, 도구 사용을 강화합니다.\n4. 비동기 RL 아키텍처는 롤아웃 생성을 훈련과 병렬로 실행하여 시스템 자원의 효율적 활용을 도모합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What specific techniques or configuration items are structurally introduced in the text to improve the stability, efficiency, or performance of the system?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입된 구체적인 기법이나 설정 항목은 다음과 같습니다:\n\n1. MCLS(Multiple CLS) 방법: 긴 텍스트에 대한 파인튜닝 없이 모델의 성능을 향상시키기 위해 여러 CLS 토큰을 활용하여 긴 텍스트의 의미를 포착하는 방법입니다. 각 CLS 토큰은 인접한 토큰의 의미 정보를 캡처하며, 최종 텍스트 임베딩은 모든 CLS 토큰의 마지막 히든 상태를 평균하여 얻습니다.\n\n2. Split-batch 방법: 긴 텍스트의 배치 크기를 증가시키기 위해 대형 배치를 여러 하위 배치로 나누는 방법입니다. 이 방법은 특히 긴 텍스트 길이에서 배치 크기를 20배 이상 증가시킵니다.\n\n3. Self-knowledge distillation 프레임워크: 여러 검색 기능을 공동으로 학습하고 상호 강화하여 임베딩 품질을 최적화하는 새로운 학습 프레임워크입니다."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What specific techniques or configuration items are structurally introduced in the text to improve system stability, efficiency, or performance?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What specific techniques or configuration items are structurally introduced in the text to improve the stability, efficiency, or performance of the system?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What specific techniques or configuration items are structurally introduced in the text to improve the stability, efficiency, or performance of the system?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "1. RAPTOR는 긴 텍스트의 주제와 계층 구조를 다루기 위해 재귀적 트리 구조를 사용하여 주제의 폭넓은 이해와 세부 사항을 균형 있게 유지합니다. (Excerpt 6)\n2. RAPTOR는 SBERT 임베딩을 사용하여 텍스트의 문맥적 및 의미적 일관성을 유지합니다. (Excerpt 6)\n3. 트리 탐색 및 collapsed tree 방법을 사용하여 RAPTOR 트리에서 관련 정보를 효율적으로 검색합니다. (Excerpt 3)\n4. UMAP을 사용하여 고차원 공간에서의 거리 측정 문제를 완화하고 계층적 클러스터링 구조를 생성합니다. (Excerpt 8)"
+        },
+        "paper_midm": {
+          "aux_query_en": "What specific techniques or configuration items are structurally introduced in the text to improve the stability, efficiency, or performance of the system?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "1. Fusion SFT는 추론과 비추론 데이터의 혼합을 제어하여 비추론 작업을 강화하고 훈련 안정성을 개선합니다.\n2. Fusion RL은 보상 설계를 정제하여 모델의 방향성을 강화하고 도구 환각을 줄이며, 비동기 LLM-as-a-Judge 기반 보상 계산을 통해 효율성을 향상시킵니다.\n3. Mi:dm K 2.5 Pro는 데이터 구성을 확장하여 한국어 특정 취약성 완화, 긴 대화 맥락 처리, 도구 사용을 강화합니다.\n4. 비동기 RL 아키텍처는 롤아웃 생성을 훈련과 병렬로 실행하여 시스템 자원의 효율적 활용을 도모합니다."
+        }
+      }
+    },
+    {
+      "query": "이 연구에서 다루는 주요 시스템(또는 분석 프레임워크)이 복잡한 작업이나 다양한 입력을 처리하기 위해 내부적으로 나누어 놓은 구체적인 역할 분담 구조는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "이 연구에서 다루는 주요 시스템인 RAPTOR는 복잡한 작업이나 다양한 입력을 처리하기 위해 다음과 같은 역할 분담 구조를 가지고 있습니다:\n\n1. **RAPTOR 트리 구조**: 긴 텍스트를 주제별 하위 주제와 계층적 구조로 나누어 처리합니다. 이는 넓은 주제 이해와 세부 사항을 균형 있게 다루기 위해 설계되었습니다.\n\n2. **SBERT 임베딩 사용**: 텍스트 조각을 SBERT 임베딩을 통해 표현하여 의미적 유사성에 기반한 노드 그룹화를 수행합니다.\n\n3. **Collapsed Tree 접근법**: 모든 노드를 단일 레이어로 평탄화하여 검색을 단순화하고, 관련 정보를 효율적으로 검색합니다.\n\n4. **클러스터링 및 요약 과정**: RAPTOR는 클러스터링과 요약 과정을 통해 정보를 구조화하고, 검색 효율성을 높입니다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the specific role distribution structure within the main system (or analytical framework) addressed in this study for handling complex tasks or diverse inputs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the specific role distribution structure within the main system (or analytical framework) addressed in this study for handling complex tasks or diverse inputs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the specific role distribution structure within the main system (or analytical framework) addressed in this study for handling complex tasks or diverse inputs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is the specific role distribution structure that the main system (or analytical framework) in this study internally divides to handle complex tasks or diverse inputs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 연구에서 다루는 주요 시스템인 RAPTOR는 복잡한 작업이나 다양한 입력을 처리하기 위해 다음과 같은 역할 분담 구조를 가지고 있습니다:\n\n1. **RAPTOR 트리 구조**: 긴 텍스트를 주제별 하위 주제와 계층적 구조로 나누어 처리합니다. 이는 넓은 주제 이해와 세부 사항을 균형 있게 다루기 위해 설계되었습니다.\n\n2. **SBERT 임베딩 사용**: 텍스트 조각을 SBERT 임베딩을 통해 표현하여 의미적 유사성에 기반한 노드 그룹화를 수행합니다.\n\n3. **Collapsed Tree 접근법**: 모든 노드를 단일 레이어로 평탄화하여 검색을 단순화하고, 관련 정보를 효율적으로 검색합니다.\n\n4. **클러스터링 및 요약 과정**: RAPTOR는 클러스터링과 요약 과정을 통해 정보를 구조화하고, 검색 효율성을 높입니다."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is the specific role distribution structure within the main system (or analytical framework) addressed in this study for handling complex tasks or diverse inputs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 방법론 파트 마지막 부분에서, 제안된(또는 분석된) 시스템 구조가 최종적으로 산출하는 결과물의 형태나 특징은 어떻게 서술되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How is the form or characteristics of the final output of the proposed (or analyzed) system structure described in the last part of the methodology section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the form or characteristics of the final output of the proposed (or analyzed) system structure described in the last part of the methodology section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How is the form or characteristics of the final output of the proposed (or analyzed) system structure described in the last part of the methodology section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the form or characteristics of the final output of the proposed (or analyzed) system structure described in the last part of the methodology section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How is the form or characteristics of the final output of the proposed (or analyzed) system structure described in the last part of the methodology section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록(Abstract)의 첫 문단에서 현재 이 연구 분야가 직면하고 있다고 서술한 가장 근본적인 문제 상황(Problem)이나 배경은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "기존의 방법들은 검색 코퍼스에서 짧고 연속적인 청크만을 검색하여 전체 문서 맥락에 대한 전체적인 이해가 제한된다는 점이 가장 근본적인 문제로 서술되어 있습니다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the most fundamental problem or background described in the first paragraph of the abstract that this research field is currently facing?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the most fundamental problem or background described in the first paragraph of the abstract that this research field is currently facing?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the fundamental problem or background described in the first paragraph of the abstract that this research field is currently facing?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is the most fundamental problem or background described in the first paragraph of the abstract that this research field is currently facing?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "기존의 방법들은 검색 코퍼스에서 짧고 연속적인 청크만을 검색하여 전체 문서 맥락에 대한 전체적인 이해가 제한된다는 점이 가장 근본적인 문제로 서술되어 있습니다."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is the most fundamental problem or background described in the first paragraph of the abstract that this research field is currently facing?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에 명시된 바에 따르면, 이 논문이 제안(또는 포괄적 분석)하는 솔루션의 구체적인 명칭과 그 연구 목적은 무엇인가?",
+      "ground_truth": "이 논문은 \"M3-Embedding\"이라는 새로운 임베딩 모델을 제안하며, 연구 목적은 다국어성, 다기능성, 다중 세분성을 통해 텍스트 임베딩의 범용성을 크게 향상시키는 것이다.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "이 논문은 \"M3-Embedding\"이라는 새로운 임베딩 모델을 제안하며, 연구 목적은 다국어성, 다기능성, 다중 세분성을 통해 텍스트 임베딩의 범용성을 크게 향상시키는 것이다.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "논문에서 제안하는 솔루션의 명칭은 RAPTOR 모델이며, 연구 목적은 긴 문서의 다양한 추상화 수준에서 정보를 통합하여 복잡하고 다단계의 추론이 필요한 질문-응답 작업에서 성능을 개선하는 것이다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "According to the abstract, what is the specific name of the solution proposed (or comprehensively analyzed) in this paper and what is the research objective?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문은 \"M3-Embedding\"이라는 새로운 임베딩 모델을 제안하며, 연구 목적은 다국어성, 다기능성, 다중 세분성을 통해 텍스트 임베딩의 범용성을 크게 향상시키는 것이다."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "According to the abstract, what is the specific name of the solution proposed (or comprehensively analyzed) by this paper and what is the research objective?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "According to the abstract, what is the specific name of the solution proposed (or comprehensively analyzed) in this paper and what is the research objective?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "According to the abstract, what is the specific name of the solution proposed (or comprehensively analyzed) by this paper and what is the research objective?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "논문에서 제안하는 솔루션의 명칭은 RAPTOR 모델이며, 연구 목적은 긴 문서의 다양한 추상화 수준에서 정보를 통합하여 복잡하고 다단계의 추론이 필요한 질문-응답 작업에서 성능을 개선하는 것이다."
+        },
+        "paper_midm": {
+          "aux_query_en": "According to the abstract, what is the specific name of the solution proposed (or comprehensively analyzed) in this paper and what is the research objective?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문의 초록에서 기존 연구들이 해결하지 못한 공백(Gap)이나 부족한 점으로 지적한 내용은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "기존 연구들이 해결하지 못한 공백으로 지적된 내용은 대부분의 기존 방법들이 검색 코퍼스에서 짧고 연속적인 청크만을 검색하여 전체 문서 맥락에 대한 총체적인 이해가 제한된다는 점이다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What gaps or shortcomings identified in the abstract of this paper were not addressed by previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What gaps or shortcomings identified in the abstract of this paper were not addressed by previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What gaps or shortcomings identified in the abstract of this paper were not addressed by previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What gaps or shortcomings identified in the abstract of this paper were not addressed by previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "기존 연구들이 해결하지 못한 공백으로 지적된 내용은 대부분의 기존 방법들이 검색 코퍼스에서 짧고 연속적인 청크만을 검색하여 전체 문서 맥락에 대한 총체적인 이해가 제한된다는 점이다."
+        },
+        "paper_midm": {
+          "aux_query_en": "What gaps or shortcomings identified in the abstract of this paper were not addressed by previous studies?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에서 저자들이 본 논문의 접근법(또는 조사 결과)을 통해 얻을 수 있다고 주장하는 가장 중요한 기대 효과(Expected Benefit)나 개선점은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "저자들은 RAPTOR 모델을 통해 복잡하고 다단계의 추론이 필요한 질문-응답 작업에서 기존 방법보다 뛰어난 성능을 달성할 수 있다고 주장한다. 또한, 재귀적 요약을 통한 검색이 전통적인 검색-증강 언어 모델보다 여러 작업에서 유의미한 개선을 제공한다고 언급하고 있다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the most important expected benefit or improvement that the authors claim can be achieved through the approach (or findings) of this paper in the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the most important expected benefit or improvement that the authors claim can be achieved through the approach (or findings) of this paper in the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the most important expected benefit or improvement that the authors claim can be achieved through the approach (or findings) of this paper in the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is the most important expected benefit or improvement that the authors claim can be achieved through the approach (or findings) of this paper in the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "저자들은 RAPTOR 모델을 통해 복잡하고 다단계의 추론이 필요한 질문-응답 작업에서 기존 방법보다 뛰어난 성능을 달성할 수 있다고 주장한다. 또한, 재귀적 요약을 통한 검색이 전통적인 검색-증강 언어 모델보다 여러 작업에서 유의미한 개선을 제공한다고 언급하고 있다."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is the most important expected benefit or improvement that the authors claim can be achieved through the approach (or findings) of this paper in the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 초록에서, 본 연구가 자체적으로 포괄하고 있는 실험(또는 조사)의 범위(Scope)와 검증 대상에 대해 어떻게 요약하고 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "본 연구는 기존의 retrieval-augmented language models와 비교하여, recursive summaries를 활용한 retrieval 방법이 여러 작업에서 상당한 개선을 제공함을 보여준다. 특히, 복잡하고 다단계의 추론을 요구하는 질문-응답 작업에서 최첨단 결과를 달성했음을 검증하였다.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How does the abstract of the paper summarize the scope of the experiments (or investigations) and the subjects of verification covered by the study itself?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How does the abstract of the paper summarize the scope of the experiments (or investigations) and the subjects of verification covered by the study itself?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How does the abstract of the paper summarize the scope of the experiments (or investigations) and the subjects of verification covered by the study itself?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How does the abstract of the paper summarize the scope of the experiments (or investigations) and the subjects of verification covered by the study itself?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 연구는 기존의 retrieval-augmented language models와 비교하여, recursive summaries를 활용한 retrieval 방법이 여러 작업에서 상당한 개선을 제공함을 보여준다. 특히, 복잡하고 다단계의 추론을 요구하는 질문-응답 작업에서 최첨단 결과를 달성했음을 검증하였다."
+        },
+        "paper_midm": {
+          "aux_query_en": "How does the abstract of the paper summarize the scope and subjects of the experiments (or investigations) it encompasses?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에서 본 논문의 제안(또는 분석 체계)이 기존의 일반적인 방식과 비교하여 가지는 뚜렷한 방법론적 차별성은 무엇으로 서술되는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is described in the abstract as the distinct methodological differentiation of the proposed (or analyzed) system in this paper compared to conventional approaches?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What is described in the abstract as the distinct methodological difference of the proposal (or analytical framework) of this paper compared to existing conventional approaches?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What is described in the abstract as the distinct methodological differentiation of the proposed (or analyzed) system in this paper compared to conventional approaches?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What is described in the abstract as the distinct methodological differentiation of the proposed (or analytical) framework of the paper compared to existing conventional approaches?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What is described as the distinct methodological differentiation of the proposal (or analytical framework) in the abstract of the paper compared to conventional approaches?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록의 마지막 부분에서 이 논문의 성과가 해당 학계나 실무에 미칠 긍정적인 파급 효과(Impact)나 기여도는 어떻게 요약되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How is the positive impact or contribution of this paper on the academic field or practice summarized in the last part of the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the positive impact or contribution of this paper on the academic field or practice summarized in the last part of the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How is the positive impact or contribution of this paper on the academic field or practice summarized in the last part of the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the positive impact or contribution of this paper on the academic field or practice summarized in the last part of the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How is the positive impact or contribution of this paper on the academic field or practice summarized in the last part of the abstract?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "서론(Introduction)이나 관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제가 발전하게 된 주요 선행 기술(Prior Technology)의 흐름은 어떻게 설명되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How is the progression of key prior technologies leading to the development of this research topic described in the Introduction or Related Work sections of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the progression of the major prior technologies that led to the development of this paper's research topic described in the Introduction or Related Work sections?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How is the progression of major prior technologies that led to the development of this paper's research topic described in the Introduction or Related Work section?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the progression of key prior technologies leading to the development of this research topic described in the Introduction or Related Work section of the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How is the progression of the major prior technologies that led to the development of this paper's research topic described in the Introduction or Related Work sections?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문이 본인들의 차별성을 입증하기 위해 주요 비교 대상(Baseline)으로 삼고 있는 기존 프레임워크나 주요 모델들의 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the names of the existing frameworks or key models used as the main baseline for comparison to demonstrate the distinctiveness of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the names of the existing frameworks or key models used as the main baseline for demonstrating the distinctiveness of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the names of the existing frameworks or key models used as the main baseline for demonstrating the distinctiveness of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the names of the existing frameworks or main models used as the primary baseline for comparison to demonstrate the distinctiveness of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the names of the existing frameworks or main models used as the primary baseline for comparison to demonstrate the distinctiveness of this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "관련 연구(Related Work)에서 기존 문헌들이 아직 완벽하게 해결하지 못했다고 언급되는 구체적인 한계점이나 미개척 영역은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What specific limitations or unexplored areas are mentioned in the related work section as not yet fully addressed by existing literature?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What specific limitations or unexplored areas are mentioned in the related work section as not yet fully addressed by existing literature?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What specific limitations or unexplored areas are mentioned in the related work section as not yet fully addressed by existing literature?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What specific limitations or unexplored areas are mentioned in the related work section as not yet fully addressed by existing literature?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What specific limitations or unexplored areas are mentioned in the related work section as not yet fully addressed by existing literature?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문의 기반이 되는 핵심 개념(Core Concept)을 설명할 때, 본문에서 근거로 삼아 주로 인용하는 주요 이론적 배경이나 선행 논문은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "introduction",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the main theoretical backgrounds or prior studies frequently cited as evidence when explaining the core concept on which this paper is based?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the main theoretical backgrounds or prior studies frequently cited as evidence in the text when explaining the core concept on which this paper is based?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the main theoretical backgrounds or prior studies frequently cited as evidence when explaining the core concept on which this paper is based?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the main theoretical backgrounds or prior studies frequently cited as evidence in the text when explaining the core concept on which this paper is based?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the main theoretical backgrounds or prior studies frequently cited as evidence in the text when explaining the core concept on which this paper is based?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본 연구와 관련된 분야의 연구 동향(Trends)을 서술하는 부분에서, 최근 연구자들이 극복하고자 집중하고 있는 주요 과제는 어떻게 묘사되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How are the main challenges that recent researchers are focusing on overcoming described in the section on research trends related to this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How are the main challenges that recent researchers are focusing on overcoming described in the section on research trends related to this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "In the section describing research trends related to this study, how are the main challenges that recent researchers are focusing on overcoming depicted?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How are the main challenges that recent researchers are focusing on overcoming described in the section on research trends related to this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "In the section describing research trends related to this study, how are the main challenges that recent researchers are focusing on overcoming depicted?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문에서 자신들의 기여(Contribution)를 명확히 하기 위해, 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 어떻게 설명하고 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How do the papers explain the common weaknesses of existing methodologies in previous research to clarify their own contributions?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "How do papers explain the common weaknesses of existing methodologies to clarify their own contributions?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "How do papers explain the common weaknesses of existing methodologies to clarify their own contributions?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "How do papers explain the common weaknesses of existing methodologies to clarify their own contributions?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "How do the papers explain the common weaknesses of existing methodologies to clarify their own contributions?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문 전반에 걸쳐 본 연구의 방법론 구축에 영감(Inspiration)을 주었거나 기반 구조로 채택되었다고 서술된 대표적인 외부 연구나 시스템의 이름은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음.",
+        "paper_nlp_rag": "문서에서 확인할 수 없음.",
+        "paper_nlp_cad": "문서에서 확인할 수 없음.",
+        "paper_nlp_raptor": "문서에서 확인할 수 없음.",
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the names of prominent external studies or systems described as having inspired or been adopted as a foundational structure for the methodology throughout the paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the names of prominent external studies or systems described as having inspired or been adopted as a foundational structure for the methodology developed throughout this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_cad": {
+          "aux_query_en": "What are the names of prominent external studies or systems described as having inspired or been adopted as a foundational structure for the methodology developed throughout this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the names of prominent external studies or systems described as having inspired or been adopted as the foundational structure for the methodology developed throughout this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_midm": {
+          "aux_query_en": "What are the names of prominent external studies or systems described as having inspired or been adopted as the foundational structure for the methodology developed throughout this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문의 초록(Abstract)에서 제안하거나 중점적으로 분석하고 있는 핵심 시스템(또는 프레임워크, 모델)의 공식 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "논문 핵심 제안 시스템 명칭에 대한 환각 억제 테스트",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "결론(Conclusion) 섹션에서 저자들이 요약하여 강조하는 본 논문의 가장 핵심적인 달성 성과(또는 시사점)는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "conclusion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "결론부 성과 요약에 대한 구체적 팩트 기반 환각 방어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "제안한 방법은 컨텍스트 인식 디코딩의 연산량을 유지하면서도 질의응답에서 성능 향상을 보였다. 모델의 확률로 신뢰할 수 없는 부분을 제거 후 합산하는 전략을 도입하여, 모델이 진실하다고 판단하는 토큰을 강화함으로써 일부 질의응답 작업에서 성능을 향상시킬 수 있었다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "제안한 방법은 컨텍스트 인식 디코딩의 연산량을 유지하면서도 질의응답에서 성능 향상을 보였다. 모델의 확률로 신뢰할 수 없는 부분을 제거 후 합산하는 전략을 도입하여, 모델이 진실하다고 판단하는 토큰을 강화함으로써 일부 질의응답 작업에서 성능을 향상시킬 수 있었다."
+        }
+      }
+    },
+    {
+      "query": "서론(Introduction)에서 이 논문의 연구(또는 조사)가 시작된 핵심적인 동기(Motivation)나 배경으로 명시된 현상은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "introduction",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "연구 동기 서술에 대한 자의적 추론 환각 제어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본문의 주요 방법론(또는 리뷰 분석 내용)을 구성하는 전체 아키텍처(파이프라인)에서 언급된 주요 단계(Phase)나 핵심 분류 기준들은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "시스템 아키텍처 분류 체계에 대한 사전 지식 환각 방지",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 기존 방식(또는 선행 연구)들이 가지고 있다고 명시적으로 지적한 주요 단점이나 한계(Limitations) 중 하나는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "discussion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "기존 기술 한계점에 대한 환각 통제",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "기존 방식들이 가지고 있는 주요 단점 중 하나는 대규모 언어 모델이 외부에서 검색된 문서를 충분히 반영하지 못하고 내부 지식에 크게 의존한다는 점이다. 이로 인해 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못한다는 한계가 있다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "기존 방식들이 가지고 있는 주요 단점 중 하나는 대규모 언어 모델이 외부에서 검색된 문서를 충분히 반영하지 못하고 내부 지식에 크게 의존한다는 점이다. 이로 인해 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못한다는 한계가 있다."
+        }
+      }
+    },
+    {
+      "query": "논문의 참고문헌(References)이나 관련 연구 파트에서, 본 연구 주제와 밀접하게 관련되어 언급되는 대표적인 기존 기술(혹은 모델)의 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "관련 선행 기술 명칭 환각 방어",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "결론(Conclusion)의 마지막 부분에서, 저자들이 본 논문의 연구 결과를 바탕으로 향후 필요하다고 제안한 미래 연구 방향(Future Work)은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "conclusion",
+      "type": "cad_ablation",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "cad_test_purpose": "후속 연구 과제에 대한 논리적 비약 및 환각 억제",
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 본문(Method, Approach 등)에서 제시하는 핵심 시스템(혹은 분류 체계)의 가장 첫 번째 처리 단계(또는 첫 번째 하위 카테고리)의 명칭과 역할은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 설명하는 주요 파이프라인 내부에서, 핵심 정보나 데이터가 변환(또는 처리)되는 구체적인 과정은 어떻게 서술되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "이 논문에서 설명하는 주요 파이프라인 내부에서 핵심 정보나 데이터가 변환되는 과정은 다음과 같다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해한다. 이는 LLM 또는 규칙 기반 접근을 통해 가능하며, 복잡한 질의를 각 홉마다 해소 가능한 하위 질의로 재구성한다.\n\n2. 각 홉에서 HyDE 기법을 적용한다. 해당 홉의 질의를 LLM에 입력하여 가상의 이상적 문서를 생성하고, 이를 임베딩한 뒤 FAISS 벡터 데이터베이스에 질의로 제출한다.\n\n3. FAISS는 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환하며, 상위 k개의 문서는 이전 질의와 함께 다음 홉으로 전달된다.\n\n4. 이를 통해 매 단계에서 질의 의도를 명확히 하고 필요한 정보만을 점진적으로 축적하여 마지막 홉의 검색 결과를 최적화한다.",
+        "paper_ko_cad_contrastive": "이 논문에서 설명하는 주요 파이프라인 내부에서 핵심 정보나 데이터가 변환되는 과정은 다음과 같이 서술되어 있습니다:\n\n1. 확률이 낮은 토큰을 빈 토큰으로 대체하여 수정된 컨텍스트를 생성합니다. 이 과정에서 모델이 불확실하다고 간주하는 토큰을 무시하여 지식 충돌이 발생하는 부분을 식별합니다.\n\n2. 원래의 입력과 수정된 컨텍스트를 병렬적으로 제공하여, 모델이 원래의 컨텍스트에서 비롯된 내부 지식과 수정된 컨텍스트에서 확신하는 정보를 결합하여 보다 정확하고 일관된 답변을 생성할 수 있도록 합니다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문에서 설명하는 주요 파이프라인 내부에서 핵심 정보나 데이터가 변환되는 과정은 다음과 같다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해한다. 이는 LLM 또는 규칙 기반 접근을 통해 가능하며, 복잡한 질의를 각 홉마다 해소 가능한 하위 질의로 재구성한다.\n\n2. 각 홉에서 HyDE 기법을 적용한다. 해당 홉의 질의를 LLM에 입력하여 가상의 이상적 문서를 생성하고, 이를 임베딩한 뒤 FAISS 벡터 데이터베이스에 질의로 제출한다.\n\n3. FAISS는 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환하며, 상위 k개의 문서는 이전 질의와 함께 다음 홉으로 전달된다.\n\n4. 이를 통해 매 단계에서 질의 의도를 명확히 하고 필요한 정보만을 점진적으로 축적하여 마지막 홉의 검색 결과를 최적화한다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문에서 설명하는 주요 파이프라인 내부에서 핵심 정보나 데이터가 변환되는 과정은 다음과 같이 서술되어 있습니다:\n\n1. 확률이 낮은 토큰을 빈 토큰으로 대체하여 수정된 컨텍스트를 생성합니다. 이 과정에서 모델이 불확실하다고 간주하는 토큰을 무시하여 지식 충돌이 발생하는 부분을 식별합니다.\n\n2. 원래의 입력과 수정된 컨텍스트를 병렬적으로 제공하여, 모델이 원래의 컨텍스트에서 비롯된 내부 지식과 수정된 컨텍스트에서 확신하는 정보를 결합하여 보다 정확하고 일관된 답변을 생성할 수 있도록 합니다."
+        }
+      }
+    },
+    {
+      "query": "방법론(Method) 파트에서, 제안된 시스템(혹은 조사된 프레임워크)이 기존 기술 대비 개선되었다고 서술된 주요 작동 원리나 구조적 특징은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "제안된 시스템은 복잡한 질의를 멀티 홉으로 분해하여 각 홉에서 HyDE 기법을 적용함으로써 검색 정확도를 향상시킨다. HyDE는 LLM을 통해 가상의 이상적 문서를 생성하고 이를 벡터 데이터베이스 검색에 활용하여 의미적으로 적합한 문서를 찾는다. 이를 통해 초기 단계의 검색 정확도를 높이고 오류 전파 문제를 완화한다. 또한, 멀티 홉 접근법을 통해 복잡한 다중 문서 참조 질의에 대응할 수 있다.",
+        "paper_ko_cad_contrastive": "제안된 시스템은 모델 내 계층 간 성능 차이를 기반으로 출력 단계에서 최종 레이어와 이를 대조할 조기 종료 레이어를 동적으로 선택하여 모델의 환각을 줄이는 전략을 사용한다. 또한, 외부 지식과 모델의 내부 지식을 대조하여 외부 지식에 대한 인식 효과를 강화하는 접근법을 통해 보다 효과적으로 외부 지식을 반영한 답변을 생성할 수 있다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "제안된 시스템은 복잡한 질의를 멀티 홉으로 분해하여 각 홉에서 HyDE 기법을 적용함으로써 검색 정확도를 향상시킨다. HyDE는 LLM을 통해 가상의 이상적 문서를 생성하고 이를 벡터 데이터베이스 검색에 활용하여 의미적으로 적합한 문서를 찾는다. 이를 통해 초기 단계의 검색 정확도를 높이고 오류 전파 문제를 완화한다. 또한, 멀티 홉 접근법을 통해 복잡한 다중 문서 참조 질의에 대응할 수 있다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "제안된 시스템은 모델 내 계층 간 성능 차이를 기반으로 출력 단계에서 최종 레이어와 이를 대조할 조기 종료 레이어를 동적으로 선택하여 모델의 환각을 줄이는 전략을 사용한다. 또한, 외부 지식과 모델의 내부 지식을 대조하여 외부 지식에 대한 인식 효과를 강화하는 접근법을 통해 보다 효과적으로 외부 지식을 반영한 답변을 생성할 수 있다."
+        }
+      }
+    },
+    {
+      "query": "논문의 주요 아키텍처 구조 설명 부분에서, 핵심 모듈들 간의 상호작용이나 정보 전달 흐름은 어떻게 정의되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "논문에서 제안한 HyDE 기반 멀티 홉 검색 모델의 아키텍처는 다음과 같이 정의되어 있습니다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해하여 각 홉마다 해소 가능한 하위 질의로 재구성합니다.\n2. 각 홉에서 HyDE 기법을 적용하여, LLM을 통해 가상의 이상적 문서를 생성하고 이를 임베딩하여 벡터 데이터베이스에 질의로 제출합니다.\n3. FAISS 벡터 데이터베이스는 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환하며, 이 문서들은 이전 질의와 함께 다음 홉으로 전달됩니다.\n4. 이러한 과정을 통해 매 단계에서 질의 의도를 명확히 하고 필요한 정보를 점진적으로 축적하여 마지막 홉의 검색 결과를 최적화합니다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "논문에서 제안한 HyDE 기반 멀티 홉 검색 모델의 아키텍처는 다음과 같이 정의되어 있습니다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해하여 각 홉마다 해소 가능한 하위 질의로 재구성합니다.\n2. 각 홉에서 HyDE 기법을 적용하여, LLM을 통해 가상의 이상적 문서를 생성하고 이를 임베딩하여 벡터 데이터베이스에 질의로 제출합니다.\n3. FAISS 벡터 데이터베이스는 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환하며, 이 문서들은 이전 질의와 함께 다음 홉으로 전달됩니다.\n4. 이러한 과정을 통해 매 단계에서 질의 의도를 명확히 하고 필요한 정보를 점진적으로 축적하여 마지막 홉의 검색 결과를 최적화합니다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본문에서 시스템의 안정성, 효율성, 또는 성능 개선을 위해 구조적으로 도입되었다고 명시된 구체적인 기법이나 설정 항목은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "1. HyDE(Hypothetical Document Embeddings) 기법을 도입하여 각 검색 단계에서 문서 선택의 정확도를 향상시킴.\n2. 복잡한 질의를 멀티 홉으로 분해하여 단계적 검색을 수행하는 멀티 홉 프레임워크를 개발함.\n3. FAISS 벡터 데이터베이스를 활용하여 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환함.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "1. HyDE(Hypothetical Document Embeddings) 기법을 도입하여 각 검색 단계에서 문서 선택의 정확도를 향상시킴.\n2. 복잡한 질의를 멀티 홉으로 분해하여 단계적 검색을 수행하는 멀티 홉 프레임워크를 개발함.\n3. FAISS 벡터 데이터베이스를 활용하여 코사인 유사도 또는 내적을 기반으로 상위 k개의 유사 문서를 반환함."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 연구에서 다루는 주요 시스템(또는 분석 프레임워크)이 복잡한 작업이나 다양한 입력을 처리하기 위해 내부적으로 나누어 놓은 구체적인 역할 분담 구조는 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "이 연구에서 다루는 주요 시스템은 복잡한 질의를 멀티 홉으로 분해하여 처리하는 구조를 가지고 있다. 각 홉에서 HyDE(Hypothetical Document Embeddings) 기법을 활용하여 질의 의도를 반영한 가상 문서를 생성하고, 이를 벡터 데이터베이스 검색에 활용한다. 이러한 단계적 접근을 통해 검색 정확도를 높이고, 복잡한 질의에 대한 정보 검색의 효율성과 정확도를 동시에 개선하는 것을 목표로 한다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 연구에서 다루는 주요 시스템은 복잡한 질의를 멀티 홉으로 분해하여 처리하는 구조를 가지고 있다. 각 홉에서 HyDE(Hypothetical Document Embeddings) 기법을 활용하여 질의 의도를 반영한 가상 문서를 생성하고, 이를 벡터 데이터베이스 검색에 활용한다. 이러한 단계적 접근을 통해 검색 정확도를 높이고, 복잡한 질의에 대한 정보 검색의 효율성과 정확도를 동시에 개선하는 것을 목표로 한다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "논문의 방법론 파트 마지막 부분에서, 제안된(또는 분석된) 시스템 구조가 최종적으로 산출하는 결과물의 형태나 특징은 어떻게 서술되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "method",
+      "type": "section_method",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록(Abstract)의 첫 문단에서 현재 이 연구 분야가 직면하고 있다고 서술한 가장 근본적인 문제 상황(Problem)이나 배경은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "생성형 인공지능과 대형 언어 모델(LLM)의 발전에도 불구하고, Retrieval-Augmented Generation(RAG) 시스템은 환각 문제와 도메인 적합성 부족을 해결하기 위해 설계되었으나, 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪고 있다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "생성형 인공지능과 대형 언어 모델(LLM)의 발전에도 불구하고, Retrieval-Augmented Generation(RAG) 시스템은 환각 문제와 도메인 적합성 부족을 해결하기 위해 설계되었으나, 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪고 있다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에 명시된 바에 따르면, 이 논문이 제안(또는 포괄적 분석)하는 솔루션의 구체적인 명칭과 그 연구 목적은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "이 논문이 제안하는 솔루션의 구체적인 명칭은 Hypothetical Document Embedding(HyDE) 기법이다. 연구 목적은 HyDE 기법을 멀티 홉 검색에 통합하여 Retrieval-Augmented Generation(RAG) 시스템의 성능을 개선하는 것이다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문이 제안하는 솔루션의 구체적인 명칭은 Hypothetical Document Embedding(HyDE) 기법이다. 연구 목적은 HyDE 기법을 멀티 홉 검색에 통합하여 Retrieval-Augmented Generation(RAG) 시스템의 성능을 개선하는 것이다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문의 초록에서 기존 연구들이 해결하지 못한 공백(Gap)이나 부족한 점으로 지적한 내용은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "기존 연구들이 해결하지 못한 공백으로 지적된 내용은 Retrieval-Augmented Generation(RAG) 시스템이 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪는다는 점이다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "기존 연구들이 해결하지 못한 공백으로 지적된 내용은 Retrieval-Augmented Generation(RAG) 시스템이 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪는다는 점이다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에서 저자들이 본 논문의 접근법(또는 조사 결과)을 통해 얻을 수 있다고 주장하는 가장 중요한 기대 효과(Expected Benefit)나 개선점은 무엇인가?",
+      "ground_truth": "AutoRAG가 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였다고 주장한다.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "AutoRAG가 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였다고 주장한다.",
+        "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색은 모든 지표에서 기존 대비 향상된 성능을 보였으며, 특히 recall이 약 19.53%, hit rate가 21.21% 증가하였다. 이는 HyDE가 멀티 홉 검색에서 검색의 정확성을 높이는 데 효과적임을 보여준다.",
+        "paper_ko_cad_contrastive": "본 논문의 접근법을 통해 얻을 수 있는 가장 중요한 기대 효과는 다음과 같습니다:\n\n1. 확률이 낮은 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩함으로써, 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도합니다.\n2. 질의응답 작업에서 성능 향상을 보였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "AutoRAG가 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였다고 주장한다."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "HyDE 기반 멀티 홉 검색은 모든 지표에서 기존 대비 향상된 성능을 보였으며, 특히 recall이 약 19.53%, hit rate가 21.21% 증가하였다. 이는 HyDE가 멀티 홉 검색에서 검색의 정확성을 높이는 데 효과적임을 보여준다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 논문의 접근법을 통해 얻을 수 있는 가장 중요한 기대 효과는 다음과 같습니다:\n\n1. 확률이 낮은 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩함으로써, 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도합니다.\n2. 질의응답 작업에서 성능 향상을 보였습니다."
+        }
+      }
+    },
+    {
+      "query": "논문의 초록에서, 본 연구가 자체적으로 포괄하고 있는 실험(또는 조사)의 범위(Scope)와 검증 대상에 대해 어떻게 요약하고 있는가?",
+      "ground_truth": "본 연구는 검색 증강 생성(RAG) 시스템의 성능 평가를 위한 테스트 데이터셋 생성 방법을 비교 분석하였다. 연구는 수동 생성 방식과 대규모 언어 모델(LLM)을 활용한 자동 생성 방식의 특징과 장단점을 정리하고, RAGAS, AutoRAG, DeepEval 프레임워크를 사용하여 의료, 금융, 법률 문서를 입력으로 각각 100개의 질문-답변 세트를 생성한 후 정확성을 평가하였다.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "본 연구는 검색 증강 생성(RAG) 시스템의 성능 평가를 위한 테스트 데이터셋 생성 방법을 비교 분석하였다. 연구는 수동 생성 방식과 대규모 언어 모델(LLM)을 활용한 자동 생성 방식의 특징과 장단점을 정리하고, RAGAS, AutoRAG, DeepEval 프레임워크를 사용하여 의료, 금융, 법률 문서를 입력으로 각각 100개의 질문-답변 세트를 생성한 후 정확성을 평가하였다.",
+        "paper_ko_hyde_multihop": "본 연구는 Hypothetical Document Embedding(HyDE) 기법을 멀티 홉 검색에 통합하여 Retrieval-Augmented Generation(RAG) 시스템의 성능을 개선하는 것을 목표로 한다. 실험은 검색 정확도를 측정하기 위해 precision@k, recall@k, F1 score, MAP, MRR, hit rate와 같은 지표를 사용하여 진행되었으며, HyDE 기반 멀티 홉 검색이 모든 지표에서 기존 대비 향상된 성능을 보였음을 검증하였다. 특히, recall이 약 19.53%, hit rate가 21.21% 증가하였다.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 연구는 검색 증강 생성(RAG) 시스템의 성능 평가를 위한 테스트 데이터셋 생성 방법을 비교 분석하였다. 연구는 수동 생성 방식과 대규모 언어 모델(LLM)을 활용한 자동 생성 방식의 특징과 장단점을 정리하고, RAGAS, AutoRAG, DeepEval 프레임워크를 사용하여 의료, 금융, 법률 문서를 입력으로 각각 100개의 질문-답변 세트를 생성한 후 정확성을 평가하였다."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 연구는 Hypothetical Document Embedding(HyDE) 기법을 멀티 홉 검색에 통합하여 Retrieval-Augmented Generation(RAG) 시스템의 성능을 개선하는 것을 목표로 한다. 실험은 검색 정확도를 측정하기 위해 precision@k, recall@k, F1 score, MAP, MRR, hit rate와 같은 지표를 사용하여 진행되었으며, HyDE 기반 멀티 홉 검색이 모든 지표에서 기존 대비 향상된 성능을 보였음을 검증하였다. 특히, recall이 약 19.53%, hit rate가 21.21% 증가하였다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "초록에서 본 논문의 제안(또는 분석 체계)이 기존의 일반적인 방식과 비교하여 가지는 뚜렷한 방법론적 차별성은 무엇으로 서술되는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "본 논문은 기존의 일반적인 방식과 비교하여 Hypothetical Document Embedding(HyDE) 기법을 멀티 홉 검색에 통합하여 RAG 성능을 개선하는 프레임워크를 제안한다. HyDE 기법은 질의의 의미를 반영한 가상 문서를 생성하여 검색 정확성을 향상시키며, 복잡한 질의를 단계적으로 단일 홉 질의로 분해하고 각 단계에서 HyDE를 적용하는 방식을 채택하였다.",
+        "paper_ko_cad_contrastive": "본 논문은 기존의 일반적인 디코딩 방식과 비교하여 다음과 같은 방법론적 차별성을 제안한다:\n\n1. 확률 임계값을 설정하여 낮은 확률의 토큰을 빈칸으로 대체함으로써 모델이 혼동할 수 있는 토큰을 제거하고, 온전한 컨텍스트와 결합하여 모델 출력을 조정하는 새로운 디코딩 방식을 제안한다.\n2. 확률 분포를 기반으로 낮은 확률의 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩하는 방식을 통해 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도한다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 논문은 기존의 일반적인 방식과 비교하여 Hypothetical Document Embedding(HyDE) 기법을 멀티 홉 검색에 통합하여 RAG 성능을 개선하는 프레임워크를 제안한다. HyDE 기법은 질의의 의미를 반영한 가상 문서를 생성하여 검색 정확성을 향상시키며, 복잡한 질의를 단계적으로 단일 홉 질의로 분해하고 각 단계에서 HyDE를 적용하는 방식을 채택하였다."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 논문은 기존의 일반적인 디코딩 방식과 비교하여 다음과 같은 방법론적 차별성을 제안한다:\n\n1. 확률 임계값을 설정하여 낮은 확률의 토큰을 빈칸으로 대체함으로써 모델이 혼동할 수 있는 토큰을 제거하고, 온전한 컨텍스트와 결합하여 모델 출력을 조정하는 새로운 디코딩 방식을 제안한다.\n2. 확률 분포를 기반으로 낮은 확률의 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩하는 방식을 통해 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도한다."
+        }
+      }
+    },
+    {
+      "query": "초록의 마지막 부분에서 이 논문의 성과가 해당 학계나 실무에 미칠 긍정적인 파급 효과(Impact)나 기여도는 어떻게 요약되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "abstract",
+      "type": "section_abstract",
+      "expected_route": "B",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "서론(Introduction)이나 관련 연구(Related Work) 섹션에서, 이 논문의 연구 주제가 발전하게 된 주요 선행 기술(Prior Technology)의 흐름은 어떻게 설명되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문이 본인들의 차별성을 입증하기 위해 주요 비교 대상(Baseline)으로 삼고 있는 기존 프레임워크나 주요 모델들의 명칭은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "관련 연구(Related Work)에서 기존 문헌들이 아직 완벽하게 해결하지 못했다고 언급되는 구체적인 한계점이나 미개척 영역은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문의 기반이 되는 핵심 개념(Core Concept)을 설명할 때, 본문에서 근거로 삼아 주로 인용하는 주요 이론적 배경이나 선행 논문은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "introduction",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본 연구와 관련된 분야의 연구 동향(Trends)을 서술하는 부분에서, 최근 연구자들이 극복하고자 집중하고 있는 주요 과제는 어떻게 묘사되어 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "최근 연구자들이 집중하고 있는 주요 과제는 대규모 언어 모델의 환각(hallucination) 현상을 완화하는 것이다. 이는 모델이 학습 과정에서 빈번하게 노출되지 않은 엔티티나 정보에 대해 기억이 제한적이며, 시간이 지남에 따라 매개변수에 저장된 지식이 구식이 될 수 있다는 문제를 해결하기 위한 것이다. 또한, 외부 지식을 통합하여 대규모 언어 모델의 기억 및 지식 업데이트의 한계를 극복하고, 잘못된 생성의 빈도를 감소시키는 방법에 주목하고 있다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "최근 연구자들이 집중하고 있는 주요 과제는 대규모 언어 모델의 환각(hallucination) 현상을 완화하는 것이다. 이는 모델이 학습 과정에서 빈번하게 노출되지 않은 엔티티나 정보에 대해 기억이 제한적이며, 시간이 지남에 따라 매개변수에 저장된 지식이 구식이 될 수 있다는 문제를 해결하기 위한 것이다. 또한, 외부 지식을 통합하여 대규모 언어 모델의 기억 및 지식 업데이트의 한계를 극복하고, 잘못된 생성의 빈도를 감소시키는 방법에 주목하고 있다."
+        }
+      }
+    },
+    {
+      "query": "논문에서 자신들의 기여(Contribution)를 명확히 하기 위해, 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 어떻게 설명하고 있는가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "논문에서는 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 다음과 같이 설명하고 있다:\n\n1. 대규모 언어 모델은 외부 지식을 충분히 반영하지 못하고 내부 지식에 크게 의존하는 경향이 있어, 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못한다.\n2. 기존의 지시 데이터 기반 접근은 대규모 지시 데이터로 학습된 모델에만 적용 가능하다는 한계가 있다.\n3. 다른 대조 디코딩 방법들은 외부 지식에 의존하면서도 비모수 지식을 효과적으로 통합하지 못하는 한계를 보인다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "논문에서는 기존 선행 연구들의 방법론이 가지는 보편적인 약점을 다음과 같이 설명하고 있다:\n\n1. 대규모 언어 모델은 외부 지식을 충분히 반영하지 못하고 내부 지식에 크게 의존하는 경향이 있어, 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못한다.\n2. 기존의 지시 데이터 기반 접근은 대규모 지시 데이터로 학습된 모델에만 적용 가능하다는 한계가 있다.\n3. 다른 대조 디코딩 방법들은 외부 지식에 의존하면서도 비모수 지식을 효과적으로 통합하지 못하는 한계를 보인다."
+        }
+      }
+    },
+    {
+      "query": "논문 전반에 걸쳐 본 연구의 방법론 구축에 영감(Inspiration)을 주었거나 기반 구조로 채택되었다고 서술된 대표적인 외부 연구나 시스템의 이름은 무엇인가?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "ground_truth_source_section": "related_work",
+      "type": "citation",
+      "expected_route": "D",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework",
+        "paper_ko_hyde_multihop",
+        "paper_ko_cad_contrastive"
+      ],
+      "track": "track2",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음.",
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음.",
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        },
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,1295 @@
+{
+  "_meta": {
+    "source_file": "evaluation/data/track1_queries.json",
+    "collection_name": "papers",
+    "api_url": "http://localhost:8000",
+    "gt_model": "gpt-4o",
+    "attempted": 61,
+    "succeeded": 61,
+    "failed": 0
+  },
+  "queries": [
+    {
+      "query": "M3-Embedding 모델은 몇 개의 언어를 지원하나요?",
+      "ground_truth": "M3-Embedding 모델은 100개 이상의 언어를 지원합니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "M3-Embedding, which is able to support more than 100 world languages.",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding 모델은 100개 이상의 언어를 지원합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How many languages does the M3-Embedding model support?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding 모델은 100개 이상의 언어를 지원합니다."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding의 학습에서 배치 전략은 어떻게 최적화되었나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "we optimize the batching strategy, which enables a large batch size and high training throughput to improve the discriminativeness of embeddings.",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "How was the batch strategy optimized in the training of M3-Embedding?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding 모델의 실험에서 어떤 벤치마크에서 새로운 state-of-the-art 성능을 보였나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "It achieves superior retrieval quality for a variety of languages, leading to state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIR-ACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "In the experiments with the M3-Embedding model, on which benchmarks did it achieve new state-of-the-art performance?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding 모델의 주요 특징은 무엇인가요?",
+      "ground_truth": "M3-Embedding 모델의 주요 특징은 다음과 같습니다:\n\n1. 다국어 지원: M3-Embedding은 100개 이상의 언어를 지원하며, 다국어 및 교차 언어 검색을 가능하게 합니다.\n2. 다양한 입력 처리: 짧은 문장부터 최대 8,192개의 입력 토큰을 포함하는 긴 문서까지 다양한 입력 크기를 처리할 수 있습니다.\n3. 통합 검색 기능: 밀집 검색, 희소 검색, 다중 벡터 검색을 포함한 다양한 검색 기능을 통합하여 지원합니다.\n4. 기술적 기여: 자가 지식 증류(self-knowledge distillation), 효율적인 배칭 전략, 고품질 데이터 큐레이션을 통해 임베딩 품질을 최적화합니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "M3-Embedding, which is distinguished for its versatility in Multi-Linguality, Multi-Functionality, and Multi-Granularity.",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding 모델의 주요 특징은 다음과 같습니다:\n\n1. 다국어 지원: M3-Embedding은 100개 이상의 언어를 지원하며, 다국어 및 교차 언어 검색을 가능하게 합니다.\n2. 다양한 입력 처리: 짧은 문장부터 최대 8,192개의 입력 토큰을 포함하는 긴 문서까지 다양한 입력 크기를 처리할 수 있습니다.\n3. 통합 검색 기능: 밀집 검색, 희소 검색, 다중 벡터 검색을 포함한 다양한 검색 기능을 통합하여 지원합니다.\n4. 기술적 기여: 자가 지식 증류(self-knowledge distillation), 효율적인 배칭 전략, 고품질 데이터 큐레이션을 통해 임베딩 품질을 최적화합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What are the main features of the M3-Embedding model?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding 모델의 주요 특징은 다음과 같습니다:\n\n1. 다국어 지원: M3-Embedding은 100개 이상의 언어를 지원하며, 다국어 및 교차 언어 검색을 가능하게 합니다.\n2. 다양한 입력 처리: 짧은 문장부터 최대 8,192개의 입력 토큰을 포함하는 긴 문서까지 다양한 입력 크기를 처리할 수 있습니다.\n3. 통합 검색 기능: 밀집 검색, 희소 검색, 다중 벡터 검색을 포함한 다양한 검색 기능을 통합하여 지원합니다.\n4. 기술적 기여: 자가 지식 증류(self-knowledge distillation), 효율적인 배칭 전략, 고품질 데이터 큐레이션을 통해 임베딩 품질을 최적화합니다."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding은 밀집 검색(dense retrieval)만 지원하나요, 아니면 희소 검색(sparse retrieval)도 지원하나요?",
+      "ground_truth": "M3-Embedding은 밀집 검색(dense retrieval)뿐만 아니라 희소 검색(sparse retrieval)도 지원합니다.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "multi-functionality (dense retrieval, multi-vector retrieval and sparse retrieval)",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding은 밀집 검색(dense retrieval)뿐만 아니라 희소 검색(sparse retrieval)도 지원합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "Does M3-Embedding support only dense retrieval, or does it also support sparse retrieval?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding은 밀집 검색(dense retrieval)뿐만 아니라 희소 검색(sparse retrieval)도 지원합니다."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
+      "ground_truth": "M3-Embedding은 MIRACL과 MKQA 데이터셋에서 성능을 평가받았습니다.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding은 MIRACL과 MKQA 데이터셋에서 성능을 평가받았습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "On which datasets has the performance of M3-Embedding been evaluated?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding은 MIRACL과 MKQA 데이터셋에서 성능을 평가받았습니다."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding이 최고 성능을 달성한 대표적인 다국어 벤치마크는 무엇인가요?",
+      "ground_truth": "M3-Embedding이 최고 성능을 달성한 대표적인 다국어 벤치마크는 MIRACL과 MKQA입니다.",
+      "type": "crosslingual_ko",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding이 최고 성능을 달성한 대표적인 다국어 벤치마크는 MIRACL과 MKQA입니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "What is the representative multilingual benchmark where M3-Embedding achieved top performance?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding이 최고 성능을 달성한 대표적인 다국어 벤치마크는 MIRACL과 MKQA입니다."
+        }
+      }
+    },
+    {
+      "query": "M3-Embedding의 ablation study에서 어떤 기능들이 결합되어 더 강력한 검색 품질을 제공하나요?",
+      "ground_truth": "M3-Embedding의 ablation study에 따르면, self-knowledge distillation을 포함한 경우가 더 나은 성능을 보입니다. 특히, dense와 sparse retrieval 방법 간의 비호환성을 self-knowledge distillation을 통해 크게 극복할 수 있으며, 이는 sparse retrieval에서 더 두드러진 성능 향상을 제공합니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "answer_span": "It effectively learns the three retrieval functionalities, which can not only work individually but also work together for an even stronger retrieval quality.",
+      "ground_truth_by_paper": {
+        "paper_nlp_bge": "M3-Embedding의 ablation study에 따르면, self-knowledge distillation을 포함한 경우가 더 나은 성능을 보입니다. 특히, dense와 sparse retrieval 방법 간의 비호환성을 self-knowledge distillation을 통해 크게 극복할 수 있으며, 이는 sparse retrieval에서 더 두드러진 성능 향상을 제공합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_bge": {
+          "aux_query_en": "Which features combined in the ablation study of M3-Embedding provide stronger retrieval quality?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "M3-Embedding의 ablation study에 따르면, self-knowledge distillation을 포함한 경우가 더 나은 성능을 보입니다. 특히, dense와 sparse retrieval 방법 간의 비호환성을 self-knowledge distillation을 통해 크게 극복할 수 있으며, 이는 sparse retrieval에서 더 두드러진 성능 향상을 제공합니다."
+        }
+      }
+    },
+    {
+      "query": "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
+      "ground_truth": "RAG는 외부 데이터베이스에서 지식을 통합하여 LLM의 사실적 정확성을 향상시킵니다. 이를 통해 지식 집약적인 작업에서 생성의 정확성과 신뢰성을 높이고, 지속적인 지식 업데이트와 도메인별 정보 통합을 가능하게 합니다. 문서에서 확인할 수 있는 정보에 따르면, RAG는 LLM의 환각 문제를 해결하는 데 기여합니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "RAG는 외부 데이터베이스에서 지식을 통합하여 LLM의 사실적 정확성을 향상시킵니다. 이를 통해 지식 집약적인 작업에서 생성의 정확성과 신뢰성을 높이고, 지속적인 지식 업데이트와 도메인별 정보 통합을 가능하게 합니다. 문서에서 확인할 수 있는 정보에 따르면, RAG는 LLM의 환각 문제를 해결하는 데 기여합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "How does RAG contribute to reducing factually inaccurate content generation in LLMs?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAG는 외부 데이터베이스에서 지식을 통합하여 LLM의 사실적 정확성을 향상시킵니다. 이를 통해 지식 집약적인 작업에서 생성의 정확성과 신뢰성을 높이고, 지속적인 지식 업데이트와 도메인별 정보 통합을 가능하게 합니다. 문서에서 확인할 수 있는 정보에 따르면, RAG는 LLM의 환각 문제를 해결하는 데 기여합니다."
+        }
+      }
+    },
+    {
+      "query": "RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?",
+      "ground_truth": "Naive RAG 방법론은 초기 단계에서 모델 수정이 적게 요구되는 과정을 포함합니다. 문서에서 확인할 수 있는 정보는 이 정도입니다.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "Naive RAG 방법론은 초기 단계에서 모델 수정이 적게 요구되는 과정을 포함합니다. 문서에서 확인할 수 있는 정보는 이 정도입니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "What is the process of the Naive RAG methodology in RAG?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Naive RAG 방법론은 초기 단계에서 모델 수정이 적게 요구되는 과정을 포함합니다. 문서에서 확인할 수 있는 정보는 이 정도입니다."
+        }
+      }
+    },
+    {
+      "query": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 무엇입니까?",
+      "ground_truth": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 다음과 같습니다:\n\n1. 노이즈 또는 모순된 정보의 존재가 RAG의 출력 품질에 부정적인 영향을 미칠 수 있습니다.\n2. 관련 없는 문서를 포함하면 품질이 저하될 것으로 예상되지만, 오히려 정확도가 30% 이상 증가할 수 있는 예외적인 경우도 있습니다.\n3. 문서에서 필요한 지식을 포함하지 않은 경우, 모델이 응답을 자제하는 능력인 Negative Rejection이 필요합니다.\n4. 문서에서 확인할 수 없음.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 다음과 같습니다:\n\n1. 노이즈 또는 모순된 정보의 존재가 RAG의 출력 품질에 부정적인 영향을 미칠 수 있습니다.\n2. 관련 없는 문서를 포함하면 품질이 저하될 것으로 예상되지만, 오히려 정확도가 30% 이상 증가할 수 있는 예외적인 경우도 있습니다.\n3. 문서에서 필요한 지식을 포함하지 않은 경우, 모델이 응답을 자제하는 능력인 Negative Rejection이 필요합니다.\n4. 문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the potential issues in the 'Retrieval' stage of RAG?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 다음과 같습니다:\n\n1. 노이즈 또는 모순된 정보의 존재가 RAG의 출력 품질에 부정적인 영향을 미칠 수 있습니다.\n2. 관련 없는 문서를 포함하면 품질이 저하될 것으로 예상되지만, 오히려 정확도가 30% 이상 증가할 수 있는 예외적인 경우도 있습니다.\n3. 문서에서 필요한 지식을 포함하지 않은 경우, 모델이 응답을 자제하는 능력인 Negative Rejection이 필요합니다.\n4. 문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
+      "ground_truth": "RAG 시스템은 지식 집약적인 작업에서 다음과 같은 이점을 제공합니다:\n\n1. 외부 데이터베이스에서 지식을 통합하여 생성의 정확성과 신뢰성을 향상시킵니다.\n2. 지속적인 지식 업데이트와 도메인 특화 정보의 통합이 가능합니다.\n3. 정보 검색과 생성을 결합하여 지식 집약적인 작업에서 더 높은 성능을 발휘합니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "RAG 시스템은 지식 집약적인 작업에서 다음과 같은 이점을 제공합니다:\n\n1. 외부 데이터베이스에서 지식을 통합하여 생성의 정확성과 신뢰성을 향상시킵니다.\n2. 지속적인 지식 업데이트와 도메인 특화 정보의 통합이 가능합니다.\n3. 정보 검색과 생성을 결합하여 지식 집약적인 작업에서 더 높은 성능을 발휘합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the RAG system advantageous in knowledge-intensive tasks?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAG 시스템은 지식 집약적인 작업에서 다음과 같은 이점을 제공합니다:\n\n1. 외부 데이터베이스에서 지식을 통합하여 생성의 정확성과 신뢰성을 향상시킵니다.\n2. 지속적인 지식 업데이트와 도메인 특화 정보의 통합이 가능합니다.\n3. 정보 검색과 생성을 결합하여 지식 집약적인 작업에서 더 높은 성능을 발휘합니다."
+        }
+      }
+    },
+    {
+      "query": "Naive RAG에서 LLM의 응답 생성 시 발생할 수 있는 문제는 무엇입니까?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "In generating responses, the model may face the issue of hallucination, where it produces content not supported by the retrieved context.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "What issues can arise in response generation by LLMs in Naive RAG?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAG 연구에서 'Raft: Adapting language model to domain specific rag' 논문을 인용한 부분은 어디입니까?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "T. Zhang, S. G. Patil, N. Jain, S. Shen, M. Zaharia, I. Stoica, and J. E. Gonzalez, “Raft: Adapting language model to domain specific rag,” arXiv preprint arXiv:2403.10131, 2024.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "Where is the section that cites the paper 'Raft: Adapting language model to domain specific rag' in RAG research?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?",
+      "ground_truth": "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 \"Retrieval\", \"Generation\", \"Augmentation\"입니다.",
+      "type": "crosslingual_ko",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "the aspects of Retrieval, Generation and Augmentation",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 \"Retrieval\", \"Generation\", \"Augmentation\"입니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "What are the three key component technologies that play a crucial role in the RAG process?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 \"Retrieval\", \"Generation\", \"Augmentation\"입니다."
+        }
+      }
+    },
+    {
+      "query": "RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?",
+      "ground_truth": "RAG 방법론의 평가 방법은 다음과 같이 요약됩니다:\n\n1. RAG 모델의 평가 대상은 주로 특정 다운스트림 작업에서의 실행에 중점을 둡니다.\n2. 평가 메트릭으로는 EM, F1, Accuracy, BLEU, ROUGE 등이 사용됩니다.\n3. 평가 목표는 Retrieval Quality, Generation Quality, Context Relevance, Answer Faithfulness, Answer Relevance 등을 포함합니다.\n4. RAG 평가에는 노이즈 견고성, 부정 거부, 정보 통합, 반사실적 견고성 등의 능력도 포함됩니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "answer_span": "We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.",
+      "ground_truth_by_paper": {
+        "paper_nlp_rag": "RAG 방법론의 평가 방법은 다음과 같이 요약됩니다:\n\n1. RAG 모델의 평가 대상은 주로 특정 다운스트림 작업에서의 실행에 중점을 둡니다.\n2. 평가 메트릭으로는 EM, F1, Accuracy, BLEU, ROUGE 등이 사용됩니다.\n3. 평가 목표는 Retrieval Quality, Generation Quality, Context Relevance, Answer Faithfulness, Answer Relevance 등을 포함합니다.\n4. RAG 평가에는 노이즈 견고성, 부정 거부, 정보 통합, 반사실적 견고성 등의 능력도 포함됩니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_rag": {
+          "aux_query_en": "How is the evaluation method of the RAG methodology summarized?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAG 방법론의 평가 방법은 다음과 같이 요약됩니다:\n\n1. RAG 모델의 평가 대상은 주로 특정 다운스트림 작업에서의 실행에 중점을 둡니다.\n2. 평가 메트릭으로는 EM, F1, Accuracy, BLEU, ROUGE 등이 사용됩니다.\n3. 평가 목표는 Retrieval Quality, Generation Quality, Context Relevance, Answer Faithfulness, Answer Relevance 등을 포함합니다.\n4. RAG 평가에는 노이즈 견고성, 부정 거부, 정보 통합, 반사실적 견고성 등의 능력도 포함됩니다."
+        }
+      }
+    },
+    {
+      "query": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "LLaMA (Touvron et al., 2023) is presented with a latest document “Argentina won the FIFA World Cups in 1978,1986 and 2022 ...” in its context (Figure 1), it still predicts “Two” in response to the question “How many World Cups have Argentina won?”, due in part to the outdated training data.",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "Why does the LLaMA model make incorrect predictions about the number of FIFA World Cup wins?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "Context-aware Decoding (CAD) 방법은 어떻게 작동하나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "To mitigate such issues, we factor out the prior knowledge from the model’s original output distribution contrastively. Here, we model the prior knowledge as pθ(yt ∣x, y<t) and adjust the model’s original output probability distribution using the pointwise mutual information (PMI) between the context c and the generation yt, conditioned on x, y<t. Formally, we have: yt ∼˜pθ(yt ∣c, x, y<t) ∝pθ(yt ∣c, x, y<t) (pθ(yt ∣c, x, y<t) / pθ(yt ∣x, y<t) ) α",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "How does the Context-aware Decoding (CAD) method work?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?",
+      "ground_truth": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 ROUGE-L 점수가 21% 증가하였고, factKB 점수가 14.3% 증가하였으며, BERT-P 점수가 7.8% 증가하였습니다.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P.",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 ROUGE-L 점수가 21% 증가하였고, factKB 점수가 14.3% 증가하였으며, BERT-P 점수가 7.8% 증가하였습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "What were the results of applying CAD to the LLaMA-30B model on the CNN-DM dataset?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 ROUGE-L 점수가 21% 증가하였고, factKB 점수가 14.3% 증가하였으며, BERT-P 점수가 7.8% 증가하였습니다."
+        }
+      }
+    },
+    {
+      "query": "이 연구의 핵심 주장은 무엇인가요?",
+      "ground_truth": "이 연구의 핵심 주장은 다음과 같습니다:\n\n1. Context-aware decoding (CAD)는 언어 모델이 입력된 문맥에 더 충실하도록 개선하는 방법으로, 추가적인 훈련 없이도 다양한 언어 모델의 사실성을 크게 향상시킵니다.\n2. CAD는 모델의 사전 지식보다 문맥 정보를 강조하여, 특히 지식 충돌 상황에서 더 신뢰할 수 있는 출력을 생성합니다.\n3. 실험 결과, CAD는 LLaMA-30B 모델을 CNN-DM 데이터셋에 적용했을 때 ROUGE-L에서 21%, 사실성 평가 지표에서 14.3%의 향상을 보였습니다.\n4. CAD는 사전 훈련된 언어 모델에 적용 가능하며, 모델 크기가 커질수록 지식 충돌 과제에서의 성능 향상이 두드러집니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context.",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "이 연구의 핵심 주장은 다음과 같습니다:\n\n1. Context-aware decoding (CAD)는 언어 모델이 입력된 문맥에 더 충실하도록 개선하는 방법으로, 추가적인 훈련 없이도 다양한 언어 모델의 사실성을 크게 향상시킵니다.\n2. CAD는 모델의 사전 지식보다 문맥 정보를 강조하여, 특히 지식 충돌 상황에서 더 신뢰할 수 있는 출력을 생성합니다.\n3. 실험 결과, CAD는 LLaMA-30B 모델을 CNN-DM 데이터셋에 적용했을 때 ROUGE-L에서 21%, 사실성 평가 지표에서 14.3%의 향상을 보였습니다.\n4. CAD는 사전 훈련된 언어 모델에 적용 가능하며, 모델 크기가 커질수록 지식 충돌 과제에서의 성능 향상이 두드러집니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the main argument of this study?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 연구의 핵심 주장은 다음과 같습니다:\n\n1. Context-aware decoding (CAD)는 언어 모델이 입력된 문맥에 더 충실하도록 개선하는 방법으로, 추가적인 훈련 없이도 다양한 언어 모델의 사실성을 크게 향상시킵니다.\n2. CAD는 모델의 사전 지식보다 문맥 정보를 강조하여, 특히 지식 충돌 상황에서 더 신뢰할 수 있는 출력을 생성합니다.\n3. 실험 결과, CAD는 LLaMA-30B 모델을 CNN-DM 데이터셋에 적용했을 때 ROUGE-L에서 21%, 사실성 평가 지표에서 14.3%의 향상을 보였습니다.\n4. CAD는 사전 훈련된 언어 모델에 적용 가능하며, 모델 크기가 커질수록 지식 충돌 과제에서의 성능 향상이 두드러집니다."
+        }
+      }
+    },
+    {
+      "query": "CAD는 어떻게 잘못된 정보 생성을 줄이나요?",
+      "ground_truth": "CAD는 잘못된 정보 생성을 줄이기 위해 다음과 같은 방법을 사용합니다:\n\n1. **문맥 정보 강조**: CAD는 모델의 사전 지식보다 주어진 문맥 정보를 강조하여, 문맥에 충실한 출력을 생성하도록 합니다.\n\n2. **대조적 디코딩**: CAD는 모델의 원래 출력 확률 분포에서 사전 지식을 대조적으로 제거하여, 문맥 정보에 기반한 출력을 강화합니다.\n\n3. **하이퍼파라미터 조정**: CAD는 조정 수준을 제어하는 하이퍼파라미터 α를 도입하여, 문맥 정보의 중요성을 조절하고, 지식 충돌 상황에서 사전 지식을 더 효과적으로 배제합니다.\n\n4. **모델 크기에 따른 성능 향상**: CAD는 모델 크기가 커질수록 지식 충돌 과제에서 더 큰 성능 향상을 보이며, 이는 대형 모델이 사전 지식에 의존하는 경향을 줄이는 데 도움이 됩니다.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information.",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "CAD는 잘못된 정보 생성을 줄이기 위해 다음과 같은 방법을 사용합니다:\n\n1. **문맥 정보 강조**: CAD는 모델의 사전 지식보다 주어진 문맥 정보를 강조하여, 문맥에 충실한 출력을 생성하도록 합니다.\n\n2. **대조적 디코딩**: CAD는 모델의 원래 출력 확률 분포에서 사전 지식을 대조적으로 제거하여, 문맥 정보에 기반한 출력을 강화합니다.\n\n3. **하이퍼파라미터 조정**: CAD는 조정 수준을 제어하는 하이퍼파라미터 α를 도입하여, 문맥 정보의 중요성을 조절하고, 지식 충돌 상황에서 사전 지식을 더 효과적으로 배제합니다.\n\n4. **모델 크기에 따른 성능 향상**: CAD는 모델 크기가 커질수록 지식 충돌 과제에서 더 큰 성능 향상을 보이며, 이는 대형 모델이 사전 지식에 의존하는 경향을 줄이는 데 도움이 됩니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "How does CAD reduce misinformation generation?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "CAD는 잘못된 정보 생성을 줄이기 위해 다음과 같은 방법을 사용합니다:\n\n1. **문맥 정보 강조**: CAD는 모델의 사전 지식보다 주어진 문맥 정보를 강조하여, 문맥에 충실한 출력을 생성하도록 합니다.\n\n2. **대조적 디코딩**: CAD는 모델의 원래 출력 확률 분포에서 사전 지식을 대조적으로 제거하여, 문맥 정보에 기반한 출력을 강화합니다.\n\n3. **하이퍼파라미터 조정**: CAD는 조정 수준을 제어하는 하이퍼파라미터 α를 도입하여, 문맥 정보의 중요성을 조절하고, 지식 충돌 상황에서 사전 지식을 더 효과적으로 배제합니다.\n\n4. **모델 크기에 따른 성능 향상**: CAD는 모델 크기가 커질수록 지식 충돌 과제에서 더 큰 성능 향상을 보이며, 이는 대형 모델이 사전 지식에 의존하는 경향을 줄이는 데 도움이 됩니다."
+        }
+      }
+    },
+    {
+      "query": "XSUM 데이터셋의 출처는 어디인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "Shashi Narayan, Shay B. Cohen, and Mirella Lapata. 2018. Don’t give me the details, just the summary! topic-aware convolutional neural networks for extreme summarization. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, pages 1797–1807, Brussels, Belgium. Association for Computational Linguistics.",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "What is the source of the XSUM dataset?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?",
+      "ground_truth": "네, CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시킵니다. 문서에 따르면, CAD는 다양한 언어 모델에서 요약문의 품질과 사실성을 크게 개선하며, 예를 들어 LLaMA-30B 모델의 경우 CNN-DM 데이터셋에서 ROUGE-L이 21% 증가하고, factKB가 14.3% 증가하는 결과를 보였습니다.",
+      "type": "crosslingual_ko",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022).",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "네, CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시킵니다. 문서에 따르면, CAD는 다양한 언어 모델에서 요약문의 품질과 사실성을 크게 개선하며, 예를 들어 LLaMA-30B 모델의 경우 CNN-DM 데이터셋에서 ROUGE-L이 21% 증가하고, factKB가 14.3% 증가하는 결과를 보였습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "Does CAD improve the factual accuracy of summaries generated by language models?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "네, CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시킵니다. 문서에 따르면, CAD는 다양한 언어 모델에서 요약문의 품질과 사실성을 크게 개선하며, 예를 들어 LLaMA-30B 모델의 경우 CNN-DM 데이터셋에서 ROUGE-L이 21% 증가하고, factKB가 14.3% 증가하는 결과를 보였습니다."
+        }
+      }
+    },
+    {
+      "query": "CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?",
+      "ground_truth": "CAD를 적용했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 2.9배 향상되었습니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "answer_span": "CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021).",
+      "ground_truth_by_paper": {
+        "paper_nlp_cad": "CAD를 적용했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 2.9배 향상되었습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_cad": {
+          "aux_query_en": "How does the performance of LLaMA-30B change on the knowledge conflict QA dataset compared to when CAD is not applied?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "CAD를 적용했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 2.9배 향상되었습니다."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
+      "ground_truth": "RAPTOR 모델은 QuALITY 벤치마크에서 기존 성능을 크게 개선했습니다. RAPTOR는 GPT-4와 결합하여 QuALITY 데이터셋에서 82.6%의 정확도를 기록하며, 이전 최고 성능인 62.3%를 크게 상회했습니다. 이는 특히 QuALITY-HARD에서 CoLISA를 21.5% 초과하는 성과를 보여줍니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "RAPTOR 모델은 QuALITY 벤치마크에서 기존 성능을 크게 개선했습니다. RAPTOR는 GPT-4와 결합하여 QuALITY 데이터셋에서 82.6%의 정확도를 기록하며, 이전 최고 성능인 62.3%를 크게 상회했습니다. 이는 특히 QuALITY-HARD에서 CoLISA를 21.5% 초과하는 성과를 보여줍니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "How much did the RAPTOR model improve existing performance on the QuALITY benchmark?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR 모델은 QuALITY 벤치마크에서 기존 성능을 크게 개선했습니다. RAPTOR는 GPT-4와 결합하여 QuALITY 데이터셋에서 82.6%의 정확도를 기록하며, 이전 최고 성능인 62.3%를 크게 상회했습니다. 이는 특히 QuALITY-HARD에서 CoLISA를 21.5% 초과하는 성과를 보여줍니다."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?",
+      "ground_truth": "RAPTOR의 트리 구조는 텍스트를 100 토큰 길이의 짧고 연속적인 텍스트로 분할하여 시작합니다. 각 텍스트 조각은 SBERT를 사용하여 임베딩됩니다. 그런 다음, 의미적 유사성에 따라 노드를 그룹화하여 재귀적 트리 구조를 구축합니다. 이 과정은 텍스트의 순서뿐만 아니라 의미적 유사성을 기반으로 노드를 그룹화하여 주제의 폭넓은 이해와 세부 사항을 균형 있게 제공합니다.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "RAPTOR의 트리 구조는 텍스트를 100 토큰 길이의 짧고 연속적인 텍스트로 분할하여 시작합니다. 각 텍스트 조각은 SBERT를 사용하여 임베딩됩니다. 그런 다음, 의미적 유사성에 따라 노드를 그룹화하여 재귀적 트리 구조를 구축합니다. 이 과정은 텍스트의 순서뿐만 아니라 의미적 유사성을 기반으로 노드를 그룹화하여 주제의 폭넓은 이해와 세부 사항을 균형 있게 제공합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "How is the tree structure of RAPTOR constructed through text clustering?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR의 트리 구조는 텍스트를 100 토큰 길이의 짧고 연속적인 텍스트로 분할하여 시작합니다. 각 텍스트 조각은 SBERT를 사용하여 임베딩됩니다. 그런 다음, 의미적 유사성에 따라 노드를 그룹화하여 재귀적 트리 구조를 구축합니다. 이 과정은 텍스트의 순서뿐만 아니라 의미적 유사성을 기반으로 노드를 그룹화하여 주제의 폭넓은 이해와 세부 사항을 균형 있게 제공합니다."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?",
+      "ground_truth": "RAPTOR는 여러 QA 작업에서 다음과 같은 결과를 달성했습니다:\n\n1. RAPTOR + GPT-4 조합은 F-1 매치 점수에서 55.7을 기록하며 다른 모델들보다 높은 성능을 보였습니다.\n2. RAPTOR + GPT-4는 테스트 세트에서 82.6%의 정확도를 기록하며, 특히 어려운 하위 집합에서도 76.2%의 정확도를 달성했습니다.\n3. RAPTOR + UnifiedQA는 METEOR 점수에서 새로운 최고 기록을 세웠으며, 다른 모델들보다 전반적으로 우수한 성능을 보였습니다.\n4. RAPTOR의 클러스터링 메커니즘은 recency-based tree 접근법보다 더 높은 정확도를 제공하여, 요약을 위한 동질적인 콘텐츠를 효과적으로 포착함으로써 검색 성능을 향상시켰습니다.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022).",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "RAPTOR는 여러 QA 작업에서 다음과 같은 결과를 달성했습니다:\n\n1. RAPTOR + GPT-4 조합은 F-1 매치 점수에서 55.7을 기록하며 다른 모델들보다 높은 성능을 보였습니다.\n2. RAPTOR + GPT-4는 테스트 세트에서 82.6%의 정확도를 기록하며, 특히 어려운 하위 집합에서도 76.2%의 정확도를 달성했습니다.\n3. RAPTOR + UnifiedQA는 METEOR 점수에서 새로운 최고 기록을 세웠으며, 다른 모델들보다 전반적으로 우수한 성능을 보였습니다.\n4. RAPTOR의 클러스터링 메커니즘은 recency-based tree 접근법보다 더 높은 정확도를 제공하여, 요약을 위한 동질적인 콘텐츠를 효과적으로 포착함으로써 검색 성능을 향상시켰습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "What results has RAPTOR achieved in various QA tasks?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR는 여러 QA 작업에서 다음과 같은 결과를 달성했습니다:\n\n1. RAPTOR + GPT-4 조합은 F-1 매치 점수에서 55.7을 기록하며 다른 모델들보다 높은 성능을 보였습니다.\n2. RAPTOR + GPT-4는 테스트 세트에서 82.6%의 정확도를 기록하며, 특히 어려운 하위 집합에서도 76.2%의 정확도를 달성했습니다.\n3. RAPTOR + UnifiedQA는 METEOR 점수에서 새로운 최고 기록을 세웠으며, 다른 모델들보다 전반적으로 우수한 성능을 보였습니다.\n4. RAPTOR의 클러스터링 메커니즘은 recency-based tree 접근법보다 더 높은 정확도를 제공하여, 요약을 위한 동질적인 콘텐츠를 효과적으로 포착함으로써 검색 성능을 향상시켰습니다."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR의 새로운 접근 방식은 무엇인가요?",
+      "ground_truth": "RAPTOR의 새로운 접근 방식은 텍스트 조각을 재귀적으로 임베딩하고, 클러스터링하며, 요약하여 서로 다른 수준의 요약을 가진 트리를 구성하는 것입니다. 이 트리에서 정보를 검색하여 긴 문서 전반에 걸쳐 다양한 추상화 수준에서 정보를 통합합니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "RAPTOR의 새로운 접근 방식은 텍스트 조각을 재귀적으로 임베딩하고, 클러스터링하며, 요약하여 서로 다른 수준의 요약을 가진 트리를 구성하는 것입니다. 이 트리에서 정보를 검색하여 긴 문서 전반에 걸쳐 다양한 추상화 수준에서 정보를 통합합니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the new approaches of RAPTOR?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR의 새로운 접근 방식은 텍스트 조각을 재귀적으로 임베딩하고, 클러스터링하며, 요약하여 서로 다른 수준의 요약을 가진 트리를 구성하는 것입니다. 이 트리에서 정보를 검색하여 긴 문서 전반에 걸쳐 다양한 추상화 수준에서 정보를 통합합니다."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR의 클러스터링에서 각 노드는 반드시 하나의 클러스터에만 속해야 하나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "One of the unique aspects of our clustering approach is the use of soft clustering, where nodes can belong to multiple clusters without requiring a fixed number of clusters.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "In RAPTOR clustering, must each node belong to only one cluster?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "Lewis et al., 2020",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the previous studies addressing the drawbacks of 'retrieval augmentation' mentioned in this paper?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR 트리 내에서 쿼리를 수행하기 위해 도입된 두 가지 전략은 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "crosslingual_ko",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "For querying within this tree, we introduce two distinct strategies: tree traversal and collapsed tree.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the two strategies introduced for performing queries within the RAPTOR tree?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?",
+      "ground_truth": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 다음과 같습니다:\n\n1. 검색된 노드의 18.5%에서 57%가 비-리프 노드에서 온다는 결과가 관찰되었습니다.\n2. NarrativeQA 데이터셋에서 RAPTOR가 DPR 리트리버를 사용할 때, 검색된 노드의 상당 부분이 트리의 첫 번째와 두 번째 계층에서 오는 것으로 나타났습니다.\n3. 이러한 패턴은 다른 데이터셋과 리트리버에서도 일관되게 나타났습니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "answer_span": "We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes.",
+      "ground_truth_by_paper": {
+        "paper_nlp_raptor": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 다음과 같습니다:\n\n1. 검색된 노드의 18.5%에서 57%가 비-리프 노드에서 온다는 결과가 관찰되었습니다.\n2. NarrativeQA 데이터셋에서 RAPTOR가 DPR 리트리버를 사용할 때, 검색된 노드의 상당 부분이 트리의 첫 번째와 두 번째 계층에서 오는 것으로 나타났습니다.\n3. 이러한 패턴은 다른 데이터셋과 리트리버에서도 일관되게 나타났습니다."
+      },
+      "_gt_meta": {
+        "paper_nlp_raptor": {
+          "aux_query_en": "What are the research findings on which layer the nodes retrieved from the RAPTOR hierarchy come from?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 다음과 같습니다:\n\n1. 검색된 노드의 18.5%에서 57%가 비-리프 노드에서 온다는 결과가 관찰되었습니다.\n2. NarrativeQA 데이터셋에서 RAPTOR가 DPR 리트리버를 사용할 때, 검색된 노드의 상당 부분이 트리의 첫 번째와 두 번째 계층에서 오는 것으로 나타났습니다.\n3. 이러한 패턴은 다른 데이터셋과 리트리버에서도 일관되게 나타났습니다."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
+      "ground_truth": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 320억 개입니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "32B parameters",
+      "ground_truth_by_paper": {
+        "paper_midm": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 320억 개입니다."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "How many parameters does the Mi:dm K 2.5 Pro model have?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 320억 개입니다."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?",
+      "ground_truth": "AST 분석은 Mi:dm K 2.5 Pro의 데이터 큐레이션 파이프라인에서 데이터 품질 평가를 위해 사용됩니다. 이는 휴리스틱 필터 대신 LLM 기반 데이터 품질 평가자와 통합되어 구조적 유효성과 실행 가능성을 평가하는 데 기여합니다.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "abstract syntax tree (AST) analysis for code",
+      "ground_truth_by_paper": {
+        "paper_midm": "AST 분석은 Mi:dm K 2.5 Pro의 데이터 큐레이션 파이프라인에서 데이터 품질 평가를 위해 사용됩니다. 이는 휴리스틱 필터 대신 LLM 기반 데이터 품질 평가자와 통합되어 구조적 유효성과 실행 가능성을 평가하는 데 기여합니다."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "What is the purpose of using AST analysis in the methodology of Mi:dm K 2.5 Pro?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "AST 분석은 Mi:dm K 2.5 Pro의 데이터 큐레이션 파이프라인에서 데이터 품질 평가를 위해 사용됩니다. 이는 휴리스틱 필터 대신 LLM 기반 데이터 품질 평가자와 통합되어 구조적 유효성과 실행 가능성을 평가하는 데 기여합니다."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?",
+      "ground_truth": "Mi:dm K 2.5 Pro 모델은 다음과 같은 한국어 벤치마크에서 최첨단 결과를 달성했습니다:\n\n1. Ko-Sovereign Korean comprehension에서 73.50%로 최고 점수를 기록했습니다.\n2. Ko-Sovereign society & culture subset에서 82.20%로 최고 점수를 기록했습니다.\n3. KoBALT에서 57.86%로 최고 점수를 기록했습니다.\n4. CLIcK-L에서 84.92%로 최고 점수를 기록했습니다.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "sets state-of-the-art results on Korean-specific benchmarks",
+      "ground_truth_by_paper": {
+        "paper_midm": "Mi:dm K 2.5 Pro 모델은 다음과 같은 한국어 벤치마크에서 최첨단 결과를 달성했습니다:\n\n1. Ko-Sovereign Korean comprehension에서 73.50%로 최고 점수를 기록했습니다.\n2. Ko-Sovereign society & culture subset에서 82.20%로 최고 점수를 기록했습니다.\n3. KoBALT에서 57.86%로 최고 점수를 기록했습니다.\n4. CLIcK-L에서 84.92%로 최고 점수를 기록했습니다."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "Which Korean benchmarks did the Mi:dm K 2.5 Pro model achieve state-of-the-art results on?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Mi:dm K 2.5 Pro 모델은 다음과 같은 한국어 벤치마크에서 최첨단 결과를 달성했습니다:\n\n1. Ko-Sovereign Korean comprehension에서 73.50%로 최고 점수를 기록했습니다.\n2. Ko-Sovereign society & culture subset에서 82.20%로 최고 점수를 기록했습니다.\n3. KoBALT에서 57.86%로 최고 점수를 기록했습니다.\n4. CLIcK-L에서 84.92%로 최고 점수를 기록했습니다."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?",
+      "ground_truth": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 다음과 같습니다:\n\n1. 정보 정확성과 한국어 중심의 번역 및 OpenQA 성능 향상.\n2. 복잡한 추론과 긴 문맥 이해, 외부 도구 사용 및 에이전트 워크플로우를 포함한 고급 다단계 추론 능력 강화.\n3. 한국어 특정 이해와 문화적으로 기반이 된 맥락적 해석을 요구하는 벤치마크에서의 경쟁력 있는 성능 제공.\n4. 악의적인 프롬프트 공격에 대한 높은 저항력 유지.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "address enterprise-grade complexity through reasoning-focused optimization",
+      "ground_truth_by_paper": {
+        "paper_midm": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 다음과 같습니다:\n\n1. 정보 정확성과 한국어 중심의 번역 및 OpenQA 성능 향상.\n2. 복잡한 추론과 긴 문맥 이해, 외부 도구 사용 및 에이전트 워크플로우를 포함한 고급 다단계 추론 능력 강화.\n3. 한국어 특정 이해와 문화적으로 기반이 된 맥락적 해석을 요구하는 벤치마크에서의 경쟁력 있는 성능 제공.\n4. 악의적인 프롬프트 공격에 대한 높은 저항력 유지."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "What is the main problem that Mi:dm K 2.5 Pro aims to solve?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 다음과 같습니다:\n\n1. 정보 정확성과 한국어 중심의 번역 및 OpenQA 성능 향상.\n2. 복잡한 추론과 긴 문맥 이해, 외부 도구 사용 및 에이전트 워크플로우를 포함한 고급 다단계 추론 능력 강화.\n3. 한국어 특정 이해와 문화적으로 기반이 된 맥락적 해석을 요구하는 벤치마크에서의 경쟁력 있는 성능 제공.\n4. 악의적인 프롬프트 공격에 대한 높은 저항력 유지."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?",
+      "ground_truth": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우 길이는 최대 128,000 토큰입니다.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "128K context window",
+      "ground_truth_by_paper": {
+        "paper_midm": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우 길이는 최대 128,000 토큰입니다."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "What is the context window length of the Mi:dm K 2.5 Pro model?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우 길이는 최대 128,000 토큰입니다."
+        }
+      }
+    },
+    {
+      "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71760",
+      "ground_truth_by_paper": {
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "Where can I access the Korean Large Language Model Trustworthiness Benchmark Data?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro 모델이 한국어와 영어 외에 추가로 지원하는 언어는 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "crosslingual_ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "Japanese and Chinese",
+      "ground_truth_by_paper": {
+        "paper_midm": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "What additional languages does the Mi:dm K 2.5 Pro model support besides Korean and English?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?",
+      "ground_truth": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 여러 도메인에 특화된 모델들을 통합하여 상호 보완적인 강점을 결합하는 역할을 합니다. 이를 통해 개별 작업의 변동성을 줄이고, 벤치마크 전반에 걸쳐 보다 균형 잡힌 모델을 생성합니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "answer_span": "improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution",
+      "ground_truth_by_paper": {
+        "paper_midm": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 여러 도메인에 특화된 모델들을 통합하여 상호 보완적인 강점을 결합하는 역할을 합니다. 이를 통해 개별 작업의 변동성을 줄이고, 벤치마크 전반에 걸쳐 보다 균형 잡힌 모델을 생성합니다."
+      },
+      "_gt_meta": {
+        "paper_midm": {
+          "aux_query_en": "What role does model merging play in the post-training pipeline of Mi:dm K 2.5 Pro?",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 여러 도메인에 특화된 모델들을 통합하여 상호 보완적인 강점을 결합하는 역할을 합니다. 이를 통해 개별 작업의 변동성을 줄이고, 벤치마크 전반에 걸쳐 보다 균형 잡힌 모델을 생성합니다."
+        }
+      }
+    },
+    {
+      "query": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 어떤 성능을 보였나요?",
+      "ground_truth": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였습니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "AutoRAG가 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였으며",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 가장 뛰어난 성능을 보였습니다."
+        }
+      }
+    },
+    {
+      "query": "AutoRAG 프레임워크의 데이터 셋 생성 흐름에서 첫 번째 단계는 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "첫 번째 단계인 코퍼스 준비(Corpus Prep) 과정에서는 원시 문서를 수집하고 정제한다.",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "RAGAS, AutoRAG, DeepEval의 성능 비교 결과, 어떤 프레임워크가 한국어 지원 부족으로 인해 상대적으로 낮은 성능을 보였나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "DeepEval은 한국어 지원 부족으로 인해 성능이 상대적으로 낮았다.",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문은 RAG 시스템의 성능 평가를 위한 데이터셋 생성 방법에 대해 어떤 분석을 수행하였나요?",
+      "ground_truth": "이 논문은 RAG 시스템의 성능 평가를 위한 데이터셋 생성 방법에 대해 다음과 같은 분석을 수행하였습니다:\n\n1. RAGAS, AutoRAG, DeepEval 세 가지 프레임워크를 비교하여 각 프레임워크가 생성한 질문-답변-컨텍스트 세트의 성능과 품질을 평가하였습니다.\n2. 각 프레임워크의 데이터셋 생성 과정에서 동일한 전처리 기준을 적용하여 공정성을 유지하였으며, 금융, 의료, 법률 도메인에서의 성능을 비교 분석하였습니다.\n3. 평가 항목으로는 질문 및 답변의 자연스러움, 질문 컨텍스트 적합성, 답변 질문 연관성, 답변 컨텍스트 적합성 등이 포함되었으며, 평가자 간 일치율과 Cohen’s Kappa 값을 통해 평가 신뢰도를 측정하였습니다.\n4. AutoRAG가 한국어 데이터셋 생성 측면에서 가장 높은 정확도를 보였으며, 특히 컨텍스트 기반성 평가 항목에서 높은 일치율을 기록하였습니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "본 논문은 최근 주목받고 있는 검색 증강 생성(RAG) 시스템의 성능 평가를 위한 테스트 데이터셋 생성 방법을 비교 분석하였다.",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "이 논문은 RAG 시스템의 성능 평가를 위한 데이터셋 생성 방법에 대해 다음과 같은 분석을 수행하였습니다:\n\n1. RAGAS, AutoRAG, DeepEval 세 가지 프레임워크를 비교하여 각 프레임워크가 생성한 질문-답변-컨텍스트 세트의 성능과 품질을 평가하였습니다.\n2. 각 프레임워크의 데이터셋 생성 과정에서 동일한 전처리 기준을 적용하여 공정성을 유지하였으며, 금융, 의료, 법률 도메인에서의 성능을 비교 분석하였습니다.\n3. 평가 항목으로는 질문 및 답변의 자연스러움, 질문 컨텍스트 적합성, 답변 질문 연관성, 답변 컨텍스트 적합성 등이 포함되었으며, 평가자 간 일치율과 Cohen’s Kappa 값을 통해 평가 신뢰도를 측정하였습니다.\n4. AutoRAG가 한국어 데이터셋 생성 측면에서 가장 높은 정확도를 보였으며, 특히 컨텍스트 기반성 평가 항목에서 높은 일치율을 기록하였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문은 RAG 시스템의 성능 평가를 위한 데이터셋 생성 방법에 대해 다음과 같은 분석을 수행하였습니다:\n\n1. RAGAS, AutoRAG, DeepEval 세 가지 프레임워크를 비교하여 각 프레임워크가 생성한 질문-답변-컨텍스트 세트의 성능과 품질을 평가하였습니다.\n2. 각 프레임워크의 데이터셋 생성 과정에서 동일한 전처리 기준을 적용하여 공정성을 유지하였으며, 금융, 의료, 법률 도메인에서의 성능을 비교 분석하였습니다.\n3. 평가 항목으로는 질문 및 답변의 자연스러움, 질문 컨텍스트 적합성, 답변 질문 연관성, 답변 컨텍스트 적합성 등이 포함되었으며, 평가자 간 일치율과 Cohen’s Kappa 값을 통해 평가 신뢰도를 측정하였습니다.\n4. AutoRAG가 한국어 데이터셋 생성 측면에서 가장 높은 정확도를 보였으며, 특히 컨텍스트 기반성 평가 항목에서 높은 일치율을 기록하였습니다."
+        }
+      }
+    },
+    {
+      "query": "RAGAS는 문서 처리 과정에서 어떤 오류를 보였나요?",
+      "ground_truth": "RAGAS는 문서 처리 과정에서 불필요한 정보를 포함하는 오류를 보였습니다.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "RAGAS는 문서 처리 과정에서 불필요한 정보 포함 등의 오류가 많았고",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "RAGAS는 문서 처리 과정에서 불필요한 정보를 포함하는 오류를 보였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "RAGAS는 문서 처리 과정에서 불필요한 정보를 포함하는 오류를 보였습니다."
+        }
+      }
+    },
+    {
+      "query": "RAG 기술을 제안한 연구팀은 누구인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "P. Lewis, E. Perez, A. Piktus, et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\", arXiv:2005.11401, 2020.",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "향후 연구에서 중점적으로 탐색할 계획인 기술적 접근 방법은 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "answer_span": "향후 연구에서는 LLM을 활용하여 사용자의 의도와 컨텍스트를 더욱 정확히 반영하는 고급 프롬프팅 기법과 자동화된 데이터 품질 평가 및 개선 전략을 중점적으로 탐색할 계획이다.",
+      "ground_truth_by_paper": {
+        "paper_ko_rag_eval_framework": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_rag_eval_framework": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall과 hit rate는 각각 얼마나 증가했나요?",
+      "ground_truth": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall은 19.53% 증가하였고, hit rate는 21.21% 증가하였습니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "recall이 약 19.53%, hit rate가 21.21% 증가하였다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall은 19.53% 증가하였고, hit rate는 21.21% 증가하였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "HyDE 기반 멀티 홉 검색 기법의 실험 결과에서 recall은 19.53% 증가하였고, hit rate는 21.21% 증가하였습니다."
+        }
+      }
+    },
+    {
+      "query": "HyDE 기반 멀티 홉 검색 기법에서는 복잡한 질의를 어떻게 처리하나요?",
+      "ground_truth": "HyDE 기반 멀티 홉 검색 기법에서는 복잡한 질의를 다음과 같이 처리합니다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해하여 각 홉마다 해소 가능한 하위 질의로 재구성합니다.\n2. 각 홉에서 HyDE 기법을 적용하여 LLM을 통해 가상의 이상적 문서를 생성하고 이를 임베딩합니다.\n3. 생성된 가상 문서를 벡터 데이터베이스 검색에 활용하여 상위 유사 문서를 반환받습니다.\n4. 상위 유사 문서는 이전 질의와 함께 다음 홉으로 전달되어 검색 정확도를 점진적으로 향상시킵니다.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "복잡한 질의를 단계적으로 단일 홉 질의로 분해하고 각 단계에서 HyDE를 적용하는 방식을 채택하였다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색 기법에서는 복잡한 질의를 다음과 같이 처리합니다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해하여 각 홉마다 해소 가능한 하위 질의로 재구성합니다.\n2. 각 홉에서 HyDE 기법을 적용하여 LLM을 통해 가상의 이상적 문서를 생성하고 이를 임베딩합니다.\n3. 생성된 가상 문서를 벡터 데이터베이스 검색에 활용하여 상위 유사 문서를 반환받습니다.\n4. 상위 유사 문서는 이전 질의와 함께 다음 홉으로 전달되어 검색 정확도를 점진적으로 향상시킵니다."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "HyDE 기반 멀티 홉 검색 기법에서는 복잡한 질의를 다음과 같이 처리합니다:\n\n1. 복잡한 질의를 멀티 홉 형태로 분해하여 각 홉마다 해소 가능한 하위 질의로 재구성합니다.\n2. 각 홉에서 HyDE 기법을 적용하여 LLM을 통해 가상의 이상적 문서를 생성하고 이를 임베딩합니다.\n3. 생성된 가상 문서를 벡터 데이터베이스 검색에 활용하여 상위 유사 문서를 반환받습니다.\n4. 상위 유사 문서는 이전 질의와 함께 다음 홉으로 전달되어 검색 정확도를 점진적으로 향상시킵니다."
+        }
+      }
+    },
+    {
+      "query": "HyDE 기반 멀티 홉 검색 기법의 실험에서 사용된 지표들은 무엇인가요?",
+      "ground_truth": "HyDE 기반 멀티 홉 검색 기법의 실험에서 사용된 지표들은 precision, recall, F1 score, MAP, MRR, hit rate입니다.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "precision@k, recall@k, F1 score, MAP, MRR, hit rate와 같은 지표를 사용하여 진행되었다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색 기법의 실험에서 사용된 지표들은 precision, recall, F1 score, MAP, MRR, hit rate입니다."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "HyDE 기반 멀티 홉 검색 기법의 실험에서 사용된 지표들은 precision, recall, F1 score, MAP, MRR, hit rate입니다."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 제안한 프레임워크가 해결하고자 하는 주요 문제는 무엇인가요?",
+      "ground_truth": "이 논문에서 제안한 프레임워크가 해결하고자 하는 주요 문제는 LLM의 환각 문제와 도메인 적합성 부족을 해결하기 위한 RAG 시스템의 성능 저하 문제입니다. 특히, 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인한 성능 저하를 해결하고자 합니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "LLM의 환각(hallucination) 문제와 도메인 적합성 부족을 해결하기 위한 Retrieval-Augmented Generation(RAG) 시스템은 검색 단계에서 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인해 성능 저하를 겪는다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "이 논문에서 제안한 프레임워크가 해결하고자 하는 주요 문제는 LLM의 환각 문제와 도메인 적합성 부족을 해결하기 위한 RAG 시스템의 성능 저하 문제입니다. 특히, 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인한 성능 저하를 해결하고자 합니다."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문에서 제안한 프레임워크가 해결하고자 하는 주요 문제는 LLM의 환각 문제와 도메인 적합성 부족을 해결하기 위한 RAG 시스템의 성능 저하 문제입니다. 특히, 복잡한 멀티 홉 질의 처리 시 오류 누적 문제로 인한 성능 저하를 해결하고자 합니다."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 언급된 LLM의 환각 문제는 어떤 결과를 초래할 수 있나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "LLM의 우수한 언어 생성 능력의 이면에는 데이터에 존재하지 않거나 맥락에 부합하지 않는 정보를 생성하는 환각(hallucination) 현상이 존재한다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 HyDE 기법의 원논문으로 인용한 연구의 제목은 무엇인가요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "Precise Zero-Shot Dense Retrieval without Relevance Labels",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 무엇인가요?",
+      "ground_truth": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 다음과 같습니다:\n\n1. 질의의 의미적 의도를 반영하여 검색 정확성을 향상시키기 위해서입니다. 가상 문서는 질의의 의미를 반영하여 생성되며, 이를 통해 키워드 기반 검색보다 의미적으로 더 적합한 문서를 찾을 수 있습니다.\n\n2. 초기 단계의 검색 정확도를 높여 오류 전파 문제를 완화하기 위해서입니다. 각 하위 질의마다 LLM이 생성한 가상의 이상적 문서를 활용함으로써 검색의 정확성을 높이고, 복잡한 다중 문서 참조 질의에 대응할 수 있습니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "answer_span": "HyDE 기법은 질문의 의미를 반영한 가상 문서를 생성하여 검색 정확성을 향상시키며, 이는 특히 초기 단계의 검색 정확도를 높여 오류 전파 문제를 완화한다.",
+      "ground_truth_by_paper": {
+        "paper_ko_hyde_multihop": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 다음과 같습니다:\n\n1. 질의의 의미적 의도를 반영하여 검색 정확성을 향상시키기 위해서입니다. 가상 문서는 질의의 의미를 반영하여 생성되며, 이를 통해 키워드 기반 검색보다 의미적으로 더 적합한 문서를 찾을 수 있습니다.\n\n2. 초기 단계의 검색 정확도를 높여 오류 전파 문제를 완화하기 위해서입니다. 각 하위 질의마다 LLM이 생성한 가상의 이상적 문서를 활용함으로써 검색의 정확성을 높이고, 복잡한 다중 문서 참조 질의에 대응할 수 있습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_hyde_multihop": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "HyDE 기반 멀티 홉 검색 기법에서 가상의 이상적 문서를 활용하는 이유는 다음과 같습니다:\n\n1. 질의의 의미적 의도를 반영하여 검색 정확성을 향상시키기 위해서입니다. 가상 문서는 질의의 의미를 반영하여 생성되며, 이를 통해 키워드 기반 검색보다 의미적으로 더 적합한 문서를 찾을 수 있습니다.\n\n2. 초기 단계의 검색 정확도를 높여 오류 전파 문제를 완화하기 위해서입니다. 각 하위 질의마다 LLM이 생성한 가상의 이상적 문서를 활용함으로써 검색의 정확성을 높이고, 복잡한 다중 문서 참조 질의에 대응할 수 있습니다."
+        }
+      }
+    },
+    {
+      "query": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 무엇인가요?",
+      "ground_truth": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 다음과 같습니다:\n\n1. 문맥의 일관성을 유지하지 못하여 성능에 부정적인 영향을 미칠 수 있습니다.\n2. 외부 지식과 내부 지식 간의 충돌이 발생할 수 있으며, 이로 인해 모델이 정확한 답변을 생성하지 못할 가능성이 있습니다.\n3. 확률이 낮은 토큰을 제거하지 않으면 모델이 혼동할 수 있는 토큰이 포함되어 신뢰할 수 있는 정보에 집중하지 못할 수 있습니다.\n4. 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못할 수 있습니다.",
+      "type": "simple_qa",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "디코딩 과정에서 발생하는 환각(hallucination)은 잘못된 토큰 선택으로 이어져 생성된 텍스트의 신뢰성을 저하시키는 문제가 있다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 다음과 같습니다:\n\n1. 문맥의 일관성을 유지하지 못하여 성능에 부정적인 영향을 미칠 수 있습니다.\n2. 외부 지식과 내부 지식 간의 충돌이 발생할 수 있으며, 이로 인해 모델이 정확한 답변을 생성하지 못할 가능성이 있습니다.\n3. 확률이 낮은 토큰을 제거하지 않으면 모델이 혼동할 수 있는 토큰이 포함되어 신뢰할 수 있는 정보에 집중하지 못할 수 있습니다.\n4. 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못할 수 있습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 다음과 같습니다:\n\n1. 문맥의 일관성을 유지하지 못하여 성능에 부정적인 영향을 미칠 수 있습니다.\n2. 외부 지식과 내부 지식 간의 충돌이 발생할 수 있으며, 이로 인해 모델이 정확한 답변을 생성하지 못할 가능성이 있습니다.\n3. 확률이 낮은 토큰을 제거하지 않으면 모델이 혼동할 수 있는 토큰이 포함되어 신뢰할 수 있는 정보에 집중하지 못할 수 있습니다.\n4. 단순히 문서를 추가하는 것만으로는 생성 결과에 충분한 영향을 미치지 못할 수 있습니다."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 무엇인가요?",
+      "ground_truth": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 다음과 같습니다:\n\n1. Context-Aware Decoding (CAD)는 모델의 원래 출력 확률 분포에서 발생하는 문제를 완화하기 위해 설계되었습니다.\n2. CAD는 모델의 이전 예측에 대한 사전 지식을 고려하고 이를 컨텍스트와 대조하여 조정합니다.\n3. 이 과정에서 점별 상호 정보(Pointwise Mutual Information, PMI)를 사용하여 출력 확률을 조정합니다.\n4. α 값을 조정하여 컨텍스트에 더 많은 가중치를 부여하고, 신뢰도가 낮은 컨텍스트의 토큰을 제거하여 신뢰 임계값을 충족하는 토큰만 유지합니다.",
+      "type": "section_method",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "이 방법은 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도한다. 제안된 기법은 LLaMA 기반 모델의 질의응답 작업에서 성능을 향상시킬 수 있었다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 다음과 같습니다:\n\n1. Context-Aware Decoding (CAD)는 모델의 원래 출력 확률 분포에서 발생하는 문제를 완화하기 위해 설계되었습니다.\n2. CAD는 모델의 이전 예측에 대한 사전 지식을 고려하고 이를 컨텍스트와 대조하여 조정합니다.\n3. 이 과정에서 점별 상호 정보(Pointwise Mutual Information, PMI)를 사용하여 출력 확률을 조정합니다.\n4. α 값을 조정하여 컨텍스트에 더 많은 가중치를 부여하고, 신뢰도가 낮은 컨텍스트의 토큰을 제거하여 신뢰 임계값을 충족하는 토큰만 유지합니다."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 다음과 같습니다:\n\n1. Context-Aware Decoding (CAD)는 모델의 원래 출력 확률 분포에서 발생하는 문제를 완화하기 위해 설계되었습니다.\n2. CAD는 모델의 이전 예측에 대한 사전 지식을 고려하고 이를 컨텍스트와 대조하여 조정합니다.\n3. 이 과정에서 점별 상호 정보(Pointwise Mutual Information, PMI)를 사용하여 출력 확률을 조정합니다.\n4. α 값을 조정하여 컨텍스트에 더 많은 가중치를 부여하고, 신뢰도가 낮은 컨텍스트의 토큰을 제거하여 신뢰 임계값을 충족하는 토큰만 유지합니다."
+        }
+      }
+    },
+    {
+      "query": "제안된 방법의 성능이 CAD와 비교했을 때 어떤 차이를 보였나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "section_result",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "Trivia QA 데이터셋에서 LLaMA2-7b 모델을 사용할 경우, 제안된 방법이 CAD와 그리디 디코딩보다 크게 성능이 향상된 것을 확인할 수 있었다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "본 연구의 주요 기여는 무엇인가요?",
+      "ground_truth": "본 연구의 주요 기여는 다음과 같습니다:\n\n1. 대규모 언어 모델의 환각 현상을 완화하기 위한 대조적 컨텍스트 인식 디코딩(Contrastive Context-Aware Decoding) 방법을 제안하였습니다.\n2. 이 방법은 낮은 확률의 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩함으로써, 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도합니다.\n3. 추가적인 검색 없이 기존의 검색된 컨텍스트를 재활용하여 모델이 내부 지식을 더 잘 반영할 수 있도록 하는 방안을 제시하였습니다.",
+      "type": "section_abstract",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "우리는 컨텍스트의 확률 분포를 기반으로 낮은 확률의 토큰을 제거하여 모델이 신뢰할 수 있는 부분만을 남기고, 필터링된 토큰과 온전한 컨텍스트를 합산하여 디코딩하는 새로운 기법을 제안한다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "본 연구의 주요 기여는 다음과 같습니다:\n\n1. 대규모 언어 모델의 환각 현상을 완화하기 위한 대조적 컨텍스트 인식 디코딩(Contrastive Context-Aware Decoding) 방법을 제안하였습니다.\n2. 이 방법은 낮은 확률의 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩함으로써, 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도합니다.\n3. 추가적인 검색 없이 기존의 검색된 컨텍스트를 재활용하여 모델이 내부 지식을 더 잘 반영할 수 있도록 하는 방안을 제시하였습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "본 연구의 주요 기여는 다음과 같습니다:\n\n1. 대규모 언어 모델의 환각 현상을 완화하기 위한 대조적 컨텍스트 인식 디코딩(Contrastive Context-Aware Decoding) 방법을 제안하였습니다.\n2. 이 방법은 낮은 확률의 토큰을 제거하고 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩함으로써, 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도합니다.\n3. 추가적인 검색 없이 기존의 검색된 컨텍스트를 재활용하여 모델이 내부 지식을 더 잘 반영할 수 있도록 하는 방안을 제시하였습니다."
+        }
+      }
+    },
+    {
+      "query": "이 논문에서 사용된 Contrastive CAD 방법은 어떤 문제를 완화하려고 하나요?",
+      "ground_truth": "이 논문에서 사용된 Contrastive CAD 방법은 모델이 외부 지식과 충돌하는 부분을 식별하고, 지식 충돌이 발생하는 지점을 파악하여 모델의 불확실성을 완화하려고 합니다. 또한, 수정된 컨텍스트와 원래의 입력을 병렬적으로 사용하여 보다 정확하고 일관된 답변을 생성하는 것을 목표로 합니다.",
+      "type": "cad_hallucination",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "이를 해결하기 위해 본 연구에서는 확률 분포를 기반으로 낮은 확률의 토큰을 제거하고, 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩하는 새로운 방식을 제안한다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "이 논문에서 사용된 Contrastive CAD 방법은 모델이 외부 지식과 충돌하는 부분을 식별하고, 지식 충돌이 발생하는 지점을 파악하여 모델의 불확실성을 완화하려고 합니다. 또한, 수정된 컨텍스트와 원래의 입력을 병렬적으로 사용하여 보다 정확하고 일관된 답변을 생성하는 것을 목표로 합니다."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "이 논문에서 사용된 Contrastive CAD 방법은 모델이 외부 지식과 충돌하는 부분을 식별하고, 지식 충돌이 발생하는 지점을 파악하여 모델의 불확실성을 완화하려고 합니다. 또한, 수정된 컨텍스트와 원래의 입력을 병렬적으로 사용하여 보다 정확하고 일관된 답변을 생성하는 것을 목표로 합니다."
+        }
+      }
+    },
+    {
+      "query": "대조 디코딩에 대한 연구는 어떤 문헌을 기반으로 하고 있나요?",
+      "ground_truth": "문서에서 확인할 수 없음.",
+      "type": "citation",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "[1] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eis- ner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, “Contrastive decoding: Open-ended text generation as optimization,” Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Vol- ume 1: Long Papers), A. Rogers, J. Boyd-Graber, and N. Okazaki, Eds., pp. 12 286–12 312, Jul. 2023.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "문서에서 확인할 수 없음."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "문서에서 확인할 수 없음."
+        }
+      }
+    },
+    {
+      "query": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 무엇인가요?",
+      "ground_truth": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 다음과 같습니다:\n\n1. 확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지할 수 있습니다.\n2. 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 합니다.\n3. 이러한 방식으로 재구성된 컨텍스트는 신뢰 임계값을 충족하는 토큰만을 유지하게 되어, 모델의 성능을 향상시킬 수 있습니다.",
+      "type": "cad_ablation",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "answer_span": "확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지하고, 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 한다. 이를 통해 제안된 디코딩 방식이 효과적임을 확인할 수 있다.",
+      "ground_truth_by_paper": {
+        "paper_ko_cad_contrastive": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 다음과 같습니다:\n\n1. 확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지할 수 있습니다.\n2. 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 합니다.\n3. 이러한 방식으로 재구성된 컨텍스트는 신뢰 임계값을 충족하는 토큰만을 유지하게 되어, 모델의 성능을 향상시킬 수 있습니다."
+      },
+      "_gt_meta": {
+        "paper_ko_cad_contrastive": {
+          "aux_query_en": "",
+          "normalization_applied": false,
+          "normalization_failed": false,
+          "requires_review": false,
+          "gt_raw": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 다음과 같습니다:\n\n1. 확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지할 수 있습니다.\n2. 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 합니다.\n3. 이러한 방식으로 재구성된 컨텍스트는 신뢰 임계값을 충족하는 토큰만을 유지하게 되어, 모델의 성능을 향상시킬 수 있습니다."
+        }
+      }
+    }
+  ],
+  "failures": []
+}
