@@ -25,6 +25,8 @@ backend/evaluation/data/pseudo_gt.json
 # pseudo_gt_track1/2.json and track1_queries.json are committed after generation
 # so re-runs can skip expensive GPT-4o GT generation steps
 backend/evaluation/data/track1_crag_translated.json
+# archive/ snapshots are local-only (too large for git; use pull_alice_results.sh)
+backend/evaluation/archive/
 
 # Models (downloaded at runtime)
 *.bin
