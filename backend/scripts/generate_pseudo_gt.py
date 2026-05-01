@@ -70,13 +70,15 @@ _TRANSLATE_QUERY_PROMPT = (
 )
 
 # English-body paper doc_ids
-_ENGLISH_BODY_PAPERS = frozenset({
-    "paper_nlp_bge",
-    "paper_nlp_rag",
-    "paper_nlp_cad",
-    "paper_nlp_raptor",
-    "paper_midm",
-})
+_ENGLISH_BODY_PAPERS = frozenset(
+    {
+        "paper_nlp_bge",
+        "paper_nlp_rag",
+        "paper_nlp_cad",
+        "paper_nlp_raptor",
+        "paper_midm",
+    }
+)
 
 _KOREAN_CHAR_RE = re.compile(r"[\uac00-\ud7a3]")
 
@@ -159,6 +161,30 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Process at most N queries (0 = no limit). "
             "Useful for small-sample testing before a full run."
+        ),
+    )
+    parser.add_argument(
+        "--types",
+        default="",
+        help=(
+            "Comma-separated list of query types to include (e.g. citation,crosslingual_ko). "
+            "Empty string = all types."
+        ),
+    )
+    parser.add_argument(
+        "--papers",
+        default="",
+        help=(
+            "Comma-separated list of paper doc_ids to include "
+            "(e.g. paper_nlp_bge,paper_midm). Empty string = all papers."
+        ),
+    )
+    parser.add_argument(
+        "--no-overwrite",
+        action="store_true",
+        help=(
+            "Abort if the output file already exists. "
+            "Prevents accidental overwrite of a completed GT file."
         ),
     )
     parser.add_argument(
@@ -285,7 +311,11 @@ def _is_korean_answer(text: str) -> bool:
     total_alpha = sum(1 for ch in text if ch.isalpha())
     if total_alpha == 0:
         return True  # numbers/symbols only — not a language issue
-    return korean_chars / total_alpha >= 0.15
+    # If the answer is mostly English technical terms or citations, it might have low Korean ratio.
+    # We increase the threshold slightly but check if it's purely English (no Korean at all).
+    if korean_chars == 0 and total_alpha > 5:
+        return False
+    return True
 
 
 def _get_openai_client(api_key: str):
@@ -529,6 +559,13 @@ def main() -> int:
         print(f"Input file not found: {args.input}", file=sys.stderr)
         return 1
 
+    if args.no_overwrite and args.output.exists():
+        print(
+            f"ERROR: Output file already exists and --no-overwrite is set: {args.output}",
+            file=sys.stderr,
+        )
+        return 1
+
     use_openai = bool(args.gt_model)
     if use_openai:
         if not args.openai_api_key:
@@ -554,13 +591,43 @@ def main() -> int:
         )
     else:
         print(f"Found {len(targets)} queries with empty ground_truth.")
+
+    # --types filter
+    filter_types: set[str] = set()
+    if args.types:
+        filter_types = {t.strip() for t in args.types.split(",") if t.strip()}
+        targets = [i for i in targets if str(i.get("type", "")) in filter_types]
+        print(f"Type filter {filter_types}: {len(targets)} queries remaining.")
+
+    # --papers filter
+    filter_papers: set[str] = set()
+    if args.papers:
+        filter_papers = {p.strip() for p in args.papers.split(",") if p.strip()}
+        targets = [
+            i
+            for i in targets
+            if any(p in filter_papers for p in (i.get("applicable_papers") or []))
+        ]
+        print(f"Paper filter {filter_papers}: {len(targets)} queries remaining.")
+
     if args.limit > 0:
         targets = targets[: args.limit]
         print(f"Limiting to {len(targets)} queries (--limit {args.limit}).")
     if args.dry_run:
         for index, item in enumerate(targets, start=1):
-            print(f"Query {index}/{len(targets)}: {item.get('query', '')}")
-        print("Dry run complete. No API calls were made and no files were modified.")
+            query = str(item.get("query", ""))
+            qtype = item.get("type", "?")
+            papers = item.get("applicable_papers") or []
+            is_en = any(_is_english_body_paper(p) for p in papers)
+            doc_lang = "en" if is_en else "ko"
+            print(
+                f"[{index:03d}] type={qtype:<20} doc_lang={doc_lang}  "
+                f"papers={papers}  query={query[:60]}"
+            )
+        print(
+            f"\nDry run complete. {len(targets)} queries listed. "
+            "No API calls were made and no files were modified."
+        )
         return 0
 
     if not args.token and not use_openai:
@@ -739,7 +806,7 @@ def main() -> int:
                             "normalization_applied": normalization_applied,
                             "normalization_failed": normalization_failed,
                             "requires_review": normalization_failed,
-                            "gt_raw": gt_raw if normalization_applied or normalization_failed else "",
+                            "gt_raw": gt_raw,  # Always store raw GT for traceability
                         }
                     else:
                         answer = _query_api(
@@ -799,8 +866,8 @@ def main() -> int:
                                 pass
                         else:
                             print(
-                                f"  WARNING: non-paper GT is still non-Korean. "
-                                f"Requires review.",
+                                "  WARNING: non-paper GT is still non-Korean. "
+                                "Requires review.",
                                 file=sys.stderr,
                                 flush=True,
                             )

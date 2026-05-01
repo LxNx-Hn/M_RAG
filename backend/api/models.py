@@ -129,6 +129,7 @@ try:
 
     class Session(Base):
         """A study session groups papers and conversations together."""
+
         __tablename__ = "sessions"
 
         id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

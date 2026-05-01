@@ -28,7 +28,14 @@ from api.database import get_engine, init_db
 from api.dependencies import modules
 from api.limiter import limiter
 from api.routers import auth as auth_router
-from api.routers import chat, citations, conversations, history as history_router, papers, sessions
+from api.routers import (
+    chat,
+    citations,
+    conversations,
+    history as history_router,
+    papers,
+    sessions,
+)
 from api.schemas import HealthResponse
 
 
@@ -104,10 +111,6 @@ def parse_cors_credentials(origins: list[str]) -> bool:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     load_gpu = os.environ.get("LOAD_GPU_MODELS", "true").lower() == "true"
-    if not load_gpu:
-        raise RuntimeError(
-            "LOAD_GPU_MODELS=false is no longer supported. This service requires the generator runtime."
-        )
     logger.info(json.dumps({"event": "startup", "gpu_models": load_gpu}))
     modules.initialize(load_gpu_models=load_gpu)
     await init_db()

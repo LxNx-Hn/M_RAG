@@ -7,6 +7,7 @@ Usage:
 
 Protected accounts (safelist) are never deleted.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -20,9 +21,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 
-SAFELIST_EMAILS = frozenset({
-    "runner@mrag.local",
-})
+SAFELIST_EMAILS = frozenset(
+    {
+        "runner@mrag.local",
+    }
+)
 
 INACTIVE_DAYS = 30
 
@@ -30,14 +33,20 @@ INACTIVE_DAYS = 30
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Remove inactive users")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--dry-run", action="store_true", help="Preview without deleting")
+    group.add_argument(
+        "--dry-run", action="store_true", help="Preview without deleting"
+    )
     group.add_argument("--execute", action="store_true", help="Actually delete users")
     parser.add_argument(
-        "--days", type=int, default=INACTIVE_DAYS,
+        "--days",
+        type=int,
+        default=INACTIVE_DAYS,
         help=f"Inactivity threshold in days (default: {INACTIVE_DAYS})",
     )
     parser.add_argument(
-        "--exclude-email", action="append", default=[],
+        "--exclude-email",
+        action="append",
+        default=[],
         help="Additional email addresses to protect from deletion",
     )
     return parser.parse_args()
@@ -91,7 +100,9 @@ def main() -> int:
 
         print("Users to delete:")
         for u in candidates:
-            print(f"  - {u.email} (created: {u.created_at}, last_login: {u.last_login_at})")
+            print(
+                f"  - {u.email} (created: {u.created_at}, last_login: {u.last_login_at})"
+            )
 
         if args.dry_run:
             print("\nDry run complete. No users were deleted.")

@@ -22,7 +22,10 @@ MAX_PAPERS_PER_SESSION = 30
 
 # Auto icon selection based on paper title keywords
 _ICON_RULES = [
-    ({"nlp", "language", "text", "bert", "gpt", "llm", "transformer", "embedding"}, "📝"),
+    (
+        {"nlp", "language", "text", "bert", "gpt", "llm", "transformer", "embedding"},
+        "📝",
+    ),
     ({"ai", "ml", "machine", "learning", "neural", "deep", "model"}, "🤖"),
     ({"medical", "health", "clinical", "patient", "disease"}, "🏥"),
     ({"law", "legal", "court", "regulation"}, "⚖️"),
@@ -76,15 +79,17 @@ async def list_sessions(
         )
         paper_count = paper_count_result.scalar() or 0
 
-        items.append({
-            "id": s.id,
-            "title": s.title,
-            "icon": s.icon,
-            "collection_name": s.collection_name,
-            "paper_count": paper_count,
-            "created_at": s.created_at.isoformat() if s.created_at else None,
-            "updated_at": s.updated_at.isoformat() if s.updated_at else None,
-        })
+        items.append(
+            {
+                "id": s.id,
+                "title": s.title,
+                "icon": s.icon,
+                "collection_name": s.collection_name,
+                "paper_count": paper_count,
+                "created_at": s.created_at.isoformat() if s.created_at else None,
+                "updated_at": s.updated_at.isoformat() if s.updated_at else None,
+            }
+        )
 
     return {"sessions": items}
 
@@ -120,8 +125,12 @@ async def create_session(
         "icon": session_obj.icon,
         "collection_name": session_obj.collection_name,
         "paper_count": 0,
-        "created_at": session_obj.created_at.isoformat() if session_obj.created_at else None,
-        "updated_at": session_obj.updated_at.isoformat() if session_obj.updated_at else None,
+        "created_at": (
+            session_obj.created_at.isoformat() if session_obj.created_at else None
+        ),
+        "updated_at": (
+            session_obj.updated_at.isoformat() if session_obj.updated_at else None
+        ),
     }
 
 

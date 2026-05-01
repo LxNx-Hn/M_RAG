@@ -7,7 +7,7 @@ import re
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
-from sqlalchemy import delete, select
+from sqlalchemy import select
 
 from api.auth import (
     create_access_token,
@@ -19,7 +19,7 @@ from api.auth import (
 )
 from api.database import get_db
 from api.limiter import limiter
-from api.models import Conversation, Message, Paper, RevokedToken, Session, User
+from api.models import User
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -101,6 +101,7 @@ async def login(request: Request, req: LoginRequest, db=Depends(get_db)):
 
         # Update last login timestamp
         from datetime import datetime, timezone
+
         user.last_login_at = datetime.now(timezone.utc)
         await db.commit()
         await db.refresh(user)
