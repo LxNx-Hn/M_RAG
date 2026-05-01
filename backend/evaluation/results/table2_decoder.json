@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "mode": "decoder",
+    "api_base": "http://localhost:8000",
+    "collection_name": "papers",
+    "papers": [
+      "paper_nlp_cad",
+      "paper_ko_cad_contrastive"
+    ],
+    "generated_at": "2026-05-01T11:35:11.033369",
+    "resume": true,
+    "config_names": []
+  },
+  "results": {
+    "paper_nlp_cad": {
+      "Baseline (no decoder)": {
+        "config": "Baseline (no decoder)",
+        "paper": "paper_nlp_cad",
+        "language_drift_rate": 0.125,
+        "numeric_hallucination_rate": 1.0,
+        "faithfulness": 0.8125,
+        "answer_relevancy": 1.0,
+        "context_precision": 0.4375,
+        "context_recall": 0.4375,
+        "overall": 0.671875,
+        "status": "completed"
+      },
+      "CAD only (alpha=0.5)": {
+        "config": "CAD only (alpha=0.5)",
+        "paper": "paper_nlp_cad",
+        "language_drift_rate": 0.0,
+        "numeric_hallucination_rate": 0.6666666666666666,
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.875,
+        "context_precision": 0.4375,
+        "context_recall": 0.4375,
+        "overall": 0.65625,
+        "status": "completed"
+      },
+      "SCD only (beta=0.3)": {
+        "config": "SCD only (beta=0.3)",
+        "paper": "paper_nlp_cad",
+        "language_drift_rate": 0.125,
+        "numeric_hallucination_rate": 1.0,
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.9375,
+        "context_precision": 0.4375,
+        "context_recall": 0.4375,
+        "overall": 0.671875,
+        "status": "completed"
+      },
+      "CAD+SCD (alpha=0.5, beta=0.3)": {
+        "config": "CAD+SCD (alpha=0.5, beta=0.3)",
+        "paper": "paper_nlp_cad",
+        "language_drift_rate": 0.0,
+        "numeric_hallucination_rate": 1.0,
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8125,
+        "context_precision": 0.4375,
+        "context_recall": 0.4375,
+        "overall": 0.640625,
+        "status": "completed"
+      }
+    },
+    "paper_ko_cad_contrastive": {
+      "Baseline (no decoder)": {
+        "config": "Baseline (no decoder)",
+        "paper": "paper_ko_cad_contrastive",
+        "language_drift_rate": 0.14285714285714285,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 0.9285714285714286,
+        "context_precision": 0.35714285714285715,
+        "context_recall": 0.42857142857142855,
+        "overall": 0.6607142857142857,
+        "status": "completed"
+      },
+      "CAD only (alpha=0.5)": {
+        "config": "CAD only (alpha=0.5)",
+        "paper": "paper_ko_cad_contrastive",
+        "language_drift_rate": 0.14285714285714285,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 0.8571428571428571,
+        "context_precision": 0.35714285714285715,
+        "context_recall": 0.42857142857142855,
+        "overall": 0.6428571428571428,
+        "status": "completed"
+      },
+      "SCD only (beta=0.3)": {
+        "config": "SCD only (beta=0.3)",
+        "paper": "paper_ko_cad_contrastive",
+        "language_drift_rate": 0.14285714285714285,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 0.9285714285714286,
+        "context_precision": 0.35714285714285715,
+        "context_recall": 0.42857142857142855,
+        "overall": 0.6607142857142857,
+        "status": "completed"
+      },
+      "CAD+SCD (alpha=0.5, beta=0.3)": {
+        "config": "CAD+SCD (alpha=0.5, beta=0.3)",
+        "paper": "paper_ko_cad_contrastive",
+        "language_drift_rate": 0.14285714285714285,
+        "numeric_hallucination_rate": 0.0,
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 0.9285714285714286,
+        "context_precision": 0.35714285714285715,
+        "context_recall": 0.42857142857142855,
+        "overall": 0.6607142857142857,
+        "status": "completed"
+      }
+    }
+  }
+}
