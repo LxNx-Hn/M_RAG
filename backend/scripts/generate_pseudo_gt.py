@@ -27,7 +27,10 @@ PLACEHOLDER_PAPER_RE = re.compile(f"({PLACEHOLDER_PAPER_PATTERN})")
 _TYPE_TO_SECTION: dict[str, str] = {
     "section_method": "method",
     "section_result": "result",
-    "section_abstract": "abstract",
+    # Most papers do not tag an "abstract" section; use "introduction" instead.
+    # The fallback in _search_contexts will drop to no-filter if introduction
+    # also returns nothing, ensuring we always get some context.
+    "section_abstract": "introduction",
     "section_conclusion": "conclusion",
     "section_limit": "discussion",
 }
