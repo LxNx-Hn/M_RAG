@@ -1,0 +1,16 @@
+experiment: appendix-cad-scd-sensitivity
+status: appendix-only-placeholder
+main_thesis_path: false
+purpose: Future appendix sensitivity analysis after the main 8-config matrix.
+rules:
+  - Do not tune on decoder_main_queries.
+  - Do not tune on query_type_analysis_queries.
+  - Do not tune on candidate_final_eval_queries.
+  - If a parameter changes after tuning, rerun the full main matrix.
+candidate_ranges:
+  cad_alpha: [0.3, 0.5, 0.7]
+  scd_beta: [0.1, 0.3, 0.5]
+frozen_main_defaults:
+  cad_alpha: 0.5
+  scd_beta: 0.3
+

@@ -184,7 +184,7 @@ bash scripts/experiments/rerun_cad_affected.sh
 - `git pull --ff-only origin main`
 - SQLite + Base 모델 기준 API 서버 기동
 - runner 계정으로 토큰 획득 (register-or-login)
-- Track 1 Full System 재실행
+- 기존 Track 1 combined-config 재실행
 - Track 1 decoder 중 CAD 영향 config 재실행
 - Track 1 alpha/beta sweep 재실행
 - Track 2 domain 재실행

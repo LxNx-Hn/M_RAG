@@ -1,45 +1,64 @@
 # M-RAG
 
-M-RAG는 교차 언어 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다. 질문 유형을 A~F 경로로 라우팅하고, BGE-M3 기반 검색, BM25, RRF, reranker, context compression, MIDM Base 생성, CAD/SCD 생성 제어를 결합한다.
+M-RAG is a Korean-query academic paper QA project. The current thesis direction is a HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated on a fixed Paper-RAG backbone.
 
-## 핵심
+The FastAPI + React application remains a graduation-project service integration layer. Its A-F routed paper-review features are preserved, but they are not the core thesis algorithm.
 
-- 논문 기본 모델은 `K-intelligence/Midm-2.0-Base-Instruct`
-- Mini 모델은 로컬 스모크 검증용
-- 논문 실험 빠른 실행은 SQLite + SQLAlchemy
-- 운영/서비스 경로는 PostgreSQL + SQLAlchemy
-- 논문 실험 경로는 MIDM Base 직접 디코딩을 기준으로 함
-- 실험 코퍼스: 8편
-  - 영어 본문: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm
-  - 한국어 본문: paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
-  - `paper_midm`은 한국어 도메인 기술 보고서이지만 본문 언어는 영어로 취급한다
-  - `paper_ko_hyde_multihop`은 HyDE 기반 멀티 홉 검색 논문 자산을 사용한다
+## Thesis Direction
 
-## 주요 기능
+Main research contribution:
 
-- PDF/DOCX/TXT 업로드
-- 사용자별 문서 collection 격리
-- A~F 질의 라우팅
-- Hybrid retrieval + reranker
-- CAD 기반 환각 억제
-- SCD 기반 언어 이탈 억제
-- 인용/특허 추적
-- 퀴즈/플래시카드 생성
-- SSE 스트리밍
-- Judge/Search/PPT Export API
+```text
+HyDE × CAD × SCD factor analysis in Korean-query / English-paper RAG
+```
 
-## 평가 구조
+Core rules:
 
-- Track 1: 논문별 특화 쿼리로 각 문서 안에서 config 성능을 비교한다
-- Track 2: 공통 쿼리셋으로 config 차이만 비교한다
-  - 영어 본문 그룹 28개
-  - 한국어 본문 그룹 28개
-  - 총 56개 checked-in query asset
-  - 이 자산은 비교 조건을 고정하는 구조적 사실이다
-  - 실제 answerability와 CAD gap은 `pseudo_gt_track2.json`,
-    `table3_domain.json`으로 별도 측정한다
+- HyDE is the retrieval-side expansion axis.
+- CAD is the context-faithfulness decoding axis.
+- SCD is Korean-target Soft Constrained Decoding for language-drift control.
+- The main matrix varies only HyDE on/off, CAD on/off, and SCD on/off.
+- No result values should be claimed until verified experiment artifacts exist.
 
-## 빠른 실행
+## Main Experiment
+
+The separated experiment framework lives in `experiments/`.
+
+Required 8-config matrix:
+
+| Config |
+|---|
+| `hyde_off__no_decoder_control` |
+| `hyde_off__cad_only` |
+| `hyde_off__scd_only` |
+| `hyde_off__cad_scd` |
+| `hyde_on__no_decoder_control` |
+| `hyde_on__cad_only` |
+| `hyde_on__scd_only` |
+| `hyde_on__cad_scd` |
+
+Parameter freeze rule:
+
+- Tune only on `tuning_queries`.
+- Freeze `top_k`, `rerank_top_n`, `cad_alpha`, `scd_beta`, HyDE prompt/template, and generation settings before the main matrix.
+- Do not tune on main, query-type analysis, or final-eval candidate queries.
+
+## Service Features
+
+The product runtime keeps the A-F paper-review routes:
+
+- A: simple QA.
+- B: section-focused QA.
+- C: document comparison.
+- D: citation / patent-oriented lookup.
+- E: structured summary.
+- F: quiz / flashcard generation.
+
+These are service features. The route policy should be derived from the HyDE/CAD/SCD analysis by query type.
+
+## Quick Setup
+
+Backend:
 
 ```powershell
 cd C:\Users\KiKi\Desktop\CODE\M_RAG
@@ -49,103 +68,66 @@ pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install -r backend\requirements.txt
 ```
 
+Frontend:
+
 ```powershell
-cd backend
-$env:JWT_SECRET_KEY = "mrag-experiment-local-secret-2026"
-$env:LOAD_GPU_MODELS = "true"
-$env:OPENAI_API_KEY = "sk-..."
-python scripts\download_test_papers.py --dry-run
-python scripts\download_test_papers.py
-python scripts\master_run.py --skip-download
+cd frontend
+npm ci
 ```
 
-## 개발 서버
+## Development Servers
+
+Backend:
 
 ```powershell
 cd backend
 $env:JWT_SECRET_KEY = "change-this-secret"
 $env:LOAD_GPU_MODELS = "true"
-uvicorn api.main:app --host 0.0.0.0 --port 8000
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
+
+Frontend:
 
 ```powershell
 cd frontend
 npm run dev
 ```
 
-## 문서 구조
+## Safe Validation
 
-| 경로 | 역할 |
+Compile and dry-run checks:
+
+```powershell
+python -m compileall backend experiments
+python experiments/runners/dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
+python experiments/runners/dry_run_matrix.py --experiment all --estimate-cost --dry-run
+```
+
+Frontend validation, if dependencies are already installed:
+
+```powershell
+cd frontend
+npm run typecheck
+# or
+npm run build
+```
+
+## Important Paths
+
+| Path | Role |
 |---|---|
-| `docs/PAPER` | 논문 본문, 전체 설계 기준, PPT 요약 |
-| `docs/EXPLAIN` | 비전공자용 상세 설명 |
-| `docs/USAGE` | 실행, 배포, 테스트, DB 사용법 |
-| `docs/ARCHITECTURE.md` | 코드 기준 시스템 구조 |
-| `docs/FEATURES.md` | 기능 목록과 코드 근거 |
+| `docs/PAPER/THESIS.md` | thesis draft aligned to the HyDE/CAD/SCD direction |
+| `docs/PAPER/GUIDE_ORIGINAL.md` | Phase 5 thesis and experiment guide |
+| `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |
+| `experiments/configs/fixed_backbone.yaml` | fixed Paper-RAG backbone config |
+| `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |
+| `experiments/data/query_audit.json` | audited existing query assets |
+| `experiments/data/query_splits/` | tuning/main/query-type/final/service splits |
+| `backend/api/` | FastAPI service |
+| `backend/modules/` | service modules and generation controls |
+| `backend/pipelines/` | A-F service route pipelines |
+| `frontend/src/` | React application |
 
-## 주요 문서
+## Safety
 
-- `docs/PAPER/GUIDE_ORIGINAL.md` 전체 설계 기준 문서
-- `docs/PAPER/THESIS.md` 논문 본문 초안
-- `docs/EXPLAIN/README.md` 설명 문서 읽는 순서
-- `docs/EXPLAIN/TERMS_GLOSSARY_KO.md` 용어사전
-- `docs/EXPLAIN/ROUTE_MODULE_MATRIX_KO.md` A~F 경로별 모듈 동작
-- `docs/EXPLAIN/TABLE_INTERPRETATION_GUIDE.md` 실험표 해석
-- `docs/USAGE/DEPLOY.md` 로컬/배포 실행
-- `docs/USAGE/RUNPOD_A100_NO_SSH.md` RunPod 실행
-- `docs/USAGE/ALICE_CLOUD_GUIDE.md` Alice Cloud 실행
-
-## 결과 위치
-
-- `backend/evaluation/results/*.json`
-- `backend/evaluation/results/TABLES.md`
-- `backend/scripts/master_run.log`
-
-## 코드 맵
-
-### Backend API
-
-- `backend/api/main.py` FastAPI entrypoint
-- `backend/api/auth.py` JWT auth and token revoke
-- `backend/api/database.py` SQLAlchemy engine/session
-- `backend/api/models.py` User, Conversation, Message, Paper, RevokedToken
-- `backend/api/routers/papers.py` upload/list/delete papers
-- `backend/api/routers/chat.py` query, stream, search, judge, PPT export
-- `backend/api/routers/citations.py` citation APIs
-- `backend/api/routers/history.py` conversation history
-
-### Backend Modules
-
-- `backend/modules/query_router.py` A~F route decision
-- `backend/modules/hybrid_retriever.py` dense + BM25 + RRF
-- `backend/modules/reranker.py` cross-encoder reranking
-- `backend/modules/generator.py` MIDM generation
-- `backend/modules/cad_decoder.py` CAD
-- `backend/modules/scd_decoder.py` SCD
-- `backend/modules/followup_generator.py` 후속 질문 생성
-- `backend/modules/pptx_exporter.py` PPT export
-
-### Pipelines
-
-- `backend/pipelines/pipeline_a_simple_qa.py`
-- `backend/pipelines/pipeline_b_section.py`
-- `backend/pipelines/pipeline_c_compare.py`
-- `backend/pipelines/pipeline_d_citation.py`
-- `backend/pipelines/pipeline_e_summary.py`
-- `backend/pipelines/pipeline_f_quiz.py` 퀴즈/플래시카드 생성 경로
-
-### Experiment
-
-- `backend/scripts/master_run.py`
-- `backend/scripts/download_test_papers.py`
-- `backend/scripts/generate_queries.py`
-- `backend/evaluation/run_track1.py`
-- `backend/evaluation/run_track2.py`
-- `backend/evaluation/ragas_eval.py`
-- `backend/scripts/results_to_markdown.py`
-
-## Alice 실행 메모
-
-- Alice에서는 `backend/run_alice_full.sh`를 단일 진입점으로 사용한다
-- `python scripts/master_run.py ...` 백그라운드 실행과 `run_alice_full.sh` 동시 실행은 금지한다
-- 새 런 전에는 `backend/scripts/master_run.lock`, `backend/scripts/master_run.log`, `backend/evaluation/data/track1_queries.json`, `backend/evaluation/data/pseudo_gt_track1.json`, `backend/evaluation/data/pseudo_gt_track2.json` 정리 여부를 확인한다
+Do not run real experiments, model calls, OpenAI calls, RAGAS execution, or GT regeneration unless explicitly approved. Do not fabricate queries or result values.

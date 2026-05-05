@@ -45,7 +45,7 @@ class QueryExpander:
         return self.generator.generate_simple(prompt)
 
     def expand_multi_query(self, query: str, n_queries: int = 3) -> list[str]:
-        """RAG-Fusion style query paraphrasing."""
+        """Optional multi-query paraphrasing, not part of the main HyDE axis."""
         prompt = (
             f"아래 학술 질문을 검색에 유리하도록 {n_queries}가지 다른 표현으로 "
             "바꿔주세요.\n"

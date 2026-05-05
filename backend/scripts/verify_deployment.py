@@ -108,7 +108,7 @@ def check_pipelines() -> str:
 
 @check("evaluation imports")
 def check_evaluation() -> str:
-    from evaluation.ragas_eval import RAGASEvaluator, load_test_queries
+    from evaluation.ragas_eval import RAGASInspiredEvaluator, load_test_queries
     from evaluation.decoder_ablation import (
         DecoderAblationStudy,
         compare_cad_on_off,
@@ -123,7 +123,7 @@ def check_evaluation() -> str:
     assert all(
         item is not None
         for item in (
-            RAGASEvaluator,
+            RAGASInspiredEvaluator,
             load_test_queries,
             DecoderAblationStudy,
             compare_cad_on_off,

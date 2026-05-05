@@ -1,0 +1,17 @@
+metrics:
+  official_ragas_planned:
+    - faithfulness
+    - answer_relevancy
+    - context_precision
+    - context_recall
+  local_or_lightweight_planned:
+    - numeric_hallucination_rate
+    - language_drift_rate
+    - korean_answer_ratio
+    - evidence_support
+    - answer_span_hit_at_k
+boundaries:
+  decoder_modules_compute_final_metrics: false
+  evaluator_layer_computes_final_metrics: true
+dry_run_only_in_phase4: true
+

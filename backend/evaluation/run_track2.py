@@ -23,7 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 _ragas_module = import_module("evaluation.ragas_eval")
 EvalSample = _ragas_module.EvalSample
-RAGASEvaluator = _ragas_module.RAGASEvaluator
+RAGASInspiredEvaluator = _ragas_module.RAGASInspiredEvaluator
 _openai_judge_module = import_module("evaluation.openai_judge")
 OpenAIJudgeConfig = _openai_judge_module.OpenAIJudgeConfig
 judge_with_openai = _openai_judge_module.judge_with_openai
@@ -187,7 +187,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--judge-model",
         default=os.environ.get("OPENAI_JUDGE_MODEL", ""),
-        help="Optional OpenAI judge model for RAGAS-style evaluation, e.g. gpt-4o.",
+        help="Optional OpenAI judge model for lightweight judge evaluation, e.g. gpt-4o.",
     )
     parser.add_argument(
         "--openai-api-key",
@@ -341,7 +341,7 @@ def judge_text(ctx: RunContext, prompt: str, labels: list[str] | None = None) ->
 
 
 def evaluate_samples(ctx: RunContext, samples: list[EvalSample]) -> dict[str, Any]:
-    evaluator = RAGASEvaluator(
+    evaluator = RAGASInspiredEvaluator(
         judge_fn=lambda prompt, labels=None: judge_text(ctx, prompt, labels)
     )
     return evaluator.evaluate(samples)

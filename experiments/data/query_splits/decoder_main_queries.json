@@ -1,0 +1,596 @@
+{
+  "schema_version": "phase4.query_split.v1",
+  "split": "decoder_main_queries",
+  "count": 31,
+  "queries": [
+    {
+      "query_id": "track1_0009",
+      "query": "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0010",
+      "query": "RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0011",
+      "query": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 무엇입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0012",
+      "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0013",
+      "query": "Naive RAG에서 LLM의 응답 생성 시 발생할 수 있는 문제는 무엇입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "In generating responses, the model may face the issue of hallucination, where it produces content not supported by the retrieved context.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0014",
+      "query": "RAG 연구에서 'Raft: Adapting language model to domain specific rag' 논문을 인용한 부분은 어디입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "T. Zhang, S. G. Patil, N. Jain, S. Shen, M. Zaharia, I. Stoica, and J. E. Gonzalez, “Raft: Adapting language model to domain specific rag,” arXiv preprint arXiv:2403.10131, 2024.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0015",
+      "query": "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "the aspects of Retrieval, Generation and Augmentation",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0016",
+      "query": "RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0017",
+      "query": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "LLaMA (Touvron et al., 2023) is presented with a latest document “Argentina won the FIFA World Cups in 1978,1986 and 2022 ...” in its context (Figure 1), it still predicts “Two” in response to the question “How many World Cups have Argentina won?”, due in part to the outdated training data.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0018",
+      "query": "Context-aware Decoding (CAD) 방법은 어떻게 작동하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "To mitigate such issues, we factor out the prior knowledge from the model’s original output distribution contrastively. Here, we model the prior knowledge as pθ(yt ∣x, y<t) and adjust the model’s original output probability distribution using the pointwise mutual information (PMI) between the context c and the generation yt, conditioned on x, y<t. Formally, we have: yt ∼˜pθ(yt ∣c, x, y<t) ∝pθ(yt ∣c, x, y<t) (pθ(yt ∣c, x, y<t) / pθ(yt ∣x, y<t) ) α",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0019",
+      "query": "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0020",
+      "query": "이 연구의 핵심 주장은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0021",
+      "query": "CAD는 어떻게 잘못된 정보 생성을 줄이나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0022",
+      "query": "XSUM 데이터셋의 출처는 어디인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Shashi Narayan, Shay B. Cohen, and Mirella Lapata. 2018. Don’t give me the details, just the summary! topic-aware convolutional neural networks for extreme summarization. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, pages 1797–1807, Brussels, Belgium. Association for Computational Linguistics.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0023",
+      "query": "CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022).",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0024",
+      "query": "CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021).",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0025",
+      "query": "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0026",
+      "query": "RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0027",
+      "query": "RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022).",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0028",
+      "query": "RAPTOR의 새로운 접근 방식은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0029",
+      "query": "RAPTOR의 클러스터링에서 각 노드는 반드시 하나의 클러스터에만 속해야 하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "One of the unique aspects of our clustering approach is the use of soft clustering, where nodes can belong to multiple clusters without requiring a fixed number of clusters.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0030",
+      "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Lewis et al., 2020",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0031",
+      "query": "RAPTOR 트리 내에서 쿼리를 수행하기 위해 도입된 두 가지 전략은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "For querying within this tree, we introduce two distinct strategies: tree traversal and collapsed tree.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0032",
+      "query": "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0033",
+      "query": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "32B parameters",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0034",
+      "query": "Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "abstract syntax tree (AST) analysis for code",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0035",
+      "query": "Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "sets state-of-the-art results on Korean-specific benchmarks",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0036",
+      "query": "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "address enterprise-grade complexity through reasoning-focused optimization",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0037",
+      "query": "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "128K context window",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0038",
+      "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71760",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    },
+    {
+      "query_id": "track1_0040",
+      "query": "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+    }
+  ]
+}

@@ -598,11 +598,11 @@ alpha가 너무 작으면: 억제 효과가 약해 환각 발생
 
 ---
 
-## SCD (Selective Context-aware Decoding)
+## SCD (Korean-target Soft Constrained Decoding)
 
 ### 정의
 
-답변 생성 중 목표 언어(한국어)가 아닌 토큰이 출력되려 할 때, 그 토큰의 확률에 페널티(β)를 적용해 Language Drift를 줄이는 방법이다.
+답변 생성 중 목표 언어(한국어)가 아닌 토큰이 출력되려 할 때, 그 토큰의 확률에 부드러운 페널티(β)를 적용해 Language Drift를 줄이는 방법이다. 단, 모델명, 데이터셋명, 수식, 약어, 논문 제목 같은 기술 용어는 whitelist로 보존해야 한다.
 
 ### 수식
 
@@ -694,8 +694,8 @@ SCD 적용 후 (β=0.3):
 **방법 1: GPT-4o 사용 (OPENAI_API_KEY 있을 때)**
 논문에서 검색된 컨텍스트를 GPT-4o에게 주고, 각 질문에 대한 정답을 생성하게 한다. 실험 모델(MIDM)과 독립된 외부 모델이 정답을 만들기 때문에 평가 기준이 더 신뢰할 수 있다.
 
-**방법 2: 로컬 Naive RAG fallback (API 키 없을 때)**
-Full System의 답변을 pseudo ground truth로 사용한다. 단, 평가 대상 모델과 같은 모델이 정답을 만들기 때문에 평가 신뢰도가 낮아진다.
+**방법 2: 로컬 baseline fallback (API 키 없을 때)**
+로컬 baseline 답변을 pseudo ground truth 후보로 사용할 수 있다. 단, 평가 대상 모델과 같은 계열의 모델이 정답을 만들면 평가 신뢰도가 낮아질 수 있으므로, 최종 논문 결과에는 별도 검증 없이 사용하지 않는다.
 
 ### pseudo란
 
@@ -746,20 +746,15 @@ Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레
 
 시스템에서 구성 요소를 하나씩 제거하거나 추가하면서, 각 요소가 성능에 얼마나 기여하는지 측정하는 실험 방법이다.
 
-### M-RAG에서의 실험 설계
+### Phase 5 기준 M-RAG 실험 설계
 
 ```
-설정 1: Naive RAG           (기준선: 가장 단순한 검색+생성)
-설정 2: + Query Expansion   (HyDE 추가)
-설정 3: + Hybrid Retrieval  (BM25+Dense 추가)
-설정 4: + CAD               (CAD 추가)
-설정 5: + SCD               (SCD 추가)
-설정 6: + Full System       (모든 모듈 포함)
+HyDE off/on × CAD off/on × SCD off/on = 8 configs
 ```
 
-각 설정에서 Faithfulness, Answer Relevancy, Context Precision을 측정하고, 어느 모듈이 어느 지표를 얼마나 올렸는지 분해한다.
+각 설정에서 evidence support, numeric hallucination, Language Drift, Korean answer ratio를 측정하고, 어느 factor가 어느 지표에 영향을 주는지 분해한다.
 
-이것이 논문 기여 C1("모듈별 갭 해소 기여도 정량 분해")의 핵심 실험이다.
+이것이 Phase 5 논문 방향의 핵심 실험이다. A-F route는 졸업작품 서비스 기능이며, 실험 결과를 해석한 뒤 route policy로 연결한다.
 
 ### 코드 위치
 

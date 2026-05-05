@@ -1,0 +1,30 @@
+name: fixed-paper-rag-backbone
+description: Fixed Paper-RAG retrieval backbone for HyDE/CAD/SCD evaluation.
+retrieval:
+  dense:
+    enabled: true
+    model: BGE-M3 or repository-configured dense embedder
+  sparse:
+    enabled: true
+    method: BM25
+  fusion:
+    enabled: true
+    method: RRF
+  reranker:
+    enabled: true
+    model: CrossEncoder or repository-configured reranker
+frozen_parameters:
+  top_k: 5
+  rerank_top_n: 5
+  section_filter: null
+  doc_id_filter: set_by_query_or_runtime_scope
+excluded_from_fixed_backbone:
+  hyde: main_experiment_axis
+  cad: main_experiment_axis
+  scd: main_experiment_axis
+forbidden_backbone_claims:
+  new_retrieval_method: false
+  multi_query_fusion: false
+  hierarchical_third_party_retrieval_claim: false
+  compression_method_claim: false
+

@@ -1,7 +1,6 @@
 """
 MODULE 10: Context Compressor
-LLM 컨텍스트 윈도우 한계 내 정보 밀도 최대화
-기반 논문: LLMLingua [11], LongLLMLingua [12], RECOMP [19], ICAE [30]
+Runtime helper for keeping retrieved context inside the generator window.
 """
 
 import logging
@@ -15,8 +14,8 @@ logger = logging.getLogger(__name__)
 class ContextCompressor:
     """컨텍스트 압축 모듈
     - 추출 압축: 쿼리 관련 문장만 추출
-    - 요약 압축: LLM으로 요약 생성 (RECOMP)
-    - 토큰 레벨 압축: 중요도 기반 토큰 제거 (LLMLingua 근사)
+    - 요약 압축: LLM으로 쿼리 관련 요약 생성
+    - 토큰 레벨 압축: 중요도 기반 토큰 제거 휴리스틱
     """
 
     def __init__(
@@ -51,7 +50,7 @@ class ContextCompressor:
             return self._extractive_compress(documents, query)
 
     def _extractive_compress(self, documents: list[dict], query: str) -> list[dict]:
-        """추출 압축: 쿼리 관련 문장만 추출 (LLMLingua 근사)"""
+        """추출 압축: 쿼리 관련 문장만 추출"""
         query_terms = set(query.lower().split())
         compressed = []
 
@@ -97,7 +96,7 @@ class ContextCompressor:
         return compressed
 
     def _abstractive_compress(self, documents: list[dict], query: str) -> list[dict]:
-        """요약 압축: LLM으로 쿼리 관련 요약 생성 (RECOMP)"""
+        """요약 압축: LLM으로 쿼리 관련 요약 생성"""
         compressed = []
 
         for doc in documents:

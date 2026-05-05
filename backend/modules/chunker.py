@@ -1,8 +1,7 @@
 """
 MODULE 3: Chunker
 섹션 구조를 존중하는 검색 단위 분할
-전략: 섹션 단위 / RAPTOR 계층 / 명제 단위
-기반 논문: RAPTOR [5], Dense-X Retrieval [24], Meta-Chunking [28]
+전략: 섹션 단위 / 계층 요약 / 문장 단위
 """
 
 import hashlib
@@ -33,7 +32,7 @@ class Chunk:
     page: int = 0
     char_start: int = 0
     char_end: int = 0
-    chunk_level: int = 0  # RAPTOR: 0=leaf, 1=mid, 2=root
+    chunk_level: int = 0  # 0=leaf, 1=section summary, 2=document summary
     lang: str = "en"
     metadata: dict = field(default_factory=dict)
 
@@ -277,9 +276,9 @@ class Chunker:
         )
 
 
-class RAPTORChunker:
-    """RAPTOR 계층적 요약 트리 청킹
-    leaf → 클러스터 → LLM 요약 → 트리 구성
+class HierarchicalSummaryChunker:
+    """계층적 요약 청킹
+    leaf → 섹션 요약 → 전체 요약 구성
     """
 
     def __init__(self, base_chunker: Chunker, embedder=None, generator=None):
@@ -288,7 +287,7 @@ class RAPTORChunker:
         self.generator = generator
 
     def build_tree(self, document: ParsedDocument) -> list[Chunk]:
-        """RAPTOR 트리 구축: leaf + mid + root"""
+        """계층 요약 청크 구축: leaf + mid + root"""
         # Level 0: leaf 청크
         leaf_chunks = self.base_chunker.chunk_document(document, strategy="section")
 
@@ -338,7 +337,7 @@ class RAPTORChunker:
                 section_type=section_type,
                 chunk_level=1,
                 lang=detect_lang(summary),
-                metadata={"raptor_level": "mid", "source_chunks": len(chunks)},
+                metadata={"summary_level": "mid", "source_chunks": len(chunks)},
             )
             mid_chunks.append(mid_chunk)
 
@@ -366,6 +365,6 @@ class RAPTORChunker:
             section_type="summary",
             chunk_level=2,
             lang=detect_lang(summary),
-            metadata={"raptor_level": "root"},
+            metadata={"summary_level": "root"},
         )
         return [root_chunk]

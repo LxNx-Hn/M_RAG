@@ -1,0 +1,159 @@
+{
+  "schema_version": "phase4.query_split.v1",
+  "split": "tuning_queries",
+  "count": 8,
+  "queries": [
+    {
+      "query_id": "track1_0001",
+      "query": "M3-Embedding 모델은 몇 개의 언어를 지원하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "M3-Embedding, which is able to support more than 100 world languages.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0002",
+      "query": "M3-Embedding의 학습에서 배치 전략은 어떻게 최적화되었나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "we optimize the batching strategy, which enables a large batch size and high training throughput to improve the discriminativeness of embeddings.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0003",
+      "query": "M3-Embedding 모델의 실험에서 어떤 벤치마크에서 새로운 state-of-the-art 성능을 보였나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "It achieves superior retrieval quality for a variety of languages, leading to state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIR-ACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0004",
+      "query": "M3-Embedding 모델의 주요 특징은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "M3-Embedding, which is distinguished for its versatility in Multi-Linguality, Multi-Functionality, and Multi-Granularity.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0005",
+      "query": "M3-Embedding은 밀집 검색(dense retrieval)만 지원하나요, 아니면 희소 검색(sparse retrieval)도 지원하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "multi-functionality (dense retrieval, multi-vector retrieval and sparse retrieval)",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0006",
+      "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0007",
+      "query": "M3-Embedding이 최고 성능을 달성한 대표적인 다국어 벤치마크는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    },
+    {
+      "query_id": "track1_0008",
+      "query": "M3-Embedding의 ablation study에서 어떤 기능들이 결합되어 더 강력한 검색 품질을 제공하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "It effectively learns the three retrieval functionalities, which can not only work individually but also work together for an even stronger retrieval quality.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning."
+    }
+  ]
+}

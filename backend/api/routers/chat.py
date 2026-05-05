@@ -6,6 +6,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
@@ -72,6 +73,343 @@ def _ensure_generator_available(m: ModuleManager) -> None:
         )
 
 
+def _normalize_compare_text(value: str) -> str:
+    value = value.lower().replace("_", " ").replace("-", " ")
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _dedupe_doc_ids(doc_ids) -> list[str]:
+    seen = set()
+    deduped: list[str] = []
+    for doc_id in doc_ids or []:
+        normalized = str(doc_id).strip()
+        if normalized and normalized not in seen:
+            deduped.append(normalized)
+            seen.add(normalized)
+    return deduped
+
+
+def _paper_aliases(doc_id: str, paper) -> list[str]:
+    metadata = getattr(paper, "metadata", {}) or {}
+    title = getattr(paper, "title", "") or ""
+    aliases = [
+        doc_id,
+        doc_id.replace("_", " "),
+        doc_id.replace("-", " "),
+        title,
+        metadata.get("filename", ""),
+        metadata.get("file_name", ""),
+        metadata.get("source_file", ""),
+        metadata.get("original_filename", ""),
+    ]
+    return [str(alias).strip() for alias in aliases if str(alias).strip()]
+
+
+def _find_doc_mentions(query: str, papers: dict, exclude: set[str] | None = None):
+    query_text = _normalize_compare_text(query)
+    exclude = exclude or set()
+    matches = []
+    for doc_id, paper in papers.items():
+        if doc_id in exclude:
+            continue
+        for alias in _paper_aliases(doc_id, paper):
+            alias_text = _normalize_compare_text(alias)
+            if len(alias_text) < 3:
+                continue
+            if alias_text in query_text:
+                matches.append(
+                    {
+                        "doc_id": doc_id,
+                        "alias": alias,
+                        "match_length": len(alias_text),
+                    }
+                )
+                break
+    matches.sort(key=lambda item: (-item["match_length"], item["doc_id"]))
+    return matches
+
+
+def _score_docs_by_retrieval(
+    query: str,
+    collection_name: str,
+    candidate_doc_ids: list[str],
+    hybrid_retriever,
+) -> dict[str, float]:
+    scores: dict[str, float] = {}
+    for doc_id in candidate_doc_ids:
+        try:
+            results = hybrid_retriever.search(
+                collection_name=collection_name,
+                query=query,
+                top_k=3,
+                doc_id_filter=doc_id,
+            )
+        except Exception as exc:
+            logger.info("Compare target retrieval scoring unavailable: %s", exc)
+            return {}
+
+        score = 0.0
+        for rank, result in enumerate(results[:3]):
+            raw_score = result.get("rerank_score", result.get("rrf_score", 0.0))
+            try:
+                score += float(raw_score) / (rank + 1)
+            except (TypeError, ValueError):
+                continue
+        if results:
+            scores[doc_id] = round(score, 6)
+    return scores
+
+
+def _compare_selection(
+    doc_ids: list[str],
+    method: str,
+    reason: str,
+    fallback_used: bool = False,
+    candidate_scores: dict[str, float] | None = None,
+) -> dict:
+    return {
+        "target_doc_ids": doc_ids,
+        "target_selection_method": method,
+        "target_selection_reason": reason,
+        "fallback_used": fallback_used,
+        "candidate_scores": candidate_scores or {},
+    }
+
+
+def _compare_selection_error(
+    method: str,
+    reason: str,
+    message: str,
+    target_doc_ids: list[str] | None = None,
+) -> dict:
+    selection = _compare_selection(
+        target_doc_ids or [],
+        method,
+        reason,
+        fallback_used=False,
+    )
+    selection["error"] = True
+    selection["message"] = message
+    return selection
+
+
+def _target_selection_step(selection: dict) -> dict:
+    step = {
+        "step": "target_selection",
+        "target_doc_ids": selection.get("target_doc_ids", []),
+        "target_selection_method": selection.get("target_selection_method", ""),
+        "target_selection_reason": selection.get("target_selection_reason", ""),
+        "selection_reason": selection.get("target_selection_reason", ""),
+        "fallback_used": bool(selection.get("fallback_used", False)),
+    }
+    candidate_scores = selection.get("candidate_scores")
+    if candidate_scores:
+        step["candidate_scores"] = candidate_scores
+    return step
+
+
+def _compare_selection_error_response(selection: dict) -> dict:
+    return {
+        "answer": selection.get(
+            "message",
+            "Comparison target selection failed. Please choose exactly two documents.",
+        ),
+        "sources": "",
+        "source_documents": [],
+        "pipeline": "C_compare",
+        "compared_docs": selection.get("target_doc_ids", []),
+        "steps": [
+            _target_selection_step(selection),
+            {"step": "error", "reason": selection.get("target_selection_method", "")},
+        ],
+        "target_selection_method": selection.get("target_selection_method", ""),
+        "target_selection_reason": selection.get("target_selection_reason", ""),
+        "fallback_used": bool(selection.get("fallback_used", False)),
+        "candidate_scores": selection.get("candidate_scores", {}),
+        "error": True,
+    }
+
+
+def _select_compare_targets(
+    decision,
+    req: QueryRequest,
+    available_docs: list[str],
+    papers: dict,
+    collection_name: str,
+    hybrid_retriever,
+) -> dict:
+    available_set = set(available_docs)
+    if len(available_docs) < 2:
+        return _compare_selection_error(
+            "insufficient_available_docs",
+            "Fewer than two uploaded documents are available.",
+            "At least two uploaded documents are required for comparison. Upload another paper or choose a collection with two documents.",
+        )
+
+    explicit_fields = [
+        ("target_doc_ids", _dedupe_doc_ids(getattr(req, "target_doc_ids", None))),
+        ("compare_doc_ids", _dedupe_doc_ids(getattr(req, "compare_doc_ids", None))),
+    ]
+    for field_name, doc_ids in explicit_fields:
+        if len(doc_ids) > 2:
+            return _compare_selection_error(
+                "too_many_explicit_targets",
+                f"{field_name} provided {len(doc_ids)} targets; exactly two are required.",
+                "Comparison requires exactly two target documents. Please provide exactly two IDs.",
+                target_doc_ids=doc_ids,
+            )
+
+    for field_name, doc_ids in explicit_fields:
+        if len(doc_ids) == 2:
+            missing = [doc_id for doc_id in doc_ids if doc_id not in available_set]
+            if missing:
+                return _compare_selection_error(
+                    "unknown_explicit_targets",
+                    f"{field_name} includes unknown document IDs: {missing}.",
+                    f"Unknown comparison target document ID(s): {', '.join(missing)}.",
+                    target_doc_ids=doc_ids,
+                )
+            return _compare_selection(
+                doc_ids,
+                "explicit_targets",
+                f"Using explicit {field_name} pair.",
+                fallback_used=False,
+            )
+
+    single_explicit_targets = [
+        doc_id
+        for _, doc_ids in explicit_fields
+        for doc_id in doc_ids
+        if doc_id in available_set
+    ]
+    router_mentions = [
+        doc_id
+        for doc_id in _dedupe_doc_ids(decision.target_doc_ids)
+        if doc_id in available_set
+    ]
+    active_doc_id = getattr(req, "doc_id_filter", None)
+    active_doc_id = active_doc_id if active_doc_id in available_set else None
+
+    if active_doc_id:
+        for doc_id in single_explicit_targets + router_mentions:
+            if doc_id != active_doc_id:
+                return _compare_selection(
+                    [active_doc_id, doc_id],
+                    "active_doc_plus_explicit_or_id_match",
+                    f"Using active document {active_doc_id} and mentioned document {doc_id}.",
+                    fallback_used=False,
+                )
+
+        matches = _find_doc_mentions(req.query, papers, exclude={active_doc_id})
+        if matches:
+            selected = matches[0]["doc_id"]
+            return _compare_selection(
+                [active_doc_id, selected],
+                "active_doc_plus_title_or_alias_match",
+                f"Using active document {active_doc_id} and query-matched document {selected} via '{matches[0]['alias']}'.",
+                fallback_used=False,
+            )
+
+        candidates = [doc_id for doc_id in available_docs if doc_id != active_doc_id]
+        scores = _score_docs_by_retrieval(
+            req.query,
+            collection_name,
+            candidates,
+            hybrid_retriever,
+        )
+        if scores:
+            selected = max(scores, key=scores.get)
+            return _compare_selection(
+                [active_doc_id, selected],
+                "active_doc_plus_retrieval_fallback",
+                f"Using active document {active_doc_id} and retrieval-scored candidate {selected}.",
+                fallback_used=True,
+                candidate_scores=scores,
+            )
+
+        selected = candidates[0]
+        return _compare_selection(
+            [active_doc_id, selected],
+            "active_doc_plus_deterministic_fallback",
+            f"Retrieval scoring unavailable; using active document {active_doc_id} and first available different document {selected}.",
+            fallback_used=True,
+        )
+
+    mentions = _dedupe_doc_ids(single_explicit_targets + router_mentions)
+    metadata_matches = [
+        match["doc_id"] for match in _find_doc_mentions(req.query, papers)
+    ]
+    mentions = _dedupe_doc_ids(mentions + metadata_matches)
+    if len(mentions) >= 2:
+        selected = mentions[:2]
+        return _compare_selection(
+            selected,
+            "title_doc_id_or_alias_match",
+            f"Using two query-matched documents: {selected}.",
+            fallback_used=False,
+        )
+    if len(mentions) == 1:
+        primary = mentions[0]
+        candidates = [doc_id for doc_id in available_docs if doc_id != primary]
+        scores = _score_docs_by_retrieval(
+            req.query,
+            collection_name,
+            candidates,
+            hybrid_retriever,
+        )
+        if scores:
+            selected = max(scores, key=scores.get)
+            return _compare_selection(
+                [primary, selected],
+                "single_match_plus_retrieval_fallback",
+                f"Using query-matched document {primary} and retrieval-scored candidate {selected}.",
+                fallback_used=True,
+                candidate_scores=scores,
+            )
+        selected = candidates[0]
+        return _compare_selection(
+            [primary, selected],
+            "single_match_plus_deterministic_fallback",
+            f"Retrieval scoring unavailable; using query-matched document {primary} and first available different document {selected}.",
+            fallback_used=True,
+        )
+
+    scores = _score_docs_by_retrieval(
+        req.query,
+        collection_name,
+        available_docs,
+        hybrid_retriever,
+    )
+    if len(scores) >= 2:
+        selected = sorted(scores, key=scores.get, reverse=True)[:2]
+        return _compare_selection(
+            selected,
+            "retrieval_score_fallback",
+            f"Using top two retrieval-scored documents: {selected}.",
+            fallback_used=True,
+            candidate_scores=scores,
+        )
+
+    selected = available_docs[:2]
+    return _compare_selection(
+        selected,
+        "deterministic_available_docs_fallback",
+        f"Retrieval scoring unavailable; using first two available documents: {selected}.",
+        fallback_used=True,
+    )
+
+
+def _apply_explicit_compare_route(decision, req: QueryRequest):
+    if _dedupe_doc_ids(getattr(req, "target_doc_ids", None)) or _dedupe_doc_ids(
+        getattr(req, "compare_doc_ids", None)
+    ):
+        decision.route = RouteType.COMPARE
+        decision.section_filter = None
+        decision.confidence = max(decision.confidence, 1.0)
+        decision.reasoning = "Explicit compare target IDs provided"
+    return decision
+
+
 async def _run_pipeline_with_generation_gate(
     decision,
     req: QueryRequest,
@@ -123,7 +461,10 @@ async def query(
         raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
     _ensure_generator_available(m)
 
-    decision = m.query_router.route(req.query, available_docs)
+    decision = _apply_explicit_compare_route(
+        m.query_router.route(req.query, available_docs),
+        req,
+    )
     route_info = RouteInfo(
         route=decision.route.value,
         route_name=m.query_router.get_route_description(decision.route),
@@ -175,7 +516,10 @@ async def query_stream(
         raise HTTPException(400, "No uploaded papers found. Upload a paper first.")
     _ensure_generator_available(m)
 
-    decision = m.query_router.route(req.query, available_docs)
+    decision = _apply_explicit_compare_route(
+        m.query_router.route(req.query, available_docs),
+        req,
+    )
     route_info = {
         "route": decision.route.value,
         "route_name": m.query_router.get_route_description(decision.route),
@@ -220,6 +564,26 @@ async def query_stream(
             sources = [doc.model_dump() for doc in source_docs]
             steps = result.get("steps", [])
             pipeline_name = result.get("pipeline", "")
+            metadata_payload = {
+                "route": route_info,
+                "sources": sources,
+                "steps": steps,
+                "pipeline": pipeline_name,
+            }
+            if pipeline_name == "C_compare":
+                metadata_payload.update(
+                    {
+                        "compared_docs": result.get("compared_docs", []),
+                        "target_selection_method": result.get(
+                            "target_selection_method", ""
+                        ),
+                        "target_selection_reason": result.get(
+                            "target_selection_reason", ""
+                        ),
+                        "fallback_used": bool(result.get("fallback_used", False)),
+                        "candidate_scores": result.get("candidate_scores", {}),
+                    }
+                )
 
             answer_text = result.get("answer", "") or "No answer generated."
             follow_ups = generate_followups(
@@ -230,15 +594,7 @@ async def query_stream(
                 generator=m.generator,
             )
 
-            yield sse_event(
-                "metadata",
-                {
-                    "route": route_info,
-                    "sources": sources,
-                    "steps": steps,
-                    "pipeline": pipeline_name,
-                },
-            )
+            yield sse_event("metadata", metadata_payload)
             for text_chunk in _chunk_text(answer_text):
                 yield sse_event("token", {"token": text_chunk})
                 await asyncio.sleep(0)
@@ -416,10 +772,20 @@ def _run_pipeline(
             use_hyde=req.use_hyde,
         )
     if decision.route == RouteType.COMPARE:
+        target_selection = _select_compare_targets(
+            decision,
+            req,
+            available_docs,
+            papers,
+            col,
+            hr,
+        )
+        if target_selection.get("error"):
+            return _compare_selection_error_response(target_selection)
         return pipeline_c_compare.run(
             req.query,
             col,
-            decision.target_doc_ids,
+            target_selection["target_doc_ids"],
             hr,
             rr,
             comp,
@@ -428,6 +794,7 @@ def _run_pipeline(
             req.cad_alpha,
             req.use_scd,
             req.scd_beta,
+            target_selection=target_selection,
         )
     if decision.route == RouteType.CITATION:
         target_doc_id = doc_id_filter if doc_id_filter in papers else available_docs[0]

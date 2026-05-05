@@ -158,11 +158,17 @@ def run(
             if mode == "flashcard"
             else QUIZ_PROMPT.format(context=context, query=query)
         )
+        no_context_prompt = (
+            FLASHCARD_PROMPT.format(context="", query=query)
+            if mode == "flashcard"
+            else QUIZ_PROMPT.format(context="", query=query)
+        )
         answer = generator.generate(
             query=query,
             context=context,
             template="raw",
             raw_prompt=prompt,
+            raw_prompt_no_context=no_context_prompt,
             logits_processor=logits_processor,
             force_greedy=use_cad,
         )

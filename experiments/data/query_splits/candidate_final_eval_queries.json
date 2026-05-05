@@ -1,0 +1,159 @@
+{
+  "schema_version": "phase4.query_split.v1",
+  "split": "candidate_final_eval_queries",
+  "count": 8,
+  "queries": [
+    {
+      "query_id": "track1_0039",
+      "query": "Mi:dm K 2.5 Pro 모델이 한국어와 영어 외에 추가로 지원하는 언어는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "Japanese and Chinese",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0055",
+      "query": "대규모 언어 모델의 디코딩 과정에서 발생하는 문제는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "디코딩 과정에서 발생하는 환각(hallucination)은 잘못된 토큰 선택으로 이어져 생성된 텍스트의 신뢰성을 저하시키는 문제가 있다.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0056",
+      "query": "이 논문에서 제안된 디코딩 방법의 핵심 아이디어는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "이 방법은 모델이 신뢰할 수 있는 토큰만을 남기게 하여 더 높은 신뢰도의 텍스트 생성을 유도한다. 제안된 기법은 LLaMA 기반 모델의 질의응답 작업에서 성능을 향상시킬 수 있었다.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0057",
+      "query": "제안된 방법의 성능이 CAD와 비교했을 때 어떤 차이를 보였나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "Trivia QA 데이터셋에서 LLaMA2-7b 모델을 사용할 경우, 제안된 방법이 CAD와 그리디 디코딩보다 크게 성능이 향상된 것을 확인할 수 있었다.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0058",
+      "query": "본 연구의 주요 기여는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "우리는 컨텍스트의 확률 분포를 기반으로 낮은 확률의 토큰을 제거하여 모델이 신뢰할 수 있는 부분만을 남기고, 필터링된 토큰과 온전한 컨텍스트를 합산하여 디코딩하는 새로운 기법을 제안한다.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0059",
+      "query": "이 논문에서 사용된 Contrastive CAD 방법은 어떤 문제를 완화하려고 하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "이를 해결하기 위해 본 연구에서는 확률 분포를 기반으로 낮은 확률의 토큰을 제거하고, 필터링된 컨텍스트와 원본 컨텍스트를 합산하여 디코딩하는 새로운 방식을 제안한다.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0060",
+      "query": "대조 디코딩에 대한 연구는 어떤 문헌을 기반으로 하고 있나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "[1] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eis- ner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, “Contrastive decoding: Open-ended text generation as optimization,” Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Vol- ume 1: Long Papers), A. Rogers, J. Boyd-Graber, and N. Okazaki, Eds., pp. 12 286–12 312, Jul. 2023.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    },
+    {
+      "query_id": "track1_0061",
+      "query": "임계값을 설정하여 토큰을 제거하는 방법의 이점은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_ablation",
+      "normalized_query_type": "decoder_ablation",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "확률이 낮은 토큰을 제거함으로써 모델이 신뢰하는 주요 컨텍스트의 맥락을 유지하고, 혼동을 야기할 수 있는 토큰을 제거하여 신뢰하는 정보에 집중할 수 있게 한다. 이를 통해 제안된 디코딩 방식이 효과적임을 확인할 수 있다.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate."
+    }
+  ]
+}

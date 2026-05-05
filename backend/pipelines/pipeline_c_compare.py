@@ -11,13 +11,48 @@ from modules.scd_decoder import create_combined_processor
 logger = logging.getLogger(__name__)
 
 
-def _fallback_response(steps: list[dict], reason: str) -> dict:
+def _selection_fields(target_selection: dict | None) -> dict:
+    if not target_selection:
+        return {}
+    return {
+        "target_selection_method": target_selection.get("target_selection_method", ""),
+        "target_selection_reason": target_selection.get("target_selection_reason", ""),
+        "fallback_used": bool(target_selection.get("fallback_used", False)),
+        "candidate_scores": target_selection.get("candidate_scores", {}),
+    }
+
+
+def _target_selection_step(target_selection: dict | None) -> dict | None:
+    if not target_selection:
+        return None
+    step = {
+        "step": "target_selection",
+        "target_doc_ids": target_selection.get("target_doc_ids", []),
+        "target_selection_method": target_selection.get("target_selection_method", ""),
+        "target_selection_reason": target_selection.get("target_selection_reason", ""),
+        "selection_reason": target_selection.get("target_selection_reason", ""),
+        "fallback_used": bool(target_selection.get("fallback_used", False)),
+    }
+    candidate_scores = target_selection.get("candidate_scores")
+    if candidate_scores:
+        step["candidate_scores"] = candidate_scores
+    return step
+
+
+def _fallback_response(
+    steps: list[dict],
+    reason: str,
+    target_selection: dict | None = None,
+    compared_docs: list[str] | None = None,
+) -> dict:
     return {
         "answer": "Comparison context was insufficient. Please upload clearer source documents and try again.",
         "sources": "",
         "source_documents": [],
         "pipeline": "C_compare",
+        "compared_docs": compared_docs or [],
         "steps": steps + [{"step": "fallback", "reason": reason, "fallback": True}],
+        **_selection_fields(target_selection),
     }
 
 
@@ -33,27 +68,34 @@ def run(
     cad_alpha: float = CAD_ALPHA,
     use_scd: bool = True,
     scd_beta: float = SCD_BETA,
+    target_selection: dict | None = None,
 ) -> dict:
     """Run pairwise comparison pipeline."""
     steps = []
+    selection_step = _target_selection_step(target_selection)
+    if selection_step:
+        steps.append(selection_step)
     try:
         if len(target_doc_ids) < 2:
             return {
-                "answer": "At least two documents are required for comparison.",
+                "answer": "At least two uploaded documents are required for comparison. Upload another paper or choose two compare targets.",
                 "sources": "",
                 "source_documents": [],
                 "pipeline": "C_compare",
-                "steps": [{"step": "error", "reason": "insufficient_docs"}],
+                "compared_docs": target_doc_ids,
+                "steps": steps + [{"step": "error", "reason": "insufficient_docs"}],
+                **_selection_fields(target_selection),
             }
         if len(target_doc_ids) > 2:
             return {
-                "answer": "Comparison currently supports exactly two documents. Please specify two targets.",
+                "answer": "Comparison requires exactly two target documents. Please provide exactly two IDs.",
                 "sources": "",
                 "source_documents": [],
                 "pipeline": "C_compare",
-                "steps": [
-                    {"step": "error", "reason": "too_many_docs", "max_supported": 2}
-                ],
+                "compared_docs": target_doc_ids,
+                "steps": steps
+                + [{"step": "error", "reason": "too_many_docs", "max_supported": 2}],
+                **_selection_fields(target_selection),
             }
 
         doc_contexts: dict[str, list[dict]] = {}
@@ -86,7 +128,12 @@ def run(
         )
 
         if not doc_contexts:
-            return _fallback_response(steps, "no_doc_contexts")
+            return _fallback_response(
+                steps,
+                "no_doc_contexts",
+                target_selection=target_selection,
+                compared_docs=search_doc_ids,
+            )
 
         all_docs = []
         context_parts = {}
@@ -96,7 +143,12 @@ def run(
                 all_docs.extend(docs)
 
         if len(context_parts) < 2:
-            return _fallback_response(steps, "insufficient_contexts")
+            return _fallback_response(
+                steps,
+                "insufficient_contexts",
+                target_selection=target_selection,
+                compared_docs=search_doc_ids,
+            )
 
         doc_ids = list(context_parts.keys())
         context_a = context_parts.get(doc_ids[0], "")
@@ -129,6 +181,7 @@ def run(
             "pipeline": "C_compare",
             "compared_docs": doc_ids,
             "steps": steps,
+            **_selection_fields(target_selection),
         }
     except Exception as exc:
         logger.error("pipeline_c_compare failed: %s", exc, exc_info=True)
@@ -137,6 +190,8 @@ def run(
             "sources": "",
             "source_documents": [],
             "pipeline": "C_compare",
+            "compared_docs": target_doc_ids[:2],
             "steps": steps + [{"step": "error", "detail": str(exc)[:200]}],
             "error": True,
+            **_selection_fields(target_selection),
         }

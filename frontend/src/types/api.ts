@@ -53,6 +53,8 @@ export interface QueryRequest {
   top_k?: number
   doc_id_filter?: string | null
   section_filter?: string | null
+  target_doc_ids?: string[]
+  compare_doc_ids?: string[]
   conversation_id?: string
 }
 
@@ -117,6 +119,12 @@ export interface SSEMetadataEvent {
   route: RouteInfo
   sources: SourceDocument[]
   steps: Record<string, unknown>[]
+  pipeline?: string
+  compared_docs?: string[]
+  target_selection_method?: string
+  target_selection_reason?: string
+  fallback_used?: boolean
+  candidate_scores?: Record<string, number>
 }
 
 export interface SSETokenEvent {
@@ -126,6 +134,7 @@ export interface SSETokenEvent {
 export interface SSEDoneEvent {
   full_answer: string
   follow_ups?: string[]
+  pipeline?: string
 }
 
 export interface SSEErrorEvent {

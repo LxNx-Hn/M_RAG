@@ -169,17 +169,33 @@ class Generator:
                 context_b=kwargs.get("context_b", ""),
                 query=query,
             )
+            no_context_prompt = COMPARE_TEMPLATE.format(
+                context_a="",
+                context_b="",
+                query=query,
+            )
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
+            no_context_prompt = SUMMARY_TEMPLATE.format(context="")
         elif template == "raw":
             prompt = kwargs.get(
                 "raw_prompt",
                 QA_TEMPLATE.format(context=context, query=query),
             )
+            no_context_prompt = kwargs.get(
+                "raw_prompt_no_context",
+                QA_TEMPLATE.format(context="", query=query),
+            )
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
+            no_context_prompt = QA_TEMPLATE.format(context="", query=query)
 
         full_prompt = self._format_chat(prompt, SYSTEM_PROMPT)
+        full_no_context_prompt = self._format_chat(no_context_prompt, SYSTEM_PROMPT)
+        self._configure_no_context_processors(
+            logits_processor,
+            full_no_context_prompt,
+        )
         return self._generate(
             full_prompt,
             logits_processor=logits_processor,
@@ -201,17 +217,33 @@ class Generator:
                 context_b=kwargs.get("context_b", ""),
                 query=query,
             )
+            no_context_prompt = COMPARE_TEMPLATE.format(
+                context_a="",
+                context_b="",
+                query=query,
+            )
         elif template == "summary":
             prompt = SUMMARY_TEMPLATE.format(context=context)
+            no_context_prompt = SUMMARY_TEMPLATE.format(context="")
         elif template == "raw":
             prompt = kwargs.get(
                 "raw_prompt",
                 QA_TEMPLATE.format(context=context, query=query),
             )
+            no_context_prompt = kwargs.get(
+                "raw_prompt_no_context",
+                QA_TEMPLATE.format(context="", query=query),
+            )
         else:
             prompt = QA_TEMPLATE.format(context=context, query=query)
+            no_context_prompt = QA_TEMPLATE.format(context="", query=query)
 
         full_prompt = self._format_chat(prompt, SYSTEM_PROMPT)
+        full_no_context_prompt = self._format_chat(no_context_prompt, SYSTEM_PROMPT)
+        self._configure_no_context_processors(
+            logits_processor,
+            full_no_context_prompt,
+        )
         inputs = self._tokenize_for_generation(full_prompt)
 
         streamer = TextIteratorStreamer(
@@ -377,10 +409,40 @@ class Generator:
         resolved_do_sample = TEMPERATURE > 0 if do_sample is None else do_sample
         return resolved_temperature, resolved_top_p, resolved_do_sample
 
+    def _configure_no_context_processors(
+        self,
+        logits_processor,
+        no_context_prompt: str,
+    ) -> None:
+        if not logits_processor:
+            return
+        no_context_inputs = self._tokenize_for_generation(no_context_prompt)
+        processors = (
+            logits_processor
+            if isinstance(logits_processor, list)
+            else [logits_processor]
+        )
+        for processor in processors:
+            setter = getattr(processor, "set_no_context_inputs", None)
+            if setter is not None:
+                setter(
+                    input_ids=no_context_inputs["input_ids"],
+                    attention_mask=no_context_inputs.get("attention_mask"),
+                )
+
+    def get_empty_context_inputs(self, query: str) -> dict[str, torch.Tensor]:
+        """Tokenize the no-context CAD prompt.
+
+        The prompt contains the same user query/instruction channel but no
+        retrieved context. CAD appends the generated prefix at each step.
+        """
+        prompt = QA_TEMPLATE.format(context="", query=query.strip())
+        formatted = self._format_chat(prompt, SYSTEM_PROMPT)
+        return self._tokenize_for_generation(formatted)
+
     def get_empty_context_input_ids(self, query: str) -> torch.Tensor:
-        formatted = self._format_chat(query.strip(), "")
-        inputs = self._tokenize_for_generation(formatted)
-        return inputs["input_ids"]
+        """Backward-compatible helper for callers that only need input IDs."""
+        return self.get_empty_context_inputs(query)["input_ids"]
 
     def format_sources(self, documents: list[dict]) -> str:
         sources = []

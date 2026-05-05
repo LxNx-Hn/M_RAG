@@ -40,31 +40,34 @@ def run(
         try:
             vs = hybrid_retriever.vector_store
             collection = vs.get_or_create_collection(collection_name)
-            raptor_where: dict = {"chunk_level": {"$gte": 1}}
+            hierarchy_where: dict = {"chunk_level": {"$gte": 1}}
             if doc_id_filter:
-                raptor_where = {
+                hierarchy_where = {
                     "$and": [
                         {"chunk_level": {"$gte": 1}},
                         {"doc_id": {"$eq": doc_id_filter}},
                     ]
                 }
-            raptor_data = collection.get(
-                where=raptor_where,
+            hierarchy_data = collection.get(
+                where=hierarchy_where,
                 include=["documents", "metadatas"],
             )
-            if raptor_data["ids"]:
-                for i in range(len(raptor_data["ids"])):
-                    level = raptor_data["metadatas"][i].get("chunk_level", 1)
+            if hierarchy_data["ids"]:
+                for i in range(len(hierarchy_data["ids"])):
+                    level = hierarchy_data["metadatas"][i].get("chunk_level", 1)
                     all_results.append(
                         {
-                            "chunk_id": raptor_data["ids"][i],
-                            "content": raptor_data["documents"][i],
-                            "metadata": raptor_data["metadatas"][i],
+                            "chunk_id": hierarchy_data["ids"][i],
+                            "content": hierarchy_data["documents"][i],
+                            "metadata": hierarchy_data["metadatas"][i],
                             "score": 1.0 + level * 0.1,
                         }
                     )
                 steps.append(
-                    {"step": "raptor_chunks", "count": len(raptor_data["ids"])}
+                    {
+                        "step": "hierarchical_summary_chunks",
+                        "count": len(hierarchy_data["ids"]),
+                    }
                 )
         except Exception:
             pass

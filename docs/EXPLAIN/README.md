@@ -11,7 +11,7 @@
 | `FLOW_EXPLAINED_KO.md` | 업로드부터 답변까지의 흐름 설명 |
 | `FEATURES_EXPLAINED_KO.md` | 사용자 기능과 연구 기능 설명 |
 | `ROUTE_MODULE_MATRIX_KO.md` | A–F 경로별 동작 모듈 설명 |
-| `REFERENCE_EXPLAINED_KO.md` | 39편 참고문헌 역할 설명 |
+| `REFERENCE_EXPLAINED_KO.md` | Phase 5 참고문헌 재분류 설명 |
 | `TABLE_INTERPRETATION_GUIDE.md` | 실험 표 읽는 법 설명 |
 
 ## 읽는 순서
@@ -22,4 +22,4 @@
 4. `ROUTE_MODULE_MATRIX_KO.md`
 5. `TABLE_INTERPRETATION_GUIDE.md`
 
-논문 전체 구조와 참고문헌은 `docs/PAPER/THESIS.md`를 참고한다 (참고문헌 총 39편)
+논문 전체 구조와 참고문헌 분류는 `docs/PAPER/THESIS.md`를 참고한다. 결과 수치는 승인된 실험 산출물이 생기기 전까지 쓰지 않는다.

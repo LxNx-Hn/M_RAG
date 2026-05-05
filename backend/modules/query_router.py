@@ -1,14 +1,14 @@
 """
-MODULE 6: Query Router ★ Modular RAG 핵심
-질의 분석 → 최적 파이프라인 경로 동적 결정
-기반 논문: Self-RAG [7], FLARE [17], CRAG [8]
+MODULE 6: Query Router
+Rule-based service route selector for the graduation-project runtime.
 
 경로:
   A. 단순 QA          → 벡터검색 → 생성
   B. 섹션 특화        → 섹션 필터 검색 → 생성
   C. 멀티 논문 비교    → 병렬 검색 → 합성 → 생성
   D. 인용 트래커       → arXiv 수집 → 확장 검색 → 생성
-  E. 전체 요약         → RAPTOR 계층 검색 → 생성
+  E. 전체 요약         → 구조화 검색 → 생성
+  F. 퀴즈 생성         → 검색 → 문제/플래시카드 생성
 """
 
 import logging
@@ -32,17 +32,17 @@ class RouteType(str, Enum):
 
 @dataclass
 class RouteDecision:
-    """라우터 결정 결과"""
+    """Rule-based route decision for A-F service features."""
 
     route: RouteType
-    section_filter: Optional[str] = None  # 경로 B: 어느 섹션을 필터할지
-    target_doc_ids: list[str] = field(default_factory=list)  # 경로 C: 비교 대상 문서들
+    section_filter: Optional[str] = None
+    target_doc_ids: list[str] = field(default_factory=list)
     confidence: float = 0.0
     reasoning: str = ""
 
 
 class QueryRouter:
-    """쿼리 유형 분석 → 파이프라인 경로 결정"""
+    """Keyword-based service router, not a thesis core method."""
 
     def __init__(self):
         self.route_map = ROUTE_MAP
@@ -60,7 +60,7 @@ class QueryRouter:
         query: str,
         available_doc_ids: Optional[list[str]] = None,
     ) -> RouteDecision:
-        """쿼리를 분석하여 최적 경로 결정"""
+        """Choose one A-F service route from lightweight keyword rules."""
         query_lower = query.lower().strip()
 
         # 1. 키워드 매칭 스코어 계산
@@ -78,6 +78,8 @@ class QueryRouter:
             )
 
         best_key = max(scores, key=scores.get)
+        if "compare" in scores and scores["compare"] == scores[best_key]:
+            best_key = "compare"
         confidence = min(scores[best_key] / 3.0, 1.0)
 
         # 2. 경로 결정
@@ -129,7 +131,7 @@ class QueryRouter:
     def _extract_doc_references(
         self, query: str, available_doc_ids: Optional[list[str]] = None
     ) -> list[str]:
-        """쿼리에서 문서 참조 추출 (비교 경로용)"""
+        """Extract explicit document-id mentions for the compare route."""
         if not available_doc_ids:
             return []
 
@@ -140,10 +142,6 @@ class QueryRouter:
             doc_lower = doc_id.lower()
             if doc_lower in query_lower or doc_lower.replace("_", " ") in query_lower:
                 mentioned.append(doc_id)
-
-        # 2개 미만이면 전체 문서를 비교 대상으로
-        if len(mentioned) < 2 and available_doc_ids:
-            return available_doc_ids[:2]
 
         return mentioned
 

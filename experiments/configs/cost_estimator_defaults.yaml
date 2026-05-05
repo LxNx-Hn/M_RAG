@@ -1,0 +1,9 @@
+openai_cost_per_call_usd: 0.004
+a100_cost_krw_per_hour: 2000
+metric_count: 4
+usd_to_krw: 1400
+planning_only: true
+notes:
+  - Cost estimates are planning estimates only.
+  - Phase 4 must not call OpenAI, RAGAS, generation models, or judges.
+

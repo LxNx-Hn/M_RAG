@@ -43,6 +43,14 @@ class QueryRequest(BaseModel):
     top_k: int = Field(default=5, ge=1, le=20)
     doc_id_filter: Optional[str] = Field(default=None, max_length=255)
     section_filter: Optional[str] = Field(default=None, max_length=100)
+    target_doc_ids: Optional[list[str]] = Field(
+        default=None,
+        description="Optional explicit pair of document IDs for compare route",
+    )
+    compare_doc_ids: Optional[list[str]] = Field(
+        default=None,
+        description="Backward-compatible alias for explicit compare targets",
+    )
 
 
 class SourceDocument(BaseModel):

@@ -1,83 +1,74 @@
-# M-RAG 발표 요약
+# M-RAG Presentation Summary
 
-> PPT 제작용 개조식 문서
-> 문장 끝 마침표 없음
+> PPT outline. Keep result slides as placeholders until a verified run exists.
 
-## 1. 제목
+## 1. Title
 
 - M-RAG
-- 한국어 중심 학술 문서 질의응답을 위한 환각 억제형 모듈러 RAG 시스템
+- HyDE × CAD × SCD factor analysis for Korean-query English-paper RAG
 
-## 2. 문제의식
+## 2. Problem
 
-- 학술 문서 질문은 유형마다 필요한 검색 방식이 다름
-- 단순 QA, 섹션 질문, 비교, 인용 추적, 요약, 퀴즈 생성이 한 흐름에 섞임
-- 고정 RAG 파이프라인은 모든 질문을 같은 방식으로 처리
-- 한국어 질문에서 영어 논문 컨텍스트가 들어오면 Language Drift 발생 가능
-- LLM이 문서보다 사전학습 기억을 우선하는 파라메트릭 지식 개입 발생 가능
+- Korean users ask about papers whose evidence is often in English
+- Retrieval must bridge Korean questions and English passages
+- Generation must answer in Korean without drifting into English
+- The model may rely on parametric memory instead of retrieved evidence
 
-## 3. 핵심 아이디어
+## 3. Research Question
 
-- 질문을 먼저 A–F 여섯 경로로 라우팅 (query_router.py)
-- 경로별로 다른 검색과 생성 전략 적용
-- 검색: BGE-M3 [2] + BM25 [22] + RRF [23] + Cross-encoder 재랭킹
-- 생성 제어: CAD(α=0.5) [3] + SCD(β=0.3) [34] LogitsProcessor 병렬 적용
-- 답변, 출처, follow-up 질문을 함께 제공
+- How do HyDE, CAD, and SCD affect evidence support, numeric hallucination, and language drift?
+- Which query types benefit from each factor?
+- How should the graduation-project service route policy use those findings?
 
-## 4. 기여
+## 4. Core Method
 
-- C1 모듈별 기여도 정량 분해 (13개 모듈, 6단계 누적 ablation)
-- C2 CAD+SCD 병렬 적용으로 환각과 언어 이탈 동시 억제
-- C3 18개 모듈 시스템 구현과 공개 (FastAPI + React)
+- Fixed Paper-RAG backbone
+- HyDE on/off as retrieval-side expansion axis
+- CAD on/off as context-faithfulness decoding axis
+- SCD on/off as Korean-target language-control axis
+- 8-config factorial matrix
 
-## 5. 시스템 구조
+## 5. Service System
 
-- 입력 문서 PDF DOCX TXT
-- 파싱과 섹션 감지
-- 청킹과 임베딩
-- ChromaDB 저장
-- 질문 입력
-- query router가 A–F 경로 선택
-- hybrid retrieval와 reranking
-- context compression
-- MIDM Base 생성
-- CAD/SCD 생성 제어
+- FastAPI backend and React frontend
+- Paper upload, indexing, chat, sources, SSE streaming
+- A-F service routes for QA, section QA, comparison, citation lookup, summary, quiz/flashcards
+- Routes are service features, not the thesis algorithmic novelty
 
-## 6. A–F 파이프라인
+## 6. Experiment Matrix
 
-- A 단순 QA
-- B 섹션 특화 QA
-- C 멀티 문서 비교
-- D 인용/특허 추적
-- E 전체 요약
-- F 퀴즈/플래시카드 생성
+- `hyde_off__no_decoder_control`
+- `hyde_off__cad_only`
+- `hyde_off__scd_only`
+- `hyde_off__cad_scd`
+- `hyde_on__no_decoder_control`
+- `hyde_on__cad_only`
+- `hyde_on__scd_only`
+- `hyde_on__cad_scd`
 
-## 7. 실험
+## 7. Metrics
 
-- Track 1 범용 질의 모듈 누적 ablation
-- Track 1 CAD/SCD decoder ablation
-- Track 1 alpha beta sweep
-- Track 2 논문 도메인 특화 모듈 비교
+- Evidence support
+- Numeric hallucination
+- Language drift
+- Korean answer ratio
+- Query-type breakdown
+- Cost/run-size estimate
 
-## 8. 기대 결과
+## 8. Result Policy
 
-- 검색 모듈 추가에 따른 Context Precision 변화 확인
-- CAD 적용에 따른 Faithfulness 향상과 수치 환각 감소 확인
-- SCD 적용에 따른 Language Drift Rate 감소 확인
-- CAD+SCD 병렬 적용 시 두 지표 동시 개선 확인
-- 논문 도메인 특화 모듈(섹션 필터, RAPTOR, 인용 추적)의 추가 효과 확인
+- Do not claim improvements before running the approved matrix
+- Use pending placeholders until verified artifacts exist
+- Keep RAGAS-compatible design separate from lightweight local judging
 
-## 9. 한계
+## 9. Expected Deliverable
 
-- CAD/SCD 적용 시 추론 비용 증가
-- judge 모델 품질이 자동 평가 신뢰도에 영향
-- 추론 서버 최적화와 외부 LLM API 비교는 다음 단계 연구 주제
-- 본 실험은 MIDM Base 기준
+- Factor analysis table
+- Effect delta summary
+- Query-type policy for the graduation-project routed service
+- Runtime compatibility audit appendix
 
-## 10. 결론
+## 10. Conclusion
 
-- M-RAG는 질문 유형별 경로 선택과 CAD+SCD 생성 제어를 결합한 논문 리뷰용 모듈러 RAG 시스템
-- 검색 품질과 생성 안정성을 동시에 다루는 구조
-- 한국어 중심 학술 문서 QA에 맞춘 재현 가능한 실험 경로 제공
-
-논문 전체는 `docs/PAPER/THESIS.md` 참고 (참고문헌 39편)
+- The thesis contribution is the HyDE/CAD/SCD analysis
+- The M-RAG service demonstrates how that analysis can inform a Korean paper-review assistant

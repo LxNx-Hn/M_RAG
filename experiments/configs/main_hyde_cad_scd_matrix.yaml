@@ -1,0 +1,68 @@
+# Generated/validated by experiments/runners/generate_main_hyde_cad_scd_matrix.py
+experiment: main-hyde-cad-scd
+description: Fixed Paper-RAG backbone with HyDE x CAD x SCD factorial matrix.
+axis_policy:
+  hyde: [off, on]
+  cad: [off, on]
+  scd: [off, on]
+fixed_parameter_freeze_rule:
+  freeze_after_tuning_queries:
+    - top_k
+    - rerank_top_n
+    - cad_alpha
+    - scd_beta
+    - hyde_prompt_template
+    - generation_settings
+  main_matrix_varies_only:
+    - hyde
+    - cad
+    - scd
+configs:
+  - name: hyde_off__no_decoder_control
+    hyde: false
+    cad: false
+    scd: false
+    decoder_label: no_decoder_control
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_off__cad_only
+    hyde: false
+    cad: true
+    scd: false
+    decoder_label: cad_only
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_off__scd_only
+    hyde: false
+    cad: false
+    scd: true
+    decoder_label: scd_only
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_off__cad_scd
+    hyde: false
+    cad: true
+    scd: true
+    decoder_label: cad_scd
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_on__no_decoder_control
+    hyde: true
+    cad: false
+    scd: false
+    decoder_label: no_decoder_control
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_on__cad_only
+    hyde: true
+    cad: true
+    scd: false
+    decoder_label: cad_only
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_on__scd_only
+    hyde: true
+    cad: false
+    scd: true
+    decoder_label: scd_only
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml
+  - name: hyde_on__cad_scd
+    hyde: true
+    cad: true
+    scd: true
+    decoder_label: cad_scd
+    fixed_backbone_config: experiments/configs/fixed_backbone.yaml

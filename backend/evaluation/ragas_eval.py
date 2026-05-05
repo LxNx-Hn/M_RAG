@@ -1,5 +1,9 @@
 """
-RAG evaluation helpers used across the evaluation scripts.
+RAGAS-inspired lightweight evaluation helpers.
+
+This module is not the official RAGAS execution path. It provides a local or
+caller-supplied judge adapter with RAGAS-like metric names for continuity.
+The official RAGAS skeleton lives under `experiments/evaluators/`.
 """
 
 from __future__ import annotations
@@ -10,13 +14,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-try:
-    from ragas.metrics import context_recall
-except ImportError:
-    context_recall = "context_recall"
-
 logger = logging.getLogger(__name__)
 EVALUATION_ROOT = Path(__file__).resolve().parents[1]
+CONTEXT_RECALL_METRIC = "context_recall"
 
 
 @dataclass
@@ -47,12 +47,18 @@ class EvalResult:
         return sum(values) / max(len(values), 1)
 
 
-class RAGASEvaluator:
-    """Lightweight evaluator backed by an LLM judge."""
+class RAGASInspiredEvaluator:
+    """Lightweight evaluator backed by a local or supplied judge.
+
+    The scores are inspired by common RAGAS metrics, but this class does not
+    import, execute, or claim to be official RAGAS.
+    """
 
     def __init__(self, generator=None, judge_fn=None):
         if generator is None and judge_fn is None:
-            raise ValueError("RAGASEvaluator requires either generator or judge_fn.")
+            raise ValueError(
+                "RAGASInspiredEvaluator requires either generator or judge_fn."
+            )
         self.generator = generator
         self.judge_fn = judge_fn
 
@@ -60,8 +66,8 @@ class RAGASEvaluator:
         """Evaluate all samples and return aggregate and per-sample scores."""
         metrics = ["faithfulness", "answer_relevancy", "context_precision"]
         if all(s.ground_truth for s in samples):
-            metrics.append(context_recall)
-        include_context_recall = context_recall in metrics
+            metrics.append(CONTEXT_RECALL_METRIC)
+        include_context_recall = CONTEXT_RECALL_METRIC in metrics
 
         results = [self._evaluate_single(sample) for sample in samples]
 
