@@ -1,4 +1,4 @@
-"""Dry-run validator for the separated experiment framework.
+﻿"""Dry-run validator for the separated experiment framework.
 
 This runner performs static validation, sizing, matrix boolean checks, and
 claim-policy checks only. It does not call retrieval models, generation models,
@@ -56,7 +56,6 @@ SCAN_ROOTS = [
     "backend/api",
     "backend/modules",
     "backend/pipelines",
-    "backend/evaluation",
     "backend/scripts",
     "docs",
     "experiments",
@@ -108,17 +107,15 @@ def classify_forbidden_hit(path: Path) -> str:
         "experiments/REFERENCE_IMPLEMENTATION_AUDIT.md",
     }:
         return "contract or forbidden-claim explanation"
+    if rel.startswith("experiments/archive/legacy_backend_evaluation/"):
+        return "legacy query/GT/result artifact"
     if rel.startswith("experiments/data/"):
         return "derived query audit/split artifact from existing query assets"
     if rel.startswith("experiments/"):
         return "experiment design/contract context"
     if rel.startswith("docs/"):
         return "Phase 5 documentation, related-work, or claim-boundary context"
-    if rel.startswith("backend/evaluation/data/") or rel.startswith(
-        "backend/evaluation/results/"
-    ):
-        return "legacy query/GT/result artifact"
-    if rel.startswith("backend/evaluation/") or rel.startswith("backend/scripts/"):
+    if rel.startswith("backend/scripts/"):
         return "legacy evaluation utility; not part of separated main path"
     return "unclassified"
 
@@ -378,3 +375,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

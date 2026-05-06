@@ -107,7 +107,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--data-dir",
         default=None,
-        help="Target directory. Default: backend/data",
+        help="Target directory. Default: experiments/data/source_papers",
     )
     parser.add_argument(
         "--dry-run",
@@ -120,8 +120,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
 
-    backend_dir = Path(__file__).resolve().parents[1]
-    data_dir = Path(args.data_dir) if args.data_dir else backend_dir / "data"
+    repo_root = Path(__file__).resolve().parents[2]
+    default_data_dir = repo_root / "experiments" / "data" / "source_papers"
+    data_dir = Path(args.data_dir) if args.data_dir else default_data_dir
     targets = PAPERS if args.skip_korean else PAPERS + REPO_INCLUDED_PAPERS
 
     print(f"[download_test_papers] target directory: {data_dir}")

@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import io
@@ -31,7 +31,7 @@ RESULTS_DIR = PROJECT_ROOT / "evaluation" / "results"
 LOG_PATH = SCRIPTS_DIR / "master_run.log"
 LOCK_PATH = SCRIPTS_DIR / "master_run.lock"
 DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./mrag.db"
-DEFAULT_JWT_SECRET = "mrag-experiment-local-secret-2026"
+DEFAULT_JWT_SECRET = "CHANGE_ME"
 DEFAULT_GENERATION_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
 
 REQUIRED_PDFS = [
@@ -660,7 +660,7 @@ class MasterRunner:
 
         email = os.environ.get("MRAG_RUNNER_EMAIL", "runner@mrag.local")
         username = os.environ.get("MRAG_RUNNER_USERNAME", "master_runner")
-        password = os.environ.get("MRAG_RUNNER_PASSWORD", "MragRunner!2026x")
+        password = os.environ.get("MRAG_RUNNER_PASSWORD", "CHANGE_ME")
 
         api_base = self.args.api_url.rstrip("/")
 
@@ -1136,7 +1136,7 @@ class MasterRunner:
     def step_push_results(self) -> None:
         """평가 결과(evaluation/results/) 와 평가 로그를 원격 저장소에 자동 commit + push.
 
-        Alice Cloud / RunPod 등 외부 GPU 환경에서 실험을 백그라운드로 끝내고
+        Alice Cloud or another approved GPU host can finish experiments in the background
         사용자 PC 에서 git pull 만으로 결과를 받을 수 있도록 한다. git push 자격이
         설정되지 않은 환경에서는 경고만 남기고 실패하지 않는다."""
         if not getattr(self.args, "push_results", True):
@@ -1416,3 +1416,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

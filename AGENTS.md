@@ -16,7 +16,7 @@
 - Backend는 FastAPI 기반이며 `backend/api/main.py`가 진입점이다.
 - Frontend는 Vite + React + TypeScript 기반이며 `frontend/src/`에 앱 코드가 있다.
 - 주요 RAG 모듈은 `backend/modules/`, A-F 질의 파이프라인은 `backend/pipelines/`에 있다.
-- 실험 오케스트레이션은 `backend/scripts/master_run.py`를 기준으로 한다.
+- 현재 실험 오케스트레이션은 `experiments/runners/`와 `experiments/scripts/alice/`를 기준으로 한다.
 
 ## Important Runtime Rules
 
@@ -83,13 +83,12 @@ npm run lint
 npm run build
 ```
 
-For full local experiment verification:
+For local experiment planning verification:
 
 ```powershell
-cd backend
-$env:JWT_SECRET_KEY = "mrag-experiment-local-secret-2026"
-$env:LOAD_GPU_MODELS = "true"
-python scripts\master_run.py --skip-download
+python experiments\runners\run_tuning_plan.py --dry-run --plan-only --limit 5
+python experiments\runners\dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
+python experiments\runners\run_generation.py --dry-run --plan-only --query-split decoder_main_queries --config-limit 2 --limit 3
 ```
 
 ## Key Paths
@@ -103,7 +102,7 @@ python scripts\master_run.py --skip-download
 - `backend/api/`: FastAPI app, routers, auth, database, models.
 - `backend/modules/`: retrieval, reranking, generation, CAD/SCD, follow-up generation, PPT export.
 - `backend/pipelines/`: A-F query pipelines.
-- `backend/evaluation/`: evaluation runners and datasets.
-- `backend/evaluation/results/`: tracked result artifacts.
+- `experiments/runners/`: current experiment planning and generation runners.
+- `experiments/scripts/alice/`: Alice Cloud experiment setup and smoke/run planning scripts.
+- `experiments/archive/legacy_backend_evaluation/`: archived legacy evaluation code, source snapshots, and old result artifacts.
 - `frontend/src/`: React app, stores, API clients, viewer, chat UI.
-

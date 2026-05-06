@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -54,7 +54,7 @@ sleep 3
 git -C "${REPO_ROOT}" fetch origin
 git -C "${REPO_ROOT}" pull --ff-only origin main
 
-export JWT_SECRET_KEY="${JWT_SECRET_KEY:-mrag-experiment-local-secret-2026}"
+export JWT_SECRET_KEY="${JWT_SECRET_KEY:-CHANGE_ME}"
 export LOAD_GPU_MODELS="${LOAD_GPU_MODELS:-true}"
 export GENERATION_MODEL="${GENERATION_MODEL:-K-intelligence/Midm-2.0-Base-Instruct}"
 export DATABASE_URL="${DATABASE_URL:-sqlite+aiosqlite:///./mrag.db}"
@@ -110,7 +110,7 @@ fi
 # Bootstrap runner account: register, then login if already exists
 RUNNER_EMAIL="${MRAG_RUNNER_EMAIL:-runner@mrag.local}"
 RUNNER_USERNAME="${MRAG_RUNNER_USERNAME:-master_runner}"
-RUNNER_PASSWORD="${MRAG_RUNNER_PASSWORD:-MragRunner!2026x}"
+RUNNER_PASSWORD="${MRAG_RUNNER_PASSWORD:-CHANGE_ME}"
 
 REGISTER_RESP="$(curl -s -w '\n%{http_code}' -X POST "${API_BASE}/api/auth/register" \
   -H 'Content-Type: application/json' \
@@ -213,3 +213,4 @@ fi
   --output evaluation/results/TABLES.md
 
 echo "[rerun] CAD-affected rerun completed"
+

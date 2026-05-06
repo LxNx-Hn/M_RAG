@@ -13,7 +13,7 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = REPO_ROOT / "backend" / "evaluation" / "data"
+DATA_DIR = REPO_ROOT / "experiments" / "archive" / "legacy_backend_evaluation" / "data"
 OUT_DIR = REPO_ROOT / "experiments" / "data"
 SPLIT_DIR = OUT_DIR / "query_splits"
 

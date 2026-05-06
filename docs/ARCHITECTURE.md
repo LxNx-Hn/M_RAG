@@ -13,7 +13,7 @@ This document describes the current service runtime and the separated experiment
 | Service modules | `backend/modules` | parsing, indexing, retrieval, reranking, generation, decoding control, citations |
 | Service pipelines | `backend/pipelines` | A-F route execution for paper-review features |
 | Experiment framework | `experiments` | fixed backbone config, 8-config matrix, query splits, schemas, dry-run validation |
-| Legacy evaluation | `backend/evaluation` | older evaluation utilities and checked-in legacy assets |
+| Legacy evaluation archive | `experiments/archive/legacy_backend_evaluation` | older evaluation utilities and checked-in legacy assets, not active runtime |
 
 ## Runtime Flow
 

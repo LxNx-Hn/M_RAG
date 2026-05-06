@@ -1,0 +1,53 @@
+schema_version: phase7_7.alice_execution_plan.v1
+status: planning_ready
+
+model:
+  thesis_model: K-intelligence/Midm-2.0-Base-Instruct
+  local_validation_model: K-intelligence/Midm-2.0-Mini-Instruct
+
+instance_profiles:
+  smoke_recommended: G-NAHPM-40 / A100 MIG 40GB
+  full_run_recommended: G-NAHP-80 / A100 80GB PCIe
+
+stages:
+  alice_base_smoke:
+    sample_count: 1
+    query_split: tuning_queries
+    query_limit: 1
+    profile: current_defaults
+    axis_config: hyde_off__no_decoder_control
+    thesis_grade_result: false
+  thesis_tuning:
+    query_split: tuning_queries
+    query_count: 5
+    requires_user_approval: true
+    thesis_grade_result: true
+  parameter_freeze:
+    requires_tuning_results: true
+    output: experiments/configs/frozen_params.yaml
+  main_generation:
+    query_split: decoder_main_queries
+    query_count: 19
+    matrix_configs: 8
+    expected_samples: 152
+    requires_frozen_params: true
+  optional_final_eval_generation:
+    query_split: candidate_final_eval_queries
+    query_count: 5
+    matrix_configs: 8
+    expected_samples: 40
+    requires_explicit_approval: true
+
+safety:
+  openai_default: false
+  ragas_default: false
+  gt_regeneration: false
+  no_result_invention: true
+  no_query_fabrication: true
+
+expected_sample_counts:
+  smoke: 1
+  current_runner_tuning_if_applicable: 40
+  staged_tuning: 60
+  main_generation: 152
+  optional_final_eval_generation: 40

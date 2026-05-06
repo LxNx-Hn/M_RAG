@@ -1,4 +1,4 @@
-# M-RAG 실행 및 배포 가이드
+﻿# M-RAG 실행 및 배포 가이드
 
 ## 기준
 
@@ -56,13 +56,18 @@ npm run dev -- --host 0.0.0.0
 ## 논문 실험 실행
 
 ```powershell
-cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
-$env:JWT_SECRET_KEY = "mrag-experiment-local-secret-2026"
-$env:LOAD_GPU_MODELS = "true"
-python scripts\master_run.py --skip-download
+cd C:\Users\KiKi\Desktop\CODE\M_RAG
+python experiments\runners\run_tuning_plan.py --dry-run --plan-only --limit 5
+python experiments\runners\dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
+python experiments\runners\run_generation.py --dry-run --plan-only --query-split decoder_main_queries --config-limit 2 --limit 3
 ```
 
-`master_run.py` 기본값
+Alice Cloud 실제 실행은 `docs/USAGE/ALICE_CLOUD.md`와
+`experiments/scripts/alice/`를 따른다. 레거시 `master_run.py`는
+`experiments/archive/legacy_backend_evaluation/scripts/master_run.py`에
+보존되어 있지만 현재 활성 실행 경로가 아니다.
+
+현재 실험 계획 기본값
 
 - `DATABASE_URL=sqlite+aiosqlite:///./mrag.db`
 - `GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct`
@@ -76,8 +81,9 @@ python scripts\master_run.py --skip-download
 | 영어 본문 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm |
 | 한국어 본문 | paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive |
 
-`git pull` 후 `backend/data/`에 8편 전부 존재한다. 별도 수동 배치 없이
-기본 실험을 재현할 수 있다.
+`git pull` 후 `experiments/data/source_papers/`에 8편 전부 존재한다. 별도
+수동 배치 없이 실험 소스 자산을 확인할 수 있다. backend 런타임 업로드
+디렉터리는 `MRAG_DATA_DIR` 또는 별도 마운트 볼륨으로 지정한다.
 
 Track 2는 checked-in 공통 query asset을 사용한다.
 
@@ -85,11 +91,10 @@ Track 2는 checked-in 공통 query asset을 사용한다.
 - 한국어 본문 그룹 28개
 - 총 56개
 
-성공 기준
-
-- `STEP 12 - Validate results completed successfully.`
-- `STEP 13 - Stop the API server subprocess cleanly completed successfully.`
-- `MASTER RUN COMPLETE`
+현재 논문 실험은 `experiments/scripts/alice/`와 `experiments/runners/`를
+기준으로 실행한다. 과거 `master_run.py` 성공 기준은
+`experiments/archive/legacy_backend_evaluation/scripts/master_run.py`에
+보존된 레거시 기준이며, 현재 활성 실행 경로가 아니다.
 
 ## Docker Compose
 
@@ -101,19 +106,21 @@ docker compose up --build
 
 ## 결과 위치
 
-- JSON 결과 `backend/evaluation/results/*.json`
-- Markdown 표 `backend/evaluation/results/TABLES.md`
-- 실행 로그 `backend/scripts/master_run.log`
-- 업로드/실험 PDF `backend/data/`
-- ChromaDB `backend/chroma_db/`
+- JSON 결과 `experiments/results/*.json`
+- Markdown 표 `experiments/results/TABLES.md`
+- 실행 로그 `experiments/reports/` 또는 실행별 지정 로그
+- 실험 소스 PDF `experiments/data/source_papers/`
+- 런타임 업로드 PDF `MRAG_DATA_DIR` 또는 마운트된 runtime data 볼륨
+- ChromaDB `MRAG_CHROMA_DIR` 또는 마운트된 runtime vector-store 볼륨
 
 ## 배포 검증
 
 ```powershell
-cd C:\Users\KiKi\Desktop\CODE\M_RAG\backend
-..\.venv\Scripts\python.exe scripts\verify_deployment.py
+python -m compileall backend experiments
+python experiments\runners\dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
 ```
 
-- `track1_queries.json`이 비어 있어도 WARN (런타임 생성 placeholder)
-- `track2_queries.json`이 비어 있으면 FAIL
-- `JWT_SECRET_KEY` 미설정 시 API router 검사는 WARN/skip
+레거시 `verify_deployment.py`는
+`experiments/archive/legacy_backend_evaluation/scripts/verify_deployment.py`에
+보존되어 있지만 현재 backend 런타임 경로는 아니다.
+

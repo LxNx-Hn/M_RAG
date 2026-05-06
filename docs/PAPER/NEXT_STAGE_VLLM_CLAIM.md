@@ -40,4 +40,4 @@ CAD와 SCD는 현재 `LogitsProcessor`를 통해 직접 generation logits에 개
 - 현재 생성기 `backend/modules/generator.py`
 - 현재 CAD `backend/modules/cad_decoder.py`
 - 현재 SCD `backend/modules/scd_decoder.py`
-- 현재 실험 실행 `backend/scripts/master_run.py`
+- 현재 실험 계획/실행 준비 `experiments/runners/`, `experiments/scripts/alice/`

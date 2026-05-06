@@ -9,18 +9,23 @@ from pathlib import Path
 import requests
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = PROJECT_ROOT / "data"
+DEFAULT_DATA_DIR = Path(os.environ.get("MRAG_DATA_DIR", str(PROJECT_ROOT / "data")))
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Upload PDFs from backend/data to the local M-RAG API for indexing."
+        description="Upload PDFs from a runtime data directory to the local M-RAG API."
     )
     parser.add_argument("--api-url", default="http://localhost:8000")
     parser.add_argument(
+        "--data-dir",
+        default=str(DEFAULT_DATA_DIR),
+        help="Runtime PDF directory. Default: MRAG_DATA_DIR or backend/data.",
+    )
+    parser.add_argument(
         "--paper",
         action="append",
-        help="Specific PDF filename in data/ to upload. Repeat to upload multiple files.",
+        help="Specific PDF filename in --data-dir to upload. Repeat to upload multiple files.",
     )
     parser.add_argument("--collection", default="papers")
     parser.add_argument("--doc-type", default="paper")
@@ -57,8 +62,10 @@ def _build_headers(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
 
 
-def _collect_pdfs(target_names: list[str] | None) -> tuple[list[Path], list[str]]:
-    pdfs = sorted(DATA_DIR.glob("*.pdf"))
+def _collect_pdfs(
+    data_dir: Path, target_names: list[str] | None
+) -> tuple[list[Path], list[str]]:
+    pdfs = sorted(data_dir.glob("*.pdf"))
     if not target_names:
         return pdfs, []
 
@@ -148,15 +155,16 @@ def _list_indexed(api_url: str, timeout: int, token: str) -> list[dict]:
 
 def main() -> int:
     args = parse_args()
-    pdfs, missing = _collect_pdfs(args.paper)
+    data_dir = Path(args.data_dir)
+    pdfs, missing = _collect_pdfs(data_dir, args.paper)
     if missing:
         print(
-            "Target PDF(s) not found in data/: " + ", ".join(missing),
+            f"Target PDF(s) not found in {data_dir}: " + ", ".join(missing),
             file=sys.stderr,
         )
         return 1
     if not pdfs:
-        print(f"No PDF files found in {DATA_DIR}", file=sys.stderr)
+        print(f"No PDF files found in {data_dir}", file=sys.stderr)
         return 1
 
     if not args.token:

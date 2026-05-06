@@ -1,4 +1,4 @@
-# M-RAG 기능 정리
+﻿# M-RAG 기능 정리
 
 ## 문서 목적
 
@@ -59,12 +59,12 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 
 | 기능 | 코드 근거 | 목적 |
 |---|---|---|
-| 전체 실행 | `backend/scripts/master_run.py` | end-to-end 실험 자동화 |
-| Track 1 실행 | `backend/evaluation/run_track1.py` | 모듈 누적 ablation, decoder ablation |
-| Track 2 실행 | `backend/evaluation/run_track2.py` | 공통 쿼리셋 기반 config 비교 (56-query asset) |
-| RAGAS 스타일 평가 | `backend/evaluation/ragas_eval.py` | 자동 평가 점수 산출 |
-| Markdown 표 변환 | `backend/scripts/results_to_markdown.py` | 결과 JSON을 논문 표로 변환 |
-| 배포 검증 | `backend/scripts/verify_deployment.py` | 필수 import와 실행 환경 확인 |
+| 전체 실행 | `experiments/archive/legacy_backend_evaluation/scripts/master_run.py` | end-to-end 실험 자동화 |
+| Track 1 실행 | `experiments/archive/legacy_backend_evaluation/run_track1.py` | 모듈 누적 ablation, decoder ablation |
+| Track 2 실행 | `experiments/archive/legacy_backend_evaluation/code/run_track2.py` | 공통 쿼리셋 기반 config 비교 (56-query asset) |
+| RAGAS 스타일 평가 | `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` | 자동 평가 점수 산출 |
+| Markdown 표 변환 | `experiments/archive/legacy_backend_evaluation/scripts/results_to_markdown.py` | 결과 JSON을 논문 표로 변환 |
+| 배포 검증 | `experiments/archive/legacy_backend_evaluation/scripts/verify_deployment.py` | 필수 import와 실행 환경 확인 |
 
 ---
 
@@ -78,3 +78,4 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 | 다음 단계 추론 최적화 연구 | vLLM 기반 별도 연구 계획 |
 
 참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+

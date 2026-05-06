@@ -5,28 +5,16 @@ __pycache__/
 .venv/
 venv/
 .codex/
+.claude/
 # Data & DB
 data/*.pdf
 backend/data/*
-!backend/data/paper_nlp_bge.pdf
-!backend/data/paper_nlp_rag.pdf
-!backend/data/paper_nlp_cad.pdf
-!backend/data/paper_nlp_raptor.pdf
-!backend/data/paper_midm.pdf
-!backend/data/paper_ko_rag_eval_framework.pdf
-!backend/data/paper_ko_rag_rrf_chunking.pdf
-!backend/data/paper_ko_cad_contrastive.pdf
+experiments/archive/runtime_data_snapshot/
 chroma_db/
+backend/chroma_db/
 *.sqlite3
 backend/mrag.db
 backend/*.db
-# backend/evaluation/results/ — tracked so Alice Cloud experiments are pull-able
-backend/evaluation/data/pseudo_gt.json
-# pseudo_gt_track1/2.json and track1_queries.json are committed after generation
-# so re-runs can skip expensive GPT-4o GT generation steps
-backend/evaluation/data/track1_crag_translated.json
-# archive/ snapshots are local-only (too large for git; use pull_alice_results.sh)
-backend/evaluation/archive/
 
 # Models (downloaded at runtime)
 *.bin
@@ -46,7 +34,10 @@ Thumbs.db
 
 # Logs
 logs/
+backend/logs/
 *.log
+*.out
+*.err
 backend/scripts/master_run.lock
 backend/.alice_runtime_env.sh
 

@@ -1,10 +1,10 @@
-# 39편 기준 문서 동기화 기록
+﻿# 39편 기준 문서 동기화 기록
 
 ## 기준
 
 - 기준 원문 `C:/Users/KiKi/Downloads/modular_rag_guideline.md`
 - 기준 성격 39편 참고문헌 기반 전체 설계 가이드 (35편 + 한국어 코퍼스 4편)
-- 코드 기준 `backend/modules`, `backend/pipelines`, `backend/api/routers`, `backend/evaluation`, `backend/scripts`
+- 코드 기준 `backend/modules`, `backend/pipelines`, `backend/api/routers`, `experiments/runners`, `experiments/scripts/alice`, `experiments/archive/legacy_backend_evaluation`
 
 ## 현재 문서 체계
 
@@ -18,15 +18,15 @@
 | 발표 요약 | `docs/PAPER/PPT_SUMMARY.md` | PPT 제작용 개조식 요약 |
 | 발표 키워드 | `docs/PAPER/PPT_KEYWORDS.md` | PPT 제작용 키워드 요약 |
 | 설명 문서 | `docs/EXPLAIN` | 비전공자용 구조, 용어, 흐름, 표 해석 설명 |
-| 사용법 | `docs/USAGE` | 로컬, RunPod, Alice, DB, 테스트 실행법 |
+| 사용법 | `docs/USAGE` | 로컬, Alice Cloud, DB, 테스트 실행법 |
 
 ## 연구 문서와 운영 문서의 분리 기준
 
 | 분류 | 문서 중심 | 코드 중심 |
 |---|---|---|
-| 연구 | Track 1, Track 2, CAD, SCD, A–E 경로 | `run_track1.py`, `run_track2.py`, `ragas_eval.py`, 검색/생성 모듈 |
+| 연구 | HyDE/CAD/SCD factor analysis, query splits, archived Track 1/2 provenance | `experiments/runners`, archived legacy `run_track1.py`, archived legacy `run_track2.py`, 검색/생성 모듈 |
 | 운영/서비스 | F 퀴즈, 후속 질문, PPT Export, Search/Judge API, SSE | `pipeline_f_quiz.py`, `followup_generator.py`, `pptx_exporter.py`, `chat.py` |
-| 실행 | SQLite 실험, PostgreSQL 운영, RunPod/Alice 실행 | `master_run.py`, `database.py`, `docker-compose.yml` |
+| 실행 | SQLite 실험, PostgreSQL 운영, Alice Cloud 실행 | `experiments/scripts/alice`, `database.py`, `docker-compose.yml` |
 
 ## 현재 모듈 기준
 
@@ -86,7 +86,7 @@
 - `ARCHITECTURE.md`에 A–F 경로별 활성 모듈 표 반영
 - `FEATURES.md`에 연구 기능, 대화 기능, 운영 기능, 실험 기능 분리
 - `EXPLAIN`에 용어, 구조, 흐름, 경로별 모듈, 참고문헌, 표 해석 문서 반영
-- `USAGE`에 로컬, RunPod, Alice, PostgreSQL, 테스트 문서 반영
+- `USAGE`에 로컬, Alice Cloud, PostgreSQL, 테스트 문서 반영
 - 삭제된 문서명과 과거 구조 참조 제거
 - Markdown 로컬 링크 검증
 - `git diff --check` 검증
@@ -96,3 +96,4 @@
 - 상태 완료
 - 기준 현재 코드와 39편 참고문헌
 - 후속 문서 수정 조건 코드 구조, 실험 경로, 모델 정책, DB 정책, 참고문헌 변경
+

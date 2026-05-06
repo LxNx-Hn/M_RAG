@@ -9,14 +9,14 @@ from pathlib import Path
 # Paths
 # ─────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent
-DATA_DIR = PROJECT_ROOT / "data"
-CHROMA_DIR = PROJECT_ROOT / "chroma_db"
-DATA_DIR.mkdir(exist_ok=True)
-CHROMA_DIR.mkdir(exist_ok=True)
+DATA_DIR = Path(os.environ.get("MRAG_DATA_DIR", str(PROJECT_ROOT / "data")))
+CHROMA_DIR = Path(os.environ.get("MRAG_CHROMA_DIR", str(PROJECT_ROOT / "chroma_db")))
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+CHROMA_DIR.mkdir(parents=True, exist_ok=True)
 
 # ─────────────────────────────────────────────
 # HuggingFace cache: 환경변수 우선, 미설정 시 backend/.cache/huggingface로 fallback
-# Alice Cloud / RunPod 등 외부 환경에서는 export HF_HOME=...로 영구볼륨 경로 지정 권장
+# Alice Cloud or another approved GPU host should set HF_HOME to persistent storage.
 # ─────────────────────────────────────────────
 _HF_CACHE_DEFAULT = str(Path.home() / ".cache" / "huggingface")
 os.environ.setdefault("HF_HOME", _HF_CACHE_DEFAULT)

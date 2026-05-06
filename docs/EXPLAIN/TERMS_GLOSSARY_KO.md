@@ -1,8 +1,8 @@
-# M-RAG 용어사전
+﻿# M-RAG 용어사전
 
 이 문서는 논문과 코드에 나오는 핵심 용어를 설명한다. 정의, 동작 원리, 실제 예시, 더 단순한 방법과의 비교 순서로 설명한다.
 
-아래의 숫자와 짧은 문장 조각은 이해를 돕기 위한 예시다. 실제 실험 수치와 최종 표는 `backend/evaluation/results/` 산출물을 기준으로 확인한다.
+아래의 숫자와 짧은 문장 조각은 이해를 돕기 위한 예시다. 실제 실험 수치와 최종 표는 `experiments/results/` 산출물을 기준으로 확인한다.
 
 ---
 
@@ -388,7 +388,7 @@ RAGAS 라이브러리를 설치해 쓰는 대신, 평가 로직을 직접 구현
 
 ### 코드 위치
 
-`backend/evaluation/ragas_eval.py`
+`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
 
 ---
 
@@ -417,7 +417,7 @@ Hallucination(모델이 컨텍스트에 없는 내용을 지어냄)이 주요 �
 
 ### 코드 위치
 
-`backend/evaluation/ragas_eval.py` (`_compute_faithfulness`)
+`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_faithfulness`)
 
 ---
 
@@ -444,7 +444,7 @@ Answer Relevancy 높음:
 
 ### 코드 위치
 
-`backend/evaluation/ragas_eval.py` (`_compute_answer_relevancy`)
+`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_answer_relevancy`)
 
 ---
 
@@ -473,7 +473,7 @@ Context Precision = USEFUL 2 / 전체 5 = 0.40
 
 ### 코드 위치
 
-`backend/evaluation/ragas_eval.py` (`_compute_context_precision`)
+`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_context_precision`)
 
 ---
 
@@ -501,7 +501,7 @@ Context Recall = 2/3 ≈ 0.67
 
 ### 코드 위치
 
-`backend/evaluation/ragas_eval.py` (`_compute_context_recall`)
+`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_context_recall`)
 
 ---
 
@@ -703,7 +703,7 @@ SCD 적용 후 (β=0.3):
 
 ### 코드 위치
 
-`backend/scripts/generate_pseudo_gt.py`
+`experiments/archive/legacy_backend_evaluation/scripts/generate_pseudo_gt.py` (archived legacy helper; not active without explicit approval)
 
 ---
 
@@ -736,7 +736,7 @@ Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레
 
 ### 코드 위치
 
-`backend/api/routers/chat.py` (`/api/chat/judge`), `backend/evaluation/ragas_eval.py`
+`backend/api/routers/chat.py` (`/api/chat/judge`), `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
 
 ---
 
@@ -758,8 +758,9 @@ HyDE off/on × CAD off/on × SCD off/on = 8 configs
 
 ### 코드 위치
 
-`backend/evaluation/run_track1.py`, `backend/evaluation/ablation_study.py`
+`experiments/archive/legacy_backend_evaluation/run_track1.py`, `experiments/archive/legacy_backend_evaluation/ablation_study.py`
 
 ---
 
 참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+

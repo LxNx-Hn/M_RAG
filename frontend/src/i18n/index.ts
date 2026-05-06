@@ -170,7 +170,7 @@ const en: typeof ko = {
     uploadFirst: 'Upload a PDF on the left panel to start using these features.',
     suggestions: {
       q1: 'What is the key contribution of this paper?',
-      q2: 'How did the experiments turn out?',
+      q2: 'What were the evaluation findings?',
       q3: 'Explain the methodology',
       q4: 'Summarize the entire paper',
       q5: 'Analyze the cited papers',

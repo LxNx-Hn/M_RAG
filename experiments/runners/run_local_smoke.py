@@ -55,6 +55,26 @@ def parse_args() -> argparse.Namespace:
         help="Model variant metadata for smoke trace safety.",
     )
     parser.add_argument(
+        "--model-role",
+        default="local_validation_only",
+        help="Model role metadata written to the smoke record.",
+    )
+    parser.add_argument(
+        "--phase-label",
+        default="phase7_5A",
+        help="Phase label metadata written to the smoke record.",
+    )
+    parser.add_argument(
+        "--alice-mode",
+        action="store_true",
+        help="Mark this smoke as an Alice Cloud execution path.",
+    )
+    parser.add_argument(
+        "--confirm-alice-base",
+        action="store_true",
+        help="Required with --alice-mode before MIDM BASE smoke is allowed.",
+    )
+    parser.add_argument(
         "--require-mini",
         action="store_true",
         help="Block unless the selected generation model is the MIDM Mini variant.",
@@ -261,6 +281,14 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
             raise SmokeBlockedError(
                 "--require-mini was set, but the selected model is not MIDM Mini."
             )
+        selected_base = (
+            args.model_variant == "base" or "Base" in args.generation_model
+        )
+        if selected_base and not (args.alice_mode and args.confirm_alice_base):
+            raise SmokeBlockedError(
+                "MIDM BASE smoke requires --alice-mode and --confirm-alice-base; "
+                "local BASE remains blocked by VRAM policy."
+            )
         answer = generate_answer(
             query=query_record["query"],
             context=context,
@@ -280,7 +308,7 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
     end_time = now_iso()
     duration_seconds = round(time.perf_counter() - start, 3)
     return {
-        "phase": "phase7_5A",
+        "phase": args.phase_label,
         "sample_index": 1,
         "sample_count": 1,
         "status": status,
@@ -292,7 +320,7 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
         "paper_language": query_record.get("paper_language"),
         "selected_profile": EXPECTED_PROFILE,
         "selected_axis_config": EXPECTED_CONFIG,
-        "model_role": "local_validation_only",
+        "model_role": args.model_role,
         "model_family": "MIDM",
         "model_variant": args.model_variant,
         "thesis_grade_result": False,
@@ -313,7 +341,10 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
             "runner": "experiments/runners/run_local_smoke.py",
             "generation_model": args.generation_model,
             "model_variant": args.model_variant,
+            "model_role": args.model_role,
             "require_mini": bool(args.require_mini),
+            "alice_mode": bool(args.alice_mode),
+            "confirm_alice_base": bool(args.confirm_alice_base),
             "allow_download": bool(args.allow_download),
             "execution_guard": "phase7_5A_one_sample_only",
         },
@@ -321,7 +352,8 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
         "end_time": end_time,
         "duration_seconds": duration_seconds,
         "error": error,
-        "local_only": True,
+        "local_only": not bool(args.alice_mode),
+        "alice_mode": bool(args.alice_mode),
         "openai_used": False,
         "ragas_used": False,
         "gt_regenerated": False,

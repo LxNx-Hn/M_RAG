@@ -66,6 +66,6 @@ SELECT id, user_id, jti, expires_at FROM revoked_tokens;
 ## 주의
 
 - ChromaDB는 PostgreSQL에 저장되지 않는다
-- 업로드 원본 파일은 `backend/data`에 저장된다
-- 벡터 데이터는 `backend/chroma_db`에 저장된다
+- 업로드 원본 파일은 `MRAG_DATA_DIR` 또는 마운트된 runtime data 볼륨에 저장된다
+- 벡터 데이터는 `MRAG_CHROMA_DIR` 또는 마운트된 runtime vector-store 볼륨에 저장된다
 - 따라서 운영 백업은 PostgreSQL, ChromaDB, data 폴더를 함께 포함해야 한다

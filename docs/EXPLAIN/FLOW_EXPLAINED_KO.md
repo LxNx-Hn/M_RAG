@@ -1,8 +1,8 @@
-# 요청부터 답변까지 흐름 — 깊이 있는 설명
+﻿# 요청부터 답변까지 흐름 — 깊이 있는 설명
 
 이 문서는 PDF 업로드부터 답변이 나오기까지 각 단계에서 실제로 무슨 일이 일어나는지, 더 단순한 방법과 비교하면 왜 이렇게 설계했는지를 설명한다.
 
-이 문서의 수치와 문장 조각은 흐름을 설명하기 위한 예시다. 실제 실험 결과와 테이블 값은 `backend/evaluation/results/` 산출물을 기준으로 확인한다.
+이 문서의 수치와 문장 조각은 흐름을 설명하기 위한 예시다. 실제 실험 결과와 테이블 값은 `experiments/results/` 산출물을 기준으로 확인한다.
 
 ---
 
@@ -565,7 +565,7 @@ max_new_tokens=32이면:
   → 레이블이 포함됨 → 정확한 판정
 ```
 
-**관련 코드**: `backend/api/routers/chat.py`, `backend/evaluation/ragas_eval.py`
+**관련 코드**: `backend/api/routers/chat.py`, `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
 
 ---
 
@@ -584,3 +584,4 @@ max_new_tokens=32이면:
 ---
 
 참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+

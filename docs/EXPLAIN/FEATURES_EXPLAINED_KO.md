@@ -1,8 +1,8 @@
-# M-RAG 기능 깊게 이해하기
+﻿# M-RAG 기능 깊게 이해하기
 
 이 문서는 M-RAG의 각 기능이 **실제로 무슨 일을 하는지**, **이 방법을 왜 선택했는지**, **다른 방법 대신 이것을 쓰면 결과가 어떻게 달라지는지**를 구체적인 예시로 설명한다. 한 번도 RAG 시스템을 본 적 없는 사람이 읽어도 "이 기능이 왜 있는지"를 설명할 수 있을 만큼 구체적으로 쓴다.
 
-아래의 수치, 토큰 확률, 짧은 컨텍스트 예시는 설명용이다. 실제 실험 수치와 최종 표는 `backend/evaluation/results/` 산출물을 기준으로 읽는다.
+아래의 수치, 토큰 확률, 짧은 컨텍스트 예시는 설명용이다. 실제 실험 수치와 최종 표는 `experiments/results/` 산출물을 기준으로 읽는다.
 
 ---
 
@@ -521,8 +521,9 @@ SSE를 쓰면 단어가 생성되는 즉시 화면에 나타난다:
 - **PARTIAL**: 일부 맞고 일부 틀림 → Faithfulness = 0.5점
 - **UNSUPPORTED**: 컨텍스트에 없는 내용 → Faithfulness = 0.0점
 
-관련 코드: `backend/api/routers/chat.py`, `backend/evaluation/ragas_eval.py`
+관련 코드: `backend/api/routers/chat.py`, `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
 
 ---
 
 참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+
