@@ -1,0 +1,117 @@
+schema_version: phase7.frozen_params_draft.v1
+phase: phase7_tuning_parameter_freeze_preparation
+status: draft_not_frozen
+selection_source: none_yet_no_tuning_results
+purpose: >
+  Draft the parameter freeze record that must be finalized only after Phase 7.5
+  tuning evidence and a Phase 8 freeze decision.
+
+freeze_policy:
+  final_values_selected: false
+  requires_phase7_5_tuning_results: true
+  requires_phase8_freeze_decision: true
+  do_not_use_decoder_main_for_tuning: true
+  do_not_use_candidate_final_eval_for_tuning: true
+  preserve_main_factorial_design: true
+
+main_factorial_design:
+  experiment: main-hyde-cad-scd
+  matrix_path: experiments/configs/main_hyde_cad_scd_matrix.yaml
+  axis_count: 3
+  config_count: 8
+  axes:
+    HyDE: retrieval-side experimental axis
+    CAD: exact Context-Aware Decoding experimental axis
+    SCD: Korean-target Soft Constrained Decoding experimental axis
+  config_names:
+    - hyde_off__no_decoder_control
+    - hyde_off__cad_only
+    - hyde_off__scd_only
+    - hyde_off__cad_scd
+    - hyde_on__no_decoder_control
+    - hyde_on__cad_only
+    - hyde_on__scd_only
+    - hyde_on__cad_scd
+
+retrieval:
+  top_k:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: 5
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.top_k
+    freeze_status: pending
+  rerank_top_n:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: 5
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.rerank_top_n
+    freeze_status: pending
+  dense_model:
+    selected_value: BGE-M3 or repository-configured dense embedder
+    evidence: experiments/configs/fixed_backbone.yaml
+    freeze_status: fixed_backbone_component
+  sparse_method:
+    selected_value: BM25
+    evidence: experiments/configs/fixed_backbone.yaml
+    freeze_status: fixed_backbone_component
+  fusion_method:
+    selected_value: RRF
+    evidence: experiments/configs/fixed_backbone.yaml
+    freeze_status: fixed_backbone_component
+
+reranker:
+  model:
+    selected_value: cross-encoder/ms-marco-MiniLM-L-6-v2
+    evidence: backend/config.py RERANKER_MODEL
+    freeze_status: fixed_backbone_component
+
+hyde:
+  axis_status: experimental_axis_on_off_in_main_matrix
+  template:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: backend/modules/query_expander.py expand_hyde prompts
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.hyde_template_variant
+    freeze_status: pending
+
+generation:
+  model:
+    selected_value: K-intelligence/Midm-2.0-Base-Instruct
+    evidence: backend/config.py GENERATION_MODEL and experiments/runners/common.py DEFAULT_GENERATION_MODEL
+    freeze_status: pending_phase8_confirmation
+  max_new_tokens:
+    selected_value: pending_phase7_5_evidence
+    planning_runner_default: 512
+    backend_runtime_default: 1024
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.max_new_tokens
+    freeze_status: pending
+  temperature:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: 0.1
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.temperature
+    freeze_status: pending
+  decoding_mode:
+    selected_value: pending_phase7_5_evidence
+    current_repo_behavior: sampling_when_temperature_positive_unless_force_greedy
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.decoding_mode
+    freeze_status: pending
+
+cad:
+  axis_status: experimental_axis_on_off_in_main_matrix
+  alpha:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: 0.5
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.cad_alpha
+    freeze_status: pending
+
+scd:
+  axis_status: experimental_axis_on_off_in_main_matrix
+  beta:
+    selected_value: pending_phase7_5_evidence
+    current_repo_default: 0.3
+    candidates_reference: experiments/configs/tuning_plan.yaml#candidate_space.scd_beta
+    freeze_status: pending
+
+claim_safety:
+  no_tuning_results_claimed: true
+  no_main_experiment_results_claimed: true
+  no_final_eval_optimization: true
+  no_model_calls_made_in_phase7: true
+  final_values_require_human_approval_after_phase7_5: true

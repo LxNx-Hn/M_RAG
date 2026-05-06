@@ -1,0 +1,218 @@
+schema_version: phase7.tuning_plan.v1
+phase: phase7_tuning_parameter_freeze_preparation
+status: planning_only_not_executed
+experiment: main-hyde-cad-scd
+purpose: >
+  Prepare a small tuning candidate space for non-axis parameters that must be
+  frozen before the main HyDE x CAD x SCD factorial experiment.
+
+source_files:
+  tuning_split: experiments/data/query_splits/tuning_queries.json
+  decoder_main_split: experiments/data/query_splits/decoder_main_queries.json
+  candidate_final_eval_split: experiments/data/query_splits/candidate_final_eval_queries.json
+  main_matrix: experiments/configs/main_hyde_cad_scd_matrix.yaml
+  fixed_backbone: experiments/configs/fixed_backbone.yaml
+  sensitivity_reference: experiments/configs/cad_scd_sensitivity.yaml
+
+split_policy:
+  use_only:
+    - tuning_queries
+  explicitly_excluded_from_tuning:
+    - decoder_main_queries
+    - candidate_final_eval_queries
+    - query_type_analysis_queries
+    - service_route_queries
+    - query_templates
+  holdout_policy:
+    decoder_main_queries: reserved_for_main_hyde_cad_scd_generation
+    candidate_final_eval_queries: held_out_for_final_claim_check
+    query_templates: track2_template_only_until_human_binding
+  leakage_rule: no query_id or exact query text overlap may be used for tuning and final claims.
+
+experiment_design:
+  thesis_contribution: HyDE x CAD x SCD factor analysis in Korean-query / English-paper RAG.
+  fixed_backbone: dense retrieval + BM25 + RRF + CrossEncoder reranking.
+  axis_configs:
+    matrix_path: experiments/configs/main_hyde_cad_scd_matrix.yaml
+    configs:
+      - hyde_off__no_decoder_control
+      - hyde_off__cad_only
+      - hyde_off__scd_only
+      - hyde_off__cad_scd
+      - hyde_on__no_decoder_control
+      - hyde_on__cad_only
+      - hyde_on__scd_only
+      - hyde_on__cad_scd
+  axis_policy: >
+    HyDE, CAD, and SCD on/off states are factorial experiment axes. They must
+    not be selected away as arbitrary tuning knobs.
+  non_axis_parameters_to_freeze:
+    - top_k
+    - rerank_top_n
+    - cad_alpha
+    - scd_beta
+    - hyde_template_variant
+    - max_new_tokens
+    - temperature
+    - decoding_mode
+
+current_repo_defaults:
+  retrieval:
+    top_k:
+      value: 5
+      evidence: backend/api/schemas.py QueryRequest default and experiments/configs/fixed_backbone.yaml
+    rerank_top_n:
+      value: 5
+      evidence: backend/config.py TOP_K_RERANK and experiments/configs/fixed_backbone.yaml
+    backend_retrieval_pool_top_k:
+      value: 20
+      evidence: backend/config.py TOP_K_RETRIEVAL
+  decoder:
+    cad_alpha:
+      value: 0.5
+      evidence: backend/config.py CAD_ALPHA and experiments/configs/cad_scd_sensitivity.yaml
+    scd_beta:
+      value: 0.3
+      evidence: backend/config.py SCD_BETA and experiments/configs/cad_scd_sensitivity.yaml
+  hyde:
+    template_variant:
+      value: current_repo_default
+      evidence: backend/modules/query_expander.py expand_hyde prompts
+  generation:
+    model:
+      value: K-intelligence/Midm-2.0-Base-Instruct
+      evidence: backend/config.py GENERATION_MODEL and experiments/runners/common.py
+    max_new_tokens:
+      planning_runner_default: 512
+      backend_runtime_default: 1024
+      phase7_policy: keep_single_candidate_until Phase 7.5 binds the execution default.
+    temperature:
+      value: 0.1
+      evidence: backend/config.py TEMPERATURE
+    decoding_mode:
+      value: current_repo_default_sampling_when_temperature_positive
+      evidence: backend/modules/generator.py resolves do_sample from TEMPERATURE unless force_greedy is set.
+
+candidate_space:
+  top_k:
+    values: [3, 5, 8]
+    default: 5
+    rationale: conservative, current default, and modest recall-oriented candidates.
+  rerank_top_n:
+    values: [3, 5, 8]
+    default: 5
+    rationale: conservative, current default, and modest recall-oriented candidates.
+  cad_alpha:
+    values: [0.0, 0.3, 0.5, 0.7]
+    default: 0.5
+    zero_policy: 0.0 is a sanity/control value; CAD-on final alpha should require tuning evidence.
+    rationale: includes disabled-control sanity plus existing sensitivity range around the repo default.
+  scd_beta:
+    values: [0.0, 0.1, 0.3, 0.5]
+    default: 0.3
+    zero_policy: 0.0 is a sanity/control value; SCD-on final beta should require tuning evidence.
+    rationale: includes disabled-control sanity plus existing sensitivity range around the repo default.
+  hyde_template_variant:
+    values:
+      - current_repo_default
+      - concise_academic
+    default: current_repo_default
+    rationale: keep HyDE prompt tuning limited to one conservative variant.
+  max_new_tokens:
+    values: [512]
+    default: 512
+    rationale: fixed in Phase 7 planning to avoid mixing length effects with method axes.
+  temperature:
+    values: [0.0, 0.1]
+    default: 0.1
+    rationale: compare deterministic generation against current backend default before freeze.
+  decoding_mode:
+    values:
+      - deterministic_greedy
+      - current_repo_default_sampling
+    default: current_repo_default_sampling
+    rationale: freeze one decoding policy before the main matrix.
+
+grid_policy:
+  full_cartesian_grid:
+    candidate_profiles: 1152
+    tuning_query_count: 5
+    query_profile_pairs: 5760
+    status: rejected_for_phase7
+    reason: The tuning split is intentionally small; a full grid would overfit and waste generation budget.
+  staged_plan:
+    strategy: one-factor-or-small-joint profiles around current repo defaults.
+    profile_count: 12
+    tuning_query_count: 5
+    query_profile_pairs_before_axis_replication: 60
+    axis_replicated_upper_bound_samples: 480
+    status: proposed_for_future_phase7_5_budget_review
+    stop_rule: Stop after each stage if results are noisy, inconclusive, or dominated by GT/query uncertainty.
+
+staged_candidate_profiles:
+  - profile_id: current_defaults
+    description: Current repository planning defaults.
+    overrides: {}
+  - profile_id: retrieval_conservative
+    description: Lower retrieval and rerank breadth.
+    overrides:
+      top_k: 3
+      rerank_top_n: 3
+  - profile_id: retrieval_recall_oriented
+    description: Higher retrieval and rerank breadth.
+    overrides:
+      top_k: 8
+      rerank_top_n: 8
+  - profile_id: retrieval_broad_then_default_rerank
+    description: Broader retrieval while keeping default rerank depth.
+    overrides:
+      top_k: 8
+      rerank_top_n: 5
+  - profile_id: cad_zero_control
+    description: CAD alpha zero sanity/control profile; not a CAD-on final selection by itself.
+    overrides:
+      cad_alpha: 0.0
+  - profile_id: cad_lower
+    description: Lower CAD alpha from the existing sensitivity range.
+    overrides:
+      cad_alpha: 0.3
+  - profile_id: cad_higher
+    description: Higher CAD alpha from the existing sensitivity range.
+    overrides:
+      cad_alpha: 0.7
+  - profile_id: scd_zero_control
+    description: SCD beta zero sanity/control profile; not an SCD-on final selection by itself.
+    overrides:
+      scd_beta: 0.0
+  - profile_id: scd_lower
+    description: Lower SCD beta from the existing sensitivity range.
+    overrides:
+      scd_beta: 0.1
+  - profile_id: scd_higher
+    description: Higher SCD beta from the existing sensitivity range.
+    overrides:
+      scd_beta: 0.5
+  - profile_id: deterministic_generation
+    description: Deterministic generation policy check before freeze.
+    overrides:
+      temperature: 0.0
+      decoding_mode: deterministic_greedy
+  - profile_id: hyde_concise_academic
+    description: One conservative HyDE prompt/template variant.
+    overrides:
+      hyde_template_variant: concise_academic
+
+execution_guard:
+  phase7_allowed_actions:
+    - dry_run
+    - plan_only
+    - static_validation
+  disallowed_actions:
+    - execute
+    - model_generation
+    - openai_calls
+    - ragas_calls
+    - gt_regeneration
+    - final_eval_optimization
+  real_execution_status: disabled
+  next_required_phase: Phase 7.5 must explicitly approve any real tuning run.
