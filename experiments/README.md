@@ -17,3 +17,29 @@ HyDE is the retrieval-side evidence construction axis. CAD is the
 context-faithfulness decoding-time control axis. SCD is the Korean-target
 language-drift decoding-time control axis.
 
+## Phase 6.5 Runner Readiness
+
+Phase 6.5 adds planning runners for future tuning and generation. They are not
+real experiment execution entrypoints yet: `--execute` is deliberately disabled
+and exits with `Real execution is disabled in Phase 6.5.`
+
+Safe runner checks:
+
+```powershell
+python experiments/runners/generate_main_hyde_cad_scd_matrix.py --help
+python experiments/runners/dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
+python experiments/runners/run_generation.py --dry-run --plan-only --query-split decoder_main_queries --config-limit 2 --limit 3
+python experiments/runners/run_tuning_plan.py --dry-run --plan-only --limit 3
+```
+
+Future tuning should use only `tuning_queries`, then freeze `top_k`,
+`rerank_top_n`, `cad_alpha`, `scd_beta`, the HyDE prompt/template, and
+generation settings. The main matrix must vary only HyDE, CAD, and SCD.
+
+Future main generation should use `decoder_main_queries` only after query/GT
+cleanup confirms answerability and split integrity. Plan JSONL records map each
+matrix config into runtime request fields: `use_hyde`, `use_cad`, `use_scd`,
+`cad_alpha`, and `scd_beta`.
+
+Do not run tuning, main generation, OpenAI, official RAGAS, or GT regeneration
+until a later phase explicitly enables real execution.

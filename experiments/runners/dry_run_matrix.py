@@ -1,39 +1,33 @@
-"""Dry-run validator for the separated Phase 4 experiment framework.
+"""Dry-run validator for the separated experiment framework.
 
-This runner performs static validation, sizing, and policy checks only. It does
-not call retrieval models, generation models, OpenAI, RAGAS, or GT generation.
+This runner performs static validation, sizing, matrix boolean checks, and
+claim-policy checks only. It does not call retrieval models, generation models,
+OpenAI, RAGAS, or GT generation.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 from collections import Counter
 from pathlib import Path
+from typing import Any
 
+from common import (
+    EXPERIMENTS_DIR,
+    EXPECTED_CONFIG_NAMES,
+    MATRIX_PATH,
+    REPO_ROOT,
+    SPLIT_DIR,
+    ConfigValidationError,
+    matrix_boolean_summary,
+    validate_main_matrix,
+)
 from estimate_cost import estimate_cost
 
-
-REPO_ROOT = Path(__file__).resolve().parents[2]
-EXPERIMENTS_DIR = REPO_ROOT / "experiments"
-CONFIG_PATH = EXPERIMENTS_DIR / "configs" / "main_hyde_cad_scd_matrix.yaml"
+CONFIG_PATH = MATRIX_PATH
 FIXED_BACKBONE_PATH = EXPERIMENTS_DIR / "configs" / "fixed_backbone.yaml"
 QUERY_AUDIT_PATH = EXPERIMENTS_DIR / "data" / "query_audit.json"
-SPLIT_DIR = EXPERIMENTS_DIR / "data" / "query_splits"
-
-
-EXPECTED_CONFIG_NAMES = [
-    "hyde_off__no_decoder_control",
-    "hyde_off__cad_only",
-    "hyde_off__scd_only",
-    "hyde_off__cad_scd",
-    "hyde_on__no_decoder_control",
-    "hyde_on__cad_only",
-    "hyde_on__scd_only",
-    "hyde_on__cad_scd",
-]
-
 
 FORBIDDEN_TERMS = [
     "Selective Context-aware Decoding",
@@ -58,7 +52,6 @@ FORBIDDEN_TERMS = [
     "새로운 Modular RAG",
 ]
 
-
 SCAN_ROOTS = [
     "backend/api",
     "backend/modules",
@@ -71,16 +64,15 @@ SCAN_ROOTS = [
 ]
 
 
-def load_json(path: Path) -> dict:
+def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def parse_matrix_config_names(path: Path) -> list[str]:
-    text = path.read_text(encoding="utf-8")
-    return re.findall(r"^\s*-\s*name:\s*([a-z0-9_]+)\s*$", text, flags=re.M)
+    return [config.name for config in validate_main_matrix(path)]
 
 
-def load_split(stem: str) -> list[dict]:
+def load_split(stem: str) -> list[dict[str, Any]]:
     path = SPLIT_DIR / f"{stem}.json"
     if not path.exists():
         return []
@@ -92,9 +84,7 @@ def query_counts() -> dict[str, int]:
         "tuning_queries": len(load_split("tuning_queries")),
         "decoder_main_queries": len(load_split("decoder_main_queries")),
         "query_type_analysis_queries": len(load_split("query_type_analysis_queries")),
-        "candidate_final_eval_queries": len(
-            load_split("candidate_final_eval_queries")
-        ),
+        "candidate_final_eval_queries": len(load_split("candidate_final_eval_queries")),
         "service_route_queries": len(load_split("service_route_queries")),
         "query_templates": len(load_split("query_templates")),
     }
@@ -129,7 +119,7 @@ def classify_forbidden_hit(path: Path) -> str:
     ):
         return "legacy query/GT/result artifact"
     if rel.startswith("backend/evaluation/") or rel.startswith("backend/scripts/"):
-        return "legacy evaluation utility; not part of separated Phase 4 main path"
+        return "legacy evaluation utility; not part of separated main path"
     return "unclassified"
 
 
@@ -215,14 +205,20 @@ def main() -> int:
     if not args.dry_run:
         raise SystemExit("This runner is dry-run only. Pass --dry-run.")
 
-    config_names = parse_matrix_config_names(CONFIG_PATH)
+    try:
+        all_configs = validate_main_matrix(CONFIG_PATH)
+    except ConfigValidationError as exc:
+        raise SystemExit(str(exc)) from exc
+
+    selected_configs = all_configs
     if args.config_limit is not None:
-        config_names = config_names[: args.config_limit]
+        selected_configs = selected_configs[: args.config_limit]
+    config_names = [config.name for config in selected_configs]
     if config_names != EXPECTED_CONFIG_NAMES[: len(config_names)]:
         raise SystemExit(
             "Unexpected main matrix config order/names: " + ", ".join(config_names)
         )
-    if len(parse_matrix_config_names(CONFIG_PATH)) != 8:
+    if len(all_configs) != 8:
         raise SystemExit("Main matrix must contain exactly 8 configs.")
 
     overlap = check_tuning_final_overlap()
@@ -248,7 +244,7 @@ def main() -> int:
         )
 
     cost = estimate_cost(
-        configs=len(config_names),
+        configs=len(selected_configs),
         queries=selected_query_count,
         metric_count=args.metric_count,
         openai_cost_per_call_usd=args.openai_cost_per_call_usd,
@@ -277,26 +273,20 @@ def main() -> int:
     print_section(
         "Method Contracts",
         [
-            ("METHOD_CONTRACTS.md exists", (EXPERIMENTS_DIR / "METHOD_CONTRACTS.md").exists()),
+            (
+                "METHOD_CONTRACTS.md exists",
+                (EXPERIMENTS_DIR / "METHOD_CONTRACTS.md").exists(),
+            ),
             ("CAD contract", "exact formula required and Phase 2 reported implemented"),
             ("CAD KV cache correctness rule", "uncached reference path documented"),
             ("SCD contract", "Korean-target Soft Constrained Decoding"),
             ("RAGAS contract", "official skeleton separated from lightweight judge"),
             ("unsupported method removal contract", "recorded"),
             ("frontend-derived runtime contract", "recorded"),
-            ("compare route runtime contract", "recorded and Phase 3 reported implemented"),
-        ],
-    )
-    print_section(
-        "Reference Implementation Audit",
-        [
-            ("CAD status", "exact single-sequence path reported by Phase 2"),
-            ("SCD status", "Korean-target Soft Constrained Decoding reported by Phase 2"),
-            ("RAGAS status", "official skeleton plus RAGASInspiredEvaluator separation"),
-            ("RAG-Fusion status", "not part of main experiment"),
-            ("RAPTOR status", "not part of main experiment"),
-            ("RECOMP status", "not part of main experiment"),
-            ("methods removed/demoted from core", "recorded in REFERENCE_IMPLEMENTATION_AUDIT.md"),
+            (
+                "compare route runtime contract",
+                "recorded and Phase 3 reported implemented",
+            ),
         ],
     )
     print_section(
@@ -308,28 +298,6 @@ def main() -> int:
             ("fusion", "RRF"),
             ("reranker", "CrossEncoder"),
             ("HyDE status as main axis", "not fixed backbone"),
-        ],
-    )
-    print_section(
-        "Runtime/API Compatibility",
-        [
-            ("QueryRequest compatibility", "Phase 3 preserved with additive compare fields"),
-            ("QueryResponse compatibility", "preserved"),
-            ("SSE compatibility", "metadata/token/done/error preserved"),
-            ("paper API compatibility", "preserved"),
-            ("citation API compatibility", "preserved"),
-            ("activePaperId/doc_id_filter preserved", "yes"),
-        ],
-    )
-    print_section(
-        "Compare Route",
-        [
-            ("compare route preserved", "yes"),
-            ("target selection policy", "explicit -> active+match -> retrieval -> deterministic"),
-            ("active doc primary target", "yes"),
-            ("title/doc_id match", "yes"),
-            ("embedding/retrieval fallback", "per-document hybrid search scoring"),
-            ("deterministic fallback", "available docs order"),
         ],
     )
     print_section(
@@ -351,8 +319,10 @@ def main() -> int:
             ("HyDE axis", "off/on"),
             ("CAD axis", "off/on"),
             ("SCD axis", "off/on"),
-            ("total configs", len(parse_matrix_config_names(CONFIG_PATH))),
-            ("config names", ", ".join(parse_matrix_config_names(CONFIG_PATH))),
+            ("total configs", len(all_configs)),
+            ("selected configs", len(selected_configs)),
+            ("config names", ", ".join(config.name for config in all_configs)),
+            ("boolean mapping", matrix_boolean_summary(all_configs)),
         ],
     )
     print_section(

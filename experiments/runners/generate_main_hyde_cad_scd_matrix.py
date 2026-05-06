@@ -6,27 +6,12 @@ OpenAI, RAGAS, or model inference.
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
+from common import EXPECTED_CONFIGS, REPO_ROOT, bool_yaml, validate_main_matrix
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_PATH = REPO_ROOT / "experiments" / "configs" / "main_hyde_cad_scd_matrix.yaml"
-
-
-CONFIGS = [
-    ("hyde_off__no_decoder_control", False, False, False),
-    ("hyde_off__cad_only", False, True, False),
-    ("hyde_off__scd_only", False, False, True),
-    ("hyde_off__cad_scd", False, True, True),
-    ("hyde_on__no_decoder_control", True, False, False),
-    ("hyde_on__cad_only", True, True, False),
-    ("hyde_on__scd_only", True, False, True),
-    ("hyde_on__cad_scd", True, True, True),
-]
-
-
-def bool_yaml(value: bool) -> str:
-    return "true" if value else "false"
 
 
 def render_matrix() -> str:
@@ -52,15 +37,11 @@ def render_matrix() -> str:
         "    - scd",
         "configs:",
     ]
-    for name, hyde, cad, scd in CONFIGS:
+    for name, hyde, cad, scd in EXPECTED_CONFIGS:
         decoder_label = (
             "cad_scd"
             if cad and scd
-            else "cad_only"
-            if cad
-            else "scd_only"
-            if scd
-            else "no_decoder_control"
+            else "cad_only" if cad else "scd_only" if scd else "no_decoder_control"
         )
         lines.extend(
             [
@@ -75,10 +56,61 @@ def render_matrix() -> str:
     return "\n".join(lines) + "\n"
 
 
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", default=str(OUTPUT_PATH))
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Validate the existing matrix file without rewriting it.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Render and validate in memory without writing the output file.",
+    )
+    parser.add_argument(
+        "--print",
+        action="store_true",
+        dest="print_config",
+        help="Print the rendered matrix instead of writing it.",
+    )
+    return parser
+
+
 def main() -> int:
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(render_matrix(), encoding="utf-8")
-    print(f"wrote {OUTPUT_PATH.relative_to(REPO_ROOT)} with {len(CONFIGS)} configs")
+    args = build_parser().parse_args()
+    output_path = Path(args.output)
+    if not output_path.is_absolute():
+        output_path = REPO_ROOT / output_path
+
+    if args.check:
+        configs = validate_main_matrix(output_path)
+        print(
+            f"validated {output_path.relative_to(REPO_ROOT)} with "
+            f"{len(configs)} configs"
+        )
+        return 0
+
+    rendered = render_matrix()
+    if args.print_config:
+        print(rendered, end="")
+    elif args.dry_run:
+        print(
+            f"dry_run: would write {output_path.relative_to(REPO_ROOT)} "
+            f"with {len(EXPECTED_CONFIGS)} configs"
+        )
+    else:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(rendered, encoding="utf-8")
+        print(
+            f"wrote {output_path.relative_to(REPO_ROOT)} "
+            f"with {len(EXPECTED_CONFIGS)} configs"
+        )
+    # Validate the existing file if it was written; otherwise validate the fixed
+    # in-memory contract via EXPECTED_CONFIGS by construction.
+    if not args.dry_run and not args.print_config:
+        validate_main_matrix(output_path)
     return 0
 
 
