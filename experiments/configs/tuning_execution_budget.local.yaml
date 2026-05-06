@@ -1,0 +1,143 @@
+schema_version: phase7_4.hardware_budget.v1
+phase: phase7_4_hardware_aware_tuning_budget_check
+status: planning_only
+created_for: local_weak_gpu_safe_execution_planning
+
+source_files:
+  tuning_plan: experiments/configs/tuning_plan.yaml
+  frozen_params_draft: experiments/configs/frozen_params.draft.yaml
+  tuning_split: experiments/data/query_splits/tuning_queries.json
+  tuning_runner: experiments/runners/run_tuning_plan.py
+
+hardware_summary:
+  nvidia_smi_available: true
+  cuda_available: true
+  torch_available: true
+  torch_cuda_available: true
+  gpu_name: NVIDIA GeForce RTX 3080 Ti
+  vram_gb: 12.0
+  driver_version: "591.86"
+  driver_reported_cuda_version: "13.1"
+  observed_gpu_memory_in_use_gb: 1.43
+  note: >
+    Local CUDA is available, but this is a desktop WDDM GPU with background
+    graphics processes already using VRAM. Treat it as limited for thesis
+    experiment execution and start with serial smoke tests only.
+
+plan_size_reference:
+  tuning_queries: 5
+  staged_profiles: 12
+  axis_configs: 8
+  full_staged_samples_before_axis_replication: 60
+  axis_replicated_upper_bound_samples: 480
+  full_cartesian_profiles_rejected_in_phase7: 1152
+
+recommended_execution_ladder:
+  smoke_1:
+    queries: 1
+    profiles: 1
+    axis_configs: 1
+    max_samples: 1
+    purpose: verify execution path only
+    recommended_first: true
+    suggested_scope:
+      query_limit: 1
+      profile_ids:
+        - current_defaults
+      config_names:
+        - hyde_off__no_decoder_control
+  mini_12:
+    queries: 3
+    profiles: 2
+    axis_configs: 2
+    max_samples: 12
+    purpose: check stability and rough signal
+    require_user_approval: true
+    suggested_scope:
+      query_limit: 3
+      profile_ids:
+        - current_defaults
+        - deterministic_generation
+      config_names:
+        - hyde_off__no_decoder_control
+        - hyde_on__cad_scd
+  small_60:
+    queries: 5
+    profiles: 3
+    axis_configs: 4
+    max_samples: 60
+    purpose: limited tuning evidence
+    require_user_approval: true
+    suggested_scope:
+      query_limit: 5
+      profile_ids:
+        - current_defaults
+        - retrieval_recall_oriented
+        - deterministic_generation
+      config_names:
+        - hyde_off__no_decoder_control
+        - hyde_off__cad_scd
+        - hyde_on__no_decoder_control
+        - hyde_on__cad_scd
+  full_staged:
+    queries: 5
+    profiles: 12
+    axis_configs: 1
+    max_samples: 60
+    purpose: run every staged Phase 7 tuning profile without axis replication
+    require_user_approval: true
+    recommended_for_weak_gpu: only_after_smoke_and_mini_pass
+  full_axis_replicated:
+    queries: 5
+    profiles: 12
+    axis_configs: 8
+    max_samples: 480
+    purpose: replicate every staged profile across the full 8-config factorial matrix
+    require_user_approval: true
+    not_recommended_for_weak_gpu: true
+
+conservative_generation_settings:
+  batch_size:
+    value: 1
+    support_status: execution_policy_constraint_for_future_runner_or_manual_loop
+  max_parallel_requests:
+    value: 1
+    support_status: execution_policy_constraint_for_future_runner_or_manual_loop
+  max_new_tokens:
+    value: 512
+    source: experiments/runners/common.py DEFAULT_MAX_NEW_TOKENS and Phase 7 tuning_plan single candidate
+  temperature:
+    smoke_value: 0.0
+    current_repo_default: 0.1
+    source: backend/config.py TEMPERATURE and Phase 7 tuning_plan candidate_space.temperature
+  decoding_mode:
+    smoke_value: deterministic_greedy
+    current_repo_default: current_repo_default_sampling_when_temperature_positive
+  use_cache:
+    value: true_if_supported
+    support_status: symbolic_until_future_execution_adapter_confirms_runtime_support
+  retry_failed_samples:
+    smoke: false
+    mini_or_larger: require_user_decision
+  resume:
+    value: true
+    support_status: supported_by_planning_runner_flags
+  skip_existing:
+    value: true
+    support_status: supported_by_planning_runner_flags
+
+runner_support_notes:
+  current_runner_status: planning_only
+  run_tuning_plan_budget_profile_arg: not_implemented
+  execute_guard: enabled_and_must_remain_enabled_in_phase7_4
+  phase7_5_requirement: Future real execution requires explicit user approval and must not reuse Phase 7.4 commands as execution commands.
+
+safety:
+  no_execute_in_phase7_4: true
+  no_model_calls_in_phase7_4: true
+  no_openai: true
+  no_ragas: true
+  no_gt_regeneration: true
+  no_query_fabrication: true
+  no_result_value_invention: true
+  no_commit_in_phase7_4: true
