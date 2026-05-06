@@ -1,8 +1,285 @@
 {
   "schema_version": "phase4.query_split.v1",
   "split": "query_type_analysis_queries",
-  "count": 14,
+  "cleanup_phase": "phase6_7_query_gt_cleanup",
+  "cleanup_description": "Diagnostic split containing clean references plus GT-inconsistent or broad records requiring validation/rewrite before tuning/final claims.",
+  "count": 24,
   "queries": [
+    {
+      "query_id": "track1_0002",
+      "query": "M3-Embedding의 학습에서 배치 전략은 어떻게 최적화되었나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "we optimize the batching strategy, which enables a large batch size and high training throughput to improve the discriminativeness of embeddings.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0003",
+      "query": "M3-Embedding 모델의 실험에서 어떤 벤치마크에서 새로운 state-of-the-art 성능을 보였나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "It achieves superior retrieval quality for a variety of languages, leading to state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIR-ACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0011",
+      "query": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 무엇입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0013",
+      "query": "Naive RAG에서 LLM의 응답 생성 시 발생할 수 있는 문제는 무엇입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "In generating responses, the model may face the issue of hallucination, where it produces content not supported by the retrieved context.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0017",
+      "query": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "simple_qa",
+      "normalized_query_type": "simple_qa",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "LLaMA (Touvron et al., 2023) is presented with a latest document “Argentina won the FIFA World Cups in 1978,1986 and 2022 ...” in its context (Figure 1), it still predicts “Two” in response to the question “How many World Cups have Argentina won?”, due in part to the outdated training data.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0018",
+      "query": "Context-aware Decoding (CAD) 방법은 어떻게 작동하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_method",
+      "normalized_query_type": "section_method",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "To mitigate such issues, we factor out the prior knowledge from the model’s original output distribution contrastively. Here, we model the prior knowledge as pθ(yt ∣x, y<t) and adjust the model’s original output probability distribution using the pointwise mutual information (PMI) between the context c and the generation yt, conditioned on x, y<t. Formally, we have: yt ∼˜pθ(yt ∣c, x, y<t) ∝pθ(yt ∣c, x, y<t) (pθ(yt ∣c, x, y<t) / pθ(yt ∣x, y<t) ) α",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0020",
+      "query": "이 연구의 핵심 주장은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_human_rewrite"
+      ],
+      "cleanup_reason": "broad or ambiguous wording; preserve only with risk noted"
+    },
+    {
+      "query_id": "track1_0028",
+      "query": "RAPTOR의 새로운 접근 방식은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_abstract",
+      "normalized_query_type": "section_abstract",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_human_rewrite"
+      ],
+      "cleanup_reason": "broad or ambiguous wording; preserve only with risk noted"
+    },
+    {
+      "query_id": "track1_0029",
+      "query": "RAPTOR의 클러스터링에서 각 노드는 반드시 하나의 클러스터에만 속해야 하나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "cad_hallucination",
+      "normalized_query_type": "numeric_or_factual_hallucination",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "One of the unique aspects of our clustering approach is the use of soft clustering, where nodes can belong to multiple clusters without requiring a fixed number of clusters.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0031",
+      "query": "RAPTOR 트리 내에서 쿼리를 수행하기 위해 도입된 두 가지 전략은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "For querying within this tree, we introduce two distinct strategies: tree traversal and collapsed tree.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
+    {
+      "query_id": "track1_0039",
+      "query": "Mi:dm K 2.5 Pro 모델이 한국어와 영어 외에 추가로 지원하는 언어는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "crosslingual_ko",
+      "normalized_query_type": "crosslingual_ko",
+      "expected_service_route": "A",
+      "decoder_analysis_type": "cad_scd_axis",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "Japanese and Chinese",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
+    },
     {
       "query_id": "track1_0041",
       "query": "AutoRAG는 한국어 문장 표현의 자연성과 컨텍스트 기반의 정확성 측면에서 어떤 성능을 보였나요?",
@@ -20,7 +297,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0042",
@@ -39,7 +322,13 @@
       "gt_status": "not_found",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
     },
     {
       "query_id": "track1_0043",
@@ -58,7 +347,13 @@
       "gt_status": "not_found",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
     },
     {
       "query_id": "track1_0044",
@@ -77,7 +372,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0045",
@@ -96,26 +397,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
-    },
-    {
-      "query_id": "track1_0046",
-      "query": "RAG 기술을 제안한 연구팀은 누구인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_ko_rag_eval_framework"
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
       ],
-      "paper_language": "ko",
-      "has_answer_span": true,
-      "answer_span": "P. Lewis, E. Perez, A. Piktus, et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\", arXiv:2005.11401, 2020.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0047",
@@ -134,7 +422,13 @@
       "gt_status": "not_found",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
     },
     {
       "query_id": "track1_0048",
@@ -153,7 +447,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0049",
@@ -172,7 +472,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0050",
@@ -191,7 +497,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
     },
     {
       "query_id": "track1_0051",
@@ -210,7 +522,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_human_rewrite"
+      ],
+      "cleanup_reason": "broad or ambiguous wording; preserve only with risk noted"
     },
     {
       "query_id": "track1_0052",
@@ -229,26 +547,13 @@
       "gt_status": "not_found",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
-    },
-    {
-      "query_id": "track1_0053",
-      "query": "이 논문에서 HyDE 기법의 원논문으로 인용한 연구의 제목은 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_ko_hyde_multihop"
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation"
       ],
-      "paper_language": "ko",
-      "has_answer_span": true,
-      "answer_span": "Precise Zero-Shot Dense Retrieval without Relevance Labels",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation"
     },
     {
       "query_id": "track1_0054",
@@ -267,7 +572,39 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "query_type_analysis",
-      "reason": "Concrete Track 1 query reserved for query-type effect analysis."
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "query_type_analysis_reference"
+      ],
+      "cleanup_reason": "answerable query retained for diagnostic query-type analysis"
+    },
+    {
+      "query_id": "track1_0057",
+      "query": "제안된 방법의 성능이 CAD와 비교했을 때 어떤 차이를 보였나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "section_result",
+      "normalized_query_type": "section_result",
+      "expected_service_route": "B",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "Trivia QA 데이터셋에서 LLaMA2-7b 모델을 사용할 경우, 제안된 방법이 CAD와 그리디 디코딩보다 크게 성능이 향상된 것을 확인할 수 있었다.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "needs_human_rewrite"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; broad or ambiguous wording; preserve only with risk noted"
     }
   ]
 }

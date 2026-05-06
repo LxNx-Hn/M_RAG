@@ -1,7 +1,9 @@
 {
   "schema_version": "phase4.query_split.v1",
   "split": "tuning_queries",
-  "count": 8,
+  "cleanup_phase": "phase6_7_query_gt_cleanup",
+  "cleanup_description": "Clean tuning split: valid GT, answer_span present, non-template, non-citation, no known broad ambiguity.",
+  "count": 5,
   "queries": [
     {
       "query_id": "track1_0001",
@@ -20,45 +22,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
-    },
-    {
-      "query_id": "track1_0002",
-      "query": "M3-Embedding의 학습에서 배치 전략은 어떻게 최적화되었나요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_method",
-      "normalized_query_type": "section_method",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_bge"
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "we optimize the batching strategy, which enables a large batch size and high training throughput to improve the discriminativeness of embeddings.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
-    },
-    {
-      "query_id": "track1_0003",
-      "query": "M3-Embedding 모델의 실험에서 어떤 벤치마크에서 새로운 state-of-the-art 성능을 보였나요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_result",
-      "normalized_query_type": "section_result",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_bge"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "It achieves superior retrieval quality for a variety of languages, leading to state-of-the-art performances on popular multilingual and cross-lingual benchmarks like MIR-ACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021).",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0004",
@@ -77,7 +47,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0005",
@@ -96,26 +72,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
-    },
-    {
-      "query_id": "track1_0006",
-      "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_bge"
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)",
-      "gt_status": "valid",
-      "answerability_status": "answerable",
-      "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0007",
@@ -134,7 +97,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0008",
@@ -153,7 +122,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "tuning",
-      "reason": "First query for this type reserved for parameter tuning."
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     }
   ]
 }

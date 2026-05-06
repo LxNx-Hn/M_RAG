@@ -1,6 +1,8 @@
 {
   "schema_version": "phase4.query_split.v1",
   "split": "query_templates",
+  "cleanup_phase": "phase6_7_query_gt_cleanup",
+  "cleanup_description": "Track 2 templates remain template-only and require future paper binding plus answer-span validation before promotion.",
   "count": 56,
   "queries": [
     {

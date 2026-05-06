@@ -1,7 +1,9 @@
 {
   "schema_version": "phase4.query_split.v1",
   "split": "decoder_main_queries",
-  "count": 31,
+  "cleanup_phase": "phase6_7_query_gt_cleanup",
+  "cleanup_description": "Clean main decoder split: valid GT, answer_span present, non-template, non-citation, directly usable for HyDE/CAD/SCD planning.",
+  "count": 19,
   "queries": [
     {
       "query_id": "track1_0009",
@@ -20,7 +22,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0010",
@@ -39,26 +47,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0011",
-      "query": "RAG의 'Retrieval' 단계에서 발생할 수 있는 문제점은 무엇입니까?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_result",
-      "normalized_query_type": "section_result",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_rag"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0012",
@@ -77,45 +72,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0013",
-      "query": "Naive RAG에서 LLM의 응답 생성 시 발생할 수 있는 문제는 무엇입니까?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "cad_hallucination",
-      "normalized_query_type": "numeric_or_factual_hallucination",
-      "expected_service_route": "A",
-      "decoder_analysis_type": "cad_scd_axis",
-      "applicable_papers": [
-        "paper_nlp_rag"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "In generating responses, the model may face the issue of hallucination, where it produces content not supported by the retrieved context.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0014",
-      "query": "RAG 연구에서 'Raft: Adapting language model to domain specific rag' 논문을 인용한 부분은 어디입니까?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_rag"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "T. Zhang, S. G. Patil, N. Jain, S. Shen, M. Zaharia, I. Stoica, and J. E. Gonzalez, “Raft: Adapting language model to domain specific rag,” arXiv preprint arXiv:2403.10131, 2024.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0015",
@@ -134,7 +97,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0016",
@@ -153,45 +122,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0017",
-      "query": "LLaMA 모델이 FIFA 월드컵 우승 횟수에 대해 잘못된 예측을 하는 이유는 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "simple_qa",
-      "normalized_query_type": "simple_qa",
-      "expected_service_route": "A",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_cad"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "LLaMA (Touvron et al., 2023) is presented with a latest document “Argentina won the FIFA World Cups in 1978,1986 and 2022 ...” in its context (Figure 1), it still predicts “Two” in response to the question “How many World Cups have Argentina won?”, due in part to the outdated training data.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0018",
-      "query": "Context-aware Decoding (CAD) 방법은 어떻게 작동하나요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_method",
-      "normalized_query_type": "section_method",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_cad"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "To mitigate such issues, we factor out the prior knowledge from the model’s original output distribution contrastively. Here, we model the prior knowledge as pθ(yt ∣x, y<t) and adjust the model’s original output probability distribution using the pointwise mutual information (PMI) between the context c and the generation yt, conditioned on x, y<t. Formally, we have: yt ∼˜pθ(yt ∣c, x, y<t) ∝pθ(yt ∣c, x, y<t) (pθ(yt ∣c, x, y<t) / pθ(yt ∣x, y<t) ) α",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0019",
@@ -210,26 +147,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0020",
-      "query": "이 연구의 핵심 주장은 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_abstract",
-      "normalized_query_type": "section_abstract",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_cad"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context.",
-      "gt_status": "valid",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0021",
@@ -248,26 +172,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0022",
-      "query": "XSUM 데이터셋의 출처는 어디인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_cad"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "Shashi Narayan, Shay B. Cohen, and Mirella Lapata. 2018. Don’t give me the details, just the summary! topic-aware convolutional neural networks for extreme summarization. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, pages 1797–1807, Brussels, Belgium. Association for Computational Linguistics.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0023",
@@ -286,7 +197,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0024",
@@ -305,7 +222,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0025",
@@ -324,7 +247,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0026",
@@ -343,7 +272,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0027",
@@ -362,83 +297,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0028",
-      "query": "RAPTOR의 새로운 접근 방식은 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "section_abstract",
-      "normalized_query_type": "section_abstract",
-      "expected_service_route": "B",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_raptor"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up.",
-      "gt_status": "valid",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0029",
-      "query": "RAPTOR의 클러스터링에서 각 노드는 반드시 하나의 클러스터에만 속해야 하나요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "cad_hallucination",
-      "normalized_query_type": "numeric_or_factual_hallucination",
-      "expected_service_route": "A",
-      "decoder_analysis_type": "cad_scd_axis",
-      "applicable_papers": [
-        "paper_nlp_raptor"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "One of the unique aspects of our clustering approach is the use of soft clustering, where nodes can belong to multiple clusters without requiring a fixed number of clusters.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0030",
-      "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_nlp_raptor"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "Lewis et al., 2020",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0031",
-      "query": "RAPTOR 트리 내에서 쿼리를 수행하기 위해 도입된 두 가지 전략은 무엇인가요?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "crosslingual_ko",
-      "normalized_query_type": "crosslingual_ko",
-      "expected_service_route": "A",
-      "decoder_analysis_type": "cad_scd_axis",
-      "applicable_papers": [
-        "paper_nlp_raptor"
-      ],
-      "paper_language": "en",
-      "has_answer_span": true,
-      "answer_span": "For querying within this tree, we introduce two distinct strategies: tree traversal and collapsed tree.",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0032",
@@ -457,7 +322,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0033",
@@ -476,7 +347,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0034",
@@ -495,7 +372,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0035",
@@ -514,7 +397,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0036",
@@ -533,7 +422,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0037",
@@ -552,26 +447,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
-    },
-    {
-      "query_id": "track1_0038",
-      "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
-      "source_file": "backend/evaluation/data/track1_queries.json",
-      "original_type": "citation",
-      "normalized_query_type": "citation_query",
-      "expected_service_route": "D",
-      "decoder_analysis_type": "general_paper_rag",
-      "applicable_papers": [
-        "paper_midm"
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
       ],
-      "paper_language": "ko",
-      "has_answer_span": true,
-      "answer_span": "https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71760",
-      "gt_status": "not_found",
-      "answerability_status": "answerable",
-      "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     },
     {
       "query_id": "track1_0040",
@@ -590,7 +472,13 @@
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",
-      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix."
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "clean_core_candidate"
+      ],
+      "cleanup_reason": "valid GT, answer_span present, non-template, non-citation route"
     }
   ]
 }

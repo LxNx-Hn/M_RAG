@@ -1,6 +1,224 @@
 {
   "schema_version": "phase4.query_split.v1",
   "split": "service_route_queries",
-  "count": 0,
-  "queries": []
+  "cleanup_phase": "phase6_7_query_gt_cleanup",
+  "cleanup_description": "Route D citation/reference service-analysis candidates separated from the core decoder matrix.",
+  "count": 8,
+  "queries": [
+    {
+      "query_id": "track1_0006",
+      "query": "M3-Embedding은 어떤 데이터셋에서 성능을 평가받았나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_bge"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "MIRACL (Zhang et al., 2023c) and MKQA (Longpre et al., 2021)",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "recommended_split": "tuning",
+      "reason": "First query for this type reserved for parameter tuning.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "clean_or_separated",
+      "cleanup_flags": [
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0014",
+      "query": "RAG 연구에서 'Raft: Adapting language model to domain specific rag' 논문을 인용한 부분은 어디입니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "T. Zhang, S. G. Patil, N. Jain, S. Shen, M. Zaharia, I. Stoica, and J. E. Gonzalez, “Raft: Adapting language model to domain specific rag,” arXiv preprint arXiv:2403.10131, 2024.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0022",
+      "query": "XSUM 데이터셋의 출처는 어디인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Shashi Narayan, Shay B. Cohen, and Mirella Lapata. 2018. Don’t give me the details, just the summary! topic-aware convolutional neural networks for extreme summarization. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing, pages 1797–1807, Brussels, Belgium. Association for Computational Linguistics.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0030",
+      "query": "이 논문에서 언급된 'retrieval augmentation' 방식의 단점을 다룬 선행 연구는 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
+      "paper_language": "en",
+      "has_answer_span": true,
+      "answer_span": "Lewis et al., 2020",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0038",
+      "query": "Korean Large Language Model Trustworthiness Benchmark Data는 어디에 접근할 수 있습니까?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71760",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "decoder_main",
+      "reason": "Concrete Track 1 query assigned to main HyDE/CAD/SCD matrix.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0046",
+      "query": "RAG 기술을 제안한 연구팀은 누구인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_rag_eval_framework"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "P. Lewis, E. Perez, A. Piktus, et al., \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\", arXiv:2005.11401, 2020.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "query_type_analysis",
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0053",
+      "query": "이 논문에서 HyDE 기법의 원논문으로 인용한 연구의 제목은 무엇인가요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_hyde_multihop"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "Precise Zero-Shot Dense Retrieval without Relevance Labels",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "query_type_analysis",
+      "reason": "Concrete Track 1 query reserved for query-type effect analysis.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    },
+    {
+      "query_id": "track1_0060",
+      "query": "대조 디코딩에 대한 연구는 어떤 문헌을 기반으로 하고 있나요?",
+      "source_file": "backend/evaluation/data/track1_queries.json",
+      "original_type": "citation",
+      "normalized_query_type": "citation_query",
+      "expected_service_route": "D",
+      "decoder_analysis_type": "general_paper_rag",
+      "applicable_papers": [
+        "paper_ko_cad_contrastive"
+      ],
+      "paper_language": "ko",
+      "has_answer_span": true,
+      "answer_span": "[1] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eis- ner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, “Contrastive decoding: Open-ended text generation as optimization,” Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Vol- ume 1: Long Papers), A. Rogers, J. Boyd-Graber, and N. Okazaki, Eds., pp. 12 286–12 312, Jul. 2023.",
+      "gt_status": "not_found",
+      "answerability_status": "answerable",
+      "recommended_split": "final_eval_candidate",
+      "reason": "Last concrete query for this type held out from tuning as final-eval candidate.",
+      "cleanup_phase": "phase6_7_query_gt_cleanup",
+      "cleanup_status": "needs_review",
+      "cleanup_flags": [
+        "needs_gt_validation",
+        "route_d_service_analysis",
+        "service_route_candidate"
+      ],
+      "cleanup_reason": "gt_status:not_found despite answer_span; moved out of tuning/main/final until human validation; citation-style Route D query separated from core HyDE/CAD/SCD decoder matrix"
+    }
+  ]
 }
