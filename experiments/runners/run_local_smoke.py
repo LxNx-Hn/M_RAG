@@ -48,6 +48,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-file", default=str(OUTPUT_PATH))
     parser.add_argument("--collection-name", default=DEFAULT_COLLECTION)
     parser.add_argument("--generation-model", default=DEFAULT_MODEL)
+    parser.add_argument(
+        "--model-variant",
+        choices=["base", "mini"],
+        default="base",
+        help="Model variant metadata for smoke trace safety.",
+    )
+    parser.add_argument(
+        "--require-mini",
+        action="store_true",
+        help="Block unless the selected generation model is the MIDM Mini variant.",
+    )
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--top-p", type=float, default=1.0)
@@ -244,6 +255,12 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
     try:
         if not args.execute_smoke:
             raise SmokeBlockedError("--execute-smoke is required for Phase 7.5A.")
+        if args.require_mini and (
+            args.model_variant != "mini" or "Mini" not in args.generation_model
+        ):
+            raise SmokeBlockedError(
+                "--require-mini was set, but the selected model is not MIDM Mini."
+            )
         answer = generate_answer(
             query=query_record["query"],
             context=context,
@@ -275,6 +292,11 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
         "paper_language": query_record.get("paper_language"),
         "selected_profile": EXPECTED_PROFILE,
         "selected_axis_config": EXPECTED_CONFIG,
+        "model_role": "local_validation_only",
+        "model_family": "MIDM",
+        "model_variant": args.model_variant,
+        "thesis_grade_result": False,
+        "selected_model_path_or_name": args.generation_model,
         **EXPECTED_FLAGS,
         "max_new_tokens": args.max_new_tokens,
         "temperature": args.temperature,
@@ -290,6 +312,8 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
         "backend_metadata": {
             "runner": "experiments/runners/run_local_smoke.py",
             "generation_model": args.generation_model,
+            "model_variant": args.model_variant,
+            "require_mini": bool(args.require_mini),
             "allow_download": bool(args.allow_download),
             "execution_guard": "phase7_5A_one_sample_only",
         },
