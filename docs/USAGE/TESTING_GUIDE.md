@@ -15,15 +15,13 @@ python -m black --check .
 ## Backend 테스트
 
 ```bash
-cd backend
-python -m pytest -q
+python -m pytest tests/backend -q
 ```
 
-`backend/tests/test_api.py`는 API 통합 스모크 성격이 강하다. 보호 라우트는 bearer token이 필요하므로 스크립트 내부 토큰 생성 경로를 확인하고 실행한다.
+`tests/backend/test_api.py`는 API 통합 스모크 성격이 강하다. 보호 라우트는 bearer token이 필요하므로 스크립트 내부 토큰 생성 경로를 확인하고 실행한다.
 
 ```bash
-cd backend
-python -X utf8 tests/test_api.py
+python -X utf8 tests/backend/test_api.py
 ```
 
 ## Frontend 검사
@@ -36,12 +34,12 @@ npm run build
 
 ## Track 2 자산/결과 검증
 
-Track 2는 런타임에 GPT로 다시 생성하지 않고 checked-in 정적 자산
-`experiments/archive/legacy_backend_evaluation/data/track2_queries.json`을 사용한다. 구조적 사실과
+Track 2는 런타임에 GPT로 다시 생성하지 않고 checked-in 정적 템플릿 자산
+`experiments/data/query_splits/query_templates.json`을 사용한다. 구조적 사실과
 실측 결과를 구분하려면 아래 순서로 확인한다.
 
 ```bash
-python -c "import json; d=json.load(open('experiments/archive/legacy_backend_evaluation/data/track2_queries.json', encoding='utf-8')); print('total=', len(d))"
+python -c "import json; d=json.load(open('experiments/data/query_splits/query_templates.json', encoding='utf-8')); print('total=', len(d['queries']))"
 ```
 
 - 위 확인으로 정적 자산(56개)이 유지되는지 검증한다.

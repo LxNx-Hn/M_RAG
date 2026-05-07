@@ -3,7 +3,11 @@ from collections import Counter
 from pathlib import Path
 
 TRACK2_PATH = (
-    Path(__file__).resolve().parents[1] / "evaluation" / "data" / "track2_queries.json"
+    Path(__file__).resolve().parents[2]
+    / "experiments"
+    / "data"
+    / "query_splits"
+    / "query_templates.json"
 )
 
 ENGLISH_GROUP = [
@@ -22,14 +26,15 @@ KOREAN_GROUP = [
 
 
 def _load_queries() -> list[dict]:
-    return json.loads(TRACK2_PATH.read_text(encoding="utf-8"))
+    data = json.loads(TRACK2_PATH.read_text(encoding="utf-8"))
+    return data["queries"]
 
 
 def test_track2_asset_shape_and_distribution() -> None:
     queries = _load_queries()
     assert len(queries) == 56
 
-    type_counts = Counter(query["type"] for query in queries)
+    type_counts = Counter(query["original_type"] for query in queries)
     assert type_counts == {
         "cad_ablation": 14,
         "section_method": 14,
@@ -48,5 +53,7 @@ def test_track2_asset_has_no_placeholder_ids() -> None:
     allowed = set(ENGLISH_GROUP + KOREAN_GROUP)
 
     for query in queries:
+        assert query["query_id"].startswith("track2_")
+        assert query["recommended_split"] == "template_only"
         for doc_id in query.get("applicable_papers", []):
             assert doc_id in allowed

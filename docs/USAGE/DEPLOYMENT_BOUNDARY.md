@@ -8,8 +8,8 @@ tooling, or cloud-run orchestration artifacts.
 ## Top-Level Packages
 
 - `backend/`: FastAPI backend runtime, runtime modules, runtime pipelines,
-  database migrations, backend tests, backend dependency files, and operational
-  backend helper scripts only.
+  database migrations, backend dependency files, and operational backend helper
+  scripts only.
 - `frontend/`: Vite React frontend runtime, frontend build configuration,
   static assets, API client code, and frontend dependency manifests only.
 - `experiments/`: thesis experiment configs, runners, evaluators, reports,
@@ -35,8 +35,8 @@ The backend deploy package may include:
 - `backend/alembic/`
 - `backend/scripts/` only for operational backend helpers such as entrypoint,
   model download, indexing, cleanup, or backup utilities.
-- `backend/config.py`, `backend/requirements.txt`, `backend/Dockerfile`,
-  `backend/pytest.ini`, and migration/config files required by the backend.
+- `backend/config.py`, `backend/requirements.txt`, `backend/Dockerfile`, and
+  migration/config files required by the backend.
 
 The backend deploy package must not include:
 
@@ -87,6 +87,9 @@ The experiments package owns:
 - `experiments/results/`
 - `experiments/reports/`
 - `experiments/archive/`
+
+Repository QA tests belong under `tests/`, not inside deployable backend or
+frontend packages.
 
 Alice Cloud execution scripts belong under `experiments/scripts/alice/`.
 Legacy backend evaluation artifacts, if preserved for provenance, belong under
