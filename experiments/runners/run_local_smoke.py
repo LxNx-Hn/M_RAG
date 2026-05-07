@@ -88,6 +88,11 @@ def parse_args() -> argparse.Namespace:
         help="Allow Hugging Face model download. Do not use in Phase 7.5A.",
     )
     parser.add_argument(
+        "--require-context",
+        action="store_true",
+        help="Fail closed before generation when no vector-store context chunks are retrieved.",
+    )
+    parser.add_argument(
         "--context-limit",
         type=int,
         default=3,
@@ -275,6 +280,11 @@ def build_record(args: argparse.Namespace) -> dict[str, Any]:
     try:
         if not args.execute_smoke:
             raise SmokeBlockedError("--execute-smoke is required for Phase 7.5A.")
+        if args.require_context and (not context or not context_chunks):
+            raise SmokeBlockedError(
+                "context_required_but_empty: context is required but no "
+                "vector-store chunks were retrieved."
+            )
         if args.require_mini and (
             args.model_variant != "mini" or "Mini" not in args.generation_model
         ):

@@ -14,8 +14,8 @@ MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-512}"
 TEMPERATURE="${TEMPERATURE:-0.0}"
 OPENAI_ENABLED="${OPENAI_ENABLED:-0}"
 RAGAS_ENABLED="${RAGAS_ENABLED:-0}"
-OUTPUT_FILE="${OUTPUT_FILE:-experiments/results/smoke/phase7_7_alice_base_smoke_1sample.jsonl}"
-REPORT_FILE="${REPORT_FILE:-experiments/reports/phase7_7_alice_base_smoke_report.md}"
+OUTPUT_FILE="${OUTPUT_FILE:-experiments/results/smoke/phase7_5_alice_base_smoke_1sample.jsonl}"
+REPORT_FILE="${REPORT_FILE:-experiments/reports/phase7_5_alice_base_smoke_report.md}"
 
 if [ "${CONFIRM_ALICE_BASE_SMOKE:-0}" != "1" ]; then
   echo "CONFIRM_ALICE_BASE_SMOKE=1 is required for Alice BASE smoke."
@@ -57,10 +57,11 @@ python experiments/runners/run_local_smoke.py \
   --generation-model "$MODEL_NAME" \
   --model-variant base \
   --model-role alice_thesis_model_smoke \
-  --phase-label phase7_7_alice_base_smoke \
+  --phase-label phase7_5_alice_base_smoke \
   --output-file "$OUTPUT_FILE" \
   --max-new-tokens "$MAX_NEW_TOKENS" \
   --temperature "$TEMPERATURE" \
+  --require-context \
   "${ALLOW_DOWNLOAD_FLAG[@]}"
 SMOKE_EXIT_CODE=$?
 set -e
@@ -88,7 +89,7 @@ PY
 fi
 
 cat > "$REPORT_FILE" <<EOF
-# Phase 7.7 Alice BASE Smoke Report
+# Phase 7.5 Alice BASE Smoke Report
 
 - status: $SMOKE_STATUS
 - command_exit_code: $SMOKE_EXIT_CODE
