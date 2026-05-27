@@ -122,7 +122,7 @@ Early RAG work established the principle of conditioning generation on retrieved
 
 ### 4.2 Multilingual Dense Retrieval
 
-Multilingual dense retrieval research shows that embedding models can map semantically related texts across languages into a shared vector space. BGE-M3 is used as a background reference for multilingual, multi-function, and multi-granularity embeddings. In this thesis, multilingual dense retrieval is part of the backbone because it is necessary for Korean questions over English papers.
+Multilingual dense retrieval research shows that embedding models can map semantically related texts across languages into a shared vector space. BGE-M3 is the implemented multilingual embedding model used in the fixed Paper-RAG backbone. It is retained as an implementation reference because the system actually uses it for multilingual dense retrieval, not because this thesis treats BGE-M3 itself as a new contribution.
 
 ### 4.3 Sparse Retrieval and Rank Fusion
 
@@ -134,15 +134,15 @@ Cross-encoder reranking and passage-ranking benchmarks motivate a second-stage r
 
 ### 4.5 Query Reformulation and HyDE
 
-HyDE generates a hypothetical answer-like document from a query and retrieves using that representation. The key intuition is that answer-like text can be closer to relevant documents than the original question form. This thesis does not propose HyDE itself. It evaluates HyDE as an on/off retrieval-side factor in the Korean-query English-paper setting.
+HyDE generates a hypothetical answer-like document from a query and retrieves using that representation. The key intuition is that answer-like text can be closer to relevant documents than the original question form. This thesis does not propose HyDE itself. It evaluates HyDE as an on/off retrieval-side experimental factor in the Korean-query English-paper setting.
 
 ### 4.6 Context-Aware Decoding
 
-CAD is related to contrastive decoding because it compares two distributions during generation. Instead of contrasting a strong model with a weak model, CAD contrasts the same model under context and no-context conditions. In this thesis, CAD is a decoding-time factor for reducing parametric-memory intervention and improving evidence support.
+CAD is related to contrastive decoding because it compares two distributions during generation. Instead of contrasting a strong model with a weak model, CAD contrasts the same model under context and no-context conditions. In this thesis, CAD is a decoding-time context-faithfulness factor for reducing parametric-memory intervention and improving evidence support.
 
 ### 4.7 Language Drift and Korean-Target Decoding
 
-Multilingual RAG research has shown that retrieval language and answer language can interact. When English passages are supplied to answer Korean questions, the generator may drift toward English output. This thesis uses Korean-target SCD to penalize non-target-language tokens while preserving neutral tokens and technical terms. SCD is treated as a controlled experimental factor, not as a general multilingual solution.
+Recent AAAI 2026 Oral Paper work on multilingual RAG language drift characterizes unintended output-language shifts under cross-lingual evidence and proposes Soft Constrained Decoding (SCD), a training-free decoding strategy that penalizes non-target-language tokens. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG, not as a general multilingual solution or as a new method introduced by this thesis.
 
 ### 4.8 Evaluation of RAG Answers
 
@@ -306,7 +306,7 @@ Expected analysis:
 
 ### 8.3 SCD
 
-SCD is Korean-target Soft Constrained Decoding. It penalizes non-target-language tokens during generation while preserving neutral tokens and mandatory technical terms. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) whitelisted technical tokens. Tokens outside these sets may receive a beta penalty:
+SCD is Korean-target Soft Constrained Decoding, a training-free decoding strategy for mitigating language drift in multilingual RAG. It penalizes non-target-language tokens during generation while preserving neutral tokens and mandatory technical terms. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) whitelisted technical tokens. Tokens outside these sets may receive a beta penalty:
 
 ```text
 s_SCD(y_t) = s(y_t) - beta, if y_t not in V_ko ∪ V_n ∪ V_w
@@ -315,7 +315,7 @@ s_SCD(y_t) = s(y_t), otherwise
 
 Neutral tokens include whitespace, punctuation, digits, brackets, math symbols, citation markers, and common academic symbols. The whitelist preserves terms such as `RAG`, `CAD`, `SCD`, `BM25`, `RRF`, `BGE-M3`, `HyDE`, `RAGAS`, `Transformer`, `CrossEncoder`, `Mi:dm`, `arXiv`, `DOI`, `BERT`, and other technical expressions.
 
-SCD is not intended to translate every English term into Korean. Academic Korean naturally includes English method names and acronyms. The goal is to reduce unnecessary English sentence drift while preserving technical precision.
+SCD is not intended to translate every English term into Korean. Academic Korean naturally includes English method names and acronyms. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG. The goal is to reduce unnecessary English sentence drift while preserving technical precision.
 
 Expected analysis:
 
@@ -589,44 +589,38 @@ No experimental results are claimed in this draft. The next thesis step is to ru
 
 ## 17. References
 
-[1] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W.-T. Yih, T. Rocktäschel, S. Riedel, and D. Kiela, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," in Proc. NeurIPS, 2020.
+[1] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W.-t. Yih, T. Rocktäschel, S. Riedel, and D. Kiela, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," in Advances in Neural Information Processing Systems 33, 2020.
 
 [2] Y. Gao, Y. Xiong, X. Gao, K. Jia, J. Pan, Y. Bi, Y. Dai, J. Sun, Q. Guo, M. Wang, and H. Wang, "Retrieval-Augmented Generation for Large Language Models: A Survey," arXiv:2312.10997, 2023.
 
-[3] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, "BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation," in Proc. ACL, 2024.
+[3] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, "BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation," arXiv:2402.03216, 2024.
 
-[4] S. E. Robertson, S. Walker, S. Jones, M. M. Hancock-Beaulieu, and M. Gatford, "Okapi at TREC-3," in Proc. TREC-3, 1994.
+[4] S. E. Robertson, S. Walker, S. Jones, M. M. Hancock-Beaulieu, and M. Gatford, "Okapi at TREC-3," in Proceedings of the Third Text REtrieval Conference (TREC-3), 1994.
 
-[5] G. V. Cormack, C. L. A. Clarke, and S. Buettcher, "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods," in Proc. SIGIR, 2009.
+[5] G. V. Cormack, C. L. A. Clarke, and S. Buettcher, "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods," in Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval, 2009.
 
 [6] R. Nogueira and K. Cho, "Passage Re-ranking with BERT," arXiv:1901.04085, 2019.
 
 [7] P. Bajaj et al., "MS MARCO: A Human Generated Machine Reading Comprehension Dataset," arXiv:1611.09268, 2016.
 
-[8] L. Gao, X. Ma, J. Lin, and J. Callan, "Precise Zero-Shot Dense Retrieval without Relevance Labels," in Proc. ACL, 2023.
+[8] L. Gao, X. Ma, J. Lin, and J. Callan, "Precise Zero-Shot Dense Retrieval without Relevance Labels," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 1762-1777, 2023.
 
-[9] W. Shi, X. Han, M. Lewis, Y. Tsvetkov, L. Zettlemoyer, and S. W. Yih, "Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding," in Proc. NAACL, 2024.
+[9] W. Shi, X. Han, M. Lewis, Y. Tsvetkov, L. Zettlemoyer, and W.-t. Yih, "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding," in Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers), pp. 783-791, 2024.
 
-[10] X. D. Li, A. Holtzman, D. Fried, P. Liang, J. Eisner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, "Contrastive Decoding: Open-ended Text Generation as Optimization," in Proc. ACL, 2023.
+[10] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eisner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, "Contrastive Decoding: Open-ended Text Generation as Optimization," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics, 2023.
 
-[11] B. Li, J. Guo, and Z. Zhang, SCD method for mitigating language drift in multilingual RAG, arXiv:2501.09828, 2025.
+[11] B. Li, Z. Xu, and R. Xie, "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation," AAAI 2026 Oral Paper, arXiv:2511.09984, 2025.
 
-[12] S. Es, J. James, L. E. Anke, and S. Schockaert, "RAGAS: Automated Evaluation of Retrieval Augmented Generation," arXiv:2309.15217, 2023.
+[12] S. Es, J. James, L. E. Anke, and S. Schockaert, "RAGAs: Automated Evaluation of Retrieval Augmented Generation," in Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, pp. 150-158, 2024.
 
-[13] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, "Lost in the Middle: How Language Models Use Long Contexts," in Proc. TACL, 2024.
+[13] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, "Lost in the Middle: How Language Models Use Long Contexts," Transactions of the Association for Computational Linguistics, 2024.
 
-[14] S. Ul Islam, J. Thorne, and A. Nakov, "mFAVA: Multilingual Factual Verification and Attribution," arXiv:2408.12834, 2024.
+[14] D. Rau, H. Déjean, N. Chirkova, T. Formal, S. Wang, S. Clinchant, and V. Nikoulina, "BERGEN: A Benchmarking Library for Retrieval-Augmented Generation," in Findings of the Association for Computational Linguistics: EMNLP 2024, pp. 7640-7663, 2024.
 
-[15] N. Chirkova, A. Chernova, and A. Galitsky, "Zero-Shot Cross-Lingual RAG," arXiv:2501.00571, 2025.
+[15] K-intelligence, "Mi:dm 2.0 Technical Report," 2025.
 
-[16] H. Park and S. Lee, "Is Your LLM Biased? A Comprehensive Multilingual Evaluation," arXiv:2501.15829, 2025.
+[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회논문지, vol. 18, no. 2, 2025. TODO: verify bibliographic details.
 
-[17] D. Rau, F. Koto, T. Schick, and T. Lukasik, "BERGEN: A Benchmarking Library for Retrieval-Augmented Generation," in Proc. ACL, 2024.
+[17] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구, vol. 27, no. 2, 2025. TODO: verify bibliographic details.
 
-[18] K-intelligence, "Mi:dm 2.0 Technical Report," 2025.
-
-[19] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회논문지, vol. 18, no. 2, 2025.
-
-[20] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구, vol. 27, no. 2, 2025.
-
-[21] 장규식, 이현민, 나승훈, 김태형, 류휘정, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회 논문집, 2024.
+[18] 장규식, 이현민, 나승훈, 김태형, 류휘정, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회 논문집, 2024. TODO: verify bibliographic details.
