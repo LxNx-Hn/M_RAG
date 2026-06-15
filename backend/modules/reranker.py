@@ -1,7 +1,13 @@
 """
 MODULE 9: Reranker
 Cross-Encoder 기반 검색 결과 관련성 재정렬
-기반 논문: ColBERTv2 [14], Jina-ColBERT-v2 [15], Lost in the Middle [29]
+
+기반 논문:
+- Cross-encoder passage reranking: Nogueira and Cho, "Passage Re-ranking with
+  BERT", 2019 (arXiv:1901.04085). 실제 사용 모델은 cross-encoder/ms-marco-MiniLM.
+- 위치 편향 관찰: Liu et al., "Lost in the Middle: How Language Models Use Long
+  Contexts", TACL 2024. 아래 재배치는 이 논문이 제안한 방법이 아니라, 이 관찰에서
+  동기를 얻은 본 저장소의 자체 휴리스틱이다.
 """
 
 import logging
@@ -75,9 +81,12 @@ class Reranker:
         return top_docs
 
     def _apply_position_bias_correction(self, documents: list[dict]) -> list[dict]:
-        """Lost in the Middle [29] 보정:
-        가장 관련성 높은 청크를 컨텍스트 앞과 끝에 배치
-        중간은 덜 중요한 청크로 채움
+        """위치 편향 재배치 (자체 휴리스틱).
+
+        Liu et al. (TACL 2024)의 "Lost in the Middle" 관찰 — 모델이 긴 컨텍스트
+        중간의 근거를 과소활용한다 — 에서 동기를 얻은 본 저장소의 자체 재배치이며,
+        해당 논문이 직접 제안한 방법은 아니다. 가장 관련성 높은 청크를 컨텍스트의
+        앞과 끝에 배치하고 중간은 덜 중요한 청크로 채운다.
         """
         if len(documents) <= 2:
             return documents

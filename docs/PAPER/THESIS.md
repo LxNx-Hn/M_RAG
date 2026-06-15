@@ -24,7 +24,9 @@ This thesis therefore narrows the research contribution to three controllable fa
 
 The graduation-project system layer remains important, but it serves a different purpose. The M-RAG chatbot demonstrates how the research can be integrated into a usable service. Its A-F routes are paper-review features, not the thesis novelty. The thesis asks what the HyDE/CAD/SCD analysis implies for those routes after query types are examined.
 
-The final intended contribution is:
+The final intended contribution is the single core claim of this thesis. Every other statement in this document is one of: prior work supported by a citation, an implementation fact verifiable in the repository, a pre-experiment hypothesis, an experiment/analysis plan, or a verified result. No other sentence should be read as an independent novel claim.
+
+> **Core claim (본 논문의 유일한 독자 주장):** 고정된 Paper-RAG 검색 backbone 위에서 HyDE × CAD × SCD 완전요인실험을 수행하고, 각 요소의 효과와 상호작용을 query type별로 분석하여 한국어 질의-영어 논문 RAG의 구성 정책을 도출한다.
 
 본 연구는 고정된 Paper-RAG 검색 backbone 위에서 HyDE, CAD, SCD의 3개 factor를 조합하여 한국어 질의-영어 논문 RAG 환경의 근거 충실성, 수치 환각, 언어 이탈, 한국어 응답 안정성에 미치는 영향을 분석한다. 또한 이 분석 결과를 query type별로 해석하여 졸업작품 시스템인 M-RAG 논문 리뷰 챗봇의 Routed policy로 연결한다. 따라서 본 연구의 핵심 기여는 Modular/Routed RAG 자체를 새로운 알고리즘으로 제안하는 것이 아니라, HyDE/CAD/SCD 조합의 효과를 검증 가능한 실험 설계로 분해하고 이를 서비스 정책으로 환원하는 데 있다.
 
@@ -32,7 +34,7 @@ The final intended contribution is:
 
 ### 3.1 Retrieval-Augmented Generation
 
-Retrieval-Augmented Generation combines an information retrieval component with a generative language model. Given a user query \(q\), the retriever searches a corpus \(D = \{d_1, d_2, ..., d_n\}\) and returns a ranked set of passages \(C_q\). The generator then produces an answer \(y\) conditioned on both the query and the retrieved context:
+Retrieval-Augmented Generation combines an information retrieval component with a generative language model [1]. Given a user query \(q\), the retriever searches a corpus \(D = \{d_1, d_2, ..., d_n\}\) and returns a ranked set of passages \(C_q\). The generator then produces an answer \(y\) conditioned on both the query and the retrieved context:
 
 ```text
 y = LM(q, C_q)
@@ -40,11 +42,11 @@ y = LM(q, C_q)
 
 The key advantage is that the model can answer using documents that were not part of pretraining. In academic QA, this means a user can upload a paper and ask about the paper's method, results, or limitations without fine-tuning the language model. The answer can be grounded in retrieved passages and accompanied by source chunks.
 
-The key limitation is that RAG quality depends on both retrieval and generation. If retrieval misses the correct passage, the generator cannot cite it. If retrieval succeeds but generation ignores the evidence, the answer may still hallucinate. Therefore, this thesis treats retrieval-side controls and decoding-side controls as separate experimental axes.
+The key limitation is that RAG quality depends on both retrieval and generation, as organized by RAG surveys and best-practice studies [2]. If retrieval misses the correct passage, the generator cannot cite it. If retrieval succeeds but generation ignores the evidence, the answer may still hallucinate. Therefore, this thesis treats retrieval-side controls and decoding-side controls as separate experimental axes.
 
 ### 3.2 Dense Retrieval
 
-Dense retrieval maps a query and documents into a shared vector space. A multilingual embedding model transforms Korean questions and English passages into vectors, and retrieval is performed by similarity search, commonly cosine similarity or inner product:
+Dense retrieval maps a query and documents into a shared vector space. A multilingual embedding model such as BGE-M3 transforms Korean questions and English passages into vectors [3], and retrieval is performed by similarity search, commonly cosine similarity or inner product:
 
 ```text
 score_dense(q, d) = sim(emb(q), emb(d))
@@ -56,7 +58,7 @@ However, dense retrieval compresses entire passages into vectors. Exact strings 
 
 ### 3.3 Sparse Retrieval and BM25
 
-Sparse retrieval ranks documents using lexical overlap. BM25 is a classic sparse retrieval function based on term frequency, inverse document frequency, and document length normalization:
+Sparse retrieval ranks documents using lexical overlap. BM25 is a classic sparse retrieval function based on term frequency, inverse document frequency, and document length normalization [4]:
 
 ```text
 score_BM25(q, d) = sum IDF(t) * ((tf(t,d) * (k1 + 1)) / (tf(t,d) + k1 * (1 - b + b * |d| / avgdl)))
@@ -68,7 +70,7 @@ Sparse retrieval alone is not enough for Korean-query English-paper RAG because 
 
 ### 3.4 Hybrid Retrieval and RRF
 
-Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. Reciprocal Rank Fusion (RRF) avoids score-scale mismatch by combining ranks instead of raw scores:
+Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. Reciprocal Rank Fusion (RRF) avoids score-scale mismatch by combining ranks instead of raw scores [5]:
 
 ```text
 RRF(d) = sum_i 1 / (k + rank_i(d))
@@ -80,7 +82,7 @@ In the fixed Paper-RAG backbone, hybrid retrieval is part of the frozen retrieva
 
 ### 3.5 Reranking
 
-The retriever produces candidate passages, but top-k retrieval scores may not align perfectly with answer usefulness. A reranker evaluates query-passage pairs more directly. Cross-encoder reranking encodes the query and passage together, allowing token-level interactions that a single vector comparison cannot capture:
+The retriever produces candidate passages, but top-k retrieval scores may not align perfectly with answer usefulness. A reranker evaluates query-passage pairs more directly. Cross-encoder reranking encodes the query and passage together, allowing token-level interactions that a single vector comparison cannot capture [6]:
 
 ```text
 score_rerank(q, d) = CrossEncoder([q; d])
@@ -90,13 +92,13 @@ Reranking is especially useful for academic QA because a passage can contain the
 
 ### 3.6 Context Construction
 
-Context construction selects and formats retrieved evidence for the generator. It includes top-k selection, optional section filters, ordering, compression, and source metadata. A context that is too short may omit required evidence; a context that is too long may bury the answer or introduce irrelevant passages. The "Lost in the Middle" effect motivates careful context ordering because models can underuse evidence placed in the middle of long prompts.
+Context construction selects and formats retrieved evidence for the generator. It includes top-k selection, optional section filters, ordering, compression, and source metadata. A context that is too short may omit required evidence; a context that is too long may bury the answer or introduce irrelevant passages. The "Lost in the Middle" effect motivates careful context ordering because models can underuse evidence placed in the middle of long prompts [13].
 
 For this thesis, context construction belongs to the fixed Paper-RAG backbone. The main experiment should not change context construction while measuring HyDE, CAD, and SCD. This prevents the analysis from confusing retrieval/generation-control effects with unrelated prompt construction changes.
 
 ### 3.7 RAG Hallucination
 
-RAG hallucination occurs when a generated answer is unsupported by retrieved evidence. It can arise from retrieval failure, context noise, prompt ambiguity, or the model's parametric memory. This thesis focuses particularly on generation-side hallucination after evidence is retrieved. CAD addresses this by comparing the model's context-conditioned distribution with a no-context distribution. If a token is likely without the document but not especially supported by the document, CAD can reduce its relative probability.
+RAG hallucination occurs when a generated answer is unsupported by retrieved evidence. It can arise from retrieval failure, context noise, prompt ambiguity, or the model's parametric memory. This thesis focuses particularly on generation-side hallucination after evidence is retrieved. CAD addresses this by comparing the model's context-conditioned distribution with a no-context distribution [9]. If a token is likely without the document but not especially supported by the document, CAD can reduce its relative probability.
 
 Numeric hallucination is a stricter subtype. A generated number can look plausible but be unsupported. In academic papers, this may affect scores, sample counts, dataset sizes, hyperparameters, confidence intervals, or ablation values. The experiment therefore separates numeric hallucination from general faithfulness.
 
@@ -118,39 +120,39 @@ At the same time, English technical terms should not be blindly penalized. Acade
 
 ### 4.1 RAG Systems and Design Practice
 
-Early RAG work established the principle of conditioning generation on retrieved documents. Later surveys and best-practice studies organized RAG pipelines into retrieval, augmentation, and generation stages, and studied practical choices such as chunk size, reranking, query expansion, and context length. This thesis uses that literature to justify a fixed Paper-RAG backbone rather than treating every pipeline choice as a main contribution.
+Early RAG work established the principle of conditioning generation on retrieved documents [1]. Later surveys and best-practice studies organized RAG pipelines into retrieval, augmentation, and generation stages, and studied practical choices such as chunk size, reranking, query expansion, and context length [2]. This thesis uses that literature to justify a fixed Paper-RAG backbone rather than treating every pipeline choice as a main contribution.
 
 ### 4.2 Multilingual Dense Retrieval
 
-Multilingual dense retrieval research shows that embedding models can map semantically related texts across languages into a shared vector space. BGE-M3 is the implemented multilingual embedding model used in the fixed Paper-RAG backbone. It is retained as an implementation reference because the system actually uses it for multilingual dense retrieval, not because this thesis treats BGE-M3 itself as a new contribution.
+Multilingual dense retrieval research shows that embedding models can map semantically related texts across languages into a shared vector space. BGE-M3 is the implemented multilingual embedding model used in the fixed Paper-RAG backbone [3]. It is retained as an implementation reference because the system actually uses it for multilingual dense retrieval, not because this thesis treats BGE-M3 itself as a new contribution.
 
 ### 4.3 Sparse Retrieval and Rank Fusion
 
-BM25 and RRF provide the sparse and rank-fusion foundations of the fixed backbone. BM25 contributes exact-term sensitivity, while RRF combines retrieval systems without requiring score calibration. These methods are not claimed as new contributions; they provide a stable retrieval baseline for the factor analysis.
+BM25 [4] and RRF [5] provide the sparse and rank-fusion foundations of the fixed backbone. BM25 contributes exact-term sensitivity, while RRF combines retrieval systems without requiring score calibration. These methods are not claimed as new contributions; they provide a stable retrieval baseline for the factor analysis.
 
 ### 4.4 Reranking and Passage Relevance
 
-Cross-encoder reranking and passage-ranking benchmarks motivate a second-stage relevance model after initial retrieval. This is particularly important in academic documents because a passage may contain query terms but fail to answer the question. Reranking is therefore fixed in the backbone.
+Cross-encoder reranking [6] and passage-ranking benchmarks [7] motivate a second-stage relevance model after initial retrieval. This is particularly important in academic documents because a passage may contain query terms but fail to answer the question. Reranking is therefore fixed in the backbone.
 
 ### 4.5 Query Reformulation and HyDE
 
-HyDE generates a hypothetical answer-like document from a query and retrieves using that representation. The key intuition is that answer-like text can be closer to relevant documents than the original question form. This thesis does not propose HyDE itself. It evaluates HyDE as an on/off retrieval-side experimental factor in the Korean-query English-paper setting.
+HyDE generates a hypothetical answer-like document from a query and retrieves using that representation [8]. The key intuition is that answer-like text can be closer to relevant documents than the original question form. A Korean-language study also applies HyDE-based multi-hop retrieval to improve retrieval performance, which is directly relevant to the Korean-query setting of this thesis [17]. This thesis does not propose HyDE itself. It evaluates HyDE as an on/off retrieval-side experimental factor in the Korean-query English-paper setting.
 
 ### 4.6 Context-Aware Decoding
 
-CAD is related to contrastive decoding because it compares two distributions during generation. Instead of contrasting a strong model with a weak model, CAD contrasts the same model under context and no-context conditions. In this thesis, CAD is a decoding-time context-faithfulness factor for reducing parametric-memory intervention and improving evidence support.
+CAD is related to contrastive decoding [10] because it compares two distributions during generation. Instead of contrasting a strong model with a weak model, CAD contrasts the same model under context and no-context conditions [9]. A Korean-language study also explores contrastive context-aware decoding for hallucination mitigation [18]. In this thesis, CAD is treated as a decoding-time context-faithfulness factor whose hypothesized purpose is to reduce parametric-memory intervention and improve evidence support; whether it does so is an empirical question (see H2).
 
 ### 4.7 Language Drift and Korean-Target Decoding
 
-Recent AAAI 2026 Oral Paper work on multilingual RAG language drift characterizes unintended output-language shifts under cross-lingual evidence and proposes Soft Constrained Decoding (SCD), a training-free decoding strategy that penalizes non-target-language tokens. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG, not as a general multilingual solution or as a new method introduced by this thesis.
+Recent work on multilingual RAG language drift characterizes unintended output-language shifts under cross-lingual evidence and proposes Soft Constrained Decoding (SCD), a training-free decoding strategy that penalizes non-target-language tokens [11]. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG, not as a general multilingual solution or as a new method introduced by this thesis.
 
 ### 4.8 Evaluation of RAG Answers
 
-RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. RAGAS is used as an evaluation-design reference, but this draft does not claim that RAGAS execution has been performed. The repository separates a RAGAS-compatible future path from a lightweight local judge. This thesis uses the metric concepts while keeping result claims pending until verified experiment artifacts exist.
+RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. RAGAS is used as an evaluation-design reference [12], but this draft does not claim that RAGAS execution has been performed. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16]. The repository separates a RAGAS-compatible future path from a lightweight local judge. This thesis uses the metric concepts while keeping result claims pending until verified experiment artifacts exist.
 
 ### 4.9 Methods Outside the Core Scope
 
-Some related RAG research studies multi-query retrieval, hierarchical summarization, compression-specific retrieval, self-evaluation, graph-based retrieval, multimodal paper understanding, or agentic paper QA. These directions are relevant as background or future work, but they are not core implemented methods in this thesis. They must not be presented as part of the HyDE × CAD × SCD main experiment unless a later implementation audit explicitly changes the scope.
+Some related RAG research studies multi-query retrieval, hierarchical summarization, compression-specific retrieval, self-evaluation, graph-based retrieval, multimodal paper understanding, or agentic paper QA. Benchmarking libraries for RAG provide standardized comparison across such directions [14]. These directions are relevant as background or future work, but they are not core implemented methods in this thesis. They must not be presented as part of the HyDE × CAD × SCD main experiment unless a later implementation audit explicitly changes the scope.
 
 ## 5. Problem Definition
 
@@ -179,6 +181,15 @@ The thesis asks:
 - RQ4: How do CAD and SCD interact when both decoding controls are active?
 - RQ5: Which query types should enable each factor in the graduation-project routed service?
 
+### 5.1 Research Hypotheses
+
+These are pre-experiment hypotheses. No result is asserted here; each will be accepted, rejected, or left undetermined only after a verified experiment run. The theoretical grounding for each hypothesis is a prior-work citation, not evidence produced by this thesis.
+
+- **H1 (HyDE):** Enabling HyDE will change retrieval quality and evidence support relative to query-only retrieval under the same fixed backbone. Direction is not assumed. Grounding: HyDE as hypothetical-document retrieval [8], multilingual dense retrieval [3], and Korean HyDE-based multi-hop retrieval [17].
+- **H2 (CAD):** Enabling CAD will change the rate of unsupported claims and numeric hallucination when relevant evidence is present. Grounding: Context-Aware Decoding [9] and contrastive decoding [10].
+- **H3 (SCD):** Enabling Korean-target SCD will change language-drift rate and Korean answer ratio without removing whitelisted technical terms. Grounding: language drift and Soft Constrained Decoding [11].
+- **H4 (CAD × SCD interaction):** When CAD and SCD are both enabled, their combined effect may be non-additive because both modify decoding-time token scores. Grounding: CAD [9] and SCD [11].
+
 The thesis explicitly does not claim that the routed service architecture itself is a new RAG algorithm. The route layer is evaluated qualitatively as system integration and policy application.
 
 ## 6. System Overview
@@ -187,7 +198,7 @@ M-RAG has two layers.
 
 The research layer is the fixed Paper-RAG backbone plus the HyDE × CAD × SCD matrix. It is implemented under the separated `experiments/` framework and should be executed only after parameter tuning, query split validation, and evaluation readiness checks.
 
-The service layer is a FastAPI and React paper-review chatbot. It supports document upload, text extraction, chunking, vector indexing, retrieval, answer generation, source display, streaming, follow-up questions, citations, comparison, summaries, and quizzes. The service layer helps demonstrate the graduation-project application, but it is not the thesis novelty.
+The service layer is a FastAPI and React paper-review chatbot. It supports document upload, text extraction, chunking, vector indexing, retrieval, answer generation, source display, streaming, follow-up questions, citations, comparison, summaries, and quizzes. The configured generation model is the Mi:dm 2.0 instruct model [15]. The service layer helps demonstrate the graduation-project application, but it is not the thesis novelty.
 
 The high-level runtime flow is:
 
@@ -267,9 +278,9 @@ search_text = h if HyDE is enabled else q
 C = retrieve(search_text, D)
 ```
 
-In this thesis, HyDE is not treated as a new method. It is the retrieval-side experimental axis. The question is whether enabling it improves evidence support and answer relevancy under the same fixed backbone.
+In this thesis, HyDE [8] is not treated as a new method. It is the retrieval-side experimental axis. The question is whether enabling it changes evidence support and answer relevancy under the same fixed backbone (H1).
 
-Expected analysis:
+Expected analysis (hypotheses for H1, not results):
 
 - HyDE may improve semantic recall for method and conceptual questions.
 - HyDE may be less useful for exact numeric questions if the hypothetical text omits the exact number.
@@ -277,7 +288,7 @@ Expected analysis:
 
 ### 8.2 CAD
 
-CAD reduces parametric-memory intervention by contrasting context-conditioned and no-context model scores. Let \(s_c(y_t)\) be the score for token \(y_t\) conditioned on query, retrieved context, and generated prefix. Let \(s_0(y_t)\) be the score for the same token conditioned on the same query and generated prefix but without retrieved context. The exact contract used in this thesis is:
+CAD is designed to reduce parametric-memory intervention by contrasting context-conditioned and no-context model scores [9]; whether it does so on this corpus is the empirical question of H2. Let \(s_c(y_t)\) be the score for token \(y_t\) conditioned on query, retrieved context, and generated prefix. Let \(s_0(y_t)\) be the score for the same token conditioned on the same query and generated prefix but without retrieved context. The exact contract used in this thesis is:
 
 ```text
 cad_scores = (1 + alpha) * context_scores - alpha * no_context_scores
@@ -298,15 +309,15 @@ Implementation contract:
 - Use the uncached no-context reference path unless cached parity is proven.
 - Block unsupported batch or beam modes if prefix parity is not guaranteed.
 
-Expected analysis:
+Expected analysis (hypotheses for H2, not results):
 
-- CAD should reduce unsupported claims and numeric hallucination when relevant evidence exists.
+- CAD is hypothesized to reduce unsupported claims and numeric hallucination when relevant evidence exists.
 - CAD may make generation more conservative.
 - CAD should not change retrieval metrics directly; if context precision changes under CAD-only comparisons, the evaluation pipeline should be inspected.
 
 ### 8.3 SCD
 
-SCD is Korean-target Soft Constrained Decoding, a training-free decoding strategy for mitigating language drift in multilingual RAG. It penalizes non-target-language tokens during generation while preserving neutral tokens and mandatory technical terms. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) whitelisted technical tokens. Tokens outside these sets may receive a beta penalty:
+SCD is Korean-target Soft Constrained Decoding, a training-free decoding strategy for mitigating language drift in multilingual RAG [11]. It penalizes non-target-language tokens during generation while preserving neutral tokens and mandatory technical terms. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) whitelisted technical tokens. Tokens outside these sets may receive a beta penalty:
 
 ```text
 s_SCD(y_t) = s(y_t) - beta, if y_t not in V_ko ∪ V_n ∪ V_w
@@ -317,9 +328,9 @@ Neutral tokens include whitespace, punctuation, digits, brackets, math symbols, 
 
 SCD is not intended to translate every English term into Korean. Academic Korean naturally includes English method names and acronyms. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG. The goal is to reduce unnecessary English sentence drift while preserving technical precision.
 
-Expected analysis:
+Expected analysis (hypotheses for H3, not results):
 
-- SCD should reduce language drift rate and increase Korean answer ratio.
+- SCD is hypothesized to reduce language drift rate and increase Korean answer ratio.
 - SCD may harm answer naturalness if beta is too high or whitelist coverage is insufficient.
 - SCD may interact with CAD because both operate at decoding time.
 
@@ -609,7 +620,7 @@ No experimental results are claimed in this draft. The next thesis step is to ru
 
 [10] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eisner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, "Contrastive Decoding: Open-ended Text Generation as Optimization," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics, 2023.
 
-[11] B. Li, Z. Xu, and R. Xie, "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation," AAAI 2026 Oral Paper, arXiv:2511.09984, 2025.
+[11] B. Li, Z. Xu, and R. Xie, "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation," in Proceedings of the AAAI Conference on Artificial Intelligence, vol. 40, no. 37, pp. 31519-31526, 2026, doi:10.1609/aaai.v40i37.40417 (arXiv:2511.09984).
 
 [12] S. Es, J. James, L. E. Anke, and S. Schockaert, "RAGAs: Automated Evaluation of Retrieval Augmented Generation," in Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, pp. 150-158, 2024.
 
@@ -619,8 +630,8 @@ No experimental results are claimed in this draft. The next thesis step is to ru
 
 [15] K-intelligence, "Mi:dm 2.0 Technical Report," 2025.
 
-[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회논문지, vol. 18, no. 2, 2025. TODO: verify bibliographic details.
+[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회논문지, vol. 18, no. 2, 2025. TODO: 페이지·DOI 미확인. KCI/RISS 1차 출처로 직접 확인 후 확정할 것(자동 웹 검색으로 미발견).
 
-[17] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구, vol. 27, no. 2, 2025. TODO: verify bibliographic details.
+[17] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구(Information Systems Review), vol. 27, no. 2, pp. 127-148, 2025, doi:10.14329/isr.2025.27.2.127.
 
-[18] 장규식, 이현민, 나승훈, 김태형, 류휘정, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회 논문집, 2024. TODO: verify bibliographic details.
+[18] 장규식, 나승훈, 김태형, 류휘정 외, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회(HCLT 2024) 논문집, 2024. TODO: 저자 명단 미확정 — 본 초안의 기존 표기(장규식, 이현민, 나승훈, 김태형, 류휘정)와 2차 검색 결과(장규식, 나승훈, 김태형, 류휘정, 장두성)가 불일치. HCLT 2024 공식 논문집/KCI 1차 출처로 저자 순서·전체 명단과 페이지를 확정할 것.

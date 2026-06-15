@@ -2,7 +2,7 @@
 MODULE 4: Embedder
 BGE-M3 기반 텍스트 → 벡터 변환
 한영 동일 임베딩 공간에서 크로스링구얼 매칭 지원
-기반 논문: BGE M3-Embedding [2]
+기반 논문: BGE-M3 (Chen et al., 2024, arXiv:2402.03216)
 """
 
 import logging

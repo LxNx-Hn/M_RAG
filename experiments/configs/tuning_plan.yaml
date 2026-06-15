@@ -58,15 +58,19 @@ experiment_design:
 
 current_repo_defaults:
   retrieval:
-    top_k:
-      value: 5
-      evidence: backend/api/schemas.py QueryRequest default and experiments/configs/fixed_backbone.yaml
-    rerank_top_n:
-      value: 5
-      evidence: backend/config.py TOP_K_RERANK and experiments/configs/fixed_backbone.yaml
-    backend_retrieval_pool_top_k:
+    # Three distinct retrieval stages; do not collapse into one "top_k".
+    retrieval_pool_top_k:
       value: 20
       evidence: backend/config.py TOP_K_RETRIEVAL
+      meaning: initial dense + BM25 candidate pool before RRF fusion
+    rerank_top_n:
+      value: 5
+      evidence: backend/config.py TOP_K_RERANK and backend/api/schemas.py QueryRequest.top_k default
+      meaning: documents kept after CrossEncoder reranking (the API-level top_k maps here)
+    context_chunk_count:
+      value: 5
+      evidence: equals rerank_top_n in the fixed backbone; experiments/configs/fixed_backbone.yaml
+      meaning: final chunks handed to the generator
   decoder:
     cad_alpha:
       value: 0.5
@@ -94,7 +98,10 @@ current_repo_defaults:
       evidence: backend/modules/generator.py resolves do_sample from TEMPERATURE unless force_greedy is set.
 
 candidate_space:
+  # "top_k" here sweeps the rerank-output / context level (rerank_top_n and the
+  # equal context_chunk_count), NOT the larger dense/BM25 retrieval_pool_top_k.
   top_k:
+    semantics: rerank_top_n_and_context_chunk_count
     values: [3, 5, 8]
     default: 5
     rationale: conservative, current default, and modest recall-oriented candidates.

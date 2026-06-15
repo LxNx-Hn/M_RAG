@@ -14,10 +14,20 @@ retrieval:
     enabled: true
     model: CrossEncoder or repository-configured reranker
 frozen_parameters:
-  top_k: 5
-  rerank_top_n: 5
+  # Distinct retrieval stages (do not collapse into one "top_k"):
+  retrieval_pool_top_k: 20   # initial dense + BM25 candidate pool (backend config.TOP_K_RETRIEVAL)
+  rerank_top_n: 5            # documents kept after CrossEncoder reranking (backend config.TOP_K_RERANK)
+  context_chunk_count: 5     # final chunks handed to generation (= rerank_top_n in the fixed backbone)
   section_filter: null
   doc_id_filter: set_by_query_or_runtime_scope
+parameter_semantics:
+  retrieval_pool_top_k: initial dense/BM25 candidate count before fusion
+  rerank_top_n: count after CrossEncoder reranking
+  context_chunk_count: final chunk count passed to the generator
+  note: >
+    The legacy single "top_k: 5" referred to the API/rerank-output level
+    (backend/api/schemas.py QueryRequest.top_k default = 5), which corresponds to
+    rerank_top_n here, not to the larger dense/BM25 candidate pool.
 excluded_from_fixed_backbone:
   hyde: main_experiment_axis
   cad: main_experiment_axis
