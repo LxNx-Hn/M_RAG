@@ -141,11 +141,19 @@ class BM25:
 
         scores.sort(key=lambda x: x[1], reverse=True)
 
+        # Exclude zero-score (no lexical overlap) candidates: they must not pad
+        # top-k or receive an RRF rank. Scores are sorted descending and a query
+        # term only contributes a positive amount, so once a non-positive score
+        # is reached every remaining candidate is non-positive too.
         results = []
-        for idx, score in scores[:top_k]:
+        for idx, score in scores:
+            if score <= 0:
+                break
             doc = self.documents[idx].copy()
             doc["bm25_score"] = score
             results.append(doc)
+            if len(results) >= top_k:
+                break
         return results
 
     @staticmethod

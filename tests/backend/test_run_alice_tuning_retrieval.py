@@ -250,6 +250,33 @@ def test_bm25_doc_id_filter_does_not_mix_other_docs():
     assert all(d["metadata"]["doc_id"] == "target" for d in filtered)
 
 
+def test_bm25_excludes_zero_score_candidates():
+    docs = [
+        {
+            "chunk_id": "match",
+            "content": "alpha beta",
+            "metadata": {"doc_id": "d", "section_type": "method"},
+        },
+        {
+            "chunk_id": "nomatch1",
+            "content": "zzz qqq",
+            "metadata": {"doc_id": "d", "section_type": "method"},
+        },
+        {
+            "chunk_id": "nomatch2",
+            "content": "www vvv",
+            "metadata": {"doc_id": "d", "section_type": "method"},
+        },
+    ]
+    bm25 = BM25()
+    bm25.fit(docs)
+    # top_k is larger than the number of lexical matches; zero-score chunks must
+    # NOT pad the result set or receive an RRF rank.
+    results = bm25.search("alpha", top_k=10)
+    assert {r["chunk_id"] for r in results} == {"match"}
+    assert all(r["bm25_score"] > 0 for r in results)
+
+
 # --- HybridRetriever single-implementation + service fallback -------------
 
 
