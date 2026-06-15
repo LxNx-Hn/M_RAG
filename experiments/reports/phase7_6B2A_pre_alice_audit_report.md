@@ -71,17 +71,24 @@ existing reference (verified by an automated consistency test, see §9).
     우지환 (exact match). 경영정보학연구 27(2), 2025, pp. 127–148,
     doi:10.14329/isr.2025.27.2.127. Pages and DOI added; "TODO: verify" removed.
 
-## 5. Still-Unverified Bibliographic Details
+## 5. Bibliographic Details — now fully verified (follow-up)
 
-- **[16] (김범석, 양진홍, 한국정보전자통신기술학회논문지 18(2), 2025):** not found via
-  US-region web search. Pages/DOI remain unverified. TODO note kept and made
-  explicit: confirm via KCI/RISS primary source.
-- **[18] (Contrastive CAD, HCLT 2024):** author list is in conflict and was NOT
-  asserted as verified. The draft's existing list (장규식, 이현민, 나승훈, 김태형,
-  류휘정) disagrees with a secondary search result (장규식, 나승훈, 김태형, 류휘정,
-  장두성). Because no primary source (HCLT proceedings / KCI) was reachable, the
-  discrepancy is recorded in the reference TODO and must be resolved manually
-  before the thesis is finalized. No unverified correction was forced in.
+All reference TODOs are resolved. `remaining_unverified_references: 0`.
+
+- **[16] (김범석, 양진홍) — verified via KCI primary source and TODO removed.**
+  - KCI artiId ART003200663 (confirmed against the KCI article page).
+  - 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교
+    분석 연구," 한국정보전자통신기술학회 논문지, vol. 18, no. 2, pp. 143–154, 2025
+    (ISSN 2005-081X). Page range added; "TODO: verify" removed.
+- **[18] (Contrastive CAD, HCLT 2024) — author list corrected from a primary
+  source.** Using the 국립국어원 official HCLT 2024 schedule (corroborated by an
+  independent search), the confirmed authors are 장규식, 나승훈, 김태형, 류휘정,
+  장두성. The incorrect `이현민` was removed and `장두성` added. Only the
+  conference-proceedings information is asserted; no page numbers or DOI were
+  fabricated. "TODO" removed.
+
+A static test (`test_thesis_has_no_unresolved_reference_todo`) now asserts the
+reference list contains no remaining TODO marker.
 
 ## 6. Code Citation Fixes
 
@@ -140,13 +147,14 @@ re-run cannot re-introduce the wrong flag.
   `collection.get(where={doc_id})` sample. `evidence_class = execution_smoke_only`.
 - `fixed_backbone`: the real query-aware Paper-RAG backbone. The orchestration
   function `run_fixed_backbone_retrieval(...)` performs, using the **query text**
-  and the applicable-paper `doc_id` filter:
-  1. BGE-M3 query embedding (`Embedder.embed_query`),
-  2. Chroma dense retrieval (`VectorStore.search`),
-  3. BM25 sparse retrieval (`HybridRetriever.bm25_map[...].search`),
-  4. RRF fusion (`HybridRetriever._rrf_fusion`),
-  5. CrossEncoder reranking (`Reranker.rerank`),
-  6. final `context_chunk_count` chunk selection.
+  and the applicable-paper `doc_id` filter, via the SINGLE public retrieval API
+  `HybridRetriever.search_with_trace(...)` (the adapter no longer assembles
+  retrieval from `bm25_map` / `_rrf_fusion` directly):
+  1. BGE-M3 query embedding + Chroma dense retrieval + BM25 sparse retrieval +
+     RRF fusion, all inside `search_with_trace` (same implementation as the
+     production `search()`, which now returns `search_with_trace(...)["fused"]`),
+  2. CrossEncoder reranking (`Reranker.rerank`),
+  3. final `context_chunk_count` chunk selection.
   `evidence_class = retrieval_backbone_smoke`.
 
 Heavy backend modules are imported lazily inside `build_fixed_backbone_components`,
@@ -175,6 +183,23 @@ Three distinct stages are now named consistently across the runner args,
   (backend `config.TOP_K_RERANK`; the API `QueryRequest.top_k=5` maps here).
 - `context_chunk_count` = 5 — final chunks handed to the generator.
 
+### BM25 doc_id pre-ranking filter fix (follow-up)
+
+A correctness bug was fixed: previously BM25 selected a global top-k and then
+applied `doc_id_filter` afterward, so a target document's chunks were silently
+lost whenever higher-scoring chunks of other documents filled the global top-k.
+
+- `BM25.search()` now accepts optional `doc_id_filter` / `section_filter` and
+  restricts the candidate set BEFORE top-k selection (corpus-level IDF / avgdl
+  are retained as scoring statistics).
+- `HybridRetriever.search_with_trace()` is a new public method that runs the
+  whole dense + sparse + RRF path once and returns `dense`/`sparse`/`fused`
+  lists plus their counts and `bm25_available`. `HybridRetriever.search()` is now
+  a thin wrapper returning `["fused"]`, so production and the experiment adapter
+  share ONE retrieval implementation.
+- The Alice adapter consumes `search_with_trace` only (no `bm25_map` /
+  `_rrf_fusion` access); counts in the evidence metadata come from the trace.
+
 ## 9. BM25 Fail-Closed Behaviour
 
 `fixed_backbone` does NOT silently fall back to dense-only. It raises before
@@ -184,19 +209,30 @@ generation:
 - `retrieval_context_required_but_empty` when retrieval yields no usable context.
 - `fixed_backbone_requires_query_text` when the query text is empty.
 
+The general service path (`HybridRetriever.search`) **intentionally keeps**
+dense-only fallback when BM25 is absent; this distinction is asserted by a
+dedicated test (`test_service_search_keeps_dense_only_fallback_without_bm25`).
+
 These are covered by unit tests, including a test proving that generation is NOT
-invoked when retrieval fails (`generate_answer` call count is asserted to be 0).
+invoked when retrieval fails (`generate_answer` call count is asserted to be 0)
+and a test proving a target chunk outside the global BM25 top-k is recovered by
+the pre-ranking `doc_id` filter.
 
 ## 10. Static Verification Results
 
 All performed locally, no model/GPU:
 
 - `compileall` (backend/modules, experiments/runners, tests/backend): PASS.
-- `pytest tests/backend -q`: 20 passed (9 new adapter/citation tests + existing).
-- New tests: fixed-backbone happy-path metadata; BM25-missing fail-closed; no
-  dense-only fallback; empty-retrieval fail-closed; empty-query guard;
-  build_record does-not-generate-on-empty-retrieval; doc_filter_sample evidence
-  grade; bad param-ordering rejection; THESIS citation/number consistency.
+- `pytest tests/backend -q`: 28 passed (17 new adapter/retrieval/reference tests
+  + existing).
+- New tests: fixed-backbone happy-path metadata; adapter-uses-public-API-only;
+  BM25-missing fail-closed; no dense-only fallback (experiment); trace-reports-no-
+  bm25 fail-closed; empty-retrieval fail-closed; empty-query guard; BM25 doc_id
+  pre-filter recovers target outside global top-k; BM25 filter does not mix other
+  docs; `search` delegates to `search_with_trace` with accurate counts; service
+  dense-only fallback retained; build_record does-not-generate-on-empty-retrieval;
+  doc_filter_sample evidence grade; bad param-ordering rejection; [16]/[18]
+  finalized; no unresolved reference TODO; THESIS citation/number consistency.
 - `run_alice_tuning.py --help`: PASS (shows new retrieval-mode and param args).
 - Dry-runs: `run_tuning_plan --dry-run --plan-only`, `dry_run_matrix --dry-run`,
   `run_generation --dry-run --plan-only`: PASS.
@@ -235,3 +271,11 @@ Before the Phase 7.6B-2A 1-sample fixed-backbone smoke can run on Alice:
 
 Profile expansion, parameter freeze, and the main experiment remain blocked and
 require separate explicit approval.
+
+## 13. Final State
+
+```text
+ready_for_phase7_6B2A_alice_1sample_smoke
+alice_execution_count: 0
+remaining_unverified_references: 0
+```

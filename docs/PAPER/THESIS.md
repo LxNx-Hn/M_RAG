@@ -630,8 +630,8 @@ No experimental results are claimed in this draft. The next thesis step is to ru
 
 [15] K-intelligence, "Mi:dm 2.0 Technical Report," 2025.
 
-[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회논문지, vol. 18, no. 2, 2025. TODO: 페이지·DOI 미확인. KCI/RISS 1차 출처로 직접 확인 후 확정할 것(자동 웹 검색으로 미발견).
+[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회 논문지, vol. 18, no. 2, pp. 143-154, 2025.
 
 [17] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구(Information Systems Review), vol. 27, no. 2, pp. 127-148, 2025, doi:10.14329/isr.2025.27.2.127.
 
-[18] 장규식, 나승훈, 김태형, 류휘정 외, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회(HCLT 2024) 논문집, 2024. TODO: 저자 명단 미확정 — 본 초안의 기존 표기(장규식, 이현민, 나승훈, 김태형, 류휘정)와 2차 검색 결과(장규식, 나승훈, 김태형, 류휘정, 장두성)가 불일치. HCLT 2024 공식 논문집/KCI 1차 출처로 저자 순서·전체 명단과 페이지를 확정할 것.
+[18] 장규식, 나승훈, 김태형, 류휘정, 장두성, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회(HCLT 2024) 논문집, 2024.

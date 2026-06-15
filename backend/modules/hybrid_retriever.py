@@ -90,14 +90,37 @@ class BM25:
 
         self.avg_dl = sum(self.doc_lengths) / max(self.n_docs, 1)
 
-    def search(self, query: str, top_k: int = TOP_K_RETRIEVAL) -> list[dict]:
+    def search(
+        self,
+        query: str,
+        top_k: int = TOP_K_RETRIEVAL,
+        doc_id_filter: Optional[str] = None,
+        section_filter: Optional[str] = None,
+    ) -> list[dict]:
+        """BM25 search with optional pre-ranking metadata filtering.
+
+        When a doc_id/section filter is given, the candidate set is restricted
+        BEFORE top-k selection. This prevents the target document's chunks from
+        being dropped by globally higher-scoring chunks of other documents.
+        Corpus-level IDF and average document length remain the scoring
+        statistics; only the candidate set considered for ranking is narrowed.
+        """
         if not self.documents:
             return []
 
         query_tokens = self._tokenize(query)
-        scores = []
 
-        for i in range(self.n_docs):
+        if doc_id_filter or section_filter:
+            candidate_indices = [
+                i
+                for i in range(self.n_docs)
+                if self._matches(self.documents[i], doc_id_filter, section_filter)
+            ]
+        else:
+            candidate_indices = range(self.n_docs)
+
+        scores = []
+        for i in candidate_indices:
             score = 0.0
             for term in query_tokens:
                 tf = self.term_freqs[i].get(term, 0)
@@ -124,6 +147,20 @@ class BM25:
             doc["bm25_score"] = score
             results.append(doc)
         return results
+
+    @staticmethod
+    def _matches(
+        doc: dict,
+        doc_id_filter: Optional[str],
+        section_filter: Optional[str],
+    ) -> bool:
+        """Return True when the candidate chunk passes the metadata filters."""
+        metadata = doc.get("metadata") or {}
+        if doc_id_filter and metadata.get("doc_id") != doc_id_filter:
+            return False
+        if section_filter and metadata.get("section_type") != section_filter:
+            return False
+        return True
 
     @staticmethod
     def _tokenize(text: str) -> list[str]:
@@ -253,7 +290,43 @@ class HybridRetriever:
         doc_id_filter: Optional[str] = None,
         hyde_doc: Optional[str] = None,
     ) -> list[dict]:
-        """Hybrid retrieval with dense + sparse + RRF fusion."""
+        """Hybrid retrieval with dense + sparse + RRF fusion.
+
+        Service-path policy: when no BM25 index exists for the collection this
+        intentionally falls back to dense-only (graceful degradation). Callers
+        that must NOT fall back (e.g. the fixed-backbone experiment) should check
+        ``has_bm25_for_collection`` and fail closed themselves. ``search`` is a
+        thin wrapper over ``search_with_trace`` so the production path and any
+        trace-consuming path share one retrieval implementation.
+        """
+        return self.search_with_trace(
+            collection_name,
+            query,
+            top_k=top_k,
+            section_filter=section_filter,
+            doc_id_filter=doc_id_filter,
+            hyde_doc=hyde_doc,
+        )["fused"]
+
+    def search_with_trace(
+        self,
+        collection_name: str,
+        query: str,
+        top_k: int = TOP_K_RETRIEVAL,
+        section_filter: Optional[str] = None,
+        doc_id_filter: Optional[str] = None,
+        hyde_doc: Optional[str] = None,
+    ) -> dict:
+        """Hybrid retrieval returning dense/sparse/fused traces and their counts.
+
+        This is the single retrieval implementation. ``search`` returns the
+        ``"fused"`` list from this method, so production and experiment-adapter
+        paths cannot diverge into different retrieval implementations.
+
+        The BM25 stage applies ``doc_id_filter``/``section_filter`` BEFORE its
+        top-k selection (see ``BM25.search``), so a target document's chunks are
+        not lost to globally higher-scoring chunks of other documents.
+        """
         search_text = hyde_doc if hyde_doc else query
         query_embedding = self.embedder.embed_query(search_text)
         dense_results = self.vector_store.search(
@@ -265,27 +338,30 @@ class HybridRetriever:
         )
 
         bm25_index = self.bm25_map.get(collection_name)
-        if bm25_index:
-            sparse_results = bm25_index.search(query, top_k=top_k)
-            if section_filter:
-                sparse_results = [
-                    r
-                    for r in sparse_results
-                    if r.get("metadata", {}).get("section_type") == section_filter
-                ]
-            if doc_id_filter:
-                sparse_results = [
-                    r
-                    for r in sparse_results
-                    if r.get("metadata", {}).get("doc_id") == doc_id_filter
-                ]
+        bm25_available = bm25_index is not None
+        if bm25_available:
+            sparse_results = bm25_index.search(
+                query,
+                top_k=top_k,
+                doc_id_filter=doc_id_filter,
+                section_filter=section_filter,
+            )
         else:
             logger.debug(
                 "BM25 index not fitted for '%s'; using dense-only", collection_name
             )
             sparse_results = []
 
-        return self._rrf_fusion(dense_results, sparse_results, top_k)
+        fused = self._rrf_fusion(dense_results, sparse_results, top_k)
+        return {
+            "dense": dense_results,
+            "sparse": sparse_results,
+            "fused": fused,
+            "dense_count": len(dense_results),
+            "sparse_count": len(sparse_results),
+            "fused_count": len(fused),
+            "bm25_available": bm25_available,
+        }
 
     def _rrf_fusion(
         self, dense_results: list[dict], sparse_results: list[dict], top_k: int

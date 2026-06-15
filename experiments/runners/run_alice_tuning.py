@@ -266,8 +266,6 @@ def build_fixed_backbone_components(collection_name: str):
 
 def run_fixed_backbone_retrieval(
     *,
-    embedder,
-    vector_store,
     hybrid_retriever,
     reranker,
     collection_name: str,
@@ -279,9 +277,11 @@ def run_fixed_backbone_retrieval(
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Run query-aware fixed-backbone retrieval and return (context, chunks, meta).
 
-    Pure orchestration over injected components so it is unit-testable without
-    GPU. Mirrors the production HybridRetriever.search path but captures the
-    intermediate dense/sparse/fused counts for evidence metadata.
+    Pure orchestration over the PUBLIC retrieval API so it is unit-testable
+    without GPU. It uses the same ``HybridRetriever.search_with_trace`` path as
+    production (no private ``bm25_map`` / ``_rrf_fusion`` assembly) and reads the
+    dense/sparse/fused counts from the returned trace. The BM25 ``doc_id`` filter
+    is applied before top-k inside that path.
 
     Fails closed (raises SmokeBlockedError) when:
     - the query text is empty,
@@ -294,40 +294,27 @@ def run_fixed_backbone_retrieval(
             "query-aware retrieval."
         )
 
-    bm25_available = bool(hybrid_retriever.has_bm25_for_collection(collection_name))
-    if not bm25_available:
+    if not bool(hybrid_retriever.has_bm25_for_collection(collection_name)):
         raise SmokeBlockedError(
             "fixed_backbone_bm25_index_missing: BM25 index is not built for "
             f"collection '{collection_name}'. fixed_backbone must not fall back "
             "to dense-only; build the BM25 index first."
         )
 
-    query_embedding = embedder.embed_query(query)
-    dense_results = vector_store.search(
+    trace = hybrid_retriever.search_with_trace(
         collection_name,
-        query_embedding,
+        query,
         top_k=retrieval_pool_top_k,
         doc_id_filter=doc_id,
+        hyde_doc=None,
     )
-
-    bm25_index = hybrid_retriever.bm25_map.get(collection_name)
-    if bm25_index is None:
-        # Defensive: has_bm25_for_collection said True but the map lacks it.
+    if not trace.get("bm25_available"):
+        # Defensive: has_bm25_for_collection said True but the trace disagrees.
         raise SmokeBlockedError(
             "fixed_backbone_bm25_index_missing: BM25 index unavailable at retrieval time."
         )
-    sparse_results = bm25_index.search(query, top_k=retrieval_pool_top_k)
-    if doc_id:
-        sparse_results = [
-            r
-            for r in sparse_results
-            if (r.get("metadata") or {}).get("doc_id") == doc_id
-        ]
 
-    # Real RRF fusion from the backbone (single retrieval pass, exact counts).
-    fused = hybrid_retriever._rrf_fusion(
-        dense_results, sparse_results, retrieval_pool_top_k
-    )
+    fused = trace.get("fused") or []
     reranked = reranker.rerank(query, fused, top_k=rerank_top_n)
     context_chunks = reranked[:context_chunk_count]
 
@@ -376,9 +363,9 @@ def run_fixed_backbone_retrieval(
         "retrieval_pool_top_k": retrieval_pool_top_k,
         "rerank_top_n": rerank_top_n,
         "context_chunk_count": len(context_chunks),
-        "dense_result_count": len(dense_results),
-        "sparse_result_count": len(sparse_results),
-        "fused_result_count": len(fused),
+        "dense_result_count": trace.get("dense_count"),
+        "sparse_result_count": trace.get("sparse_count"),
+        "fused_result_count": trace.get("fused_count"),
         "retrieved_chunk_ids": [c.get("chunk_id") for c in fused],
         "reranked_chunk_ids": [c.get("chunk_id") for c in reranked],
         "retrieved_doc_ids": _doc_ids(fused),
@@ -398,12 +385,10 @@ def load_fixed_backbone_context(
     context_chunk_count: int,
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Build real components and run query-aware fixed-backbone retrieval."""
-    embedder, vector_store, hybrid_retriever, reranker = (
+    _embedder, _vector_store, hybrid_retriever, reranker = (
         build_fixed_backbone_components(collection_name)
     )
     return run_fixed_backbone_retrieval(
-        embedder=embedder,
-        vector_store=vector_store,
         hybrid_retriever=hybrid_retriever,
         reranker=reranker,
         collection_name=collection_name,
