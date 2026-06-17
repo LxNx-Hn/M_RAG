@@ -1,0 +1,146 @@
+{
+  "phase": "phase8_parameter_freeze_readiness",
+  "mode": "dry_safe_readiness_only",
+  "freeze_performed": false,
+  "frozen_params_yaml_written": false,
+  "final_frozen_params_yaml_exists": false,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "model_generation_used": false,
+  "decision": "READY_FOR_SCORED_EVAL",
+  "blockers": [],
+  "notes": [
+    "Structural inputs are complete, but no official *scored* evaluation result exists. The next step is local official RAGAS/OpenAI scoring of the tuning outputs, NOT a parameter freeze."
+  ],
+  "inputs": {
+    "tuning_results": [
+      "..\\experiments\\results\\tuning\\phase7_6C_small_tuning_comparison_15records.jsonl"
+    ],
+    "eval_results": [
+      "..\\experiments\\results\\evaluation\\phase7_6B2B_fixed_backbone_baseline_5samples.ragas_dry_validation.json"
+    ],
+    "query_split": "tuning_queries",
+    "reference_count": 5
+  },
+  "freeze_target_params": [
+    "top_k",
+    "rerank_top_n",
+    "cad_alpha",
+    "scd_beta",
+    "hyde_template_variant",
+    "max_new_tokens",
+    "temperature",
+    "decoding_mode"
+  ],
+  "fixed_backbone_components": [
+    "dense_model:BGE-M3",
+    "sparse_method:BM25",
+    "fusion_method:RRF",
+    "reranker:CrossEncoder",
+    "generation_model:K-intelligence/Midm-2.0-Base-Instruct"
+  ],
+  "coverage": {
+    "profiles": [
+      "current_defaults",
+      "retrieval_conservative",
+      "retrieval_recall_oriented"
+    ],
+    "profile_count": 3,
+    "union_query_ids": [
+      "track1_0001",
+      "track1_0004",
+      "track1_0005",
+      "track1_0007",
+      "track1_0008"
+    ],
+    "union_query_count": 5,
+    "balanced": true,
+    "per_profile": {
+      "current_defaults": {
+        "query_ids": [
+          "track1_0001",
+          "track1_0004",
+          "track1_0005",
+          "track1_0007",
+          "track1_0008"
+        ],
+        "count": 5,
+        "missing_vs_union": []
+      },
+      "retrieval_conservative": {
+        "query_ids": [
+          "track1_0001",
+          "track1_0004",
+          "track1_0005",
+          "track1_0007",
+          "track1_0008"
+        ],
+        "count": 5,
+        "missing_vs_union": []
+      },
+      "retrieval_recall_oriented": {
+        "query_ids": [
+          "track1_0001",
+          "track1_0004",
+          "track1_0005",
+          "track1_0007",
+          "track1_0008"
+        ],
+        "count": 5,
+        "missing_vs_union": []
+      }
+    }
+  },
+  "integrity": {
+    "records_total": 15,
+    "missing_answer": [],
+    "missing_context": [],
+    "missing_reference": [],
+    "non_succeeded": [],
+    "all_answers_present": true,
+    "all_contexts_present": true,
+    "all_references_present": true,
+    "all_succeeded": true
+  },
+  "scored_eval_scan": {
+    "scored_results_present": false,
+    "scored_files": [],
+    "rejected_files": [
+      "..\\experiments\\results\\evaluation\\phase7_6B2B_fixed_backbone_baseline_5samples.ragas_dry_validation.json (not an executed scored-eval result)"
+    ]
+  },
+  "descriptive_profile_aggregates": {
+    "current_defaults": {
+      "n_records": 5,
+      "success_rate": 1.0,
+      "mean_answer_char_len": 2456.8,
+      "mean_context_count": 5.0,
+      "mean_korean_char_ratio": 0.356,
+      "mean_duration_seconds": 39.84,
+      "descriptive_degeneration_suspected_count": 2,
+      "note": "descriptive only; NOT a quality score and NOT a freeze selection signal. Requires official scored evaluation to interpret."
+    },
+    "retrieval_conservative": {
+      "n_records": 5,
+      "success_rate": 1.0,
+      "mean_answer_char_len": 888.8,
+      "mean_context_count": 3.0,
+      "mean_korean_char_ratio": 0.545,
+      "mean_duration_seconds": 17.679,
+      "descriptive_degeneration_suspected_count": 0,
+      "note": "descriptive only; NOT a quality score and NOT a freeze selection signal. Requires official scored evaluation to interpret."
+    },
+    "retrieval_recall_oriented": {
+      "n_records": 5,
+      "success_rate": 1.0,
+      "mean_answer_char_len": 3806.2,
+      "mean_context_count": 5.0,
+      "mean_korean_char_ratio": 0.128,
+      "mean_duration_seconds": 56.776,
+      "descriptive_degeneration_suspected_count": 4,
+      "note": "descriptive only; NOT a quality score and NOT a freeze selection signal. Requires official scored evaluation to interpret."
+    }
+  },
+  "descriptive_disclaimer": "All per-profile statistics are descriptive only. They are NOT quality scores and must not be used to select or freeze parameters. Parameter freeze requires official scored evaluation."
+}
