@@ -61,25 +61,21 @@ cd frontend && npm run build
 
 ## Evaluation Dataset
 
-- Track 1 legacy source: `experiments/archive/legacy_backend_evaluation/data/track1_queries.json` -- archived paper-specific query source, 8 documents, 61 queries
-  - Documents: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor,
-               paper_midm, paper_ko_rag_eval_framework, paper_ko_hyde_multihop,
-               paper_ko_cad_contrastive
-  - Query types: simple_qa, section_method, section_result, section_abstract,
-                 cad_hallucination, citation, crosslingual_ko, cad_ablation
-  - crosslingual_ko: Korean-language queries targeting English-body papers only (5 papers; Korean-body papers excluded as redundant)
-  - Current clean splits live under `experiments/data/query_splits/`.
-- Track 2 legacy source: `experiments/archive/legacy_backend_evaluation/data/track2_queries.json` -- 56 archived common-query templates
-  - English-body group papers: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm
-  - Korean-body group papers: paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive
-  - Query types: cad_ablation (14), section_method (14), section_abstract (14), citation (14)
-  - This file is a checked-in evaluation asset; must be populated in the repo
-  - This is a structural reproducibility asset, not proof of measured quality by itself
-- Pseudo-GT snapshots from the old backend layout are archived under `experiments/archive/legacy_backend_evaluation/data/`.
-- Track 2 uses common query sets because it compares config deltas under matched query difficulty
-- For factual claims about Track 2 answerability or CAD gaps, inspect generated
-  archived pseudo-GT and result files. Do not turn archived values into thesis
-  claims without an explicit evaluation phase.
+- Active query splits live under `experiments/data/query_splits/`:
+  - `tuning_queries.json` -- non-axis parameter tuning (kept separate from main/final)
+  - `decoder_main_queries.json` -- main HyDE x CAD x SCD generation split
+  - `candidate_final_eval_queries.json` -- held out for the final claim check
+  - `query_type_analysis_queries.json`, `service_route_queries.json`, `query_templates.json`
+- Corpus documents covered: paper_nlp_bge, paper_nlp_rag, paper_nlp_cad,
+  paper_nlp_raptor, paper_midm, paper_ko_rag_eval_framework,
+  paper_ko_hyde_multihop, paper_ko_cad_contrastive
+- Query types include: simple_qa, section_method, section_result,
+  section_abstract, cad_hallucination, citation, crosslingual_ko, cad_ablation
+- crosslingual_ko: Korean-language queries targeting English-body papers only
+- Each split entry carries an `answer_span` used as the RAGAS reference /
+  ground_truth; spans are verified present in their target papers (grounding check)
+- Splits are a structural reproducibility asset; measured quality requires the
+  official scored evaluation phase
 
 ## Paper Assets (8 papers)
 
@@ -125,18 +121,15 @@ Alice setup: `git pull` -> all 8 papers immediately available in `backend/data/`
 - Architecture doc `docs/ARCHITECTURE.md`
 - Current experiment results `experiments/results/`
 - Current experiment reports `experiments/reports/`
-- Archived legacy backend evaluation assets `experiments/archive/legacy_backend_evaluation/`
 
 ## Notes For Future Sessions
 
 - `download_models.py` follows the configured generation model by default.
 - Base model is the default thesis path; Mini is only for local smoke checks.
 - OpenAI/RAGAS/GT regeneration are disabled unless a later explicit phase approves them.
-- Legacy `master_run.py`, Track 1/2 runners, pseudo-GT generators, and old result scripts are archived under `experiments/archive/legacy_backend_evaluation/`.
 - Local Mini output is validation-only; Alice MIDM BASE is the thesis-grade model path.
 - Experiment tokens are acquired via register-or-login (`/api/auth/register` then 409 fallback `/api/auth/login`), not bypass JWT.
-- Legacy evaluation and deployment-check scripts are archived, not active backend runtime.
 - `hybrid_retriever.py` uses a restricted unpickler for BM25 index loading (hardening).
 - `limiter.py` only trusts proxy headers when `TRUST_PROXY_HEADERS=true` is set.
 - Alice BASE smoke starts from `experiments/scripts/alice/alice_base_smoke.sh`.
-- Do not clear current query splits, smoke evidence, or archived provenance files without explicit approval.
+- Do not clear current query splits, smoke evidence, or pushed result files without explicit approval.
