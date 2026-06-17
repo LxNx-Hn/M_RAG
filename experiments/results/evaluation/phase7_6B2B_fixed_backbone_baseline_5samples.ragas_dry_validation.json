@@ -1,0 +1,33 @@
+{
+  "mode": "dry_validation_only",
+  "official_ragas_execution": "disabled_pending_explicit_phase",
+  "generation_results": "experiments\\results\\tuning\\phase7_6B2B_fixed_backbone_baseline_5samples.jsonl",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "note": "OpenAI is the official RAGAS judge. Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets, and an explicitly approved execution phase."
+  },
+  "dependency_status": {
+    "available": true,
+    "missing": [],
+    "message": "Official RAGAS dependencies appear importable."
+  },
+  "dataset_built": "experiments\\results\\evaluation\\phase7_6B2B_fixed_backbone_baseline_5samples.ragas_input.jsonl",
+  "dataset_record_count": 5,
+  "validation_errors": [],
+  "validation_passed": true,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "records_read": 5,
+  "reference_split": "tuning_queries",
+  "reference_coverage": "5/5",
+  "records_missing_contexts": 0
+}
