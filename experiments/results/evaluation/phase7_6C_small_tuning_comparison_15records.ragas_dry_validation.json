@@ -1,6 +1,6 @@
 {
   "mode": "dry_validation_only",
-  "official_ragas_execution": "disabled_pending_explicit_phase",
+  "official_ragas_execution": "gated_behind_CONFIRM_OFFICIAL_RAGAS_EXECUTION_and_judge_api_key",
   "generation_results": "..\\experiments\\results\\tuning\\phase7_6C_small_tuning_comparison_15records.jsonl",
   "metrics": [
     "faithfulness",
@@ -21,11 +21,9 @@
     "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
   },
   "dependency_status": {
-    "available": false,
-    "missing": [
-      "ragas"
-    ],
-    "message": "Official RAGAS dependencies are not importable: ragas. Install them in an explicitly approved setup phase before running official RAGAS evaluation."
+    "available": true,
+    "missing": [],
+    "message": "Official RAGAS dependencies appear importable."
   },
   "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\phase7_6C_small_tuning_comparison_15records.ragas_input.jsonl",
   "dataset_record_count": 15,

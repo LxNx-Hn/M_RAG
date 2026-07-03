@@ -14,10 +14,12 @@ Compliance with experiments/METHOD_CONTRACTS.md (RAGAS Evaluation Contract):
 - Official RAGAS path is SEPARATE from any lightweight/local judge.
 - Supported metrics: faithfulness, answer_relevancy/response_relevancy,
   context_precision, context_recall.
-- Default behaviour is DRY VALIDATION ONLY: no RAGAS import, no OpenAI call,
-  no model inference, no network or dependency installation.
-- Execution stays disabled and is delegated to the skeleton's guarded
-  placeholder; turning it on is a later, explicitly approved phase.
+- Default behaviour is DRY VALIDATION ONLY: no RAGAS import, no judge call,
+  no model inference, no network use.
+- Execution was approved 2026-07-03 and is implemented here, double-gated:
+  ``--execute`` refuses unless ``CONFIRM_OFFICIAL_RAGAS_EXECUTION=1`` AND the
+  judge API key env is set AND the eval dependencies
+  (experiments/requirements-eval.txt) are importable AND validation passed.
 
 Judge policy: the official judge is an OpenAI-compatible chat-completions
 endpoint. The selected provider is NVIDIA NIM (integrate.api.nvidia.com/v1,
@@ -26,12 +28,15 @@ Judge configuration is plumbed and reported here, but NOT invoked in dry mode.
 The judge runs on CPU + API (no GPU). answer_relevancy embeddings are planned
 as local BGE-M3 (HuggingFace, no API), keeping evaluation GPU-free.
 
-Execution recipe for the later explicitly approved phase (NOT run here):
-    pip install ragas datasets langchain-openai   # approved setup step
+Execution recipe (approved phase):
+    pip install -r experiments/requirements-eval.txt
     export NVIDIA_API_KEY=...                     # judge provider key
-    # judge  = LangchainLLMWrapper(ChatOpenAI(base_url=<judge.base_url>,
-    #          api_key=$<judge.api_key_env>, model=<judge.model>))
-    # embeds = LangchainEmbeddingsWrapper(HuggingFaceEmbeddings("BAAI/bge-m3"))
+    CONFIRM_OFFICIAL_RAGAS_EXECUTION=1 python official_ragas_runner.py \
+        --generation-results <results.jsonl> --query-split <split> --execute
+Judge = ChatOpenAI(base_url=<provider>, temperature=0) via LangchainLLMWrapper;
+embeddings = local HuggingFaceEmbeddings("BAAI/bge-m3") (no API). Scores are
+written to <stem>.ragas_scores.json with per-sample, per-profile, and aggregate
+values, consumable by experiments/runners/prepare_parameter_freeze.py.
 
 CLAIM_POLICY.md note: "official RAGAS" must not be presented as a core thesis
 method/claim; it is the measurement tool for the HyDE x CAD x SCD factor
@@ -42,8 +47,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
+import os
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any
 
@@ -58,9 +67,12 @@ from official_ragas_runner_skeleton import (  # noqa: E402
     OfficialRAGASSample,
     build_official_ragas_records,
     check_ragas_dependency,
-    run_official_ragas_evaluation,
     validate_official_ragas_samples,
 )
+
+EXECUTION_DEPS = ("ragas", "datasets", "langchain_openai", "langchain_huggingface")
+CONFIRM_ENV = "CONFIRM_OFFICIAL_RAGAS_EXECUTION"
+LOCAL_EMBEDDINGS_MODEL = "BAAI/bge-m3"
 
 QUERY_SPLITS_DIR = ROOT / "data" / "query_splits"
 
@@ -187,9 +199,10 @@ def _extract_contexts(rec: dict[str, Any]) -> list[str]:
 
 def load_samples(
     generation_results: Path, query_split: str
-) -> tuple[list[OfficialRAGASSample], dict[str, Any]]:
+) -> tuple[list[OfficialRAGASSample], list[dict[str, Any]], dict[str, Any]]:
     ref_map = _load_reference_map(query_split)
     samples: list[OfficialRAGASSample] = []
+    meta: list[dict[str, Any]] = []
     n_records = 0
     n_with_reference = 0
     n_missing_contexts = 0
@@ -216,13 +229,187 @@ def load_samples(
                 ground_truth=reference,
             )
         )
+        meta.append(
+            {
+                "query_id": qid,
+                # tuning records carry profile_id; main-generation records
+                # carry config_name. Either becomes the aggregation group.
+                "group": rec.get("profile_id") or rec.get("config_name") or "all",
+            }
+        )
     stats = {
         "records_read": n_records,
         "reference_split": query_split,
         "reference_coverage": f"{n_with_reference}/{n_records}",
         "records_missing_contexts": n_missing_contexts,
     }
-    return samples, stats
+    return samples, meta, stats
+
+
+def _nan_to_none(v: Any) -> float | None:
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    return None if math.isnan(f) else round(f, 4)
+
+
+def _mean_ignoring_none(values: list[float | None]) -> float | None:
+    xs = [v for v in values if v is not None]
+    return round(sum(xs) / len(xs), 4) if xs else None
+
+
+def execute_official_ragas(
+    records: list[dict[str, Any]],
+    metrics: list[str],
+    judge: JudgeConfig,
+    meta: list[dict[str, Any]],
+    out_dir: Path,
+    stem: str,
+) -> int:
+    """Approved scored execution. Double-gated and fail-closed.
+
+    Refuses (exit 2, zero network use) unless:
+    - CONFIRM_OFFICIAL_RAGAS_EXECUTION=1,
+    - the judge API key env is set,
+    - the eval dependencies are importable,
+    - the input records passed validation upstream.
+    """
+    if os.environ.get(CONFIRM_ENV) != "1":
+        print(f"REFUSED: {CONFIRM_ENV}=1 is required for --execute.")
+        return 2
+    api_key = os.environ.get(judge.api_key_env, "")
+    if not api_key:
+        print(
+            f"REFUSED: ${judge.api_key_env} is not set. The judge "
+            f"({judge.provider}) needs it; no call was made."
+        )
+        return 2
+    missing = [d for d in EXECUTION_DEPS if find_spec(d) is None]
+    if missing:
+        print(
+            "REFUSED: eval dependencies missing: "
+            + ", ".join(missing)
+            + ". Install with: pip install -r experiments/requirements-eval.txt"
+        )
+        return 2
+
+    # Heavy imports only after every gate passed.
+    from datasets import Dataset
+    from langchain_huggingface import HuggingFaceEmbeddings
+    from langchain_openai import ChatOpenAI
+    from ragas import evaluate
+    from ragas.embeddings import LangchainEmbeddingsWrapper
+    from ragas.llms import LangchainLLMWrapper
+    from ragas.metrics import (
+        answer_relevancy,
+        context_precision,
+        context_recall,
+        faithfulness,
+    )
+    from ragas.run_config import RunConfig
+
+    metric_objects = {
+        "faithfulness": faithfulness,
+        "answer_relevancy": answer_relevancy,
+        "response_relevancy": answer_relevancy,
+        "context_precision": context_precision,
+        "context_recall": context_recall,
+    }
+    metric_list = [metric_objects[m] for m in metrics]
+
+    dataset = Dataset.from_list(
+        [
+            {
+                "question": r["question"],
+                "answer": r["answer"],
+                "contexts": r["contexts"],
+                "ground_truth": r.get("ground_truth", ""),
+            }
+            for r in records
+        ]
+    )
+    judge_llm = LangchainLLMWrapper(
+        ChatOpenAI(
+            base_url=judge.base_url,
+            api_key=api_key,
+            model=judge.resolved_model,
+            temperature=0.0,
+            timeout=120,
+            max_retries=5,
+        )
+    )
+    embeddings = LangchainEmbeddingsWrapper(
+        HuggingFaceEmbeddings(model_name=LOCAL_EMBEDDINGS_MODEL)
+    )
+    # Low concurrency: free-tier NIM endpoints are rate-limited (~40 RPM).
+    result = evaluate(
+        dataset,
+        metrics=metric_list,
+        llm=judge_llm,
+        embeddings=embeddings,
+        run_config=RunConfig(max_workers=2, timeout=180),
+    )
+    df = result.to_pandas()
+
+    metric_cols = [m for m in dict.fromkeys(metrics)]
+    per_sample: list[dict[str, Any]] = []
+    for i, row in df.iterrows():
+        entry: dict[str, Any] = {
+            "query_id": meta[i]["query_id"] if i < len(meta) else None,
+            "group": meta[i]["group"] if i < len(meta) else "all",
+        }
+        for m in metric_cols:
+            col = "answer_relevancy" if m == "response_relevancy" else m
+            entry[m] = _nan_to_none(row.get(col))
+        per_sample.append(entry)
+
+    scores = {m: _mean_ignoring_none([s[m] for s in per_sample]) for m in metric_cols}
+    groups = sorted({s["group"] for s in per_sample})
+    per_group = {
+        g: {
+            "n": sum(1 for s in per_sample if s["group"] == g),
+            **{
+                m: _mean_ignoring_none([s[m] for s in per_sample if s["group"] == g])
+                for m in metric_cols
+            },
+        }
+        for g in groups
+    }
+
+    import ragas as _ragas
+
+    payload = {
+        "mode": "official_scored_execution",
+        "executed_at": datetime.now(timezone.utc).isoformat(),
+        "judge": judge.as_dict(),
+        "embeddings": {
+            "model": LOCAL_EMBEDDINGS_MODEL,
+            "runtime": "local (no API)",
+        },
+        "ragas_version": getattr(_ragas, "__version__", "unknown"),
+        "metrics": metric_cols,
+        "dataset_record_count": len(records),
+        "scores": scores,
+        "per_group": per_group,
+        "per_sample": per_sample,
+        "ragas_used": True,
+        "judge_api_used": True,
+        "openai_used": judge.provider == "openai",
+        "network_used": True,
+        "gt_regenerated": False,
+        "note": (
+            "Scored measurement artifact. Group = tuning profile_id or main "
+            "config_name. Feeds prepare_parameter_freeze.py."
+        ),
+    }
+    scores_path = out_dir / f"{stem}.ragas_scores.json"
+    scores_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(json.dumps({**payload, "per_sample": "..."}, ensure_ascii=False, indent=2))
+    print(f"\nScores written: {scores_path}")
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -262,8 +449,9 @@ def build_parser() -> argparse.ArgumentParser:
         "--execute",
         action="store_true",
         help=(
-            "Attempt real execution. Intentionally refused: official RAGAS "
-            "execution is a later, explicitly approved phase."
+            "Run the approved scored execution. Double-gated: requires "
+            f"{CONFIRM_ENV}=1, the judge API key env, installed eval deps "
+            "(experiments/requirements-eval.txt), and passing validation."
         ),
     )
     return p
@@ -283,7 +471,7 @@ def main() -> int:
         print(f"REFUSED: generation results not found: {gen_path}")
         return 2
 
-    samples, stats = load_samples(gen_path, args.query_split)
+    samples, meta, stats = load_samples(gen_path, args.query_split)
     dep = check_ragas_dependency()
     errors = validate_official_ragas_samples(samples, metrics)
     records = build_official_ragas_records(samples)
@@ -298,7 +486,7 @@ def main() -> int:
 
     summary = {
         "mode": "dry_validation_only",
-        "official_ragas_execution": "disabled_pending_explicit_phase",
+        "official_ragas_execution": (f"gated_behind_{CONFIRM_ENV}_and_judge_api_key"),
         "generation_results": str(gen_path),
         "metrics": metrics,
         "judge": judge.as_dict(),
@@ -325,9 +513,10 @@ def main() -> int:
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
     if args.execute:
-        # Gated: delegate to the skeleton's disabled placeholder. This keeps
-        # execution OFF until an explicitly approved phase enables it.
-        run_official_ragas_evaluation(records, metrics, judge.as_dict())
+        if errors:
+            print("REFUSED: validation errors present; fix inputs before scoring.")
+            return 2
+        return execute_official_ragas(records, metrics, judge, meta, out_dir, stem)
     return 0 if not errors else 1
 
 

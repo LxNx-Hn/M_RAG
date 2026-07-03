@@ -141,27 +141,35 @@ def _extract_answer(rec: dict[str, Any]) -> str:
     return ""
 
 
-def _context_count(rec: dict[str, Any]) -> int:
-    for key in ("reranked_chunk_ids", "retrieved_chunk_ids"):
+def _context_texts(rec: dict[str, Any]) -> list[str]:
+    """Extract inline context TEXTS (mirrors official_ragas_runner).
+
+    Chunk IDs alone do not count: they are not recoverable off-instance
+    (extraction is environment-sensitive), so scoring requires the actual
+    context contents inlined in the record.
+    """
+    for key in ("contexts", "retrieved_contexts"):
         v = rec.get(key)
-        if isinstance(v, list):
-            return len(v)
+        if isinstance(v, list) and v:
+            return [str(x) for x in v if str(x).strip()]
     ctx = rec.get("context")
-    if isinstance(ctx, dict):
-        chunks = ctx.get("chunks")
-        if isinstance(chunks, list):
-            return len(chunks)
-        if ctx.get("context_available") is True:
-            # context present but chunk ids not in this record shape
-            return rec.get("context_chunk_count", 0) or 0
-    return 0
+    chunks = ctx.get("chunks") if isinstance(ctx, dict) else None
+    if isinstance(chunks, list) and chunks:
+        out = []
+        for ch in chunks:
+            text = (ch.get("content") or ch.get("snippet") or "").strip()
+            if text:
+                out.append(text)
+        return out
+    return []
+
+
+def _context_count(rec: dict[str, Any]) -> int:
+    return len(_context_texts(rec))
 
 
 def _has_context(rec: dict[str, Any]) -> bool:
-    if _context_count(rec) > 0:
-        return True
-    ctx = rec.get("context")
-    return bool(isinstance(ctx, dict) and ctx.get("context_available") is True)
+    return _context_count(rec) > 0
 
 
 def load_reference_map(query_split: str) -> dict[str, str]:

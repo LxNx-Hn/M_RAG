@@ -20,6 +20,7 @@ Modes:
                  queries x up to 3 allow-listed profiles, hard-limited to 15
                  records. Tuning evidence only -- NOT parameter freeze.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -55,10 +56,26 @@ REFUSED_SPLITS = {
 # experiments/configs/tuning_plan.yaml staged_candidate_profiles. Baseline-axis
 # retrieval-breadth variants only; no invented names or values.
 ALLOWED_PROFILES: dict[str, dict[str, int]] = {
-    "current_defaults": {"retrieval_pool_top_k": 20, "rerank_top_n": 5, "context_chunk_count": 5},
-    "retrieval_conservative": {"retrieval_pool_top_k": 3, "rerank_top_n": 3, "context_chunk_count": 3},
-    "retrieval_recall_oriented": {"retrieval_pool_top_k": 8, "rerank_top_n": 8, "context_chunk_count": 5},
-    "retrieval_broad_then_default_rerank": {"retrieval_pool_top_k": 8, "rerank_top_n": 5, "context_chunk_count": 5},
+    "current_defaults": {
+        "retrieval_pool_top_k": 20,
+        "rerank_top_n": 5,
+        "context_chunk_count": 5,
+    },
+    "retrieval_conservative": {
+        "retrieval_pool_top_k": 3,
+        "rerank_top_n": 3,
+        "context_chunk_count": 3,
+    },
+    "retrieval_recall_oriented": {
+        "retrieval_pool_top_k": 8,
+        "rerank_top_n": 8,
+        "context_chunk_count": 5,
+    },
+    "retrieval_broad_then_default_rerank": {
+        "retrieval_pool_top_k": 8,
+        "rerank_top_n": 5,
+        "context_chunk_count": 5,
+    },
 }
 
 
@@ -142,6 +159,25 @@ def _chunk_ids(items: list[dict]) -> list[str]:
     return [c.get("chunk_id", "") for c in items]
 
 
+def _chunk_records(items: list[dict]) -> list[dict[str, Any]]:
+    """Full chunk texts for the record. Chunk IDs alone are NOT recoverable
+    off-instance (extraction is environment-sensitive), so every scoreable
+    record must inline the context contents the generator conditioned on."""
+    out: list[dict[str, Any]] = []
+    for c in items:
+        content = c.get("content", "") or ""
+        meta = c.get("metadata") or {}
+        out.append(
+            {
+                "chunk_id": c.get("chunk_id", ""),
+                "doc_id": meta.get("doc_id", DOC_ID),
+                "content": content,
+                "snippet": content[:400],
+            }
+        )
+    return out
+
+
 def _doc_ids(items: list[dict]) -> list[str]:
     ids: list[str] = []
     for it in items:
@@ -151,7 +187,9 @@ def _doc_ids(items: list[dict]) -> list[str]:
     return ids
 
 
-def retrieve_fixed_backbone(c, query: str, pool: int, rerank_n: int, ctx_n: int, hyde_doc):
+def retrieve_fixed_backbone(
+    c, query: str, pool: int, rerank_n: int, ctx_n: int, hyde_doc
+):
     hybrid = c["hybrid"]
     if not bool(hybrid.has_bm25_for_collection(DEFAULT_COLLECTION)):
         raise FollowupBlocked("BM25 index missing for local_gt__papers.")
@@ -170,6 +208,7 @@ def retrieve_fixed_backbone(c, query: str, pool: int, rerank_n: int, ctx_n: int,
     if not compressed:
         raise FollowupBlocked("no context after compression.")
     context = "\n\n---\n\n".join(d.get("content", "") for d in compressed)
+    chunk_records = _chunk_records(compressed)
     meta = {
         "retrieval_mode": "fixed_backbone",
         "retrieval_backend": "bge_m3_dense+bm25_sparse+rrf+crossencoder_rerank",
@@ -182,6 +221,10 @@ def retrieve_fixed_backbone(c, query: str, pool: int, rerank_n: int, ctx_n: int,
         "retrieved_chunk_ids": _chunk_ids(fused),
         "reranked_chunk_ids": _chunk_ids(ctx_chunks),
         "retrieved_doc_ids": _doc_ids(ctx_chunks),
+        # Inline context texts: required by official_ragas_runner and NOT
+        # recoverable from chunk IDs off-instance.
+        "contexts": [r["content"] for r in chunk_records],
+        "context_chunks": chunk_records,
         "bm25_index_available": True,
         "fallback_used": False,
     }
@@ -220,20 +263,32 @@ def run_memory_probe(args, c) -> list[dict[str, Any]]:
     meta: dict[str, Any] = {}
     hyde_used = False
     try:
-        corpus_lang = c["hybrid"].get_collection_lang(DEFAULT_COLLECTION, doc_id_filter=DOC_ID)
-        expansion = c["query_expander"].expand(query, use_hyde=True, use_multi=False, corpus_lang=corpus_lang)
+        corpus_lang = c["hybrid"].get_collection_lang(
+            DEFAULT_COLLECTION, doc_id_filter=DOC_ID
+        )
+        expansion = c["query_expander"].expand(
+            query, use_hyde=True, use_multi=False, corpus_lang=corpus_lang
+        )
         hyde_doc = expansion.get("hyde_doc")
         hyde_used = hyde_doc is not None
         context, compressed, meta = retrieve_fixed_backbone(
             c, query, pool=20, rerank_n=5, ctx_n=5, hyde_doc=hyde_doc
         )
         proc = create_combined_processor(
-            generator=gen, query=query,
-            use_cad=True, cad_alpha=c["cad_alpha"],
-            use_scd=True, scd_beta=c["scd_beta"],
+            generator=gen,
+            query=query,
+            use_cad=True,
+            cad_alpha=c["cad_alpha"],
+            use_scd=True,
+            scd_beta=c["scd_beta"],
         )
-        answer = gen.generate(query=query, context=context, template="qa",
-                              logits_processor=proc, force_greedy=True)
+        answer = gen.generate(
+            query=query,
+            context=context,
+            template="qa",
+            logits_processor=proc,
+            force_greedy=True,
+        )
     except torch.cuda.OutOfMemoryError as exc:
         cuda_oom = True
         status = "failed"
@@ -256,13 +311,19 @@ def run_memory_probe(args, c) -> list[dict[str, Any]]:
         "query": query,
         "paper": DOC_ID,
         "retrieval_mode": "fixed_backbone",
-        "use_hyde": True, "hyde_used": hyde_used,
-        "use_cad": True, "cad_alpha": c["cad_alpha"],
-        "use_scd": True, "scd_beta": c["scd_beta"],
+        "use_hyde": True,
+        "hyde_used": hyde_used,
+        "use_cad": True,
+        "cad_alpha": c["cad_alpha"],
+        "use_scd": True,
+        "scd_beta": c["scd_beta"],
         "decoding_mode": "cad_scd_greedy",
         "generated_answer": answer,
-        "context": {"collection_name": DEFAULT_COLLECTION, "doc_id_filter": DOC_ID,
-                    "context_available": bool(answer) and status == "succeeded"},
+        "context": {
+            "collection_name": DEFAULT_COLLECTION,
+            "doc_id_filter": DOC_ID,
+            "context_available": bool(answer) and status == "succeeded",
+        },
         "gpu_name": vram.get("gpu_name"),
         "vram_total_gb": vram.get("vram_total_gb"),
         "vram_free_gb_after": vram.get("vram_free_gb"),
@@ -308,14 +369,20 @@ def run_tuning_7c(args, c) -> list[dict[str, Any]]:
             start = time.time()
             try:
                 context, compressed, meta = retrieve_fixed_backbone(
-                    c, query,
+                    c,
+                    query,
                     pool=params["retrieval_pool_top_k"],
                     rerank_n=params["rerank_top_n"],
                     ctx_n=params["context_chunk_count"],
                     hyde_doc=None,
                 )
-                answer = gen.generate(query=query, context=context, template="qa",
-                                      logits_processor=None, force_greedy=True)
+                answer = gen.generate(
+                    query=query,
+                    context=context,
+                    template="qa",
+                    logits_processor=None,
+                    force_greedy=True,
+                )
             except Exception as exc:
                 status = "failed"
                 error = {"type": type(exc).__name__, "message": str(exc)[:1000]}
@@ -329,16 +396,23 @@ def run_tuning_7c(args, c) -> list[dict[str, Any]]:
                 "query": query,
                 "paper": DOC_ID,
                 "retrieval_mode": "fixed_backbone",
-                "use_hyde": False, "use_cad": False, "use_scd": False,
+                "use_hyde": False,
+                "use_cad": False,
+                "use_scd": False,
                 "decoding_mode": "deterministic_greedy",
                 "generated_answer": answer,
-                "context": {"collection_name": DEFAULT_COLLECTION, "doc_id_filter": DOC_ID,
-                            "context_available": bool(answer) and status == "succeeded"},
+                "context": {
+                    "collection_name": DEFAULT_COLLECTION,
+                    "doc_id_filter": DOC_ID,
+                    "context_available": bool(answer) and status == "succeeded",
+                },
                 "evidence_class": "retrieval_backbone_tuning_comparison",
                 "duration_seconds": round(time.time() - start, 3),
                 "error": error,
                 "note": "tuning evidence only; not parameter freeze or final result",
-                **(meta or {"retrieval_mode": "fixed_backbone", "fallback_used": False}),
+                **(
+                    meta or {"retrieval_mode": "fixed_backbone", "fallback_used": False}
+                ),
                 **base_flags(),
                 "start_time": now_iso(),
             }
@@ -354,7 +428,10 @@ def main() -> int:
     parser.add_argument("--query-split", default=EXPECTED_SPLIT)
     parser.add_argument("--collection-name", default=DEFAULT_COLLECTION)
     parser.add_argument("--generation-model", default=DEFAULT_MODEL)
-    parser.add_argument("--profiles", default="current_defaults,retrieval_conservative,retrieval_recall_oriented")
+    parser.add_argument(
+        "--profiles",
+        default="current_defaults,retrieval_conservative,retrieval_recall_oriented",
+    )
     parser.add_argument("--output-file", required=True)
     args = parser.parse_args()
 

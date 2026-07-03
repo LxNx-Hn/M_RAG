@@ -152,40 +152,63 @@ become checkable only after the scored phase):
       final file is authored in an explicitly approved freeze phase, not
       auto-generated.
 
-## 7. Readiness statement
+## 7. Readiness statement (updated 2026-07-03)
 
-**Phase 8 is READY_FOR_SCORED_EVAL, not frozen.** Structural inputs (answers,
-contexts, references, coverage) are complete and verified; the single missing
-ingredient is an **official scored evaluation** of the tuning outputs. Until
-that exists, the helper refuses (`exit 3`) to write `frozen_params.yaml`.
+**Phase 8 is NOT_READY → requires one small Alice re-run, then scored eval.**
+
+The scoring-grade context check revealed that the 7.6C v1 tuning records carry
+chunk **IDs** but not the context **texts**, and chunk IDs are NOT recoverable
+off-instance: PDF chunk extraction is environment-sensitive (verified locally
+— Windows/Linux + pymupdf-layout differences produce 47/60/82 chunks with
+non-matching hashes; Alice's Chroma is gone with the instance). The readiness
+helper was tightened accordingly (`_has_context` now requires inline texts) and
+truthfully reports `NOT_READY`.
+
+Fixes in place:
+- `run_alice_followup.py` now inlines `contexts` + `context_chunks` into every
+  record, so the 7.6C **re-run is scoreable** (15 records, minutes of GPU time
+  on the next Alice session).
+- `main_generation_executor.py` already inlines full contexts — main-run
+  outputs are unaffected by this issue.
+- Judge switched to **NVIDIA NIM** and the scored-execution path is implemented
+  and double-gated (`CONFIRM_OFFICIAL_RAGAS_EXECUTION=1` + `NVIDIA_API_KEY`).
+
+Until scored results exist, the helper refuses (`exit 3`) to write
+`frozen_params.yaml`.
 
 ## 8. Exact next commands needed later (gated, require explicit approval)
 
-These are **not run here**. They require an approved execution phase
-(install `ragas`+`datasets`+`langchain-openai`, set `NVIDIA_API_KEY`).
+Execution phase approved 2026-07-03; deps installed
+(`experiments/requirements-eval.txt`). Remaining prerequisites: `NVIDIA_API_KEY`
++ one Alice session for step 0.
 
 ```bash
-# 1. Local official RAGAS evaluation on the tuning outputs
-#    (CPU/laptop; no GPU needed). Judge = NVIDIA NIM (OpenAI-compatible API);
-#    embeddings = local BGE-M3. Requires the approved execution gate:
-#    install ragas+datasets+langchain-openai, export NVIDIA_API_KEY, and
-#    replace the skeleton's disabled run_official_ragas_evaluation placeholder
-#    with the real call.
+# 0. (Alice, next session) Re-run 7.6C with inline contexts -- 15 records.
+#    The patched run_alice_followup.py now records context texts.
+CONFIRM_ALICE_FOLLOWUP=1 python experiments/runners/run_alice_followup.py \
+  --mode tuning-7c \
+  --output-file experiments/results/tuning/phase8_tuning_comparison_15records_v2.jsonl
+
+# 1. (Local CPU) Official scored evaluation. Judge = NVIDIA NIM
+#    (OpenAI-compatible); embeddings = local BGE-M3.
+export NVIDIA_API_KEY=...
+CONFIRM_OFFICIAL_RAGAS_EXECUTION=1 \
 python experiments/evaluators/official_ragas_runner.py \
-  --generation-results experiments/results/tuning/phase7_6C_small_tuning_comparison_15records.jsonl \
+  --generation-results experiments/results/tuning/phase8_tuning_comparison_15records_v2.jsonl \
   --query-split tuning_queries \
   --metrics faithfulness,answer_relevancy,context_precision,context_recall \
   --judge nvidia_nim \
-  --execute   # gate: only after the execution phase is approved
+  --execute
+# -> writes <stem>.ragas_scores.json (aggregate + per-profile + per-sample)
 
-# 2. Score aggregation -> per-profile / per-parameter scored table
-#    (the scored runner writes <stem>.ragas_scores.json once execution is on).
+# 2. Score aggregation is included in step 1's output
+#    (<stem>.ragas_scores.json carries aggregate + per_group/per-profile).
 
 # 3. Final freeze decision: re-run the readiness helper WITH the scored results.
 #    With real scores present it can reach READY_TO_FREEZE.
 python experiments/runners/prepare_parameter_freeze.py \
-  --tuning-results experiments/results/tuning/phase7_6C_small_tuning_comparison_15records.jsonl \
-  --eval-results   experiments/results/evaluation/<scored_result>.ragas_scores.json \
+  --tuning-results experiments/results/tuning/phase8_tuning_comparison_15records_v2.jsonl \
+  --eval-results   experiments/results/evaluation/phase8_tuning_comparison_15records_v2.ragas_scores.json \
   --query-split tuning_queries
 
 # 4. Write frozen_params.yaml — explicit, human-approved freeze phase only.
@@ -193,13 +216,13 @@ python experiments/runners/prepare_parameter_freeze.py \
 #    from the scored aggregation per Sections 4-6 above.
 ```
 
-## 9. Status summary
+## 9. Status summary (updated 2026-07-03)
 
 | Item | State |
 |---|---|
 | Final `frozen_params.yaml` exists | **No** (only `.draft`) |
-| OpenAI / RAGAS executed | **No** |
+| Official RAGAS / judge API executed | **No** (path implemented; gated by `CONFIRM_OFFICIAL_RAGAS_EXECUTION` + `NVIDIA_API_KEY`) |
 | Parameter freeze performed | **No** |
-| Readiness decision | **READY_FOR_SCORED_EVAL** |
-| Exact blocker for actual freeze | **No official scored evaluation result exists** (dry-validation ≠ score) |
-| Next approved step needed | **Approve the execution phase, then run command #1** (local official RAGAS/OpenAI scoring of the tuning outputs) |
+| Readiness decision | **NOT_READY** (7.6C v1 records lack inline context texts) |
+| Exact blocker for actual freeze | 7.6C re-run with contexts (Alice, step 0) → scored eval (local, step 1) |
+| Next approved step needed | Set `NVIDIA_API_KEY`; run step 0 on the next Alice session, then step 1 locally |
