@@ -19,8 +19,19 @@ Compliance with experiments/METHOD_CONTRACTS.md (RAGAS Evaluation Contract):
 - Execution stays disabled and is delegated to the skeleton's guarded
   placeholder; turning it on is a later, explicitly approved phase.
 
-Judge policy: the configured official judge is OpenAI (RAGAS standard). Its
-configuration is plumbed and reported here, but NOT invoked in dry mode.
+Judge policy: the official judge is an OpenAI-compatible chat-completions
+endpoint. The selected provider is NVIDIA NIM (integrate.api.nvidia.com/v1,
+user decision 2026-07-03); OpenAI is retained as an alternative provider.
+Judge configuration is plumbed and reported here, but NOT invoked in dry mode.
+The judge runs on CPU + API (no GPU). answer_relevancy embeddings are planned
+as local BGE-M3 (HuggingFace, no API), keeping evaluation GPU-free.
+
+Execution recipe for the later explicitly approved phase (NOT run here):
+    pip install ragas datasets langchain-openai   # approved setup step
+    export NVIDIA_API_KEY=...                     # judge provider key
+    # judge  = LangchainLLMWrapper(ChatOpenAI(base_url=<judge.base_url>,
+    #          api_key=$<judge.api_key_env>, model=<judge.model>))
+    # embeds = LangchainEmbeddingsWrapper(HuggingFaceEmbeddings("BAAI/bge-m3"))
 
 CLAIM_POLICY.md note: "official RAGAS" must not be presented as a core thesis
 method/claim; it is the measurement tool for the HyDE x CAD x SCD factor
@@ -62,23 +73,66 @@ DEFAULT_METRICS = (
 )
 
 
+# OpenAI-compatible judge providers. RAGAS accepts any such endpoint via
+# langchain-openai ChatOpenAI(base_url=...). NVIDIA NIM is the selected
+# provider; OpenAI remains available as an alternative.
+JUDGE_PROVIDERS: dict[str, dict[str, str]] = {
+    "nvidia_nim": {
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "default_model": "meta/llama-3.3-70b-instruct",
+    },
+    "openai": {
+        "base_url": "https://api.openai.com/v1",
+        "api_key_env": "OPENAI_API_KEY",
+        "default_model": "gpt-4o-mini",
+    },
+}
+DEFAULT_JUDGE_PROVIDER = "nvidia_nim"
+
+# answer_relevancy requires an embeddings model; the plan is local BGE-M3
+# (same family as the retrieval backbone, documented, no API/network).
+EMBEDDINGS_PLAN = {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": (
+        "Embeddings run locally on CPU; only the judge LLM uses the "
+        "OpenAI-compatible API endpoint."
+    ),
+}
+
+
 @dataclass(frozen=True)
 class JudgeConfig:
     """Official judge configuration (plumbed, not invoked in dry mode)."""
 
-    provider: str = "openai"
-    model: str = "gpt-4o-mini"
-    api_key_env: str = "OPENAI_API_KEY"
+    provider: str = DEFAULT_JUDGE_PROVIDER
+    model: str | None = None
+
+    @property
+    def resolved_model(self) -> str:
+        return self.model or JUDGE_PROVIDERS[self.provider]["default_model"]
+
+    @property
+    def base_url(self) -> str:
+        return JUDGE_PROVIDERS[self.provider]["base_url"]
+
+    @property
+    def api_key_env(self) -> str:
+        return JUDGE_PROVIDERS[self.provider]["api_key_env"]
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "provider": self.provider,
-            "model": self.model,
+            "model": self.resolved_model,
+            "base_url": self.base_url,
             "api_key_env": self.api_key_env,
+            "interface": "openai_compatible_chat_completions",
             "note": (
-                "OpenAI is the official RAGAS judge. Execution requires the key "
-                f"in ${self.api_key_env}, installed ragas+datasets, and an "
-                "explicitly approved execution phase."
+                "The official judge is an OpenAI-compatible endpoint "
+                f"({self.provider}). Execution requires the key in "
+                f"${self.api_key_env}, installed ragas+datasets+langchain-openai, "
+                "and an explicitly approved execution phase. The judge model "
+                "must stay fixed across all scored evaluations."
             ),
         }
 
@@ -188,8 +242,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=",".join(DEFAULT_METRICS),
         help="Comma-separated official RAGAS metrics.",
     )
-    p.add_argument("--judge", default="openai", choices=["openai"])
-    p.add_argument("--judge-model", default="gpt-4o-mini")
+    p.add_argument(
+        "--judge",
+        default=DEFAULT_JUDGE_PROVIDER,
+        choices=sorted(JUDGE_PROVIDERS),
+        help="OpenAI-compatible judge provider (default: NVIDIA NIM).",
+    )
+    p.add_argument(
+        "--judge-model",
+        default=None,
+        help="Judge model id; defaults to the provider's default model.",
+    )
     p.add_argument(
         "--out-dir",
         default=str(ROOT / "results" / "evaluation"),
@@ -239,6 +302,7 @@ def main() -> int:
         "generation_results": str(gen_path),
         "metrics": metrics,
         "judge": judge.as_dict(),
+        "embeddings_plan": EMBEDDINGS_PLAN,
         "dependency_status": {
             "available": dep.available,
             "missing": dep.missing,

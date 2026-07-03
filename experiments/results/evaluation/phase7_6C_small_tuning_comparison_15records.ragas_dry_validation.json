@@ -1,0 +1,57 @@
+{
+  "mode": "dry_validation_only",
+  "official_ragas_execution": "disabled_pending_explicit_phase",
+  "generation_results": "..\\experiments\\results\\tuning\\phase7_6C_small_tuning_comparison_15records.jsonl",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "judge": {
+    "provider": "nvidia_nim",
+    "model": "meta/llama-3.3-70b-instruct",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key_env": "NVIDIA_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (nvidia_nim). Execution requires the key in $NVIDIA_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings_plan": {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
+  },
+  "dependency_status": {
+    "available": false,
+    "missing": [
+      "ragas"
+    ],
+    "message": "Official RAGAS dependencies are not importable: ragas. Install them in an explicitly approved setup phase before running official RAGAS evaluation."
+  },
+  "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\phase7_6C_small_tuning_comparison_15records.ragas_input.jsonl",
+  "dataset_record_count": 15,
+  "validation_errors": [
+    "sample 0: contexts/retrieved_contexts are required.",
+    "sample 1: contexts/retrieved_contexts are required.",
+    "sample 2: contexts/retrieved_contexts are required.",
+    "sample 3: contexts/retrieved_contexts are required.",
+    "sample 4: contexts/retrieved_contexts are required.",
+    "sample 5: contexts/retrieved_contexts are required.",
+    "sample 6: contexts/retrieved_contexts are required.",
+    "sample 7: contexts/retrieved_contexts are required.",
+    "sample 8: contexts/retrieved_contexts are required.",
+    "sample 9: contexts/retrieved_contexts are required.",
+    "sample 10: contexts/retrieved_contexts are required.",
+    "sample 11: contexts/retrieved_contexts are required.",
+    "sample 12: contexts/retrieved_contexts are required.",
+    "sample 13: contexts/retrieved_contexts are required.",
+    "sample 14: contexts/retrieved_contexts are required."
+  ],
+  "validation_passed": false,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "records_read": 15,
+  "reference_split": "tuning_queries",
+  "reference_coverage": "15/15",
+  "records_missing_contexts": 15
+}

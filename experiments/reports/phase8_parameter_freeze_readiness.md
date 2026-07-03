@@ -86,8 +86,12 @@ A freeze decision requires **official scored evaluation results** with:
 
 - Metrics: `faithfulness`, `answer_relevancy`, `context_precision`,
   `context_recall` (per `experiments/configs/evaluation_metrics.yaml`).
-- Judge: OpenAI (RAGAS standard) — `gpt-4o-mini` per
+- Judge: OpenAI-compatible endpoint — selected provider **NVIDIA NIM**
+  (`integrate.api.nvidia.com/v1`, default `meta/llama-3.3-70b-instruct`,
+  key `NVIDIA_API_KEY`; OpenAI retained as alternative) per
   [official_ragas_runner.py](../evaluators/official_ragas_runner.py) `JudgeConfig`.
+  The judge model must stay fixed across all scored evaluations.
+  `answer_relevancy` embeddings: local BGE-M3 (no API).
 - Reference: each query's `answer_span` (verified grounded 24/24; for the tuning
   split, references are present for all 5 query_ids, `gt_status=valid`).
 - Coverage: every candidate profile scored over the **same** query
@@ -158,18 +162,20 @@ that exists, the helper refuses (`exit 3`) to write `frozen_params.yaml`.
 ## 8. Exact next commands needed later (gated, require explicit approval)
 
 These are **not run here**. They require an approved execution phase
-(install `ragas`+`datasets`, set `OPENAI_API_KEY`).
+(install `ragas`+`datasets`+`langchain-openai`, set `NVIDIA_API_KEY`).
 
 ```bash
-# 1. Local official RAGAS / OpenAI evaluation on the tuning outputs
-#    (CPU/laptop; no GPU needed). Requires the approved execution gate:
-#    install ragas+datasets, export OPENAI_API_KEY, and replace the skeleton's
-#    disabled run_official_ragas_evaluation placeholder with the real call.
+# 1. Local official RAGAS evaluation on the tuning outputs
+#    (CPU/laptop; no GPU needed). Judge = NVIDIA NIM (OpenAI-compatible API);
+#    embeddings = local BGE-M3. Requires the approved execution gate:
+#    install ragas+datasets+langchain-openai, export NVIDIA_API_KEY, and
+#    replace the skeleton's disabled run_official_ragas_evaluation placeholder
+#    with the real call.
 python experiments/evaluators/official_ragas_runner.py \
   --generation-results experiments/results/tuning/phase7_6C_small_tuning_comparison_15records.jsonl \
   --query-split tuning_queries \
   --metrics faithfulness,answer_relevancy,context_precision,context_recall \
-  --judge openai --judge-model gpt-4o-mini \
+  --judge nvidia_nim \
   --execute   # gate: only after the execution phase is approved
 
 # 2. Score aggregation -> per-profile / per-parameter scored table

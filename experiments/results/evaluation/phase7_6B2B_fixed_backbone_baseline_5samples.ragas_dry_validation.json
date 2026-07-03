@@ -1,7 +1,7 @@
 {
   "mode": "dry_validation_only",
   "official_ragas_execution": "disabled_pending_explicit_phase",
-  "generation_results": "experiments\\results\\tuning\\phase7_6B2B_fixed_backbone_baseline_5samples.jsonl",
+  "generation_results": "..\\experiments\\results\\tuning\\phase7_6B2B_fixed_backbone_baseline_5samples.jsonl",
   "metrics": [
     "faithfulness",
     "answer_relevancy",
@@ -9,17 +9,25 @@
     "context_recall"
   ],
   "judge": {
-    "provider": "openai",
-    "model": "gpt-4o-mini",
-    "api_key_env": "OPENAI_API_KEY",
-    "note": "OpenAI is the official RAGAS judge. Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets, and an explicitly approved execution phase."
+    "provider": "nvidia_nim",
+    "model": "meta/llama-3.3-70b-instruct",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key_env": "NVIDIA_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (nvidia_nim). Execution requires the key in $NVIDIA_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings_plan": {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
   },
   "dependency_status": {
-    "available": true,
-    "missing": [],
-    "message": "Official RAGAS dependencies appear importable."
+    "available": false,
+    "missing": [
+      "ragas"
+    ],
+    "message": "Official RAGAS dependencies are not importable: ragas. Install them in an explicitly approved setup phase before running official RAGAS evaluation."
   },
-  "dataset_built": "experiments\\results\\evaluation\\phase7_6B2B_fixed_backbone_baseline_5samples.ragas_input.jsonl",
+  "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\phase7_6B2B_fixed_backbone_baseline_5samples.ragas_input.jsonl",
   "dataset_record_count": 5,
   "validation_errors": [],
   "validation_passed": true,
