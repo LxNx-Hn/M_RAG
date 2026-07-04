@@ -15,10 +15,12 @@ What it DOES (all read-only over already-committed artifacts):
     count, Korean-character ratio, duration, a descriptive generation-stability
     flag),
   - emits a freeze-readiness decision,
-  - refuses to write the final frozen_params.yaml unless official *scored*
-    evaluation inputs are present and validated (today they are not, so the
-    final-write path is structurally unreachable and is double-gated behind an
-    explicit human-approval flag).
+  - can write the final frozen_params.yaml ONLY through the hard-gated path
+    (approved 2026-07-04): READY_TO_FREEZE + --write-final +
+    --confirm-freeze-approved + env CONFIRM_PARAMETER_FREEZE_WRITE=1 + exactly
+    one executed NVIDIA-NIM scored file with a recorded judge model. Selection
+    follows the readiness report (faithfulness primary under a context-recall
+    floor; ties prefer repo default, then conservative).
 
 Compliance:
   - experiments/METHOD_CONTRACTS.md: dry phases must not execute RAGAS/OpenAI/
@@ -34,18 +36,18 @@ Decision states:
                            evaluation result is present yet -> the next step is
                            local official RAGAS/OpenAI scoring, not a freeze.
   - READY_TO_FREEZE      : structural inputs complete AND official scored eval
-                           results are present and validated. (Unreachable today
-                           because no scored results exist; even when reached,
-                           writing the final file still requires an explicit
-                           human-approval flag.)
+                           results are present and validated. Writing the final
+                           file additionally requires the hard gates above.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -336,9 +338,13 @@ def _is_scored_eval(obj: Any) -> bool:
     return False
 
 
-def scan_scored_eval(paths: list[Path]) -> dict[str, Any]:
+def scan_scored_eval(
+    paths: list[Path],
+) -> tuple[dict[str, Any], list[tuple[str, dict[str, Any]]]]:
     present: list[str] = []
     rejected: list[str] = []
+    payloads: list[tuple[str, dict[str, Any]]] = []
+    judges: set[tuple[str, str]] = set()
     for p in paths:
         try:
             obj = json.loads(p.read_text(encoding="utf-8"))
@@ -347,13 +353,20 @@ def scan_scored_eval(paths: list[Path]) -> dict[str, Any]:
             continue
         if _is_scored_eval(obj):
             present.append(str(p))
+            payloads.append((str(p), obj))
+            judge = obj.get("judge") or {}
+            judges.add((judge.get("provider", ""), judge.get("model", "")))
         else:
             rejected.append(f"{p} (not an executed scored-eval result)")
-    return {
+    summary = {
         "scored_results_present": bool(present),
         "scored_files": present,
         "rejected_files": rejected,
+        "judge_consistent": len(judges) <= 1,
+        "judge_provider": next(iter(judges))[0] if len(judges) == 1 else None,
+        "judge_model": next(iter(judges))[1] if len(judges) == 1 else None,
     }
+    return summary, payloads
 
 
 def decide(
@@ -399,8 +412,164 @@ def decide(
     return ReadinessResult("READY_TO_FREEZE", blockers, notes)
 
 
-def attempt_write_final(result: ReadinessResult, confirmed: bool) -> int:
-    """Final-write gate. Refuses in every reachable state today."""
+CONFIRM_FREEZE_ENV = "CONFIRM_PARAMETER_FREEZE_WRITE"
+FAITHFULNESS_TIE_TOLERANCE = 0.02
+CONTEXT_RECALL_FLOOR_DELTA = 0.05
+
+# Values NOT swept by the 7.6C retrieval-breadth comparison stay at the
+# planned experiment defaults (tie-break rule 4 of the readiness report).
+UNSWEPT_DEFAULTS = {
+    "cad_alpha": 0.5,
+    "scd_beta": 0.3,
+    "max_new_tokens": 512,
+    "temperature": 0.0,
+    "decoding_mode": "deterministic_greedy",
+    "hyde_template_variant": "current_repo_default",
+}
+
+
+def select_frozen_profile(
+    payload: dict[str, Any], records: list[dict[str, Any]]
+) -> tuple[str, dict[str, int], str] | tuple[None, None, str]:
+    """Pick the winning profile from executed scores (readiness report §4/§5).
+
+    Primary objective: mean faithfulness, subject to a context-recall floor
+    (best recall minus CONTEXT_RECALL_FLOOR_DELTA). Ties within
+    FAITHFULNESS_TIE_TOLERANCE prefer current_defaults, then the smaller
+    rerank_top_n. Returns (profile_id, overrides, reason) or (None, None, why).
+    """
+    overrides_by_profile: dict[str, dict[str, int]] = {}
+    for rec in records:
+        pid = rec.get("profile_id")
+        ov = rec.get("profile_overrides")
+        if pid and isinstance(ov, dict):
+            overrides_by_profile.setdefault(pid, ov)
+
+    per_group = payload.get("per_group") or {}
+    groups = {
+        g: v
+        for g, v in per_group.items()
+        if g in overrides_by_profile
+        and isinstance(v, dict)
+        and isinstance(v.get("faithfulness"), (int, float))
+        and isinstance(v.get("context_recall"), (int, float))
+    }
+    if len(groups) < 2:
+        return (
+            None,
+            None,
+            "scored per_group does not cover at least two known tuning "
+            f"profiles with numeric faithfulness+context_recall (found: "
+            f"{sorted(groups)})",
+        )
+
+    best_recall = max(v["context_recall"] for v in groups.values())
+    floor = best_recall - CONTEXT_RECALL_FLOOR_DELTA
+    eligible = {g: v for g, v in groups.items() if v["context_recall"] >= floor}
+    best_faith = max(v["faithfulness"] for v in eligible.values())
+    tied = [
+        g
+        for g, v in eligible.items()
+        if best_faith - v["faithfulness"] <= FAITHFULNESS_TIE_TOLERANCE
+    ]
+    if "current_defaults" in tied:
+        winner = "current_defaults"
+        tie_note = "tie resolved to current_defaults (repo default preference)"
+    else:
+        winner = min(
+            tied, key=lambda g: overrides_by_profile[g].get("rerank_top_n", 99)
+        )
+        tie_note = "tie resolved to the more conservative rerank_top_n"
+    reason = (
+        f"Selected '{winner}' by highest mean faithfulness "
+        f"({eligible[winner]['faithfulness']}) among profiles meeting the "
+        f"context-recall floor (>= {round(floor, 4)}; best recall "
+        f"{best_recall}). Candidates within the {FAITHFULNESS_TIE_TOLERANCE} "
+        f"faithfulness tolerance: {sorted(tied)}; {tie_note}."
+    )
+    return winner, overrides_by_profile[winner], reason
+
+
+def write_frozen_params_yaml(
+    out_path: Path,
+    *,
+    profile_id: str,
+    overrides: dict[str, int],
+    reason: str,
+    judge_provider: str,
+    judge_model: str,
+    metric_set: list[str],
+    score_file: str,
+    generation_files: list[str],
+    per_group: dict[str, Any],
+) -> None:
+    pool = int(overrides.get("retrieval_pool_top_k", 20))
+    rerank = int(overrides.get("rerank_top_n", 5))
+    ctx = int(overrides.get("context_chunk_count", rerank))
+    u = UNSWEPT_DEFAULTS
+    gen_files_yaml = "\n".join(f"    - {g}" for g in generation_files)
+    metrics_yaml = "\n".join(f"    - {m}" for m in metric_set)
+    scores_json = json.dumps(per_group, ensure_ascii=False)
+    text = f"""schema_version: phase8.frozen_params.v1
+phase: phase8_parameter_freeze
+status: frozen
+final_values_selected: true
+frozen_at: {datetime.now(timezone.utc).isoformat()}
+
+selection:
+  selected_profile: {profile_id}
+  reason: >-
+    {reason}
+  unswept_policy: >-
+    Parameters not swept by the scored 7.6C retrieval-breadth comparison are
+    frozen at the planned experiment defaults per the readiness-report
+    tie-break rule 4.
+
+retrieval:
+  retrieval_pool_top_k: {pool}
+  rerank_top_n: {rerank}
+  context_chunk_count: {ctx}
+
+decoder:
+  cad_alpha: {u["cad_alpha"]}
+  scd_beta: {u["scd_beta"]}
+
+generation:
+  model: K-intelligence/Midm-2.0-Base-Instruct
+  max_new_tokens: {u["max_new_tokens"]}
+  temperature: {u["temperature"]}
+  decoding_mode: {u["decoding_mode"]}
+
+hyde:
+  template_variant: {u["hyde_template_variant"]}
+
+axes_policy: >-
+  HyDE, CAD, and SCD on/off states remain the factorial experiment axes of the
+  main 8-config matrix and are not selected away by this freeze.
+
+provenance:
+  judge_provider: {judge_provider}
+  judge_model: {judge_model}
+  metric_set:
+{metrics_yaml}
+  source_score_file: {score_file}
+  source_generation_files:
+{gen_files_yaml}
+  per_profile_scores: '{scores_json}'
+"""
+    out_path.write_text(text, encoding="utf-8", newline="\n")
+
+
+def attempt_write_final(
+    result: ReadinessResult,
+    confirmed: bool,
+    scan: dict[str, Any],
+    payloads: list[tuple[str, dict[str, Any]]],
+    records: list[dict[str, Any]],
+    tuning_paths: list[Path],
+    out_path: Path,
+) -> int:
+    """Final-write gate. Fail-closed at every step."""
     if result.decision != "READY_TO_FREEZE":
         print(
             "REFUSED: cannot write frozen_params.yaml. "
@@ -416,16 +585,54 @@ def attempt_write_final(result: ReadinessResult, confirmed: bool) -> int:
             "sign-off step and is intentionally not automated."
         )
         return 3
-    # Double-gated: even with confirmation, this helper does not auto-author the
-    # final thesis freeze file. A later explicitly approved phase must do this
-    # with the actual selected values from the scored aggregation.
-    print(
-        "REFUSED: final frozen_params.yaml authoring is deferred to an explicit "
-        "Phase 8 freeze phase that records the selected values from the scored "
-        "aggregation. This helper only verifies readiness and writes the "
-        "readiness report."
+    if os.environ.get(CONFIRM_FREEZE_ENV) != "1":
+        print(
+            f"REFUSED: {CONFIRM_FREEZE_ENV}=1 is required to write the final "
+            "frozen_params.yaml."
+        )
+        return 3
+    if len(payloads) != 1:
+        print(
+            "REFUSED: exactly ONE executed scored evaluation file must drive "
+            f"the freeze decision (got {len(payloads)}). Mixing scored files "
+            "risks mixing judges."
+        )
+        return 3
+    if not scan.get("judge_consistent"):
+        print("REFUSED: scored files disagree on judge provider/model.")
+        return 3
+    if scan.get("judge_provider") != "nvidia_nim":
+        print(
+            "REFUSED: freeze must be driven by executed NVIDIA NIM judge "
+            f"scores; found provider {scan.get('judge_provider')!r}."
+        )
+        return 3
+    if not scan.get("judge_model"):
+        print("REFUSED: scored file does not record the judge model.")
+        return 3
+
+    score_path, payload = payloads[0]
+    winner, overrides, reason = select_frozen_profile(payload, records)
+    if winner is None:
+        print(f"REFUSED: cannot select a frozen profile: {reason}")
+        return 3
+
+    write_frozen_params_yaml(
+        out_path,
+        profile_id=winner,
+        overrides=overrides,
+        reason=reason,
+        judge_provider=scan["judge_provider"],
+        judge_model=scan["judge_model"],
+        metric_set=list(payload.get("metrics") or []),
+        score_file=score_path,
+        generation_files=[str(p) for p in tuning_paths],
+        per_group=payload.get("per_group") or {},
     )
-    return 3
+    print(f"FROZEN: wrote {out_path}")
+    print(f"selected_profile: {winner} | overrides: {overrides}")
+    print(f"judge: {scan['judge_provider']} / {scan['judge_model']}")
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -470,6 +677,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Human sign-off flag for the final freeze (still double-gated).",
     )
+    p.add_argument(
+        "--frozen-out",
+        default=str(FROZEN_PARAMS_FINAL),
+        help="Where the final frozen_params.yaml is written (default: the "
+        "canonical experiments/configs/frozen_params.yaml).",
+    )
     return p
 
 
@@ -494,7 +707,7 @@ def main() -> int:
     coverage = coverage_matrix(stats)
     aggregates = descriptive_profile_aggregates(stats)
     integrity = integrity_report(stats)
-    scored = scan_scored_eval(eval_paths)
+    scored, scored_payloads = scan_scored_eval(eval_paths)
     result = decide(integrity, coverage, scored)
 
     report = {
@@ -538,7 +751,15 @@ def main() -> int:
     print(f"\nReadiness report written: {out_path}")
 
     if args.write_final:
-        return attempt_write_final(result, args.confirm_freeze_approved)
+        return attempt_write_final(
+            result,
+            args.confirm_freeze_approved,
+            scored,
+            scored_payloads,
+            records,
+            tuning_paths,
+            Path(args.frozen_out),
+        )
 
     return 0 if result.decision != "NOT_READY" else 1
 

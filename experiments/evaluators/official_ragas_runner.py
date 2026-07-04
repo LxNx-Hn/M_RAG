@@ -358,20 +358,24 @@ def execute_official_ragas(
             api_key=api_key,
             model=judge.resolved_model,
             temperature=0.0,
-            timeout=120,
-            max_retries=5,
+            # Free NIM endpoints queue requests and stream slowly for long
+            # Korean judging payloads. The retry chain (timeout x retries)
+            # must stay BELOW the RunConfig task timeout, and the task timeout
+            # must cover context_precision's per-context call chain (up to
+            # ~5 sequential judge calls per sample).
+            timeout=240,
+            max_retries=2,
         )
     )
     embeddings = LangchainEmbeddingsWrapper(
         HuggingFaceEmbeddings(model_name=LOCAL_EMBEDDINGS_MODEL)
     )
-    # Low concurrency: free-tier NIM endpoints are rate-limited (~40 RPM).
     result = evaluate(
         dataset,
         metrics=metric_list,
         llm=judge_llm,
         embeddings=embeddings,
-        run_config=RunConfig(max_workers=2, timeout=180),
+        run_config=RunConfig(max_workers=2, timeout=1800),
     )
     df = result.to_pandas()
 
