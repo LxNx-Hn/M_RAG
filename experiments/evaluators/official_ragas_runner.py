@@ -286,6 +286,10 @@ def execute_official_ragas(
     meta: list[dict[str, Any]],
     out_dir: Path,
     stem: str,
+    *,
+    max_workers: int = 8,
+    judge_timeout: int = 360,
+    task_timeout: int = 2400,
 ) -> int:
     """Approved scored execution. Double-gated and fail-closed.
 
@@ -358,12 +362,11 @@ def execute_official_ragas(
             api_key=api_key,
             model=judge.resolved_model,
             temperature=0.0,
-            # Free NIM endpoints queue requests and stream slowly for long
-            # Korean judging payloads. The retry chain (timeout x retries)
-            # must stay BELOW the RunConfig task timeout, and the task timeout
-            # must cover context_precision's per-context call chain (up to
-            # ~5 sequential judge calls per sample).
-            timeout=240,
+            # NIM endpoints queue requests and stream slowly for long Korean
+            # judging payloads (observed 60-150s per call). The retry chain
+            # (timeout x retries) must stay BELOW the task timeout, and the
+            # task timeout must cover context_precision's ~5-call chain.
+            timeout=judge_timeout,
             max_retries=2,
         )
     )
@@ -375,7 +378,7 @@ def execute_official_ragas(
         metrics=metric_list,
         llm=judge_llm,
         embeddings=embeddings,
-        run_config=RunConfig(max_workers=2, timeout=1800),
+        run_config=RunConfig(max_workers=max_workers, timeout=task_timeout),
     )
     df = result.to_pandas()
 
@@ -481,6 +484,27 @@ def build_parser() -> argparse.ArgumentParser:
             "(experiments/requirements-eval.txt), and passing validation."
         ),
     )
+    p.add_argument(
+        "--max-workers",
+        type=int,
+        default=8,
+        help="Concurrent RAGAS jobs. Effective request rate is workers x "
+        "(60/per-call latency); with the observed 60-150s calls this stays "
+        "well under the 40 RPM account limit.",
+    )
+    p.add_argument(
+        "--judge-timeout",
+        type=int,
+        default=360,
+        help="Per-request judge client timeout in seconds.",
+    )
+    p.add_argument(
+        "--task-timeout",
+        type=int,
+        default=2400,
+        help="Per-RAGAS-job timeout in seconds; must exceed judge-timeout x "
+        "retries x calls-per-job (context_precision chains ~5 calls).",
+    )
     return p
 
 
@@ -543,7 +567,17 @@ def main() -> int:
         if errors:
             print("REFUSED: validation errors present; fix inputs before scoring.")
             return 2
-        return execute_official_ragas(records, metrics, judge, meta, out_dir, stem)
+        return execute_official_ragas(
+            records,
+            metrics,
+            judge,
+            meta,
+            out_dir,
+            stem,
+            max_workers=args.max_workers,
+            judge_timeout=args.judge_timeout,
+            task_timeout=args.task_timeout,
+        )
     return 0 if not errors else 1
 
 
