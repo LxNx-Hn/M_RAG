@@ -167,7 +167,7 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
     from modules.scd_decoder import create_combined_processor
 
     rerank_n = int(params.get("rerank_top_n", 5))
-    ctx_n = rerank_n
+    ctx_n = int(params.get("context_chunk_count", rerank_n))
     pool = int(params.get("retrieval_pool_top_k", 20))
     cad_alpha = float(params.get("cad_alpha", 0.5))
     scd_beta = float(params.get("scd_beta", 0.3))

@@ -150,6 +150,10 @@ def read_frozen_params(path: Path) -> tuple[dict[str, float] | None, str | None]
     # retrieval pool is part of the fixed backbone; default to repo 20 if unset.
     pool_m = re.search(r"^\s*retrieval_pool_top_k:\s*([0-9]+)\s*$", text, re.MULTILINE)
     params["retrieval_pool_top_k"] = float(pool_m.group(1)) if pool_m else 20.0
+    # context depth may be frozen below rerank_top_n (e.g. rerank 8, keep 5).
+    ctx_m = re.search(r"^\s*context_chunk_count:\s*([0-9]+)\s*$", text, re.MULTILINE)
+    if ctx_m:
+        params["context_chunk_count"] = float(ctx_m.group(1))
     return params, None
 
 

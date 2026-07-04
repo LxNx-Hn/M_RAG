@@ -1,0 +1,49 @@
+schema_version: phase8.frozen_params.v1
+phase: phase8_parameter_freeze
+status: frozen
+final_values_selected: true
+frozen_at: 2026-07-04T11:53:18.964030+00:00
+
+selection:
+  selected_profile: retrieval_recall_oriented
+  reason: >-
+    Selected 'retrieval_recall_oriented' by highest mean faithfulness (0.9167) among profiles meeting the context-recall floor (>= 0.95; best recall 1.0). Candidates within the 0.02 faithfulness tolerance: ['retrieval_recall_oriented']; tie resolved to the more conservative rerank_top_n.
+  unswept_policy: >-
+    Parameters not swept by the scored 7.6C retrieval-breadth comparison are
+    frozen at the planned experiment defaults per the readiness-report
+    tie-break rule 4.
+
+retrieval:
+  retrieval_pool_top_k: 8
+  rerank_top_n: 8
+  context_chunk_count: 5
+
+decoder:
+  cad_alpha: 0.5
+  scd_beta: 0.3
+
+generation:
+  model: K-intelligence/Midm-2.0-Base-Instruct
+  max_new_tokens: 512
+  temperature: 0.0
+  decoding_mode: deterministic_greedy
+
+hyde:
+  template_variant: current_repo_default
+
+axes_policy: >-
+  HyDE, CAD, and SCD on/off states remain the factorial experiment axes of the
+  main 8-config matrix and are not selected away by this freeze.
+
+provenance:
+  judge_provider: nvidia_nim
+  judge_model: meta/llama-3.3-70b-instruct
+  metric_set:
+    - faithfulness
+    - answer_relevancy
+    - context_precision
+    - context_recall
+  source_score_file: ..\experiments\results\evaluation\phase8_tuning_comparison_15records_v2.ragas_scores.json
+  source_generation_files:
+    - ..\experiments\results\tuning\phase8_tuning_comparison_15records_v2.jsonl
+  per_profile_scores: '{"current_defaults": {"n": 5, "faithfulness": 0.8521, "answer_relevancy": 0.8456, "context_precision": 0.9053, "context_recall": 1.0}, "retrieval_conservative": {"n": 5, "faithfulness": 0.8098, "answer_relevancy": 0.9227, "context_precision": 1.0, "context_recall": 1.0}, "retrieval_recall_oriented": {"n": 5, "faithfulness": 0.9167, "answer_relevancy": 0.6539, "context_precision": 0.9073, "context_recall": 1.0}}'
