@@ -73,6 +73,26 @@ from official_ragas_runner_skeleton import (  # noqa: E402
 EXECUTION_DEPS = ("ragas", "datasets", "langchain_openai", "langchain_huggingface")
 CONFIRM_ENV = "CONFIRM_OFFICIAL_RAGAS_EXECUTION"
 LOCAL_EMBEDDINGS_MODEL = "BAAI/bge-m3"
+ENV_FILE = REPO / ".env"  # gitignored local secrets file
+
+
+def _load_key_from_env_file(var_name: str) -> str:
+    """Fallback: read ``var_name`` from the repo-root .env (gitignored).
+
+    Real environment variables always take precedence; this only fills the
+    gap so the user can paste the key into one file instead of exporting it.
+    """
+    if not ENV_FILE.exists():
+        return ""
+    for raw in ENV_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        if key.strip() == var_name:
+            return value.strip().strip('"').strip("'")
+    return ""
+
 
 QUERY_SPLITS_DIR = ROOT / "data" / "query_splits"
 
@@ -278,10 +298,13 @@ def execute_official_ragas(
     if os.environ.get(CONFIRM_ENV) != "1":
         print(f"REFUSED: {CONFIRM_ENV}=1 is required for --execute.")
         return 2
-    api_key = os.environ.get(judge.api_key_env, "")
+    api_key = os.environ.get(judge.api_key_env, "") or _load_key_from_env_file(
+        judge.api_key_env
+    )
     if not api_key:
         print(
-            f"REFUSED: ${judge.api_key_env} is not set. The judge "
+            f"REFUSED: {judge.api_key_env} is empty. Set the env var or paste "
+            f"the key into {ENV_FILE} ({judge.api_key_env}=...). The judge "
             f"({judge.provider}) needs it; no call was made."
         )
         return 2
