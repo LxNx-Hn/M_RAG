@@ -1,0 +1,87 @@
+{
+  "mode": "official_scored_execution",
+  "executed_at": "2026-07-04T09:13:14.320142+00:00",
+  "judge": {
+    "provider": "nvidia_nim",
+    "model": "meta/llama-3.3-70b-instruct",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key_env": "NVIDIA_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (nvidia_nim). Execution requires the key in $NVIDIA_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings": {
+    "model": "BAAI/bge-m3",
+    "runtime": "local (no API)"
+  },
+  "ragas_version": "0.2.15",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "dataset_record_count": 5,
+  "scores": {
+    "faithfulness": 0.2893,
+    "answer_relevancy": 0.8355,
+    "context_precision": 0.7386,
+    "context_recall": 0.6
+  },
+  "per_group": {
+    "all": {
+      "n": 5,
+      "faithfulness": 0.2893,
+      "answer_relevancy": 0.8355,
+      "context_precision": 0.7386,
+      "context_recall": 0.6
+    }
+  },
+  "per_sample": [
+    {
+      "query_id": "track1_0001",
+      "group": "all",
+      "faithfulness": 0.4286,
+      "answer_relevancy": 0.9669,
+      "context_precision": 0.8333,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0004",
+      "group": "all",
+      "faithfulness": null,
+      "answer_relevancy": 0.9931,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0005",
+      "group": "all",
+      "faithfulness": 0.15,
+      "answer_relevancy": 0.671,
+      "context_precision": 0.3667,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0007",
+      "group": "all",
+      "faithfulness": null,
+      "answer_relevancy": 0.7109,
+      "context_precision": 0.8667,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0008",
+      "group": "all",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": 1.0
+    }
+  ],
+  "ragas_used": true,
+  "judge_api_used": true,
+  "openai_used": false,
+  "network_used": true,
+  "gt_regenerated": false,
+  "note": "Scored measurement artifact. Group = tuning profile_id or main config_name. Feeds prepare_parameter_freeze.py."
+}
