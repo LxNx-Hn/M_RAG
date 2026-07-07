@@ -59,12 +59,13 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 
 | 기능 | 코드 근거 | 목적 |
 |---|---|---|
-| 전체 실행 | `experiments/archive/legacy_backend_evaluation/scripts/master_run.py` | end-to-end 실험 자동화 |
-| Track 1 실행 | `experiments/archive/legacy_backend_evaluation/run_track1.py` | 모듈 누적 ablation, decoder ablation |
-| Track 2 실행 | `experiments/archive/legacy_backend_evaluation/code/run_track2.py` | 공통 쿼리셋 기반 config 비교 (56-query asset) |
-| RAGAS 스타일 평가 | `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` | 자동 평가 점수 산출 |
-| Markdown 표 변환 | `experiments/archive/legacy_backend_evaluation/scripts/results_to_markdown.py` | 결과 JSON을 논문 표로 변환 |
-| 배포 검증 | `experiments/archive/legacy_backend_evaluation/scripts/verify_deployment.py` | 필수 import와 실행 환경 확인 |
+| 본 생성 실행 | `experiments/runners/run_generation.py` (+ `main_generation_executor.py`) | 8-config HyDE×CAD×SCD 본 생성 (하드 가드) |
+| 튜닝/메모리 프로브 | `experiments/runners/run_alice_followup.py` | 고정 backbone 튜닝 비교, worst-case VRAM 프로브 |
+| 파라미터 freeze | `experiments/runners/prepare_parameter_freeze.py` | scored 결과 기반 `frozen_params.yaml` 작성 |
+| 공식 RAGAS 평가 | `experiments/evaluators/official_ragas_runner.py` | NVIDIA NIM judge로 4-메트릭 채점 |
+| 점수 집계/표 변환 | `experiments/analyzers/aggregate_main_scores.py` | config별 CSV + 축별 요인효과 JSON |
+| 언어 준수 분석 | `experiments/analyzers/scd_language_adherence.py` | SCD 한국어 비율 직접 측정 |
+| dry-run 검증 | `experiments/runners/dry_run_matrix.py` | 계획/설정 정적 검증 |
 
 ---
 

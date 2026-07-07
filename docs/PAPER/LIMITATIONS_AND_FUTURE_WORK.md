@@ -12,20 +12,32 @@
 - 실험 결과는 사용한 논문 집합과 질의 구성에 따라 달라질 수 있음
 - 운영 규모 확장과 다중 사용자 부하 검증은 서비스화 검증 단계에서 다룸
 
-## 논문에서 말할 수 있는 범위
+## 측정된 결과 요약
 
-- 질문 유형별 경로 선택 구조를 구현함
-- A–F 파이프라인을 실제 코드로 제공함
-- CAD/SCD 기반 생성 제어를 통합함
-- HyDE/CAD/SCD 8-config 실험 계획과 Alice 실행 경로를 제공함
-- 결과 수치는 이후 명시 승인된 실행에서 생성된 `experiments/results` 산출물 기준으로만 사용함
+본 실험(19쿼리 × 8config = 152생성, Mi:dm 2.0 Base / A100 80GB, 고정 NIM judge
+`meta/llama-3.3-70b-instruct`로 RAGAS 채점, 583/608 셀)에서:
 
-## 향후 과제
+- CAD: faithfulness +0.044 (paired 25승/17패) — 설계 목적대로 근거 충실성 향상
+- HyDE: answer_relevancy +0.070, context_recall +0.026, context_precision −0.056 — recall/precision 트레이드오프
+- SCD: 4개 메트릭 및 한국어 비율 모두 중립(직접 측정 Δ −0.014) — **현 형태에서 null 결과**
 
-- 더 큰 논문 집합에서 Track 2 재검증
-- 한국어 학술 문서 데이터셋 확장
-- judge 모델 강건성 검증
+상세는 `experiments/reports/phase8_official_evaluation_summary.md`,
+`phase8_limitations.md`, `phase8_scd_failure_analysis.md` 참조.
+
+## SCD null 결과의 원인 (핵심 향후 과제)
+
+원문 방법(arXiv 2511.09984)은 (1) 비목표어 β 페널티, (2) 목표어 α 부스트, (3)
+cold-start warm-up 세 요소를 갖지만, 본 구현은 (1)만을 그것도 가법 상수(−0.3)로
+적용했다. 그 결과 한국어 토큰을 끌어올리지 못하고(α 부재), 확신 있는 영어 연속에
+너무 약하며(가법 −0.3), 초기 붕괴를 방어하지 못한다(warm-up 부재). 재현을 위해
+α 부스트 + 곱셈적 스케일링 + warm-up을 복원한 뒤 (α, β, T_start)를 드리프트
+목표로 튜닝하는 것이 1순위 후속 과제다.
+
+## 기타 향후 과제
+
+- 더 큰 논문 집합·독립 작성 쿼리로 외적 타당성 강화
+- judge 모델 강건성 검증(2차 judge 교차 채점) 및 인간 평가 비교
+- 수치 환각·쿼리 유형별 세부 분석(현 실험 미측정)
 - vLLM 기반 고효율 서빙과 CAD/SCD 재설계
-- 서비스 배포용 다중 GPU 추론 서버 분리
-- 부하 테스트와 장기 운영 관측성 강화
+- 서비스 배포용 다중 GPU 추론 서버 분리, 부하 테스트, 관측성 강화
 

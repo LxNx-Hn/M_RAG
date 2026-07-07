@@ -4,7 +4,7 @@
 
 - 기준 원문 `C:/Users/KiKi/Downloads/modular_rag_guideline.md`
 - 기준 성격 39편 참고문헌 기반 전체 설계 가이드 (35편 + 한국어 코퍼스 4편)
-- 코드 기준 `backend/modules`, `backend/pipelines`, `backend/api/routers`, `experiments/runners`, `experiments/scripts/alice`, `experiments/archive/legacy_backend_evaluation`
+- 코드 기준 `backend/modules`, `backend/pipelines`, `backend/api/routers`, `experiments/runners`, `experiments/evaluators`, `experiments/analyzers`, `experiments/scripts/alice`
 
 ## 현재 문서 체계
 
@@ -24,7 +24,7 @@
 
 | 분류 | 문서 중심 | 코드 중심 |
 |---|---|---|
-| 연구 | HyDE/CAD/SCD factor analysis, query splits, archived Track 1/2 provenance | `experiments/runners`, archived legacy `run_track1.py`, archived legacy `run_track2.py`, 검색/생성 모듈 |
+| 연구 | HyDE/CAD/SCD factor analysis, query splits, 공식 RAGAS 채점, 요인효과 분석 | `experiments/runners`, `experiments/evaluators`, `experiments/analyzers`, 검색/생성 모듈 |
 | 운영/서비스 | F 퀴즈, 후속 질문, PPT Export, Search/Judge API, SSE | `pipeline_f_quiz.py`, `followup_generator.py`, `pptx_exporter.py`, `chat.py` |
 | 실행 | SQLite 실험, PostgreSQL 운영, Alice Cloud 실행 | `experiments/scripts/alice`, `database.py`, `docker-compose.yml` |
 

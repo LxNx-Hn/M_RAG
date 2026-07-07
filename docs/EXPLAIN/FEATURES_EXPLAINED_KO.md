@@ -521,7 +521,7 @@ SSE를 쓰면 단어가 생성되는 즉시 화면에 나타난다:
 - **PARTIAL**: 일부 맞고 일부 틀림 → Faithfulness = 0.5점
 - **UNSUPPORTED**: 컨텍스트에 없는 내용 → Faithfulness = 0.0점
 
-관련 코드: `backend/api/routers/chat.py`, `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
+관련 코드: `backend/api/routers/chat.py`, `experiments/evaluators/official_ragas_runner.py`
 
 ---
 

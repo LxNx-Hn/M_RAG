@@ -107,8 +107,6 @@ def classify_forbidden_hit(path: Path) -> str:
         "experiments/REFERENCE_IMPLEMENTATION_AUDIT.md",
     }:
         return "contract or forbidden-claim explanation"
-    if rel.startswith("experiments/archive/legacy_backend_evaluation/"):
-        return "legacy query/GT/result artifact"
     if rel.startswith("experiments/data/"):
         return "derived query audit/split artifact from existing query assets"
     if rel.startswith("experiments/"):

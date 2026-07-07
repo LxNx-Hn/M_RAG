@@ -1,14 +1,12 @@
-﻿# Ground Truth Policy
+# Ground Truth Policy
 
-Phase 4 does not regenerate GT.
+Ground truth is the verified extractive `answer_span` recorded in each query split
+under `experiments/data/query_splits/`. It is used directly as the RAGAS reference /
+`ground_truth` and is **not** regenerated.
 
-Existing pseudo-GT files are treated as evaluation answer-key assets requiring
-protocol validation before final use:
-
-- `experiments/archive/legacy_backend_evaluation/data/pseudo_gt_track1.json`
-- `experiments/archive/legacy_backend_evaluation/data/pseudo_gt_track2.json`
+Each split entry's `answer_span` was checked to be present in its target paper (a
+grounding check), so the reference is an extractive gold span rather than a
+model-generated answer key.
 
 GT normalization or translation decisions are fairness-sensitive and must be
-documented symmetrically before final evaluation.
-
-
+documented symmetrically before any final evaluation.

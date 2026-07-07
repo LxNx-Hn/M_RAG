@@ -565,7 +565,7 @@ max_new_tokens=32이면:
   → 레이블이 포함됨 → 정확한 판정
 ```
 
-**관련 코드**: `backend/api/routers/chat.py`, `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
+**관련 코드**: `backend/api/routers/chat.py`, `experiments/evaluators/official_ragas_runner.py`
 
 ---
 

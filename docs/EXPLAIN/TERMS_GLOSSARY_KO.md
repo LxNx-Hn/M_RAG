@@ -388,7 +388,7 @@ RAGAS 라이브러리를 설치해 쓰는 대신, 평가 로직을 직접 구현
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
+`experiments/evaluators/official_ragas_runner.py`
 
 ---
 
@@ -417,7 +417,7 @@ Hallucination(모델이 컨텍스트에 없는 내용을 지어냄)이 주요 �
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_faithfulness`)
+`experiments/evaluators/official_ragas_runner.py` (RAGAS `faithfulness`)
 
 ---
 
@@ -444,7 +444,7 @@ Answer Relevancy 높음:
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_answer_relevancy`)
+`experiments/evaluators/official_ragas_runner.py` (RAGAS `answer_relevancy`)
 
 ---
 
@@ -473,7 +473,7 @@ Context Precision = USEFUL 2 / 전체 5 = 0.40
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_context_precision`)
+`experiments/evaluators/official_ragas_runner.py` (RAGAS `context_precision`)
 
 ---
 
@@ -501,7 +501,7 @@ Context Recall = 2/3 ≈ 0.67
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/code/ragas_eval.py` (`_compute_context_recall`)
+`experiments/evaluators/official_ragas_runner.py` (RAGAS `context_recall`)
 
 ---
 
@@ -703,7 +703,7 @@ SCD 적용 후 (β=0.3):
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/scripts/generate_pseudo_gt.py` (archived legacy helper; not active without explicit approval)
+`experiments/data/query_splits/*.json` (검증된 `answer_span`을 RAGAS reference로 사용; 별도 GT 생성 없음)
 
 ---
 
@@ -736,7 +736,7 @@ Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레
 
 ### 코드 위치
 
-`backend/api/routers/chat.py` (`/api/chat/judge`), `experiments/archive/legacy_backend_evaluation/code/ragas_eval.py`
+`backend/api/routers/chat.py` (`/api/chat/judge`), `experiments/evaluators/official_ragas_runner.py`
 
 ---
 
@@ -758,7 +758,7 @@ HyDE off/on × CAD off/on × SCD off/on = 8 configs
 
 ### 코드 위치
 
-`experiments/archive/legacy_backend_evaluation/run_track1.py`, `experiments/archive/legacy_backend_evaluation/ablation_study.py`
+`experiments/runners/run_generation.py` (8-config HyDE×CAD×SCD 본 생성)
 
 ---
 

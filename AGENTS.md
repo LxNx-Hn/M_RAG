@@ -103,6 +103,7 @@ python experiments\runners\run_generation.py --dry-run --plan-only --query-split
 - `backend/modules/`: retrieval, reranking, generation, CAD/SCD, follow-up generation, PPT export.
 - `backend/pipelines/`: A-F query pipelines.
 - `experiments/runners/`: current experiment planning and generation runners.
+- `experiments/evaluators/`: official RAGAS runner (NVIDIA NIM judge) and skeleton.
+- `experiments/analyzers/`: score aggregation and SCD language-adherence analysis.
 - `experiments/scripts/alice/`: Alice Cloud experiment setup and smoke/run planning scripts.
-- `experiments/archive/legacy_backend_evaluation/`: archived legacy evaluation code, source snapshots, and old result artifacts.
 - `frontend/src/`: React app, stores, API clients, viewer, chat UI.

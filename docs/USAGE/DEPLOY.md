@@ -63,9 +63,8 @@ python experiments\runners\run_generation.py --dry-run --plan-only --query-split
 ```
 
 Alice Cloud 실제 실행은 `docs/USAGE/ALICE_CLOUD.md`와
-`experiments/scripts/alice/`를 따른다. 레거시 `master_run.py`는
-`experiments/archive/legacy_backend_evaluation/scripts/master_run.py`에
-보존되어 있지만 현재 활성 실행 경로가 아니다.
+`experiments/scripts/alice/`를 따른다. 본 생성은
+`experiments/runners/run_generation.py --execute`(하드 가드) 경로를 사용한다.
 
 현재 실험 계획 기본값
 
@@ -85,16 +84,10 @@ Alice Cloud 실제 실행은 `docs/USAGE/ALICE_CLOUD.md`와
 수동 배치 없이 실험 소스 자산을 확인할 수 있다. backend 런타임 업로드
 디렉터리는 `MRAG_DATA_DIR` 또는 별도 마운트 볼륨으로 지정한다.
 
-Track 2는 checked-in 공통 query asset을 사용한다.
-
-- 영어 본문 그룹 28개
-- 한국어 본문 그룹 28개
-- 총 56개
-
 현재 논문 실험은 `experiments/scripts/alice/`와 `experiments/runners/`를
-기준으로 실행한다. 과거 `master_run.py` 성공 기준은
-`experiments/archive/legacy_backend_evaluation/scripts/master_run.py`에
-보존된 레거시 기준이며, 현재 활성 실행 경로가 아니다.
+기준으로 실행한다. 성공 기준(파라미터 freeze)은 튜닝 출력을 공식 RAGAS로
+채점한 뒤 `experiments/runners/prepare_parameter_freeze.py`가
+`experiments/configs/frozen_params.yaml`을 작성하는 것으로 정의된다.
 
 ## Docker Compose
 
@@ -119,8 +112,4 @@ docker compose up --build
 python -m compileall backend experiments
 python experiments\runners\dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
 ```
-
-레거시 `verify_deployment.py`는
-`experiments/archive/legacy_backend_evaluation/scripts/verify_deployment.py`에
-보존되어 있지만 현재 backend 런타임 경로는 아니다.
 

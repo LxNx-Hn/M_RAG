@@ -42,22 +42,25 @@ Track 2는 런타임에 GPT로 다시 생성하지 않고 checked-in 정적 템�
 python -c "import json; d=json.load(open('experiments/data/query_splits/query_templates.json', encoding='utf-8')); print('total=', len(d['queries']))"
 ```
 
-- 위 확인으로 정적 자산(56개)이 유지되는지 검증한다.
-- answerability 문장을 확정하려면 `pseudo_gt_track2.json`을 생성한 뒤 Not found 비율을 집계한다.
+- 위 확인으로 정적 쿼리 자산이 유지되는지 검증한다.
+- 실측(요인효과) 문장은 공식 scored 결과에서 확정한다. config별 평균과
+  축별(HyDE/CAD/SCD) 요인효과는 아래로 확인한다.
 
 ```bash
-python -c "import json; q=json.load(open('experiments/archive/legacy_backend_evaluation/data/pseudo_gt_track2.json', encoding='utf-8')).get('queries', []); n=sum(1 for x in q if x.get('ground_truth')=='Not found in document.'); print('not_found=', n, '/', len(q))"
+python experiments/analyzers/aggregate_main_scores.py \
+  --scores experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json \
+  --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
 ```
 
-- CAD gap 문장을 확정하려면 `table3_domain.json`을 생성한 뒤 config별 평균/차이를 확인한다.
+- SCD의 한국어 준수(언어 드리프트) 문장은 직접 측정으로 확정한다.
 
 ```bash
-python -c "import json; d=json.load(open('experiments/archive/legacy_backend_evaluation/results/table3_domain.json', encoding='utf-8')); print(list(d.get('results', {}).keys()))"
+python experiments/analyzers/scd_language_adherence.py \
+  --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
 ```
 
-정적 자산만으로는 “Not found 0%”, “CAD 격차가 더 선명하다” 같은 실측
-문장을 확정할 수 없다. 그런 표현은 위 결과 파일이 실제로 생성된 뒤에만
-사용한다.
+“CAD가 faithfulness를 높인다”, “SCD는 null” 같은 실측 문장은 위 결과 파일과
+`experiments/reports/phase8_*`가 실제로 존재할 때에만 사용한다.
 
 ## Docker build 확인
 

@@ -1,8 +1,26 @@
 # M-RAG
 
-M-RAG is a Korean-query academic paper QA project. The current thesis direction is a HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated on a fixed Paper-RAG backbone.
+M-RAG is a Korean-query academic paper QA project. The thesis contribution is a
+HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated
+on a fixed Paper-RAG backbone. The FastAPI + React application is a graduation-project
+service integration layer; its A-F routed paper-review features are preserved but are
+not the core thesis algorithm.
 
-The FastAPI + React application remains a graduation-project service integration layer. Its A-F routed paper-review features are preserved, but they are not the core thesis algorithm.
+**Headline results** (152 generations, Mi:dm 2.0 Base on A100 80GB, RAGAS scored under
+a fixed NVIDIA NIM judge): CAD improves faithfulness (+0.044 paired); HyDE raises answer
+relevancy and recall but lowers context precision; Korean-target SCD is a **null factor**
+in its current form. See `docs/PAPER/THESIS.md` §12 and `experiments/reports/phase8_*`.
+
+## Repository Layout
+
+Three independent layers — the ops runtime does **not** import experiment code, so it
+runs even if `experiments/` is removed (see `docs/REPO_LAYOUT.md`):
+
+| Layer | Location | Role |
+|---|---|---|
+| Ops | `backend/`, `frontend/` | FastAPI + React paper-review service |
+| Experiment | `experiments/` | fixed backbone, 8-config matrix, runners, RAGAS evaluator, analyzers, reports |
+| Docs | `docs/` | architecture, paper, usage, explainers |
 
 ## Thesis Direction
 
@@ -18,7 +36,7 @@ Core rules:
 - CAD is the context-faithfulness decoding axis.
 - SCD is Korean-target Soft Constrained Decoding for language-drift control.
 - The main matrix varies only HyDE on/off, CAD on/off, and SCD on/off.
-- No result values should be claimed until verified experiment artifacts exist.
+- Result values come only from the scored artifacts under `experiments/results/`.
 
 ## Main Experiment
 
@@ -42,6 +60,21 @@ Parameter freeze rule:
 - Tune only on `tuning_queries`.
 - Freeze `top_k`, `rerank_top_n`, `cad_alpha`, `scd_beta`, HyDE prompt/template, and generation settings before the main matrix.
 - Do not tune on main, query-type analysis, or final-eval candidate queries.
+
+## Reproducing the Experiment
+
+The scored artifacts are checked in under `experiments/results/`. To reproduce:
+
+1. Freeze: score tuning outputs with `experiments/evaluators/official_ragas_runner.py`
+   (NVIDIA NIM judge; needs `NVIDIA_API_KEY`), then `experiments/runners/prepare_parameter_freeze.py`
+   writes `experiments/configs/frozen_params.yaml`.
+2. Generate (GPU): `experiments/runners/run_generation.py --execute` with
+   `CONFIRM_MAIN_8CONFIG_GENERATION=1` (Mi:dm 2.0 Base, A100 80GB recommended).
+3. Score + aggregate: `official_ragas_runner.py` then `experiments/analyzers/aggregate_main_scores.py`
+   and `scd_language_adherence.py`.
+
+Evaluation runs on CPU + the NIM judge API; only generation needs the GPU. NIM is used
+**only as the judge** — generation is local Mi:dm Base, never a NIM API call.
 
 ## Service Features
 
@@ -121,6 +154,10 @@ npm run build
 | `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |
 | `experiments/configs/fixed_backbone.yaml` | fixed Paper-RAG backbone config |
 | `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |
+| `experiments/configs/frozen_params.yaml` | frozen parameters (from scored tuning) |
+| `experiments/results/` | scored generation + evaluation artifacts |
+| `experiments/reports/phase8_official_evaluation_summary.md` | measured factor-effect results |
+| `experiments/reports/phase8_scd_failure_analysis.md` | why SCD produced a null result |
 | `experiments/data/query_audit.json` | audited existing query assets |
 | `experiments/data/query_splits/` | tuning/main/query-type/final/service splits |
 | `backend/api/` | FastAPI service |
@@ -128,6 +165,10 @@ npm run build
 | `backend/pipelines/` | A-F service route pipelines |
 | `frontend/src/` | React application |
 
-## Safety
+## Notes
 
-Do not run real experiments, model calls, OpenAI calls, RAGAS execution, or GT regeneration unless explicitly approved. Do not fabricate queries or result values.
+- Generation model is local Mi:dm 2.0 Base on GPU; the NVIDIA NIM endpoint is used only
+  as the RAGAS judge. OpenAI is not used.
+- Ground truth is the verified extractive `answer_span` in each query split; it is not
+  regenerated.
+- Result claims come only from the scored artifacts under `experiments/results/`.

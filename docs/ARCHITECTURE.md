@@ -12,8 +12,7 @@ This document describes the current service runtime and the separated experiment
 | API | `backend/api` | authentication, papers, chat, streaming, search, judge, citation APIs |
 | Service modules | `backend/modules` | parsing, indexing, retrieval, reranking, generation, decoding control, citations |
 | Service pipelines | `backend/pipelines` | A-F route execution for paper-review features |
-| Experiment framework | `experiments` | fixed backbone config, 8-config matrix, query splits, schemas, dry-run validation |
-| Legacy evaluation archive | `experiments/archive/legacy_backend_evaluation` | older evaluation utilities and checked-in legacy assets, not active runtime |
+| Experiment framework | `experiments` | fixed backbone config, 8-config matrix, query splits, runners, official RAGAS evaluator, analyzers, reports |
 
 ## Runtime Flow
 

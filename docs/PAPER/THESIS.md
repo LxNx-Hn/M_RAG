@@ -6,7 +6,7 @@ Retrieval-Augmented Generation (RAG) is widely used to answer questions over ext
 
 This thesis studies these problems through a controlled factor analysis of HyDE, Context-Aware Decoding (CAD), and Korean-target Soft Constrained Decoding (SCD). The main experiment uses a fixed Paper-RAG retrieval backbone and varies only three factors: HyDE on/off, CAD on/off, and SCD on/off. HyDE is treated as a retrieval-side evidence-construction factor, CAD as a decoding-time context-faithfulness factor, and SCD as a Korean-target language-drift-control factor. The central research question is how these factors and their interactions affect evidence support, numeric hallucination, language drift, Korean answer ratio, answer relevancy, and retrieval quality in Korean-query / English-paper RAG.
 
-The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and the derivation of a query-type-aware service policy from that analysis. No experimental result values are claimed in this draft; all result tables remain TODO placeholders until an approved and verified experiment run is completed.
+The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and the derivation of a query-type-aware service policy from that analysis. The main experiment (19 queries × 8 configs = 152 generations, Mi:dm 2.0 Base on A100 80GB) has been executed and scored with RAGAS under a fixed NVIDIA NIM judge; result tables in Section 12 report the measured values. The headline findings are that CAD improves faithfulness (paired +0.044), HyDE improves answer relevancy and recall while lowering context precision, and Korean-target SCD is a null factor in its current form (see Sections 12 and the SCD failure analysis).
 
 ## 2. Introduction
 
@@ -148,7 +148,7 @@ Recent work on multilingual RAG language drift characterizes unintended output-l
 
 ### 4.8 Evaluation of RAG Answers
 
-RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. RAGAS is used as an evaluation-design reference [12], but this draft does not claim that RAGAS execution has been performed. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16]. The repository separates a RAGAS-compatible future path from a lightweight local judge. This thesis uses the metric concepts while keeping result claims pending until verified experiment artifacts exist.
+RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. This thesis evaluates those four metrics with RAGAS [12] under a fixed judge. Because Mi:dm 2.0 is not served through the judge provider used here, the judge is an OpenAI-compatible NVIDIA NIM endpoint (`meta/llama-3.3-70b-instruct`, temperature 0) held constant across every scored comparison; answer-relevancy embeddings use local BGE-M3. Absolute scores are therefore judge-specific and are not compared across judges — the claims rest on within-experiment factor deltas measured under the one fixed judge. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16].
 
 ### 4.9 Methods Outside the Core Scope
 
@@ -379,7 +379,10 @@ The planned analysis includes:
 - language-drift subset analysis
 - cost and latency discussion
 
-No main experiment has been executed in this draft. All tables are placeholders.
+The main experiment has been executed and scored; Section 12 reports the measured
+faithfulness, answer-relevancy, context-precision, and context-recall values plus a
+direct Korean-answer-ratio measurement. A numeric-hallucination subset metric and a
+per-query-type breakdown were not computed in this run and are marked as such.
 
 ## 10. Query Set and Split Policy
 
@@ -444,11 +447,14 @@ Answer span hit at K measures whether retrieved top-k passages contain expected 
 
 ### 11.10 RAGAS-Compatible and Lightweight Evaluation Boundary
 
-RAGAS is used as an evaluation-design reference. The repository separates a RAGAS-compatible future path from a lightweight local evaluator. This draft does not claim RAGAS package execution, OpenAI judging, or completed official results. Metrics remain planned until verified artifacts exist.
+RAGAS is executed as the evaluation tool for the four metrics, kept separate from any lightweight local evaluator. Execution used the RAGAS package with a fixed NVIDIA NIM judge (`meta/llama-3.3-70b-instruct`) and local BGE-M3 embeddings; no OpenAI judging is used. Scored coverage was 583/608 metric cells (95.9%); the remaining cells were judge-endpoint timeouts on the largest multi-context payloads and are excluded from means. RAGAS is the measurement instrument, not a proposed method of this thesis.
 
 ## 12. Result Tables
 
-All tables in this section are TODO placeholders. No values should be filled until the approved experiment run is completed and checked.
+Values are from the executed and scored main run (152 generations; RAGAS with a
+fixed NVIDIA NIM judge `meta/llama-3.3-70b-instruct`, local BGE-M3 embeddings).
+Means exclude null cells (583/608 scored). Source artifacts:
+`experiments/results/analysis/main_config_scores.csv` and `main_axis_effects.json`.
 
 ### Table 1. Experimental Setup
 
@@ -456,88 +462,134 @@ All tables in this section are TODO placeholders. No values should be filled unt
 |---|---|
 | Task | Korean-query / English-paper RAG |
 | Backbone | Fixed Paper-RAG retrieval backbone |
-| Dense retrieval | TODO: fill configured model |
+| Dense retrieval | BGE-M3 |
 | Sparse retrieval | BM25 |
 | Fusion | RRF |
-| Reranking | TODO: fill configured reranker |
+| Reranking | CrossEncoder `ms-marco-MiniLM-L-6-v2` |
+| Generation model | Mi:dm 2.0 Base (`K-intelligence/Midm-2.0-Base-Instruct`), A100 80GB |
+| Frozen params | pool 8 / rerank 8 / context 5, cad_alpha 0.5, scd_beta 0.3, 512 tokens, greedy |
 | Main factors | HyDE, CAD, SCD |
 | Tuned only on | `tuning_queries` |
-| Main query split | `decoder_main_queries` |
-| Result status | TODO: pending verified run |
+| Main query split | `decoder_main_queries` (19 queries) |
+| Judge | NVIDIA NIM `meta/llama-3.3-70b-instruct` (fixed) |
+| Result status | completed and scored (583/608 cells) |
 
 ### Table 2. Main HyDE × CAD × SCD Factorial Ablation
 
-| Config | Faithfulness | Evidence support | Numeric hallucination rate | Language drift rate | Korean answer ratio | Answer relevancy |
-|---|---:|---:|---:|---:|---:|---:|
-| `hyde_off__no_decoder_control` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_off__cad_only` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_off__scd_only` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_off__cad_scd` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_on__no_decoder_control` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_on__cad_only` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_on__scd_only` | TODO | TODO | TODO | TODO | TODO | TODO |
-| `hyde_on__cad_scd` | TODO | TODO | TODO | TODO | TODO | TODO |
+Columns are the four executed RAGAS metrics plus a directly measured Korean answer
+ratio. A separate numeric-hallucination metric and an "evidence support" metric were
+not computed in this run.
+
+| Config | Faithfulness | Answer relevancy | Context precision | Context recall | Korean answer ratio |
+|---|---:|---:|---:|---:|---:|
+| `hyde_off__no_decoder_control` | 0.871 | 0.825 | 0.891 | 0.947 | 0.594 |
+| `hyde_off__cad_only` | 0.926 | 0.805 | 0.914 | 0.947 | 0.524 |
+| `hyde_off__scd_only` | 0.848 | 0.829 | 0.853 | 0.947 | 0.602 |
+| `hyde_off__cad_scd` | 0.919 | 0.784 | 0.877 | 0.947 | 0.525 |
+| `hyde_on__no_decoder_control` | 0.867 | 0.866 | 0.844 | 0.947 | 0.607 |
+| `hyde_on__cad_only` | 0.917 | 0.906 | 0.845 | 0.974 | 0.588 |
+| `hyde_on__scd_only` | 0.916 | 0.892 | 0.810 | 1.000 | 0.582 |
+| `hyde_on__cad_scd` | 0.925 | 0.858 | 0.867 | 0.974 | 0.549 |
 
 ### Table 3. Effect Delta Summary
 
-| Effect | Delta definition | Result |
-|---|---|---|
-| HyDE main effect | mean(HyDE on) - mean(HyDE off) | TODO |
-| CAD main effect | mean(CAD on) - mean(CAD off) | TODO |
-| SCD main effect | mean(SCD on) - mean(SCD off) | TODO |
-| CAD × SCD interaction | combined decoder effect beyond additive expectation | TODO |
-| HyDE × CAD interaction | retrieval expansion under context-aware decoding | TODO |
-| HyDE × SCD interaction | retrieval expansion under Korean-target decoding | TODO |
+Main effects are paired ON−OFF deltas over configs identical except for the named
+factor (win/loss counts use a ±0.01 band).
+
+| Effect | Metric | Paired delta (win/loss) |
+|---|---|---:|
+| HyDE main effect | answer_relevancy | +0.070 (28/18) |
+| HyDE main effect | context_recall | +0.026 (4/3) |
+| HyDE main effect | context_precision | −0.056 (19/18) |
+| CAD main effect | faithfulness | +0.044 (25/17) |
+| CAD main effect | context_recall | 0.000 (1/2) |
+| SCD main effect | faithfulness | +0.009 (16/17) |
+| SCD main effect | Korean answer ratio (direct) | −0.014 (22/24) |
+
+Interpretation: CAD raises faithfulness; HyDE trades context precision for higher
+answer relevancy and recall; SCD is a null factor on both the RAGAS metrics and its
+own Korean-adherence target. Internal-validity note: the decoder-side factors (CAD,
+SCD) leave context_recall essentially unchanged (retrieval is not altered), while the
+retrieval-side factor (HyDE) moves it — factors affect the metrics they structurally
+should. The combined `hyde_on__cad_scd` cell reaches the joint-highest faithfulness
+(0.925), consistent with an additive CAD contribution rather than a strong
+CAD×SCD interaction.
 
 ### Table 4. Query-Type Breakdown
 
-| Query type | Expected risk | HyDE effect | CAD effect | SCD effect | Policy implication |
-|---|---|---|---|---|---|
-| factual | missing exact evidence | TODO | TODO | TODO | TODO |
-| numeric | unsupported numbers | TODO | TODO | TODO | TODO |
-| method | semantic mismatch | TODO | TODO | TODO | TODO |
-| section-specific | wrong section evidence | TODO | TODO | TODO | TODO |
-| comparison | unbalanced evidence | TODO | TODO | TODO | TODO |
-| summary | broad context coverage | TODO | TODO | TODO | TODO |
+Not computed in this run. With n = 19 queries the per-query-type cells are too small
+to split reliably; a per-type breakdown is left as future work on a larger query set.
 
 ### Table 5. Numeric Hallucination and Evidence Support
 
-| Config | Numeric exactness | Unsupported numeric claims | Evidence support | Notes |
-|---|---:|---:|---:|---|
-| 8-config matrix rows | TODO | TODO | TODO | TODO |
+Not computed in this run. The evaluation measured the four RAGAS metrics and Korean
+answer ratio; a numeric-exactness metric and a separate evidence-support metric are
+future work.
 
 ### Table 6. Language Drift and Korean Answer Ratio
 
-| Config | Language drift rate | Korean answer ratio | Whitelist errors | Notes |
-|---|---:|---:|---:|---|
-| 8-config matrix rows | TODO | TODO | TODO | TODO |
+Language drift rate = fraction of the 19 answers below 0.5 Korean-character ratio;
+Korean answer ratio = mean per config. Whitelist errors were not separately counted.
+
+| Config | Language drift rate (<0.5) | Korean answer ratio |
+|---|---:|---:|
+| `hyde_off__no_decoder_control` | 0.26 | 0.594 |
+| `hyde_off__cad_only` | 0.32 | 0.524 |
+| `hyde_off__scd_only` | 0.26 | 0.602 |
+| `hyde_off__cad_scd` | 0.37 | 0.525 |
+| `hyde_on__no_decoder_control` | 0.26 | 0.607 |
+| `hyde_on__cad_only` | 0.16 | 0.588 |
+| `hyde_on__scd_only` | 0.26 | 0.582 |
+| `hyde_on__cad_scd` | 0.37 | 0.549 |
+
+SCD-on configs do not reduce drift relative to their matched SCD-off configs; drift is
+substantial (16–37%) across the matrix, and SCD does not remove it (see the SCD failure
+analysis).
 
 ### Table 7. Routed Policy for Graduation-Project System
 
-| Service route | Query type | Derived HyDE policy | Derived CAD policy | Derived SCD policy | Status |
+Derived from the measured factor effects (not a measurement table). CAD is recommended
+on across routes for its faithfulness gain; HyDE is recommended where recall/relevancy
+matters more than context precision; SCD stays off until the α-boost / warm-up gaps are
+fixed.
+
+| Service route | Query type | Derived HyDE | Derived CAD | Derived SCD | Status |
 |---|---|---|---|---|---|
-| A simple QA | factual / conceptual | TODO | TODO | TODO | service feature |
-| B section QA | section-specific | TODO | TODO | TODO | service feature |
-| C comparison | comparison | TODO | TODO | TODO | service feature |
-| D citation / patent lookup | citation-oriented | TODO | TODO | TODO | service feature |
-| E structured summary | summary | TODO | TODO | TODO | service feature |
-| F quiz / flashcard | study support | TODO | TODO | TODO | service feature |
+| A simple QA | factual / conceptual | optional | on | off (pending fix) | service feature |
+| B section QA | section-specific | off (precision) | on | off (pending fix) | service feature |
+| C comparison | comparison | on (recall) | on | off (pending fix) | service feature |
+| D citation lookup | citation-oriented | off (precision) | on | off (pending fix) | service feature |
+| E structured summary | summary | on (recall) | on | off (pending fix) | service feature |
+| F quiz / flashcard | study support | optional | on | off (pending fix) | service feature |
 
 ## 13. Discussion
 
-The discussion should be written after the verified result tables are filled. This draft defines the analysis plan without claiming outcomes.
+The following interprets the measured factor effects (Section 12).
 
 ### 13.1 Interpreting HyDE
 
-If HyDE improves context recall and answer relevancy, the discussion should explain whether the improvement is concentrated in semantic or method-description questions. If HyDE does not improve numeric questions, the discussion should examine whether hypothetical answers omit exact values or retrieve broader but less precise evidence.
+HyDE raised answer relevancy (+0.070 paired) and context recall (+0.026) while lowering
+context precision (−0.056). This is the expected recall/precision trade-off of query
+reformulation: hypothetical-document expansion pulls more relevant material into the
+pool but also admits some off-target chunks. Faithfulness moved only slightly (+0.016),
+so HyDE mainly reshapes retrieval rather than grounding.
 
 ### 13.2 Interpreting CAD
 
-If CAD reduces unsupported claims or numeric hallucination, the discussion should connect the result to the contrast between context and no-context distributions. If CAD reduces answer relevancy or fluency, the discussion should consider whether alpha is too strong or whether evidence is insufficient.
+CAD raised faithfulness by +0.044 (paired 25 wins / 17 losses), the largest single-axis
+gain, matching its design goal of contrasting context and no-context distributions to
+suppress ungrounded tokens. Context recall was unchanged (CAD is decoder-side), and
+answer relevancy dipped slightly (−0.015), consistent with a mild fluency cost rather
+than a failure; alpha = 0.5 did not appear too strong on this corpus.
 
 ### 13.3 Interpreting SCD
 
-If SCD reduces language drift, the discussion should distinguish Korean sentence stability from technical-term preservation. If whitelist errors occur, the discussion should identify which terms or tokenization patterns require adjustment.
+SCD did not reduce language drift. It was neutral on all four RAGAS metrics and net-null
+on its own Korean-adherence target (direct Korean-ratio delta −0.014), rescuing only
+2/19 drifting answers while degrading 9/28 already-Korean ones. The dedicated SCD failure
+analysis attributes this to implementing only a penalty-only, additive, always-on
+fragment of the reference method — missing the target-language boost, multiplicative
+scaling, and cold-start warm-up.
 
 ### 13.4 Interactions
 
@@ -545,7 +597,11 @@ CAD and SCD may complement each other because they target different failure mode
 
 ### 13.5 Query-Type Policy
 
-The final service policy should not simply enable every factor for every route. It should derive route-level defaults from query-type evidence. For example, numeric factual questions may prioritize CAD, while Korean-language stability questions may prioritize SCD. These are hypotheses until results are available.
+The service policy does not simply enable every factor for every route. Table 7 derives
+route-level defaults from the measured effects: CAD on across routes (faithfulness gain),
+HyDE on where recall/relevancy outweighs precision (comparison, summary) and off where
+precision matters (section-specific, citation lookup), and SCD off until the reference
+components it is missing are restored.
 
 ## 14. Graduation-Project System Integration
 
@@ -574,7 +630,7 @@ The main experiment is limited to the selected paper corpus and query splits. Re
 
 ### 15.2 Evaluation Reliability
 
-Automatic evaluation can misjudge faithfulness, relevance, or language drift. Lightweight local judging is useful for reproducibility but may be weaker than human evaluation. A future approved evaluation phase may compare local metrics, human checks, and RAGAS-compatible metrics.
+Automatic evaluation can misjudge faithfulness, relevance, or language drift. This study used a single fixed judge (NVIDIA NIM `meta/llama-3.3-70b-instruct`), so absolute scores are judge-specific and the claims rest on within-experiment factor deltas rather than cross-judge comparison. Human evaluation and a second-judge robustness check are future work. 25/608 metric cells (4.1%) remained null after retry passes and are excluded from means.
 
 ### 15.3 GT and Answer-Key Policy
 
@@ -596,7 +652,13 @@ The graduation-project service layer still requires deployment validation, load 
 
 This thesis reconstructs M-RAG around a focused research contribution: HyDE × CAD × SCD factor analysis for Korean-query English-paper RAG. The fixed Paper-RAG backbone provides a stable retrieval environment. HyDE tests retrieval-side evidence construction, CAD tests context-faithfulness control, and Korean-target SCD tests output-language stability. The routed paper-review chatbot remains the graduation-project service integration layer, and its A-F routes should derive policy from the factor analysis rather than being claimed as a new algorithm.
 
-No experimental results are claimed in this draft. The next thesis step is to run the approved tuning and main matrix workflow, fill the TODO tables from verified artifacts, and then write the discussion around observed effects, query-type patterns, and service-policy implications.
+The main experiment was executed and scored under a fixed judge. The measured effects
+are: CAD improves faithfulness (+0.044 paired), HyDE trades context precision for higher
+answer relevancy and recall, and Korean-target SCD is a null factor in its current
+penalty-only form. These results yield an evidence-driven route policy (CAD on, HyDE
+conditional, SCD deferred) and a concrete SCD improvement path — restore the
+target-language boost, multiplicative scaling, and cold-start warm-up of the reference
+method — as the primary future work.
 
 ## 17. References
 
