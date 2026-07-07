@@ -1,0 +1,134 @@
+{
+  "source_scores": "../experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json",
+  "source_generation": "../experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl",
+  "judge": {
+    "provider": "nvidia_nim",
+    "model": "meta/llama-3.3-70b-instruct",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key_env": "NVIDIA_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (nvidia_nim). Execution requires the key in $NVIDIA_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "axis_effects": {
+    "use_hyde": {
+      "faithfulness": {
+        "on_mean": 0.9062,
+        "off_mean": 0.8937,
+        "paired_mean_delta": 0.0163,
+        "paired_n": 65,
+        "paired_wins": 24,
+        "paired_losses": 18,
+        "paired_ties": 23
+      },
+      "answer_relevancy": {
+        "on_mean": 0.8805,
+        "off_mean": 0.8107,
+        "paired_mean_delta": 0.0698,
+        "paired_n": 76,
+        "paired_wins": 28,
+        "paired_losses": 18,
+        "paired_ties": 30
+      },
+      "context_precision": {
+        "on_mean": 0.8425,
+        "off_mean": 0.8844,
+        "paired_mean_delta": -0.056,
+        "paired_n": 66,
+        "paired_wins": 19,
+        "paired_losses": 18,
+        "paired_ties": 29
+      },
+      "context_recall": {
+        "on_mean": 0.9737,
+        "off_mean": 0.9474,
+        "paired_mean_delta": 0.0263,
+        "paired_n": 76,
+        "paired_wins": 4,
+        "paired_losses": 3,
+        "paired_ties": 69
+      }
+    },
+    "use_cad": {
+      "faithfulness": {
+        "on_mean": 0.9217,
+        "off_mean": 0.876,
+        "paired_mean_delta": 0.0441,
+        "paired_n": 63,
+        "paired_wins": 25,
+        "paired_losses": 17,
+        "paired_ties": 21
+      },
+      "answer_relevancy": {
+        "on_mean": 0.838,
+        "off_mean": 0.8531,
+        "paired_mean_delta": -0.0151,
+        "paired_n": 76,
+        "paired_wins": 26,
+        "paired_losses": 35,
+        "paired_ties": 15
+      },
+      "context_precision": {
+        "on_mean": 0.8764,
+        "off_mean": 0.851,
+        "paired_mean_delta": 0.0125,
+        "paired_n": 65,
+        "paired_wins": 9,
+        "paired_losses": 11,
+        "paired_ties": 45
+      },
+      "context_recall": {
+        "on_mean": 0.9605,
+        "off_mean": 0.9605,
+        "paired_mean_delta": 0.0,
+        "paired_n": 76,
+        "paired_wins": 1,
+        "paired_losses": 2,
+        "paired_ties": 73
+      }
+    },
+    "use_scd": {
+      "faithfulness": {
+        "on_mean": 0.9033,
+        "off_mean": 0.8964,
+        "paired_mean_delta": 0.0094,
+        "paired_n": 66,
+        "paired_wins": 16,
+        "paired_losses": 17,
+        "paired_ties": 33
+      },
+      "answer_relevancy": {
+        "on_mean": 0.8407,
+        "off_mean": 0.8504,
+        "paired_mean_delta": -0.0097,
+        "paired_n": 76,
+        "paired_wins": 20,
+        "paired_losses": 21,
+        "paired_ties": 35
+      },
+      "context_precision": {
+        "on_mean": 0.8525,
+        "off_mean": 0.8743,
+        "paired_mean_delta": -0.0046,
+        "paired_n": 65,
+        "paired_wins": 7,
+        "paired_losses": 5,
+        "paired_ties": 53
+      },
+      "context_recall": {
+        "on_mean": 0.9671,
+        "off_mean": 0.9539,
+        "paired_mean_delta": 0.0132,
+        "paired_n": 76,
+        "paired_wins": 1,
+        "paired_losses": 0,
+        "paired_ties": 75
+      }
+    }
+  }
+}
