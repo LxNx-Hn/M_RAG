@@ -1,0 +1,39 @@
+{
+  "source_generation": "../experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl",
+  "answers": 152,
+  "korean_ratio_distribution": {
+    "min": 0.0,
+    "p10": 0.2298,
+    "median": 0.6315,
+    "max": 0.9464,
+    "below_0.5": 43
+  },
+  "scd_paired_effect": {
+    "n_pairs": 76,
+    "mean_delta_on_minus_off": -0.0137,
+    "scd_on_more_korean": 22,
+    "scd_on_less_korean": 24,
+    "tie": 30
+  },
+  "conditional_rescue": [
+    {
+      "threshold": 0.5,
+      "drift_pairs": 19,
+      "scd_off_mean": 0.2366,
+      "scd_on_mean": 0.2892,
+      "rescued_to_threshold": 2
+    },
+    {
+      "threshold": 0.3,
+      "drift_pairs": 10,
+      "scd_off_mean": 0.1101,
+      "scd_on_mean": 0.1892,
+      "rescued_to_threshold": 3
+    }
+  ],
+  "harm_on_already_korean": {
+    "good_pairs_ge_0.7": 28,
+    "dragged_below_0.65": 9
+  },
+  "conclusion": "SCD (uniform soft beta penalty) shows no reliable Korean-adherence benefit: it rescues few drifting answers and degrades some already-Korean ones; net paired delta is ~0. Null result — motivates drift-conditional language control as future work."
+}

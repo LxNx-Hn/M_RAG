@@ -30,6 +30,21 @@ comparison, which is the thesis claim.
   could retrieve slightly different context for those cells even with greedy answer
   decoding.
 
+## SCD target and null result
+
+- The four RAGAS metrics do not measure SCD's actual target (Korean-language
+  adherence). A **direct Korean-character-ratio measurement** of the 152 answers
+  (`experiments/results/analysis/scd_language_adherence.json`) shows SCD is a
+  **null result on its own target**: paired mean Δ = −0.014, and on the subset
+  where the baseline actually drifted (< 0.5 Korean, 19 pairs) SCD rescued only
+  2/19 to ≥ 0.5 while dragging 9/28 already-Korean answers below 0.65. The
+  uniform soft-penalty SCD therefore does **not** provide a demonstrated
+  language-adherence benefit here; it is reported as a null factor, not a
+  positive one. Drift-conditional application is the indicated future work.
+- Language drift itself is real and non-trivial on this corpus (43/152 answers
+  below 0.5 Korean; some fully English), so the problem SCD targets exists — the
+  limitation is the uniform-penalty mechanism, not the motivation.
+
 ## Compute
 
 - Worst-case tuning/probe fit within a 40GB MIG slice (near-saturation on the

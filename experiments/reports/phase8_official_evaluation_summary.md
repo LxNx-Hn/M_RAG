@@ -72,10 +72,16 @@ counts use a ±0.01 band.
    context_precision (−0.056)** — a recall/precision trade-off consistent with
    query-reformulation retrieval: hypothetical-document expansion pulls more
    relevant material into the pool while admitting some off-target chunks.
-3. **SCD is metric-neutral** (all |Δ| ≤ 0.013). SCD's target is Korean-language
-   adherence, which the four RAGAS metrics do not directly measure; the result
-   is that Korean-target soft constrained decoding adds language control **without
-   a measurable faithfulness/relevance/retrieval cost**.
+3. **SCD is a null result** — neutral on all four RAGAS metrics (|Δ| ≤ 0.013)
+   AND, on a direct Korean-character-ratio check of the 152 answers, net-null on
+   its own target (paired mean Δ = **−0.014**; 22 up / 24 down / 30 tie). Language
+   drift is real (43/152 answers < 0.5 Korean; 25% of SCD-off answers drift below
+   0.5), but the **uniform soft-penalty SCD does not fix it**: it rescues only
+   **2/19** drift cases to ≥ 0.5 while dragging **9/28** already-Korean answers
+   (≥ 0.7) below 0.65. As implemented, SCD delivers no reliable Korean-adherence
+   guarantee. This null result motivates **drift-conditional** language control as
+   future work (apply the penalty only when drift is detected, rather than
+   uniformly). Evidence: [scd_language_adherence.json](../results/analysis/scd_language_adherence.json).
 4. **Internal-validity check**: the retrieval-side axis (HyDE) moves context_recall
    (+0.026) while the decoder-side axes (CAD, SCD) leave it essentially unchanged
    (0.000, +0.013). Axes move the metrics they structurally should, and the four
