@@ -3,7 +3,7 @@
   "mode": "dry_safe_readiness_only",
   "freeze_performed": false,
   "frozen_params_yaml_written": false,
-  "final_frozen_params_yaml_exists": false,
+  "final_frozen_params_yaml_exists": true,
   "openai_used": false,
   "ragas_used": false,
   "network_used": false,
@@ -15,10 +15,10 @@
   ],
   "inputs": {
     "tuning_results": [
-      "..\\experiments\\results\\tuning\\phase8_tuning_comparison_15records_v2.jsonl"
+      "experiments\\results\\tuning\\phase8_tuning_comparison_15records_v2.jsonl"
     ],
     "eval_results": [
-      "..\\experiments\\results\\evaluation\\phase8_tuning_comparison_15records_v2.ragas_scores.json"
+      "experiments\\results\\evaluation\\phase8_tuning_comparison_15records_v2.ragas_scores.json"
     ],
     "query_split": "tuning_queries",
     "reference_count": 5
@@ -106,7 +106,7 @@
   "scored_eval_scan": {
     "scored_results_present": true,
     "scored_files": [
-      "..\\experiments\\results\\evaluation\\phase8_tuning_comparison_15records_v2.ragas_scores.json"
+      "experiments\\results\\evaluation\\phase8_tuning_comparison_15records_v2.ragas_scores.json"
     ],
     "rejected_files": [],
     "judge_consistent": true,

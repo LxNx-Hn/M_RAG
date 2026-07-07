@@ -1,6 +1,6 @@
 {
-  "source_scores": "../experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json",
-  "source_generation": "../experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl",
+  "source_scores": "experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json",
+  "source_generation": "experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl",
   "judge": {
     "provider": "nvidia_nim",
     "model": "meta/llama-3.3-70b-instruct",
