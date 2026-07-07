@@ -38,7 +38,12 @@ from common import (
     DEFAULT_MAX_NEW_TOKENS,
     DEFAULT_MODEL_TIER,
     DEFAULT_OUTPUT_DIR,
+    DEFAULT_SCD_ALPHA,
     DEFAULT_SCD_BETA,
+    DEFAULT_SCD_MODE,
+    DEFAULT_SCD_REFERENCE_BETA,
+    DEFAULT_SCD_REFERENCE_T_START,
+    DEFAULT_SCD_T_START,
     QUERY_SPLITS,
     REPO_ROOT,
     ConfigValidationError,
@@ -61,6 +66,8 @@ APPROVED_COLLECTION = "local_gt__papers"
 APPROVED_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
 RESULTS_ROOT = REPO_ROOT / "experiments" / "results"
 DEFAULT_FROZEN_PARAMS = REPO_ROOT / "experiments" / "configs" / "frozen_params.yaml"
+SCD_MODES = ("penalty_additive", "reference_scd", "prob_scale_logit_offset")
+SCD_V2_MODES = {"reference_scd", "prob_scale_logit_offset"}
 
 # Frozen keys the main run binds before execution (flat machine-readable form).
 REQUIRED_FROZEN_KEYS = (
@@ -94,7 +101,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--generation-model", default=DEFAULT_GENERATION_MODEL)
     parser.add_argument("--max-new-tokens", type=int, default=DEFAULT_MAX_NEW_TOKENS)
     parser.add_argument("--cad-alpha", type=float, default=DEFAULT_CAD_ALPHA)
-    parser.add_argument("--scd-beta", type=float, default=DEFAULT_SCD_BETA)
+    parser.add_argument("--scd-beta", type=float, default=None)
+    parser.add_argument("--scd-alpha", type=float, default=DEFAULT_SCD_ALPHA)
+    parser.add_argument("--scd-t-start", type=int, default=None)
+    parser.add_argument("--scd-mode", choices=SCD_MODES, default=DEFAULT_SCD_MODE)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--skip-existing", action="store_true")
     parser.add_argument(
@@ -119,6 +129,21 @@ def build_parser() -> argparse.ArgumentParser:
 def _env_disabled(name: str) -> bool:
     """True when an enable-flag env var is unset or explicitly '0'."""
     return os.environ.get(name, "0") == "0"
+
+
+def resolve_scd_defaults(args: argparse.Namespace) -> argparse.Namespace:
+    """Apply mode-dependent SCD defaults after argparse parses user intent."""
+    if args.scd_mode in SCD_V2_MODES:
+        if args.scd_beta is None:
+            args.scd_beta = DEFAULT_SCD_REFERENCE_BETA
+        if args.scd_t_start is None:
+            args.scd_t_start = DEFAULT_SCD_REFERENCE_T_START
+    else:
+        if args.scd_beta is None:
+            args.scd_beta = DEFAULT_SCD_BETA
+        if args.scd_t_start is None:
+            args.scd_t_start = DEFAULT_SCD_T_START
+    return args
 
 
 def read_frozen_params(path: Path) -> tuple[dict[str, float] | None, str | None]:
@@ -178,6 +203,13 @@ def check_main_generation_guards(args: argparse.Namespace) -> str | None:
         return f"generation model must be {APPROVED_MODEL} (MIDM Base)."
     if args.query_split != APPROVED_MAIN_SPLIT:
         return f"query split must be the approved main split {APPROVED_MAIN_SPLIT!r}."
+    if args.scd_mode in SCD_V2_MODES:
+        if os.environ.get("CONFIRM_SCD_V2_GENERATION") != "1":
+            return "CONFIRM_SCD_V2_GENERATION=1 is required for non-default SCD mode."
+        if args.experiment == DEFAULT_EXPERIMENT:
+            return "non-default SCD mode must use a non-default experiment id."
+    if args.scd_t_start < 0:
+        return "--scd-t-start must be >= 0."
     if args.config_limit is not None or args.limit is not None:
         return "--limit/--config-limit are not allowed for the full approved run."
     try:
@@ -213,6 +245,9 @@ def run_planner(args: argparse.Namespace) -> int:
         max_new_tokens=args.max_new_tokens,
         cad_alpha=args.cad_alpha,
         scd_beta=args.scd_beta,
+        scd_alpha=args.scd_alpha,
+        scd_t_start=args.scd_t_start,
+        scd_mode=args.scd_mode,
     )
     samples, skipped_existing = filter_existing_samples(
         samples,
@@ -263,7 +298,7 @@ def run_main_generation_execute(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    args = build_parser().parse_args()
+    args = resolve_scd_defaults(build_parser().parse_args())
     if args.execute:
         return run_main_generation_execute(args)
     return run_planner(args)

@@ -164,13 +164,16 @@ def _flags() -> dict[str, Any]:
 
 def execute_main_generation(args, params: dict[str, float]) -> int:
     import torch
-    from modules.scd_decoder import create_combined_processor
+    from modules.scd_decoder import create_combined_processor, extract_scd_metadata
 
     rerank_n = int(params.get("rerank_top_n", 5))
     ctx_n = int(params.get("context_chunk_count", rerank_n))
     pool = int(params.get("retrieval_pool_top_k", 20))
     cad_alpha = float(params.get("cad_alpha", 0.5))
-    scd_beta = float(params.get("scd_beta", 0.3))
+    scd_beta = float(getattr(args, "scd_beta", params.get("scd_beta", 0.3)))
+    scd_alpha = float(getattr(args, "scd_alpha", 1.1))
+    scd_t_start = int(getattr(args, "scd_t_start", 0))
+    scd_mode = str(getattr(args, "scd_mode", "penalty_additive"))
     max_new_tokens = int(params.get("max_new_tokens", 512))
 
     configs = validate_main_matrix()
@@ -197,6 +200,7 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                 hyde_used = False
                 meta: dict[str, Any] = {}
                 chunk_recs: list[dict[str, Any]] = []
+                scd_metadata: dict[str, Any] = {}
                 start = time.time()
                 try:
                     if doc_id is None:
@@ -233,6 +237,9 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                             cad_alpha=cad_alpha,
                             use_scd=config.use_scd,
                             scd_beta=scd_beta,
+                            scd_alpha=scd_alpha,
+                            scd_t_start=scd_t_start,
+                            scd_mode=scd_mode,
                         )
                     answer = gen.generate(
                         query=query,
@@ -241,6 +248,8 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                         logits_processor=proc,
                         force_greedy=True,
                     )
+                    if config.use_scd:
+                        scd_metadata = extract_scd_metadata(proc)
                 except torch.cuda.OutOfMemoryError as exc:
                     status = "failed"
                     error = {"type": "CudaOutOfMemoryError", "message": str(exc)[:1000]}
@@ -264,6 +273,35 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                     "cad_alpha": cad_alpha if config.use_cad else None,
                     "use_scd": config.use_scd,
                     "scd_beta": scd_beta if config.use_scd else None,
+                    "scd_alpha": scd_alpha if config.use_scd else None,
+                    "scd_t_start": scd_t_start if config.use_scd else None,
+                    "scd_mode": scd_mode if config.use_scd else None,
+                    "scd_variant": (
+                        scd_metadata.get("scd_variant") if config.use_scd else None
+                    ),
+                    "scd_warmup_basis": (
+                        scd_metadata.get("scd_warmup_basis") if config.use_scd else None
+                    ),
+                    "scd_vocab_partition": (
+                        scd_metadata.get("scd_vocab_partition")
+                        if config.use_scd
+                        else None
+                    ),
+                    "scd_reference_formula_applied": (
+                        scd_metadata.get("scd_reference_formula_applied")
+                        if config.use_scd
+                        else None
+                    ),
+                    "scd_project_whitelist_used": (
+                        scd_metadata.get("scd_project_whitelist_used")
+                        if config.use_scd
+                        else None
+                    ),
+                    "scd_processor_order": (
+                        scd_metadata.get("scd_processor_order")
+                        if config.use_scd
+                        else None
+                    ),
                     "decoding_mode": "deterministic_greedy",
                     "generation_model": APPROVED_MODEL_NAME,
                     "max_new_tokens": max_new_tokens,

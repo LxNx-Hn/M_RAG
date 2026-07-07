@@ -4,13 +4,13 @@ The main experiment found SCD (Korean-target Soft Constrained Decoding) to be a
 **null factor**: no effect on the four RAGAS metrics (|Δ| ≤ 0.013) and net-null on
 its own target, Korean-language adherence (paired mean Δ = **−0.014**; direct
 measurement in [scd_language_adherence.json](../results/analysis/scd_language_adherence.json)).
-This document explains the failure by comparing our implementation against the
-reference method it is based on.
+This document explains the Phase 8 result by comparing the SCD mode used in
+that run against the reference method it is based on.
 
 Reference: **Language Drift in Multilingual RAG: Characterization and Decoding-Time
 Mitigation**, arXiv 2511.09984 (https://arxiv.org/abs/2511.09984). The reference
-reports that SCD mitigates language drift; our implementation does not. The
-difference is that **we implemented only a weakened fragment of the method.**
+reports that SCD mitigates language drift; the Phase 8 run used the
+`penalty_additive` v1 application mode, not the literal reference formula.
 
 ## The reference SCD has three components
 
@@ -27,21 +27,35 @@ the target and warms up, rather than only penalizing distractors.
 
 ## What our code actually does
 
-`backend/modules/scd_decoder.py`, the only logit modification (line 211):
+The already-scored Phase 8 generations used `penalty_additive` v1. Its only
+logit modification was:
 
 ```python
 scores[:, self._non_target_ids] -= self.beta   # beta = 0.3, applied every step
 ```
 
-| Reference component | Our implementation | Status |
+| Reference component | Phase 8 `penalty_additive` v1 | Status |
 |---|---|---|
 | Vocab partition (target / neutral / distractor) | present (`_build_non_target_ids`) | ✅ matches |
 | β distractor penalty | **additive constant −0.3** (not the reference's multiplicative β<1.0) | ⚠️ weakened form |
 | **α target-language boost** | **absent** — Korean tokens are never up-weighted | ❌ missing |
 | **Cold-start smoothing (T_start)** | **absent** — penalty applied from token 0 | ❌ missing |
 
-We implemented roughly **one third** of the method — the distractor penalty only —
-and in its weakest (additive-constant) form.
+That v1 mode is an application-oriented, terminology-preserving variant, not a
+claim to be the full reference SCD.
+
+The repository now also exposes two opt-in SCD-v2 experiment modes:
+
+- `reference_scd`: literal original-paper SCD, using raw-logit multiplication
+  (`target *= alpha`, `distractor *= beta`) after generated-token warm-up. It
+  does **not** use the project technical whitelist, and it is the only mode that
+  may support "original/reference SCD" claims after a separate rerun.
+- `prob_scale_logit_offset`: engineering alternative using `target += log(alpha)`
+  and `distractor += log(beta)`. This is **not** the original-paper SCD formula.
+
+Existing Phase 8 result tables and scores remain `penalty_additive` v1 results.
+Any future claim about original SCD requires running a distinct
+`reference_scd` experiment.
 
 ## Why each gap produces the observed null
 
@@ -80,17 +94,9 @@ and in its weakest (additive-constant) form.
 ## Conclusion and future work
 
 The null result is not evidence that soft constrained decoding cannot work; it is
-evidence that a **penalty-only, additive, always-on** reduction of the reference method
-does not. To reproduce the reference's benefit, the implementation must add the two
-missing components and fix the third:
-
-1. add the **α > 1.0 target-language boost**;
-2. use **multiplicative** logit scaling (α>1.0 on target, β<1.0 on distractor) instead
-   of a flat additive penalty;
-3. add **cold-start smoothing** (activate constraints at `T_start`, not token 0);
-4. then tune (α, β, T_start) against the direct Korean-adherence objective.
-
-The vocab partition already in place is reusable; the gap is entirely in the logit
-adjustment and its schedule.
+evidence that the **penalty-only, additive, always-on** Phase 8 application mode
+does not. The literal `reference_scd` implementation is now available for a
+separate guarded rerun with `(alpha=1.1, beta=0.9, T_start=5)` defaults. It must
+be evaluated separately before being used in any result claim.
 
 Sources: [arXiv 2511.09984](https://arxiv.org/abs/2511.09984).

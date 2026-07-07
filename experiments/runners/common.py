@@ -26,6 +26,12 @@ DEFAULT_GENERATION_MODEL = "K-intelligence/Midm-2.0-Base-Instruct"
 DEFAULT_MAX_NEW_TOKENS = 512
 DEFAULT_CAD_ALPHA = 0.5
 DEFAULT_SCD_BETA = 0.3
+DEFAULT_SCD_ALPHA = 1.1
+DEFAULT_SCD_REFERENCE_BETA = 0.9
+DEFAULT_SCD_REFERENCE_T_START = 5
+DEFAULT_SCD_T_START = 0
+DEFAULT_SCD_MODE = "penalty_additive"
+SCD_V2_MODES = {"reference_scd", "prob_scale_logit_offset"}
 
 EXPECTED_CONFIGS: list[tuple[str, bool, bool, bool]] = [
     ("hyde_off__no_decoder_control", False, False, False),
@@ -73,13 +79,19 @@ class MatrixConfig:
         self,
         cad_alpha: float = DEFAULT_CAD_ALPHA,
         scd_beta: float = DEFAULT_SCD_BETA,
-    ) -> dict[str, bool | float]:
+        scd_alpha: float = DEFAULT_SCD_ALPHA,
+        scd_t_start: int = DEFAULT_SCD_T_START,
+        scd_mode: str = DEFAULT_SCD_MODE,
+    ) -> dict[str, Any]:
         return {
             "use_hyde": self.use_hyde,
             "use_cad": self.use_cad,
             "use_scd": self.use_scd,
             "cad_alpha": cad_alpha,
             "scd_beta": scd_beta,
+            "scd_alpha": scd_alpha,
+            "scd_t_start": scd_t_start,
+            "scd_mode": scd_mode,
         }
 
 
@@ -310,6 +322,9 @@ def build_planned_sample(
     max_new_tokens: int,
     cad_alpha: float = DEFAULT_CAD_ALPHA,
     scd_beta: float = DEFAULT_SCD_BETA,
+    scd_alpha: float = DEFAULT_SCD_ALPHA,
+    scd_t_start: int = DEFAULT_SCD_T_START,
+    scd_mode: str = DEFAULT_SCD_MODE,
 ) -> dict[str, Any]:
     query_id = str(query.get("query_id", "unknown"))
     output_path = planned_output_path(output_dir, experiment, config.name, query_id)
@@ -321,6 +336,9 @@ def build_planned_sample(
         "cad_alpha": cad_alpha,
         "use_scd": config.use_scd,
         "scd_beta": scd_beta,
+        "scd_alpha": scd_alpha,
+        "scd_t_start": scd_t_start,
+        "scd_mode": scd_mode,
         "top_k": 5,
         "max_new_tokens": max_new_tokens,
     }
@@ -345,8 +363,10 @@ def build_planned_sample(
             "scd": config.use_scd,
             "cad_alpha": cad_alpha,
             "scd_beta": scd_beta,
+            "scd_alpha": scd_alpha,
+            "scd_t_start": scd_t_start,
             "cad_mode": "exact" if config.use_cad else "off",
-            "scd_mode": "korean-target" if config.use_scd else "off",
+            "scd_mode": scd_mode if config.use_scd else "off",
         },
         "runtime_request": runtime_request,
         "output_path": relative_posix(output_path),
@@ -366,6 +386,9 @@ def build_plan(
     max_new_tokens: int,
     cad_alpha: float = DEFAULT_CAD_ALPHA,
     scd_beta: float = DEFAULT_SCD_BETA,
+    scd_alpha: float = DEFAULT_SCD_ALPHA,
+    scd_t_start: int = DEFAULT_SCD_T_START,
+    scd_mode: str = DEFAULT_SCD_MODE,
 ) -> list[dict[str, Any]]:
     samples: list[dict[str, Any]] = []
     for config_index, config in enumerate(configs, start=1):
@@ -382,6 +405,9 @@ def build_plan(
                     max_new_tokens=max_new_tokens,
                     cad_alpha=cad_alpha,
                     scd_beta=scd_beta,
+                    scd_alpha=scd_alpha,
+                    scd_t_start=scd_t_start,
+                    scd_mode=scd_mode,
                 )
             )
     return samples

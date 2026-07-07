@@ -17,6 +17,18 @@ HyDE is the retrieval-side evidence construction axis. CAD is the
 context-faithfulness decoding-time control axis. SCD is the Korean-target
 language-drift decoding-time control axis.
 
+SCD mode provenance matters:
+
+- `penalty_additive` is the default Phase 8 v1 application mode and preserves
+  the already-scored main results.
+- `reference_scd` is the literal arXiv:2511.09984 SCD formula
+  (`target *= alpha`, `distractor *= beta`) with generated-token warm-up and no
+  project technical whitelist. It is implemented only for separate guarded
+  reruns.
+- `prob_scale_logit_offset` is an engineering alternative
+  (`target += log(alpha)`, `distractor += log(beta)`) and must not be described
+  as the original reference SCD.
+
 ## Phase 6.5 Runner Readiness
 
 Phase 6.5 adds planning runners for future tuning and generation. They are not
