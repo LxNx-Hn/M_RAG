@@ -4,9 +4,9 @@
 
 Retrieval-Augmented Generation (RAG) is widely used to answer questions over external documents, but academic-paper question answering has two additional difficulties when Korean users ask questions about English papers. First, retrieval must bridge the linguistic and stylistic gap between Korean questions and English academic prose. Second, generation must remain faithful to retrieved evidence while producing a stable Korean answer. Even when relevant passages are retrieved, a language model may introduce parametric-memory hallucinations, copy English expressions into a Korean answer, or fail to preserve numeric and technical evidence.
 
-This thesis studies these problems through a controlled factor analysis of HyDE, Context-Aware Decoding (CAD), and Korean-target Soft Constrained Decoding (SCD). The main experiment uses a fixed Paper-RAG retrieval backbone and varies only three factors: HyDE on/off, CAD on/off, and SCD on/off. HyDE is treated as a retrieval-side evidence-construction factor, CAD as a decoding-time context-faithfulness factor, and SCD as a Korean-target language-drift-control factor. The central research question is how these factors and their interactions affect evidence support, numeric hallucination, language drift, Korean answer ratio, answer relevancy, and retrieval quality in Korean-query / English-paper RAG.
+This thesis studies these problems through a controlled factor analysis of HyDE, Context-Aware Decoding (CAD), and Korean-target Soft Constrained Decoding (SCD). The main experiment uses a fixed Paper-RAG retrieval backbone and varies only three factors: HyDE on/off, CAD on/off, and SCD on/off. HyDE is treated as a retrieval-side evidence-construction factor, CAD as a decoding-time context-faithfulness factor, and SCD as a Korean-target language-drift-control factor. The current scored run measures faithfulness, answer relevancy, context precision, context recall, and direct Korean-language adherence; numeric hallucination and query-type-specific routing remain planned analyses rather than measured result claims.
 
-The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and the derivation of a query-type-aware service policy from that analysis. The main experiment (19 queries × 8 configs = 152 generations, Mi:dm 2.0 Base on A100 80GB) has been executed and scored with RAGAS under a fixed NVIDIA NIM judge; result tables in Section 12 report the measured values. The headline findings are that CAD improves faithfulness (paired +0.044), HyDE improves answer relevancy and recall while lowering context precision, and Korean-target SCD is a null factor in its current form (see Sections 12 and the SCD failure analysis).
+The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and a global factor-effect-based provisional service policy from that analysis; query-type-aware refinement remains future work. The main experiment (19 queries × 8 configs = 152 generations, Mi:dm 2.0 Base on A100 80GB) has been executed and scored with RAGAS under a fixed NVIDIA NIM judge; result tables in Section 12 report the measured values. The headline findings are that CAD improves faithfulness (paired +0.044), HyDE improves answer relevancy and recall while lowering context precision, and Korean-target SCD is a null factor in its current form (see Sections 12 and the SCD failure analysis).
 
 ## 2. Introduction
 
@@ -22,13 +22,13 @@ This thesis therefore narrows the research contribution to three controllable fa
 - CAD: a decoding method that contrasts context-conditioned scores with no-context scores using the exact formula required by the method contract.
 - SCD: Korean-target Soft Constrained Decoding that discourages non-target-language tokens while preserving neutral tokens and technical terms.
 
-The graduation-project system layer remains important, but it serves a different purpose. The M-RAG chatbot demonstrates how the research can be integrated into a usable service. Its A-F routes are paper-review features, not the thesis novelty. The thesis asks what the HyDE/CAD/SCD analysis implies for those routes after query types are examined.
+The graduation-project system layer remains important, but it serves a different purpose. The M-RAG chatbot demonstrates how the research can be integrated into a usable service. Its A-F routes are paper-review features, not the thesis novelty. The current analysis supports only a global provisional service policy; query-type-specific routing requires a separate query-type analysis before it can be claimed as validated.
 
 The final intended contribution is the single core claim of this thesis. Every other statement in this document is one of: prior work supported by a citation, an implementation fact verifiable in the repository, a pre-experiment hypothesis, an experiment/analysis plan, or a verified result. No other sentence should be read as an independent novel claim.
 
-> **Core claim (본 논문의 유일한 독자 주장):** 고정된 Paper-RAG 검색 backbone 위에서 HyDE × CAD × SCD 완전요인실험을 수행하고, 각 요소의 효과와 상호작용을 query type별로 분석하여 한국어 질의-영어 논문 RAG의 구성 정책을 도출한다.
+> **Core claim (본 논문의 유일한 독자 주장):** 고정된 Paper-RAG 검색 backbone 위에서 HyDE × CAD × SCD 완전요인실험을 수행하고, 각 요소의 효과와 상호작용을 분석하여 한국어 질의-영어 논문 RAG의 전역 구성 정책을 임시적으로 도출한다. Query-type-specific policy is reserved for future analysis.
 
-본 연구는 고정된 Paper-RAG 검색 backbone 위에서 HyDE, CAD, SCD의 3개 factor를 조합하여 한국어 질의-영어 논문 RAG 환경의 근거 충실성, 수치 환각, 언어 이탈, 한국어 응답 안정성에 미치는 영향을 분석한다. 또한 이 분석 결과를 query type별로 해석하여 졸업작품 시스템인 M-RAG 논문 리뷰 챗봇의 Routed policy로 연결한다. 따라서 본 연구의 핵심 기여는 Modular/Routed RAG 자체를 새로운 알고리즘으로 제안하는 것이 아니라, HyDE/CAD/SCD 조합의 효과를 검증 가능한 실험 설계로 분해하고 이를 서비스 정책으로 환원하는 데 있다.
+본 연구는 고정된 Paper-RAG 검색 backbone 위에서 HyDE, CAD, SCD의 3개 factor를 조합하여 한국어 질의-영어 논문 RAG 환경의 근거 충실성, 언어 이탈, 한국어 응답 안정성, 응답 관련성, 검색 품질에 미치는 영향을 분석한다. 수치 환각과 query type별 routed policy는 현재 실행에서 측정된 결과가 아니라 후속 분석 대상으로 둔다. 따라서 본 연구의 핵심 기여는 Modular/Routed RAG 자체를 새로운 알고리즘으로 제안하는 것이 아니라, HyDE/CAD/SCD 조합의 효과를 검증 가능한 실험 설계로 분해하고 이를 전역 서비스 정책으로 제한적으로 환원하는 데 있다.
 
 ## 3. Background
 
@@ -68,17 +68,17 @@ BM25 is strong when the query contains exact terms. In paper QA, terms such as `
 
 Sparse retrieval alone is not enough for Korean-query English-paper RAG because Korean questions may not share tokens with English passages. It is therefore used as a complementary signal rather than a replacement for dense retrieval.
 
-### 3.4 Hybrid Retrieval and RRF
+### 3.4 Hybrid Retrieval and Weighted RRF
 
-Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. Reciprocal Rank Fusion (RRF) avoids score-scale mismatch by combining ranks instead of raw scores [5]:
+Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. The implementation uses weighted Reciprocal Rank Fusion (weighted RRF), with dense weight 0.6 and BM25 weight 0.4, to combine ranks instead of raw scores [5]:
 
 ```text
-RRF(d) = sum_i 1 / (k + rank_i(d))
+weighted_RRF(d) = 0.6 / (k + rank_dense(d)) + 0.4 / (k + rank_BM25(d))
 ```
 
 Here, \(rank_i(d)\) is the rank assigned by retrieval system \(i\), and \(k\) is a smoothing constant. A passage ranked highly by both dense retrieval and BM25 receives a strong fused rank. A passage found by only one retriever can still survive if it is highly ranked.
 
-In the fixed Paper-RAG backbone, hybrid retrieval is part of the frozen retrieval pipeline. HyDE is not part of the fixed backbone because it is one of the experimental axes. This separation lets the experiment ask whether HyDE improves evidence construction beyond the same dense/sparse/RRF backbone.
+In the fixed Paper-RAG backbone, hybrid retrieval is part of the frozen retrieval pipeline. HyDE is not part of the fixed backbone because it is one of the experimental axes. This separation lets the experiment ask whether HyDE improves evidence construction beyond the same dense/sparse/weighted-RRF backbone.
 
 ### 3.5 Reranking
 
@@ -245,7 +245,7 @@ BM25 is used to capture exact lexical evidence. It is particularly important for
 
 ### 7.4 Rank Fusion
 
-Dense and sparse candidates are fused with RRF. This avoids raw score calibration and allows both semantic and lexical candidates to contribute. RRF configuration is part of the fixed backbone.
+Dense and sparse candidates are fused with weighted RRF, using dense weight 0.6 and BM25 weight 0.4. This avoids raw score calibration and allows both semantic and lexical candidates to contribute. The weighted-RRF configuration is part of the fixed backbone.
 
 ### 7.5 Reranking
 
@@ -464,7 +464,7 @@ Means exclude null cells (583/608 scored). Source artifacts:
 | Backbone | Fixed Paper-RAG retrieval backbone |
 | Dense retrieval | BGE-M3 |
 | Sparse retrieval | BM25 |
-| Fusion | RRF |
+| Fusion | Weighted RRF (dense 0.6 / BM25 0.4) |
 | Reranking | CrossEncoder `ms-marco-MiniLM-L-6-v2` |
 | Generation model | Mi:dm 2.0 Base (`K-intelligence/Midm-2.0-Base-Instruct`), A100 80GB |
 | Frozen params | pool 8 / rerank 8 / context 5, cad_alpha 0.5, scd_beta 0.3, 512 tokens, greedy |
@@ -618,7 +618,7 @@ The M-RAG service integrates the research layer into a paper-review chatbot. It 
 
 These routes are useful for a graduation project because users do not interact with academic papers through one question type. They ask factual questions, request method explanations, compare papers, inspect citations, summarize documents, and generate study materials. The service router organizes these tasks.
 
-However, the route layer is not presented as the thesis algorithm. It is a runtime architecture that applies the research findings. After the HyDE/CAD/SCD matrix is evaluated, Table 7 should translate query-type results into route-level defaults. This makes the service integration evidence-driven rather than claim-driven.
+However, the route layer is not presented as the thesis algorithm. It is a runtime architecture that applies the research findings. The current run can support only global factor-effect defaults. Route-level defaults by query type require the future query-type analysis described in Table 4, which keeps the service integration evidence-driven rather than claim-driven.
 
 Runtime compatibility also matters. The service must preserve QueryRequest, QueryResponse, SSE streaming, paper APIs, citation APIs, and active document filtering. The thesis should mention these as engineering constraints, not as experimental variables.
 
@@ -655,10 +655,11 @@ This thesis reconstructs M-RAG around a focused research contribution: HyDE × C
 The main experiment was executed and scored under a fixed judge. The measured effects
 are: CAD improves faithfulness (+0.044 paired), HyDE trades context precision for higher
 answer relevancy and recall, and Korean-target SCD is a null factor in its current
-penalty-only form. These results yield an evidence-driven route policy (CAD on, HyDE
-conditional, SCD deferred) and a concrete SCD improvement path — restore the
-target-language boost, multiplicative scaling, and cold-start warm-up of the reference
-method — as the primary future work.
+penalty-only form. These results yield a global provisional service policy (CAD on,
+HyDE conditional, SCD deferred) and a concrete SCD improvement path: rerun the
+separate `reference_scd` mode with the target-language boost, multiplicative
+scaling, and generated-token warm-up of the reference method before making any
+claim about original SCD.
 
 ## 17. References
 

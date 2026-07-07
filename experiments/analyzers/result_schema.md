@@ -43,8 +43,19 @@ Required sample fields:
   "retrieval_reformulation": {
     "hyde": false,
     "hyde_mode": "off|on",
+    "translated_query": null,
     "hyde_query": null,
-    "hyde_document": null
+    "hyde_document": null,
+    "hyde_corpus_lang": null,
+    "hyde_generation_settings": {
+      "method": "generate_simple",
+      "model_name": "string|null",
+      "max_new_tokens": 512,
+      "temperature": 0.1,
+      "top_p": 0.9,
+      "do_sample": true,
+      "force_greedy": false
+    }
   },
   "decoder": {
     "cad": false,
@@ -83,4 +94,3 @@ Required sample fields:
   "errors": []
 }
 ```
-

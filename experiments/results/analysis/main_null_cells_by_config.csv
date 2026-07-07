@@ -1,0 +1,9 @@
+config,rows,total_cells,null_cells,faithfulness,answer_relevancy,context_precision,context_recall
+hyde_off__no_decoder_control,19,76,3,3,0,0,0
+hyde_off__cad_only,19,76,1,0,0,1,0
+hyde_off__scd_only,19,76,5,3,0,2,0
+hyde_off__cad_scd,19,76,2,0,0,2,0
+hyde_on__no_decoder_control,19,76,2,2,0,0,0
+hyde_on__cad_only,19,76,5,2,0,3,0
+hyde_on__scd_only,19,76,5,2,0,3,0
+hyde_on__cad_scd,19,76,2,2,0,0,0

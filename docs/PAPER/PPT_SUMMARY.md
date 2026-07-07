@@ -16,9 +16,9 @@
 
 ## 3. Research Question
 
-- How do HyDE, CAD, and SCD affect evidence support, numeric hallucination, and language drift?
-- Which query types benefit from each factor?
-- How should the graduation-project service route policy use those findings?
+- How do HyDE, CAD, and SCD affect the measured RAGAS metrics and Korean-language adherence?
+- What follow-up metrics are still needed for numeric hallucination and query-type-specific routing?
+- How should the graduation-project service use the current global factor-effect findings without overstating route-level validation?
 
 ## 4. Core Method
 

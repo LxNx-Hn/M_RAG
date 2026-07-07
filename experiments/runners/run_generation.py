@@ -17,7 +17,7 @@ fail-closed: it refuses unless EVERY guard passes (see
 
 The execution body REUSES the proven fixed-backbone path from
 ``run_alice_followup.py``: ``HybridRetriever.search_with_trace`` (BGE-M3 dense +
-BM25 + RRF) + CrossEncoder rerank + ContextCompressor, HyDE via
+BM25 + weighted RRF) + CrossEncoder rerank + ContextCompressor, HyDE via
 ``QueryExpander``, CAD+SCD via ``create_combined_processor``. The ``Generator``
 (MIDM Base) is instantiated ONCE per run and reused across all samples -- it is
 never reloaded per sample (the legacy per-sample reload caused CPU offload in

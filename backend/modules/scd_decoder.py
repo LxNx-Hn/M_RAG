@@ -307,6 +307,9 @@ class SCDDecoder(LogitsProcessor):
             0xAC00 <= code <= 0xD7A3  # 한글 음절 (가-힣)
             or 0x1100 <= code <= 0x11FF  # 한글 자모
             or 0x3130 <= code <= 0x318F  # 호환 자모
+            or 0xA960 <= code <= 0xA97F  # 한글 자모 확장-A
+            or 0xD7B0 <= code <= 0xD7FF  # 한글 자모 확장-B
+            or 0xFFA0 <= code <= 0xFFDC  # 반각 한글
         )
 
     @staticmethod

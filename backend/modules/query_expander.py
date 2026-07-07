@@ -9,6 +9,8 @@ from __future__ import annotations
 import logging
 from typing import Optional
 
+from config import TEMPERATURE, TOP_P
+
 logger = logging.getLogger(__name__)
 
 
@@ -96,6 +98,9 @@ class QueryExpander:
             "original": query,
             "queries": [query],
             "hyde_doc": None,
+            "hyde_query": None,
+            "hyde_corpus_lang": corpus_lang,
+            "hyde_generation_settings": None,
             "translated": None,
         }
 
@@ -109,6 +114,16 @@ class QueryExpander:
                 hyde_query = query
             else:
                 hyde_query = translated if translated else query
+            result["hyde_query"] = hyde_query
+            result["hyde_generation_settings"] = {
+                "method": "generate_simple",
+                "model_name": getattr(self.generator, "model_name", None),
+                "max_new_tokens": getattr(self.generator, "max_new_tokens", None),
+                "temperature": TEMPERATURE,
+                "top_p": TOP_P,
+                "do_sample": TEMPERATURE > 0,
+                "force_greedy": False,
+            }
             result["hyde_doc"] = self.expand_hyde(
                 hyde_query,
                 lang=corpus_lang,

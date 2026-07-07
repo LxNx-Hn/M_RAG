@@ -87,7 +87,9 @@ The product runtime keeps the A-F paper-review routes:
 - E: structured summary.
 - F: quiz / flashcard generation.
 
-These are service features. The route policy should be derived from the HyDE/CAD/SCD analysis by query type.
+These are service features. The current experiment supports only global
+HyDE/CAD/SCD factor-effect defaults; query-type-specific route policy requires
+a separate query-type analysis before it is claimed as validated.
 
 ## Quick Setup
 

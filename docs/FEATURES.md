@@ -13,7 +13,7 @@
 | 기능 | 코드 근거 | 목적 |
 |---|---|---|
 | A~E 연구 질의 라우팅 | `backend/modules/query_router.py` | 단순 QA, 섹션 질의, 비교, 인용, 요약 경로 선택 [7, 8, 17] |
-| 하이브리드 검색 | `backend/modules/hybrid_retriever.py` | Dense(BGE-M3) + BM25 + RRF 결합 [2, 22, 23] |
+| 하이브리드 검색 | `backend/modules/hybrid_retriever.py` | Dense(BGE-M3, weight 0.6) + BM25(weight 0.4) + weighted RRF 결합 [2, 22, 23] |
 | 재랭킹 | `backend/modules/reranker.py` | Cross-encoder로 검색 결과 순서 개선 [14] |
 | 컨텍스트 압축 | `backend/modules/context_compressor.py` | 추출/생성 압축으로 근거 압축 [11, 12, 19] |
 | CAD | `backend/modules/cad_decoder.py` | 파라메트릭 지식 개입 억제 (α=0.5) [3, 4] |

@@ -54,7 +54,10 @@ A-F routes are runtime service features. They are preserved for the graduation-p
 | E | structured summary | service feature |
 | F | quiz / flashcard generation | service feature |
 
-The route policy should be derived from the HyDE/CAD/SCD analysis by query type. The router is not claimed as the core thesis algorithm.
+The current factor analysis supports only global HyDE/CAD/SCD defaults. A
+query-type-specific route policy requires a separate query-type analysis before
+it is claimed as validated. The router is not claimed as the core thesis
+algorithm.
 
 ## Experiment Layer
 

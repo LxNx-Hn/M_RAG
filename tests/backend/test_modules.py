@@ -4,6 +4,7 @@ import pytest
 import torch
 
 from modules.query_router import QueryRouter, RouteType
+from modules.query_expander import QueryExpander
 from modules.scd_decoder import (
     SCDDecoder,
     create_combined_processor,
@@ -57,6 +58,16 @@ class MockGenerator:
         }
 
 
+class MockTextGenerator:
+    model_name = "mock-model"
+    max_new_tokens = 123
+
+    def generate_simple(self, prompt):
+        if "Translate the following Korean academic question" in prompt:
+            return "translated question"
+        return "hypothetical HyDE passage"
+
+
 @pytest.fixture(scope="module")
 def mock_tokenizer():
     return MockTokenizer()
@@ -81,11 +92,36 @@ def test_query_router_compare():
     assert len(decision.target_doc_ids) == 2
 
 
+def test_query_expander_records_hyde_provenance():
+    expander = QueryExpander(MockTextGenerator())
+    expansion = expander.expand(
+        "한국어 질문",
+        use_hyde=True,
+        use_multi=False,
+        corpus_lang="en",
+    )
+
+    assert expansion["translated"] == "translated question"
+    assert expansion["hyde_query"] == "translated question"
+    assert expansion["hyde_doc"] == "hypothetical HyDE passage"
+    assert expansion["hyde_corpus_lang"] == "en"
+    assert expansion["hyde_generation_settings"]["method"] == "generate_simple"
+    assert expansion["hyde_generation_settings"]["model_name"] == "mock-model"
+    assert expansion["hyde_generation_settings"]["max_new_tokens"] == 123
+    assert expansion["hyde_generation_settings"]["temperature"] == pytest.approx(0.1)
+    assert expansion["hyde_generation_settings"]["top_p"] == pytest.approx(0.9)
+    assert expansion["hyde_generation_settings"]["do_sample"]
+    assert not expansion["hyde_generation_settings"]["force_greedy"]
+
+
 def test_scd_decoder_is_korean(mock_tokenizer):
     scd = SCDDecoder(tokenizer=mock_tokenizer, target_lang="ko", beta=0.3)
     # Valid Korean/Common tokens
     assert scd._is_target_or_common("가")
     assert scd._is_target_or_common("ㄱ")
+    assert scd._is_target_or_common("\ua960")
+    assert scd._is_target_or_common("\ud7b0")
+    assert scd._is_target_or_common("\uffa1")
     assert scd._is_target_or_common(" ")
     assert scd._is_target_or_common("1")
     assert scd._is_target_or_common(".")

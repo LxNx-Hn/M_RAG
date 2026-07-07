@@ -5,8 +5,8 @@ passes, so this module's heavy backend/torch imports never load during planning,
 ``--help``, or a refused run.
 
 It REUSES the proven fixed-backbone path from ``run_alice_followup.py``:
-- retrieval: ``HybridRetriever.search_with_trace`` (BGE-M3 dense + BM25 + RRF)
-  + CrossEncoder rerank + ``ContextCompressor``
+- retrieval: ``HybridRetriever.search_with_trace`` (BGE-M3 dense + BM25 +
+  weighted RRF) + CrossEncoder rerank + ``ContextCompressor``
 - HyDE: ``QueryExpander``
 - CAD + SCD: ``modules.scd_decoder.create_combined_processor``
 - generation: ``modules.generator.Generator`` -- instantiated ONCE per run and
@@ -198,6 +198,11 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                 error = None
                 answer = ""
                 hyde_used = False
+                hyde_doc = None
+                hyde_query = None
+                hyde_translated_query = None
+                hyde_corpus_lang = None
+                hyde_generation_settings = None
                 meta: dict[str, Any] = {}
                 chunk_recs: list[dict[str, Any]] = []
                 scd_metadata: dict[str, Any] = {}
@@ -205,7 +210,6 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                 try:
                     if doc_id is None:
                         raise RuntimeError("query has no resolvable doc_id.")
-                    hyde_doc = None
                     if config.use_hyde:
                         corpus_lang = c["hybrid"].get_collection_lang(
                             APPROVED_COLLECTION, doc_id_filter=doc_id
@@ -217,6 +221,12 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                             corpus_lang=corpus_lang,
                         )
                         hyde_doc = expansion.get("hyde_doc")
+                        hyde_query = expansion.get("hyde_query")
+                        hyde_translated_query = expansion.get("translated")
+                        hyde_corpus_lang = expansion.get("hyde_corpus_lang")
+                        hyde_generation_settings = expansion.get(
+                            "hyde_generation_settings"
+                        )
                         hyde_used = hyde_doc is not None
                     context, compressed, meta = retrieve_fixed_backbone(
                         c,
@@ -269,6 +279,15 @@ def execute_main_generation(args, params: dict[str, float]) -> int:
                     "retrieval_mode": "fixed_backbone",
                     "use_hyde": config.use_hyde,
                     "hyde_used": hyde_used,
+                    "retrieval_reformulation": {
+                        "hyde": config.use_hyde,
+                        "hyde_mode": "on" if config.use_hyde else "off",
+                        "translated_query": hyde_translated_query,
+                        "hyde_query": hyde_query,
+                        "hyde_document": hyde_doc,
+                        "hyde_corpus_lang": hyde_corpus_lang,
+                        "hyde_generation_settings": hyde_generation_settings,
+                    },
                     "use_cad": config.use_cad,
                     "cad_alpha": cad_alpha if config.use_cad else None,
                     "use_scd": config.use_scd,
