@@ -46,10 +46,14 @@ analysis. This runner produces measurement inputs only.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 import math
 import os
+import re
 import sys
+import time
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from importlib.util import find_spec
@@ -74,6 +78,9 @@ EXECUTION_DEPS = ("ragas", "datasets", "langchain_openai", "langchain_huggingfac
 CONFIRM_ENV = "CONFIRM_OFFICIAL_RAGAS_EXECUTION"
 LOCAL_EMBEDDINGS_MODEL = "BAAI/bge-m3"
 ENV_FILE = REPO / ".env"  # gitignored local secrets file
+DIAGNOSTIC_BODY_EXCERPT_CHARS = 2000
+DIAGNOSTIC_SIGNATURE_CHARS = 80
+NVAPI_KEY_RE = re.compile(r"nvapi-[A-Za-z0-9_-]+")
 
 
 def _load_key_from_env_file(var_name: str) -> str:
@@ -279,6 +286,189 @@ def _mean_ignoring_none(values: list[float | None]) -> float | None:
     return round(sum(xs) / len(xs), 4) if xs else None
 
 
+def _utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _redact_api_keys(text: str, api_key: str = "") -> str:
+    redacted = NVAPI_KEY_RE.sub("[REDACTED_API_KEY]", text)
+    if api_key:
+        redacted = redacted.replace(api_key, "[REDACTED_API_KEY]")
+    return redacted
+
+
+def _diagnostic_body_excerpt(value: Any, api_key: str) -> str | None:
+    if value is None:
+        return None
+    text = _redact_api_keys(str(value), api_key)
+    return text[:DIAGNOSTIC_BODY_EXCERPT_CHARS]
+
+
+def _exception_status_code(exc: BaseException) -> int | None:
+    status_code = getattr(exc, "status_code", None)
+    if status_code is None:
+        response = getattr(exc, "response", None)
+        status_code = getattr(response, "status_code", None)
+    return status_code if isinstance(status_code, int) else None
+
+
+def _exception_body_excerpt(exc: BaseException, api_key: str) -> str | None:
+    body = getattr(exc, "body", None)
+    if body is not None:
+        return _diagnostic_body_excerpt(body, api_key)
+    response = getattr(exc, "response", None)
+    if response is None:
+        return None
+    try:
+        response_text = getattr(response, "text", None)
+    except Exception as response_exc:  # pragma: no cover - defensive only
+        response_text = f"<failed to read response text: {type(response_exc).__name__}>"
+    return _diagnostic_body_excerpt(response_text, api_key)
+
+
+def _round_elapsed(started_at: float | None) -> float | None:
+    if started_at is None:
+        return None
+    return round(time.perf_counter() - started_at, 4)
+
+
+def _build_diagnostic_http_async_client(
+    diagnostic_records: list[dict[str, Any]],
+    *,
+    out_path: Path,
+    api_key: str,
+    timeout: int,
+) -> Any:
+    import httpx
+
+    def append_diagnostic_record(record: dict[str, Any]) -> None:
+        diagnostic_records.append(record)
+        _write_ragas_failure_diagnostics(
+            out_path,
+            diagnostic_records,
+            api_key=api_key,
+        )
+
+    async def response_hook(response: httpx.Response) -> None:
+        started_at = response.request.extensions.get("mrag_diagnostic_started_at")
+        timestamp = response.request.extensions.get("mrag_diagnostic_timestamp")
+        status_code = response.status_code
+        success = status_code < 400
+        body_excerpt = None
+        if not success:
+            try:
+                await response.aread()
+                body_excerpt = _diagnostic_body_excerpt(response.text, api_key)
+            except Exception as exc:  # pragma: no cover - network edge case
+                body_excerpt = _diagnostic_body_excerpt(
+                    f"<failed to read response body: {type(exc).__name__}>",
+                    api_key,
+                )
+        append_diagnostic_record(
+            {
+                "timestamp": timestamp or _utc_now_iso(),
+                "elapsed_seconds": _round_elapsed(started_at),
+                "job_hint": None,
+                "success": success,
+                "status_code": status_code,
+                "exception_class": None,
+                "body_excerpt": body_excerpt,
+            }
+        )
+
+    class DiagnosticAsyncClient(httpx.AsyncClient):
+        async def send(self, request: httpx.Request, *args: Any, **kwargs: Any):
+            request.extensions["mrag_diagnostic_started_at"] = time.perf_counter()
+            request.extensions["mrag_diagnostic_timestamp"] = _utc_now_iso()
+            try:
+                return await super().send(request, *args, **kwargs)
+            except Exception as exc:
+                append_diagnostic_record(
+                    {
+                        "timestamp": request.extensions["mrag_diagnostic_timestamp"],
+                        "elapsed_seconds": _round_elapsed(
+                            request.extensions["mrag_diagnostic_started_at"]
+                        ),
+                        "job_hint": None,
+                        "success": False,
+                        "status_code": _exception_status_code(exc),
+                        "exception_class": type(exc).__name__,
+                        "body_excerpt": _exception_body_excerpt(exc, api_key),
+                    }
+                )
+                raise
+
+    return DiagnosticAsyncClient(
+        event_hooks={"response": [response_hook]},
+        timeout=timeout,
+    )
+
+
+def _close_diagnostic_http_async_client(client: Any) -> None:
+    if client is None:
+        return
+    asyncio.run(client.aclose())
+
+
+def _diagnostic_error_signature(record: dict[str, Any]) -> str:
+    status_code = record.get("status_code")
+    status = str(status_code) if status_code is not None else "no_status"
+    message = record.get("body_excerpt") or record.get("exception_class") or "no_body"
+    normalized_message = " ".join(str(message).split())
+    return f"{status} {normalized_message[:DIAGNOSTIC_SIGNATURE_CHARS]}"
+
+
+def _build_ragas_failure_diagnostics_payload(
+    diagnostic_records: list[dict[str, Any]],
+    *,
+    api_key: str,
+) -> dict[str, Any]:
+    redacted_records = json.loads(
+        _redact_api_keys(
+            json.dumps(diagnostic_records, ensure_ascii=False),
+            api_key,
+        )
+    )
+    failures = [r for r in redacted_records if not r.get("success", False)]
+    by_status_code = Counter(
+        str(r.get("status_code")) if r.get("status_code") is not None else "no_status"
+        for r in failures
+    )
+    by_error_signature = Counter(_diagnostic_error_signature(r) for r in failures)
+    payload = {
+        "generated_at": _utc_now_iso(),
+        "record_count": len(redacted_records),
+        "failure_count": len(failures),
+        "summary": {
+            "by_status_code": dict(sorted(by_status_code.items())),
+            "by_error_signature": dict(sorted(by_error_signature.items())),
+        },
+        "records": redacted_records,
+    }
+    return payload
+
+
+def _write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    tmp_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    os.replace(tmp_path, path)
+
+
+def _write_ragas_failure_diagnostics(
+    path: Path,
+    diagnostic_records: list[dict[str, Any]],
+    *,
+    api_key: str,
+) -> None:
+    payload = _build_ragas_failure_diagnostics_payload(
+        diagnostic_records,
+        api_key=api_key,
+    )
+    _write_json_atomic(path, payload)
+
+
 def execute_official_ragas(
     records: list[dict[str, Any]],
     metrics: list[str],
@@ -290,6 +480,9 @@ def execute_official_ragas(
     max_workers: int = 8,
     judge_timeout: int = 360,
     task_timeout: int = 2400,
+    diagnostics: bool = True,
+    run_max_retries: int = 10,
+    run_max_wait: int = 60,
 ) -> int:
     """Approved scored execution. Double-gated and fail-closed.
 
@@ -356,8 +549,32 @@ def execute_official_ragas(
             for r in records
         ]
     )
-    judge_llm = LangchainLLMWrapper(
-        ChatOpenAI(
+    diagnostic_records: list[dict[str, Any]] = []
+    diagnostic_http_async_client = None
+    diagnostics_path: Path | None = None
+    if diagnostics:
+        diagnostics_path = out_dir / f"{stem}.ragas_failure_diagnostics.json"
+        diagnostic_http_async_client = _build_diagnostic_http_async_client(
+            diagnostic_records,
+            out_path=diagnostics_path,
+            api_key=api_key,
+            timeout=judge_timeout,
+        )
+        chat_model = ChatOpenAI(
+            base_url=judge.base_url,
+            api_key=api_key,
+            model=judge.resolved_model,
+            temperature=0.0,
+            # NIM endpoints queue requests and stream slowly for long Korean
+            # judging payloads (observed 60-150s per call). The retry chain
+            # (timeout x retries) must stay BELOW the task timeout, and the
+            # task timeout must cover context_precision's ~5-call chain.
+            timeout=judge_timeout,
+            max_retries=2,
+            http_async_client=diagnostic_http_async_client,
+        )
+    else:
+        chat_model = ChatOpenAI(
             base_url=judge.base_url,
             api_key=api_key,
             model=judge.resolved_model,
@@ -369,17 +586,27 @@ def execute_official_ragas(
             timeout=judge_timeout,
             max_retries=2,
         )
-    )
+    judge_llm = LangchainLLMWrapper(chat_model)
     embeddings = LangchainEmbeddingsWrapper(
         HuggingFaceEmbeddings(model_name=LOCAL_EMBEDDINGS_MODEL)
     )
-    result = evaluate(
-        dataset,
-        metrics=metric_list,
-        llm=judge_llm,
-        embeddings=embeddings,
-        run_config=RunConfig(max_workers=max_workers, timeout=task_timeout),
+    run_config = RunConfig(
+        max_workers=max_workers,
+        timeout=task_timeout,
+        max_retries=run_max_retries,
+        max_wait=run_max_wait,
+        log_tenacity=True,
     )
+    try:
+        result = evaluate(
+            dataset,
+            metrics=metric_list,
+            llm=judge_llm,
+            embeddings=embeddings,
+            run_config=run_config,
+        )
+    finally:
+        _close_diagnostic_http_async_client(diagnostic_http_async_client)
     df = result.to_pandas()
 
     metric_cols = [m for m in dict.fromkeys(metrics)]
@@ -418,6 +645,13 @@ def execute_official_ragas(
             "runtime": "local (no API)",
         },
         "ragas_version": getattr(_ragas, "__version__", "unknown"),
+        "ragas_run_config": {
+            "max_workers": max_workers,
+            "timeout": task_timeout,
+            "max_retries": run_max_retries,
+            "max_wait": run_max_wait,
+            "log_tenacity": True,
+        },
         "metrics": metric_cols,
         "dataset_record_count": len(records),
         "scores": scores,
@@ -439,6 +673,13 @@ def execute_official_ragas(
     )
     print(json.dumps({**payload, "per_sample": "..."}, ensure_ascii=False, indent=2))
     print(f"\nScores written: {scores_path}")
+    if diagnostics and diagnostics_path is not None:
+        _write_ragas_failure_diagnostics(
+            diagnostics_path,
+            diagnostic_records,
+            api_key=api_key,
+        )
+        print(f"Diagnostics written: {diagnostics_path}")
     return 0
 
 
@@ -504,6 +745,27 @@ def build_parser() -> argparse.ArgumentParser:
         default=2400,
         help="Per-RAGAS-job timeout in seconds; must exceed judge-timeout x "
         "retries x calls-per-job (context_precision chains ~5 calls).",
+    )
+    p.add_argument(
+        "--diagnostics",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help=(
+            "Write companion RAGAS judge HTTP diagnostics "
+            "(default: enabled; use --no-diagnostics to disable)."
+        ),
+    )
+    p.add_argument(
+        "--run-max-retries",
+        type=int,
+        default=10,
+        help="RAGAS RunConfig max_retries (default: 10, matching RAGAS default).",
+    )
+    p.add_argument(
+        "--run-max-wait",
+        type=int,
+        default=60,
+        help="RAGAS RunConfig max_wait in seconds (default: 60, matching RAGAS default).",
     )
     return p
 
@@ -577,6 +839,9 @@ def main() -> int:
             max_workers=args.max_workers,
             judge_timeout=args.judge_timeout,
             task_timeout=args.task_timeout,
+            diagnostics=args.diagnostics,
+            run_max_retries=args.run_max_retries,
+            run_max_wait=args.run_max_wait,
         )
     return 0 if not errors else 1
 
