@@ -13,6 +13,22 @@ This file is specific to the corrected `reference_scd` experiment track:
 
 Security rule for this handoff: never print, copy, summarize, partially reveal, truncate, or commit actual secret values into logs, reports, prompts, commits, or shell output. Refer only to environment variable names such as `NVIDIA_API_KEY` / `OPENAI_API_KEY` and secret file paths such as repo-root `.env` or remote `~/M_RAG/.env`. Do not run `cat .env` or any command that prints key contents. To verify presence, use count-only checks such as `grep -c "^NVIDIA_API_KEY=" ~/M_RAG/.env`.
 
+**This repo is public on GitHub.** An earlier commit this session briefly
+included the live Alice SSH host/port/username in this file; that was
+identified as an unnecessary infrastructure-identifier exposure (no
+credential VALUE was included — the private key never leaves the local
+machine — but the live, reachable endpoint itself should not be public),
+and git history was rewritten to remove it before the final push. Going
+forward, this file references connection details only via a **local,
+gitignored file**: `.alice_connection_info` at the repo root (not committed,
+create it yourself if missing, or ask the project owner for the current
+Alice SSH host/port/user — the exact endpoint may have changed if the
+instance was retired/reprovisioned since this handoff was written). Every
+SSH command below is written generically; substitute your own connection
+details from that local file. Do not commit live infrastructure connection
+strings (host/port/username), even without a credential value attached —
+flag it to the project owner before committing, not after.
+
 ## Current State Summary
 
 The corrected `reference_scd` generation is complete and committed. The official NVIDIA-NIM RAGAS scoring loop is running on Alice and should be monitored until it converges or exhausts retries. Once official scoring completes, the remaining work is to pull the official scoring artifacts locally, run the established analyzers, write `experiments/reports/reference_scd_rerun_report.md`, verify the touched files, and commit only the intended outputs.
@@ -26,7 +42,7 @@ Do not treat the old `main-hyde-cad-scd` / `penalty_additive` v1 result as corre
 - SSH connection, already provisioned from this machine:
 
 ```bash
-ssh -i ~/.alice/alice.pem -p ALICE_PORT_REDACTED -o StrictHostKeyChecking=no ALICE_USER_AT_HOST_REDACTED
+ssh -i ~/.alice/alice.pem -p "$ALICE_PORT" -o StrictHostKeyChecking=no "$ALICE_USER@$ALICE_HOST"
 ```
 
 - Remote repo: `~/M_RAG`.
@@ -110,7 +126,7 @@ Expected contents:
 This is read-only and safe to re-run anytime. It does not print secret values.
 
 ```bash
-ssh -i ~/.alice/alice.pem -p ALICE_PORT_REDACTED -o ConnectTimeout=15 -o StrictHostKeyChecking=no ALICE_USER_AT_HOST_REDACTED '
+ssh -i ~/.alice/alice.pem -p "$ALICE_PORT" -o ConnectTimeout=15 -o StrictHostKeyChecking=no "$ALICE_USER@$ALICE_HOST" '
 ps aux | grep run_scoring_until_converged | grep -v grep
 grep -oE "Evaluating:[^]]*\][^E]*" ~/scoring_loop.log | tail -1
 grep -E "^pass [0-9]+:|converged:|did not converge:" ~/scoring_loop.log | tail -5
@@ -251,7 +267,7 @@ This was fixed this session: `report["conclusion"]` is now computed dynamically 
 
 This fix has not yet been committed. Folding it into the same commit as the rest of Task 18's analysis outputs is acceptable, or it can be committed as its own small fix. The project owner has not specified which; use judgment. Do not leave it uncommitted indefinitely.
 
-## Pending New Work: Translated BLEU/ROUGE (requested, build interrupted by local reboot)
+## Translated BLEU/ROUGE (built, committed, chained on Alice — DONE as of this handoff)
 
 The project owner asked to also evaluate `reference_scd` the same way the reference paper does: BLEU/ROUGE against a reference answer. This is NOT a drop-in reuse of the existing `answer_span` reference, because of a real methodological mismatch discovered this session:
 
@@ -259,25 +275,50 @@ The project owner asked to also evaluate `reference_scd` the same way the refere
 - SCD's whole point is to push generation toward **Korean**.
 - Raw BLEU/ROUGE of a correctly-Korean SCD-on answer against an English reference would mechanically score low for reasons unrelated to answer quality — the same unfairness problem the paper itself designed around with its own "Translation-Based Evaluation" baseline (translate drifted outputs back into the target language before scoring BLEU/ROUGE).
 
-**Decision (approved by the project owner): mirror the paper's own fix.** Translate each `reference_scd` generated answer into English (via the same official NVIDIA NIM judge already used for RAGAS scoring), THEN compute BLEU/ROUGE against the existing English `answer_span`. This was approved as "option 3" of three choices presented (skip it / run it raw with heavy caveats / translate-then-score) and should run **appended after the official NIM RAGAS scoring loop finishes** on Alice — not concurrently with it, not replacing it.
+**Decision (approved by the project owner): mirror the paper's own fix.** Translate each `reference_scd` generated answer into English (via the same official NVIDIA NIM judge already used for RAGAS scoring), THEN compute BLEU/ROUGE against the existing English `answer_span`. This was approved as "option 3" of three choices presented (skip it / run it raw with heavy caveats / translate-then-score).
 
-### Status at this handoff: build in progress, NOT finished, NOT committed
+### Status at this handoff: fully built, verified, committed, pushed, and already chained/running on Alice
 
-A Codex CLI background task was writing a new file,
-`experiments/evaluators/translated_bleu_rouge_runner.py`, when the project
-owner's local PC reboot interrupted the calling session. That background
-process runs locally (not on Alice) and does NOT survive a local reboot, so
-treat this as **not done** regardless of what partial file content may or
-may not exist on disk — verify from scratch:
+`experiments/evaluators/translated_bleu_rouge_runner.py` exists, is committed
+at `8d4066d` (pushed to `origin/main`), and passed independent verification
+by the calling session: `py_compile`, `ruff check`, `black --check`, a
+zero-network dry-validation run (152/152 reference coverage, 0 missing),
+and a confirmed clean refusal of `--execute` without the confirm env var
+set. Nothing further needs to be built — treat the design notes below as
+reference/provenance only, not a to-do list, unless something is found to
+be broken.
+
+A waiter script is ALREADY launched and running on Alice, chained to start
+this evaluator automatically the moment the NIM RAGAS scoring loop exits:
 
 ```bash
-ls -la experiments/evaluators/translated_bleu_rouge_runner.py
-git status --short experiments/evaluators/translated_bleu_rouge_runner.py experiments/requirements-eval.txt
+ssh -i ~/.alice/alice.pem -p "$ALICE_PORT" -o ConnectTimeout=15 -o StrictHostKeyChecking=no "$ALICE_USER@$ALICE_HOST" '
+ps aux | grep -E "wait_and_run|run_scoring_until_converged|translated_bleu_rouge" | grep -v grep
+cat ~/bleu_rouge_translation.log
+'
 ```
 
-If the file does not exist, or exists but is incomplete/uncompiled, it must
-be (re)built. Full design spec, so this can be redone from scratch without
-any other context:
+- Waiter script: `~/wait_and_run_bleu_rouge.sh` on Alice (PID `2661` at last
+  check, launched via `nohup ... & disown`, verified alive across an
+  independent fresh SSH session).
+- It polls every 60s for `run_scoring_until_converged.py` to exit, then
+  automatically: activates `~/eval_venv`, `pip install`s the two new deps
+  from `experiments/requirements-eval.txt`, sets
+  `CONFIRM_TRANSLATED_BLEU_ROUGE_EXECUTION=1`, and runs
+  `translated_bleu_rouge_runner.py --execute` against the `reference_scd`
+  generation file, writing to
+  `experiments/results/evaluation/main-hyde-cad-scd-reference-scd-bleu-rouge/`.
+- Its own log: `~/bleu_rouge_translation.log` (empty until the NIM loop
+  exits and this stage actually starts — that is expected, not a failure).
+- If, on resuming this session, the waiter process is gone AND
+  `~/bleu_rouge_translation.log` shows no completion line, re-launch it:
+  `ssh ... 'nohup ~/wait_and_run_bleu_rouge.sh > ~/bleu_rouge_translation.log 2>&1 & disown'`
+  (the script file itself is still on Alice from this session; use the
+  ABSOLUTE path `~/wait_and_run_bleu_rouge.sh`, not `./wait_and_run_bleu_rouge.sh`
+  after a `cd` — a relative-path mistake caused one failed launch attempt
+  this session before the working absolute-path version above).
+
+### Design notes (reference/provenance only — already implemented, do not redo)
 
 **New file**: `experiments/evaluators/translated_bleu_rouge_runner.py`, in
 the same guarded-execution style as `experiments/evaluators/official_ragas_runner.py`
@@ -336,40 +377,24 @@ optionally a `--execute`-free dry-validation run (zero network calls, safe)
 against the reference_scd generation file. Then `ruff check` and
 `black --check`. Then commit + push so Alice can `git pull` it.
 
-### After the script exists: chaining it onto the end of the Alice run
+### Chaining onto the end of the Alice run — ALREADY DONE, see the status section above
 
-This was requested to run automatically right after the official NIM RAGAS
-scoring loop finishes, without a human needing to come back and trigger it
-manually. Recommended mechanism (same nohup/disown pattern already proven
-in this project): SSH to Alice and launch a small waiter wrapper that polls
-for the `run_scoring_until_converged.py` process (PID 228 at last check,
-re-find via `ps aux | grep run_scoring_until_converged | grep -v grep`) to
-exit, THEN launches the new evaluator with `--execute`:
+This section is superseded — the waiter is already built, launched, and
+verified alive (see "Status at this handoff" above). It is kept here only
+as a record of what NOT to do: the first launch attempt used a nested
+`ssh '... nohup bash -lc "..." ...'` one-liner with escaped inner quotes,
+which silently failed to actually background the process (no error was
+raised, but nothing was running when checked afterward). The fix that
+worked: write the wrapper to a plain `.sh` file on Alice via an SSH heredoc
+first, `chmod +x` it, then `nohup <absolute-path-to-script> > log 2>&1 &
+disown` it as its own step — avoid nested quoting across an SSH command
+boundary for anything more than a couple of lines; write a file instead.
 
-```bash
-ssh -i ~/.alice/alice.pem -p ALICE_PORT_REDACTED -o StrictHostKeyChecking=no ALICE_USER_AT_HOST_REDACTED '
-cd ~/M_RAG
-git pull --ff-only origin main
-nohup bash -lc "
-while ps aux | grep -q \"[r]un_scoring_until_converged\"; do sleep 60; done
-source ~/eval_venv/bin/activate
-python -m pip install -r experiments/requirements-eval.txt --quiet
-export CONFIRM_TRANSLATED_BLEU_ROUGE_EXECUTION=1
-python experiments/evaluators/translated_bleu_rouge_runner.py \
-  --generation-results experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl \
-  --query-split decoder_main_queries \
-  --judge nvidia_nim \
-  --out-dir experiments/results/evaluation/main-hyde-cad-scd-reference-scd-bleu-rouge \
-  --execute
-" > ~/bleu_rouge_translation.log 2>&1 & disown
-echo launched
-'
-```
-
-Adjust the `--out-dir` if the project owner prefers a different location,
-but keep it a SEPARATE directory from the RAGAS scores (this is a different
-metric family, not one of the four RAGAS metrics — do not mix the two
-result sets in one directory).
+The `--out-dir` used is
+`experiments/results/evaluation/main-hyde-cad-scd-reference-scd-bleu-rouge/`
+— a directory SEPARATE from the RAGAS scores (this is a different metric
+family, not one of the four RAGAS metrics — do not mix the two result sets
+in one directory).
 
 ### How to interpret/report this metric once it lands
 
