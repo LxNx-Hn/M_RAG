@@ -1,0 +1,39 @@
+{
+  "mode": "dry_validation_only",
+  "official_ragas_execution": "gated_behind_CONFIRM_OFFICIAL_RAGAS_EXECUTION_and_judge_api_key",
+  "generation_results": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.context_ko_translated.jsonl",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings_plan": {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
+  },
+  "dependency_status": {
+    "available": true,
+    "missing": [],
+    "message": "Official RAGAS dependencies appear importable."
+  },
+  "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\main-hyde-cad-scd-reference-scd-gpt4o-official\\pass1\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.context_ko_translated.ragas_input.jsonl",
+  "dataset_record_count": 152,
+  "validation_errors": [],
+  "validation_passed": true,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "records_read": 152,
+  "reference_split": "decoder_main_queries",
+  "reference_coverage": "152/152",
+  "records_missing_contexts": 0
+}

@@ -1,0 +1,28 @@
+{
+  "mode": "context_translation_execution",
+  "generated_at": "2026-07-11T09:05:11.581947+00:00",
+  "generation_results": "experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl",
+  "out": "experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.context_ko_translated.jsonl",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "run_config": {
+    "max_workers": 4,
+    "judge_timeout": 300,
+    "max_retries": 5,
+    "incremental_write_every_groups": 5
+  },
+  "total_records_read": 152,
+  "total_unique_context_groups": 48,
+  "groups_translated_successfully": 48,
+  "groups_failed": [],
+  "total_scd_on_records_written": 76,
+  "total_scd_on_records_excluded_due_to_failure": 0,
+  "total_scd_off_records_passed_through_unchanged": 76,
+  "network_used": true
+}
