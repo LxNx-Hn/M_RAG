@@ -8,8 +8,11 @@ not the core thesis algorithm.
 
 **Headline results** (152 generations, Mi:dm 2.0 Base on A100 80GB, RAGAS scored under
 a fixed NVIDIA NIM judge): CAD improves faithfulness (+0.044 paired); HyDE raises answer
-relevancy and recall but lowers context precision; Korean-target SCD is a **null factor**
-in its current form. See `docs/PAPER/THESIS.md` §12 and `experiments/reports/phase8_*`.
+relevancy and recall but lowers context precision; Korean-target SCD v1 was a **null
+factor**, while corrected `reference_scd` succeeds at Korean-language adaptation but
+costs RAG-quality on most metrics. See `docs/PAPER/THESIS.md` §12,
+`experiments/reports/phase8_*`, and
+`experiments/reports/reference_scd_rerun_report.md`.
 
 ## Repository Layout
 
@@ -160,6 +163,9 @@ npm run build
 | `experiments/results/` | scored generation + evaluation artifacts |
 | `experiments/reports/phase8_official_evaluation_summary.md` | measured factor-effect results |
 | `experiments/reports/phase8_scd_failure_analysis.md` | why SCD produced a null result |
+| `experiments/reports/reference_scd_rerun_report.md` | `reference_scd` corrected-implementation results (English) |
+| `experiments/reports/reference_scd_rerun_report_KO.md` | `reference_scd` corrected-implementation results (Korean) |
+| `experiments/reports/reference_scd_rerun_explainer_KO.md` | plain-language Korean walkthrough of the `reference_scd` rerun |
 | `experiments/data/query_audit.json` | audited existing query assets |
 | `experiments/data/query_splits/` | tuning/main/query-type/final/service splits |
 | `backend/api/` | FastAPI service |
@@ -170,7 +176,8 @@ npm run build
 ## Notes
 
 - Generation model is local Mi:dm 2.0 Base on GPU; the NVIDIA NIM endpoint is used only
-  as the RAGAS judge. OpenAI is not used.
+  as the original Phase 8 RAGAS judge. The `reference_scd` RAG-quality re-evaluation
+  uses a documented `gpt-4o` judge exception after NIM failed to converge for that track.
 - Ground truth is the verified extractive `answer_span` in each query split; it is not
   regenerated.
 - Result claims come only from the scored artifacts under `experiments/results/`.

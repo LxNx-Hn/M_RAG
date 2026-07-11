@@ -148,7 +148,7 @@ Recent work on multilingual RAG language drift characterizes unintended output-l
 
 ### 4.8 Evaluation of RAG Answers
 
-RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. This thesis evaluates those four metrics with RAGAS [12] under a fixed judge. Because Mi:dm 2.0 is not served through the judge provider used here, the judge is an OpenAI-compatible NVIDIA NIM endpoint (`meta/llama-3.3-70b-instruct`, temperature 0) held constant across every scored comparison; answer-relevancy embeddings use local BGE-M3. Absolute scores are therefore judge-specific and are not compared across judges — the claims rest on within-experiment factor deltas measured under the one fixed judge. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16].
+RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. The original Phase 8 main matrix evaluates those four metrics with RAGAS [12] under a fixed judge. Because Mi:dm 2.0 is not served through the judge provider used here, that judge is an OpenAI-compatible NVIDIA NIM endpoint (`meta/llama-3.3-70b-instruct`, temperature 0) held constant across the original scored comparison; answer-relevancy embeddings use local BGE-M3. Absolute scores are therefore judge-specific and are not compared across judges — the claims rest on within-experiment factor deltas measured under the relevant fixed judge. The corrected `reference_scd` RAG-quality re-evaluation is a documented exception: it uses OpenAI `gpt-4o` after NVIDIA NIM failed to converge reliably for that experiment track, while preserving the judge-independent language-adherence comparison separately. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16].
 
 ### 4.9 Methods Outside the Core Scope
 
@@ -447,7 +447,7 @@ Answer span hit at K measures whether retrieved top-k passages contain expected 
 
 ### 11.10 RAGAS-Compatible and Lightweight Evaluation Boundary
 
-RAGAS is executed as the evaluation tool for the four metrics, kept separate from any lightweight local evaluator. Execution used the RAGAS package with a fixed NVIDIA NIM judge (`meta/llama-3.3-70b-instruct`) and local BGE-M3 embeddings; no OpenAI judging is used. Scored coverage was 583/608 metric cells (95.9%); the remaining cells were judge-endpoint timeouts on the largest multi-context payloads and are excluded from means. RAGAS is the measurement instrument, not a proposed method of this thesis.
+RAGAS is executed as the evaluation tool for the four metrics, kept separate from any lightweight local evaluator. The original Phase 8 main matrix used the RAGAS package with a fixed NVIDIA NIM judge (`meta/llama-3.3-70b-instruct`) and local BGE-M3 embeddings. Scored coverage was 583/608 metric cells (95.9%); the remaining cells were judge-endpoint timeouts on the largest multi-context payloads and are excluded from means. The corrected `reference_scd` RAG-quality re-evaluation used `gpt-4o` as a deliberate experiment-specific judge exception and converged to 0/608 null cells after the NIM attempt failed to converge at scale. RAGAS is the measurement instrument, not a proposed method of this thesis.
 
 ## 12. Result Tables
 
@@ -550,17 +550,17 @@ analysis).
 
 Derived from the measured factor effects (not a measurement table). CAD is recommended
 on across routes for its faithfulness gain; HyDE is recommended where recall/relevancy
-matters more than context precision; SCD stays off until the α-boost / warm-up gaps are
-fixed.
+matters more than context precision; SCD is now characterized as a conditional
+language-adaptation trade-off rather than an unresolved implementation gap.
 
 | Service route | Query type | Derived HyDE | Derived CAD | Derived SCD | Status |
 |---|---|---|---|---|---|
-| A simple QA | factual / conceptual | optional | on | off (pending fix) | service feature |
-| B section QA | section-specific | off (precision) | on | off (pending fix) | service feature |
-| C comparison | comparison | on (recall) | on | off (pending fix) | service feature |
-| D citation lookup | citation-oriented | off (precision) | on | off (pending fix) | service feature |
-| E structured summary | summary | on (recall) | on | off (pending fix) | service feature |
-| F quiz / flashcard | study support | optional | on | off (pending fix) | service feature |
+| A simple QA | factual / conceptual | optional | on | conditional (language trade-off) | service feature |
+| B section QA | section-specific | off (precision) | on | conditional (language trade-off) | service feature |
+| C comparison | comparison | on (recall) | on | conditional (language trade-off) | service feature |
+| D citation lookup | citation-oriented | off (precision) | on | conditional (language trade-off) | service feature |
+| E structured summary | summary | on (recall) | on | conditional (language trade-off) | service feature |
+| F quiz / flashcard | study support | optional | on | conditional (language trade-off) | service feature |
 
 ## 13. Discussion
 
@@ -584,12 +584,31 @@ than a failure; alpha = 0.5 did not appear too strong on this corpus.
 
 ### 13.3 Interpreting SCD
 
-SCD did not reduce language drift. It was neutral on all four RAGAS metrics and net-null
-on its own Korean-adherence target (direct Korean-ratio delta −0.014), rescuing only
-2/19 drifting answers while degrading 9/28 already-Korean ones. The dedicated SCD failure
-analysis attributes this to implementing only a penalty-only, additive, always-on
-fragment of the reference method — missing the target-language boost, multiplicative
-scaling, and cold-start warm-up.
+The original Phase 8 SCD result should be read as the superseded v1
+`penalty_additive` result, not as a claim about paper-faithful SCD. In that v1
+run, SCD did not reduce language drift. It was neutral on all four RAGAS metrics
+and net-null on its own Korean-adherence target (direct Korean-ratio delta
+−0.0137, rounded as −0.014 in Table 3), rescuing only 2/19 drifting answers
+while degrading 9/28 already-Korean ones. The dedicated SCD failure analysis
+attributes this to implementing only a penalty-only, additive, always-on
+fragment of the reference method — missing the target-language boost,
+multiplicative scaling, and cold-start warm-up.
+
+The corrected `reference_scd` rerun resolves that implementation gap. It is a
+literal reference-paper implementation with multiplicative target boost
+`alpha=1.1`, multiplicative distractor penalty `beta=0.9`, and cold-start
+warm-up until `Tstart=5`. On SCD's actual target metric, Korean-language
+adherence, it succeeds decisively: mean paired delta +0.2203 over 76 matched
+pairs, SCD-on more Korean in 68/76 pairs versus 3/76 less Korean, 15/26 drift
+rescues at the 0.5 threshold, and zero harm to already-good answers. Under the
+language-matched RAG-quality re-evaluation, however, SCD costs three of four
+RAGAS metrics: faithfulness −0.048, answer_relevancy −0.057, and
+context_recall −0.066, while improving context_precision +0.030. The
+faithfulness gain of the "everything on" configuration over the
+zero-intervention baseline (0.8159 to 0.8674, +0.0515) is therefore attributable
+to HyDE (+0.0732) and CAD (+0.0187), not to SCD; SCD achieves language
+adaptation, but it does not contribute to hallucination reduction. Full details
+are in `experiments/reports/reference_scd_rerun_report.md`.
 
 ### 13.4 Interactions
 
@@ -600,8 +619,9 @@ CAD and SCD may complement each other because they target different failure mode
 The service policy does not simply enable every factor for every route. Table 7 derives
 route-level defaults from the measured effects: CAD on across routes (faithfulness gain),
 HyDE on where recall/relevancy outweighs precision (comparison, summary) and off where
-precision matters (section-specific, citation lookup), and SCD off until the reference
-components it is missing are restored.
+precision matters (section-specific, citation lookup), and SCD as a conditional
+language-adaptation control whose use should be chosen when Korean-language correctness
+is worth the measured RAG-quality trade-off.
 
 ## 14. Graduation-Project System Integration
 
@@ -630,7 +650,7 @@ The main experiment is limited to the selected paper corpus and query splits. Re
 
 ### 15.2 Evaluation Reliability
 
-Automatic evaluation can misjudge faithfulness, relevance, or language drift. This study used a single fixed judge (NVIDIA NIM `meta/llama-3.3-70b-instruct`), so absolute scores are judge-specific and the claims rest on within-experiment factor deltas rather than cross-judge comparison. Human evaluation and a second-judge robustness check are future work. 25/608 metric cells (4.1%) remained null after retry passes and are excluded from means.
+Automatic evaluation can misjudge faithfulness, relevance, or language drift. The original Phase 8 main matrix used a single fixed judge (NVIDIA NIM `meta/llama-3.3-70b-instruct`), so absolute scores are judge-specific and the claims rest on within-experiment factor deltas rather than cross-judge comparison. The corrected `reference_scd` RAG-quality re-evaluation is a deliberate exception: NVIDIA NIM was attempted first, ran for over 60 hours, reached a 38.6% null rate after its first pass, and was abandoned after the underlying Alice Cloud instance was deleted mid-run. OpenAI `gpt-4o` was then used for that experiment track and converged cleanly to 0/608 null cells in about 2 hours. This judge switch does not affect the `reference_scd` language-adherence comparison, which is judge-independent. The same re-evaluation also exposed a cross-lingual judging confound: SCD-on answers are Korean while the retrieved paper context is English. The official `reference_scd` RAG-quality scoring controlled this by translating context to Korean for SCD-on records only via `experiments/evaluators/translate_context_for_scd.py`, so the observed RAG-quality cost survived a language-matched design. Human evaluation and broader second-judge robustness checks remain future work.
 
 ### 15.3 GT and Answer-Key Policy
 
@@ -652,14 +672,19 @@ The graduation-project service layer still requires deployment validation, load 
 
 This thesis reconstructs M-RAG around a focused research contribution: HyDE × CAD × SCD factor analysis for Korean-query English-paper RAG. The fixed Paper-RAG backbone provides a stable retrieval environment. HyDE tests retrieval-side evidence construction, CAD tests context-faithfulness control, and Korean-target SCD tests output-language stability. The routed paper-review chatbot remains the graduation-project service integration layer, and its A-F routes should derive policy from the factor analysis rather than being claimed as a new algorithm.
 
-The main experiment was executed and scored under a fixed judge. The measured effects
-are: CAD improves faithfulness (+0.044 paired), HyDE trades context precision for higher
-answer relevancy and recall, and Korean-target SCD is a null factor in its current
-penalty-only form. These results yield a global provisional service policy (CAD on,
-HyDE conditional, SCD deferred) and a concrete SCD improvement path: rerun the
-separate `reference_scd` mode with the target-language boost, multiplicative
-scaling, and generated-token warm-up of the reference method before making any
-claim about original SCD.
+The original main experiment was executed and scored under a fixed judge. The measured
+effects are: CAD improves faithfulness (+0.044 paired), HyDE trades context precision
+for higher answer relevancy and recall, and Korean-target SCD is a null factor in its
+v1 `penalty_additive` form. The separate `reference_scd` rerun has now completed the
+previously deferred test of the reference method: with target-language boost,
+multiplicative scaling, and generated-token warm-up restored, SCD achieves decisive
+Korean-language adherence success but costs RAG-quality on three of four metrics.
+These results update the global provisional service policy from "SCD deferred" to
+"SCD conditional": CAD remains the default faithfulness control, HyDE remains
+route-dependent where recall/relevancy outweigh precision, and SCD becomes a
+characterized language-adaptation trade-off to enable only where Korean-language
+correctness is worth the measured marginal faithfulness, answer-relevancy, and
+context-recall cost.
 
 ## 17. References
 
