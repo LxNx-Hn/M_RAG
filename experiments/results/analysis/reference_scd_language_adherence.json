@@ -1,0 +1,39 @@
+{
+  "source_generation": "experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl",
+  "answers": 152,
+  "korean_ratio_distribution": {
+    "min": 0.0,
+    "p10": 0.1876,
+    "median": 0.7099,
+    "max": 1.0,
+    "below_0.5": 38
+  },
+  "scd_paired_effect": {
+    "n_pairs": 76,
+    "mean_delta_on_minus_off": 0.2203,
+    "scd_on_more_korean": 68,
+    "scd_on_less_korean": 3,
+    "tie": 5
+  },
+  "conditional_rescue": [
+    {
+      "threshold": 0.5,
+      "drift_pairs": 26,
+      "scd_off_mean": 0.2515,
+      "scd_on_mean": 0.5639,
+      "rescued_to_threshold": 15
+    },
+    {
+      "threshold": 0.3,
+      "drift_pairs": 12,
+      "scd_off_mean": 0.0667,
+      "scd_on_mean": 0.3843,
+      "rescued_to_threshold": 6
+    }
+  ],
+  "harm_on_already_korean": {
+    "good_pairs_ge_0.7": 20,
+    "dragged_below_0.65": 0
+  },
+  "conclusion": "SCD shows a real positive Korean-adherence effect in this run: mean paired delta is +0.2203, SCD-on is more Korean in 68/76 pairs versus less Korean in 3/76 pairs (5 ties), at the 0.5 threshold, 15/26 drifting pairs were rescued; at 0.3, 6/12 were rescued, and no already-Korean harm observed (0/20 dragged below 0.65). This is a language-adherence-only measurement based on generated-text Korean character ratio, independent of any RAGAS judge; it does not by itself measure faithfulness, answer_relevancy, context_precision, or context_recall, which require separate judge-scored metrics to interpret trade-offs."
+}

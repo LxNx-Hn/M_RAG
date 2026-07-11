@@ -1,0 +1,9 @@
+config,use_hyde,use_cad,use_scd,faithfulness,faithfulness_n_scored,answer_relevancy,answer_relevancy_n_scored,context_precision,context_precision_n_scored,context_recall,context_recall_n_scored
+hyde_off__no_decoder_control,False,False,False,0.8443,19,0.837,19,0.933,19,0.9474,19
+hyde_off__cad_only,False,True,False,0.8653,19,0.6614,19,0.9432,19,0.9474,19
+hyde_off__scd_only,False,False,True,0.8216,19,0.7177,19,0.933,19,0.9474,19
+hyde_off__cad_scd,False,True,True,0.7595,19,0.6142,19,0.933,19,0.9474,19
+hyde_on__no_decoder_control,True,False,False,0.9115,19,0.8603,19,0.8803,19,0.9474,19
+hyde_on__cad_only,True,True,False,0.9047,19,0.7566,19,0.9181,19,1.0,19
+hyde_on__scd_only,True,False,True,0.8086,19,0.7609,19,0.9238,19,1.0,19
+hyde_on__cad_scd,True,True,True,0.8413,19,0.743,19,0.9164,19,1.0,19

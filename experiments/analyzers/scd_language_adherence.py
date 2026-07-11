@@ -41,6 +41,81 @@ def korean_ratio(text: str) -> float:
     return round(hangul / denom, 4) if denom else 0.0
 
 
+def _conclusion(
+    mean_delta: float,
+    n_pairs: int,
+    scd_on_more_korean: int,
+    scd_on_less_korean: int,
+    tie: int,
+    rescue_at_0_5: dict[str, Any],
+    rescue_at_0_3: dict[str, Any],
+    harm_on_already_korean: dict[str, int],
+) -> str:
+    harm_count = harm_on_already_korean["dragged_below_0.65"]
+    good_pairs = harm_on_already_korean["good_pairs_ge_0.7"]
+    harm_text = (
+        f"no already-Korean harm observed ({harm_count}/{good_pairs} dragged "
+        "below 0.65)"
+        if harm_count == 0
+        else f"{harm_count}/{good_pairs} already-Korean pairs dragged below 0.65"
+    )
+    rescue_text = (
+        f"at the 0.5 threshold, {rescue_at_0_5['rescued_to_threshold']}/"
+        f"{rescue_at_0_5['drift_pairs']} drifting pairs were rescued; "
+        f"at 0.3, {rescue_at_0_3['rescued_to_threshold']}/"
+        f"{rescue_at_0_3['drift_pairs']} were rescued"
+    )
+    metric_scope = (
+        "This is a language-adherence-only measurement based on generated-text "
+        "Korean character ratio, independent of any RAGAS judge; it does not by "
+        "itself measure faithfulness, answer_relevancy, context_precision, or "
+        "context_recall, which require separate judge-scored metrics to "
+        "interpret trade-offs."
+    )
+
+    clear_positive = (
+        mean_delta >= 0.05
+        and scd_on_more_korean > 2 * scd_on_less_korean
+        and scd_on_more_korean > n_pairs / 2
+    )
+    if clear_positive:
+        effect_text = (
+            "SCD shows a real positive Korean-adherence effect in this run: "
+            f"mean paired delta is {mean_delta:+.4f}, SCD-on is more Korean in "
+            f"{scd_on_more_korean}/{n_pairs} pairs versus less Korean in "
+            f"{scd_on_less_korean}/{n_pairs} pairs ({tie} ties), {rescue_text}, "
+            f"and {harm_text}."
+        )
+    elif mean_delta <= -0.05:
+        effect_text = (
+            "SCD shows a negative Korean-adherence effect in this run: "
+            f"mean paired delta is {mean_delta:+.4f}, SCD-on is less Korean in "
+            f"{scd_on_less_korean}/{n_pairs} pairs versus more Korean in "
+            f"{scd_on_more_korean}/{n_pairs} pairs ({tie} ties), {rescue_text}, "
+            f"and {harm_text}."
+        )
+    elif -0.05 < mean_delta < 0.05:
+        effect_text = (
+            "SCD shows no reliable Korean-adherence effect in this run: "
+            f"mean paired delta is {mean_delta:+.4f}, SCD-on is more Korean in "
+            f"{scd_on_more_korean}/{n_pairs} pairs and less Korean in "
+            f"{scd_on_less_korean}/{n_pairs} pairs ({tie} ties), {rescue_text}, "
+            f"and {harm_text}."
+        )
+    else:
+        effect_text = (
+            "SCD has a non-null mean Korean-adherence shift, but the pair-level "
+            "win/loss split is not strong enough to call it a clear positive "
+            "effect under the conservative threshold used here: mean paired "
+            f"delta is {mean_delta:+.4f}, SCD-on is more Korean in "
+            f"{scd_on_more_korean}/{n_pairs} pairs and less Korean in "
+            f"{scd_on_less_korean}/{n_pairs} pairs ({tie} ties), {rescue_text}, "
+            f"and {harm_text}."
+        )
+
+    return f"{effect_text} {metric_scope}"
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--generation", required=True)
@@ -120,13 +195,17 @@ def main() -> int:
             "good_pairs_ge_0.7": good_n,
             "dragged_below_0.65": hurt,
         },
-        "conclusion": (
-            "SCD (uniform soft beta penalty) shows no reliable Korean-adherence "
-            "benefit: it rescues few drifting answers and degrades some "
-            "already-Korean ones; net paired delta is ~0. Null result — "
-            "motivates drift-conditional language control as future work."
-        ),
     }
+    report["conclusion"] = _conclusion(
+        mean_delta=report["scd_paired_effect"]["mean_delta_on_minus_off"],
+        n_pairs=report["scd_paired_effect"]["n_pairs"],
+        scd_on_more_korean=report["scd_paired_effect"]["scd_on_more_korean"],
+        scd_on_less_korean=report["scd_paired_effect"]["scd_on_less_korean"],
+        tie=report["scd_paired_effect"]["tie"],
+        rescue_at_0_5=report["conditional_rescue"][0],
+        rescue_at_0_3=report["conditional_rescue"][1],
+        harm_on_already_korean=report["harm_on_already_korean"],
+    )
     Path(args.out).write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
     )

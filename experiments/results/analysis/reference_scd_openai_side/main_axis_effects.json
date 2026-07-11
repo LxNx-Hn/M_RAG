@@ -1,0 +1,134 @@
+{
+  "source_scores": "experiments/results/evaluation/main-hyde-cad-scd-reference-scd-openai-side/merged.ragas_scores.json",
+  "source_generation": "experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "axis_effects": {
+    "use_hyde": {
+      "faithfulness": {
+        "on_mean": 0.8665,
+        "off_mean": 0.8227,
+        "paired_mean_delta": 0.0438,
+        "paired_n": 76,
+        "paired_wins": 27,
+        "paired_losses": 21,
+        "paired_ties": 28
+      },
+      "answer_relevancy": {
+        "on_mean": 0.7802,
+        "off_mean": 0.7075,
+        "paired_mean_delta": 0.0726,
+        "paired_n": 76,
+        "paired_wins": 35,
+        "paired_losses": 12,
+        "paired_ties": 29
+      },
+      "context_precision": {
+        "on_mean": 0.9097,
+        "off_mean": 0.9355,
+        "paired_mean_delta": -0.0259,
+        "paired_n": 76,
+        "paired_wins": 16,
+        "paired_losses": 14,
+        "paired_ties": 46
+      },
+      "context_recall": {
+        "on_mean": 0.9868,
+        "off_mean": 0.9474,
+        "paired_mean_delta": 0.0395,
+        "paired_n": 76,
+        "paired_wins": 3,
+        "paired_losses": 0,
+        "paired_ties": 73
+      }
+    },
+    "use_cad": {
+      "faithfulness": {
+        "on_mean": 0.8427,
+        "off_mean": 0.8465,
+        "paired_mean_delta": -0.0038,
+        "paired_n": 76,
+        "paired_wins": 24,
+        "paired_losses": 29,
+        "paired_ties": 23
+      },
+      "answer_relevancy": {
+        "on_mean": 0.6938,
+        "off_mean": 0.7939,
+        "paired_mean_delta": -0.1002,
+        "paired_n": 76,
+        "paired_wins": 17,
+        "paired_losses": 38,
+        "paired_ties": 21
+      },
+      "context_precision": {
+        "on_mean": 0.9277,
+        "off_mean": 0.9175,
+        "paired_mean_delta": 0.0102,
+        "paired_n": 76,
+        "paired_wins": 6,
+        "paired_losses": 6,
+        "paired_ties": 64
+      },
+      "context_recall": {
+        "on_mean": 0.9737,
+        "off_mean": 0.9605,
+        "paired_mean_delta": 0.0132,
+        "paired_n": 76,
+        "paired_wins": 1,
+        "paired_losses": 0,
+        "paired_ties": 75
+      }
+    },
+    "use_scd": {
+      "faithfulness": {
+        "on_mean": 0.8078,
+        "off_mean": 0.8815,
+        "paired_mean_delta": -0.0737,
+        "paired_n": 76,
+        "paired_wins": 17,
+        "paired_losses": 30,
+        "paired_ties": 29
+      },
+      "answer_relevancy": {
+        "on_mean": 0.7089,
+        "off_mean": 0.7788,
+        "paired_mean_delta": -0.0699,
+        "paired_n": 76,
+        "paired_wins": 22,
+        "paired_losses": 30,
+        "paired_ties": 24
+      },
+      "context_precision": {
+        "on_mean": 0.9265,
+        "off_mean": 0.9187,
+        "paired_mean_delta": 0.0079,
+        "paired_n": 76,
+        "paired_wins": 7,
+        "paired_losses": 4,
+        "paired_ties": 65
+      },
+      "context_recall": {
+        "on_mean": 0.9737,
+        "off_mean": 0.9605,
+        "paired_mean_delta": 0.0132,
+        "paired_n": 76,
+        "paired_wins": 1,
+        "paired_losses": 0,
+        "paired_ties": 75
+      }
+    }
+  }
+}

@@ -1,0 +1,1319 @@
+{
+  "mode": "official_scored_execution",
+  "executed_at": "2026-07-10T21:57:23.761031+00:00",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings": {
+    "model": "BAAI/bge-m3",
+    "runtime": "local (no API)"
+  },
+  "ragas_version": "0.2.15",
+  "ragas_run_config": {
+    "max_workers": 2,
+    "timeout": 600,
+    "max_retries": 10,
+    "max_wait": 60,
+    "log_tenacity": true
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "dataset_record_count": 152,
+  "scores": {
+    "faithfulness": 0.8446,
+    "answer_relevancy": 0.7439,
+    "context_precision": 0.9226,
+    "context_recall": 0.9671
+  },
+  "per_group": {
+    "hyde_off__cad_only": {
+      "n": 19,
+      "faithfulness": 0.8653,
+      "answer_relevancy": 0.6614,
+      "context_precision": 0.9432,
+      "context_recall": 0.9474
+    },
+    "hyde_off__cad_scd": {
+      "n": 19,
+      "faithfulness": 0.7595,
+      "answer_relevancy": 0.6142,
+      "context_precision": 0.933,
+      "context_recall": 0.9474
+    },
+    "hyde_off__no_decoder_control": {
+      "n": 19,
+      "faithfulness": 0.8443,
+      "answer_relevancy": 0.837,
+      "context_precision": 0.933,
+      "context_recall": 0.9474
+    },
+    "hyde_off__scd_only": {
+      "n": 19,
+      "faithfulness": 0.8216,
+      "answer_relevancy": 0.7177,
+      "context_precision": 0.933,
+      "context_recall": 0.9474
+    },
+    "hyde_on__cad_only": {
+      "n": 19,
+      "faithfulness": 0.9047,
+      "answer_relevancy": 0.7566,
+      "context_precision": 0.9181,
+      "context_recall": 1.0
+    },
+    "hyde_on__cad_scd": {
+      "n": 19,
+      "faithfulness": 0.8413,
+      "answer_relevancy": 0.743,
+      "context_precision": 0.9164,
+      "context_recall": 1.0
+    },
+    "hyde_on__no_decoder_control": {
+      "n": 19,
+      "faithfulness": 0.9115,
+      "answer_relevancy": 0.8603,
+      "context_precision": 0.8803,
+      "context_recall": 0.9474
+    },
+    "hyde_on__scd_only": {
+      "n": 19,
+      "faithfulness": 0.8086,
+      "answer_relevancy": 0.7609,
+      "context_precision": 0.9238,
+      "context_recall": 1.0
+    }
+  },
+  "per_sample": [
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.6103,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.3636,
+      "answer_relevancy": 0.7539,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.9231,
+      "answer_relevancy": 0.9001,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.7023,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8041,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9631,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7433,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8365,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.7143,
+      "answer_relevancy": 0.8906,
+      "context_precision": 0.7556,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8862,
+      "context_precision": 0.4167,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7607,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9238,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7804,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.2857,
+      "answer_relevancy": 0.9155,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.6154,
+      "answer_relevancy": 0.9536,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8046,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9254,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.9286,
+      "answer_relevancy": 0.8202,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.5696,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.7281,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7701,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9375,
+      "answer_relevancy": 0.5919,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.6094,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.8537,
+      "context_precision": 0.95,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.8125,
+      "answer_relevancy": 0.8429,
+      "context_precision": 0.4167,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8099,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.8235,
+      "answer_relevancy": 0.8855,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8086,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.9506,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.7254,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.5556,
+      "answer_relevancy": 0.8046,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9,
+      "answer_relevancy": 0.8736,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8145,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.1875,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.9001,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8864,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8868,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.96,
+      "answer_relevancy": 0.8624,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.835,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.6755,
+      "context_precision": 0.7556,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.7692,
+      "answer_relevancy": 0.9122,
+      "context_precision": 0.4167,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7607,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7999,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.7759,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.2857,
+      "answer_relevancy": 0.9264,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.5833,
+      "answer_relevancy": 0.9597,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8046,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9286,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9191,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9412,
+      "answer_relevancy": 0.8033,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.5556,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.3429,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.1667,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.6,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.75,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.918,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8292,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.5907,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.7503,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.6837,
+      "context_precision": 0.7556,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8947,
+      "context_precision": 0.4167,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.767,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7719,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.7368,
+      "answer_relevancy": 0.8379,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.625,
+      "answer_relevancy": 0.9204,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7344,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.125,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.9,
+      "answer_relevancy": 0.8859,
+      "context_precision": 0.8875,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8145,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.8824,
+      "answer_relevancy": 0.6393,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9286,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8495,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8059,
+      "context_precision": 0.4167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7675,
+      "context_precision": 0.6792,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9631,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.8284,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8492,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.625,
+      "answer_relevancy": 0.9047,
+      "context_precision": 0.8056,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.8887,
+      "context_precision": 0.5,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8703,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9066,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7359,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.9474,
+      "answer_relevancy": 0.9506,
+      "context_precision": 0.325,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.4615,
+      "answer_relevancy": 0.9653,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8006,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.9167,
+      "answer_relevancy": 0.9349,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": 0.9412,
+      "answer_relevancy": 0.8283,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.8432,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8089,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7817,
+      "context_precision": 0.5333,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7967,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.6625,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8409,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.8537,
+      "context_precision": 0.7556,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9367,
+      "context_precision": 0.7556,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7895,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8855,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.9412,
+      "answer_relevancy": 0.8133,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9405,
+      "context_precision": 0.5333,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.4545,
+      "answer_relevancy": 0.9482,
+      "context_precision": 0.95,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.7905,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.9349,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_on__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8202,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.2727,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.4182,
+      "context_precision": 0.8667,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8396,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.805,
+      "context_precision": 0.4167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8867,
+      "context_precision": 0.6792,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.8868,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.8624,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8585,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.6834,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.9424,
+      "context_precision": 0.95,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7707,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8019,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.8125,
+      "answer_relevancy": 0.782,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.9506,
+      "context_precision": 0.6389,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.7273,
+      "answer_relevancy": 0.9646,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.3616,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9278,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9111,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_on__scd_only",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.8033,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8409,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8495,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8233,
+      "context_precision": 0.6389,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9238,
+      "context_precision": 0.6792,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8292,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.6946,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.6923,
+      "answer_relevancy": 0.764,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.6743,
+      "context_precision": 0.8056,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.9497,
+      "context_precision": 0.95,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7839,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8203,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.7824,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.9506,
+      "context_precision": 0.5333,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.7858,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.6923,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9392,
+      "context_precision": 0.8042,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.8898,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8158,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    }
+  ],
+  "ragas_used": true,
+  "judge_api_used": true,
+  "openai_used": true,
+  "network_used": true,
+  "gt_regenerated": false,
+  "note": "Scored measurement artifact. Group = tuning profile_id or main config_name. Feeds prepare_parameter_freeze.py."
+}
