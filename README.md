@@ -20,7 +20,8 @@ remained directionally unresolved. The `gpt-4o` answer-relevancy intervals were
 negative in both languages, but a fixed `gpt-4.1-2025-04-14` cross-judge did not
 reproduce nonzero intervals. The supported result is therefore judge-sensitive, not
 an unbiased causal or deployment verdict. See
-`docs/PAPER/THESIS.md` §12-13,
+`docs/PAPER/THESIS.md` §12-13, the aligned Korean manuscript
+`docs/PAPER/THESIS_KO.md`,
 `experiments/reports/phase8_*`, and
 `experiments/reports/reference_scd_rerun_report.md` plus
 `experiments/reports/reference_scd_symmetric_cross_judge_report.md`.
@@ -165,7 +166,10 @@ npm run build
 
 | Path | Role |
 |---|---|
-| `docs/PAPER/THESIS.md` | thesis draft aligned to the HyDE/CAD/SCD direction |
+| `docs/PAPER/THESIS.md` | verified full English manuscript |
+| `docs/PAPER/THESIS_KO.md` | verified full Korean manuscript |
+| `docs/PAPER/output/` | template-neutral A4 DOCX/PDF submission manuscripts |
+| `docs/EXPLAIN/COMPLETE_REPOSITORY_GUIDE_KO.md` | plain-language guide connecting code, service, experiments, and thesis claims |
 | `docs/PAPER/REFERENCE_AUDIT_2026-07-11.md` | primary-source audit of all thesis references |
 | `docs/PAPER/GUIDE_ORIGINAL.md` | Phase 5 thesis and experiment guide |
 | `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |

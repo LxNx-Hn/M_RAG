@@ -120,4 +120,4 @@
 
 ---
 
-참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`와 `THESIS_KO.md`의 공통 참고문헌 목록 기준이다 (총 20편)

@@ -102,10 +102,11 @@ Main tables:
 1. Table 1. Experimental Setup
 2. Table 2. Main HyDE × CAD × SCD Factorial Ablation
 3. Table 3. Effect Delta Summary
-4. Table 4. Query-Type Breakdown
-5. Table 5. Numeric Hallucination and Evidence Support
-6. Table 6. Language Drift and Korean Answer Ratio
-7. Table 7. Routed Policy for Graduation-Project System
+4. Section 12.4. Analyses Excluded from Result Claims
+5. Table 4. Language Drift and Korean Answer Ratio
+6. Table 5. Routed Policy for Graduation-Project System
+
+Query-type and numeric-hallucination analyses remain planned scope and must not appear as empty result tables until adequately powered data and claim-level annotations exist.
 
 Appendix:
 

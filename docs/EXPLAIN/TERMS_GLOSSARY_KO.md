@@ -382,9 +382,9 @@ RAG 시스템을 자동으로 평가하기 위한 평가 프레임워크다. 사
      Context Recall       Answer Relevancy (답변이 질문에 맞는가)
 ```
 
-### M-RAG에서 직접 구현한 이유
+### M-RAG에서 사용하는 방식
 
-RAGAS 라이브러리를 설치해 쓰는 대신, 평가 로직을 직접 구현했다. 이유는 한국어 논문 도메인에 맞게 judge 프롬프트와 레이블을 커스터마이징하기 위해서다.
+공식 평가는 RAGAS 0.2.15 패키지로 네 가지 지표를 계산한다. 프로젝트 코드는 RAGAS를 대체해 점수 공식을 임의 구현하지 않고, 고정 judge·로컬 임베딩·재시도·provenance 기록·null 셀 처리를 오케스트레이션한다. 별도의 lightweight evaluator는 빠른 점검용이며 공식 논문 점수와 섞지 않는다.
 
 ### 코드 위치
 
@@ -738,5 +738,5 @@ hallucination과 query-type별 분석은 아직 측정되지 않은 향후 과�
 
 ---
 
-참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`와 `THESIS_KO.md`의 공통 참고문헌 목록 기준이다 (총 20편)
 

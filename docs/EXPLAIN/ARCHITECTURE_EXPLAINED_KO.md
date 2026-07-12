@@ -61,11 +61,11 @@ cad_scores = (1 + alpha) * context_scores - alpha * no_context_scores
 | E | 구조화 요약 |
 | F | 퀴즈 / 플래시카드 |
 
-이 route들은 사용자 경험을 위한 기능이다. 논문에서는 Table 7에서 실험 결과를 바탕으로 어떤 route에서 어떤 factor를 켤지 정책으로 정리한다.
+이 route들은 사용자 경험을 위한 기능이다. 논문의 Table 5는 실험의 전역 효과를 바탕으로 route별 임시 factor 정책을 정리하지만, route별 정량 최적화 결과는 아니다.
 
 ## API 호환성
 
-Phase 3 기준으로 다음 호환성을 유지한다.
+현재 서비스는 다음 API 호환성을 유지한다.
 
 - `QueryRequest`
 - `QueryResponse`

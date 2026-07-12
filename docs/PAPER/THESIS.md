@@ -176,7 +176,7 @@ task = Korean-query / English-paper RAG
 The thesis asks:
 
 - RQ1: Does HyDE improve evidence construction for Korean questions over English paper passages?
-- RQ2: Does exact CAD reduce unsupported and numeric hallucinations when evidence is available?
+- RQ2: Does exact CAD improve answer faithfulness to retrieved evidence under the fixed backbone?
 - RQ3: Does Korean-target SCD reduce language drift without suppressing necessary technical terms?
 - RQ4: How do CAD and SCD interact when both decoding controls are active?
 - RQ5: Which query types should enable each factor in the graduation-project routed service?
@@ -186,7 +186,7 @@ The thesis asks:
 These are pre-experiment hypotheses. No result is asserted here; each will be accepted, rejected, or left undetermined only after a verified experiment run. The theoretical grounding for each hypothesis is a prior-work citation, not evidence produced by this thesis.
 
 - **H1 (HyDE):** Enabling HyDE will change retrieval quality and evidence support relative to query-only retrieval under the same fixed backbone. Direction is not assumed. Grounding: HyDE as hypothetical-document retrieval [8], multilingual dense retrieval [3], and Korean HyDE-based multi-hop retrieval [17].
-- **H2 (CAD):** Enabling CAD will change the rate of unsupported claims and numeric hallucination when relevant evidence is present. Grounding: Context-Aware Decoding [9] and contrastive decoding [10].
+- **H2 (CAD):** Enabling CAD will change RAGAS faithfulness when relevant evidence is present. A separate claim about numeric hallucination requires a dedicated numeric-exactness annotation and is outside the measured hypothesis test. Grounding: Context-Aware Decoding [9] and contrastive decoding [10].
 - **H3 (SCD):** Enabling Korean-target SCD will change language-drift rate and Korean answer ratio without removing whitelisted technical terms. Grounding: language drift and Soft Constrained Decoding [11].
 - **H4 (CAD × SCD interaction):** When CAD and SCD are both enabled, their combined effect may be non-additive because both modify decoding-time token scores. Grounding: CAD [9] and SCD [11].
 
@@ -201,6 +201,10 @@ The research layer is the fixed Paper-RAG backbone plus the HyDE × CAD × SCD m
 The service layer is a FastAPI and React paper-review chatbot. It supports document upload, text extraction, chunking, vector indexing, retrieval, answer generation, source display, streaming, follow-up questions, citations, comparison, summaries, and quizzes. The configured generation model is the Mi:dm 2.0 instruct model [15]. The service layer helps demonstrate the graduation-project application, but it is not the thesis novelty.
 
 The high-level runtime flow is:
+
+![M-RAG system overview](figures/system_overview.svg)
+
+**Figure 1.** Research and service layers of M-RAG. The A-F router is a service-integration layer; the controlled HyDE × CAD × SCD matrix is the thesis experiment.
 
 ```text
 document upload
@@ -356,6 +360,10 @@ The combined condition should be interpreted carefully. If CAD improves evidence
 
 The main experiment is a full factorial matrix:
 
+![HyDE CAD SCD factorial design](figures/factorial_design.svg)
+
+**Figure 2.** Controlled full-factorial design. The Paper-RAG backbone and generation model remain fixed while the three binary factors vary.
+
 ```text
 HyDE × CAD × SCD = 8 configs
 ```
@@ -373,14 +381,14 @@ HyDE × CAD × SCD = 8 configs
 
 The experiment uses the fixed Paper-RAG backbone. The main matrix varies only HyDE, CAD, and SCD. It must not introduce additional retrieval modes, route-dependent logic changes, or service-only controls.
 
-The planned analysis includes:
+The analysis contract distinguishes completed measurements from deferred analyses:
 
 - main effects of HyDE, CAD, and SCD
 - CAD × SCD interaction
 - HyDE × CAD interaction
 - HyDE × SCD interaction
-- query-type breakdown
-- numeric-question subset analysis
+- query-type breakdown (deferred because the per-type sample sizes are too small)
+- numeric-question subset analysis (deferred because no dedicated numeric-exactness annotation was collected)
 - language-drift subset analysis
 - cost and latency discussion
 
@@ -434,9 +442,9 @@ Context precision measures the proportion of retrieved context that is useful fo
 
 Context recall measures whether necessary evidence is included in the retrieved context. In academic QA, context recall matters for method descriptions, multi-part results, and comparison questions.
 
-### 11.6 Numeric Hallucination Rate
+### 11.6 Numeric Hallucination Rate (Deferred Metric)
 
-Numeric hallucination rate measures unsupported or incorrect numeric claims. It should check values, units, comparisons, and associated entities. For example, reporting the right number for the wrong dataset is still an error.
+Numeric hallucination rate would measure unsupported or incorrect numeric claims by checking values, units, comparisons, and associated entities. For example, reporting the right number for the wrong dataset is still an error. This run did not collect the claim-level annotation needed for that metric, so no numeric-hallucination result is claimed.
 
 ### 11.7 Language Drift Rate
 
@@ -523,18 +531,15 @@ should. The combined `hyde_on__cad_scd` cell reaches the joint-highest faithfuln
 (0.925), consistent with an additive CAD contribution rather than a strong
 CAD×SCD interaction.
 
-### Table 4. Query-Type Breakdown
+### 12.4 Analyses Excluded from Result Claims
 
-Not computed in this run. With n = 19 queries the per-query-type cells are too small
-to split reliably; a per-type breakdown is left as future work on a larger query set.
+Two preregistered analyses are intentionally excluded from the result tables. First,
+with only 19 queries, the query-type cells are too small for a reliable per-type
+comparison. Second, the run did not collect the claim-level annotation required for a
+numeric-exactness or separate evidence-support metric. These are scope limitations,
+not zero-valued results, and neither is used to support the conclusions or route policy.
 
-### Table 5. Numeric Hallucination and Evidence Support
-
-Not computed in this run. The evaluation measured the four RAGAS metrics and Korean
-answer ratio; a numeric-exactness metric and a separate evidence-support metric are
-future work.
-
-### Table 6. Language Drift and Korean Answer Ratio
+### Table 4. Language Drift and Korean Answer Ratio
 
 Language drift rate = fraction of the 19 answers below 0.5 Korean-character ratio;
 Korean answer ratio = mean per config. Whitelist errors were not separately counted.
@@ -555,7 +560,7 @@ matched SCD-off configs; drift is substantial (16–37%) across that matrix, and
 not remove it (see the SCD failure analysis). The completed `reference_scd` result is
 reported separately in Section 13.3 and must not be read back into this historical table.
 
-### Table 7. Routed Policy for Graduation-Project System
+### Table 5. Routed Policy for Graduation-Project System
 
 Derived from the original-matrix factor effects plus the corrected direct language
 result (not a measurement table). CAD is recommended on across routes for its original
@@ -655,7 +660,7 @@ CAD and SCD may complement each other because they target different failure mode
 
 ### 13.5 Query-Type Policy
 
-The service policy does not simply enable every factor for every route. Table 7 derives
+The service policy does not simply enable every factor for every route. Table 5 derives
 route-level defaults from the measured effects: CAD on across routes (faithfulness gain),
 HyDE on where recall/relevancy outweighs precision (comparison, summary) and off where
 precision matters (section-specific, citation lookup), and SCD as a conditional
@@ -678,7 +683,7 @@ The M-RAG service integrates the research layer into a paper-review chatbot. It 
 
 These routes are useful for a graduation project because users do not interact with academic papers through one question type. They ask factual questions, request method explanations, compare papers, inspect citations, summarize documents, and generate study materials. The service router organizes these tasks.
 
-However, the route layer is not presented as the thesis algorithm. It is a runtime architecture that applies the research findings. The current run can support only global factor-effect defaults. Route-level defaults by query type require the future query-type analysis described in Table 4, which keeps the service integration evidence-driven rather than claim-driven.
+However, the route layer is not presented as the thesis algorithm. It is a runtime architecture that applies the research findings. The current run can support only global factor-effect defaults. Route-level defaults by query type require a future, adequately powered query-type analysis, which keeps the service integration evidence-driven rather than claim-driven.
 
 Runtime compatibility also matters. The service must preserve QueryRequest, QueryResponse, SSE streaming, paper APIs, citation APIs, and active document filtering. The thesis should mention these as engineering constraints, not as experimental variables.
 

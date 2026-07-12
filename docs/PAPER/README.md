@@ -15,6 +15,8 @@ The routed M-RAG application is documented as a graduation-project service layer
 | Document | Role |
 |---|---|
 | `THESIS.md` | current thesis draft with verified original-matrix and `reference_scd` results |
+| `THESIS_KO.md` | full Korean manuscript aligned to the verified English result scope |
+| `SUBMISSION_METADATA.md` | institution-specific metadata and template fields that must not be guessed |
 | `GUIDE_ORIGINAL.md` | historical Phase 5 guide for method boundaries, matrix, and safety rules |
 | `PPT_SUMMARY.md` | presentation outline updated to the verified results |
 | `PPT_KEYWORDS.md` | presentation keywords |
@@ -37,10 +39,9 @@ The routed M-RAG application is documented as a graduation-project service layer
 1. Table 1. Experimental Setup
 2. Table 2. Main HyDE × CAD × SCD Factorial Ablation
 3. Table 3. Effect Delta Summary
-4. Table 4. Query-Type Breakdown
-5. Table 5. Numeric Hallucination and Evidence Support
-6. Table 6. Language Drift and Korean Answer Ratio
-7. Table 7. Routed Policy for Graduation-Project System
+4. Section 12.4. Analyses Excluded from Result Claims
+5. Table 4. Language Drift and Korean Answer Ratio
+6. Table 5. Routed Policy for Graduation-Project System
 
 Appendices A1-A6 are defined in `THESIS.md`.
 
