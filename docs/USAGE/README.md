@@ -28,4 +28,4 @@
 - Local MIDM Base is blocked by VRAM and must not be attempted again without an explicit offload or smaller-scope approval.
 - Thesis-grade experiments use `K-intelligence/Midm-2.0-Base-Instruct` on Alice Cloud.
 - Main generation requires a parameter freeze checkpoint before it can run.
-- OpenAI and RAGAS are disabled by default and belong to later explicitly approved evaluation phases only.
+- OpenAI and RAGAS remain disabled by default. They may run only in an explicitly approved evaluation phase; the completed `reference_scd` track documents `gpt-4o` and fixed `gpt-4.1` judge exceptions.

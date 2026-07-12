@@ -52,12 +52,25 @@ Local post-score sensitivity checks:
 python experiments/analyzers/null_cell_sensitivity.py --scores experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
 ```
 
-Future tuning should use only `tuning_queries`, then freeze `top_k`,
+The completed symmetric `reference_scd` follow-up is reproducible without network
+calls from the retained zero-null score artifacts:
+
+```powershell
+python experiments/analyzers/analyze_scd_symmetric_eval.py --english-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-en-gpt4o/merged.ragas_scores.json --korean-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-ko-gpt4o/merged.ragas_scores.json --out-json experiments/results/analysis/reference_scd_symmetric_gpt4o.json --out-md experiments/reports/reference_scd_symmetric_eval_report.md --bootstrap-iterations 10000 --seed 20260712
+python experiments/analyzers/analyze_scd_symmetric_eval.py --english-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-en-gpt41-2025-04-14/merged.ragas_scores.json --korean-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-ko-gpt41-2025-04-14/merged.ragas_scores.json --out-json experiments/results/analysis/reference_scd_symmetric_gpt41_2025_04_14.json --out-md experiments/reports/reference_scd_symmetric_eval_report_gpt41_2025_04_14.md --bootstrap-iterations 10000 --seed 20260712
+```
+
+This reports a matched-context, post-generation normalization sensitivity analysis.
+The `gpt-4o` nonzero answer-relevancy intervals are not reproduced by fixed
+`gpt-4.1-2025-04-14`; no result may be relabeled as an unbiased causal or deployment
+estimate.
+
+Any future retuning should use only `tuning_queries`, then freeze `top_k`,
 `rerank_top_n`, `cad_alpha`, `scd_beta`, the HyDE prompt/template, and
 generation settings. The main matrix must vary only HyDE, CAD, and SCD.
 
-Future main generation should use `decoder_main_queries` only after query/GT
-cleanup confirms answerability and split integrity. Plan JSONL records map each
+The completed main generation used `decoder_main_queries` after query/GT cleanup.
+Any rerun must preserve that split integrity. Plan JSONL records map each
 matrix config into runtime request fields: `use_hyde`, `use_cad`, `use_scd`,
 `cad_alpha`, and `scd_beta`.
 

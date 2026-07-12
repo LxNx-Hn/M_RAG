@@ -1,7 +1,7 @@
-"""Official RAGAS runner skeleton.
+"""Side-effect-free validation helpers for the official RAGAS runner.
 
-Phase 2 intentionally provides dependency readiness and input validation only.
-It must not execute RAGAS, OpenAI, external judges, or model inference.
+This legacy-named module checks dependency readiness and input shape only. It
+must not execute RAGAS, external judges, or model inference.
 """
 
 from __future__ import annotations
@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from importlib.util import find_spec
 from typing import Any
-
 
 SUPPORTED_OFFICIAL_RAGAS_METRICS = (
     "faithfulness",
@@ -90,14 +89,15 @@ def validate_official_ragas_samples(
     if unsupported:
         errors.append("Unsupported official RAGAS metrics: " + ", ".join(unsupported))
 
-    needs_reference = {"context_recall"}
+    needs_reference = {"context_precision", "context_recall"}
     if needs_reference.intersection(metrics):
         missing_reference = [
             idx for idx, sample in enumerate(samples) if not sample.ground_truth
         ]
         if missing_reference:
             errors.append(
-                "context_recall requires ground_truth/reference for sample indexes: "
+                "context_precision/context_recall require ground_truth/reference "
+                "for sample indexes: "
                 + ", ".join(str(idx) for idx in missing_reference)
             )
 

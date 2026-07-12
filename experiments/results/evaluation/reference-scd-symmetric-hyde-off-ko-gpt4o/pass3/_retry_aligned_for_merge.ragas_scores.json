@@ -1,0 +1,534 @@
+{
+  "mode": "official_scored_execution",
+  "executed_at": "2026-07-12T04:42:42.575172+00:00",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings": {
+    "model": "BAAI/bge-m3",
+    "runtime": "local (no API)"
+  },
+  "ragas_version": "0.2.15",
+  "ragas_run_config": {
+    "max_workers": 1,
+    "timeout": 2400,
+    "max_retries": 10,
+    "max_wait": 60,
+    "log_tenacity": true
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy"
+  ],
+  "generation_input": {
+    "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-ko-gpt4o\\pass3\\_retry_input.jsonl",
+    "sha256": "da3475f82d7f2a04744b21db5c2e5ed218bfe68af86f94299937d8e47741cd04",
+    "byte_size": 48978,
+    "record_count": 1,
+    "symmetric_normalization": {
+      "present_records": 1,
+      "protocol_ids": [
+        "reference_scd.symmetric_normalization.gpt4o.v9"
+      ],
+      "schema_versions": [
+        "reference_scd.symmetric_normalization.v9"
+      ],
+      "target_languages": [
+        "ko"
+      ],
+      "all_selected_conditions_normalized_values": [
+        true
+      ],
+      "scopes": [
+        "hyde_off_identical_context_pairs"
+      ]
+    }
+  },
+  "query_split": "decoder_main_queries",
+  "dataset_record_count": 76,
+  "scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.0
+  },
+  "per_group": {
+    "hyde_off__cad_only": {
+      "n": 1,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.0
+    }
+  },
+  "per_sample": [
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null
+    }
+  ],
+  "ragas_used": true,
+  "judge_api_used": true,
+  "openai_used": true,
+  "network_used": true,
+  "gt_regenerated": false,
+  "note": "Scored measurement artifact. Group = tuning profile_id or main config_name. Feeds prepare_parameter_freeze.py.",
+  "aligned_for_merge": {
+    "source": "subset retry pass expanded to previous merged row order",
+    "raw_retry_dataset_record_count": 1,
+    "raw_retry_per_sample_count": 1
+  }
+}

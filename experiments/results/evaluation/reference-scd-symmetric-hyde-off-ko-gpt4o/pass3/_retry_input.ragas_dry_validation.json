@@ -1,0 +1,62 @@
+{
+  "mode": "dry_validation_only",
+  "official_ragas_execution": "gated_behind_CONFIRM_OFFICIAL_RAGAS_EXECUTION_and_judge_api_key",
+  "generation_results": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-ko-gpt4o\\pass3\\_retry_input.jsonl",
+  "generation_input": {
+    "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-ko-gpt4o\\pass3\\_retry_input.jsonl",
+    "sha256": "da3475f82d7f2a04744b21db5c2e5ed218bfe68af86f94299937d8e47741cd04",
+    "byte_size": 48978,
+    "record_count": 1,
+    "symmetric_normalization": {
+      "present_records": 1,
+      "protocol_ids": [
+        "reference_scd.symmetric_normalization.gpt4o.v9"
+      ],
+      "schema_versions": [
+        "reference_scd.symmetric_normalization.v9"
+      ],
+      "target_languages": [
+        "ko"
+      ],
+      "all_selected_conditions_normalized_values": [
+        true
+      ],
+      "scopes": [
+        "hyde_off_identical_context_pairs"
+      ]
+    }
+  },
+  "query_split": "decoder_main_queries",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy"
+  ],
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings_plan": {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
+  },
+  "dependency_status": {
+    "available": true,
+    "missing": [],
+    "message": "Official RAGAS dependencies appear importable."
+  },
+  "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-ko-gpt4o\\pass3\\_retry_input.ragas_input.jsonl",
+  "dataset_record_count": 1,
+  "validation_errors": [],
+  "validation_passed": true,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "records_read": 1,
+  "reference_split": "decoder_main_queries",
+  "reference_coverage": "1/1",
+  "records_missing_contexts": 0
+}

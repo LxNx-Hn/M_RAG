@@ -1,6 +1,16 @@
 # reference_scd Completion Runbook
 
-This is the authoritative cold-start handoff for finishing the remaining `reference_scd` thesis-experiment pipeline end to end. A fresh AI session or agent with no chat history should be able to read this file, resume or diagnose the Alice scoring job, pull the official artifacts, run the final analyses, and write the final report without asking the project owner to re-explain prior decisions.
+> **SUPERSEDED 2026-07-11.** This file preserves the operational state before the
+> rerun was finalized. It is not an active runbook and its "official NIM" or
+> "pending" instructions must not be executed as current state. Use
+> `reference_scd_rerun_report.md`, `reference_scd_rerun_report_KO.md`,
+> `reference_scd_symmetric_cross_judge_report.md`, and the current thesis instead. The
+> final methodological correction treats all judge panels as sensitivity analyses,
+> not causal SCD RAG-quality results. The symmetric HyDE-off track has 0/608 null
+> cells across `gpt-4o` and fixed `gpt-4.1-2025-04-14`; faithfulness is unresolved,
+> and the `gpt-4o` nonzero answer-relevancy interval does not replicate cross-judge.
+
+At the time it was written, this was the cold-start handoff for finishing the remaining `reference_scd` thesis-experiment pipeline. The body below is retained only as historical execution provenance.
 
 This file is specific to the corrected `reference_scd` experiment track:
 

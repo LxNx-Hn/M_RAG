@@ -79,14 +79,17 @@ Phase 3 기준으로 다음 호환성을 유지한다.
 
 평가는 두 갈래로 분리한다.
 
-- RAGAS-compatible skeleton: 나중에 공식 패키지를 실행할 수 있도록 schema/import readiness만 확인
-- RAGAS-inspired lightweight evaluator: 로컬/경량 judge 설계
+- 공식 RAGAS runner: 원래 Phase 8은 NVIDIA NIM judge, 완료된 `reference_scd` 예외는 `gpt-4o`와 고정 `gpt-4.1` 교차 judge
+- RAGAS-inspired lightweight evaluator: 서비스/로컬 경량 judge로, 공식 RAGAS 결과와 분리
 
-현재 문서에서는 실제 RAGAS 실행 결과나 OpenAI judge 결과를 주장하지 않는다.
+실제 결과는 `docs/PAPER/THESIS.md`와 `experiments/reports/`의 최신 보고서만 인용한다.
+`reference_scd` 언어 결과는 직접 측정이다. 대칭 패널에서도 `gpt-4o`의 0이 아닌
+answer-relevancy 구간이 고정 `gpt-4.1`에서 재현되지 않았으므로, SCD의 인과적 RAG
+품질 효과로 쓰지 않는다.
 
 ## 결과 작성 규칙
 
-- 실험을 실행하기 전에는 pending만 쓴다.
+- 미실행 항목은 pending으로, 완료 항목은 검증된 artifact 범위 안에서만 쓴다.
 - query를 새로 꾸며내지 않는다.
 - service-route qualitative example을 main experiment result로 쓰지 않는다.
 - route system을 새로운 algorithm처럼 쓰지 않는다.

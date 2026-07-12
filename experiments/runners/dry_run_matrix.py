@@ -275,7 +275,10 @@ def main() -> int:
             ("CAD contract", "exact formula required and Phase 2 reported implemented"),
             ("CAD KV cache correctness rule", "uncached reference path documented"),
             ("SCD contract", "Korean-target Soft Constrained Decoding"),
-            ("RAGAS contract", "official skeleton separated from lightweight judge"),
+            (
+                "RAGAS contract",
+                "hard-gated official runner; validation helper separated from lightweight judge",
+            ),
             ("unsupported method removal contract", "recorded"),
             ("frontend-derived runtime contract", "recorded"),
             (
@@ -323,8 +326,14 @@ def main() -> int:
     print_section(
         "Evaluation Design",
         [
-            ("official RAGAS path", "schema/import readiness skeleton only"),
-            ("lightweight judge path", "RAGASInspiredEvaluator design"),
+            (
+                "official RAGAS path",
+                "implemented runner; network execution remains explicitly gated",
+            ),
+            (
+                "lightweight judge path",
+                "RAGASInspiredEvaluator service/local design; not official RAGAS",
+            ),
             ("language drift metric", "evaluator layer"),
             ("numeric hallucination metric", "evaluator layer"),
             ("Korean answer ratio", "evaluator layer"),
@@ -373,4 +382,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

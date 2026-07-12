@@ -1,0 +1,417 @@
+{
+  "schema_version": 2,
+  "effect": "SCD-on minus matched SCD-off",
+  "settings": {
+    "metrics": [
+      "faithfulness",
+      "answer_relevancy"
+    ],
+    "expected_pairs_per_panel": 38,
+    "expected_pairs_per_cad_stratum": 19,
+    "practical_band_threshold": 0.01,
+    "bootstrap": {
+      "statistic": "query-clustered paired mean delta",
+      "sampling_unit": "query_id",
+      "clusters_per_panel": 19,
+      "contrasts_per_cluster_overall": 2,
+      "iterations": 10000,
+      "confidence_level": 0.95,
+      "method": "percentile",
+      "seed": 20260712
+    }
+  },
+  "panels": {
+    "english_normalized": {
+      "source": "experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-en-gpt4o\\merged.ragas_scores.json",
+      "score_sha256": "30c26f0c12c3c168bff9515b9aa15af88a50636090e2b7e46fa9df5ffc5df2c1",
+      "generation_input": {
+        "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_en.jsonl",
+        "sha256": "8fba280fc240b83f88fe5a125d1a48942216b493b3256695b2454459cb09f45c",
+        "byte_size": 2542812,
+        "record_count": 76,
+        "symmetric_normalization": {
+          "present_records": 76,
+          "protocol_ids": [
+            "reference_scd.symmetric_normalization.gpt4o.v9"
+          ],
+          "schema_versions": [
+            "reference_scd.symmetric_normalization.v9"
+          ],
+          "target_languages": [
+            "en"
+          ],
+          "all_selected_conditions_normalized_values": [
+            true
+          ],
+          "scopes": [
+            "hyde_off_identical_context_pairs"
+          ]
+        }
+      },
+      "judge": {
+        "provider": "openai",
+        "model": "gpt-4o"
+      },
+      "ragas_version": "0.2.15",
+      "embeddings": {
+        "model": "BAAI/bge-m3",
+        "runtime": "local (no API)"
+      },
+      "paired_results": {
+        "overall": {
+          "faithfulness": {
+            "n": 38,
+            "bootstrap_clusters": 19,
+            "mean_delta": 0.007116,
+            "median_delta": 0.0,
+            "wins": 18,
+            "losses": 12,
+            "ties": 8,
+            "practical_bands": {
+              "gain_gt_0_01": 18,
+              "loss_lt_minus_0_01": 12,
+              "within_plus_minus_0_01": 8
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.059643,
+              "upper": 0.071444
+            },
+            "direction": "positive",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 38,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.090971,
+            "median_delta": -0.00285,
+            "wins": 11,
+            "losses": 21,
+            "ties": 6,
+            "practical_bands": {
+              "gain_gt_0_01": 8,
+              "loss_lt_minus_0_01": 18,
+              "within_plus_minus_0_01": 12
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.172529,
+              "upper": -0.024026
+            },
+            "direction": "negative",
+            "ci_direction": "negative"
+          }
+        },
+        "cad_off": {
+          "faithfulness": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.028989,
+            "median_delta": 0.0,
+            "wins": 8,
+            "losses": 7,
+            "ties": 4,
+            "practical_bands": {
+              "gain_gt_0_01": 8,
+              "loss_lt_minus_0_01": 7,
+              "within_plus_minus_0_01": 4
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.096258,
+              "upper": 0.031589
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.045426,
+            "median_delta": 0.0,
+            "wins": 7,
+            "losses": 8,
+            "ties": 4,
+            "practical_bands": {
+              "gain_gt_0_01": 6,
+              "loss_lt_minus_0_01": 7,
+              "within_plus_minus_0_01": 6
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.133816,
+              "upper": 0.024437
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          }
+        },
+        "cad_on": {
+          "faithfulness": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": 0.043221,
+            "median_delta": 0.0147,
+            "wins": 10,
+            "losses": 5,
+            "ties": 4,
+            "practical_bands": {
+              "gain_gt_0_01": 10,
+              "loss_lt_minus_0_01": 5,
+              "within_plus_minus_0_01": 4
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.034884,
+              "upper": 0.122678
+            },
+            "direction": "positive",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.136516,
+            "median_delta": -0.0232,
+            "wins": 4,
+            "losses": 13,
+            "ties": 2,
+            "practical_bands": {
+              "gain_gt_0_01": 2,
+              "loss_lt_minus_0_01": 11,
+              "within_plus_minus_0_01": 6
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.243414,
+              "upper": -0.041665
+            },
+            "direction": "negative",
+            "ci_direction": "negative"
+          }
+        }
+      }
+    },
+    "korean_normalized": {
+      "source": "experiments\\results\\evaluation\\reference-scd-symmetric-hyde-off-ko-gpt4o\\merged.ragas_scores.json",
+      "score_sha256": "ccedb54073eacb782be9633b9ca3c6fb37f366ae88f7b045fef1d2a95b27c46c",
+      "generation_input": {
+        "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_ko.jsonl",
+        "sha256": "d1c37e243f48b5f42f1e9ecb59d7e8a71299f0ca8f714ee3984e0067767b0ee9",
+        "byte_size": 2927103,
+        "record_count": 76,
+        "symmetric_normalization": {
+          "present_records": 76,
+          "protocol_ids": [
+            "reference_scd.symmetric_normalization.gpt4o.v9"
+          ],
+          "schema_versions": [
+            "reference_scd.symmetric_normalization.v9"
+          ],
+          "target_languages": [
+            "ko"
+          ],
+          "all_selected_conditions_normalized_values": [
+            true
+          ],
+          "scopes": [
+            "hyde_off_identical_context_pairs"
+          ]
+        }
+      },
+      "judge": {
+        "provider": "openai",
+        "model": "gpt-4o"
+      },
+      "ragas_version": "0.2.15",
+      "embeddings": {
+        "model": "BAAI/bge-m3",
+        "runtime": "local (no API)"
+      },
+      "paired_results": {
+        "overall": {
+          "faithfulness": {
+            "n": 38,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.028297,
+            "median_delta": 0.0,
+            "wins": 15,
+            "losses": 15,
+            "ties": 8,
+            "practical_bands": {
+              "gain_gt_0_01": 13,
+              "loss_lt_minus_0_01": 15,
+              "within_plus_minus_0_01": 10
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.104366,
+              "upper": 0.051025
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 38,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.075155,
+            "median_delta": 0.0,
+            "wins": 13,
+            "losses": 16,
+            "ties": 9,
+            "practical_bands": {
+              "gain_gt_0_01": 9,
+              "loss_lt_minus_0_01": 13,
+              "within_plus_minus_0_01": 16
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.15011,
+              "upper": -0.013778
+            },
+            "direction": "negative",
+            "ci_direction": "negative"
+          }
+        },
+        "cad_off": {
+          "faithfulness": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.028821,
+            "median_delta": 0.0,
+            "wins": 7,
+            "losses": 7,
+            "ties": 5,
+            "practical_bands": {
+              "gain_gt_0_01": 6,
+              "loss_lt_minus_0_01": 7,
+              "within_plus_minus_0_01": 6
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.115369,
+              "upper": 0.05497
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.042511,
+            "median_delta": 0.0,
+            "wins": 9,
+            "losses": 7,
+            "ties": 3,
+            "practical_bands": {
+              "gain_gt_0_01": 6,
+              "loss_lt_minus_0_01": 7,
+              "within_plus_minus_0_01": 6
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.121874,
+              "upper": 0.018153
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          }
+        },
+        "cad_on": {
+          "faithfulness": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.027774,
+            "median_delta": 0.0,
+            "wins": 8,
+            "losses": 8,
+            "ties": 3,
+            "practical_bands": {
+              "gain_gt_0_01": 7,
+              "loss_lt_minus_0_01": 8,
+              "within_plus_minus_0_01": 4
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.132482,
+              "upper": 0.07948
+            },
+            "direction": "negative",
+            "ci_direction": "overlaps_zero"
+          },
+          "answer_relevancy": {
+            "n": 19,
+            "bootstrap_clusters": 19,
+            "mean_delta": -0.1078,
+            "median_delta": 0.0,
+            "wins": 4,
+            "losses": 9,
+            "ties": 6,
+            "practical_bands": {
+              "gain_gt_0_01": 3,
+              "loss_lt_minus_0_01": 6,
+              "within_plus_minus_0_01": 10
+            },
+            "bootstrap_mean_95_ci": {
+              "lower": -0.201332,
+              "upper": -0.02761
+            },
+            "direction": "negative",
+            "ci_direction": "negative"
+          }
+        }
+      }
+    }
+  },
+  "cross_language_consistency": {
+    "overall": {
+      "faithfulness": {
+        "english_direction": "positive",
+        "korean_direction": "negative",
+        "direction_consistent": false,
+        "english_ci_direction": "overlaps_zero",
+        "korean_ci_direction": "overlaps_zero",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": false
+      },
+      "answer_relevancy": {
+        "english_direction": "negative",
+        "korean_direction": "negative",
+        "direction_consistent": true,
+        "english_ci_direction": "negative",
+        "korean_ci_direction": "negative",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": true
+      }
+    },
+    "cad_off": {
+      "faithfulness": {
+        "english_direction": "negative",
+        "korean_direction": "negative",
+        "direction_consistent": true,
+        "english_ci_direction": "overlaps_zero",
+        "korean_ci_direction": "overlaps_zero",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": false
+      },
+      "answer_relevancy": {
+        "english_direction": "negative",
+        "korean_direction": "negative",
+        "direction_consistent": true,
+        "english_ci_direction": "overlaps_zero",
+        "korean_ci_direction": "overlaps_zero",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": false
+      }
+    },
+    "cad_on": {
+      "faithfulness": {
+        "english_direction": "positive",
+        "korean_direction": "negative",
+        "direction_consistent": false,
+        "english_ci_direction": "overlaps_zero",
+        "korean_ci_direction": "overlaps_zero",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": false
+      },
+      "answer_relevancy": {
+        "english_direction": "negative",
+        "korean_direction": "negative",
+        "direction_consistent": true,
+        "english_ci_direction": "negative",
+        "korean_ci_direction": "negative",
+        "ci_class_consistent": true,
+        "same_nonzero_ci_direction": true
+      }
+    }
+  }
+}

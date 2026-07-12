@@ -1,5 +1,11 @@
 # Phase 8 — Why Our SCD Produced a Null Result
 
+> **Historical v1 report.** Every SCD result in this file refers to the original
+> `penalty_additive` v1 implementation. The corrected `reference_scd` rerun and
+> cross-judge symmetric follow-up are complete; see `reference_scd_rerun_report.md`
+> and `reference_scd_symmetric_cross_judge_report.md`. Do not carry this v1 null result
+> forward as a claim about `reference_scd`.
+
 The main experiment found SCD (Korean-target Soft Constrained Decoding) to be a
 **null factor**: no effect on the four RAGAS metrics (|Δ| ≤ 0.013) and net-null on
 its own target, Korean-language adherence (paired mean Δ = **−0.014**; direct
@@ -54,8 +60,8 @@ The repository now also exposes two opt-in SCD-v2 experiment modes:
   and `distractor += log(beta)`. This is **not** the original-paper SCD formula.
 
 Existing Phase 8 result tables and scores remain `penalty_additive` v1 results.
-Any future claim about original SCD requires running a distinct
-`reference_scd` experiment.
+The later distinct `reference_scd` experiment supplies the corrected claim track;
+it does not rewrite these Phase 8 v1 tables in place.
 
 ## Why each gap produces the observed null
 
@@ -95,8 +101,8 @@ Any future claim about original SCD requires running a distinct
 
 The null result is not evidence that soft constrained decoding cannot work; it is
 evidence that the **penalty-only, additive, always-on** Phase 8 application mode
-does not. The literal `reference_scd` implementation is now available for a
-separate guarded rerun with `(alpha=1.1, beta=0.9, T_start=5)` defaults. It must
-be evaluated separately before being used in any result claim.
+does not. The literal `reference_scd` implementation was evaluated separately with
+guarded `(alpha=1.1, beta=0.9, T_start=5)` defaults. Its direct language result and
+later sensitivity panels are reported outside this historical v1 document.
 
 Sources: [arXiv 2511.09984](https://arxiv.org/abs/2511.09984).

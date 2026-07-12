@@ -1,13 +1,13 @@
 # 참고문헌 재분류 설명
 
-이 문서는 Phase 5 기준으로 참고문헌을 다시 분류한다. 목표는 "무엇을 실제 구현/실험 축으로 사용했는가"와 "무엇은 배경 또는 향후 과제인가"를 분리하는 것이다.
+이 문서는 현재 논문 기준으로 참고문헌을 분류한다. 목표는 "무엇을 실제 구현/실험 축으로 사용했는가"와 "무엇은 배경 또는 향후 과제인가"를 분리하는 것이다.
 
 ## 핵심 원칙
 
 - 핵심 구현 참고문헌은 HyDE/CAD/SCD factor analysis와 고정 Paper-RAG backbone에 직접 필요한 문헌만 둔다.
 - 서비스 라우팅은 졸업작품 시스템 통합 계층이므로, 라우터 자체를 새로운 thesis algorithm으로 주장하지 않는다.
-- 경량 로컬 평가는 RAGAS-inspired 평가 설계로 설명한다. RAGAS 패키지를 실행한 결과로 쓰지 않는다.
-- 결과 수치는 검증된 실험 산출물이 생기기 전까지 쓰지 않는다.
+- 경량 로컬 judge와 공식 RAGAS runner 결과를 구분한다.
+- 결과 수치는 검증된 실험 산출물과 최신 방법론 한계가 함께 있을 때만 쓴다.
 
 ## Core Implementation
 
@@ -26,11 +26,14 @@
 
 ## Evaluation Reference
 
-| 문헌 | Phase 5 위치 |
+| 문헌 | 현재 역할 |
 |---|---|
-| RAGAS | 평가 지표 설계 배경 및 future-compatible skeleton |
-| Local judge designs | lightweight evaluator / RAGAS-inspired evaluator |
-| Language drift metrics | 한국어 답변 비율과 language drift 측정 설계 |
+| RAGAS | 공식 4-메트릭 평가 구현 및 지표 정의 |
+| GPT-4o system card | 승인된 `reference_scd` 번역 및 첫 OpenAI judge 예외의 모델 근거 |
+| 고정 GPT-4.1 judge ID | score artifact에 기록된 교차 judge 실행 provenance; 새 방법 근거는 아님 |
+| Multilingual LLM-as-a-Judge | 교차언어 자동평가 한계 근거 |
+| Local judge designs | 서비스용 lightweight evaluator; 공식 RAGAS와 분리 |
+| Language drift metrics | 한국어 답변 비율의 직접 측정 설계 |
 | Numeric hallucination metrics | 수치 주장과 evidence support 측정 설계 |
 
 ## Background
@@ -75,10 +78,11 @@ Use:
 - "Korean-query / English-paper RAG"
 - "graduation-project service route"
 - "RAGAS-inspired lightweight evaluator"
-- "future RAGAS-compatible skeleton"
+- "official RAGAS runner with judge-specific provenance"
+- "judge-independent direct Korean-ratio analysis"
 
 Avoid:
 
-- claiming result values before verified artifacts exist
+- claiming result values beyond the verified artifact and its methodological limits
 - presenting routed service integration as the core algorithmic contribution
 - presenting unsupported related-work methods as implemented methods

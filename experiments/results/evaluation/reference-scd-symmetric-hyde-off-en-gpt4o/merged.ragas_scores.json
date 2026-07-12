@@ -1,0 +1,544 @@
+{
+  "mode": "official_scored_execution",
+  "executed_at": "2026-07-12T04:25:18.903390+00:00",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings": {
+    "model": "BAAI/bge-m3",
+    "runtime": "local (no API)"
+  },
+  "ragas_version": "0.2.15",
+  "ragas_run_config": {
+    "max_workers": 1,
+    "timeout": 2400,
+    "max_retries": 10,
+    "max_wait": 60,
+    "log_tenacity": true
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy"
+  ],
+  "generation_input": {
+    "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_en.jsonl",
+    "sha256": "8fba280fc240b83f88fe5a125d1a48942216b493b3256695b2454459cb09f45c",
+    "byte_size": 2542812,
+    "record_count": 76,
+    "symmetric_normalization": {
+      "present_records": 76,
+      "protocol_ids": [
+        "reference_scd.symmetric_normalization.gpt4o.v9"
+      ],
+      "schema_versions": [
+        "reference_scd.symmetric_normalization.v9"
+      ],
+      "target_languages": [
+        "en"
+      ],
+      "all_selected_conditions_normalized_values": [
+        true
+      ],
+      "scopes": [
+        "hyde_off_identical_context_pairs"
+      ]
+    }
+  },
+  "query_split": "decoder_main_queries",
+  "dataset_record_count": 76,
+  "scores": {
+    "faithfulness": 0.8082,
+    "answer_relevancy": 0.7795
+  },
+  "per_group": {
+    "hyde_off__cad_only": {
+      "n": 19,
+      "faithfulness": 0.7955,
+      "answer_relevancy": 0.788
+    },
+    "hyde_off__cad_scd": {
+      "n": 19,
+      "faithfulness": 0.8387,
+      "answer_relevancy": 0.6515
+    },
+    "hyde_off__no_decoder_control": {
+      "n": 19,
+      "faithfulness": 0.8138,
+      "answer_relevancy": 0.8619
+    },
+    "hyde_off__scd_only": {
+      "n": 19,
+      "faithfulness": 0.7848,
+      "answer_relevancy": 0.8165
+    }
+  },
+  "per_sample": [
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.2143,
+      "answer_relevancy": 0.6165
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.5833,
+      "answer_relevancy": 0.7443
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.9333,
+      "answer_relevancy": 0.9901
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.375,
+      "answer_relevancy": 0.6919
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8369
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.9779
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.6466
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7312
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.8889,
+      "answer_relevancy": 0.9839
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.5714,
+      "answer_relevancy": 0.9093
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8357
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.8696,
+      "answer_relevancy": 0.9426
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7654
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.75,
+      "answer_relevancy": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.625,
+      "answer_relevancy": 0.9836
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.8947,
+      "answer_relevancy": 0.8216
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 0.9,
+      "answer_relevancy": 0.9228
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9781
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.998
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.3333,
+      "answer_relevancy": 0.5637
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9444,
+      "answer_relevancy": 0.7173
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.5714,
+      "answer_relevancy": 0.5156
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9231,
+      "answer_relevancy": 0.9279
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.902
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7246
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9412,
+      "answer_relevancy": 0.777
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.7,
+      "answer_relevancy": 0.8824
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.75,
+      "answer_relevancy": 0.9299
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8469
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.7273,
+      "answer_relevancy": 0.891
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.8333,
+      "answer_relevancy": 0.9367
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.8,
+      "answer_relevancy": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.6429,
+      "answer_relevancy": 0.7163
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.7143,
+      "answer_relevancy": 0.85
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9286,
+      "answer_relevancy": 0.9228
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9,
+      "answer_relevancy": 0.9074
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_only",
+      "faithfulness": 0.9048,
+      "answer_relevancy": 0.9611
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.2368,
+      "answer_relevancy": 0.6697
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.1765,
+      "answer_relevancy": 0.5992
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9444,
+      "answer_relevancy": 0.9566
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.6364,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 0.8442
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9167,
+      "answer_relevancy": 0.8744
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8969
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.7705
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8889,
+      "answer_relevancy": 0.7519
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.625,
+      "answer_relevancy": 0.9093
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8501
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8947,
+      "answer_relevancy": 0.8553
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7496
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 1.0
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.5714,
+      "answer_relevancy": 0.9832
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.8816
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9228
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.7778,
+      "answer_relevancy": 1.0
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__scd_only",
+      "faithfulness": 0.8421,
+      "answer_relevancy": 0.998
+    },
+    {
+      "query_id": "track1_0009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.6667,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.6,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0012",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0015",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0
+    },
+    {
+      "query_id": "track1_0016",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.9231,
+      "answer_relevancy": 0.8564
+    },
+    {
+      "query_id": "track1_0019",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.9091,
+      "answer_relevancy": 0.9012
+    },
+    {
+      "query_id": "track1_0021",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.619
+    },
+    {
+      "query_id": "track1_0023",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8486
+    },
+    {
+      "query_id": "track1_0024",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.7207
+    },
+    {
+      "query_id": "track1_0025",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.7647,
+      "answer_relevancy": 0.9422
+    },
+    {
+      "query_id": "track1_0026",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8469
+    },
+    {
+      "query_id": "track1_0027",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.9375,
+      "answer_relevancy": 0.8211
+    },
+    {
+      "query_id": "track1_0032",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.875,
+      "answer_relevancy": 0.9135
+    },
+    {
+      "query_id": "track1_0033",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9863
+    },
+    {
+      "query_id": "track1_0034",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.5455,
+      "answer_relevancy": 0.7259
+    },
+    {
+      "query_id": "track1_0035",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.4333
+    },
+    {
+      "query_id": "track1_0036",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9179
+    },
+    {
+      "query_id": "track1_0037",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8815
+    },
+    {
+      "query_id": "track1_0040",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": 0.8571,
+      "answer_relevancy": 0.9643
+    }
+  ],
+  "ragas_used": true,
+  "judge_api_used": true,
+  "openai_used": true,
+  "network_used": true,
+  "gt_regenerated": false,
+  "note": "Scored measurement artifact. Group = tuning profile_id or main config_name. Feeds prepare_parameter_freeze.py."
+}

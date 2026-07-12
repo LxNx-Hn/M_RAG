@@ -1,5 +1,11 @@
 # Phase 8 — Limitations
 
+> **Historical Phase 8/v1 snapshot.** The SCD null result and deferred-rerun wording
+> below apply to `penalty_additive` v1 at that time. The corrected `reference_scd`
+> rerun and symmetric follow-up are complete; use the current thesis,
+> `reference_scd_rerun_report.md`, and `reference_scd_symmetric_cross_judge_report.md` for
+> present conclusions.
+
 Honest constraints on the HyDE × CAD × SCD factor analysis. These bound how the
 results should be read; they do not invalidate the within-experiment factor
 comparison, which is the thesis claim.

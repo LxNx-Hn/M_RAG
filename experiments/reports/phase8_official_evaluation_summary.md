@@ -1,5 +1,9 @@
 # Phase 8 — Official Evaluation Summary (HyDE × CAD × SCD Factor Analysis)
 
+> **Original Phase 8 matrix only.** This report remains the canonical NVIDIA-NIM
+> result for `penalty_additive` v1. It does not contain the later `reference_scd`
+> language result or its later `gpt-4o` / fixed `gpt-4.1` sensitivity panels.
+
 Measurement tool: RAGAS with an **NVIDIA NIM** judge
 (`meta/llama-3.3-70b-instruct`, temperature 0, OpenAI-compatible endpoint),
 answer_relevancy embeddings = local BGE-M3. Judge held fixed across every

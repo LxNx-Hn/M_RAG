@@ -1,7 +1,9 @@
 # Routed Policy Design Skeleton
 
-This is a placeholder for translating query-type analysis into the
-graduation-project service policy after experiments are run.
+This is an intentionally unexecuted future-analysis placeholder for translating
+query-type evidence into the graduation-project service policy after a dedicated
+query-type evaluation is run. The completed global factor analysis does not
+validate route-specific defaults.
 
 Pending result fields:
 
@@ -14,4 +16,3 @@ Pending result fields:
 - Runtime/cost caveats
 
 No policy is finalized in Phase 4.
-

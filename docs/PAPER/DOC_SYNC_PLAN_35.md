@@ -1,5 +1,8 @@
 ﻿# 39편 기준 문서 동기화 기록
 
+> **과거 문서 동기화 기록.** 현재 프로젝트 상태의 기준 문서가 아니다. 최신 주장은
+> `THESIS.md`, 저장소 루트 `README.md`, 최신 `experiments/reports/`를 사용한다.
+
 ## 기준
 
 - 기준 원문 `C:/Users/KiKi/Downloads/modular_rag_guideline.md`

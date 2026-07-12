@@ -5,10 +5,15 @@ Soft Constrained Decoding implementation evaluated after the earlier
 `penalty_additive` v1 SCD mode was shown to be a null result in
 [phase8_scd_failure_analysis.md](phase8_scd_failure_analysis.md).
 
-The result is a real trade-off. `reference_scd` decisively fixes the target
-problem it was built for, Korean-language adherence. Under a language-matched
-RAG-quality evaluation, it also carries a measurable cost on three of four RAGAS
-metrics. Both findings are reported here as final.
+The final supported result is narrower than the initial interpretation of this
+artifact. `reference_scd` strongly improves direct Korean-language adherence.
+The complete `gpt-4o` score panel is retained as a protocol-specific sensitivity
+analysis, not as an isolated causal estimate of SCD's RAG-quality effect. A later
+symmetric bilingual follow-up removes the earlier SCD-on-only preprocessing
+correlation on 38 identical-context HyDE-off pairs. It leaves faithfulness
+directionally unresolved. Its `gpt-4o` answer-relevancy intervals are negative, but
+fixed `gpt-4.1-2025-04-14` does not reproduce nonzero intervals. No judge-robust
+nonzero RAG-quality effect is established.
 
 ## 1. Executive summary
 
@@ -20,20 +25,30 @@ additive-only, had no target-language boost, and had no warm-up. That v1 mode is
 already reported as a null result in
 [phase8_scd_failure_analysis.md](phase8_scd_failure_analysis.md).
 
-On its actual target metric, Korean-language adherence, `reference_scd` is a
-clear, strong, confirmed success. This result is judge-independent because it was
-computed directly from the generated text's Korean-character ratio, not by an
-LLM judge.
+On its target metric, Korean-language adherence, `reference_scd` shows a strong,
+judge-independent improvement because the ratio is computed directly from the
+generated text. It does not eliminate drift in every answer: 15/26 threshold
+drifts are rescued, 12/76 SCD-on answers remain below 0.5, and 3/76 pairs decline.
 
-On RAG-quality metrics, `reference_scd` shows a real, rigorously verified cost on
-three of four metrics: faithfulness, answer_relevancy, and context_recall.
-Context_precision is the sole exception and moves slightly positive.
+The `gpt-4o` panel contains 152 scored samples and 0/608 null metric cells. Under
+that exact preprocessing protocol, SCD-on cells have lower faithfulness,
+answer_relevancy, and context_recall and higher context_precision. Those deltas
+are descriptive protocol associations. Only SCD-on contexts were translated,
+all answer-key references remained English, and some paired HyDE-on records had
+different retrieval contexts, so the panel does not identify SCD's causal
+RAG-quality effect.
 
-This trade-off was verified under a language-matched, cross-lingual-confound-
-controlled evaluation design. The control was specifically built to rule out
-judge cross-linguality noise as an alternative explanation. The RAG-quality cost
-survived that control, so it is reported as a genuine finding, not a measurement
-artifact.
+The stricter bilingual follow-up applies one score-independent normalization policy
+to all four HyDE-off conditions and retains 0/304 null metric cells across the English
+and Korean panels. Query-clustered 95% intervals overlap zero for faithfulness in both
+languages. Answer relevancy is lower in both: English -0.0910
+[-0.1725, -0.0240] and Korean -0.0752 [-0.1501, -0.0138]. This is a possible
+trade-off signal under the protocol, not an unbiased causal estimate, because
+normalization is post-generation and the same `gpt-4o` model normalizes and judges.
+A fixed `gpt-4.1-2025-04-14` cross-judge then scores the same 304 cells without
+nulls. Its English -0.0327 [-0.0851, +0.0129] and Korean -0.0356
+[-0.1149, +0.0315] answer-relevancy intervals overlap zero. The nonzero cost is
+therefore not judge-robust.
 
 ## 2. Reference paper: citation and verified fidelity
 
@@ -109,6 +124,11 @@ from 0.0667 to 0.3843 and rescued 6 of 12.
 The harm check is also clean. Of 20 pairs already at least 0.7 Korean with SCD
 off, zero were dragged below 0.65 by SCD-on.
 
+The direct result is robust to retrieval identity. All 38 HyDE-off SCD pairs have
+byte-identical retrieved contexts, and their mean Korean-ratio delta is +0.2198.
+This supports the language-control conclusion without the HyDE-on retrieval
+variance discussed in Section 4.
+
 The old `penalty_additive` v1 result is different and should not be carried
 forward as a final reference-SCD claim. Its source is
 [`experiments/results/analysis/scd_language_adherence.json`](../results/analysis/scd_language_adherence.json),
@@ -123,36 +143,35 @@ already-good answers dragged below 0.65.
 | Mean paired delta | -0.0137 | **+0.2203** |
 | Win / loss (of 76) | 22 / 24 | **68 / 3** |
 | Drift rescue @0.5 | 2/19 | **15/26** |
-| Harm on already-good answers | 9/28 harmed | **0/20 harmed** |
+| Predefined harm (baseline >=0.7 to SCD-on <0.65) | 9/28 | **0/20** |
 
-On SCD's actual target metric, `reference_scd` is a confirmed, strong,
-mechanism-validated success, directly consistent with the paper's central claim
-and exact hyperparameters. v1's null result is explained by its missing
-boost/multiplicative-penalty/warm-up, already documented in
-[phase8_scd_failure_analysis.md](phase8_scd_failure_analysis.md). Fixing those
-three gaps produced the corrected result. This conclusion does not depend on
-anything else in this report.
+On SCD's target metric, `reference_scd` is a confirmed strong improvement,
+consistent with the paper's formula and hyperparameters. The 0/20 value is only
+the predefined threshold-crossing check; it does not mean that no pair declined.
+The direct language conclusion does not depend on the RAGAS panel below.
 
 ## 4. Methodology note: why RAG-quality needed a special design
 
-When SCD succeeds, the generated answer is Korean while the retrieved context,
-drawn from English source papers, remains English. RAGAS `faithfulness` and
-`answer_relevancy` then require the judge LLM to do cross-lingual reasoning for
-SCD-on records but same-language reasoning for SCD-off records. That asymmetry
-could confound the metric independent of any real quality difference.
-
-The approved fix was the rigorous option: translate the retrieved context to
-Korean for SCD-on records only, using
+The evaluation attempted to reduce cross-lingual judging difficulty by translating
+retrieved contexts to Korean for SCD-on records only, using
 [`experiments/evaluators/translate_context_for_scd.py`](../evaluators/translate_context_for_scd.py).
-SCD-on is therefore judged as Korean-answer-vs-Korean-context, while SCD-off
-remains English-answer-vs-English-context. The generated answer itself is never
-modified for either condition. Only the comparison-side context is
-language-matched.
+Generated answers were not modified. This produced a useful sensitivity panel,
+but not a fully language-matched controlled comparison.
 
-This was chosen over translating the answer because the answer is the actual
-artifact under evaluation. Translating it would risk introducing translation
-artifacts into the output being judged. Translating only the reference/context
-side avoids that.
+The reason is observable in the retained artifacts. SCD-off answers were not
+uniformly English: 50/76 had Korean ratio >=0.5. Ground-truth references remained
+English. Translation preprocessing was perfectly correlated with SCD, 20/380
+translated SCD-on chunk occurrences contained no Hangul, and one five-chunk record
+remained byte-for-byte English despite success metadata. Also, only 51/76 original
+SCD pairs shared identical retrieval contexts; HyDE-on retrieval differed in 25/38
+pairs. Structural translation success therefore does not establish semantic
+language matching or isolate decoder behavior.
+
+RAGAS 0.2.15 further constrains interpretation: answer_relevancy uses the question
+and generated answer but not context; context_precision and context_recall use
+question/context/reference but not the generated answer. Only faithfulness uses
+the generated answer together with context. Context-metric deltas cannot therefore
+be described as decoder-caused SCD quality effects.
 
 The retrieval and decoding backbone remained the project setup under test:
 HyDE is dense branch within fixed hybrid backbone, using weighted RRF, dense 0.6
@@ -184,10 +203,9 @@ Any record whose context translation failed was designed to be excluded from the
 pipeline entirely. The pipeline never silently falls back to untranslated
 context. In this run, no record was excluded.
 
-## 5. Official RAG-quality result
+## 5. Complete `gpt-4o` sensitivity panel
 
-The official judge for this `reference_scd` RAG-quality evaluation is OpenAI
-`gpt-4o`, not NVIDIA NIM.
+The judge for this retained sensitivity panel is OpenAI `gpt-4o`, not NVIDIA NIM.
 
 The judge switch is specific to this experiment track and was made for
 empirically demonstrated reliability reasons. An earlier NVIDIA NIM attempt,
@@ -243,7 +261,7 @@ where `|delta| > 0.01`.
 Null-cell sensitivity is trivial. There are 0 null cells out of 608, so no
 sensitivity analysis is meaningful: there is no missing data to be sensitive to.
 
-### Per-axis characterization
+### Protocol-level characterization
 
 HyDE raises faithfulness clearly: +0.073, the largest positive effect of any
 axis on any metric. It also costs some context_precision (-0.035), which is a
@@ -255,15 +273,12 @@ answer_relevancy -0.076, with 34 losses. It only marginally helps faithfulness
 (+0.019). This is consistent with contrastive decoding over-anchoring generation
 to retrieved context at some cost to direct question-relevance.
 
-SCD costs three of four RAG-quality metrics: faithfulness -0.048,
-answer_relevancy -0.057, and context_recall -0.066. It is the only axis with a
-positive context_precision effect (+0.030). Notably, SCD's answer_relevancy cost
-(-0.057) is close in direction and magnitude to CAD's (-0.076). Both
-decoding-time constraint mechanisms, one for factual grounding and one for
-language control, show a similar-shaped quality cost pattern. HyDE, a
-retrieval-side intervention, shows a comparatively milder and more mixed
-profile. This is an observed pattern in the data, not a causal mechanism claim
-beyond what the data supports.
+Under this protocol, SCD-on cells differ by faithfulness -0.048,
+answer_relevancy -0.057, context_recall -0.066, and context_precision +0.030.
+The answer_relevancy difference is a direct question-answer score association;
+the other three metrics are exposed to the asymmetric context translation, and
+the two context metrics do not use the generated answer at all. These values are
+useful for sensitivity analysis, not as a four-metric SCD effect estimate.
 
 ### Per-config characterization
 
@@ -278,17 +293,16 @@ context_precision (-0.0022) and context_recall (-0.0526). CAD without HyDE is
 therefore not a faithfulness win by itself; its visible trade-off is
 question-relevance.
 
-`hyde_off__scd_only` shows the isolated SCD cost without HyDE: faithfulness
+`hyde_off__scd_only` shows a lower-score association for SCD-on without HyDE: faithfulness
 falls from 0.8159 to 0.7906 (-0.0253), answer_relevancy falls from 0.8201 to
 0.7758 (-0.0443), and context_recall falls from 1.0000 to 0.9474 (-0.0526).
 The offsetting benefit is context_precision, 0.8512 versus 0.8343 (+0.0169),
-which is consistent with the axis-level result that SCD is precision-positive
-but quality-costly on the other RAGAS metrics.
+which matches the protocol-level axis table. It is not an isolated causal estimate.
 
 `hyde_off__cad_scd` is the single riskiest combination in the matrix. It is the
 worst config for answer_relevancy, 0.6556, and the worst hyde-off config for
 context_recall, 0.7895, a full -0.2105 below the hyde-off baseline. This is the
-only config where CAD's answer_relevancy cost and SCD's answer_relevancy cost
+only config where the CAD-on and SCD-on answer_relevancy score differences
 appear to compound rather than partially cancel: CAD-only is -0.0716 from the
 hyde-off baseline, SCD-only is -0.0443, and CAD+SCD is -0.1645.
 
@@ -316,8 +330,8 @@ effect around SCD is specific to faithfulness here, not general across metrics.
 to `hyde_off__cad_scd`, 0.8674 versus 0.7792 (+0.0882). The answer_relevancy
 score remains low at 0.7483, even though it is +0.0927 above
 `hyde_off__cad_scd`; it is still -0.1021 below `hyde_on__no_decoder_control`.
-Under HyDE, adding CAD+SCD together costs less on faithfulness than it does
-without HyDE, but the answer_relevancy cost persists.
+Under HyDE, the CAD+SCD cell has a smaller faithfulness gap than without HyDE,
+while the lower answer_relevancy association persists.
 
 Across the four matched HyDE-on/off pairs with identical CAD/SCD settings, every
 HyDE-on variant has higher faithfulness than its matched HyDE-off variant:
@@ -327,14 +341,11 @@ for answer_relevancy: the matched deltas are +0.0303, +0.0022, -0.0144, and
 matched comparisons, including under CAD and SCD constraints, but it does not
 provide the same uniform answer_relevancy cushion.
 
-### Faithfulness contribution decomposition
+### Why this is not a causal faithfulness decomposition
 
 The project has two stated core goals: Korean-language adaptation and RAG
-hallucination reduction, operationalized here as RAGAS `faithfulness`. A natural
-but incorrect inference would be that because the full "everything on" config,
-`hyde_on__cad_scd`, beats the zero-intervention baseline on both language
-adherence and faithfulness, SCD must be contributing positively to hallucination
-reduction. It is not.
+groundedness, approximated here by RAGAS `faithfulness`. The following values
+describe this scoring protocol; they do not decompose causal contributions.
 
 The axis-level faithfulness effects from the table above are:
 
@@ -344,36 +355,16 @@ The axis-level faithfulness effects from the table above are:
 | use_cad | +0.0187 |
 | use_scd | -0.0480 |
 
-The direct config comparison makes the same point concrete.
-`hyde_on__cad_only`, meaning HyDE+CAD with no SCD, reaches faithfulness 0.9230,
-the single highest value of any of the eight configs. Adding SCD to that same
-HyDE+CAD combination, `hyde_on__cad_scd`, drops faithfulness to 0.8674. That is
-a -0.0556 decrease from turning SCD on while holding HyDE and CAD fixed at
-"on."
+Within the panel, `hyde_on__cad_only` scores 0.9230 and
+`hyde_on__cad_scd` scores 0.8674, a -0.0556 association. Because context
+translation and, for many HyDE-on pairs, retrieval content also differ, this
+comparison cannot show that SCD itself reduced faithfulness. Conversely, it
+cannot show that SCD improved faithfulness. The later symmetric bilingual panel
+adds identical retrieval contexts and uncertainty estimates; it still leaves both
+faithfulness intervals overlapping zero. Independent judging and human review remain
+needed for the groundedness claim.
 
-Therefore, the faithfulness improvement of the "everything on" configuration
-over the zero-intervention baseline, 0.8159 to 0.8674, a +0.0515 net gain, is
-entirely attributable to HyDE and CAD. SCD's own isolated contribution to
-faithfulness is negative across every measurement in this report: the
-axis-level effect and the direct HyDE+CAD-only versus HyDE+CAD+SCD comparison.
-The precise claim for this project's two stated goals is: SCD achieves the
-language-adaptation goal; it does not contribute to the hallucination-reduction
-goal, and in fact costs some of the faithfulness gain that HyDE and CAD produce.
-The "everything on" configuration still nets out ahead of doing nothing on both
-fronts only because HyDE's and CAD's combined faithfulness contribution,
-+0.0732 and +0.0187, outweighs SCD's cost, -0.0480, not because SCD helps.
-
-A secondary pattern is also worth flagging for discussion. CAD is this
-project's nominal hallucination-mitigation axis: contrastive decoding, designed
-to reduce hallucination by anchoring generation more strongly to retrieved
-context. Yet CAD's own isolated faithfulness effect, +0.0187, is smaller than
-HyDE's incidental effect, +0.0732. In this dataset, HyDE, a retrieval-side
-intervention with no explicit anti-hallucination design goal, contributes more
-to faithfulness than CAD does. This should be read as an observed data pattern,
-not as a claim that CAD does not work; CAD's effect is positive, just smaller
-than HyDE's.
-
-## 6. Why the reference paper reports no trade-off while this report finds one
+## 6. Why this panel cannot be compared directly with the reference paper
 
 ### Different metric construct
 
@@ -409,28 +400,32 @@ on LLaMA3-8B-Instruct and Qwen2.5-7B-Instruct. This project uses a different
 backbone, Mi:dm. There is no guarantee the same fixed hyperparameter values sit
 at the identical fidelity/control balance point for a different model.
 
-This report does not claim the paper is wrong. It extends measurement into a
-metric space the paper never tested, RAG groundedness, under a different domain
-and backbone, and finds a real cost there.
+This report does not claim the paper is wrong. It records a protocol-specific
+RAGAS panel in a metric space the paper did not test, under a different domain
+and backbone. Its causal quality effect remains unresolved.
 
 ## 7. Overall conclusion
 
-SCD, as `reference_scd`, achieves its stated goal decisively. It improves
-Korean-language adherence with a strong positive effect, meaningful drift
-rescue, and zero harm to already-good answers. This is fully consistent with,
-and validated against, the reference paper's exact formula and hyperparameters.
-It is the primary confirmed finding.
+`reference_scd` substantially improves direct Korean-language adherence and
+rescues 15/26 threshold drifts. The predefined severe-harm transition is 0/20,
+although 3/76 pairs decline and 12/76 SCD-on outputs remain below 0.5. This is
+the primary confirmed finding.
 
-Separately, under a rigorously language-matched,
-cross-lingual-confound-controlled evaluation, SCD carries a real cost on three
-of four RAGAS RAG-quality metrics: faithfulness, answer_relevancy, and
-context_recall. It improves context_precision.
+The `gpt-4o` panel is complete and reproducible from the retained artifacts, but
+its asymmetric translation and retrieval differences prevent a causal SCD
+RAG-quality conclusion. Report the numeric panel only with that qualification.
 
-This is not a measurement artifact. The cost survived the specific control
-designed to rule out judge cross-linguality noise as an alternative explanation.
-Both findings should be reported side by side. The language-control success
-should not be downplayed, and the RAG-quality cost should not be softened or
-buried.
+The completed symmetric follow-up materially tightens that boundary: all 38 HyDE-off
+SCD contrasts have identical retrieval contexts, both target languages use the same
+field-level normalization policy, and uncertainty is reported by 19-query clustered
+bootstrap. It does not identify a directional faithfulness effect. `gpt-4o` identifies
+a negative answer-relevancy interval in both language panels, concentrated in the
+CAD-on stratum, but fixed `gpt-4.1-2025-04-14` leaves every corresponding interval
+overlapping zero. Korean answer translation was also realized for 23/38 SCD-off
+versus 11/38 SCD-on answers despite the fixed rule. The supported conclusion is no
+judge-robust nonzero RAG-quality effect, not a causal or deployment verdict. See
+[reference_scd_symmetric_cross_judge_report.md](reference_scd_symmetric_cross_judge_report.md)
+and [reference_scd_symmetric_input_audit.md](reference_scd_symmetric_input_audit.md).
 
 ## 8. Appendix: informal gpt-4o-mini cross-check (non-canonical)
 
@@ -470,19 +465,11 @@ Source:
 | context_precision | +0.0079 | 76 | +7/-4 |
 | context_recall | +0.0132 | 76 | +1/-0 |
 
-The direction of the main finding replicates even before the
-context-translation control was applied: both the informal, uncontrolled
-`gpt-4o-mini` pass and the official, controlled `gpt-4o` pass show SCD costing
-faithfulness and answer_relevancy, and both show context_precision as the one
-metric SCD helps. This adds some incidental support that the Section 5 finding
-is not solely an artifact of the specific translation methodology. However, the
-official, controlled Section 5 numbers remain the ones to cite for any actual
-claim, not these informal numbers. Context_recall differs in direction between
-the two runs, informal +0.0132 versus official -0.0658. A plausible explanation
-is that context_recall is sensitive to exactly which text, original versus
-translated, the judge is asked to compare against the ground-truth reference,
-but this remains an open question for future work rather than a confirmed
-mechanism.
+Both panels show lower answer_relevancy and faithfulness scores for SCD-on cells,
+which is useful directional triangulation. They are not equivalent controls and
+do not establish causality. Context_recall even changes direction, from +0.0132
+to -0.0658, illustrating sensitivity to the text and language presented to the
+judge.
 
 A translated-BLEU/ROUGE evaluation was also queued to run automatically on the
 Alice Cloud instance after the NIM RAGAS scoring process exited. That metric
@@ -490,10 +477,6 @@ would have translated SCD-on answers to English via NVIDIA NIM, then scored
 against the English `answer_span` reference, mirroring the reference paper's own
 "Translation-Based Evaluation" method; the runner is
 [`experiments/evaluators/translated_bleu_rouge_runner.py`](../evaluators/translated_bleu_rouge_runner.py).
-It never completed because the Alice instance was deleted by the project owner
-before that stage finished. This metric was deliberately not re-attempted under
-the `gpt-4o` path because the context-translated RAGAS result in Section 5
-already provides a rigorous, language-matched answer to the same underlying
-question that BLEU/ROUGE was intended to help answer: whether SCD carries a
-content-quality cost. It remains a candidate for future work if a supplementary
-content-overlap metric matching the paper's own methodology is later wanted.
+It never completed because the Alice instance was deleted before that stage
+finished. It remains future work because the current RAGAS sensitivity panel
+does not answer the causal content-quality question.

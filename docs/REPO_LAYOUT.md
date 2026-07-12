@@ -34,5 +34,5 @@ code; experiment tests may import ops modules (one-way dependency).
 ## Secrets and runtime artifacts
 
 Never committed (see `.gitignore`): `.env`, model caches, Chroma DB, BM25 pickles,
-runtime DBs, `NVIDIA_API_KEY`. The judge key is read from the gitignored repo-root
-`.env` by `experiments/evaluators/official_ragas_runner.py`.
+runtime DBs, `NVIDIA_API_KEY`, `OPENAI_API_KEY`. Judge keys are read from the
+gitignored repo-root `.env` by `experiments/evaluators/official_ragas_runner.py`.

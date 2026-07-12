@@ -27,11 +27,27 @@
 - Quiz generation
 - Flashcard generation
 
+## Verified Result Keywords
+
+- `penalty_additive` SCD v1 null result
+- `reference_scd` Korean-adherence success (+0.2203)
+- SCD-on context-translation sensitivity protocol
+- Complete `gpt-4o` score panel
+- Symmetric bilingual matched-context sensitivity panel
+- `gpt-4o` answer-relevancy trade-off signal
+- Fixed `gpt-4.1` cross-judge non-replication
+- Faithfulness direction unresolved
+- No judge-robust nonzero RAG-quality effect
+- Causal and deployment verdicts still unresolved
+- 0/608 null cells
+- 0/304 symmetric-panel null cells
+- 0/608 cross-judge symmetric cells
+
 ## Safety Keywords
 
 - No fabricated results
 - No fabricated queries
 - Dry-run validation
-- RAGAS-compatible skeleton
-- RAGAS-inspired lightweight evaluator
+- Preserve v1 and corrected result provenance separately
+- Do not compare absolute scores across NIM, `gpt-4o`, and fixed `gpt-4.1`
 - Runtime compatibility audit

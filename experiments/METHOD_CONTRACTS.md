@@ -38,13 +38,16 @@ cad_scores(token) = (1 + alpha) * context_scores(token) - alpha * no_context_sco
 - SCD means Soft Constrained Decoding.
 - This thesis uses Korean-target Soft Constrained Decoding.
 - Full multilingual SCD is future work only.
-- At each decoding step:
-  - Korean target-language tokens are not penalized;
-  - neutral tokens are not penalized;
-  - mandatory technical whitelist tokens are not penalized;
-  - non-target tokens may receive a `beta` penalty.
+- The original Phase 8 `penalty_additive` v1 mode leaves Korean, neutral, and
+  whitelisted technical tokens unchanged and subtracts a fixed `beta` from other
+  tokens. Its measured result is v1-only.
+- The corrected `reference_scd` mode follows the paper's generated-token warm-up
+  and raw-logit scaling: target tokens `*= alpha`, neutral tokens unchanged, and
+  distractor tokens `*= beta`. It does not use the project whitelist.
+- Because scaling is applied to raw logits, `alpha > 1` and `beta < 1` must not be
+  described as an unconditional numeric increase/decrease for negative logits.
 - Neutral tokens include whitespace, punctuation, numbers, math symbols, citation markers, brackets, and common academic symbols.
-- Mandatory technical whitelist:
+- Mandatory technical whitelist for `penalty_additive` v1 only:
 
 ```text
 RAG, CAD, SCD, BM25, RRF, BGE-M3, HyDE, RAGAS, Transformer, CrossEncoder,
@@ -67,6 +70,15 @@ Mi:dm, arXiv, DOI, BERT, RoBERTa, LLaMA, GPT, FLAN, XSUM, CNN-DM
 - Phase 2 may create an official RAGAS skeleton with import guards and dry validation only.
 - Phase 2 must not execute RAGAS, OpenAI, model calls, or network dependency installation.
 - Lightweight/local judge code must be named `RAGASInspiredEvaluator` or `LightweightJudgeEvaluator`, not official RAGAS.
+
+Post-Phase-2 status: `official_ragas_runner.py` now implements hard-gated official
+execution while keeping dry validation as the default. Score artifacts record the
+generation-input path, SHA-256, record count, query split, and symmetric-normalization
+metadata. The completed bilingual `reference_scd` sensitivity analyses accept only
+the fixed 76-row HyDE-off panels, two answer-dependent metrics, 38 matched pairs, and
+zero null scores. Both `gpt-4o` and fixed `gpt-4.1-2025-04-14` panels are preserved;
+their interval-class disagreement must be reported. This later execution does not retroactively change the Phase 2
+no-execution contract above.
 
 ## Unsupported Method Removal Contract
 

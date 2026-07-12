@@ -6,7 +6,7 @@ Retrieval-Augmented Generation (RAG) is widely used to answer questions over ext
 
 This thesis studies these problems through a controlled factor analysis of HyDE, Context-Aware Decoding (CAD), and Korean-target Soft Constrained Decoding (SCD). The main experiment uses a fixed Paper-RAG retrieval backbone and varies only three factors: HyDE on/off, CAD on/off, and SCD on/off. HyDE is treated as a retrieval-side evidence-construction factor, CAD as a decoding-time context-faithfulness factor, and SCD as a Korean-target language-drift-control factor. The current scored run measures faithfulness, answer relevancy, context precision, context recall, and direct Korean-language adherence; numeric hallucination and query-type-specific routing remain planned analyses rather than measured result claims.
 
-The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and a global factor-effect-based provisional service policy from that analysis; query-type-aware refinement remains future work. The main experiment (19 queries × 8 configs = 152 generations, Mi:dm 2.0 Base on A100 80GB) has been executed and scored with RAGAS under a fixed NVIDIA NIM judge; result tables in Section 12 report the measured values. The headline findings are that CAD improves faithfulness (paired +0.044), HyDE improves answer relevancy and recall while lowering context precision, and Korean-target SCD is a null factor in its current form (see Sections 12 and the SCD failure analysis).
+The project also includes an M-RAG paper-review chatbot with A-F service routes for simple question answering, section-focused question answering, document comparison, citation-oriented lookup, structured summarization, and quiz or flashcard generation. This routed application is framed as graduation-project system integration, not as the core thesis algorithm. The thesis contribution is the HyDE × CAD × SCD factor analysis and a global factor-effect-based provisional service policy from that analysis; query-type-aware refinement remains future work. The main experiment (19 queries × 8 configs = 152 generations, Mi:dm 2.0 Base on A100 80GB) has been executed and scored with RAGAS under a fixed NVIDIA NIM judge; result tables in Section 12 report the measured values. The headline findings are that CAD improves faithfulness (paired +0.044), HyDE improves answer relevancy and recall while lowering context precision, and the original Korean-target SCD v1 (`penalty_additive`) is a null factor in Section 12. A separately reported corrected `reference_scd` implementation strongly improves direct Korean-language adherence. Its first complete `gpt-4o` score panel is an asymmetric protocol-specific sensitivity analysis. A stricter bilingual follow-up applies the same normalization policy to all HyDE-off conditions and compares 38 identical-context SCD pairs per language. Faithfulness remains directionally unresolved under both `gpt-4o` and fixed `gpt-4.1-2025-04-14`. The `gpt-4o` answer-relevancy intervals are negative, but the cross-judge intervals overlap zero in both languages, so no judge-robust nonzero RAG-quality effect is established; see Section 13.3 and `experiments/reports/reference_scd_symmetric_cross_judge_report.md`.
 
 ## 2. Introduction
 
@@ -70,7 +70,7 @@ Sparse retrieval alone is not enough for Korean-query English-paper RAG because 
 
 ### 3.4 Hybrid Retrieval and Weighted RRF
 
-Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. The implementation uses weighted Reciprocal Rank Fusion (weighted RRF), with dense weight 0.6 and BM25 weight 0.4, to combine ranks instead of raw scores [5]:
+Hybrid retrieval combines dense and sparse retrieval to benefit from both semantic matching and exact token matching. One practical challenge is that dense and sparse scores are not directly comparable. Dense similarity may be bounded while BM25 scores vary by corpus and query. The implementation applies project-specific dense 0.6 / BM25 0.4 weights to Reciprocal Rank Fusion (RRF) [5], combining ranks instead of raw scores:
 
 ```text
 weighted_RRF(d) = 0.6 / (k + rank_dense(d)) + 0.4 / (k + rank_BM25(d))
@@ -148,7 +148,7 @@ Recent work on multilingual RAG language drift characterizes unintended output-l
 
 ### 4.8 Evaluation of RAG Answers
 
-RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. The original Phase 8 main matrix evaluates those four metrics with RAGAS [12] under a fixed judge. Because Mi:dm 2.0 is not served through the judge provider used here, that judge is an OpenAI-compatible NVIDIA NIM endpoint (`meta/llama-3.3-70b-instruct`, temperature 0) held constant across the original scored comparison; answer-relevancy embeddings use local BGE-M3. Absolute scores are therefore judge-specific and are not compared across judges — the claims rest on within-experiment factor deltas measured under the relevant fixed judge. The corrected `reference_scd` RAG-quality re-evaluation is a documented exception: it uses OpenAI `gpt-4o` after NVIDIA NIM failed to converge reliably for that experiment track, while preserving the judge-independent language-adherence comparison separately. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16].
+RAG evaluation commonly measures faithfulness, answer relevance, context precision, and context recall. The original Phase 8 main matrix evaluates those four metrics with RAGAS [12] under a fixed judge. Because Mi:dm 2.0 is not served through the judge provider used here, that judge is an OpenAI-compatible NVIDIA NIM endpoint (`meta/llama-3.3-70b-instruct`, temperature 0) held constant across the original scored comparison; answer-relevancy embeddings use local BGE-M3. Absolute scores are therefore judge-specific and are not compared across judges — the claims rest on within-experiment factor deltas measured under the relevant fixed judge. The corrected `reference_scd` score track is a documented exception: it uses OpenAI `gpt-4o` [19] after NVIDIA NIM failed to converge reliably and adds fixed `gpt-4.1-2025-04-14` as a cross-judge sensitivity check, while preserving the judge-independent language-adherence comparison separately. Because multilingual LLM judges can exhibit language-dependent reliability [20], Section 15.2 limits the interpretation of those panels. Korean-language work also studies automatic dataset-generation frameworks for RAG evaluation [16].
 
 ### 4.9 Methods Outside the Core Scope
 
@@ -317,22 +317,27 @@ Expected analysis (hypotheses for H2, not results):
 
 ### 8.3 SCD
 
-SCD is Korean-target Soft Constrained Decoding, a training-free decoding strategy for mitigating language drift in multilingual RAG [11]. It penalizes non-target-language tokens during generation while preserving neutral tokens and mandatory technical terms. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) whitelisted technical tokens. Tokens outside these sets may receive a beta penalty:
+SCD is Korean-target Soft Constrained Decoding, a training-free decoding strategy for mitigating language drift in multilingual RAG [11]. This repository now distinguishes two experimentally different implementations instead of calling both simply "SCD."
+
+The original Phase 8 matrix used the project-specific `penalty_additive` v1 mode. Let \(V_{ko}\) be Korean target tokens, \(V_n\) neutral tokens, and \(V_w\) project-whitelisted technical tokens. Its rule was:
 
 ```text
-s_SCD(y_t) = s(y_t) - beta, if y_t not in V_ko ∪ V_n ∪ V_w
-s_SCD(y_t) = s(y_t), otherwise
+z'_i = z_i - beta,  if i is outside V_ko ∪ V_n ∪ V_w
+z'_i = z_i,         otherwise
 ```
 
-Neutral tokens include whitespace, punctuation, digits, brackets, math symbols, citation markers, and common academic symbols. The whitelist preserves terms such as `RAG`, `CAD`, `SCD`, `BM25`, `RRF`, `BGE-M3`, `HyDE`, `RAGAS`, `Transformer`, `CrossEncoder`, `Mi:dm`, `arXiv`, `DOI`, `BERT`, and other technical expressions.
+The corrected `reference_scd` rerun instead reproduces the reference paper's three-way raw-logit scaling after a generated-token warm-up:
 
-SCD is not intended to translate every English term into Korean. Academic Korean naturally includes English method names and acronyms. This thesis evaluates Korean-target SCD as a controlled decoding factor for Korean-query English-paper RAG. The goal is to reduce unnecessary English sentence drift while preserving technical precision.
+```text
+z'_i = z_i,          if generated step t < Tstart
+z'_i = alpha * z_i,  if t >= Tstart and i is a target-language token
+z'_i = z_i,          if t >= Tstart and i is neutral
+z'_i = beta * z_i,   if t >= Tstart and i is a distractor-language token
+```
 
-Expected analysis (hypotheses for H3, not results):
+The reproduced settings are `alpha=1.1`, `beta=0.9`, and `Tstart=5`. The implementation deliberately applies the paper's formula to raw logits, including negative logits. Neutral tokens include whitespace, punctuation, digits, brackets, math symbols, citation markers, and common academic symbols. The project whitelist belongs to the v1 application mode; the literal `reference_scd` mode uses the reference vocabulary partition without that whitelist.
 
-- SCD is hypothesized to reduce language drift rate and increase Korean answer ratio.
-- SCD may harm answer naturalness if beta is too high or whitelist coverage is insufficient.
-- SCD may interact with CAD because both operate at decoding time.
+SCD is not intended to translate every English term into Korean. Academic Korean naturally includes English method names and acronyms. The corrected experiment therefore measures whether unnecessary sentence-level drift decreases, and reports language adherence separately from RAG-quality effects. Section 12 preserves the v1 result; Section 13.3 reports the completed `reference_scd` result and its measured trade-off. CAD and SCD may interact because both operate at decoding time, so a combined benefit must be measured rather than assumed.
 
 ### 8.4 Combined Decoding
 
@@ -447,7 +452,7 @@ Answer span hit at K measures whether retrieved top-k passages contain expected 
 
 ### 11.10 RAGAS-Compatible and Lightweight Evaluation Boundary
 
-RAGAS is executed as the evaluation tool for the four metrics, kept separate from any lightweight local evaluator. The original Phase 8 main matrix used the RAGAS package with a fixed NVIDIA NIM judge (`meta/llama-3.3-70b-instruct`) and local BGE-M3 embeddings. Scored coverage was 583/608 metric cells (95.9%); the remaining cells were judge-endpoint timeouts on the largest multi-context payloads and are excluded from means. The corrected `reference_scd` RAG-quality re-evaluation used `gpt-4o` as a deliberate experiment-specific judge exception and converged to 0/608 null cells after the NIM attempt failed to converge at scale. RAGAS is the measurement instrument, not a proposed method of this thesis.
+RAGAS is executed as the evaluation tool for the four metrics, kept separate from any lightweight local evaluator. The original Phase 8 main matrix used the RAGAS package with a fixed NVIDIA NIM judge (`meta/llama-3.3-70b-instruct`) and local BGE-M3 embeddings. Scored coverage was 583/608 metric cells (95.9%); the remaining cells were judge-endpoint timeouts on the largest multi-context payloads and are excluded from means. The corrected `reference_scd` RAG-quality re-evaluation used `gpt-4o` as a deliberate experiment-specific judge exception and converged to 0/608 null cells after the NIM attempt failed to converge at scale. Its later symmetric track adds 304/304 `gpt-4o` cells and 304/304 fixed `gpt-4.1-2025-04-14` cells for cross-judge robustness. RAGAS is the measurement instrument, not a proposed method of this thesis.
 
 ## 12. Result Tables
 
@@ -503,12 +508,15 @@ factor (win/loss counts use a ±0.01 band).
 | HyDE main effect | context_precision | −0.056 (19/18) |
 | CAD main effect | faithfulness | +0.044 (25/17) |
 | CAD main effect | context_recall | 0.000 (1/2) |
-| SCD main effect | faithfulness | +0.009 (16/17) |
-| SCD main effect | Korean answer ratio (direct) | −0.014 (22/24) |
+| SCD v1 main effect | faithfulness | +0.009 (16/17) |
+| SCD v1 main effect | Korean answer ratio (direct) | −0.014 (22/24) |
 
 Interpretation: CAD raises faithfulness; HyDE trades context precision for higher
-answer relevancy and recall; SCD is a null factor on both the RAGAS metrics and its
-own Korean-adherence target. Internal-validity note: the decoder-side factors (CAD,
+answer relevancy and recall; SCD is a null factor in the v1 `penalty_additive`
+implementation on both the RAGAS metrics and its own Korean-adherence target.
+Section 13.3 reports the corrected `reference_scd` rerun, where SCD strongly
+improves Korean-language adherence; its RAGAS panel is a separate sensitivity analysis.
+Internal-validity note: the decoder-side factors (CAD,
 SCD) leave context_recall essentially unchanged (retrieval is not altered), while the
 retrieval-side factor (HyDE) moves it — factors affect the metrics they structurally
 should. The combined `hyde_on__cad_scd` cell reaches the joint-highest faithfulness
@@ -542,25 +550,27 @@ Korean answer ratio = mean per config. Whitelist errors were not separately coun
 | `hyde_on__scd_only` | 0.26 | 0.582 |
 | `hyde_on__cad_scd` | 0.37 | 0.549 |
 
-SCD-on configs do not reduce drift relative to their matched SCD-off configs; drift is
-substantial (16–37%) across the matrix, and SCD does not remove it (see the SCD failure
-analysis).
+The original `penalty_additive` v1 SCD-on configs do not reduce drift relative to their
+matched SCD-off configs; drift is substantial (16–37%) across that matrix, and v1 does
+not remove it (see the SCD failure analysis). The completed `reference_scd` result is
+reported separately in Section 13.3 and must not be read back into this historical table.
 
 ### Table 7. Routed Policy for Graduation-Project System
 
-Derived from the measured factor effects (not a measurement table). CAD is recommended
-on across routes for its faithfulness gain; HyDE is recommended where recall/relevancy
-matters more than context precision; SCD is now characterized as a conditional
-language-adaptation trade-off rather than an unresolved implementation gap.
+Derived from the original-matrix factor effects plus the corrected direct language
+result (not a measurement table). CAD is recommended on across routes for its original
+faithfulness gain; HyDE is recommended where recall/relevancy matters more than context
+precision. `reference_scd` is available conditionally for language control, but its
+RAG-quality effect must be validated per task.
 
 | Service route | Query type | Derived HyDE | Derived CAD | Derived SCD | Status |
 |---|---|---|---|---|---|
-| A simple QA | factual / conceptual | optional | on | conditional (language trade-off) | service feature |
-| B section QA | section-specific | off (precision) | on | conditional (language trade-off) | service feature |
-| C comparison | comparison | on (recall) | on | conditional (language trade-off) | service feature |
-| D citation lookup | citation-oriented | off (precision) | on | conditional (language trade-off) | service feature |
-| E structured summary | summary | on (recall) | on | conditional (language trade-off) | service feature |
-| F quiz / flashcard | study support | optional | on | conditional (language trade-off) | service feature |
+| A simple QA | factual / conceptual | optional | on | conditional; validate quality | service feature |
+| B section QA | section-specific | off (precision) | on | conditional; validate quality | service feature |
+| C comparison | comparison | on (recall) | on | conditional; validate quality | service feature |
+| D citation lookup | citation-oriented | off (precision) | on | conditional; validate quality | service feature |
+| E structured summary | summary | on (recall) | on | conditional; validate quality | service feature |
+| F quiz / flashcard | study support | optional | on | conditional; validate quality | service feature |
 
 ## 13. Discussion
 
@@ -598,17 +608,46 @@ The corrected `reference_scd` rerun resolves that implementation gap. It is a
 literal reference-paper implementation with multiplicative target boost
 `alpha=1.1`, multiplicative distractor penalty `beta=0.9`, and cold-start
 warm-up until `Tstart=5`. On SCD's actual target metric, Korean-language
-adherence, it succeeds decisively: mean paired delta +0.2203 over 76 matched
+adherence, it improves strongly: mean paired delta +0.2203 over 76 matched
 pairs, SCD-on more Korean in 68/76 pairs versus 3/76 less Korean, 15/26 drift
-rescues at the 0.5 threshold, and zero harm to already-good answers. Under the
-language-matched RAG-quality re-evaluation, however, SCD costs three of four
-RAGAS metrics: faithfulness −0.048, answer_relevancy −0.057, and
-context_recall −0.066, while improving context_precision +0.030. The
-faithfulness gain of the "everything on" configuration over the
-zero-intervention baseline (0.8159 to 0.8674, +0.0515) is therefore attributable
-to HyDE (+0.0732) and CAD (+0.0187), not to SCD; SCD achieves language
-adaptation, but it does not contribute to hallucination reduction. Full details
-are in `experiments/reports/reference_scd_rerun_report.md`.
+rescues at the 0.5 threshold, and no baseline ratio ≥0.7 case crossing below the
+predefined 0.65 harm threshold (0/20). Three of 76 pairs nevertheless decreased,
+and 12/76 SCD-on answers remained below 0.5, so this is a substantial improvement,
+not complete elimination of drift. The mean delta remains +0.2198 in the 38
+HyDE-off pairs whose retrieved contexts are byte-identical, supporting the direct
+language-control conclusion independently of HyDE retrieval variance.
+
+The `gpt-4o` panel has 152 samples and 0/608 null metric cells. Under that exact
+protocol, SCD-on cells differ by faithfulness −0.048, answer_relevancy −0.057,
+context_precision +0.030, and context_recall −0.066. These deltas are descriptive,
+not isolated causal SCD effects: only SCD-on contexts were translated, all answer-key
+references remained English, and 25/38 HyDE-on SCD pairs had different retrieved
+contexts. RAGAS 0.2.15 context precision and context recall do not use the generated
+answer, so their differences cannot be attributed to decoder behavior. The panel
+does not establish that SCD improves or harms hallucination. Full details are in
+`experiments/reports/reference_scd_rerun_report.md`.
+
+A stricter follow-up completes the previously proposed symmetric test on the
+HyDE-off subset. It freezes 76 records across four configurations, verifies all
+38 SCD-on/off pairs have byte-identical retrieved contexts, and applies one
+score-independent normalization policy to question, answer, reference, and all
+nested context text for both English and Korean target panels. The two panels have
+0/304 null metric cells in total. With 10,000 deterministic query-clustered paired
+bootstrap resamples, overall faithfulness is unresolved in both languages: English
++0.0071, 95% CI [−0.0596, +0.0714], and Korean −0.0283,
+[−0.1044, +0.0510]. Under `gpt-4o`, overall answer relevancy is lower in both:
+English −0.0910 [−0.1725, −0.0240] and Korean −0.0752
+[−0.1501, −0.0138]. A fixed `gpt-4.1-2025-04-14` cross-judge does not reproduce
+nonzero intervals: English −0.0327 [−0.0851, +0.0129] and Korean −0.0356
+[−0.1149, +0.0315]. Its faithfulness intervals also overlap zero. Across all four
+language-by-judge panels, answer-relevancy means are negative, but the nonzero
+`gpt-4o` interval class is not judge-robust. Therefore the follow-up does not establish
+an unbiased causal SCD effect or a stable quality cost. Normalization occurs after
+generation, Korean answer transformation exposure differs by condition, only 19 query
+clusters are available, and no human evaluation was run. Input audit, hashes, counts,
+and full results are retained in
+`experiments/reports/reference_scd_symmetric_input_audit.md` and
+`experiments/reports/reference_scd_symmetric_cross_judge_report.md`.
 
 ### 13.4 Interactions
 
@@ -620,8 +659,9 @@ The service policy does not simply enable every factor for every route. Table 7 
 route-level defaults from the measured effects: CAD on across routes (faithfulness gain),
 HyDE on where recall/relevancy outweighs precision (comparison, summary) and off where
 precision matters (section-specific, citation lookup), and SCD as a conditional
-language-adaptation control whose use should be chosen when Korean-language correctness
-is worth the measured RAG-quality trade-off.
+language-adaptation control whose use requires task-specific quality validation; the
+symmetric follow-up finds no judge-robust nonzero RAG-quality effect and remains
+insufficient to set a causal or deployment policy.
 
 ## 14. Graduation-Project System Integration
 
@@ -650,7 +690,22 @@ The main experiment is limited to the selected paper corpus and query splits. Re
 
 ### 15.2 Evaluation Reliability
 
-Automatic evaluation can misjudge faithfulness, relevance, or language drift. The original Phase 8 main matrix used a single fixed judge (NVIDIA NIM `meta/llama-3.3-70b-instruct`), so absolute scores are judge-specific and the claims rest on within-experiment factor deltas rather than cross-judge comparison. The corrected `reference_scd` RAG-quality re-evaluation is a deliberate exception: NVIDIA NIM was attempted first, ran for over 60 hours, reached a 38.6% null rate after its first pass, and was abandoned after the underlying Alice Cloud instance was deleted mid-run. OpenAI `gpt-4o` was then used for that experiment track and converged cleanly to 0/608 null cells in about 2 hours. This judge switch does not affect the `reference_scd` language-adherence comparison, which is judge-independent. The same re-evaluation also exposed a cross-lingual judging confound: SCD-on answers are Korean while the retrieved paper context is English. The official `reference_scd` RAG-quality scoring controlled this by translating context to Korean for SCD-on records only via `experiments/evaluators/translate_context_for_scd.py`, so the observed RAG-quality cost survived a language-matched design. Human evaluation and broader second-judge robustness checks remain future work.
+Automatic evaluation can misjudge faithfulness, relevance, or language drift. The original Phase 8 main matrix used a single fixed judge (NVIDIA NIM `meta/llama-3.3-70b-instruct`), so absolute scores are judge-specific and the claims rest on within-experiment factor deltas rather than cross-judge comparison. The corrected `reference_scd` RAG-quality panel is a deliberate exception: reported Alice-run provenance says NVIDIA NIM ran for over 60 hours and ended its first pass with a 38.6% null rate before the instance was deleted; the removed remote logs are no longer independently reproducible from the local repository. OpenAI `gpt-4o` [19] then produced 0/608 null cells in the retained asymmetric artifact. The symmetric follow-up adds zero-null `gpt-4o` and fixed `gpt-4.1-2025-04-14` panels, whose interval disagreement directly demonstrates judge sensitivity. These judge changes do not affect the direct Korean-ratio comparison.
+
+The first `gpt-4o` panel does not fully control the cross-lingual confound. `translate_context_for_scd.py` translated contexts only for SCD-on records, making preprocessing perfectly correlated with the experimental factor; SCD-off answers were not uniformly English, and ground-truth references remained English. The parser also verified structure rather than Korean-language content. Retrieval itself differed in 25/38 HyDE-on SCD pairs. Accordingly, faithfulness and both context metrics in that panel are protocol-dependent, while answer relevancy is a descriptive question-answer score not directly affected by context translation.
+
+The completed symmetric follow-up removes the SCD-on-only preprocessing correlation,
+uses the 38 byte-identical-context HyDE-off pairs, validates target language and
+literal integrity, and reports query-clustered confidence intervals. A fixed
+`gpt-4.1-2025-04-14` cross-judge also removes exact same-model normalization/judging.
+Its intervals overlap zero for both metrics and languages, so the `gpt-4o` nonzero
+answer-relevancy finding is not cross-judge robust. Evaluation uncertainty remains:
+normalization is a post-generation outcome transformation, both judges are from the
+same provider, and realized Korean answer translation exposure differs by SCD
+condition (23/38 SCD-off versus 11/38 SCD-on translated). The sample contains 19
+query clusters, and no human evaluation is available. Multilingual judge reliability
+[20], independent-provider replication, larger independently authored query sets, and
+blinded human review therefore remain future work.
 
 ### 15.3 GT and Answer-Key Policy
 
@@ -677,49 +732,57 @@ effects are: CAD improves faithfulness (+0.044 paired), HyDE trades context prec
 for higher answer relevancy and recall, and Korean-target SCD is a null factor in its
 v1 `penalty_additive` form. The separate `reference_scd` rerun has now completed the
 previously deferred test of the reference method: with target-language boost,
-multiplicative scaling, and generated-token warm-up restored, SCD achieves decisive
-Korean-language adherence success but costs RAG-quality on three of four metrics.
-These results update the global provisional service policy from "SCD deferred" to
-"SCD conditional": CAD remains the default faithfulness control, HyDE remains
-route-dependent where recall/relevancy outweigh precision, and SCD becomes a
-characterized language-adaptation trade-off to enable only where Korean-language
-correctness is worth the measured marginal faithfulness, answer-relevancy, and
-context-recall cost.
+multiplicative scaling, and generated-token warm-up restored, SCD substantially
+improves Korean-language adherence. The first completed `gpt-4o` panel supplies useful
+protocol-specific observations but has asymmetric preprocessing and retrieval
+confounds. The stricter bilingual identical-context follow-up leaves faithfulness
+directionally unresolved. `gpt-4o` finds a negative answer-relevancy interval in both
+target languages, but fixed `gpt-4.1-2025-04-14` does not reproduce a nonzero interval.
+Thus no judge-robust nonzero RAG-quality effect is established. Because normalization
+is post-generation and no human evaluation exists, this is not a causal or deployment
+verdict. The global provisional policy therefore changes from
+"SCD deferred" to "SCD conditionally available for language control": CAD remains
+the default faithfulness control, HyDE remains route-dependent, and SCD requires
+task-specific quality validation before deployment.
 
 ## 17. References
 
 [1] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W.-t. Yih, T. Rocktäschel, S. Riedel, and D. Kiela, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," in Advances in Neural Information Processing Systems 33, 2020.
 
-[2] Y. Gao, Y. Xiong, X. Gao, K. Jia, J. Pan, Y. Bi, Y. Dai, J. Sun, Q. Guo, M. Wang, and H. Wang, "Retrieval-Augmented Generation for Large Language Models: A Survey," arXiv:2312.10997, 2023.
+[2] Y. Gao, Y. Xiong, X. Gao, K. Jia, J. Pan, Y. Bi, Y. Dai, J. Sun, M. Wang, and H. Wang, "Retrieval-Augmented Generation for Large Language Models: A Survey," arXiv:2312.10997, 2023.
 
-[3] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, "BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation," arXiv:2402.03216, 2024.
+[3] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, "M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation," in Findings of the Association for Computational Linguistics: ACL 2024, pp. 2318-2335, 2024, doi:10.18653/v1/2024.findings-acl.137.
 
 [4] S. E. Robertson, S. Walker, S. Jones, M. M. Hancock-Beaulieu, and M. Gatford, "Okapi at TREC-3," in Proceedings of the Third Text REtrieval Conference (TREC-3), 1994.
 
-[5] G. V. Cormack, C. L. A. Clarke, and S. Buettcher, "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods," in Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval, 2009.
+[5] G. V. Cormack, C. L. A. Clarke, and S. Büttcher, "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods," in Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval, pp. 758-759, 2009, doi:10.1145/1571941.1572114.
 
 [6] R. Nogueira and K. Cho, "Passage Re-ranking with BERT," arXiv:1901.04085, 2019.
 
 [7] P. Bajaj et al., "MS MARCO: A Human Generated Machine Reading Comprehension Dataset," arXiv:1611.09268, 2016.
 
-[8] L. Gao, X. Ma, J. Lin, and J. Callan, "Precise Zero-Shot Dense Retrieval without Relevance Labels," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 1762-1777, 2023.
+[8] L. Gao, X. Ma, J. Lin, and J. Callan, "Precise Zero-Shot Dense Retrieval without Relevance Labels," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 1762-1777, 2023, doi:10.18653/v1/2023.acl-long.99.
 
-[9] W. Shi, X. Han, M. Lewis, Y. Tsvetkov, L. Zettlemoyer, and W.-t. Yih, "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding," in Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers), pp. 783-791, 2024.
+[9] W. Shi, X. Han, M. Lewis, Y. Tsvetkov, L. Zettlemoyer, and W.-t. Yih, "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding," in Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers), pp. 783-791, 2024, doi:10.18653/v1/2024.naacl-short.69.
 
-[10] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eisner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, "Contrastive Decoding: Open-ended Text Generation as Optimization," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics, 2023.
+[10] X. L. Li, A. Holtzman, D. Fried, P. Liang, J. Eisner, T. Hashimoto, L. Zettlemoyer, and M. Lewis, "Contrastive Decoding: Open-ended Text Generation as Optimization," in Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 12286-12312, 2023, doi:10.18653/v1/2023.acl-long.687.
 
 [11] B. Li, Z. Xu, and R. Xie, "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation," in Proceedings of the AAAI Conference on Artificial Intelligence, vol. 40, no. 37, pp. 31519-31526, 2026, doi:10.1609/aaai.v40i37.40417 (arXiv:2511.09984).
 
-[12] S. Es, J. James, L. E. Anke, and S. Schockaert, "RAGAs: Automated Evaluation of Retrieval Augmented Generation," in Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, pp. 150-158, 2024.
+[12] S. Es, J. James, L. Espinosa Anke, and S. Schockaert, "RAGAs: Automated Evaluation of Retrieval Augmented Generation," in Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, pp. 150-158, 2024, doi:10.18653/v1/2024.eacl-demo.16.
 
-[13] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, "Lost in the Middle: How Language Models Use Long Contexts," Transactions of the Association for Computational Linguistics, 2024.
+[13] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and P. Liang, "Lost in the Middle: How Language Models Use Long Contexts," Transactions of the Association for Computational Linguistics, vol. 12, pp. 157-173, 2024, doi:10.1162/tacl_a_00638.
 
-[14] D. Rau, H. Déjean, N. Chirkova, T. Formal, S. Wang, S. Clinchant, and V. Nikoulina, "BERGEN: A Benchmarking Library for Retrieval-Augmented Generation," in Findings of the Association for Computational Linguistics: EMNLP 2024, pp. 7640-7663, 2024.
+[14] D. Rau, H. Déjean, N. Chirkova, T. Formal, S. Wang, S. Clinchant, and V. Nikoulina, "BERGEN: A Benchmarking Library for Retrieval-Augmented Generation," in Findings of the Association for Computational Linguistics: EMNLP 2024, pp. 7640-7663, 2024, doi:10.18653/v1/2024.findings-emnlp.449.
 
-[15] K-intelligence, "Mi:dm 2.0 Technical Report," 2025.
+[15] D. Shin et al., "Mi:dm 2.0 Korea-centric Bilingual Language Models," arXiv:2601.09066, 2026.
 
-[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회 논문지, vol. 18, no. 2, pp. 143-154, 2025.
+[16] 김범석, 양진홍, "RAG 시스템 성능 평가를 위한 자동 데이터 셋 생성 프레임워크 비교 분석 연구," 한국정보전자통신기술학회 논문지, vol. 18, no. 2, pp. 143-154, 2025, doi:10.17661/jkiiect.2025.18.2.143.
 
 [17] 김예은, 이재홍, 원상혁, 정우혁, 우지환, "HyDE 기반 멀티 홉 검색 기법을 활용한 검색 성능 향상 방안," 경영정보학연구(Information Systems Review), vol. 27, no. 2, pp. 127-148, 2025, doi:10.14329/isr.2025.27.2.127.
 
-[18] 장규식, 나승훈, 김태형, 류휘정, 장두성, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 제36회 한글 및 한국어 정보처리 학술대회(HCLT 2024) 논문집, 2024.
+[18] 장규식, 나승훈, 김태형, 류휘정, 장두성, "Contrastive CAD: 대형 언어 모델의 환각 완화를 위한 대조적 Context-Aware Decoding," 2024년도 한글 및 한국어 정보처리·한국코퍼스언어학회 공동 학술대회(HCLT-KACL 2024) 논문집, 2024.
+
+[19] OpenAI, "GPT-4o System Card," arXiv:2410.21276, 2024.
+
+[20] X. Fu and W. Liu, "How Reliable is Multilingual LLM-as-a-Judge?", in Findings of the Association for Computational Linguistics: EMNLP 2025, pp. 11040-11053, 2025, doi:10.18653/v1/2025.findings-emnlp.587.

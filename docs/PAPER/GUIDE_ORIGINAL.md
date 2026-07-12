@@ -1,5 +1,9 @@
 # Phase 5 Guide: HyDE/CAD/SCD Thesis Direction
 
+> **Historical Phase 5 guide.** Retained for design provenance. Current methods,
+> completed results, limitations, and references live in `THESIS.md` and the latest
+> `experiments/reports/` artifacts.
+
 This guide supersedes the older broad modular-method guide. It keeps the project useful as a graduation-project paper-review service, while narrowing the thesis claim to the approved research contribution.
 
 ## Core Direction

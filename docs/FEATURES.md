@@ -62,7 +62,7 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 | 본 생성 실행 | `experiments/runners/run_generation.py` (+ `main_generation_executor.py`) | 8-config HyDE×CAD×SCD 본 생성 (하드 가드) |
 | 튜닝/메모리 프로브 | `experiments/runners/run_alice_followup.py` | 고정 backbone 튜닝 비교, worst-case VRAM 프로브 |
 | 파라미터 freeze | `experiments/runners/prepare_parameter_freeze.py` | scored 결과 기반 `frozen_params.yaml` 작성 |
-| 공식 RAGAS 평가 | `experiments/evaluators/official_ragas_runner.py` | NVIDIA NIM judge로 4-메트릭 채점 |
+| 공식 RAGAS 평가 | `experiments/evaluators/official_ragas_runner.py` | 기본 NVIDIA NIM judge, 승인된 `reference_scd` 예외는 `gpt-4o`와 고정 `gpt-4.1` 교차 judge; judge별 절대점수 비교 금지 |
 | 점수 집계/표 변환 | `experiments/analyzers/aggregate_main_scores.py` | config별 CSV + 축별 요인효과 JSON |
 | 언어 준수 분석 | `experiments/analyzers/scd_language_adherence.py` | SCD 한국어 비율 직접 측정 |
 | dry-run 검증 | `experiments/runners/dry_run_matrix.py` | 계획/설정 정적 검증 |

@@ -569,28 +569,24 @@ SCD: 한국어 답변 중 영어 토큰이 나오려 할 때 그 확률을 낮�
 ### 수식
 
 ```
-logits_최종 = logits_문서있음 - α × logits_문서없음
+logits_최종 = (1 + α) × logits_문서있음 - α × logits_문서없음
 ```
 
 - `logits_문서있음`: 논문 내용을 참고해서 다음 토큰을 예측한 점수
 - `logits_문서없음`: 논문 없이 훈련 기억만으로 다음 토큰을 예측한 점수
-- `α (alpha)`: 억제 강도 (0이면 CAD 비활성, 클수록 기억 억제 강함)
+- `α (alpha)`: 문맥/무문맥 대조 강도. 논문 실험 고정값은 0.5
 
 ### 직관적으로 이해하기
 
-```
-문서 있을 때 모델: "다음 단어로 '87'이 나올 확률이 높다 (논문에 87.3이 있으므로)"
-문서 없을 때 모델: "다음 단어로 '92'가 나올 확률이 높다 (훈련 중 비슷한 실험에서 92를 많이 봤으므로)"
-
-CAD 결과: "87"의 확률 ↑, "92"의 확률 ↓
-→ 모델이 훈련 기억보다 논문 내용을 더 따르게 됨
-```
+문맥이 있을 때와 없을 때의 raw logit 차이를 이용해 문맥 의존 후보의 상대 순위를
+높이는 방식이다. 계산 대상은 확률이 아니며 음수 logit도 있으므로, 모든 후보가
+무조건 숫자상 오르거나 내린다고 설명하지 않는다.
 
 ### alpha 값 선택
 
-alpha가 너무 크면: 문서 내용이 너무 강조되어 자연스럽지 않은 답변
-alpha가 너무 작으면: 억제 효과가 약해 환각 발생
-→ 예시 상황에서는 alpha=0.3 설정이 가장 강한 억제 효과를 보인다
+alpha가 너무 크면 문맥 조건을 과도하게 강조할 수 있고, 너무 작으면 대조 효과가
+약할 수 있다. 현재 논문 실험은 별도 sensitivity 결과가 아니라 고정 `alpha=0.5`를
+사용한다.
 
 ### 코드 위치
 
@@ -602,30 +598,20 @@ alpha가 너무 작으면: 억제 효과가 약해 환각 발생
 
 ### 정의
 
-답변 생성 중 목표 언어(한국어)가 아닌 토큰이 출력되려 할 때, 그 토큰의 확률에 부드러운 페널티(β)를 적용해 Language Drift를 줄이는 방법이다. 단, 모델명, 데이터셋명, 수식, 약어, 논문 제목 같은 기술 용어는 whitelist로 보존해야 한다.
+답변 생성 중 토큰의 언어군에 따라 raw logit을 조정해 Language Drift를 줄이는
+방법이다. 저장소에는 서로 다른 v1과 `reference_scd`가 있으므로 결과도 분리한다.
 
 ### 수식
 
+```text
+penalty_additive v1: 비한국어·비중립·비whitelist token -> logit - 0.3
+reference_scd: 5단계 warm-up 뒤 target -> 1.1 * logit,
+               neutral -> unchanged, distractor -> 0.9 * logit
 ```
-logit_token = logit_원래 - β × is_non_target_language(token)
-```
 
-- `β (beta)`: 언어 이탈 억제 강도
-- `is_non_target_language`: 해당 토큰이 목표 언어(한국어)가 아니면 1, 맞으면 0
-
-### 직관적으로 이해하기
-
-```
-모델이 "이 논문은 " 다음에 올 단어를 예측하는 상황:
-  "제안합니다" (한국어): 원래 확률 0.3
-  "proposes" (영어):    원래 확률 0.5  ← 영어 논문 영향으로 높음
-
-SCD 적용 후 (β=0.3):
-  "제안합니다" (한국어): 0.3 (변화 없음)
-  "proposes" (영어):    0.5 - 0.3 = 0.2  ← 페널티로 낮아짐
-
-→ 결국 "제안합니다"가 선택됨
-```
+`penalty_additive`의 whitelist는 v1 전용이다. `reference_scd`는 참고 논문의 vocabulary
+partition을 사용한다. raw logit은 음수일 수 있어 1.1/0.9를 항상적인 숫자
+상승/하락으로 단순화하면 안 된다.
 
 ### CAD와 SCD가 다른 이유
 
@@ -633,9 +619,10 @@ SCD 적용 후 (β=0.3):
 |---|---|---|
 | 문제 | 훈련 기억이 문서보다 강하게 나옴 (Hallucination) | 영어가 한국어 답변에 섞임 (Language Drift) |
 | 원인 | 모델의 사전 기억 | 영어 컨텍스트의 언어적 영향 |
-| 해결 | 문서 있음/없음 분포 대조 | 목표 언어 아닌 토큰에 페널티 |
+| 해결 | 문서 있음/없음 분포 대조 | 토큰 언어군별 raw-logit 조정 |
 
-두 문제는 다른 원인에서 오므로, 두 방법을 함께 적용하면 각각 독립적으로 효과가 있다.
+두 방법은 목표가 다르지만 둘 다 디코딩 점수를 바꾸므로 상호작용과 실제 효과를
+실험으로 확인해야 한다.
 
 ### 코드 위치
 
@@ -691,15 +678,9 @@ SCD 적용 후 (β=0.3):
 
 ### 이 프로젝트에서 어떻게 만드는가
 
-**방법 1: GPT-4o 사용 (OPENAI_API_KEY 있을 때)**
-논문에서 검색된 컨텍스트를 GPT-4o에게 주고, 각 질문에 대한 정답을 생성하게 한다. 실험 모델(MIDM)과 독립된 외부 모델이 정답을 만들기 때문에 평가 기준이 더 신뢰할 수 있다.
-
-**방법 2: 로컬 baseline fallback (API 키 없을 때)**
-로컬 baseline 답변을 pseudo ground truth 후보로 사용할 수 있다. 단, 평가 대상 모델과 같은 계열의 모델이 정답을 만들면 평가 신뢰도가 낮아질 수 있으므로, 최종 논문 결과에는 별도 검증 없이 사용하지 않는다.
-
-### pseudo란
-
-"가짜지만 평가 기준으로 활용 가능한"이라는 의미다. 완벽한 사람이 만든 정답은 아니지만, 시스템 성능을 상대 비교하는 데는 쓸 수 있다.
+완료된 본 실험은 `experiments/data/query_splits/*.json`의 검증된 `answer_span`을
+RAGAS reference로 사용한다. 평가 시 OpenAI 또는 로컬 모델로 GT를 새로 만들거나,
+실패 시 pseudo GT로 대체하지 않는다.
 
 ### 코드 위치
 
@@ -713,26 +694,19 @@ SCD 적용 후 (β=0.3):
 
 사람이 직접 채점하는 대신, 언어 모델이 채점자 역할을 하는 평가 방식이다.
 
-### 어떻게 동작하는가
+### 이 프로젝트의 두 판정 경로
 
-```
-Judge 입력 프롬프트:
-"검색된 컨텍스트와 답변을 보고 반드시 다음 중 하나만 출력하라:
- SUPPORTED / PARTIAL / UNSUPPORTED
+- 서비스 `/api/chat/judge`: 로컬 경량 판정 API다.
+- `official_ragas_runner.py`: RAGAS의 서로 다른 지표 프롬프트/계산을 실행한다.
 
-[컨텍스트] alpha=0.3일 때 Faithfulness 0.82 달성
-[답변] alpha=0.5일 때 가장 좋은 결과가 나왔다
-Label:"
-
-Judge 출력:
-"UNSUPPORTED"
-```
-
-이 레이블로 Faithfulness, Answer Relevancy, Context Precision 점수를 계산한다.
+RAGAS에서 faithfulness는 답변 주장과 문맥, answer relevancy는 질문과 답변,
+context precision/recall은 질문·문맥·reference를 사용한다. 하나의
+`SUPPORTED/PARTIAL/UNSUPPORTED` 레이블로 네 지표를 모두 계산하는 구조가 아니다.
 
 ### 한계
 
-Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레이블 대신 서문("물론이죠, 평가하겠습니다...")이 잘려서 PARTIAL로 fallback될 수 있다. M-RAG는 이를 위해 max_new_tokens를 32로 설정한다.
+Judge 모델 자체가 틀릴 수 있고, 언어 조합에 따라 판정 신뢰도가 달라질 수 있다.
+완료된 실험의 null 처리와 재시도 정책은 공식 runner와 결과 artifact로 확인한다.
 
 ### 코드 위치
 
@@ -746,15 +720,17 @@ Judge 모델 자체가 틀릴 수 있다. 특히 max_new_tokens가 짧으면 레
 
 시스템에서 구성 요소를 하나씩 제거하거나 추가하면서, 각 요소가 성능에 얼마나 기여하는지 측정하는 실험 방법이다.
 
-### Phase 5 기준 M-RAG 실험 설계
+### 현재 M-RAG 본 실험 설계
 
 ```
 HyDE off/on × CAD off/on × SCD off/on = 8 configs
 ```
 
-각 설정에서 evidence support, numeric hallucination, Language Drift, Korean answer ratio를 측정하고, 어느 factor가 어느 지표에 영향을 주는지 분해한다.
+완료된 본 실험은 RAGAS 4개 지표와 직접 Korean ratio를 측정했다. numeric
+hallucination과 query-type별 분석은 아직 측정되지 않은 향후 과제다.
 
-이것이 Phase 5 논문 방향의 핵심 실험이다. A-F route는 졸업작품 서비스 기능이며, 실험 결과를 해석한 뒤 route policy로 연결한다.
+이것이 논문의 핵심 실험이다. A-F route는 졸업작품 서비스 기능이며, 현재 결과는
+전역 임시 정책만 뒷받침하고 route별 정책은 별도 검증이 필요하다.
 
 ### 코드 위치
 

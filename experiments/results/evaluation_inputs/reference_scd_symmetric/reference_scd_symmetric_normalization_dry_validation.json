@@ -1,0 +1,30 @@
+{
+  "schema_version": "reference_scd.symmetric_normalization.summary.v9",
+  "protocol_id": "reference_scd.symmetric_normalization.gpt4o.v9",
+  "source": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl",
+  "model": "gpt-4o",
+  "selected_records": 76,
+  "expected_scd_pairs": 38,
+  "pair_context_identity_verified": true,
+  "tasks_total": 312,
+  "tasks_by_target_kind": {
+    "en:answer": 76,
+    "en:context": 61,
+    "en:question": 19,
+    "ko:answer": 76,
+    "ko:context": 61,
+    "ko:question": 19
+  },
+  "tasks_by_normalization_method": {
+    "gpt-4o_translation": 180,
+    "validated_identity": 132
+  },
+  "outputs": {
+    "en": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_en.jsonl",
+    "ko": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_ko.jsonl"
+  },
+  "mode": "dry_validation_only",
+  "execution_gate": "CONFIRM_SYMMETRIC_SCD_NORMALIZATION",
+  "network_used": false,
+  "openai_used": false
+}

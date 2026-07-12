@@ -59,8 +59,32 @@ python experiments/analyzers/scd_language_adherence.py \
   --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
 ```
 
-“CAD가 faithfulness를 높인다”, “SCD는 null” 같은 실측 문장은 위 결과 파일과
-`experiments/reports/phase8_*`가 실제로 존재할 때에만 사용한다.
+“CAD가 faithfulness를 높인다”, “원래 `penalty_additive` v1 SCD는 null” 같은
+Phase 8 문장은 위 결과 파일과 `experiments/reports/phase8_*`가 실제로 존재할 때만
+사용한다. 보정된 `reference_scd`의 직접 언어 결과와 RAGAS 민감도 패널은 별도로
+라벨링한다.
+
+대칭 이중언어 후속 결과는 네트워크 호출 없이 다음 명령으로 재계산한다.
+
+```bash
+python experiments/analyzers/analyze_scd_symmetric_eval.py \
+  --english-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-en-gpt4o/merged.ragas_scores.json \
+  --korean-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-ko-gpt4o/merged.ragas_scores.json \
+  --out-json experiments/results/analysis/reference_scd_symmetric_gpt4o.json \
+  --out-md experiments/reports/reference_scd_symmetric_eval_report.md \
+  --bootstrap-iterations 10000 --seed 20260712
+
+python experiments/analyzers/analyze_scd_symmetric_eval.py \
+  --english-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-en-gpt41-2025-04-14/merged.ragas_scores.json \
+  --korean-scores experiments/results/evaluation/reference-scd-symmetric-hyde-off-ko-gpt41-2025-04-14/merged.ragas_scores.json \
+  --out-json experiments/results/analysis/reference_scd_symmetric_gpt41_2025_04_14.json \
+  --out-md experiments/reports/reference_scd_symmetric_eval_report_gpt41_2025_04_14.md \
+  --bootstrap-iterations 10000 --seed 20260712
+```
+
+이 결과는 동일 context와 대칭 정규화를 사용한 생성 후 민감도 분석이다. 인과 또는
+배포 판정으로 이름을 바꾸지 않는다. 두 judge의 interval class가 다르므로 한쪽만
+선택해 주장하지 않는다.
 
 ## Docker build 확인
 
@@ -85,4 +109,3 @@ docker build -t mrag-frontend-ci .
 - `/api/chat/query/stream` done 이벤트 확인
 - `/api/chat/judge` label 판정 확인
 - `/api/chat/export/ppt` PPTX 반환 확인
-

@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-07-12T04:42:42.576173+00:00",
+  "record_count": 5,
+  "failure_count": 0,
+  "summary": {
+    "by_status_code": {},
+    "by_error_signature": {}
+  },
+  "records": [
+    {
+      "timestamp": "2026-07-12T04:42:38.268335+00:00",
+      "elapsed_seconds": 1.5544,
+      "job_hint": null,
+      "success": true,
+      "status_code": 200,
+      "exception_class": null,
+      "body_excerpt": null
+    },
+    {
+      "timestamp": "2026-07-12T04:42:39.835079+00:00",
+      "elapsed_seconds": 1.7275,
+      "job_hint": null,
+      "success": true,
+      "status_code": 200,
+      "exception_class": null,
+      "body_excerpt": null
+    },
+    {
+      "timestamp": "2026-07-12T04:42:41.577267+00:00",
+      "elapsed_seconds": 0.5748,
+      "job_hint": null,
+      "success": true,
+      "status_code": 200,
+      "exception_class": null,
+      "body_excerpt": null
+    },
+    {
+      "timestamp": "2026-07-12T04:42:41.575265+00:00",
+      "elapsed_seconds": 0.6558,
+      "job_hint": null,
+      "success": true,
+      "status_code": 200,
+      "exception_class": null,
+      "body_excerpt": null
+    },
+    {
+      "timestamp": "2026-07-12T04:42:41.576266+00:00",
+      "elapsed_seconds": 0.7183,
+      "job_hint": null,
+      "success": true,
+      "status_code": 200,
+      "exception_class": null,
+      "body_excerpt": null
+    }
+  ]
+}

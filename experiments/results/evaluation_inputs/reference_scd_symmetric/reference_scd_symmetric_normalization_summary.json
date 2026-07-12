@@ -1,0 +1,59 @@
+{
+  "schema_version": "reference_scd.symmetric_normalization.summary.v9",
+  "protocol_id": "reference_scd.symmetric_normalization.gpt4o.v9",
+  "source": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl",
+  "model": "gpt-4o",
+  "selected_records": 76,
+  "expected_scd_pairs": 38,
+  "pair_context_identity_verified": true,
+  "tasks_total": 312,
+  "tasks_by_target_kind": {
+    "en:answer": 76,
+    "en:context": 61,
+    "en:question": 19,
+    "ko:answer": 76,
+    "ko:context": 61,
+    "ko:question": 19
+  },
+  "tasks_by_normalization_method": {
+    "gpt-4o_translation": 187,
+    "validated_identity": 125
+  },
+  "outputs": {
+    "en": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_en.jsonl",
+    "ko": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_ko.jsonl"
+  },
+  "mode": "executed_symmetric_normalization",
+  "completed_at": "2026-07-11T21:41:45.390508+00:00",
+  "tasks_reused_from_cache": 302,
+  "tasks_resolved_by_validated_identity": 125,
+  "api_tasks_reused_from_cache": 177,
+  "tasks_called": 10,
+  "batch_delay_seconds": 5.0,
+  "output_record_counts": {
+    "en": 76,
+    "ko": 76
+  },
+  "output_artifacts": {
+    "en": {
+      "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_en.jsonl",
+      "sha256": "8fba280fc240b83f88fe5a125d1a48942216b493b3256695b2454459cb09f45c",
+      "byte_size": 2542812
+    },
+    "ko": {
+      "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation_inputs\\reference_scd_symmetric\\reference_scd_symmetric_hyde_off_ko.jsonl",
+      "sha256": "d1c37e243f48b5f42f1e9ecb59d7e8a71299f0ca8f714ee3984e0067767b0ee9",
+      "byte_size": 2927103
+    }
+  },
+  "network_used": true,
+  "openai_used": true,
+  "openai_calls_this_invocation": true,
+  "fallback_used": false,
+  "validation": {
+    "markers": "exact",
+    "numbers": "exact_multiset",
+    "citations": "exact_multiset",
+    "target_script_presence": true
+  }
+}

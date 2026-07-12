@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
 import math
 import os
@@ -456,6 +457,48 @@ def _write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     os.replace(tmp_path, path)
 
 
+def _build_generation_provenance(path: Path) -> dict[str, Any]:
+    raw = path.read_bytes()
+    normalizations: list[dict[str, Any]] = []
+    record_count = 0
+    for line_number, line in enumerate(raw.decode("utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        record_count += 1
+        record = json.loads(line)
+        normalization = record.get("symmetric_normalization")
+        if normalization is not None:
+            if not isinstance(normalization, dict):
+                raise ValueError(
+                    f"line {line_number}: symmetric_normalization must be an object"
+                )
+            normalizations.append(normalization)
+
+    def unique(field: str) -> list[Any]:
+        values = {
+            json.dumps(item.get(field), ensure_ascii=False, sort_keys=True)
+            for item in normalizations
+        }
+        return [json.loads(value) for value in sorted(values)]
+
+    return {
+        "path": str(path.resolve()),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "byte_size": len(raw),
+        "record_count": record_count,
+        "symmetric_normalization": {
+            "present_records": len(normalizations),
+            "protocol_ids": unique("protocol_id"),
+            "schema_versions": unique("schema_version"),
+            "target_languages": unique("target_language"),
+            "all_selected_conditions_normalized_values": unique(
+                "all_selected_conditions_normalized"
+            ),
+            "scopes": unique("scope"),
+        },
+    }
+
+
 def _write_ragas_failure_diagnostics(
     path: Path,
     diagnostic_records: list[dict[str, Any]],
@@ -476,6 +519,8 @@ def execute_official_ragas(
     meta: list[dict[str, Any]],
     out_dir: Path,
     stem: str,
+    generation_provenance: dict[str, Any],
+    query_split: str,
     *,
     max_workers: int = 8,
     judge_timeout: int = 360,
@@ -653,6 +698,8 @@ def execute_official_ragas(
             "log_tenacity": True,
         },
         "metrics": metric_cols,
+        "generation_input": generation_provenance,
+        "query_split": query_split,
         "dataset_record_count": len(records),
         "scores": scores,
         "per_group": per_group,
@@ -785,6 +832,11 @@ def main() -> int:
         return 2
 
     samples, meta, stats = load_samples(gen_path, args.query_split)
+    try:
+        generation_provenance = _build_generation_provenance(gen_path)
+    except (UnicodeError, json.JSONDecodeError, ValueError) as exc:
+        print(f"REFUSED: cannot build generation provenance: {exc}")
+        return 2
     dep = check_ragas_dependency()
     errors = validate_official_ragas_samples(samples, metrics)
     records = build_official_ragas_records(samples)
@@ -801,6 +853,8 @@ def main() -> int:
         "mode": "dry_validation_only",
         "official_ragas_execution": (f"gated_behind_{CONFIRM_ENV}_and_judge_api_key"),
         "generation_results": str(gen_path),
+        "generation_input": generation_provenance,
+        "query_split": args.query_split,
         "metrics": metrics,
         "judge": judge.as_dict(),
         "embeddings_plan": EMBEDDINGS_PLAN,
@@ -836,6 +890,8 @@ def main() -> int:
             meta,
             out_dir,
             stem,
+            generation_provenance,
+            args.query_split,
             max_workers=args.max_workers,
             judge_timeout=args.judge_timeout,
             task_timeout=args.task_timeout,

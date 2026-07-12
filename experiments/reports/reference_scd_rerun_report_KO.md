@@ -5,10 +5,13 @@
 결과로 확인된 뒤 평가한, 논문에 충실한 Soft Constrained Decoding 구현인 보정된
 `reference_scd` 재실행 결과를 기록한다.
 
-결과는 실제 상충관계를 보인다. `reference_scd`는 자신이 해결하도록 설계된 목표
-문제, 즉 한국어 언어 준수를 결정적으로 개선한다. 동시에 언어를 맞춘 RAG 품질
-평가에서는 네 개 RAGAS 지표 중 세 개에서 측정 가능한 비용도 동반한다. 두 결과를
-모두 최종 결과로 보고한다.
+최종적으로 지지되는 결론은 초기 해석보다 좁다. `reference_scd`는 직접 측정한
+한국어 언어 준수를 크게 개선한다. 완전한 `gpt-4o` 점수표는 SCD의 독립적인 인과
+효과가 아니라, 해당 전처리 프로토콜에 대한 민감도 분석으로 보존한다. 이후 완료한
+대칭 이중언어 후속 평가는 동일 context의 HyDE-off 38쌍에서 이전의 SCD-on-only
+전처리 상관을 제거했다. faithfulness 방향은 확정하지 못했고 두 목표 언어 모두
+`gpt-4o` answer relevancy 구간은 음수였지만 고정 `gpt-4.1-2025-04-14`에서는
+0이 아닌 구간이 재현되지 않았다. judge에 강건한 0이 아닌 RAG-quality 효과는 없다.
 
 ## 1. 실행 요약
 
@@ -20,18 +23,28 @@
 [phase8_scd_failure_analysis.md](phase8_scd_failure_analysis.md)에서 효과가 거의
 없는 결과로 보고되어 있다.
 
-실제 목표 지표인 한국어 언어 준수에서 `reference_scd`는 명확하고 강하며 확인된
-성공 사례다. 이 결과는 LLM 심판이 아니라 생성 텍스트의 한국어 문자 비율에서
-직접 계산되었으므로 심판 모델에 의존하지 않는다.
+실제 목표 지표인 한국어 언어 준수에서 `reference_scd`는 강한 개선을 보인다. 이
+결과는 생성 텍스트에서 직접 계산되므로 LLM 심판에 의존하지 않는다. 다만 26개
+언어 이탈 중 15개를 회복했고, SCD-on 76개 중 12개는 여전히 0.5 미만이며 3개 쌍은
+감소했으므로 모든 언어 이탈을 해결한 것은 아니다.
 
-RAG 품질 지표에서는 `reference_scd`가 네 개 지표 중 세 개, 즉 faithfulness,
-answer_relevancy, context_recall에서 실제적이고 엄격하게 검증된 비용을 보인다.
-context_precision만이 유일한 예외이며 약간 양의 방향으로 움직인다.
+`gpt-4o` 패널은 152개 샘플과 0/608 null 셀을 가진다. 그 프로토콜에서 SCD-on
+셀은 faithfulness, answer_relevancy, context_recall이 낮고 context_precision이
+높았다. 그러나 SCD-on 문맥만 번역했고 GT는 영어로 남았으며 일부 HyDE-on 쌍의
+검색 문맥도 달랐다. 따라서 이 차이는 프로토콜별 관찰값이지 SCD의 인과적 품질
+효과가 아니다.
 
-이 상충관계는 언어를 맞추고 교차언어 교란을 통제한 평가 설계에서 검증되었다. 이
-통제는 심판 모델의 교차언어 처리 잡음이 대안 설명이 될 가능성을 배제하기 위해
-구체적으로 구축되었다. RAG 품질 비용은 그 통제를 통과한 뒤에도 남아 있었으므로,
-측정상의 산물이 아니라 실제 확인된 결과로 보고한다.
+더 엄격한 이중언어 후속 평가는 HyDE-off 네 조건 모두에 점수와 무관하게 정한 같은
+정규화 규칙을 적용했고, 영어·한국어 패널 총 304개 지표 셀을 모두 채웠다. query
+cluster bootstrap 95% 구간은 두 언어의 faithfulness에서 모두 0을 포함한다. answer
+relevancy는 영어 -0.0910 [-0.1725, -0.0240], 한국어 -0.0752
+[-0.1501, -0.0138]로 두 언어 모두 낮았다. 이는 가능한 품질 비용 신호지만,
+생성 후 정규화이고 같은 `gpt-4o`가 정규화와 판정을 모두 수행했으므로 무편향 인과
+효과로 해석하지 않는다.
+같은 304셀을 고정 `gpt-4.1-2025-04-14`로 교차 채점한 결과도 null 없이 완료됐다.
+answer relevancy는 영어 -0.0327 [-0.0851, +0.0129], 한국어 -0.0356
+[-0.1149, +0.0315]로 두 구간 모두 0을 포함한다. 따라서 0이 아닌 비용은 judge에
+강건하지 않다.
 
 ## 2. 참고 논문: 인용 및 검증된 충실도
 
@@ -107,6 +120,10 @@ fidelity and semantic fluency in SCD." 이 저장소의 `reference_scd` 생성 �
 손상 여부 점검도 깨끗하다. SCD off에서 이미 한국어 비율이 최소 0.7이었던 20개 쌍
 중, SCD-on에 의해 0.65 아래로 끌려 내려간 것은 0개였다.
 
+직접 언어 결과는 검색 문맥을 고정해도 유지된다. HyDE-off 38쌍은 검색 문맥이
+byte 단위로 모두 같고, 그 하위집합의 평균 Korean-ratio 차이도 +0.2198이다. 따라서
+언어 제어 결론은 4장에서 설명하는 HyDE-on 검색 변동과 분리해 지지된다.
+
 기존 `penalty_additive` v1 결과는 다르며, 최종 reference-SCD 주장으로 이어받으면
 안 된다. 그 출처는
 [`experiments/results/analysis/scd_language_adherence.json`](../results/analysis/scd_language_adherence.json)이고,
@@ -120,33 +137,29 @@ fidelity and semantic fluency in SCD." 이 저장소의 `reference_scd` 생성 �
 | 평균 대응 차이 | -0.0137 | **+0.2203** |
 | 승 / 패 (76개 중) | 22 / 24 | **68 / 3** |
 | 언어 이탈 회복 @0.5 | 2/19 | **15/26** |
-| 이미 좋은 답변에 대한 손상 | 9/28 손상 | **0/20 손상 없음** |
+| 사전 정의 손상(기준 >=0.7에서 SCD-on <0.65) | 9/28 | **0/20** |
 
-SCD의 실제 목표 지표에서 `reference_scd`는 확인된, 강한, 메커니즘으로 검증된
-성공이며, 논문의 중심 주장 및 정확한 하이퍼파라미터와 직접 일관된다. v1의 무효에
-가까운 결과는 강화, 곱셈식 패널티, 초기 완충 구간이 빠져 있었기 때문이며, 이는
-이미 [phase8_scd_failure_analysis.md](phase8_scd_failure_analysis.md)에 문서화되어
-있다. 그 세 가지 간극을 고치자 보정된 결과가 나왔다. 이 결론은 이 보고서의 다른
-어떤 내용에도 의존하지 않는다.
+SCD의 실제 목표 지표에서 `reference_scd`는 확인된 강한 개선이며 논문의 공식과
+하이퍼파라미터에 부합한다. 0/20은 사전 정의한 임계값 손상만 뜻하며, 어떤 감소도
+없었다는 뜻은 아니다. 직접 언어 결과는 아래 RAGAS 패널에 의존하지 않는다.
 
 ## 4. 방법론 메모: RAG 품질 평가에 별도 설계가 필요했던 이유
 
-SCD가 성공하면 생성 답변은 한국어이고, 검색된 문맥은 영어 원문 논문에서 가져오기
-때문에 영어로 남아 있다. 그러면 RAGAS `faithfulness`와 `answer_relevancy`는 SCD-on
-레코드에서는 심판 LLM이 교차언어 추론을 해야 하고, SCD-off 레코드에서는 같은 언어
-안에서 추론하게 된다. 이 비대칭은 실제 품질 차이와 무관하게 지표를 교란할 수
-있다.
+평가에서는 SCD-on 레코드의 검색 문맥만 한국어로 번역했고, 생성 답변은 수정하지
+않았다. 사용한 도구는
+[`experiments/evaluators/translate_context_for_scd.py`](../evaluators/translate_context_for_scd.py)다.
+이는 유용한 민감도 패널을 만들었지만 완전한 언어 일치 통제는 아니다.
 
-승인된 해결책은 엄격한 선택지였다. SCD-on 레코드에 대해서만 검색 문맥을 한국어로
-번역했고, 이를 위해
-[`experiments/evaluators/translate_context_for_scd.py`](../evaluators/translate_context_for_scd.py)를
-사용했다. 따라서 SCD-on은 한국어 답변과 한국어 문맥의 조합으로 판정되고,
-SCD-off는 영어 답변과 영어 문맥의 조합으로 남는다. 생성 답변 자체는 어느
-조건에서도 수정하지 않는다. 비교 대상 쪽의 문맥만 언어를 맞춘다.
+보존된 산출물에서 SCD-off 답변도 50/76이 한국어 비율 0.5 이상이고, GT는 모두
+영어로 남아 있다. 번역 처치는 SCD와 완전히 결합되어 있으며, 번역된 SCD-on chunk
+380개 중 20개에는 한글이 없고 한 5-chunk 레코드는 성공 metadata에도 불구하고
+영문 원문과 동일하다. 원래 검색 문맥도 76쌍 중 51쌍만 동일했고, HyDE-on 38쌍 중
+25쌍은 서로 달랐다.
 
-이는 답변을 번역하는 방법보다 우선 선택되었다. 답변은 평가 대상인 실제 산출물이기
-때문이다. 답변을 번역하면 평가되는 출력에 번역 산물이 섞일 위험이 있다. 기준
-문맥 쪽만 번역하면 그 위험을 피할 수 있다.
+RAGAS 0.2.15에서 answer_relevancy는 질문과 생성 답변만 사용한다. context_precision과
+context_recall은 질문·문맥·GT를 사용하지만 생성 답변은 보지 않는다. faithfulness만
+생성 답변과 문맥을 함께 사용한다. 따라서 context 지표 차이를 디코더인 SCD가 만든
+품질 효과라고 해석할 수 없다.
 
 검색 및 디코딩 기반 구조는 검증 대상인 프로젝트 설정 그대로 유지되었다:
 HyDE is dense branch within fixed hybrid backbone, using weighted RRF, dense 0.6
@@ -177,9 +190,9 @@ HyDE is dense branch within fixed hybrid backbone, using weighted RRF, dense 0.6
 파이프라인은 번역되지 않은 문맥으로 조용히 되돌아가지 않는다. 이번 실행에서는
 제외된 레코드가 없었다.
 
-## 5. 공식 RAG 품질 결과
+## 5. 완전한 `gpt-4o` 민감도 패널
 
-이 `reference_scd` RAG 품질 평가의 공식 심판은 NVIDIA NIM이 아니라 OpenAI
+이 보존된 민감도 패널의 심판은 NVIDIA NIM이 아니라 OpenAI
 `gpt-4o`다.
 
 심판 모델 변경은 이 실험 트랙에 한정되며, 경험적으로 확인된 신뢰성 문제 때문에
@@ -234,7 +247,7 @@ NVIDIA NIM RAG 품질 점수는 없다. NIM이 그 평가에서 끝내 수렴하
 Null-cell 민감도는 의미가 없다. 608개 중 null cell이 0개이므로, 유의미한 민감도
 분석 대상이 없다. 민감하게 반응할 결측 데이터 자체가 없다.
 
-### 축별 해석
+### 프로토콜 수준 해석
 
 HyDE는 faithfulness를 명확히 올린다. +0.073으로, 어떤 축이 어떤 지표에 준 효과
 중 가장 큰 양의 효과다. 또한 context_precision에는 일부 비용(-0.035)을 초래하며,
@@ -246,14 +259,11 @@ CAD는 모든 축/지표 쌍 중 단일 최대 음의 효과를 유발한다. an
 contrastive decoding이 직접적인 질문 관련성을 어느 정도 희생하면서 생성을 검색
 문맥에 과도하게 고정하는 것과 일관된다.
 
-SCD는 네 개 RAG 품질 지표 중 세 개에서 비용을 낸다. faithfulness -0.048,
-answer_relevancy -0.057, context_recall -0.066이다. SCD는 context_precision에서
-양의 효과(+0.030)를 보이는 유일한 축이다. 특히 SCD의 answer_relevancy 비용
-(-0.057)은 CAD의 비용(-0.076)과 방향 및 크기가 가깝다. 두 디코딩 시점 제약
-메커니즘, 즉 하나는 사실 기반성을 위한 것이고 하나는 언어 제어를 위한 것인 두
-메커니즘이 유사한 형태의 품질 비용 패턴을 보인다. 검색 쪽 개입인 HyDE는 상대적으로
-더 완만하고 혼합된 양상을 보인다. 이는 데이터에서 관찰된 패턴이지, 데이터가
-뒷받침하는 범위를 넘어선 인과 메커니즘 주장이 아니다.
+이 프로토콜에서 SCD-on 셀은 faithfulness -0.048, answer_relevancy -0.057,
+context_recall -0.066, context_precision +0.030의 차이를 보인다. answer_relevancy는
+질문-답변 점수의 직접적인 연관값이다. 나머지 세 지표는 비대칭 문맥 번역의 영향을
+받고, 두 context 지표는 생성 답변을 아예 보지 않는다. 따라서 네 값을 SCD 효과로
+묶지 않고 민감도 분석으로만 사용한다.
 
 ### 설정별 해석
 
@@ -268,17 +278,16 @@ answer_relevancy다. 0.7485 대 0.8201, 대응 차이는 -0.0716이며, context_
 CAD는 그 자체로 faithfulness 개선이 아니다. 눈에 보이는 상충관계는 질문 관련성에
 있다.
 
-`hyde_off__scd_only`는 HyDE 없이 분리된 SCD 비용을 보인다. faithfulness는
+`hyde_off__scd_only`는 HyDE 없이 SCD-on 셀의 낮은 점수 연관을 보인다. faithfulness는
 0.8159에서 0.7906으로 하락하고(-0.0253), answer_relevancy는 0.8201에서 0.7758로
 하락하며(-0.0443), context_recall은 1.0000에서 0.9474로 하락한다(-0.0526).
-상쇄되는 이득은 context_precision이다. 0.8512 대 0.8343(+0.0169)이며, 이는 SCD가
-precision에는 긍정적이지만 다른 RAGAS 지표에서는 품질 비용을 동반한다는 축 수준
-결과와 일관된다.
+상쇄되는 차이는 context_precision의 0.8512 대 0.8343(+0.0169)이다. 이는 protocol
+수준 축 표와 같은 방향이지만, 분리된 인과 효과로 읽으면 안 된다.
 
 `hyde_off__cad_scd`는 행렬에서 단일하게 가장 위험한 조합이다. 이는
 answer_relevancy에서 최악의 설정인 0.6556이고, context_recall에서 최악의 hyde-off
 설정인 0.7895다. hyde-off 기준선보다 -0.2105 낮다. 이것은 CAD의
-answer_relevancy 비용과 SCD의 answer_relevancy 비용이 부분적으로 상쇄되기보다
+CAD-on 및 SCD-on의 answer_relevancy 점수 차이가 부분적으로 상쇄되기보다
 누적되는 것처럼 보이는 유일한 설정이다. CAD-only는 hyde-off 기준선에서 -0.0716,
 SCD-only는 -0.0443, CAD+SCD는 -0.1645다.
 
@@ -305,8 +314,8 @@ faithfulness에 특화되어 있으며, 모든 지표에 일반적으로 적용�
 faithfulness를 회복한다. 0.8674 대 0.7792(+0.0882)다. answer_relevancy 점수는
 0.7483으로 낮게 남아 있다. `hyde_off__cad_scd`보다 +0.0927 높지만, 여전히
 `hyde_on__no_decoder_control`보다 -0.1021 낮다. HyDE 아래에서는 CAD+SCD를 함께
-추가할 때 faithfulness 비용이 HyDE 없을 때보다 적지만, answer_relevancy 비용은
-지속된다.
+추가한 셀의 faithfulness 차이가 HyDE 없을 때보다 작지만, 낮은 answer_relevancy
+연관은 지속된다.
 
 동일한 CAD/SCD 설정을 가진 네 개 대응 HyDE-on/off 쌍 전체에서, 모든 HyDE-on 변형은
 대응되는 HyDE-off 변형보다 faithfulness가 높다. 각각 +0.0733, +0.1049, +0.0265,
@@ -315,13 +324,10 @@ faithfulness를 회복한다. 0.8674 대 0.7792(+0.0882)다. answer_relevancy �
 포함하여 이 대응 비교들에서 faithfulness 수준을 일관되게 완충하지만,
 answer_relevancy에 대해서는 같은 방식의 일관된 완충을 제공하지 않는다.
 
-### faithfulness 기여도 분해
+### 이 값이 인과적 faithfulness 기여도 분해가 아닌 이유
 
-이 프로젝트의 핵심 목표는 두 가지다. 하나는 한국어 언어 적응이고, 다른 하나는
-RAG 환각 감소이며, 이 보고서에서는 후자를 RAGAS `faithfulness`로 조작화한다.
-`hyde_on__cad_scd`처럼 모든 개입이 켜진 설정이 언어 준수와 faithfulness 양쪽에서
-무개입 기준선을 이기므로, SCD도 환각 감소에 긍정적으로 기여한다고 해석하기 쉽다.
-그러나 이 해석은 맞지 않다.
+이 프로젝트의 핵심 목표는 한국어 언어 적응과 RAG groundedness다. 아래 값은 이
+평가 프로토콜을 기술하지만 인과 기여도를 분해하지 않는다.
 
 위 표의 축 수준 faithfulness 효과는 다음과 같다.
 
@@ -331,32 +337,13 @@ RAG 환각 감소이며, 이 보고서에서는 후자를 RAGAS `faithfulness`�
 | use_cad | +0.0187 |
 | use_scd | -0.0480 |
 
-직접 설정 비교도 같은 점을 분명히 보여준다. SCD 없이 HyDE+CAD만 켠
-`hyde_on__cad_only`는 faithfulness 0.9230에 도달하며, 이는 8개 설정 전체에서 가장
-높은 값이다. 같은 HyDE+CAD 조합에 SCD를 추가한 `hyde_on__cad_scd`는 faithfulness가
-0.8674로 내려간다. HyDE와 CAD를 모두 켠 상태로 고정하고 SCD만 켰을 때 -0.0556이
-감소한 것이다.
+패널에서 `hyde_on__cad_only`는 0.9230, `hyde_on__cad_scd`는 0.8674로 -0.0556
+차이가 난다. 그러나 문맥 번역과 다수 HyDE-on 쌍의 검색 내용도 달라 이 차이만으로
+SCD가 faithfulness를 낮췄다고 말할 수 없다. 높였다고도 말할 수 없다. 이후 대칭
+이중언어 패널이 동일 검색 문맥과 불확실성 추정을 추가했지만 두 faithfulness 구간은
+여전히 0을 포함했다. 독립 judge와 사람 검토가 필요하다.
 
-따라서 모든 개입이 켜진 설정의 faithfulness가 무개입 기준선보다 좋아진 것,
-즉 0.8159에서 0.8674로 올라간 +0.0515 순이득은 전적으로 HyDE와 CAD에
-기인한다. 이 보고서의 모든 측정에서 SCD 자체의 분리된 faithfulness 기여는
-음수다. 축 수준 효과에서도 그렇고, `hyde_on__cad_only`와
-`hyde_on__cad_scd`를 직접 비교해도 그렇다. 이 프로젝트의 두 핵심 목표에 대해
-정확히 말하면, SCD는 언어 적응 목표를
-달성하지만 환각 감소 목표에는 기여하지 않는다. 오히려 HyDE와 CAD가 만든
-faithfulness 이득의 일부를 비용으로 소모한다. 모든 개입을 켠 설정이 두 측면에서
-무개입보다 여전히 앞서는 이유는 SCD가 도움이 되어서가 아니라, HyDE와 CAD의
-faithfulness 기여인 +0.0732와 +0.0187이 SCD의 비용인 -0.0480보다 크기 때문이다.
-
-부차적으로 논의할 만한 흥미로운 패턴도 있다. CAD는 이 프로젝트에서 명목상 환각
-완화 축이다. 즉 contrastive decoding을 통해 생성을 검색 문맥에 더 강하게 묶어
-환각을 줄이도록 설계된 축이다. 그런데 CAD 자체의 분리된 faithfulness 효과인
-+0.0187은 HyDE의 부수적 효과인 +0.0732보다 작다. 이 데이터셋에서는 명시적인
-환각 억제 설계 목표가 없는 검색 쪽 개입인 HyDE가 CAD보다 faithfulness에 더 크게
-기여했다. 이는 CAD가 작동하지 않는다는 주장이 아니라, 데이터에서 관찰된 패턴으로
-논의할 필요가 있다는 뜻이다. CAD의 효과는 양수이지만 HyDE보다 작다.
-
-## 6. 참고 논문은 상충관계를 보고하지 않는데 이 보고서는 상충관계를 찾은 이유
+## 6. 이 패널을 참고 논문과 직접 비교할 수 없는 이유
 
 ### 서로 다른 지표 구성
 
@@ -389,25 +376,31 @@ LLaMA3-8B-Instruct와 Qwen2.5-7B-Instruct에서 조정되었다. 이 프로젝�
 기반 모델인 Mi:dm을 사용한다. 같은 고정 하이퍼파라미터 값이 다른 모델에서도 동일한
 충실도/제어 균형점에 놓인다는 보장은 없다.
 
-이 보고서는 논문이 틀렸다고 주장하지 않는다. 이 보고서는 논문이 시험한 적 없는
-지표 공간, 즉 RAG 근거성으로 측정을 확장하고, 다른 영역과 기반 모델 아래에서
-실제 비용을 찾는다.
+이 보고서는 논문이 틀렸다고 주장하지 않는다. 논문이 시험한 적 없는 RAGAS 지표
+공간에서 다른 영역과 기반 모델의 프로토콜별 관찰값을 기록하며, 인과적 품질 효과는
+미해결로 남긴다.
 
 ## 7. 전체 결론
 
-SCD는 `reference_scd`로서 의도한 목표를 결정적으로 달성한다. 강한 양의 효과,
-의미 있는 언어 이탈 회복, 이미 좋은 답변에 대한 무손상으로 한국어 언어 준수를
-개선한다. 이는 참고 논문의 정확한 공식 및 하이퍼파라미터와 완전히 일관되며,
-그에 비추어 검증되었다. 이것이 가장 중요한 확인 결과다.
+`reference_scd`는 직접 측정한 한국어 언어 준수를 크게 개선하고 26개 threshold
+drift 중 15개를 회복한다. 사전 정의한 심각한 손상 전이는 0/20이지만 3/76은
+감소했고 12/76 SCD-on 출력은 0.5 미만이다. 이것이 가장 중요한 확인 결과다.
 
-별도로, 언어를 엄격히 맞추고 교차언어 교란을 통제한 평가 아래에서 SCD는 네 개
-RAGAS RAG 품질 지표 중 세 개, 즉 faithfulness, answer_relevancy, context_recall에서
-실제 비용을 동반한다. context_precision은 개선한다.
+`gpt-4o` 패널은 완전한 점수 산출물이지만 비대칭 번역과 검색 차이 때문에 SCD의
+인과적 RAG 품질 결론을 만들 수 없다. 숫자를 인용할 때는 반드시 이 제한을 함께
+적어야 한다.
 
-이는 측정상의 산물이 아니다. 이 비용은 심판 모델의 교차언어 처리 잡음이 대안
-설명이 될 가능성을 배제하기 위해 설계된 구체적 통제를 통과한 뒤에도 남아 있었다.
-두 결과는 나란히 보고되어야 한다. 언어 제어 성공은 축소해서는 안 되고, RAG 품질
-비용도 완화하거나 묻어서는 안 된다.
+완료한 대칭 후속 평가는 이 한계를 실질적으로 줄였다. HyDE-off 38개 SCD 비교쌍은
+검색 context가 같고, 두 목표 언어 모두 동일한 field-level 정규화 정책을 사용하며,
+19개 query cluster bootstrap으로 불확실성을 보고한다. faithfulness 방향은
+확정되지 않았다. `gpt-4o` answer relevancy는 양쪽 언어에서 음의 구간이며 CAD-on
+층에서 뚜렷했지만 고정 `gpt-4.1-2025-04-14`에서는 모든 해당 구간이 0을 포함했다.
+고정 규칙이어도 한국어 답변의 실제 번역은 SCD-off 23/38, SCD-on 11/38로 달랐다.
+최종 판정은 judge에 강건한 0이 아닌 RAG-quality 효과가 없다는 것이며, 인과 또는
+배포 판정으로 쓰지 않는다. 자세한 표는
+[reference_scd_symmetric_cross_judge_report.md](reference_scd_symmetric_cross_judge_report.md),
+입력 감사는
+[reference_scd_symmetric_input_audit.md](reference_scd_symmetric_input_audit.md)에 있다.
 
 ## 8. 부록: 비공식 gpt-4o-mini 교차 점검(비정본)
 
@@ -445,24 +438,15 @@ RAGAS RAG 품질 지표 중 세 개, 즉 faithfulness, answer_relevancy, context
 | context_precision | +0.0079 | 76 | +7/-4 |
 | context_recall | +0.0132 | 76 | +1/-0 |
 
-주요 결과의 방향은 문맥 번역 통제가 적용되기 전에도 재현된다. 비공식이며 통제되지
-않은 `gpt-4o-mini` 실행과 공식이며 통제된 `gpt-4o` 실행 모두 SCD가 faithfulness와
-answer_relevancy에 비용을 낸다는 점을 보이며, 둘 다 context_precision을 SCD가 돕는
-하나의 지표로 보인다. 이는 5장 결과가 특정 번역 방법론의 산물만은 아니라는
-부수적 근거를 더한다. 그러나 실제 주장에 인용해야 할 숫자는 이 비공식 숫자가
-아니라 공식적이고 통제된 5장의 숫자다. context_recall은 두 실행 사이에서
-방향이 다르다. 비공식 결과는 +0.0132, 공식 결과는 -0.0658이다. 그럴듯한 설명은
-context_recall이 심판 모델이 정답 기준문과 비교하도록 받은 텍스트가
-원문인지 번역문인지에 민감하다는 것이지만, 이는 확인된 메커니즘이 아니라 향후
-과제로 남는 열린 질문이다.
+두 패널 모두 SCD-on 셀에서 answer_relevancy와 faithfulness 점수가 낮아 방향성
+삼각 확인에는 유용하다. 그러나 서로 동등한 통제가 아니며 인과성을 확정하지 않는다.
+context_recall은 +0.0132에서 -0.0658로 방향까지 바뀌어 judge에 제시한 텍스트와
+언어에 대한 민감성을 보여준다.
 
 번역 기반 BLEU/ROUGE 평가도 NIM RAGAS 채점 과정이 종료된 뒤 Alice Cloud 인스턴스에서
 자동 실행되도록 대기열에 올라가 있었다. 그 지표는 참고 논문 자체의 번역 기반 평가
 방법을 반영하여, SCD-on 답변을 NVIDIA NIM을 통해 영어로 번역한 다음 영어
 `answer_span` 기준값과 비교해 점수를 낼 예정이었다. 실행기는
 [`experiments/evaluators/translated_bleu_rouge_runner.py`](../evaluators/translated_bleu_rouge_runner.py)다.
-그 단계가 끝나기 전에 프로젝트 소유자가 Alice 인스턴스를 삭제했기 때문에 완료되지
-않았다. 이 지표는 `gpt-4o` 경로에서 의도적으로 재시도하지 않았다. 5장의
-문맥 번역 RAGAS 결과가 BLEU/ROUGE가 답하려던 같은 근본 질문, 즉 SCD가 내용 품질
-비용을 동반하는지에 대해 이미 엄격하고 언어를 맞춘 답을 제공하기 때문이다. 나중에
-논문 자체 방법론에 맞는 보조 내용 겹침 지표가 필요해지면 향후 과제 후보로 남는다.
+그 단계가 끝나기 전에 Alice 인스턴스가 삭제되어 완료되지 않았다. 현재 RAGAS
+민감도 패널은 인과적 내용 품질 질문에 답하지 못하므로 이 평가는 향후 과제로 남는다.
