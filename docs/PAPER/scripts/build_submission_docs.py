@@ -143,30 +143,30 @@ def make_diagram_assets(lang: str) -> tuple[Path, Path]:
             "corpus": "논문 코퍼스\n파싱 · 절 탐지 · 청킹",
             "backbone": "고정 Paper-RAG Backbone\nBGE-M3 + BM25 + weighted RRF\nCrossEncoder reranking",
             "research": "통제된 연구 계층\nHyDE × CAD × SCD\n8설정 · 19질의 · 152답변",
-            "service": "졸업프로젝트 서비스 계층\nFastAPI · React · SSE · 출처 표시",
+            "service": "서비스 구현 계층\nFastAPI · React · SSE · 출처 표시",
             "routes": "A 단순 QA     B 절 QA     C 비교     D 인용     E 요약     F 퀴즈",
-            "note": "서비스 router는 통합 계층이며 논문 알고리즘으로 주장하지 않는다.",
-            "fac_title": "HyDE × CAD × SCD 완전요인실험",
+            "note": "동일 코드베이스에서 통제 실험과 A–F 논문 질의 기능을 구현한다.",
+            "fac_title": "HyDE × CAD × SCD 2×2×2 조합 실험",
             "inputs": "고정 입력\n한국어 질의 19개\n영어 논문 4편",
             "factors": "세 이진 요인\nHyDE: 검색 확장\nCAD: 근거 충실도 제어\nSCD: 한국어 출력 제어",
             "matrix": "실행 행렬\n8개 설정\n152개 생성",
             "measured": "측정\nfaithfulness · answer relevancy\ncontext precision · recall\n직접 한국어 준수율",
-            "deferred": "결과 주장 제외\n질의 유형별 효과\n숫자 정확성 주석",
+            "deferred": "향후 평가\n질의 유형별 효과\n숫자 정확성 주석",
         },
         "en": {
             "sys_title": "M-RAG Research and Service Layers",
             "corpus": "Paper corpus\nparse · section · chunk",
             "backbone": "Fixed Paper-RAG Backbone\nBGE-M3 + BM25 + weighted RRF\nCrossEncoder reranking",
             "research": "Controlled Research Layer\nHyDE × CAD × SCD\n8 configs · 19 queries · 152 outputs",
-            "service": "Graduation-Project Service Layer\nFastAPI · React · SSE · sources",
+            "service": "Service Implementation Layer\nFastAPI · React · SSE · sources",
             "routes": "A QA     B Section     C Compare     D Citation     E Summary     F Quiz",
-            "note": "The service router is integration, not the claimed thesis algorithm.",
-            "fac_title": "HyDE × CAD × SCD Full-Factorial Experiment",
+            "note": "One codebase implements controlled experiments and A–F paper-QA functions.",
+            "fac_title": "HyDE × CAD × SCD 2×2×2 Combination Experiment",
             "inputs": "Frozen inputs\n19 Korean queries\n4 English papers",
             "factors": "Three binary factors\nHyDE: retrieval reformulation\nCAD: evidence control\nSCD: Korean language control",
             "matrix": "Executed matrix\n8 configurations\n152 generations",
             "measured": "Measured\nfaithfulness · answer relevancy\ncontext precision · recall\ndirect Korean adherence",
-            "deferred": "Excluded from claims\nquery-type effects\nnumeric-exactness annotation",
+            "deferred": "Future evaluation\nquery-type effects\nnumeric-exactness annotation",
         },
     }[lang]
 
@@ -244,6 +244,7 @@ def make_diagram_assets(lang: str) -> tuple[Path, Path]:
 def clean_inline(text: str) -> str:
     text = re.sub(r"!\[([^]]*)\]\([^)]*\)", r"\1", text)
     text = re.sub(r"\[([^]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
+    text = re.sub(r"<br\s*/?>", "\n", text, flags=re.IGNORECASE)
     text = text.replace("**", "").replace("`", "")
     return text.strip()
 
@@ -316,15 +317,6 @@ def add_cover(doc: Document, title: str, lang: str) -> None:
     run._element.rPr.rFonts.set(qn("w:eastAsia"), run.font.name)
     run.font.size = Pt(24)
     run.font.color.rgb = RGBColor.from_string(NAVY)
-    subtitle = (
-        "템플릿 중립 국문 전체 원고"
-        if lang == "ko"
-        else "Template-neutral full English manuscript"
-    )
-    p = doc.add_paragraph(subtitle)
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p.runs[0].font.size = Pt(12)
-    p.runs[0].font.color.rgb = RGBColor.from_string(MUTED)
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
 

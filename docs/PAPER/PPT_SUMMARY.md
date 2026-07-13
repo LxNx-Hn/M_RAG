@@ -1,11 +1,11 @@
 # M-RAG Presentation Summary
 
-> PPT outline aligned to the verified original Phase 8 and corrected `reference_scd` artifacts.
+PPT outline aligned to the current HyDE × CAD × SCD experiment and M-RAG implementation.
 
 ## 1. Title
 
 - M-RAG
-- HyDE × CAD × SCD factor analysis for Korean-query English-paper RAG
+- HyDE × CAD × SCD combination evaluation for Korean-query English-paper RAG
 
 ## 2. Problem
 
@@ -20,7 +20,7 @@
 - What follow-up metrics are still needed for numeric hallucination and query-type-specific routing?
 - How should the graduation-project service use the current global factor-effect findings without overstating route-level validation?
 
-## 4. Core Method
+## 4. Method
 
 - Fixed Paper-RAG backbone
 - HyDE on/off as retrieval-side expansion axis
@@ -33,7 +33,7 @@
 - FastAPI backend and React frontend
 - Paper upload, indexing, chat, sources, SSE streaming
 - A-F service routes for QA, section QA, comparison, citation lookup, summary, quiz/flashcards
-- Routes are service features, not the thesis algorithmic novelty
+- Service and experiment layers share the M-RAG codebase
 
 ## 6. Experiment Matrix
 
@@ -51,28 +51,28 @@
 - RAGAS: faithfulness, answer relevancy, context precision, context recall
 - Direct language metric: Korean answer ratio and drift rescue
 - Numeric hallucination and query-type breakdown remain future analyses
-- Never mix original NIM scores with corrected-run `gpt-4o` / fixed `gpt-4.1` scores
+- Use the controlled SCD-off HyDE/CAD contrasts and the separate symmetric SCD quality panels
 
 ## 8. Verified Results
 
-- Original `penalty_additive` SCD v1: null on its Korean-adherence target (−0.0137 paired)
-- Corrected `reference_scd`: +0.2203 Korean ratio, 68/76 increases, 15/26 drift rescues
-- Harm threshold: 0/20 baseline ≥0.7 cases fell below 0.65; 3/76 pairs still decreased
-- `gpt-4o` sensitivity panel: faithfulness −0.0480, answer relevancy −0.0571, context precision +0.0300, context recall −0.0658
-- Method boundary: only the language result is judge-independent; SCD-on-only context translation makes the RAG-quality deltas descriptive, not causal
-- Symmetric HyDE-off follow-up (38 matched pairs per language): faithfulness unresolved in EN/KO; answer relevancy EN −0.0910 [−0.1725, −0.0240], KO −0.0752 [−0.1501, −0.0138]
-- Fixed `gpt-4.1-2025-04-14` cross-judge: all EN/KO overall intervals overlap zero; the `gpt-4o` nonzero answer-relevancy cost does not replicate
-- Follow-up boundary: no judge-robust nonzero RAG-quality effect; post-generation normalization still prevents a causal or deployment verdict
+- HyDE baseline contrast: answer relevancy +0.0303 [+0.0016, +0.0615]; other quality intervals include or touch zero
+- CAD byte-identical-context contrast: faithfulness +0.0023 [−0.0903, +0.0952]; no quality improvement established
+- SCD result: +0.2203 mean Korean ratio over 76 matched pairs, with 68 improvements and 3 declines outside the ±0.02 tie band
+- Language drift: 26/76 without SCD versus 12/76 with SCD
+- HyDE × CAD strata: Korean-ratio deltas +0.1981, +0.2415, +0.2012, and +0.2402
+- Symmetric HyDE-off check (38 matched pairs per language): every faithfulness interval includes zero
+- `gpt-4o` answer-relevancy deltas: English −0.0910 [−0.1725, −0.0240], Korean −0.0752 [−0.1501, −0.0138]
+- Fixed `gpt-4.1-2025-04-14`: English and Korean answer-relevancy intervals include zero, so a nonzero quality effect does not replicate across judges
 
 ## 9. Service Interpretation
 
-- Original-matrix CAD/HyDE policy remains provisional and global
-- `reference_scd` is available when Korean language control is required
+- SCD is selected when Korean language control is required
+- HyDE and CAD remain selectable modules that require task-specific validation
 - Select any deployment combination only after task-specific quality validation
 - No route-specific or causal RAG-quality policy follows from either sensitivity panel
 
 ## 10. Conclusion
 
-- The thesis contribution is the HyDE/CAD/SCD analysis
-- Paper-faithful SCD substantially improves language adherence; faithfulness stays unresolved and the apparent answer-relevancy cost is judge-sensitive
+- The thesis combines a HyDE/CAD/SCD combination evaluation with the implemented M-RAG system
+- SCD substantially improves language adherence across all four HyDE × CAD strata; the symmetric quality check remains judge-sensitive
 - The M-RAG service demonstrates how that analysis can inform a Korean paper-review assistant

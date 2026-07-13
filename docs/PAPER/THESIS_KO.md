@@ -1,34 +1,30 @@
-# M-RAG: 한국어 질의-영어 논문 RAG를 위한 HyDE × CAD × SCD 요인 분석
+# M-RAG: 한국어 질의 기반 영문 학술논문 질의응답 시스템 구현과 HyDE × CAD × SCD 조합 평가
 
 ## 1. 초록
 
-검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색한 뒤 검색 근거에 조건화하여 답변을 생성한다. 그러나 한국어 사용자가 영어 학술논문을 질의하는 환경에서는 일반적인 단일언어 RAG보다 두 가지 문제가 추가된다. 첫째, 한국어 질의와 영어 학술 문장 사이의 언어·문체 차이를 넘어 관련 근거를 찾아야 한다. 둘째, 영어 근거를 사용하면서도 검색 문맥에 충실하고 안정적인 한국어 답변을 생성해야 한다. 관련 문단이 검색되더라도 생성 모델은 사전학습 지식에 의존한 환각을 추가하거나, 한국어 답변에 불필요한 영어 문장을 섞거나, 수치·기술 근거를 정확히 보존하지 못할 수 있다.
+검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색하고 그 근거에 조건화하여 답변을 생성한다. 한국어 사용자가 영어 학술논문을 질의하는 환경에서는 한국어 질의와 영어 학술 문장 사이의 표현 차이를 넘어 관련 근거를 찾아야 하며, 검색된 영어 근거에 충실하면서도 안정적인 한국어 답변을 생성해야 한다. 본 논문은 이 문제를 검색 확장, 근거 충실도 제어, 출력 언어 제어의 세 축으로 나누고, 이를 실제 논문 질의응답 시스템에 통합한 M-RAG를 제시한다.
 
-본 논문은 고정된 Paper-RAG 검색 backbone 위에서 HyDE(Hypothetical Document Embeddings), CAD(Context-Aware Decoding), 한국어 대상 SCD(Soft Constrained Decoding)의 효과를 완전요인실험으로 분석한다. HyDE는 검색 질의를 가상 답변 형태로 확장하는 검색 측 요소, CAD는 문맥 조건부 분포와 무문맥 분포를 대조하는 생성 측 충실도 제어, SCD는 디코딩 중 비목표 언어 토큰의 영향을 조절하는 언어 제어로 정의한다. 실험은 HyDE, CAD, SCD의 on/off 조합 8개와 19개 질의로 152개 답변을 생성하였다. 생성 모델은 Mi:dm 2.0 Base이며, BGE-M3·BM25·가중 RRF·CrossEncoder reranking으로 구성된 검색 backbone은 고정하였다.
+연구 대상은 HyDE(Hypothetical Document Embeddings), CAD(Context-Aware Decoding), 한국어 대상 SCD(Soft Constrained Decoding)이다. HyDE는 가상 답변형 문서로 검색 표현을 확장하고, CAD는 문맥 조건부 분포와 무문맥 분포를 대조하며, SCD는 목표·방해·중립 토큰으로 나눈 raw logit에 언어별 계수를 적용한다. BGE-M3, BM25, 가중 RRF, CrossEncoder reranking으로 구성한 Paper-RAG backbone과 Mi:dm 2.0 Base 생성 모델을 고정하고, 세 요인의 on/off 조합 8개를 19개 질의에 적용하여 152개 답변을 생성하였다.
 
-원본 주실험은 NVIDIA NIM의 고정 judge와 RAGAS를 사용해 608개 지표 셀 중 583개를 채점하였다. CAD는 faithfulness를 paired `+0.044` 개선하였다. HyDE는 answer relevancy `+0.070`, context recall `+0.026`을 높였지만 context precision은 `−0.056` 낮춰 recall-precision trade-off를 보였다. 원본 `penalty_additive` v1 SCD는 faithfulness `+0.009`, 직접 한국어 비율 `−0.014`로 사실상 null 결과였다. 이후 참조 논문에 충실한 `reference_scd`를 별도 실험으로 재현한 결과, 직접 한국어 준수율은 76개 대응쌍에서 평균 `+0.2203` 증가했고 68쌍이 개선되었다. 그러나 대칭 전처리와 `gpt-4o`, 고정 `gpt-4.1-2025-04-14` 교차 judge 평가에서는 faithfulness의 방향이 확정되지 않았고 answer relevancy의 음의 효과도 judge 간 비영점 신뢰구간으로 재현되지 않았다. 따라서 SCD가 한국어 준수율을 개선한다는 결론과 RAG 품질을 개선하거나 저하시킨다는 결론을 분리한다.
+동일한 SCD-off 기준에서 수행한 19개 질의 대응 비교에서 HyDE의 answer relevancy 차이는 `+0.0303`(95% CI `[+0.0016, +0.0615]`)이었고, faithfulness·context precision·context recall 구간은 0을 포함했다. 검색 문맥이 19/19 완전히 같은 HyDE-off·SCD-off 비교에서 CAD의 faithfulness 차이는 `+0.0023`(95% CI `[−0.0903, +0.0952]`)으로 뚜렷한 개선이 확인되지 않았다. SCD 분석에서는 76개 대응쌍의 한국어 비율이 평균 `+0.2203` 증가했고 68쌍이 개선되었다. 한국어 비율 0.5 미만인 언어 이탈 출력은 26개에서 12개로 감소했으며, HyDE와 CAD의 네 조합 모두에서 평균 차이가 양수였다. 동일 검색 문맥을 사용한 HyDE-off 38쌍에서도 `+0.2198`이 유지되었다.
 
-본 연구의 기여는 새로운 범용 RAG 알고리즘을 제안하는 것이 아니라, 한국어 질의-영어 논문 RAG에서 세 요소를 분해해 재현 가능하게 비교하고, 실패한 v1 구현과 교정된 구현을 구분하며, 언어 준수 개선이 곧 RAG 품질 개선을 의미하지 않음을 보인 데 있다. 질의 유형별 효과와 숫자 환각률은 표본 및 전용 주석 부족으로 본 실행의 결과 주장에 포함하지 않는다.
+M-RAG는 FastAPI backend와 React frontend 위에 논문 업로드, hybrid retrieval, reranking, 답변 생성, 출처 표시, 스트리밍, 비교, 요약, 인용, 퀴즈 기능을 A–F 질의 경로로 구현한다. 연구용 실행 경로는 HyDE, CAD, SCD를 명시적으로 조합하고, 서비스 경로는 필요한 모듈을 선택할 수 있는 지점을 제공한다. 본 연구는 한국어 질의-영어 학술문헌 RAG에서 세 기법을 하나의 2×2×2 생성 행렬로 실행하고, 기법별 목표에 맞는 통제 대비와 직접 언어 지표로 평가한 구현 연구다.
 
 **주제어:** 검색 증강 생성, 학술논문 질의응답, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어, 언어 이탈, RAGAS
 
 ## 2. 서론
 
-학술논문은 초록, 서론, 방법, 실험, 결과, 한계, 참고문헌처럼 기능이 다른 구역으로 구성된다. “F1 점수가 얼마인가?”와 같은 질문에는 정확한 숫자 근거가 필요하고, “방법론을 설명하라”는 질문에는 방법 절의 문맥이 필요하다. 문서 비교는 두 논문에서 균형 있게 근거를 가져와야 하며, 인용 질의는 서지정보를 정확하게 다뤄야 한다.
+학술논문은 초록, 서론, 방법, 실험, 결과, 한계, 참고문헌처럼 기능이 다른 구역으로 구성된다. 정확한 수치를 묻는 질문에는 결과 절의 근거가 필요하고, 방법론 질문에는 방법 절의 문맥이 필요하다. 문서 비교는 여러 논문에서 균형 있게 근거를 가져와야 하며, 인용 질의는 서지정보와 출처 연결을 보존해야 한다.
 
-RAG는 외부 문서를 검색하여 생성 모델에 제공하지만, 검색 성공만으로 정답이 보장되지는 않는다. 다국어 dense retrieval은 한국어 질의와 영어 문단의 의미를 연결할 수 있지만 숫자·약어·모델명 같은 표면 문자열을 놓칠 수 있다. 반대로 sparse retrieval은 정확한 용어에 강하지만 언어가 다른 의미적 표현에는 약하다. 긴 문맥은 핵심 근거를 묻히게 할 수 있고, 생성 모델은 검색 근거보다 파라미터 기억을 우선할 수 있다.
+RAG는 외부 문서를 생성 모델에 제공하지만 검색 성공만으로 답변 품질이 보장되지는 않는다. 다국어 dense retrieval은 한국어 질의와 영어 문단의 의미를 연결할 수 있지만 숫자·약어·모델명 같은 표면 문자열을 놓칠 수 있다. Sparse retrieval은 정확한 용어에 강하지만 언어가 다른 의미 표현에는 약하다. 검색 결과가 충분해도 생성 모델은 검색 근거보다 파라미터 기억을 우선하거나 영어 문장을 그대로 이어 쓸 수 있다.
 
-생성 단계에는 출력 언어 문제도 있다. 사용자가 한국어로 질문하고 문맥이 영어일 때 모델은 영어 구나 문장을 그대로 복사하거나 혼합 언어 답변을 만들 수 있다. 하지만 모든 영어 토큰을 억제해서도 안 된다. `BERT`, `RAG`, `BM25`, 데이터셋명, 수식, 인용처럼 학술 한국어에서 자연스럽게 유지되는 기술 용어는 보존해야 한다.
+본 연구는 검색과 생성을 다음 세 요소로 분해한다.
 
-본 연구는 다음 세 요소에 범위를 한정한다.
+- **HyDE:** 질의를 가상의 답변형 문서로 확장하여 영어 논문 근거 검색을 조절한다.
+- **CAD:** 같은 모델의 문맥 조건부 점수와 무문맥 점수를 대조하여 근거와 무관한 생성을 억제한다.
+- **SCD:** 한국어 목표 토큰, 비목표 방해 토큰, 기호 중심 중립 토큰으로 어휘를 나누고 각 raw logit에 정해진 계수를 적용한다.
 
-- **HyDE:** 질의를 가상의 답변형 문서로 바꾸어 검색 표현을 확장한다.
-- **CAD:** 같은 모델의 문맥 조건부 확률과 무문맥 확률을 대조해 문서 근거와 무관한 토큰을 억제한다.
-- **SCD:** 목표 언어 토큰을 증폭하고 방해 언어 토큰을 감쇠하되 중립 기호와 기술 용어를 보존한다.
-
-M-RAG 서비스는 논문 업로드, 검색, 출처 표시, A-F 질의 경로를 제공하지만 서비스 router 자체를 새로운 논문 알고리즘으로 주장하지 않는다. 논문의 핵심은 고정 backbone 위에서 세 요소의 효과를 분해하는 것이다.
-
-> **핵심 주장:** 고정된 Paper-RAG 검색 backbone 위에서 HyDE × CAD × SCD 완전요인실험을 수행하고, 각 요소의 효과와 상호작용을 분석하여 한국어 질의-영어 논문 RAG의 전역 구성 정책을 제한적으로 도출한다. 질의 유형별 최적 정책은 후속 연구로 남긴다.
+논문의 연구 계층은 세 기법의 2×2×2 조합을 실행하고, 비교 조건이 통제된 대비와 기법별 목표 지표를 분석한다. 시스템 계층은 동일 코드베이스에서 논문 질의응답 기능과 모듈 선택 지점을 제공한다. 이에 따라 본 논문은 조합 실험, 결과 해석, 실제 시스템 구현을 하나의 흐름으로 다룬다.
 
 ## 3. 배경
 
@@ -40,66 +36,66 @@ RAG는 질의 `q`에 대해 문서 집합 `D`에서 문맥 `Cq`를 검색하고,
 y = LM(q, Cq)
 ```
 
-검색이 관련 근거를 놓치면 생성 모델은 그 정보를 사용할 수 없고, 검색이 성공해도 모델이 근거를 무시하면 환각이 발생할 수 있다. 따라서 본 연구는 검색 측 제어와 디코딩 측 제어를 서로 다른 실험 축으로 다룬다.
+검색이 관련 근거를 놓치면 생성 모델은 그 정보를 사용할 수 없고, 검색이 성공해도 모델이 근거를 무시하면 환각이 발생할 수 있다. 따라서 검색 측 제어와 생성 측 제어를 구분해 평가해야 한다.
 
 ### 3.2 Dense·Sparse·Hybrid Retrieval
 
-BGE-M3는 한국어 질의와 영어 문단을 공유 벡터 공간에 표현하여 다국어 의미 검색을 지원한다 [3]. 하지만 벡터 압축은 숫자, 약어, 수식과 같은 정확 문자열을 약화할 수 있다. BM25는 어휘 중복을 이용하므로 정확 용어에 강하다 [4]. 본 시스템은 두 순위의 raw score를 직접 더하지 않고 dense 0.6, BM25 0.4 가중 Reciprocal Rank Fusion을 사용한다 [5].
+BGE-M3는 한국어 질의와 영어 문단을 공유 벡터 공간에 표현하여 다국어 의미 검색을 지원한다 [3]. BM25는 어휘 중복을 이용하므로 정확한 용어, 숫자, 약어에 강하다 [4]. 본 시스템은 두 순위의 raw score를 직접 합하지 않고 dense 0.6, BM25 0.4 가중 Reciprocal Rank Fusion을 사용한다 [5].
 
 ```text
 weighted_RRF(d) = 0.6 / (k + rank_dense(d))
                 + 0.4 / (k + rank_BM25(d))
 ```
 
-후보 문단은 `ms-marco-MiniLM-L-6-v2` CrossEncoder로 reranking한다 [6,7]. 이 검색·재정렬 과정은 주실험에서 고정된다.
+후보 문단은 `ms-marco-MiniLM-L-6-v2` CrossEncoder로 reranking한다 [6,7].
 
 ### 3.3 HyDE
 
-HyDE는 원 질의를 바로 embedding하는 대신 생성 모델이 만든 가상 답변형 문서를 embedding하여 관련 문서를 검색한다 [8]. 한국어 질의와 영어 학술 문장 사이의 표현 차이를 줄일 수 있지만, 생성된 가상 문서가 불필요한 개념을 추가하면 context precision이 낮아질 수 있다.
+HyDE는 원 질의를 바로 embedding하는 대신 생성 모델이 만든 가상 답변형 문서를 embedding하여 관련 문서를 검색한다 [8]. 한국어 질의와 영어 학술 문장 사이의 표현 차이를 줄일 수 있지만, 가상 문서가 불필요한 개념을 추가하면 context precision이 낮아질 수 있다.
 
 ### 3.4 CAD
 
-CAD는 문맥이 있을 때와 없을 때의 토큰 점수를 대조한다 [9]. 개념적으로 다음과 같이 표현된다.
+CAD는 문맥이 있을 때와 없을 때의 토큰 점수를 대조한다 [9].
 
 ```text
 score_CAD = (1 + alpha) * logits_context - alpha * logits_no_context
 ```
 
-문서가 없어도 모델이 쉽게 생성하는 토큰보다 실제 문맥에서 강해지는 토큰을 상대적으로 우선한다. 본 구현은 같은 생성 prefix를 사용해 무문맥 분기를 매 단계 다시 계산하는 정확성 우선 경로를 사용한다.
+문서가 없어도 모델이 쉽게 생성하는 토큰보다 실제 문맥에서 강해지는 토큰을 상대적으로 우선한다. 본 구현은 동일한 생성 prefix로 무문맥 분기를 매 단계 계산하는 정확성 우선 경로를 사용한다.
 
 ### 3.5 SCD와 언어 이탈
 
-SCD는 다국어 RAG에서 출력이 근거 언어로 이동하는 language drift를 완화하는 training-free 디코딩 기법이다 [11]. 원본 v1은 방해 언어 토큰을 additive 방식으로 항상 감점했지만, 참조 방법의 목표 언어 boost, multiplicative scaling, cold-start warm-up을 구현하지 못했다. 교정된 `reference_scd`는 `alpha=1.1`, `beta=0.9`, `Tstart=5`를 적용한다. 목적은 모든 영문 기술어의 번역이 아니라 불필요한 영문 문장 이탈을 줄이는 것이다.
+SCD는 다국어 RAG에서 출력이 근거 언어로 이동하는 language drift를 완화하는 training-free 디코딩 기법이다 [11]. 본 구현은 한국어 목표 토큰의 raw logit에 `alpha=1.1`, 비목표 방해 토큰의 raw logit에 `beta=0.9`를 곱하고, generated-token warm-up `Tstart=5`를 사용한다. 목적은 한국어 답변의 주된 서술이 불필요하게 다른 언어의 문장으로 전환되는 현상을 줄이는 것이다.
 
 ## 4. 관련 연구
 
-Lewis 등 [1]은 검색 문서에 조건화된 생성의 기본 구조를 제시했다. RAG survey [2]는 검색, 증강, 생성 단계와 주요 설계 선택을 정리한다. BGE-M3 [3], BM25 [4], RRF [5], BERT reranking [6]은 본 연구의 고정 검색 backbone을 구성하는 근거다. MS MARCO [7]는 passage reranking 계열의 대표 학습·평가 자료로 관련성을 갖는다. 긴 문맥에서 중간 근거가 덜 사용되는 현상 [13]은 context ordering의 필요성을 뒷받침하고, BERGEN [14]은 RAG 비교 평가를 표준화하는 도구 방향을 보여준다.
+Lewis 등 [1]은 검색 문서에 조건화된 생성의 기본 구조를 제시했고, RAG survey [2]는 검색·증강·생성 단계의 설계 선택을 정리했다. BGE-M3 [3], BM25 [4], RRF [5], BERT reranking [6]은 본 연구의 고정 검색 backbone을 구성한다. MS MARCO [7]는 passage reranking 계열의 대표 학습·평가 자료이며, 긴 문맥에서 중간 근거가 덜 사용되는 현상 [13]은 문맥 구성과 순서 제어의 필요성을 뒷받침한다. BERGEN [14]은 RAG 비교 평가의 재현 가능한 도구 방향을 보여준다.
 
-HyDE [8]는 relevance label 없이 가상 문서를 사용해 dense retrieval을 개선하며, 국내 연구도 HyDE 기반 멀티홉 검색을 분석한다 [17]. CAD [9]와 contrastive decoding [10]은 생성 단계에서 분포를 대조하여 환각을 줄이는 방향을 제시한다. 국내 Contrastive CAD 연구 [18]도 관련 생성 제어를 다룬다.
+HyDE [8]는 relevance label 없이 가상 문서를 이용해 dense retrieval을 개선하며, 국내 연구도 HyDE 기반 멀티홉 검색을 분석한다 [17]. CAD [9]와 contrastive decoding [10]은 생성 단계에서 분포를 대조하여 근거 외 생성을 억제하는 방향을 제시한다. 국내 Contrastive CAD 연구 [18]도 관련 생성 제어를 다룬다.
 
-Li 등 [11]은 다국어 RAG의 language drift를 분석하고 SCD를 제안한다. 본 논문은 이 방법을 한국어 질의-영어 논문 환경에서 요인으로 재현하며, 자체 신기법으로 주장하지 않는다. 생성 backbone으로 사용한 Mi:dm 2.0은 한국어 중심 이중언어 모델 연구 [15]와 연결된다. RAGAS [12]는 faithfulness, answer relevancy, context precision, context recall을 자동 평가하며, 국내 자동 평가 데이터셋 생성 연구 [16]도 한국어 RAG 평가의 필요성을 다룬다. 수정 SCD의 judge 예외로 사용한 `gpt-4o`는 공개 시스템 카드 [19]를 가진 모델이지만, 다국어 LLM judge는 언어에 따라 신뢰성이 달라질 수 있으므로 [20] 본 연구는 judge별 절대점수보다 같은 조건 안의 paired delta와 교차 judge 민감도를 중심으로 해석한다.
+Li 등 [11]은 다국어 RAG의 language drift를 분석하고 SCD를 제안한다. 본 연구는 이를 한국어 질의-영어 논문 환경의 언어 제어 요인으로 적용한다. 생성 backbone인 Mi:dm 2.0은 한국어 중심 이중언어 모델 연구 [15]와 연결된다. RAGAS [12]는 faithfulness, answer relevancy, context precision, context recall을 자동 평가하며, 국내 자동 평가 데이터셋 생성 연구 [16]도 한국어 RAG 평가의 필요성을 다룬다. 다국어 LLM judge는 언어에 따라 신뢰성이 달라질 수 있으므로 [20], 본 연구는 동일 조건의 paired delta와 직접 측정 지표를 우선한다.
 
 ## 5. 문제 정의와 연구질문
 
-한국어 질의 `q_ko`, 영어 논문 chunk 집합 `D_en`, 검색 문맥 `C`, 한국어 목표 답변 `y_ko`를 가정한다. 원하는 답변은 근거 충실성, 답변 관련성, 필요한 근거의 검색, 한국어 안정성을 만족해야 한다.
+한국어 질의 `q_ko`, 영어 논문 chunk 집합 `D_en`, 검색 문맥 `C`, 한국어 목표 답변 `y_ko`를 가정한다. 원하는 답변은 관련 근거 검색, 근거 충실성, 질문 관련성, 한국어 안정성을 만족해야 한다.
 
-- **RQ1:** HyDE는 한국어 질의에 대한 영어 논문 근거 구성을 변화시키는가?
-- **RQ2:** CAD는 고정 backbone에서 검색 근거에 대한 answer faithfulness를 변화시키는가?
-- **RQ3:** 한국어 대상 SCD는 필요한 기술 용어를 보존하면서 language drift를 줄이는가?
-- **RQ4:** CAD와 SCD를 함께 적용할 때 비가산적 상호작용이 나타나는가?
-- **RQ5:** 측정된 전역 효과를 서비스 A-F 경로의 임시 기본값으로 어떻게 환원할 수 있는가?
+- **RQ1:** CAD와 SCD를 끈 기준 조건에서 HyDE는 종단간 RAG 품질을 어떻게 변화시키는가?
+- **RQ2:** HyDE와 SCD를 끄고 검색 문맥을 동일하게 유지할 때 CAD는 답변 품질을 어떻게 변화시키는가?
+- **RQ3:** 한국어 대상 SCD는 HyDE와 CAD의 포함 여부에 따라 언어 이탈을 줄이는가?
+- **RQ4:** 세 요인의 결합에서 어떤 품질·언어 trade-off가 나타나는가?
+- **RQ5:** 세 기법과 A–F 질의 기능은 M-RAG 코드베이스에서 어떻게 구현되는가?
 
-가설은 방향을 유리하게 사후 설정하지 않는다. H1은 HyDE가 retrieval 지표를 변화시킨다는 것, H2는 CAD가 RAGAS faithfulness를 변화시킨다는 것, H3는 SCD가 직접 한국어 준수율을 변화시킨다는 것, H4는 두 디코딩 제어의 결합 효과가 비가산적일 수 있다는 것이다. 숫자 환각에 대한 별도 가설은 claim-level 숫자 주석을 수집하지 않았으므로 이번 실행에서 검정하지 않는다.
+HyDE와 CAD는 faithfulness, answer relevancy, context precision, context recall을 모두 보고하되 통제된 19질의 대비를 사용한다. SCD는 직접 한국어 비율과 언어 이탈률을 1차 지표로 사용하고, 동일 문맥 대칭 패널에서 faithfulness와 answer relevancy를 별도로 확인한다.
 
 ## 6. 시스템 개요
 
 ![M-RAG 시스템 개요](figures/system_overview.svg)
 
-**그림 1.** M-RAG의 연구 계층과 서비스 계층. A-F router는 서비스 통합이며, HyDE × CAD × SCD 통제 실험이 논문의 연구 계층이다.
+**그림 1.** M-RAG의 연구 계층과 서비스 계층. 연구 계층은 HyDE × CAD × SCD 조합을 평가하고, 서비스 계층은 A–F 논문 질의 기능을 구현한다.
 
-연구 계층은 `experiments/` 아래의 고정 Paper-RAG backbone과 완전요인실험으로 구성된다. 서비스 계층은 FastAPI backend와 React frontend로 논문 업로드, 텍스트 추출, chunking, vector indexing, 검색, reranking, 답변 생성, SSE streaming, 출처 표시, 후속 질문, 인용, 비교, 요약, 퀴즈 기능을 제공한다.
+연구 계층은 `experiments/`의 고정 Paper-RAG backbone, 생성 runner, RAGAS evaluator, 언어 준수 analyzer로 구성된다. 서비스 계층은 FastAPI backend와 React frontend로 논문 업로드, 텍스트 추출, chunking, vector indexing, hybrid retrieval, reranking, 답변 생성, SSE streaming, 출처 표시, 후속 질문, 인용, 비교, 요약, 퀴즈 기능을 제공한다.
 
-문서는 parsing과 section detection을 거쳐 chunk로 분할되고 embedding 및 BM25 색인에 저장된다. 사용자의 질의는 서비스 route를 선택한 후 hybrid retrieval, reranking, context construction을 거쳐 선택적 HyDE/CAD/SCD 제어와 함께 생성된다.
+문서는 parsing과 section detection을 거쳐 chunk로 분할되고 dense·sparse 색인에 저장된다. 사용자 질의는 서비스 경로가 제공하는 검색, 재정렬, 문맥 구성, 생성 단계를 거친다. 연구용 runner는 같은 모듈 구현을 사용하면서 실험에 필요한 HyDE, CAD, SCD 설정을 명시적으로 고정한다.
 
 ## 7. 고정 Paper-RAG Backbone
 
@@ -111,23 +107,42 @@ Li 등 [11]은 다국어 RAG의 language drift를 분석하고 SCD를 제안한�
 - Reranking: `ms-marco-MiniLM-L-6-v2`
 - Retrieval pool: 8
 - Rerank top-n: 8
-- Generation context: 5
+- Generation context: 5개 문단
 - Generation model: `K-intelligence/Midm-2.0-Base-Instruct`
 - Decoding: greedy, 최대 512 tokens
 
-HyDE, CAD, SCD 외의 검색 방식, route별 로직, prompt 조건을 주실험에서 바꾸지 않는다. 이를 통해 관측 차이를 세 요인의 효과로 해석할 수 있는 내부 타당성을 확보한다.
+HyDE, CAD, SCD 외의 검색 방식과 생성 모델을 고정한다. 다만 품질 해석은 검색 문맥과 점수 입력 조건까지 확인된 통제 대비에 한정한다.
 
-## 8. 요인 분석 방법
+## 8. 조합 실험 방법
 
-![HyDE CAD SCD 완전요인 설계](figures/factorial_design.svg)
+![HyDE CAD SCD 조합 실험 설계](figures/factorial_design.svg)
 
-**그림 2.** 세 이진 요인의 8개 조합. 고정 입력과 backbone을 유지하면서 19개 질의에 대해 152개 답변을 생성했다.
+**그림 2.** 세 이진 기법의 8개 조합. 고정 입력과 backbone으로 19개 질의에 대한 152개 답변을 생성하고, 대칭 품질 분석은 이 중 HyDE-off 38개 대응쌍을 사용한다.
 
-HyDE는 retrieval query representation을 변경한다. CAD와 SCD는 retrieval 결과를 바꾸지 않고 생성 시 토큰 점수를 조절한다. 따라서 context recall처럼 검색에서 결정되는 지표가 CAD/SCD에 의해 크게 움직인다면 구현 또는 평가 오류를 의심해야 한다.
+### 8.1 HyDE
 
-원본 SCD와 수정 SCD는 같은 결과로 합치지 않는다. 원본은 `penalty_additive v1`로 역사적 감사 산출물에 남기고, 수정 구현은 별도 `main-hyde-cad-scd-reference-scd` 실험 ID를 사용한다. 이는 실패 결과를 지우지 않으면서 최종 방법 주장을 올바른 구현에 연결하기 위한 정책이다.
+HyDE-on에서는 한국어 질의를 영어 학술 답변 형태의 가상 문서로 확장하고, 이를 BGE-M3로 embedding한다. 이후 dense·BM25 후보, weighted RRF, CrossEncoder reranking은 HyDE-off와 동일하게 적용한다.
+
+### 8.2 CAD
+
+CAD는 같은 생성 prefix에 대해 문맥 조건부 logits와 무문맥 logits를 계산하고 `alpha=0.5`로 대조한다. CAD는 검색 결과를 변경하지 않고 생성 분포만 조절한다.
+
+### 8.3 SCD
+
+SCD는 생성 step이 `Tstart=5`에 도달한 뒤 raw logits에 다음 규칙을 적용한다.
+
+```text
+z'_i = z_i,          if generated step t < Tstart
+z'_i = alpha * z_i,  if t >= Tstart and i is a Korean target token
+z'_i = z_i,          if t >= Tstart and i is neutral
+z'_i = beta * z_i,   if t >= Tstart and i is a non-target distractor token
+```
+
+여기서 `alpha=1.1`, `beta=0.9`이다. 공백, 문장부호, 숫자, 수식, 괄호, 인용 표시는 중립 토큰으로 처리한다. 일반 영문 기술어를 별도의 whitelist로 중립화하지 않는다. CAD와 SCD를 함께 사용할 때는 processor 순서를 고정한다.
 
 ## 9. 실험 설계
+
+**표 1. HyDE × CAD × SCD의 2×2×2 생성 설정**
 
 | 설정 | HyDE | CAD | SCD |
 |---|---:|---:|---:|
@@ -140,120 +155,120 @@ HyDE는 retrieval query representation을 변경한다. CAD와 SCD는 retrieval 
 | `hyde_on__scd_only` | on | off | on |
 | `hyde_on__cad_scd` | on | on | on |
 
-질의는 tuning, main, query-type analysis, candidate final evaluation, service qualitative example로 역할을 분리한다. tuning 질의를 main 결과에 재사용하지 않고, 질문 수를 맞추기 위해 복제하거나 answerability를 확인하지 않은 template를 정량평가에 포함하지 않는다.
+`decoder_main_queries`는 4개 영어 논문에 대한 19개 한국어 질의로 구성된다. 8개 설정을 모두 실행하여 152개 답변과 76개 SCD on/off 대응쌍을 얻었다. Tuning 질의는 본 평가에 재사용하지 않았고, 질의를 복제해 표본 수를 늘리지 않았다.
 
-주실험의 `decoder_main_queries`는 19개이며 4개 영어 논문을 대상으로 한다. 질의 유형은 simple QA, section method/result/abstract, cross-lingual, decoder ablation, numeric/factual 질문을 포함하지만 유형별 표본이 작으므로 유형별 효과를 결과 주장으로 사용하지 않는다.
+하나의 생성 행렬에서 세 기법을 목적에 맞는 보완적 대비로 분석한다.
+
+1. **HyDE 품질 대비:** CAD와 SCD를 끈 상태에서 HyDE on/off 19쌍을 비교한다. 검색 문맥 변화까지 포함한 종단간 HyDE 효과다.
+2. **CAD 품질 대비:** HyDE와 SCD를 끈 상태에서 CAD on/off 19쌍을 비교한다. 두 조건의 검색 문맥, 검색 ID, reranking ID가 모두 일치한다.
+3. **SCD 언어 대비:** 8개 설정에서 동일 질의·HyDE·CAD 조건의 SCD on/off 76쌍을 비교한다.
+4. **SCD 대칭 품질 대비:** 검색 문맥이 byte 단위로 같은 HyDE-off 38쌍을 영어·한국어 패널로 정규화하고 두 judge에서 paired bootstrap을 수행한다.
 
 ## 10. 평가 방법
 
-RAGAS 0.2.15를 사용해 faithfulness, answer relevancy, context precision, context recall을 계산한다 [12]. 원본 Phase 8 행렬은 고정 NVIDIA NIM judge `meta/llama-3.3-70b-instruct`, temperature 0과 로컬 BGE-M3 embedding을 사용했다. 608개 셀 중 583개가 채점됐으며, 큰 multi-context payload의 endpoint timeout으로 발생한 25개 null 셀은 평균에서 제외한다. null을 0으로 바꾸지 않는다.
+RAGAS 0.2.15로 faithfulness, answer relevancy, context precision, context recall을 계산한다 [12]. `gpt-4o` judge [19]로 152개 답변 전체를 점수화한 산출물에서 품질 대비에는 SCD-off 레코드만 사용하고, answer relevancy embedding은 로컬 BGE-M3를 사용한다. 전체 산출물의 608개 지표 셀은 모두 유효하다. 각 대비의 동일한 19개 질의를 200,000회 복원추출하는 paired percentile bootstrap으로 95% 신뢰구간을 계산했다. NumPy 1.26.4의 `default_rng(20260713)`이 만든 200,000×19 재표본 index 행렬 하나를 모든 지표와 대비에 재사용하고 linear quantile을 적용했다. 승·패는 차이가 각각 `+0.01` 초과, `−0.01` 미만인 경우이며 나머지는 동률이다.
 
-직접 한국어 비율은 중립 기호와 기술 용어를 고려한 문자 기반 지표다. 수정된 `reference_scd` 품질 평가는 NIM이 대규모에서 수렴하지 못한 뒤 명시적 예외로 `gpt-4o`를 사용했고, 대칭 후속 평가는 `gpt-4o`와 고정 `gpt-4.1-2025-04-14`를 함께 사용했다. judge가 다른 절대점수는 직접 비교하지 않는다.
+SCD의 1차 지표는 LLM judge를 사용하지 않는 직접 한국어 비율이다. 답변의 한글 문자 수를 한글과 영문 알파벳 문자 수의 합으로 나누며, 비율 0.5 미만을 언어 이탈로 정의한다. SCD-on과 SCD-off를 동일 질의·HyDE·CAD 조건에서 대응시킨다.
 
-숫자 환각률은 숫자, 단위, 비교 대상, 연결된 entity를 근거와 대조한 claim-level 주석이 있어야 한다. 이번 실행에는 그 주석이 없으므로 측정 결과가 없다. 질의 유형별 분석도 19개 질의를 여러 유형으로 나누면 셀이 너무 작아 결과표에서 제외한다. 두 항목은 0점이 아니라 미측정 범위다.
+대칭 품질 대비는 HyDE-off 38쌍의 검색 문맥 동일성을 확인한 뒤 질문, 답변, reference, context에 같은 점수 비의존 정규화 규칙을 적용한다. `gpt-4o`와 고정 `gpt-4.1-2025-04-14`를 사용하고, 19개 질의를 cluster 단위로 10,000회 paired bootstrap하여 95% 신뢰구간을 계산한다. HyDE와 CAD의 품질 결론에는 SCD-on 점수를 섞지 않고, SCD 품질은 이 대칭 대비에서 따로 판단한다.
 
-## 11. 주실험 결과
+숫자 환각률과 질의 유형별 효과는 전용 주석과 충분한 유형별 표본이 없으므로 결과 지표에 포함하지 않는다.
 
-### 11.1 설정별 결과
+## 11. 실험 결과
 
-| 설정 | Faithfulness | Answer relevancy | Context precision | Context recall | 한국어 비율 |
-|---|---:|---:|---:|---:|---:|
-| `hyde_off__no_decoder_control` | 0.871 | 0.825 | 0.891 | 0.947 | 0.594 |
-| `hyde_off__cad_only` | 0.926 | 0.805 | 0.914 | 0.947 | 0.524 |
-| `hyde_off__scd_only` | 0.848 | 0.829 | 0.853 | 0.947 | 0.602 |
-| `hyde_off__cad_scd` | 0.919 | 0.784 | 0.877 | 0.947 | 0.525 |
-| `hyde_on__no_decoder_control` | 0.867 | 0.866 | 0.844 | 0.947 | 0.607 |
-| `hyde_on__cad_only` | 0.917 | 0.906 | 0.845 | 0.974 | 0.588 |
-| `hyde_on__scd_only` | 0.916 | 0.892 | 0.810 | 1.000 | 0.582 |
-| `hyde_on__cad_scd` | 0.925 | 0.858 | 0.867 | 0.974 | 0.549 |
+### 11.1 HyDE와 CAD의 통제 품질 대비
 
-### 11.2 주효과
+**표 2. 2×2×2 생성 행렬의 HyDE·CAD 통제 대비(각 n=19)**
 
-| 효과 | 지표 | Paired delta (승/패) |
-|---|---|---:|
-| HyDE | answer relevancy | +0.070 (28/18) |
-| HyDE | context recall | +0.026 (4/3) |
-| HyDE | context precision | −0.056 (19/18) |
-| CAD | faithfulness | +0.044 (25/17) |
-| CAD | context recall | 0.000 (1/2) |
-| SCD v1 | faithfulness | +0.009 (16/17) |
-| SCD v1 | 직접 한국어 비율 | −0.014 (22/24) |
+| 대비 | 지표 | Paired delta [95% CI] | 승/패/동률 |
+|---|---|---:|---:|
+| HyDE on−off<br>(CAD off, SCD off) | faithfulness | `+0.0734 [−0.0248, +0.1777]` | 9/6/4 |
+|  | answer relevancy | `+0.0303 [+0.0016, +0.0615]` | 9/3/7 |
+|  | context precision | `−0.0679 [−0.1702, +0.0194]` | 7/6/6 |
+|  | context recall | `−0.0526 [−0.1579, 0.0000]` | 0/1/18 |
+| CAD on−off<br>(HyDE off, SCD off) | faithfulness | `+0.0023 [−0.0903, +0.0952]` | 7/9/3 |
+|  | answer relevancy | `−0.0715 [−0.1792, +0.0004]` | 5/12/2 |
+|  | context precision | `−0.0022 [−0.0447, +0.0322]` | 2/1/16 |
+|  | context recall | `−0.0526 [−0.1579, 0.0000]` | 0/1/18 |
 
-CAD는 가장 큰 단일 축 faithfulness 개선을 보였다. HyDE는 answer relevancy와 recall을 높이지만 precision을 낮췄다. decoder-side CAD가 context recall을 거의 움직이지 않고 retrieval-side HyDE가 이를 움직인다는 점은 요인과 지표의 구조적 관계에 부합한다. `hyde_on__cad_scd`는 최고 수준의 faithfulness 0.925를 보이지만 이것만으로 강한 CAD×SCD 상호작용을 주장할 수 없다.
+HyDE는 CAD와 SCD를 끈 기준에서 answer relevancy를 소폭 높였고 해당 신뢰구간은 0을 포함하지 않았다. Faithfulness 평균은 양수, context precision과 recall 평균은 음수였으나 세 구간은 0을 포함하거나 상한이 0이었다. CAD는 검색 문맥을 완전히 고정한 대비에서 faithfulness 차이가 `+0.0023`에 그쳤으며 네 지표 모두 신뢰구간이 0을 포함했다. CAD가 검색 입력을 바꾸지 않는데도 나타난 context 지표 차이는 judge 평가 변동으로 보고 디코더 효과로 해석하지 않는다. 따라서 이 표본에서는 CAD의 품질 향상을 확인하지 못했다.
 
-### 11.3 원본 v1 언어 이탈
+### 11.2 SCD의 설정별 언어 준수 결과
 
-| 설정 | 언어 이탈률(한국어 비율 < 0.5) | 한국어 비율 |
+**표 3. 설정별 평균 한국어 비율과 언어 이탈 수**
+
+| 설정 | 평균 한국어 비율 | 언어 이탈 수(<0.5) |
 |---|---:|---:|
-| `hyde_off__no_decoder_control` | 0.26 | 0.594 |
-| `hyde_off__cad_only` | 0.32 | 0.524 |
-| `hyde_off__scd_only` | 0.26 | 0.602 |
-| `hyde_off__cad_scd` | 0.37 | 0.525 |
-| `hyde_on__no_decoder_control` | 0.26 | 0.607 |
-| `hyde_on__cad_only` | 0.16 | 0.588 |
-| `hyde_on__scd_only` | 0.26 | 0.582 |
-| `hyde_on__cad_scd` | 0.37 | 0.549 |
+| `hyde_off__no_decoder_control` | 0.5088 | 8/19 |
+| `hyde_off__cad_only` | 0.5175 | 8/19 |
+| `hyde_off__scd_only` | 0.7069 | 4/19 |
+| `hyde_off__cad_scd` | 0.7590 | 3/19 |
+| `hyde_on__no_decoder_control` | 0.6023 | 3/19 |
+| `hyde_on__cad_only` | 0.5099 | 7/19 |
+| `hyde_on__scd_only` | 0.8035 | 2/19 |
+| `hyde_on__cad_scd` | 0.7501 | 3/19 |
 
-v1 SCD-on 설정은 대응하는 SCD-off 설정보다 drift를 줄이지 못했다. 이 표는 교정된 `reference_scd` 결과로 소급 수정하지 않는다.
+SCD-on minus SCD-off 평균 한국어 비율은 전체 76쌍에서 `+0.2203`이었다. 68쌍이 `+0.02`보다 크게 개선됐고, 3쌍은 `−0.02`보다 크게 감소했으며, 5쌍은 그 사이였다. 언어 이탈은 SCD-off의 26/76에서 SCD-on의 12/76로 감소했다. 기준 미만이던 26쌍 중 15쌍이 0.5 이상으로 전환됐으며, 반대 방향 전환은 1쌍이었다.
 
-## 12. 수정된 reference_scd 결과
+HyDE·CAD의 네 조합별 평균 차이는 각각 `+0.1981`, `+0.2415`, `+0.2012`, `+0.2402`로 모두 양수였다. HyDE-off의 38개 동일 검색 문맥 대응쌍에서도 평균 차이는 `+0.2198`이었다.
 
-### 12.1 직접 한국어 준수율
+### 11.3 SCD의 대칭 품질 검증
 
-교정 구현은 target-language multiplicative boost `alpha=1.1`, distractor multiplicative penalty `beta=0.9`, generated-token warm-up `Tstart=5`를 사용한다. 76개 대응쌍에서 SCD-on minus off 평균 한국어 비율은 `+0.2203`이었다. 68쌍이 개선, 3쌍이 악화, 5쌍이 동률이었다. 0.5 threshold 아래의 drift 답변 26개 중 15개를 구제했고, baseline 비율 0.7 이상인 20개 사례 중 사전 정의한 0.65 harm threshold 아래로 떨어진 사례는 없었다. HyDE-off의 byte-identical context 38쌍에서도 평균 `+0.2198`로 유지되었다.
+**표 4. 동일 문맥 SCD 대응쌍의 judge·언어별 품질 차이**
 
-그러나 3/76쌍은 악화되었고 SCD-on 12/76개는 여전히 0.5 미만이었다. 따라서 “언어 이탈 완전 제거”가 아니라 “직접 한국어 준수율의 큰 개선”으로 표현한다.
+| Judge | 언어 | Faithfulness delta [95% CI] | Answer relevancy delta [95% CI] |
+|---|---|---:|---:|
+| `gpt-4o` | 영어 | `+0.0071 [−0.0596, +0.0714]` | `−0.0910 [−0.1725, −0.0240]` |
+| `gpt-4o` | 한국어 | `−0.0283 [−0.1044, +0.0510]` | `−0.0752 [−0.1501, −0.0138]` |
+| `gpt-4.1-2025-04-14` | 영어 | `−0.0579 [−0.1322, +0.0060]` | `−0.0327 [−0.0851, +0.0129]` |
+| `gpt-4.1-2025-04-14` | 한국어 | `−0.0326 [−0.0997, +0.0226]` | `−0.0356 [−0.1149, +0.0315]` |
 
-### 12.2 비대칭 `gpt-4o` 패널
+Faithfulness는 네 패널 모두 신뢰구간이 0을 포함했다. Answer relevancy의 평균 방향은 네 패널 모두 음수였지만, 비영점 구간은 `gpt-4o`에서만 나타났다. 따라서 SCD의 직접 언어 제어 효과는 확인되지만, 품질 지표의 비영점 차이는 두 judge에서 반복되지 않았다.
 
-첫 `gpt-4o` 패널은 152개 표본, 608/608 유효 셀을 제공한다. 이 프로토콜에서 SCD-on 차이는 faithfulness `−0.048`, answer relevancy `−0.057`, context precision `+0.030`, context recall `−0.066`이었다. 그러나 SCD-on 문맥만 한국어로 번역되었고 reference answer는 영어로 남았으며, HyDE-on 38쌍 중 25쌍은 검색 문맥도 달랐다. 따라서 이 값은 고립된 SCD 인과효과가 아니라 프로토콜별 민감도 결과다.
+### 11.4 세 요인의 종합 해석
 
-### 12.3 대칭 전처리와 교차 judge
+HyDE의 기준 대비에서는 answer relevancy가 소폭 개선됐지만 다른 품질 지표의 방향은 확정되지 않았다. CAD의 동일 문맥 대비에서도 품질 향상은 확인되지 않았다. 반면 SCD의 한국어 비율 차이는 HyDE와 CAD의 on/off 네 조합에서 모두 양수였다. 그러므로 이 결과는 세 기법을 항상 함께 켜는 단일 설정을 지지하지 않으며, SCD는 한국어 출력이 필요한 조건에서 사용하고 HyDE와 CAD는 작업별 검증을 거쳐 선택하는 해석에 부합한다.
 
-후속 평가는 HyDE-off 76개 레코드, byte-identical context 38쌍을 고정했다. 질문, 답변, reference, nested context에 같은 점수 비의존 정규화 정책을 적용하고 영어·한국어 패널을 만들었다. 각 judge 패널은 304/304 유효 셀이며, 10,000회 deterministic query-clustered paired bootstrap을 사용했다.
+## 12. M-RAG 시스템 구현
 
-`gpt-4o`에서 faithfulness는 영어 `+0.0071`, 95% CI `[−0.0596, +0.0714]`, 한국어 `−0.0283`, `[−0.1044, +0.0510]`로 모두 0을 포함했다. Answer relevancy는 영어 `−0.0910 [−0.1725, −0.0240]`, 한국어 `−0.0752 [−0.1501, −0.0138]`로 음의 구간이었다. 하지만 고정 `gpt-4.1-2025-04-14`에서는 영어 `−0.0327 [−0.0851, +0.0129]`, 한국어 `−0.0356 [−0.1149, +0.0315]`로 모두 0을 포함했고 faithfulness도 방향이 확정되지 않았다.
+M-RAG backend의 진입점은 `backend/api/main.py`이며, FastAPI endpoint가 문서·질의·사용자·인용·내보내기 기능을 제공한다. `backend/modules/`는 parsing, section detection, embedding, hybrid retrieval, reranking, HyDE, CAD, SCD, follow-up generation을 담당한다. `backend/pipelines/`는 A–F 질의 흐름을 구성한다. Frontend는 Vite, React, TypeScript를 사용하며 논문 뷰어, 채팅, 출처 탐색, 스트리밍 응답을 제공한다. 실험 runner는 평가한 SCD 공식과 매개변수를 명시적으로 전달하며, 서비스 pipeline은 경로별 HyDE·CAD·SCD 활성화 선택 지점을 제공한다.
 
-네 language-by-judge 패널의 answer relevancy 평균 방향은 음수지만 비영점 구간은 judge에 강건하지 않다. 정규화가 generation 이후 결과 변환이고, 두 judge가 같은 제공자이며, 한국어 답변 번역 노출이 SCD-off 23/38과 SCD-on 11/38로 다르고, 질의 cluster가 19개뿐이며, 사람 평가가 없기 때문에 SCD의 안정적인 품질 개선 또는 비용을 확정하지 않는다.
+**표 5. 현재 A–F 서비스 경로와 모듈 선택 지점**
+
+| 경로 | 서비스 목적 | 코드에 구현된 선택 지점 |
+|---|---|---|
+| A | 단순 질의응답 | HyDE 선택, CAD·SCD 선택 |
+| B | 절 중심 질의응답 | HyDE 선택, CAD·SCD 선택 |
+| C | 문서 비교 | CAD·SCD 선택 |
+| D | 인용·서지 탐색 | CAD·SCD 선택 |
+| E | 구조화 요약 | CAD·SCD 선택 |
+| F | 퀴즈·플래시카드 | HyDE 선택, CAD·SCD 선택 |
+
+표 5는 현재 코드의 함수 인자와 processor 연결을 요약한 것이며, 경로별 최적 설정을 뜻하지 않는다. A–F 유형별 모듈 선택은 충분한 유형별 질의로 별도 검증할 수 있다.
 
 ## 13. 논의
 
-HyDE의 결과는 검색 확장이 recall과 answer relevancy를 높이는 동시에 precision을 낮출 수 있음을 보여준다. 따라서 모든 route에서 무조건 활성화하기보다 비교·요약처럼 여러 근거가 필요한 작업에 우선 적용하는 것이 합리적이다.
+HyDE 기준 대비는 answer relevancy에서 작지만 양의 차이를 보였다. Faithfulness와 context precision의 구간은 0을 포함했고 context recall 구간의 상한은 0이므로, 이 표본만으로 검색 품질 전반의 개선을 일반화할 수는 없다. HyDE on/off 문맥 변화는 질의 확장이 검색 결과를 바꾸는 종단간 효과에 해당한다.
 
-CAD의 faithfulness `+0.044`는 원본 행렬에서 가장 큰 단일 축 개선이다. 같은 생성 모델의 문맥/무문맥 분포를 대조한다는 설계 목적과 일치하며, retrieval 지표를 거의 움직이지 않았다는 점도 내부 타당성을 지지한다. 다만 표본이 작고 단일 원본 judge를 사용했으므로 모든 도메인에 일반화할 수 없다.
+CAD 대비는 검색 문맥이 19/19 동일했으므로 디코딩 변화에 초점을 둔다. 그러나 faithfulness를 포함한 네 지표 모두 신뢰구간이 0을 포함해 품질 개선은 확인되지 않았다. CAD는 매 토큰마다 무문맥 분기를 계산하므로 확인된 품질 이득 없이 추론 비용이 증가할 가능성도 함께 고려해야 한다.
 
-SCD 결과는 구현 충실도의 중요성을 보여준다. 단순 penalty-only v1은 목표 지표에서도 실패했지만 참조 방법을 복원한 구현은 직접 언어 준수율을 크게 개선했다. 동시에 자동 RAG 품질 평가는 judge와 정규화에 민감했다. 이는 “한국어를 더 많이 생성한다”와 “답변 품질이 좋아진다”가 서로 다른 주장임을 보여준다.
+SCD는 직접 측정한 한국어 준수율에서 가장 큰 차이를 보였고, HyDE와 CAD의 네 조합 모두에서 방향이 일관됐다. 검색 문맥이 같은 HyDE-off 38쌍에서도 비슷한 크기가 유지되어, 영어 학술 근거를 사용하는 조건에서 출력 언어를 디코딩 단계에서 조절할 수 있음을 보여준다. 숫자, 수식, 문장부호, 인용 표시는 중립으로 유지되지만 일반 영문 기술어는 별도 whitelist로 보호되지 않는다.
 
-## 14. 서비스 통합
+세 기법의 결과는 하나의 최고 설정보다 모듈별 검증의 필요성을 보여준다. SCD의 언어 제어 효과는 확인됐고, HyDE와 CAD의 품질 효과는 이 표본의 통제 대비 범위에서 해석해야 한다. M-RAG 구현은 각 기능을 독립적으로 선택할 수 있는 구조를 제공한다.
 
-| 경로 | 서비스 목적 | 논문에서의 지위 | 임시 정책 |
-|---|---|---|---|
-| A | 단순 질의응답 | 서비스 기능 | CAD on, HyDE 선택, SCD 조건부 |
-| B | 절 중심 질의응답 | 서비스 기능 | precision 우선 HyDE off, CAD on |
-| C | 문서 비교 | 서비스 기능 | recall 우선 HyDE on, CAD on |
-| D | 인용·서지 탐색 | 서비스 기능 | precision 우선 HyDE off, CAD on |
-| E | 구조화 요약 | 서비스 기능 | HyDE on, CAD on |
-| F | 퀴즈·플래시카드 | 서비스 기능 | HyDE 선택, CAD on |
+## 14. 한계와 향후 연구
 
-이 표는 A-F route에서 직접 측정한 최적화 결과가 아니라 전역 요인효과를 서비스에 제한적으로 환원한 설계 지침이다. `reference_scd`는 언어 제어가 중요한 경우 사용할 수 있지만 작업별 품질 검증이 필요하다.
+첫째, 실험은 4개 영어 논문과 19개 한국어 질의에 한정되며 HyDE·CAD 품질 대비도 각각 19쌍이다. 더 다양한 학술 분야와 독립 작성 질의로 외적 타당성을 검증할 필요가 있다. 둘째, RAGAS 품질 평가는 LLM judge에 영향을 받으며, SCD 대칭 패널의 answer relevancy 구간은 judge에 따라 달랐다. 독립 제공자와 블라인드 사람 평가가 추가되면 품질 해석을 강화할 수 있다.
 
-## 15. 한계와 향후 연구
+셋째, HyDE-on 셀에서는 설정별로 가상 문서가 다시 생성되어 CAD on/off 사이의 검색 문맥이 충분히 일치하지 않았다. 따라서 CAD 품질 결론은 문맥이 완전히 같은 HyDE-off 대비에 한정했다. 넷째, 숫자 환각률과 질의 유형별 효과는 전용 주석과 충분한 표본이 없어 측정하지 않았다. 다섯째, CAD는 무문맥 분기 계산으로 추론 비용이 증가하고 SCD는 tokenizer의 subword 구성에 영향을 받는다. 여섯째, 서비스 계층은 경로별 최적화, 다중 사용자 부하, 관측성, 배포 안정성 검증이 더 필요하다.
 
-첫째, 주실험은 4개 논문과 19개 질의에 한정되어 외적 타당성이 낮다. 독립적으로 작성한 100개 이상의 질의와 다양한 학술 분야가 필요하다. 둘째, 원본 행렬은 단일 고정 NIM judge를 사용했고 수정 SCD 후속 평가는 모두 OpenAI 제공자 judge를 사용했다. 독립 제공자 재현과 블라인드 사람 평가가 필요하다.
+## 15. 결론
 
-셋째, 숫자 환각률과 query-type 효과를 계산하지 않았다. 숫자별 근거 대조 주석과 충분한 유형별 표본을 사전에 설계해야 한다. 넷째, CAD는 매 토큰에서 무문맥 분기를 다시 계산하므로 비용이 증가한다. cache 최적화는 정확성 parity test 후 수행해야 한다. 다섯째, SCD token whitelist는 target tokenizer에 따라 subword 단위로 검증해야 한다.
+본 논문은 한국어 질의 기반 영문 학술논문 RAG를 위해 HyDE, CAD, SCD의 2×2×2 조합을 실행하고, 이를 M-RAG 연구·서비스 코드베이스로 구현하였다. 통제된 19개 질의 대비에서 HyDE는 answer relevancy `+0.0303`의 차이를 보였지만 다른 품질 지표의 신뢰구간은 0을 포함하거나 경계에 닿았다. 검색 문맥이 완전히 같은 CAD 대비에서는 faithfulness 차이가 `+0.0023`이었고 품질 향상은 확인되지 않았다. SCD는 76개 대응쌍에서 한국어 비율을 평균 `+0.2203` 높이고 언어 이탈 출력을 26개에서 12개로 줄였으며, HyDE와 CAD의 네 조합 모두에서 양의 평균 차이를 보였다.
 
-여섯째, 서비스 계층은 배포 검증, 부하 시험, 관측성, 사용자 대상 robustness가 더 필요하다. 이는 요인분석의 결과와 별개인 제품 공학 과제다.
+SCD의 언어 준수 결과는 동일 문맥 38쌍에서도 유지됐으며, 대칭 품질 검증에서는 judge 간에 반복되는 비영점 품질 차이가 나타나지 않았다. 서비스 경로는 세 기법의 통합과 활성화 선택 지점을 제공하고, 평가한 SCD 설정은 연구 runner에서 재현한다. 본 연구는 하나의 생성 행렬에서 검증 가능한 통제 대비만 사용하여 한국어 학술문헌 RAG의 구현과 조합별 동작을 제시한다.
 
-## 16. 결론
-
-본 논문은 한국어 질의-영어 논문 RAG에서 HyDE, CAD, SCD를 고정된 Paper-RAG backbone 위의 세 독립 요인으로 분해하였다. 19개 질의와 8개 설정으로 152개 답변을 생성한 원본 행렬에서 CAD는 faithfulness를 `+0.044` 개선했고, HyDE는 answer relevancy와 recall을 높이는 대신 context precision을 낮췄다. 원본 `penalty_additive` v1 SCD는 null 결과였다.
-
-교정된 `reference_scd`는 직접 한국어 준수율을 평균 `+0.2203` 개선했지만, 대칭 전처리와 교차 judge 평가는 RAG 품질의 judge-robust 비영점 효과를 확립하지 못했다. 따라서 최종 정책은 CAD를 기본 faithfulness 제어 후보로, HyDE를 route 목적에 따른 선택 요소로, SCD를 언어 제어를 위한 조건부 요소로 둔다.
-
-이 연구의 핵심 가치는 실패한 구현을 숨기지 않고 교정 실험과 분리 보존한 점, 측정하지 않은 숫자 환각과 질의 유형 결과를 주장하지 않은 점, 언어 준수 개선과 답변 품질을 구분한 점에 있다. 더 큰 질의 집합, 독립 judge, 사람 평가를 통한 재현이 다음 단계다.
-
-## 17. 참고문헌
+## 16. 참고문헌
 
 [1] P. Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," NeurIPS 33, 2020.
 

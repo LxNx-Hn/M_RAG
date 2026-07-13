@@ -11,7 +11,7 @@
 - Numeric hallucination
 - Language drift
 - Korean answer ratio
-- Factorial ablation
+- 2×2×2 combination evaluation
 - Query-type policy
 
 ## Service Keywords
@@ -29,17 +29,17 @@
 
 ## Verified Result Keywords
 
-- `penalty_additive` SCD v1 null result
-- `reference_scd` Korean-adherence success (+0.2203)
-- SCD-on context-translation sensitivity protocol
-- Complete `gpt-4o` score panel
+- HyDE controlled answer-relevancy contrast (+0.0303)
+- CAD byte-identical-context contrast
+- SCD Korean-adherence result (+0.2203)
+- 68/76 improved pairs outside the tie band
+- Language-drift reduction from 26/76 to 12/76
+- Positive SCD effects in all four HyDE × CAD strata
 - Symmetric bilingual matched-context sensitivity panel
 - `gpt-4o` answer-relevancy trade-off signal
 - Fixed `gpt-4.1` cross-judge non-replication
 - Faithfulness direction unresolved
 - No judge-robust nonzero RAG-quality effect
-- Causal and deployment verdicts still unresolved
-- 0/608 null cells
 - 0/304 symmetric-panel null cells
 - 0/608 cross-judge symmetric cells
 
@@ -48,6 +48,6 @@
 - No fabricated results
 - No fabricated queries
 - Dry-run validation
-- Preserve v1 and corrected result provenance separately
-- Do not compare absolute scores across NIM, `gpt-4o`, and fixed `gpt-4.1`
+- Keep `gpt-4o` and fixed `gpt-4.1` results in their stated protocols
+- Do not compare absolute scores across different judges
 - Runtime compatibility audit
