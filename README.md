@@ -1,30 +1,27 @@
 # M-RAG
 
+**Graduation submission:** [Korean manuscript, HWP-transfer text, presentation and separate app document](docs/PAPER/output/application_study/README.md).
+The [request audit](docs/PAPER/APPLICATION_STUDY_REVIEW.md) records how the supplied
+template and final experiment evidence are reflected in the submission package.
+
 M-RAG is a Korean-query academic paper QA project. The thesis contribution is a
 HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated
 on a fixed Paper-RAG backbone. The FastAPI + React application is a graduation-project
 service integration layer; its A-F routed paper-review features are preserved but are
 not the core thesis algorithm.
 
-**Headline results** come from two explicitly separated tracks. In the original Phase 8
-matrix (152 generations, Mi:dm 2.0 Base on A100 80GB, fixed NVIDIA NIM judge), CAD
-improves faithfulness (+0.044 paired), HyDE raises answer relevancy and recall while
-lowering context precision, and Korean-target `penalty_additive` SCD v1 is a **null
-factor**. In the corrected `reference_scd` rerun, direct Korean-language adherence
-improves strongly (+0.2203 paired). A complete `gpt-4o` panel is retained as a
-protocol-specific sensitivity analysis, not as an isolated causal estimate of SCD's
-RAG-quality effect, because only SCD-on contexts were translated. A stricter follow-up
-then applied the same normalization policy to all four HyDE-off conditions and used
-38 byte-identical-context SCD pairs in both English and Korean panels. Faithfulness
-remained directionally unresolved. The `gpt-4o` answer-relevancy intervals were
-negative in both languages, but a fixed `gpt-4.1-2025-04-14` cross-judge did not
-reproduce nonzero intervals. The supported result is therefore judge-sensitive, not
-an unbiased causal or deployment verdict. See
-`docs/PAPER/THESIS.md` §12-13, the aligned Korean manuscript
-`docs/PAPER/THESIS_KO.md`,
-`experiments/reports/phase8_*`, and
-`experiments/reports/reference_scd_rerun_report.md` plus
-`experiments/reports/reference_scd_symmetric_cross_judge_report.md`.
+**Final experiment results** use 152 answers from 19 Korean questions over four
+English papers and eight HyDE/CAD/SCD configurations with Mi:dm 2.0 Base.
+With CAD and SCD disabled, HyDE increases answer relevancy by
+`+0.0303 [+0.0016, +0.0615]`. CAD's matched-context faithfulness difference is
+`+0.0023 [−0.0903, +0.0952]`; no quality improvement is established.
+Reference SCD increases the Korean-character ratio by `+0.2203` over 76 pairs
+and reduces outputs below 0.5 from `26/76` to `12/76`.
+The symmetric quality analysis uses 38 identical-context HyDE-off pairs in
+English and Korean. No nonzero quality effect replicates across both `gpt-4o`
+and fixed `gpt-4.1-2025-04-14`. Post-generation translation and the limited
+sample constrain interpretation. The submitted manuscript states these final
+conditions and results; experiment reports retain the execution history.
 
 ## Repository Layout
 

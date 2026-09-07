@@ -1,5 +1,19 @@
 # Paper Documents
 
+## Graduation submission package
+
+The current Korean application-experiment submission is
+[output/application_study/README.md](output/application_study/README.md).
+It follows the supplied graduation-report chapter structure and separates the
+application feature document from the experiment manuscript. It includes the
+Korean manuscript/TXT, six figures, a 14-slide presentation and speaker notes.
+See [APPLICATION_STUDY_REVIEW.md](APPLICATION_STUDY_REVIEW.md) for the request audit
+and run `python -X utf8 docs/PAPER/scripts/verify_application_study.py` for its
+retained-data verification.
+
+The technical manuscripts and older presentation outlines listed below remain
+available as supporting documents. Use the submission package above for HWP transfer.
+
 ## Role
 
 This folder contains the current thesis-facing documents for the focused direction:

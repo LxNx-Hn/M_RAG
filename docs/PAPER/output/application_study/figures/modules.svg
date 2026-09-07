@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="575" viewBox="0 0 1200 575">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Malgun Gothic,Noto Sans KR,sans-serif;fill:#202020;paint-order:stroke;stroke:white;stroke-width:4px;stroke-linejoin:round} .box{fill:white;stroke:#444;stroke-width:1.5} .link{fill:none;stroke:#444;stroke-width:1.5}</style>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L7 4 L0 8" fill="none" stroke="#444"/></marker></defs>
+<rect class="box" x="385" y="20" width="430" height="87"/>
+<text x="600.0" y="56.0" font-size="18" text-anchor="middle">«module» main_generation_executor</text>
+<text x="600.0" y="85.0" font-size="18" text-anchor="middle">build_components() / execute_main_generation()</text>
+<rect class="box" x="25" y="185" width="260" height="125"/>
+<text x="155.0" y="215" font-size="22" text-anchor="middle">QueryExpander</text>
+<path class="link" d="M25 228 H285"/>
+<text x="39" y="253" font-size="17" text-anchor="start">expand()</text>
+<text x="39" y="275" font-size="17" text-anchor="start">translate_ko_to_en()</text>
+<text x="39" y="297" font-size="17" text-anchor="start">expand_hyde()</text>
+<rect class="box" x="325" y="185" width="250" height="125"/>
+<text x="450.0" y="215" font-size="22" text-anchor="middle">HybridRetriever</text>
+<path class="link" d="M325 228 H575"/>
+<text x="339" y="253" font-size="17" text-anchor="start">search_with_trace()</text>
+<rect class="box" x="620" y="185" width="250" height="125"/>
+<text x="745.0" y="215" font-size="22" text-anchor="middle">Reranker</text>
+<path class="link" d="M620 228 H870"/>
+<text x="634" y="253" font-size="17" text-anchor="start">rerank()</text>
+<rect class="box" x="915" y="185" width="260" height="125"/>
+<text x="1045.0" y="215" font-size="22" text-anchor="middle">ContextCompressor</text>
+<path class="link" d="M915 228 H1175"/>
+<text x="929" y="253" font-size="17" text-anchor="start">compress()</text>
+<text x="929" y="275" font-size="17" text-anchor="start">truncate_to_limit()</text>
+<rect class="box" x="100" y="385" width="280" height="125"/>
+<text x="240.0" y="415" font-size="22" text-anchor="middle">Generator</text>
+<path class="link" d="M100 428 H380"/>
+<text x="114" y="453" font-size="17" text-anchor="start">generate()</text>
+<text x="114" y="475" font-size="17" text-anchor="start">get_empty_context_inputs()</text>
+<rect class="box" x="510" y="385" width="260" height="125"/>
+<text x="640.0" y="415" font-size="22" text-anchor="middle">CADDecoder</text>
+<path class="link" d="M510 428 H770"/>
+<text x="524" y="453" font-size="17" text-anchor="start">__call__()</text>
+<rect class="box" x="870" y="385" width="270" height="125"/>
+<text x="1005.0" y="415" font-size="22" text-anchor="middle">SCDDecoder</text>
+<path class="link" d="M870 428 H1140"/>
+<text x="884" y="453" font-size="17" text-anchor="start">__call__()</text>
+<path class="link" d="M600 107 V142 H155 V185" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M600 107 V142 H450 V185" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M600 107 V142 H745 V185" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M600 107 V142 H1045 V185" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M155 310 V350 H240 V385" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<text x="243" y="343" font-size="16" text-anchor="middle">생성에 사용</text>
+<path class="link" d="M385 65 H10 V368 H240 V385" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M815 65 H1188 V350 H640 V385" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M1188 350 H1005 V385" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path class="link" d="M510 446 H380" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<text x="444" y="431" font-size="16" text-anchor="middle">모델 사용</text>
+<text x="600" y="553" font-size="19" text-anchor="middle">점선은 사용 관계를 나타낸다. CAD와 SCD는 토큰 생성 중 차례로 적용된다.</text>
+</svg>
