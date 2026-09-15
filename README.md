@@ -25,14 +25,16 @@ conditions and results; experiment reports retain the execution history.
 
 ## Repository Layout
 
-Three independent layers — the ops runtime does **not** import experiment code, so it
-runs even if `experiments/` is removed (see `docs/REPO_LAYOUT.md`):
+Four responsibility boundaries are intentionally kept separate — the ops runtime
+does **not** import experiment code, and the evidence CLI reads stored artifacts
+without importing either runtime (see `docs/REPO_LAYOUT.md`):
 
 | Layer | Location | Role |
 |---|---|---|
 | Ops | `backend/`, `frontend/` | FastAPI + React paper-review service |
 | Experiment | `experiments/` | fixed backbone, 8-config matrix, runners, RAGAS evaluator, analyzers, reports |
 | Docs | `docs/` | architecture, paper, usage, explainers |
+| Evidence CLI | `cli/` | offline, read-only replay of final thesis evidence |
 
 ## Thesis Direction
 
@@ -174,8 +176,7 @@ npm run build
 | `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |
 | `experiments/configs/frozen_params.yaml` | frozen parameters (from scored tuning) |
 | `experiments/results/` | scored generation + evaluation artifacts |
-| `experiments/reports/phase8_official_evaluation_summary.md` | measured factor-effect results |
-| `experiments/reports/phase8_scd_failure_analysis.md` | why the original `penalty_additive` SCD v1 produced a null result |
+| `experiments/LEGACY_AUDIT.md` | final/supporting/legacy-candidate role and dependency audit |
 | `experiments/reports/reference_scd_rerun_report.md` | `reference_scd` corrected-implementation results (English) |
 | `experiments/reports/reference_scd_rerun_report_KO.md` | `reference_scd` corrected-implementation results (Korean) |
 | `experiments/reports/reference_scd_rerun_explainer_KO.md` | plain-language Korean walkthrough of the `reference_scd` rerun |
@@ -188,6 +189,7 @@ npm run build
 | `backend/modules/` | service modules and generation controls |
 | `backend/pipelines/` | A-F service route pipelines |
 | `frontend/src/` | React application |
+| `cli/evidence_replay.py` | offline viewer for stored evidence cases and claim inventory |
 
 ## Notes
 
@@ -199,3 +201,5 @@ npm run build
 - Ground truth is the verified extractive `answer_span` in each query split; it is not
   regenerated.
 - Result claims come only from the scored artifacts under `experiments/results/`.
+- For terminal evidence capture, run `python -X utf8 cli/evidence_replay.py list`;
+  it is not an experiment runner and performs no model/API/database work.

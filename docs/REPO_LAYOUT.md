@@ -1,8 +1,9 @@
 # Repository Layout
 
-M-RAG is organized into three independent layers. The **ops** runtime does not import
-any code from the **experiment** layer, so the service runs even if `experiments/` is
-deleted.
+M-RAG is organized into four responsibility boundaries. The **ops** runtime does not
+import any code from the **experiment** layer, so the service runs even if
+`experiments/` is deleted. The evidence CLI reads only stored experiment artifacts;
+it does not import either runtime layer.
 
 ## Layers
 
@@ -11,6 +12,7 @@ deleted.
 | **Ops** (service runtime) | `backend/`, `frontend/` | FastAPI API + React app for the A–F paper-review chatbot |
 | **Experiment** (thesis) | `experiments/` | fixed Paper-RAG backbone, HyDE×CAD×SCD 8-config matrix, runners, official RAGAS evaluator, analyzers, results, reports |
 | **Docs** | `docs/` | architecture, paper (`docs/PAPER`), usage (`docs/USAGE`), explainers (`docs/EXPLAIN`) |
+| **Evidence CLI** | `cli/` | offline, read-only presentation/replay of final thesis artifacts |
 
 ## Decoupling guarantee
 
@@ -20,6 +22,9 @@ deleted.
   `sys.path` to reuse `modules/`), never the reverse.
 - Removing `experiments/` leaves the ops service fully functional (API, pipelines,
   frontend build are unaffected).
+- `cli/evidence_replay.py` uses the Python standard library plus its local
+  registry only. It never starts a server, loads Mi:dm/BGE/CrossEncoder, parses a
+  source PDF, connects to PostgreSQL, calls a judge, or writes result files.
 
 ## Tests
 

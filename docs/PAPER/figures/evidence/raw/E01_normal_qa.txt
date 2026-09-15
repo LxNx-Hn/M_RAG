@@ -1,0 +1,60 @@
+============================================================
+M-RAG Experimental Result (stored artifact replay)
+============================================================
+Case              : E01 Normal QA
+Selection         : highest mean of the four stored gpt-4o metrics among records at or above 0.5 Korean-character ratio
+
+Config            : hyde_on__no_decoder_control
+Query ID          : track1_0027
+Paper             : paper_nlp_raptor
+HyDE / CAD / SCD  : True / False / False
+Korean ratio      : 0.6637
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.9238, context_precision=1.0000, context_recall=1.0000
+
+Question
+--------
+RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?
+
+Stored answer
+-------------
+제공된 논문 컨텍스트를 분석한 결과, RAPTOR 시스템이 다양한 QA(질의응답) 작업에서 달성한 주요 결과들을 다음과 같이 정리할 수 있습니다.
+
+## 주요 성능 지표별 결과
+
+### 1. QASPER Dataset 성과
+RAPTOR는 QASPER 데이터셋에서 GPT-4와 결합하여 55.7%의 F-1 스코어를 달성하였으며, 이는 기존 CoLT5 XL 모델의 53.9%를 상회하는 수치입니다. 특히 이 결과는 새로운 성능 벤치마크를 설정한 것으로 평가됩니다.
+
+### 2. QuALITY Dataset 성과
+QuALITY 데이터셋에서 RAPTOR는 GPT-4와 결합했을 때 82.6%의 정확도를 기록하였습니다. 이는 이전 최고 결과인 62.3%를 크게 상회하는 수치이며, 특히 QuALITY-HARD 서브셋에서는 CoLISA보다 21.5% 높은 성능을 보였습니다. QuALITY 데이터셋에서는 DPR 대비 2.0% 이상, BM25 대비 5.1% 이상의 정확도 향상을 달성하였습니다.
+
+### 3. NarrativeQA Dataset 성과
+NarrativeQA 데이터셋에서 RAPTOR는 UnifiedQA와 결합하여 여러 핵심 지표에서 우수한 성과를 보였습니다:
+- ROUGE-L: BM25와 DPR을 각각 7.3점, 2.7점 상회
+- BLEU-1, BLEU-4, METEOR 등의 지표에서도 BM25와 DPR을 1.7~10.2점 범위로 능가
+- METEOR 지표에서는 새로운 상태-최고(state-of-the-art) 기록을 수립
+
+### 4. 비교 대상 모델들과의 성능 차이
+RAPTOR는 SBERT, BM25, DPR 등 기존의 대표적인 retrieval 방법들과 비교했을 때 일관되게 우수한 성능을 보였으며, 특히 복잡한 추론이 필요한 고난도 질의에서 더 큰 성능 우위를 나타냈습니다.
+
+이러한 결과들은 RAPTOR의 계층적 트리 구조와 재귀적 클러스터링 및 요약 기법이 다양한 수준의 추상화 정보를 효과적으로 통합하여 질의응답 성능을 크게 향상시켰음을 보여줍니다.
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_7f809c52a21b
+paper_nlp_raptor_e4819acc10d6
+paper_nlp_raptor_82e33ce88150
+paper_nlp_raptor_e498d6908c16
+paper_nlp_raptor_fb3aa9881edd
+paper_nlp_raptor_10fa315b4e5d
+paper_nlp_raptor_b6e066c10b53
+paper_nlp_raptor_baf446b350c3
+
+Retrieved evidence [1]
+----------------------
+5 CONCLUSION
+In this paper, we have presented RAPTOR, a novel tree-based retrieval system that augments the parametric knowledge of large language models with contextual information at various levels of abstraction. By employing recursive clustering and summarization techniques, RAPTOR creates a hierarchical tree structure that is capable of synthesizing information across various sections of the retrieval corpora. During the query phase, RAPTOR leverages this tree structure for more effective retrieval. Our controlled experiments demonstrated that RAPTOR not only outperforms traditional retrieval methods but also sets new performance benchmarks on several question-answering tasks.
+Published as a conference paper at ICLR 2024
+6 REPRODUCIBILITY STATEMENT
+**Language Models for QA and Summarization** Four language models are used in our RAPT
+… [truncated: 560 characters; use --full]
+============================================================

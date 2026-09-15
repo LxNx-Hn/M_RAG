@@ -1,0 +1,39 @@
+============================================================
+M-RAG Experimental Result (stored artifact replay)
+============================================================
+Case              : E06 Low Faithfulness / Unsupported Candidate
+Selection         : lowest stored faithfulness score; display requires human comparison with the original context
+
+Config            : hyde_off__scd_only
+Query ID          : track1_0009
+Paper             : paper_nlp_rag
+HyDE / CAD / SCD  : False / False / True
+Korean ratio      : 0.0000
+SCD               : reference_scd; alpha=1.1; beta=0.9; Tstart=5
+Stored RAGAS      : faithfulness=0.0000, answer_relevancy=0.5882, context_precision=0.8875, context_recall=1.0000
+
+Question
+--------
+RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?
+
+Stored answer
+-------------
+is beneficial. However, this approach can lead to information overload, causing the LLM to lose focus. To mitigate this, context selection/compression techniques are employed, which involve filtering out irrelevant information, pruning redundant content, and condensing the retrieved material into a coherent, manageable structure. These techniques ensure that the LLM receives a well-organized, focused input that aligns with its processing capabilities. _3) Document Embedding:_ Document embedding (Document Embedding) is a critical component in the RAG pipeline, enabling the conversion of textual documents into dense vector representations. This transformation facilitates efficient similarity matching, allowing the system to identify semantically similar documents. Various embedding models, such as BERT, RoBERTa, and Sentence-BERT, are utilized for this purpose, each offering unique advantages in terms of computational efficiency, accuracy, and scalability. _4) Query Expansion:_ Query expansion (Query Expansion) is a technique that broadens the initial query by incorporating synonyms, hypernyms, and related terms. This approach enhances the retrieval process by capturing a wider range
+… [truncated: 1550 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_rag_e9a713793233
+paper_nlp_rag_53219f9e0699
+paper_nlp_rag_daaf02b69cf7
+paper_nlp_rag_b004600f896e
+paper_nlp_rag_50811b9a6139
+paper_nlp_rag_ebd0628f56f1
+paper_nlp_rag_769abed0d2e3
+paper_nlp_rag_addf6d73de05
+
+Retrieved evidence [1]
+----------------------
+[25]. This approach transcends the fixed RAG retrieval process by evaluating the necessity of retrieval based on different scenarios. Another benefit of a flexible architecture is that the RAG system can more easily integrate with other technologies (such as fine-tuning or reinforcement learning) [26]. For example, this can involve fine-tuning the retriever for better retrieval results, fine-tuning the generator for more personalized outputs, or engaging in collaborative fine-tuning [27]. D. RAG vs Fine-tuning The augmentation of LLMs has attracted considerable atten- tion due to their growing prevalence. Among the optimization methods for LLMs, RAG is often compared with Fine-tuning (FT) and prompt engineering. Each method has distinct charac- teristics as illustrated in Figure 4. We used a quadrant chart to illustrate the differences among three methods in two dimen- sions: external knowledge requirements and model adaption requirements. Prompt engineering leverages a model’s inheren
+… [truncated: 2569 characters; use --full]
+============================================================

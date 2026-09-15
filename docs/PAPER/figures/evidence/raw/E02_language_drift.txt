@@ -1,0 +1,67 @@
+============================================================
+M-RAG Experimental Result (stored artifact replay)
+============================================================
+Case              : E02 Language Drift
+Selection         : lowest Korean-character ratio among SCD-off records
+
+Config            : hyde_on__cad_only
+Query ID          : track1_0009
+Paper             : paper_nlp_rag
+HyDE / CAD / SCD  : True / True / False
+Korean ratio      : 0.0000
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.0000, context_precision=1.0000, context_recall=1.0000
+
+Question
+--------
+RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?
+
+Stored answer
+-------------
+summary, while production-readiness has improved significantly, ongoing efforts are needed to optimize RAG's deployment and operational efficiency.
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+**
+
+… [truncated: 1345+ display characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_rag_bc2670f602ec
+paper_nlp_rag_addf6d73de05
+paper_nlp_rag_10b21e5ef4ca
+paper_nlp_rag_50811b9a6139
+paper_nlp_rag_97f1ba7d03b8
+paper_nlp_rag_e9a713793233
+paper_nlp_rag_ebd0628f56f1
+paper_nlp_rag_b004600f896e
+
+Retrieved evidence [1]
+----------------------
+for LLMs to answer more complex and knowledge-intensive tasks during the inference stage, leading to rapid development in RAG studies. As research progressed, the enhancement of RAG was no longer limited to the inference stage but began to incorporate more with LLM fine-tuning techniques. The burgeoning field of RAG has experienced swift growth, yet it has not been accompanied by a systematic synthesis that could clarify its broader trajectory. This survey endeavors to fill this gap by mapping out the RAG process and charting its evolution and 
+… [truncated: 3128 characters; use --full]
+============================================================

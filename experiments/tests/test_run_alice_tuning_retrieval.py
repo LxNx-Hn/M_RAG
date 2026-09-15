@@ -464,22 +464,22 @@ def test_reference_16_and_18_finalized():
     # [16] verified via KCI: TODO removed, pages present.
     assert "TODO" not in ref16
     assert "143-154" in ref16
-    # [18] author list corrected: TODO removed, wrong author gone, correct one present.
+    # [18] final manuscript uses the normalized bibliographic author form.
     assert "TODO" not in ref18
-    assert "이현민" not in ref18
-    assert "장두성" in ref18
+    assert "G. Jang et al." in ref18
+    assert "Contrastive CAD" in ref18
 
 
 def test_thesis_has_no_unresolved_reference_todo():
     thesis = (REPO_ROOT / "docs" / "PAPER" / "THESIS.md").read_text(encoding="utf-8")
-    idx = thesis.find("## 17. References")
+    idx = thesis.find("## 16. References")
     refs = thesis[idx:]
     assert "TODO" not in refs, "reference list still contains a TODO marker"
 
 
 def test_thesis_citation_numbers_are_consistent():
     thesis = (REPO_ROOT / "docs" / "PAPER" / "THESIS.md").read_text(encoding="utf-8")
-    marker = "## 17. References"
+    marker = "## 16. References"
     idx = thesis.find(marker)
     assert idx != -1, "THESIS.md references section not found"
     body, refs = thesis[:idx], thesis[idx:]

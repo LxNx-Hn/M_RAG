@@ -37,6 +37,7 @@ The folder covers both the 2×2×2 research matrix and the implemented A–F M-R
 | `scripts/verify_current_thesis_results.py` | read-only reproduction check for the manuscript result tables |
 | `REFERENCE_AUDIT_2026-07-11.md` | all-reference verification against primary sources |
 | `NEXT_STAGE_VLLM_CLAIM.md` | later serving/optimization candidate notes |
+| `EVIDENCE_SCREENSHOT_PLAN.md` | claim inventory, retained artifact mapping, and deterministic terminal capture plan |
 
 ## Current Research Scope
 
@@ -47,6 +48,7 @@ The folder covers both the 2×2×2 research matrix and the implemented A–F M-R
 - Language-control result: SCD improves the direct Korean-character ratio by `+0.2203` over 76 matched pairs and reduces drift from 26/76 to 12/76.
 - Symmetric quality check: completed on 38 HyDE-off identical-context pairs in English and Korean with `gpt-4o` and fixed `gpt-4.1-2025-04-14`; no nonzero RAG-quality effect replicates across both judges.
 - Reproducibility evidence: the retained 152-answer generation artifact, the complete 152-row `gpt-4o` score artifact, the final language-adherence analysis, and `scripts/verify_current_thesis_results.py`.
+- Terminal evidence replay: `../../cli/evidence_replay.py` displays stored cases without loading a model, parsing PDFs, or calling a judge.
 
 ## Manuscript Result Order
 

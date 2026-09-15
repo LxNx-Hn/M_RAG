@@ -48,21 +48,31 @@ python -c "import json; d=json.load(open('experiments/data/query_splits/query_te
 
 ```bash
 python experiments/analyzers/aggregate_main_scores.py \
-  --scores experiments/results/evaluation/main-hyde-cad-scd__decoder_main_queries__main_generation.ragas_scores.json \
-  --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
+  --scores experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json \
+  --generation experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl
 ```
 
 - SCD의 한국어 준수(언어 드리프트) 문장은 직접 측정으로 확정한다.
 
 ```bash
 python experiments/analyzers/scd_language_adherence.py \
-  --generation experiments/results/main_generation/main-hyde-cad-scd__decoder_main_queries__main_generation.jsonl
+  --generation experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl
 ```
 
-“CAD가 faithfulness를 높인다”, “원래 `penalty_additive` v1 SCD는 null” 같은
-Phase 8 문장은 위 결과 파일과 `experiments/reports/phase8_*`가 실제로 존재할 때만
-사용한다. 보정된 `reference_scd`의 직접 언어 결과와 RAGAS 민감도 패널은 별도로
-라벨링한다.
+최종 논문 수치는 `reference_scd` generation과 그에 연결된 score/analysis artifact만
+사용한다. 역사적 `penalty_additive` v1 결과는 교정 경위용 supporting evidence이며
+동일한 모집단처럼 합치지 않는다.
+
+## Offline evidence replay
+
+```bash
+python -X utf8 cli/evidence_replay.py list
+python -X utf8 cli/evidence_replay.py show E03
+python -X utf8 cli/evidence_replay.py inspect track1_0009
+```
+
+This viewer reads artifacts only; it performs no retrieval, generation, judge
+call, database connection, or write to `experiments/results/`.
 
 대칭 이중언어 후속 결과는 네트워크 호출 없이 다음 명령으로 재계산한다.
 

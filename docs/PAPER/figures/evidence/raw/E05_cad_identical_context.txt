@@ -1,0 +1,94 @@
+============================================================
+M-RAG Experimental Result (stored artifact replay)
+============================================================
+Case              : E05 CAD Identical Context
+Selection         : HyDE-off/SCD-off pair with byte-identical context and the largest answer-length difference
+
+Query ID          : track1_0012
+Paper             : paper_nlp_rag
+
+Question
+--------
+RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?
+
+Contexts identical: True
+Retrieved IDs identical: True
+Reranked IDs identical: True
+
+Configuration A
+---------------
+Config            : hyde_off__no_decoder_control
+HyDE / CAD / SCD  : False / False / False
+Korean ratio      : 0.4157
+Stored RAGAS      : faithfulness=0.9375, answer_relevancy=0.9001, context_precision=1.0000, context_recall=1.0000
+
+Stored answer
+-------------
+적 근거]
+
+RAG 시스템이 지식 집약적인 작업에서 갖는 장점을 설명해주세요.
+
+주어진 문서에서 RAG 시스템의 지식 집약적 작업 관련 장점을 찾아 정리해주세요.
+
+특정 연구 결과나 실험 데이터가 있다면 함께 제시해주시기 바랍니다.
+
+[답변]
+제공된 논문 컨텍스트를 분석한 결과, RAG(Retrieval-Augmented Generation) 시스템이 지식 집약적 작업에서 갖는 여러 장점들이 명확하게 제시되어 있습니다.
+
+## RAG 시스템의 지식 집약적 작업 관련 주요 장점
+
+### 1. 외부 지식 활용의 우수성
+논문에서는 "RAG excels in dynamic environments by offering realtime knowledge updates and effective utilization of external knowledge sources with high interpretability"라고 명시하고 있습니다. RAG는 실시간 지식 업데이트를 제공하며 외부 지식 소스를 효과적으로 활용할 수 있어 해석 가능성이 높다는 장점이 있습니다.
+
+### 2. 기존 및 새로운 지식 모두에서의 우수한 성능
+"[28] revealed that while unsupervised fine-tuning shows some improvement, RAG consistently outperforms it, for both existing knowledge encountered during training and entirely new knowledge"라는 연구 결과가 제시되어 있습니다. 이는 RAG가 훈련 중 접한 기존 지식뿐만 아니라 완전히 새로운 지식 영역에서도 파인튜닝보다 일관되게 우수한 성능을 보임을 의미합니다.
+
+### 3. LLM의 새로운 사실 학습 한계 극복
+"it was fou
+… [truncated: 836 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_rag_bf4cd54870dd_2
+paper_nlp_rag_bf4cd54870dd
+paper_nlp_rag_50811b9a6139
+paper_nlp_rag_cd21092daa14
+paper_nlp_rag_53219f9e0699
+paper_nlp_rag_e9a713793233
+paper_nlp_rag_addf6d73de05
+paper_nlp_rag_2fc65db1ecaf
+
+Configuration B
+---------------
+Config            : hyde_off__cad_only
+HyDE / CAD / SCD  : False / True / False
+Korean ratio      : 0.8462
+Stored RAGAS      : faithfulness=0.5000, answer_relevancy=0.0000, context_precision=1.0000, context_recall=1.0000
+
+Stored answer
+-------------
+논문]
+
+위 내용 참조
+
+**
+
+답변을 뒷받침하는 구체적인 예시나 연구 결과도 포함해 주세요.
+
+ breath
+
+**
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_rag_bf4cd54870dd_2
+paper_nlp_rag_bf4cd54870dd
+paper_nlp_rag_50811b9a6139
+paper_nlp_rag_cd21092daa14
+paper_nlp_rag_53219f9e0699
+paper_nlp_rag_e9a713793233
+paper_nlp_rag_addf6d73de05
+paper_nlp_rag_2fc65db1ecaf
+
+Korean-ratio delta: +0.4305
+============================================================
