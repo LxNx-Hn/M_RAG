@@ -1,9 +1,14 @@
 """Fail-closed runner for the 41-query held-out extended validation matrix.
 
-The original 19-query main split and all manuscript/document files remain
-untouched. Execution reuses the frozen main settings, the exact eight
-HyDE x CAD x SCD configurations, Mi:dm 2.0 Base, and deterministic greedy
-generation.
+The original 19-query main split and manuscript/document files remain untouched.
+Execution matches the retained FINAL reference-SCD generation method: the same
+fixed Paper-RAG backbone, exact eight HyDE x CAD x SCD configurations, Mi:dm
+2.0 Base, deterministic greedy answer generation, CAD alpha 0.5, and the
+paper-faithful reference_scd settings alpha=1.1, beta=0.9, T_start=5.
+
+The Phase-8 frozen parameter file is reused for retrieval, CAD and generation
+settings. Its legacy SCD beta=0.3 belongs to the superseded penalty_additive v1
+run and is deliberately NOT reused for SCD-on cells here.
 """
 
 from __future__ import annotations
@@ -24,8 +29,13 @@ from run_generation import (
 )
 
 APPROVED_EXTENDED_SPLIT = "extended_validation_questions"
-DEFAULT_EXTENDED_EXPERIMENT = "extended-hyde-cad-scd"
+DEFAULT_EXTENDED_EXPERIMENT = "extended-hyde-cad-scd-reference-scd"
 CONFIRM_ENV = "CONFIRM_EXTENDED_VALIDATION_8CONFIG"
+CONFIRM_SCD_ENV = "CONFIRM_SCD_V2_GENERATION"
+REFERENCE_SCD_MODE = "reference_scd"
+REFERENCE_SCD_ALPHA = 1.1
+REFERENCE_SCD_BETA = 0.9
+REFERENCE_SCD_T_START = 5
 SPLIT_PATH = (
     REPO_ROOT
     / "experiments"
@@ -53,10 +63,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--generation-model", default=APPROVED_MODEL)
     parser.add_argument("--collection-name", default=APPROVED_COLLECTION)
     parser.add_argument("--frozen-params", default=str(DEFAULT_FROZEN_PARAMS))
-    parser.add_argument("--scd-beta", type=float, default=0.3)
-    parser.add_argument("--scd-alpha", type=float, default=1.1)
-    parser.add_argument("--scd-t-start", type=int, default=0)
-    parser.add_argument("--scd-mode", default="penalty_additive")
+    parser.add_argument("--scd-beta", type=float, default=REFERENCE_SCD_BETA)
+    parser.add_argument("--scd-alpha", type=float, default=REFERENCE_SCD_ALPHA)
+    parser.add_argument("--scd-t-start", type=int, default=REFERENCE_SCD_T_START)
+    parser.add_argument("--scd-mode", default=REFERENCE_SCD_MODE)
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--config-limit", type=int, default=None)
     return parser
@@ -107,6 +117,8 @@ def load_and_validate_split() -> list[dict]:
 def check_extended_generation_guards(args: argparse.Namespace) -> str | None:
     if os.environ.get(CONFIRM_ENV) != "1":
         return f"{CONFIRM_ENV}=1 is required for --execute."
+    if os.environ.get(CONFIRM_SCD_ENV) != "1":
+        return f"{CONFIRM_SCD_ENV}=1 is required for reference_scd execution."
     if not _env_disabled("OPENAI_ENABLED"):
         return "OpenAI must be disabled (OPENAI_ENABLED=0)."
     if not _env_disabled("RAGAS_ENABLED"):
@@ -121,14 +133,14 @@ def check_extended_generation_guards(args: argparse.Namespace) -> str | None:
         return f"query split must be {APPROVED_EXTENDED_SPLIT!r}."
     if args.experiment != DEFAULT_EXTENDED_EXPERIMENT:
         return f"experiment id must be {DEFAULT_EXTENDED_EXPERIMENT!r}."
-    if args.scd_mode != "penalty_additive":
-        return "extended validation must reuse scd_mode='penalty_additive'."
-    if args.scd_beta != 0.3:
-        return "extended validation must reuse scd_beta=0.3."
-    if args.scd_alpha != 1.1:
-        return "extended validation must reuse scd_alpha=1.1."
-    if args.scd_t_start != 0:
-        return "extended validation must reuse scd_t_start=0."
+    if args.scd_mode != REFERENCE_SCD_MODE:
+        return f"extended validation must use scd_mode={REFERENCE_SCD_MODE!r}."
+    if args.scd_beta != REFERENCE_SCD_BETA:
+        return f"extended validation must use scd_beta={REFERENCE_SCD_BETA}."
+    if args.scd_alpha != REFERENCE_SCD_ALPHA:
+        return f"extended validation must use scd_alpha={REFERENCE_SCD_ALPHA}."
+    if args.scd_t_start != REFERENCE_SCD_T_START:
+        return f"extended validation must use scd_t_start={REFERENCE_SCD_T_START}."
     if args.config_limit is not None or args.limit is not None:
         return "--limit/--config-limit are not allowed for the full extended run."
     try:
@@ -154,7 +166,6 @@ def check_extended_generation_guards(args: argparse.Namespace) -> str | None:
         "rerank_top_n": 8.0,
         "context_chunk_count": 5.0,
         "cad_alpha": 0.5,
-        "scd_beta": 0.3,
         "max_new_tokens": 512.0,
     }
     for key, value in expected.items():
@@ -180,9 +191,15 @@ def print_preflight(args: argparse.Namespace) -> int:
     print(f"configs: {len(configs)}")
     print(f"planned_samples: {len(queries) * len(configs)}")
     print(f"paper_counts: {EXPECTED_PAPER_COUNTS}")
-    print(f"frozen_params: {params}")
+    print(f"frozen_non_scd_params: {params}")
     print(f"generation_model: {args.generation_model}")
     print("decoding_mode: deterministic_greedy")
+    print(f"scd_mode: {REFERENCE_SCD_MODE}")
+    print(
+        "reference_scd_params: "
+        f"alpha={REFERENCE_SCD_ALPHA}, beta={REFERENCE_SCD_BETA}, "
+        f"t_start={REFERENCE_SCD_T_START}"
+    )
     print("openai_calls_made: false")
     print("ragas_calls_made: false")
     print("gt_regeneration: false")
