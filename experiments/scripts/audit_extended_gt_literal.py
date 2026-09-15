@@ -41,17 +41,33 @@ def normalize_literal(text: str) -> str:
 
 
 def page_contains_literal_span(pdf: fitz.Document, page_index: int, span: str) -> bool:
-    """Match a literal span within an individual source-PDF text block.
+    """Match a literal span in one block or a contiguous same-column block run.
 
     Page-level extraction can interleave two-column prose with an unrelated
-    heading from the adjacent column.  Text blocks retain each source reading
-    unit, while the normalized-substring rule still requires exact wording.
+    heading from the adjacent column.  Conversely, a source sentence can be
+    split at a PDF block boundary while remaining in the same column.  This
+    matcher therefore permits only vertically adjacent blocks whose left edges
+    identify the same column; it never merges text across the page columns.
     """
     span_norm = normalize_literal(span)
     if not span_norm:
         return False
     blocks = pdf[page_index].get_text("blocks", sort=True)
-    return any(span_norm in normalize_literal(block[4]) for block in blocks)
+    for start, block in enumerate(blocks):
+        run = str(block[4])
+        previous = block
+        if span_norm in normalize_literal(run):
+            return True
+        for following in blocks[start + 1 :]:
+            same_column = abs(float(following[0]) - float(previous[0])) <= 18.0
+            vertical_gap = float(following[1]) - float(previous[3])
+            if not same_column or vertical_gap < -1.0 or vertical_gap > 36.0:
+                break
+            run += str(following[4])
+            if span_norm in normalize_literal(run):
+                return True
+            previous = following
+    return False
 
 
 def audit(gt_path: Path = DEFAULT_GT, questions_path: Path = DEFAULT_QUESTIONS) -> dict:
