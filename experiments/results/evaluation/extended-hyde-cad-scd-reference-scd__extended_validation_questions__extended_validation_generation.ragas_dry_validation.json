@@ -1,0 +1,54 @@
+{
+  "mode": "dry_validation_only",
+  "official_ragas_execution": "gated_behind_CONFIRM_OFFICIAL_RAGAS_EXECUTION_and_judge_api_key",
+  "generation_results": "experiments\\results\\extended_validation\\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl",
+  "generation_input": {
+    "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\extended_validation\\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl",
+    "sha256": "93c0932f4f5071bf726e4cd5a31c7a9cc02ef243775fdef99a1a0d486b51f41e",
+    "byte_size": 10716929,
+    "record_count": 328,
+    "symmetric_normalization": {
+      "present_records": 0,
+      "protocol_ids": [],
+      "schema_versions": [],
+      "target_languages": [],
+      "all_selected_conditions_normalized_values": [],
+      "scopes": []
+    }
+  },
+  "query_split": "extended_validation_literal_gt",
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "judge": {
+    "provider": "nvidia_nim",
+    "model": "meta/llama-3.3-70b-instruct",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key_env": "NVIDIA_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (nvidia_nim). Execution requires the key in $NVIDIA_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings_plan": {
+    "answer_relevancy_embeddings": "local BAAI/bge-m3 (HuggingFace, no API)",
+    "note": "Embeddings run locally on CPU; only the judge LLM uses the OpenAI-compatible API endpoint."
+  },
+  "dependency_status": {
+    "available": true,
+    "missing": [],
+    "message": "Official RAGAS dependencies appear importable."
+  },
+  "dataset_built": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.ragas_input.jsonl",
+  "dataset_record_count": 328,
+  "validation_errors": [],
+  "validation_passed": true,
+  "openai_used": false,
+  "ragas_used": false,
+  "network_used": false,
+  "records_read": 328,
+  "reference_split": "extended_validation_literal_gt",
+  "reference_coverage": "328/328",
+  "records_missing_contexts": 0
+}

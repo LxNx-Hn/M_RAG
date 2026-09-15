@@ -1,0 +1,345 @@
+{
+  "schema_version": "extended_validation_gt_literal_audit.v1",
+  "gt_split": "experiments\\data\\query_splits\\extended_validation_literal_gt.json",
+  "question_split": "experiments\\data\\query_splits\\extended_validation_questions.json",
+  "policy": {
+    "gt_generation": "manual_source_extraction_only",
+    "llm_or_openai_gt_generation": false,
+    "source_page_indexing": "zero_based",
+    "match": "contiguous alphanumeric-normalized substring in one declared PDF text block"
+  },
+  "records": 41,
+  "matched": 41,
+  "failures": [],
+  "results": [
+    {
+      "query_id": "ext_rag_001",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 81,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_002",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 89,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_003",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 7,
+      "source_page_human": 8,
+      "span_chars": 215,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_004",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 7,
+      "source_page_human": 8,
+      "span_chars": 166,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_005",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 7,
+      "source_page_human": 8,
+      "span_chars": 256,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_006",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 7,
+      "source_page_human": 8,
+      "span_chars": 593,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_007",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 10,
+      "source_page_human": 11,
+      "span_chars": 595,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_008",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 11,
+      "source_page_human": 12,
+      "span_chars": 200,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_009",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 11,
+      "source_page_human": 12,
+      "span_chars": 171,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_rag_010",
+      "paper": "paper_nlp_rag",
+      "source_page_zero_based": 4,
+      "source_page_human": 5,
+      "span_chars": 158,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_001",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 0,
+      "source_page_human": 1,
+      "span_chars": 174,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_002",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 313,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_003",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 608,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_004",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 225,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_005",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 368,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_006",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 243,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_007",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 280,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_008",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 4,
+      "source_page_human": 5,
+      "span_chars": 43,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_009",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 75,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_010",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 1,
+      "source_page_human": 2,
+      "span_chars": 79,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_cad_011",
+      "paper": "paper_nlp_cad",
+      "source_page_zero_based": 5,
+      "source_page_human": 6,
+      "span_chars": 96,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 304,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 92,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 140,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 116,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 3,
+      "source_page_human": 4,
+      "span_chars": 68,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 15,
+      "source_page_human": 16,
+      "span_chars": 232,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 5,
+      "source_page_human": 6,
+      "span_chars": 312,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 5,
+      "source_page_human": 6,
+      "span_chars": 158,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 6,
+      "source_page_human": 7,
+      "span_chars": 107,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 8,
+      "source_page_human": 9,
+      "span_chars": 63,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "paper": "paper_nlp_raptor",
+      "source_page_zero_based": 19,
+      "source_page_human": 20,
+      "span_chars": 191,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_001",
+      "paper": "paper_midm",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 151,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_002",
+      "paper": "paper_midm",
+      "source_page_zero_based": 2,
+      "source_page_human": 3,
+      "span_chars": 325,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_003",
+      "paper": "paper_midm",
+      "source_page_zero_based": 7,
+      "source_page_human": 8,
+      "span_chars": 424,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_004",
+      "paper": "paper_midm",
+      "source_page_zero_based": 14,
+      "source_page_human": 15,
+      "span_chars": 123,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_005",
+      "paper": "paper_midm",
+      "source_page_zero_based": 20,
+      "source_page_human": 21,
+      "span_chars": 315,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_006",
+      "paper": "paper_midm",
+      "source_page_zero_based": 22,
+      "source_page_human": 23,
+      "span_chars": 173,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_007",
+      "paper": "paper_midm",
+      "source_page_zero_based": 23,
+      "source_page_human": 24,
+      "span_chars": 100,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_008",
+      "paper": "paper_midm",
+      "source_page_zero_based": 24,
+      "source_page_human": 25,
+      "span_chars": 125,
+      "literal_match": true
+    },
+    {
+      "query_id": "ext_midm_009",
+      "paper": "paper_midm",
+      "source_page_zero_based": 30,
+      "source_page_human": 31,
+      "span_chars": 98,
+      "literal_match": true
+    }
+  ],
+  "passed": true
+}
