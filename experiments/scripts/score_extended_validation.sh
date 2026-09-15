@@ -8,6 +8,7 @@ RAW_FILE="experiments/results/extended_validation/extended-hyde-cad-scd-referenc
 TRANSLATED_FILE="experiments/results/extended_validation/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.context_ko_translated.jsonl"
 OUT_DIR="experiments/results/evaluation/extended-hyde-cad-scd-reference-scd-gpt4o-official"
 MERGED_FILE="$OUT_DIR/merged.ragas_scores.json"
+REFERENCE_SPLIT="extended_validation_literal_gt"
 
 if [ ! -s "$RAW_FILE" ]; then
   echo "Missing generation result: $RAW_FILE"
@@ -20,7 +21,10 @@ if [ "$LINES" != "328" ]; then
   exit 3
 fi
 
-echo "[1/4] Dry-validate the retained final SCD-on context-translation protocol"
+echo "[0/5] Re-audit manual literal GT before any judge/API calls"
+python experiments/scripts/audit_extended_gt_literal.py --no-write-report
+
+echo "[1/5] Dry-validate the retained final SCD-on context-translation protocol"
 python experiments/evaluators/translate_context_for_scd.py \
   --generation-results "$RAW_FILE" \
   --out "$TRANSLATED_FILE" \
@@ -29,6 +33,7 @@ python experiments/evaluators/translate_context_for_scd.py \
 
 if [ "${EXECUTE:-0}" != "1" ]; then
   echo "score_preflight_only: true"
+  echo "reference_split: $REFERENCE_SPLIT"
   echo "For real preprocessing/scoring set EXECUTE=1, CONFIRM_CONTEXT_TRANSLATION_EXECUTION=1, CONFIRM_OFFICIAL_RAGAS_EXECUTION=1, and OPENAI_API_KEY."
   exit 0
 fi
@@ -46,7 +51,7 @@ if [ -z "${OPENAI_API_KEY:-}" ]; then
   exit 5
 fi
 
-echo "[2/4] Translate SCD-on retrieved contexts only; generated answers stay unchanged"
+echo "[2/5] Translate SCD-on retrieved contexts only; generated answers stay unchanged"
 python experiments/evaluators/translate_context_for_scd.py \
   --generation-results "$RAW_FILE" \
   --out "$TRANSLATED_FILE" \
@@ -60,18 +65,18 @@ if [ "$TRANSLATED_LINES" != "328" ]; then
   exit 6
 fi
 
-echo "[3/4] Dry-validate RAGAS input and 328/328 ground-truth coverage"
+echo "[3/5] Dry-validate RAGAS input and 328/328 literal-reference coverage"
 python experiments/evaluators/official_ragas_runner.py \
   --generation-results "$TRANSLATED_FILE" \
-  --query-split extended_validation_questions \
+  --query-split "$REFERENCE_SPLIT" \
   --judge openai \
   --judge-model gpt-4o \
   --out-dir "$OUT_DIR"
 
-echo "[4/4] Score with the retained gpt-4o protocol until zero null metric cells"
+echo "[4/5] Score with the retained gpt-4o protocol until zero null metric cells"
 python experiments/evaluators/run_scoring_until_converged.py \
   --generation-results "$TRANSLATED_FILE" \
-  --query-split extended_validation_questions \
+  --query-split "$REFERENCE_SPLIT" \
   --judge openai \
   --judge-model gpt-4o \
   --out-dir "$OUT_DIR" \
@@ -88,6 +93,7 @@ if [ ! -s "$MERGED_FILE" ]; then
   exit 7
 fi
 
+echo "[5/5] Validate exact score coverage"
 python - "$MERGED_FILE" <<'PY'
 import json, sys
 from pathlib import Path
@@ -101,4 +107,5 @@ if len(rows) != 328 or nulls != 0:
 print(f"scoring_ready: rows={len(rows)} null_cells={nulls}")
 PY
 
+echo "reference_split: $REFERENCE_SPLIT"
 echo "merged_scores: $MERGED_FILE"

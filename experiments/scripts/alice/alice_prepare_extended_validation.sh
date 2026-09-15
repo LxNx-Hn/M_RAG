@@ -12,7 +12,7 @@ export OPENAI_ENABLED=0
 export RAGAS_ENABLED=0
 export GT_REGENERATION_ENABLED=0
 
-echo "[1/5] Repository/runtime setup"
+echo "[1/6] Repository/runtime setup"
 CREATE_VENV="${CREATE_VENV:-1}" bash experiments/scripts/alice/alice_setup.sh
 
 if [ -d ".venv" ]; then
@@ -20,22 +20,27 @@ if [ -d ".venv" ]; then
   source .venv/bin/activate
 fi
 
-echo "[2/5] Build clean fixed-backbone retrieval index + persisted BM25"
+echo "[2/6] Fail-closed literal GT audit against checked-in source PDFs"
+python experiments/scripts/audit_extended_gt_literal.py \
+  --report experiments/results/analysis/extended_validation_gt_literal_audit.json
+
+echo "[3/6] Build clean fixed-backbone retrieval index + persisted BM25"
 python experiments/scripts/alice/build_local_gt_index.py --reset
 
-echo "[3/5] Static extended-validation readiness checks"
+echo "[4/6] Static extended-validation readiness checks"
 python -m pytest -q experiments/tests/test_extended_validation_ready.py
-python -m compileall -q experiments/runners experiments/evaluators experiments/analyzers
+python -m compileall -q experiments/runners experiments/evaluators experiments/analyzers experiments/scripts
 
-echo "[4/5] One-sample Mi:dm BASE execution smoke"
+echo "[5/6] One-sample Mi:dm BASE execution smoke"
 CONFIRM_ALICE_BASE_SMOKE=1 \
 ALLOW_MODEL_DOWNLOAD="${ALLOW_MODEL_DOWNLOAD:-1}" \
 bash experiments/scripts/alice/alice_base_smoke.sh
 
-echo "[5/5] 41 x 8 extended validation dry preflight"
+echo "[6/6] 41 x 8 extended validation dry preflight"
 bash experiments/scripts/alice/alice_extended_validation.sh
 
 echo "alice_extended_validation_prepared: true"
+echo "literal_gt_audit: passed"
 echo "HF_HOME: $HF_HOME"
 echo "MRAG_CHROMA_DIR: $MRAG_CHROMA_DIR"
 echo "Next command:"

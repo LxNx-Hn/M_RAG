@@ -1,5 +1,5 @@
 {
-  "schema_version": "extended_validation_method.v1",
+  "schema_version": "extended_validation_method.v2",
   "split": "extended_validation_questions",
   "status": "frozen_for_execution",
   "purpose": "Held-out 41-query replication/extension of the retained final 19-query thesis experiment.",
@@ -7,6 +7,16 @@
     "count": 41,
     "tuning_allowed": false,
     "combined_with_retained_main_queries": 60
+  },
+  "ground_truth": {
+    "question_split": "extended_validation_questions",
+    "reference_split": "extended_validation_literal_gt",
+    "construction": "manual literal extraction from checked-in source PDFs",
+    "openai_or_llm_gt_generation": false,
+    "source_page_indexing": "zero_based, matching backend PDFParser TextBlock.page",
+    "literal_match_requirement": "contiguous source span after Unicode/whitespace/PDF-extraction normalization",
+    "audit_script": "experiments/scripts/audit_extended_gt_literal.py",
+    "audit_must_pass_before_generation": true
   },
   "generation": {
     "model": "K-intelligence/Midm-2.0-Base-Instruct",
@@ -45,6 +55,7 @@
     "gt_regeneration_enabled": false
   },
   "quality_evaluation": {
+    "reference_split": "extended_validation_literal_gt",
     "context_preprocessing": "SCD-on retrieved contexts translated to Korean; generated answers unchanged; SCD-off records copied through",
     "translation_model": "gpt-4o",
     "judge_provider": "openai",
