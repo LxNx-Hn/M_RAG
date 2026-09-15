@@ -1,0 +1,70 @@
+{
+  "schema_version": "extended_validation_method.v1",
+  "split": "extended_validation_questions",
+  "status": "frozen_for_execution",
+  "purpose": "Held-out 41-query replication/extension of the retained final 19-query thesis experiment.",
+  "query_policy": {
+    "count": 41,
+    "tuning_allowed": false,
+    "combined_with_retained_main_queries": 60
+  },
+  "generation": {
+    "model": "K-intelligence/Midm-2.0-Base-Instruct",
+    "decoding_mode": "deterministic_greedy",
+    "max_new_tokens": 512
+  },
+  "retrieval_and_cad": {
+    "source": "experiments/configs/frozen_params.yaml",
+    "retrieval_pool_top_k": 8,
+    "rerank_top_n": 8,
+    "context_chunk_count": 5,
+    "cad_alpha": 0.5
+  },
+  "hyde": {
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "do_sample": true
+  },
+  "scd": {
+    "mode": "reference_scd",
+    "alpha": 1.1,
+    "beta": 0.9,
+    "t_start": 5,
+    "provenance": "retained final reference-SCD rerun",
+    "legacy_note": "The scd_beta=0.3 value in frozen_params.yaml belongs to the superseded penalty_additive v1 run and is not used for SCD-on cells in this extension."
+  },
+  "matrix": {
+    "source": "experiments/configs/main_hyde_cad_scd_matrix.yaml",
+    "config_count": 8,
+    "planned_generation_records": 328
+  },
+  "generation_environment": {
+    "collection": "local_gt__papers",
+    "openai_enabled": false,
+    "ragas_enabled": false,
+    "gt_regeneration_enabled": false
+  },
+  "quality_evaluation": {
+    "context_preprocessing": "SCD-on retrieved contexts translated to Korean; generated answers unchanged; SCD-off records copied through",
+    "translation_model": "gpt-4o",
+    "judge_provider": "openai",
+    "judge_model": "gpt-4o",
+    "ragas_metrics": [
+      "faithfulness",
+      "answer_relevancy",
+      "context_precision",
+      "context_recall"
+    ],
+    "required_null_metric_cells": 0
+  },
+  "analysis": {
+    "independent_statistical_unit": "query",
+    "bootstrap_iterations": 200000,
+    "seed": 20260713,
+    "report_original_19": true,
+    "report_extension_41": true,
+    "report_pooled_60": true,
+    "scd_primary_target": "generated-text Korean character ratio",
+    "scd_same_context_control": "HyDE-off matched pairs"
+  }
+}
