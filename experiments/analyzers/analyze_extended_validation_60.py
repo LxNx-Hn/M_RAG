@@ -4,10 +4,12 @@ This script is intentionally conservative:
 - HyDE quality: hyde_on__no_decoder_control vs hyde_off__no_decoder_control.
 - CAD quality: hyde_off__cad_only vs hyde_off__no_decoder_control.
 - SCD target effect: direct Korean-character ratio from RAW generated answers.
+- SCD language analysis reports both all four matched config pairs and the two
+  HyDE-off pairs whose retrieved contexts must be byte-identical.
 - The independent bootstrap unit is query, not generation/config cell.
 - SCD RAGAS quality is not promoted to a causal effect here because the retained
-  final thesis already documents the translation/judge confound and handles it
-  through a separate symmetric bilingual sensitivity analysis.
+  final thesis documents the translation/judge confound and handles it through
+  a separate symmetric bilingual sensitivity analysis.
 
 No model/API/network calls are made.
 """
@@ -16,7 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -66,6 +68,7 @@ SCD_PAIRS = [
     ("hyde_on__no_decoder_control", "hyde_on__scd_only"),
     ("hyde_on__cad_only", "hyde_on__cad_scd"),
 ]
+SCD_HYDE_OFF_PAIRS = SCD_PAIRS[:2]
 METRICS = (
     "faithfulness",
     "answer_relevancy",
@@ -108,7 +111,9 @@ def validate_generation(rows: list[dict[str, Any]], expected_queries: int) -> se
         raise ValueError(f"config counts mismatch: {counts}")
     for r in rows:
         if r.get("status") != "succeeded" or r.get("error") is not None:
-            raise ValueError(f"failed generation row: {r.get('query_id')} {r.get('config_name')}")
+            raise ValueError(
+                f"failed generation row: {r.get('query_id')} {r.get('config_name')}"
+            )
         if r.get("generation_model") != MODEL:
             raise ValueError("generation model mismatch")
         if r.get("decoding_mode") != "deterministic_greedy":
@@ -137,16 +142,27 @@ def validate_generation(rows: list[dict[str, Any]], expected_queries: int) -> se
             )
             if observed != (0.1, 0.9, True):
                 raise ValueError(f"HyDE settings mismatch: {observed}")
+
     by_key = {(str(r["query_id"]), str(r["config_name"])): r for r in rows}
     for qid in qids:
         base = by_key[(qid, "hyde_off__no_decoder_control")]
         cad = by_key[(qid, "hyde_off__cad_only")]
         if cad.get("contexts") != base.get("contexts"):
             raise ValueError(f"CAD context identity failed for {qid}")
+        for off_cfg, on_cfg in SCD_HYDE_OFF_PAIRS:
+            off = by_key[(qid, off_cfg)]
+            on = by_key[(qid, on_cfg)]
+            if on.get("contexts") != off.get("contexts"):
+                raise ValueError(
+                    f"HyDE-off SCD context identity failed for {qid}: "
+                    f"{off_cfg} vs {on_cfg}"
+                )
     return qids
 
 
-def validate_scores(data: dict[str, Any], qids: set[str]) -> dict[tuple[str, str], dict]:
+def validate_scores(
+    data: dict[str, Any], qids: set[str]
+) -> dict[tuple[str, str], dict]:
     judge = data.get("judge") or {}
     if (judge.get("provider"), judge.get("model")) != ("openai", "gpt-4o"):
         raise ValueError(f"judge mismatch: {judge}")
@@ -236,25 +252,24 @@ def quality_panel(
     return out
 
 
-def language_panel(
-    generation_groups: list[list[dict[str, Any]]],
-    qid_sets: list[set[str]],
+def _language_stats(
     *,
+    by_key: dict[tuple[str, str], dict[str, Any]],
+    qids: set[str],
+    pairs: list[tuple[str, str]],
     iterations: int,
     seed: int,
 ) -> dict[str, Any]:
-    rows = [row for group in generation_groups for row in group]
-    qids = set().union(*qid_sets)
-    by_key = {(str(r["query_id"]), str(r["config_name"])): r for r in rows}
     per_query_mean: list[float] = []
     pair_deltas: list[float] = []
     rescue_05 = 0
     drift_05 = 0
     harm = 0
     good = 0
+
     for qid in sorted(qids):
-        local = []
-        for off_cfg, on_cfg in SCD_PAIRS:
+        local: list[float] = []
+        for off_cfg, on_cfg in pairs:
             off = korean_ratio(by_key[(qid, off_cfg)]["generated_answer"])
             on = korean_ratio(by_key[(qid, on_cfg)]["generated_answer"])
             delta = on - off
@@ -269,30 +284,64 @@ def language_panel(
                 if on < 0.65:
                     harm += 1
         per_query_mean.append(float(np.mean(local)))
+
     query_delta = np.array(per_query_mean, dtype=float)
     mean, lower, upper = bootstrap_mean_ci(
         query_delta, iterations=iterations, seed=seed
     )
     pair_arr = np.array(pair_deltas, dtype=float)
+    wins = int(np.sum(pair_arr > 0.02))
+    losses = int(np.sum(pair_arr < -0.02))
     return {
         "query_units": len(qids),
         "matched_scd_pairs": int(pair_arr.size),
+        "pairs_per_query": len(pairs),
         "pair_level_mean_delta": round(float(pair_arr.mean()), 4),
         "query_clustered_mean_delta": round(mean, 4),
         "query_clustered_bootstrap_95_ci": {
             "lower": round(lower, 4),
             "upper": round(upper, 4),
         },
-        "pair_wins_gt_0.02": int(np.sum(pair_arr > 0.02)),
-        "pair_losses_lt_neg_0.02": int(np.sum(pair_arr < -0.02)),
-        "pair_ties_abs_le_0.02": int(
-            pair_arr.size - np.sum(pair_arr > 0.02) - np.sum(pair_arr < -0.02)
-        ),
+        "pair_wins_gt_0.02": wins,
+        "pair_losses_lt_neg_0.02": losses,
+        "pair_ties_abs_le_0.02": int(pair_arr.size - wins - losses),
         "drift_pairs_below_0.5": drift_05,
         "rescued_to_0.5": rescue_05,
         "already_korean_pairs_ge_0.7": good,
         "dragged_below_0.65": harm,
+    }
+
+
+def language_panel(
+    generation_groups: list[list[dict[str, Any]]],
+    qid_sets: list[set[str]],
+    *,
+    iterations: int,
+    seed: int,
+) -> dict[str, Any]:
+    rows = [row for group in generation_groups for row in group]
+    qids = set().union(*qid_sets)
+    by_key = {(str(r["query_id"]), str(r["config_name"])): r for r in rows}
+    return {
+        "all_four_config_pairs": _language_stats(
+            by_key=by_key,
+            qids=qids,
+            pairs=SCD_PAIRS,
+            iterations=iterations,
+            seed=seed,
+        ),
+        "hyde_off_same_context_pairs": _language_stats(
+            by_key=by_key,
+            qids=qids,
+            pairs=SCD_HYDE_OFF_PAIRS,
+            iterations=iterations,
+            seed=seed,
+        ),
         "metric_scope": "generated-text Korean character ratio; no LLM judge",
+        "interpretation": (
+            "hyde_off_same_context_pairs is the stricter controlled SCD language "
+            "contrast because retrieval contexts are asserted identical."
+        ),
     }
 
 
@@ -342,10 +391,16 @@ def main() -> int:
         },
         "quality": {
             "original_19": quality_panel(
-                [old_scores], [old_qids], iterations=args.bootstrap_iterations, seed=args.seed
+                [old_scores],
+                [old_qids],
+                iterations=args.bootstrap_iterations,
+                seed=args.seed,
             ),
             "extension_41": quality_panel(
-                [new_scores], [new_qids], iterations=args.bootstrap_iterations, seed=args.seed
+                [new_scores],
+                [new_qids],
+                iterations=args.bootstrap_iterations,
+                seed=args.seed,
             ),
             "pooled_60": quality_panel(
                 [old_scores, new_scores],
@@ -356,10 +411,16 @@ def main() -> int:
         },
         "scd_language_adherence": {
             "original_19": language_panel(
-                [old_gen], [old_qids], iterations=args.bootstrap_iterations, seed=args.seed
+                [old_gen],
+                [old_qids],
+                iterations=args.bootstrap_iterations,
+                seed=args.seed,
             ),
             "extension_41": language_panel(
-                [new_gen], [new_qids], iterations=args.bootstrap_iterations, seed=args.seed
+                [new_gen],
+                [new_qids],
+                iterations=args.bootstrap_iterations,
+                seed=args.seed,
             ),
             "pooled_60": language_panel(
                 [old_gen, new_gen],
