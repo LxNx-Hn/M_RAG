@@ -1,8 +1,8 @@
 {
-  "schema_version": "extended_validation_questions.v1",
+  "schema_version": "extended_validation_questions.v2",
   "split": "extended_validation_questions",
-  "status": "question_only_draft",
-  "description": "41 new Korean held-out questions for extending the existing 19-query main experiment to 60 query units. No answers or ground-truth spans are included.",
+  "status": "validated_ready",
+  "description": "41 held-out Korean questions validated against source papers with source-grounded answer spans. Reuse frozen main settings only; do not tune on this split.",
   "count": 41,
   "target_total_with_decoder_main": 60,
   "paper_allocation": {
@@ -11,6 +11,7 @@
     "paper_nlp_raptor": 11,
     "paper_midm": 9
   },
+  "freeze_policy": "reuse experiments/configs/frozen_params.yaml unchanged; no tuning",
   "queries": [
     {
       "query_id": "ext_rag_001",
@@ -18,7 +19,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "optimizing the indexing structure and the original query",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_002",
@@ -26,7 +33,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "rerank chunks and context compressing",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_003",
@@ -34,7 +47,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "Larger chunks can capture more context, but they also generate more noise; smaller chunks may not fully convey the necessary context, but have less noise.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 7,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_004",
@@ -42,7 +61,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "Assigning different weights to document timestamps during retrieval can achieve time-aware RAG, ensuring the freshness of knowledge and avoiding outdated information.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 7,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_005",
@@ -50,7 +75,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "using LLM to generate questions that can be answered by the document, then calculating the similarity between the original question and the hypothetical question",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 7,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_006",
@@ -58,7 +89,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "Multi-Query expands queries via LLMs for parallel execution; Sub-Query decomposes a complex question into simpler sub-questions.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 7,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_007",
@@ -66,7 +103,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "Iterative retrieval alternates retrieval and generation; recursive retrieval refines queries and breaks problems into sub-problems; adaptive retrieval determines whether retrieval is necessary and when to stop.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 10,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_008",
@@ -74,7 +117,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "noise robustness, negative rejection, information integration, and counterfactual robustness",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 11,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_009",
@@ -82,7 +131,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "refraining from responding when the retrieved documents do not contain the necessary knowledge to answer a question",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 11,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_rag_010",
@@ -90,7 +145,13 @@
       "applicable_papers": ["paper_nlp_rag"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "real-time knowledge updates and effective utilization of external knowledge sources with high interpretability",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 4,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_001",
@@ -98,7 +159,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "the context contains external knowledge; prior knowledge is encoded in the model parameters",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 1,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_002",
@@ -106,7 +173,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "CNN-DM and XSUM; ROUGE-L, BERT-Precision, and FactKB",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_003",
@@ -114,7 +187,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "MemoTrap investigates memorization traps; NQ-Swap tests faithful answering from a modified reliable document.",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_004",
@@ -122,7 +201,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "identify questions with named entity answers, find the supportive document, then replace the gold answer entity with a random entity",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_005",
@@ -130,7 +215,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "α = 0.5 for summarization and α = 1 for knowledge conflicts, where prior knowledge needs to be factored out more",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_006",
@@ -138,7 +229,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "greedy decoding for knowledge conflict tasks and top-p sampling with p=0.9 for summarization tasks",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_007",
@@ -146,7 +243,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "OPT, GPT-Neo, LLaMA, and FLAN-T5",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_008",
@@ -154,7 +257,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "the gain increases as the model size grows",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 4,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_009",
@@ -162,7 +271,13 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "Regular: 18.7, 47.7, 87.1; CAD: 22.0, 66.4, 90.3",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_010",
@@ -170,15 +285,27 @@
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "even a non-zero α would not have an impact to the original output distribution",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 1,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_cad_011",
-      "query": "CAD를 기존 사전학습 언어 모델에 적용하기 위해 추가 학습이나 파인튜닝이 필요합니까?",
+      "query": "CAD는 특정 instruction-finetuned 언어 모델에만 제한됩니까, 아니면 어떤 언어 모델에도 적용 가능한 디코딩 전략입니까?",
       "applicable_papers": ["paper_nlp_cad"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "a decoding strategy applicable to any LM",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 5,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_001",
@@ -186,7 +313,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "length 100; if a sentence exceeds the 100-token limit, the entire sentence is moved to the next chunk",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_002",
@@ -194,7 +327,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "SBERT, a BERT-based encoder (multi-qa-mpnet-base-cos-v1)",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_003",
@@ -202,7 +341,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "to mitigate the challenge of high-dimensional vector embeddings by dimensionality reduction",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_004",
@@ -210,7 +355,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "to determine the optimal number of clusters",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_005",
@@ -218,7 +369,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "gpt-3.5-turbo",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 3,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_006",
@@ -226,7 +383,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "both build time and token expenditure scale linearly with document length",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 15,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_007",
@@ -234,7 +397,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "5,049 questions across 1,585 NLP papers; accuracy is measured using standard F1",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 5,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_008",
@@ -242,7 +411,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "questions that a majority of human annotators answered incorrectly in a speed-setting",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 5,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_009",
@@ -250,7 +425,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "53.1%, 55.7%, and 36.6%, respectively",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 6,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_010",
@@ -258,7 +439,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "57.9 with one leaf layer versus 73.68 with all three layers",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 8,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_raptor_011",
@@ -266,7 +453,13 @@
       "applicable_papers": ["paper_nlp_raptor"],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "RAPTOR retrieves relevant information across tree layers, while DPR retrieves detailed descriptions of a narrow subset of the story",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 19,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_001",
@@ -274,7 +467,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "licensed proprietary datasets, public datasets that permit commercial use, and in-house synthetic data",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_002",
@@ -282,15 +481,27 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "3–10% of the Korean corpus, to encourage cross-lingual transfer without diluting the Korean-language focus",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 2,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_003",
-      "query": "응답 스타일 재작성 후 평균 응답 길이와 bullet이 없는 응답의 비율은 재작성 전과 비교해 어떻게 변했습니까?",
+      "query": "응답 스타일 재작성 후 평균 응답 길이는 몇 % 증가했고, bullet_count=0인 응답의 비율은 어떻게 변했습니까?",
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "mean response length increases by 256.70%; bullet_count = 0 drops from 82.8% to 3.9%",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 7,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_004",
@@ -298,7 +509,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "interaction structure, topic and task, and persona",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 14,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_005",
@@ -306,7 +523,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_method",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "to favor versatile conversational alignment; creative writing, translation, and general question answering",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 20,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_006",
@@ -314,7 +537,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "reduces step time by approximately 15% and improves token throughput by approximately 30%",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 22,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_007",
@@ -322,7 +551,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "simple_qa",
-      "expected_service_route": "A"
+      "expected_service_route": "A",
+      "has_answer_span": true,
+      "answer_span": "an agreement rate of 91%",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 23,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_008",
@@ -330,7 +565,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "HumanEval+ 92.07% and τ²-Bench Telecom 89%",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 24,
+      "validation_status": "verified_against_source_pdf"
     },
     {
       "query_id": "ext_midm_009",
@@ -338,7 +579,13 @@
       "applicable_papers": ["paper_midm"],
       "paper_language": "ko",
       "normalized_query_type": "section_result",
-      "expected_service_route": "B"
+      "expected_service_route": "B",
+      "has_answer_span": true,
+      "answer_span": "ASR of 36.3%, the lowest attack success rate among the compared models",
+      "gt_status": "valid",
+      "answerability_status": "answerable",
+      "source_page": 30,
+      "validation_status": "verified_against_source_pdf"
     }
   ]
 }
