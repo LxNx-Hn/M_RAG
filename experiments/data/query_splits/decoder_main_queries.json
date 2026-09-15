@@ -443,7 +443,7 @@
       ],
       "paper_language": "ko",
       "has_answer_span": true,
-      "answer_span": "128K context window",
+      "answer_span": "128K token context window",
       "gt_status": "valid",
       "answerability_status": "answerable",
       "recommended_split": "decoder_main",

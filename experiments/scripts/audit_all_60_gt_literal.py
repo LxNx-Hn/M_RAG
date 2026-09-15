@@ -54,20 +54,16 @@ def _paper_path(paper: str) -> Path:
 def _scan_all_pages(
     pdf: fitz.Document,
     span: str,
-    normalize_literal,
+    page_contains_literal_span,
 ) -> list[int]:
-    span_norm = normalize_literal(span)
-    if not span_norm:
-        return []
     matches: list[int] = []
     for page_index in range(len(pdf)):
-        page_text = pdf[page_index].get_text("text", sort=True)
-        if span_norm in normalize_literal(page_text):
+        if page_contains_literal_span(pdf, page_index, span):
             matches.append(page_index)
     return matches
 
 
-def audit_main_19(normalize_literal) -> dict[str, Any]:
+def audit_main_19(page_contains_literal_span) -> dict[str, Any]:
     data = json.loads(MAIN_SPLIT.read_text(encoding="utf-8"))
     rows = data.get("queries") or []
     failures: list[dict[str, Any]] = []
@@ -115,7 +111,9 @@ def audit_main_19(normalize_literal) -> dict[str, Any]:
             if pdf_path not in pdf_cache:
                 pdf_cache[pdf_path] = fitz.open(pdf_path)
 
-            page_matches = _scan_all_pages(pdf_cache[pdf_path], span, normalize_literal)
+            page_matches = _scan_all_pages(
+                pdf_cache[pdf_path], span, page_contains_literal_span
+            )
             result = {
                 "query_id": qid,
                 "paper": paper,
@@ -152,7 +150,7 @@ def audit_main_19(normalize_literal) -> dict[str, Any]:
 
 def audit_all_60() -> dict[str, Any]:
     module = _load_extended_audit_module()
-    main_report = audit_main_19(module.normalize_literal)
+    main_report = audit_main_19(module.page_contains_literal_span)
     ext_report = module.audit(EXT_GT, EXT_QUESTIONS)
 
     main_data = json.loads(MAIN_SPLIT.read_text(encoding="utf-8"))
@@ -196,7 +194,7 @@ def audit_all_60() -> dict[str, Any]:
         "policy": {
             "final_acceptance_rule": (
                 "every RAGAS reference must be a contiguous normalized extract "
-                "from its checked-in source PDF"
+                "from one text block in its checked-in source PDF"
             ),
             "candidate_construction_history": (
                 "not required to be identical; existing main references are retained "
@@ -204,8 +202,8 @@ def audit_all_60() -> dict[str, Any]:
             ),
             "model_or_api_calls_in_this_audit": False,
             "normalization": (
-                "same Unicode-alphanumeric normalization as "
-                "audit_extended_gt_literal.py"
+                "same Unicode-alphanumeric normalization and block-level "
+                "source membership as audit_extended_gt_literal.py"
             ),
         },
         "records": total_records,

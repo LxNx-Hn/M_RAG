@@ -40,6 +40,20 @@ def normalize_literal(text: str) -> str:
     return "".join(ch for ch in text if ch.isalnum())
 
 
+def page_contains_literal_span(pdf: fitz.Document, page_index: int, span: str) -> bool:
+    """Match a literal span within an individual source-PDF text block.
+
+    Page-level extraction can interleave two-column prose with an unrelated
+    heading from the adjacent column.  Text blocks retain each source reading
+    unit, while the normalized-substring rule still requires exact wording.
+    """
+    span_norm = normalize_literal(span)
+    if not span_norm:
+        return False
+    blocks = pdf[page_index].get_text("blocks", sort=True)
+    return any(span_norm in normalize_literal(block[4]) for block in blocks)
+
+
 def audit(gt_path: Path = DEFAULT_GT, questions_path: Path = DEFAULT_QUESTIONS) -> dict:
     gt_data = json.loads(gt_path.read_text(encoding="utf-8"))
     question_data = json.loads(questions_path.read_text(encoding="utf-8"))
@@ -125,10 +139,7 @@ def audit(gt_path: Path = DEFAULT_GT, questions_path: Path = DEFAULT_QUESTIONS) 
                 )
                 continue
 
-            page_text = pdf[page_index].get_text("text", sort=True)
-            page_norm = normalize_literal(page_text)
-            span_norm = normalize_literal(span)
-            matched = bool(span_norm) and span_norm in page_norm
+            matched = page_contains_literal_span(pdf, page_index, span)
             result = {
                 "query_id": qid,
                 "paper": paper,
@@ -158,7 +169,7 @@ def audit(gt_path: Path = DEFAULT_GT, questions_path: Path = DEFAULT_QUESTIONS) 
             "gt_generation": "manual_source_extraction_only",
             "llm_or_openai_gt_generation": False,
             "source_page_indexing": "zero_based",
-            "match": "contiguous alphanumeric-normalized substring on declared PDF page",
+            "match": "contiguous alphanumeric-normalized substring in one declared PDF text block",
         },
         "records": len(rows),
         "matched": sum(1 for item in results if item["literal_match"]),

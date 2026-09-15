@@ -9,7 +9,7 @@ This report standardizes the final acceptance rule for the complete thesis query
 - pooled analysis target: 60 independent query units
 - paper allocation after pooling: 15 queries each for RAG, CAD, RAPTOR, and Mi:dm
 
-The two subsets have different construction histories, but the final reference criterion is now identical: **every RAGAS reference must occur as a contiguous normalized extract in its checked-in source PDF.** No model or judge is allowed to create, rewrite, or repair a reference during this audit.
+The two subsets have different construction histories, but the final reference criterion is now identical: **every RAGAS reference must occur as a contiguous normalized extract within one text block of its checked-in source PDF.** No model or judge is allowed to create, rewrite, or repair a reference during this audit.
 
 ## Retained 19
 
@@ -45,8 +45,8 @@ The script also enforces:
 - exactly 60 pooled query units
 - exactly 15 query units per source paper after pooling
 - `gt_status=valid` and `answerability_status=answerable` for all retained main references
-- page-level literal matching for all 41 extension references
-- whole-PDF literal matching for all 19 retained references
+- page-level text-block literal matching for all 41 extension references
+- whole-PDF text-block literal matching for all 19 retained references
 
 ## Execution gate
 
