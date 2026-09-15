@@ -68,10 +68,13 @@ EVIDENCE_CASES = {
         "selection": "HyDE-off/SCD-off pair with byte-identical context and the largest answer-length difference",
     },
     "E06": {
-        "title": "Low Faithfulness / Unsupported Candidate",
-        "kind": "low_faithfulness",
+        "title": "Language Drift / SCD-Only",
+        "kind": "stored_record",
         "sources": (GENERATION, MAIN_SCORES),
-        "selection": "lowest stored faithfulness score; display requires human comparison with the original context",
+        "selection": "stored SCD-on RAG Survey record with 0.0000 Korean-character ratio",
+        "query_id": "track1_0009",
+        "config_name": "hyde_off__scd_only",
+        "expected_korean_ratio": 0.0,
     },
     "E07": {
         "title": "Translation-Confound Input Audit",
@@ -84,5 +87,14 @@ EVIDENCE_CASES = {
         "kind": "cross_judge",
         "sources": (SYMMETRIC_GPT4O, SYMMETRIC_GPT41, CROSS_JUDGE_REPORT),
         "selection": "retained two-judge matched-context report",
+    },
+    "E09": {
+        "title": "Language Drift / Mi:dm QA",
+        "kind": "stored_record",
+        "sources": (GENERATION, MAIN_SCORES),
+        "selection": "stored SCD-off Mi:dm QA record with 0.0000 Korean-character ratio",
+        "query_id": "track1_0035",
+        "config_name": "hyde_off__no_decoder_control",
+        "expected_korean_ratio": 0.0,
     },
 }

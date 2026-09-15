@@ -117,7 +117,7 @@ def arrow(a, p, q, color=GRAY, style="-", width=1.3):
 
 
 def head(a, n, title):
-    txt(a, 5, 94, f"{n:02d}  {title}", 11, weight="bold", ha="left")
+    txt(a, 5, 94, title, 11, weight="bold", ha="left")
 
 
 def diagrams():
@@ -266,7 +266,7 @@ def diagrams():
 
 def forest(name, num, title, sections, labels, xlim, foot):
     f = plt.figure(figsize=(8.4, 5.2))
-    f.text(0.025, 0.95, f"{num:02d}  {title}", size=11, weight="bold")
+    f.text(0.025, 0.95, title, size=11, weight="bold")
     for k, (section, data, color, marker) in enumerate(sections):
         y0 = 0.56 if k == 0 else 0.17
         a = f.add_axes([0.31, y0, 0.29, 0.27])
@@ -367,7 +367,7 @@ def plots():
     assert round(float(d.mean()), 4) == 0.2203
     assert (int((d > 0.02).sum()), int((d < -0.02).sum())) == (68, 3)
     f = plt.figure(figsize=(7.1, 4.6))
-    f.text(0.04, 0.94, "06  SCD Language Adherence", size=11, weight="bold")
+    f.text(0.04, 0.94, "SCD Language Adherence", size=11, weight="bold")
     a = f.add_axes([0.12, 0.17, 0.47, 0.65])
     b = f.add_axes([0.72, 0.25, 0.23, 0.40])
     for x in p:

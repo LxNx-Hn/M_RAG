@@ -1,0 +1,44 @@
+============================================================
+M-RAG Experimental Result (stored artifact replay)
+============================================================
+Case              : E09 Language Drift / Mi:dm QA
+Selection         : stored SCD-off Mi:dm QA record with 0.0000 Korean-character ratio
+
+Config            : hyde_off__no_decoder_control
+Query ID          : track1_0035
+Paper             : paper_midm
+HyDE / CAD / SCD  : False / False / False
+Korean ratio      : 0.0000
+Stored RAGAS      : faithfulness=0.8947, answer_relevancy=0.7037, context_precision=1.0000, context_recall=1.0000
+
+Question
+--------
+Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?
+
+Stored answer
+-------------
+5 Pro demonstrates superior performance across all Korean-specific benchmarks, establishing new state-of-the-art records on all metrics. Particularly noteworthy is its 5.5%p improvement over K-EXAONE-236B-A23B on Ko-Sovereign comprehension and its 0.8%p improvement on the Ko-Sovereign society & culture subset. These results highlight the model's exceptional performance in Korean-specific evaluation settings, especially considering its smaller size relative to other large-scale Korean models.
+
+---
+
+**Figure 12: Fine-grained subdomain analysis on representative Korean benchmarks.** The left panel reports Ko-Sovereign results by subdomain, and the right panel reports Ko-WinoGrande results by reasoning category. As shown in Fig. 12, Mi:dm K 2.5 Pro exhibits clear strengths across several major Korean evaluation domains. In the reasoning and STEM categories, it achieves the best or comparable results on Korean reasoning benchmarks and records strong results across a wide range of STEM subdomains, with particularly notable advantages in chemistry, computer science, information technology, and materials engineering. In Korean history and law, it remains competitive across multiple historical periods and records the highest scores on many major legal subdomains, including constitutional law, criminal law, criminal procedure, civil law, commercial law, and labor and welfare law. In Korean linguistics, Mi:dm K 2.5 Pro performs strongly across diverse subdomains spanning semantics, phonology, syntax, morphology, and pragmatics, with es
+… [truncated: 1022 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_midm_5e825061ddd7
+paper_midm_231b07675e55
+paper_midm_132103c92190
+paper_midm_ca70e703fee3
+paper_midm_b59b646d2c0b
+paper_midm_81dfb87339e7
+paper_midm_52ab9d497b88
+paper_midm_b203059cd3dc
+
+Retrieved evidence [1]
+----------------------
+6 Conclusion
+In this report, we presented Mi:dm K 2.5 Pro, a 32-billion parameter flagship large language model designed to advance enterprise-grade capabilities including complex reasoning, long-context under- standing, and agentic workflows with a strong focus on Korean-language applications. To achieve a reliable and high-quality model, we carefully optimized data curation, parameter scaling and training methodologies.
+Robust Data & Pre-training We established a high-quality data foundation through advanced curation pipelines, including AST-
+… [truncated: 1832 characters; use --full]
+============================================================

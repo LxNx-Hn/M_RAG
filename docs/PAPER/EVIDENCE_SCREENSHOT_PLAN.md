@@ -139,19 +139,19 @@ hallucination example.
 - **Reproducible from retained data:** PARTIAL. **Model execution required:** NO.
 - **Reason:** locating the low-score row is deterministic; deciding whether it asserts an unsupported fact requires human reading. `E06` supplies the unmodified evidence.
 
-### C16 Research/service separation
+### C16 Research/product boundary (documentation only)
 
-- **Section:** §§6, 12, 15.
-- **Claim:** The thesis experiment layer and A–F service integration share modules one-way but are distinct responsibilities.
+- **Section:** Scope statements in the thesis and the separate application document.
+- **Claim:** The thesis experiment and the repository's A–F product integration are distinct responsibilities; the product implementation is documented separately from the thesis.
 - **Evidence:** `docs/REPO_LAYOUT.md`; import graph; backend/frontend source.
 - **Reproducible from retained data:** YES. **Model execution required:** NO.
 - **Reason:** source inspection establishes the boundary; it does not validate live service performance.
 
-### C17 A–F implementation claim
+### C17 A–F implementation inventory (separate application document)
 
-- **Section:** §12.
+- **Section:** Separate application document, not thesis body.
 - **Claim:** A–F routes expose implemented paper-review functions and method-selection points, not validated per-route optima.
-- **Evidence:** `backend/api/`, `backend/pipelines/`, `frontend/src/`; §12 table.
+- **Evidence:** `backend/api/`, `backend/pipelines/`, `frontend/src/`; the separate application document.
 - **Reproducible from retained data:** PARTIAL. **Model execution required:** NO for source evidence; YES for a live end-to-end run.
 - **Reason:** code proves implementation structure, not production usability or user outcomes.
 

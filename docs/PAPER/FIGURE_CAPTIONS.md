@@ -13,7 +13,7 @@ generation, or judge is executed during rendering.
 - **query_id:** `track1_0027`
 - **config:** `hyde_on__no_decoder_control`
 - **1-sentence purpose:** A stored Korean question, English-paper evidence, and Korean answer are shown together.
-- **draft caption:** M-RAG의 정상적인 한국어 질의–영어 논문 근거 기반 응답 예시.
+- **draft caption:** 한국어 질의–영어 논문 근거 기반 응답의 저장 사례.
 
 ### Figure 2. Language-drift replay
 

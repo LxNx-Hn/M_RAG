@@ -411,8 +411,24 @@ def _figure_case(
     scores: dict[tuple[str, str], dict[str, Any]],
 ) -> str:
     """Create a paper-sized view without altering any stored evidence string."""
-    kind = EVIDENCE_CASES[case_id]["kind"]
+    case = EVIDENCE_CASES[case_id]
+    kind = case["kind"]
     rows = list(records.values())
+    if kind == "stored_record":
+        record = records[(case["query_id"], case["config_name"])]
+        ratio = korean_ratio(record["generated_answer"])
+        if ratio != case["expected_korean_ratio"]:
+            raise AssertionError(
+                f"stored Korean ratio changed: expected {case['expected_korean_ratio']}, got {ratio}"
+            )
+        return "\n".join(
+            _figure_record(
+                record,
+                scores.get((record["query_id"], record["config_name"])),
+                answer_limit=1550,
+                evidence_limit=550,
+            )
+        )
     if kind == "normal_qa":
         _, record = _best(
             (
@@ -538,8 +554,21 @@ def _resolve_case(
     scores: dict[tuple[str, str], dict[str, Any]],
     full: bool,
 ) -> str:
-    kind = EVIDENCE_CASES[case_id]["kind"]
+    case = EVIDENCE_CASES[case_id]
+    kind = case["kind"]
     rows = list(records.values())
+    if kind == "stored_record":
+        record = records[(case["query_id"], case["config_name"])]
+        ratio = korean_ratio(record["generated_answer"])
+        if ratio != case["expected_korean_ratio"]:
+            raise AssertionError(
+                f"stored Korean ratio changed: expected {case['expected_korean_ratio']}, got {ratio}"
+            )
+        return _show_record(
+            record,
+            scores.get((record["query_id"], record["config_name"])),
+            full,
+        )
     if kind == "normal_qa":
         _, record = _best(
             (

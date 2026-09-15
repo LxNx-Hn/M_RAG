@@ -34,6 +34,7 @@ CASE_FILENAMES = {
     "E06": "E06_low_faithfulness.png",
     "E07": "E07_translation_confound.png",
     "E08": "E08_symmetric_cross_judge.png",
+    "E09": "E09_language_drift_midm.png",
 }
 
 

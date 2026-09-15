@@ -1,0 +1,62 @@
+# 한컴 한글 수식 입력기용 표현 모음
+
+아래 문자열은 필요한 본문 위치에서 한컴 한글 `입력 → 수식`에 그대로 붙여 넣는 용도입니다.
+
+## 검색 결과
+```text
+C_q = Retrieve(q,D)
+```
+
+## 생성 답변
+```text
+y = LM(q,C_q)
+```
+
+## Weighted RRF
+```text
+RRF(d) = {0.6} over {k + rankDense(d)} + {0.4} over {k + rankBM25(d)}
+```
+
+## CAD score
+```text
+z_{CAD} = (1 + alpha) z_{ctx} - alpha z_{noctx}
+```
+
+본문 설정: `alpha = 0.5`
+
+## SCD — 한국어 목표 토큰
+```text
+tilde z_i = alpha z_i
+```
+적용 대상: `i in V_{ko}`
+
+## SCD — 영어 비목표 토큰
+```text
+tilde z_i = beta z_i
+```
+적용 대상: `i in V_{en}`
+
+## SCD — 중립 토큰
+```text
+tilde z_i = z_i
+```
+적용 대상: `i in V_{neutral}`
+
+본문 설정: `alpha = 1.1`, `beta = 0.9`, `T_start = 5`
+
+## 대응쌍 점수 차이
+```text
+Delta_i = s_i(ON) - s_i(OFF)
+```
+
+## Korean-character ratio
+```text
+KoreanRatio = {N_{Hangul}} over {N_{Hangul} + N_{ASCII}}
+```
+
+## 현재 초안의 총 생성 수
+```text
+19 times 8 = 152
+```
+
+60-query 추가실험을 반영할 때는 실제 query 수와 generation 수로 교체합니다.
