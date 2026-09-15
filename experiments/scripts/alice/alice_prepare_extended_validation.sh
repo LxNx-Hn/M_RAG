@@ -20,9 +20,9 @@ if [ -d ".venv" ]; then
   source .venv/bin/activate
 fi
 
-echo "[2/6] Fail-closed literal GT audit against checked-in source PDFs"
-python experiments/scripts/audit_extended_gt_literal.py \
-  --report experiments/results/analysis/extended_validation_gt_literal_audit.json
+echo "[2/6] Fail-closed literal GT audit for retained 19 + extension 41"
+python experiments/scripts/audit_all_60_gt_literal.py \
+  --report experiments/results/analysis/all_60_gt_literal_audit.json
 
 echo "[3/6] Build clean fixed-backbone retrieval index + persisted BM25"
 python experiments/scripts/alice/build_local_gt_index.py --reset
@@ -40,7 +40,8 @@ echo "[6/6] 41 x 8 extended validation dry preflight"
 bash experiments/scripts/alice/alice_extended_validation.sh
 
 echo "alice_extended_validation_prepared: true"
-echo "literal_gt_audit: passed"
+echo "all_60_literal_gt_audit: passed"
+echo "all_60_gt_report: experiments/results/analysis/all_60_gt_literal_audit.json"
 echo "HF_HOME: $HF_HOME"
 echo "MRAG_CHROMA_DIR: $MRAG_CHROMA_DIR"
 echo "Next command:"

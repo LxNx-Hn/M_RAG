@@ -21,8 +21,8 @@ if [ "$LINES" != "328" ]; then
   exit 3
 fi
 
-echo "[0/5] Re-audit manual literal GT before any judge/API calls"
-python experiments/scripts/audit_extended_gt_literal.py --no-write-report
+echo "[0/5] Re-audit retained 19 + extension 41 before any judge/API calls"
+python experiments/scripts/audit_all_60_gt_literal.py --no-write-report
 
 echo "[1/5] Dry-validate the retained final SCD-on context-translation protocol"
 python experiments/evaluators/translate_context_for_scd.py \
@@ -108,4 +108,5 @@ print(f"scoring_ready: rows={len(rows)} null_cells={nulls}")
 PY
 
 echo "reference_split: $REFERENCE_SPLIT"
+echo "all_60_literal_gt_audit: passed"
 echo "merged_scores: $MERGED_FILE"

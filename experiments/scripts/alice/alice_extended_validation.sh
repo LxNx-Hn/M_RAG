@@ -13,8 +13,8 @@ RESULT_DIR="experiments/results/extended_validation"
 RESULT_FILE="$RESULT_DIR/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl"
 REFERENCE_SPLIT="extended_validation_literal_gt"
 
-echo "[0/4] Literal GT audit against checked-in source PDFs"
-python experiments/scripts/audit_extended_gt_literal.py --no-write-report
+echo "[0/4] Literal GT audit for retained 19 + extension 41"
+python experiments/scripts/audit_all_60_gt_literal.py --no-write-report
 
 echo "[1/4] Extended reference-SCD validation preflight"
 python "$RUNNER" --dry-run
@@ -49,10 +49,10 @@ if [ "$LINES" != "328" ]; then
   exit 4
 fi
 
-echo "[3/4] Re-audit literal GT after generation"
-python experiments/scripts/audit_extended_gt_literal.py --no-write-report
+echo "[3/4] Re-audit all 60 references after generation"
+python experiments/scripts/audit_all_60_gt_literal.py --no-write-report
 
-echo "[4/4] Dry-validate RAGAS schema and 328/328 literal-reference coverage"
+echo "[4/4] Dry-validate RAGAS schema and 328/328 extension reference coverage"
 python experiments/evaluators/official_ragas_runner.py \
   --generation-results "$RESULT_FILE" \
   --query-split "$REFERENCE_SPLIT"
@@ -60,7 +60,8 @@ python experiments/evaluators/official_ragas_runner.py \
 echo "extended_validation_generation_ready: true"
 echo "records: 328"
 echo "reference_split: $REFERENCE_SPLIT"
-echo "gt_generation: manual_source_extraction_only"
+echo "all_60_literal_gt_audit: passed"
+echo "gt_generation: manual_source_extraction_only_for_extension"
 echo "scd_mode: reference_scd"
 echo "scd_params: alpha=1.1 beta=0.9 t_start=5"
 echo "result_file: $RESULT_FILE"

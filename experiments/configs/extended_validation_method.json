@@ -1,5 +1,5 @@
 {
-  "schema_version": "extended_validation_method.v2",
+  "schema_version": "extended_validation_method.v3",
   "split": "extended_validation_questions",
   "status": "frozen_for_execution",
   "purpose": "Held-out 41-query replication/extension of the retained final 19-query thesis experiment.",
@@ -11,12 +11,16 @@
   "ground_truth": {
     "question_split": "extended_validation_questions",
     "reference_split": "extended_validation_literal_gt",
-    "construction": "manual literal extraction from checked-in source PDFs",
-    "openai_or_llm_gt_generation": false,
+    "extension_construction": "manual literal extraction from checked-in source PDFs",
+    "extension_openai_or_llm_gt_generation": false,
+    "retained_main_reference_source": "verified extractive answer_span in decoder_main_queries",
     "source_page_indexing": "zero_based, matching backend PDFParser TextBlock.page",
     "literal_match_requirement": "contiguous source span after Unicode/whitespace/PDF-extraction normalization",
-    "audit_script": "experiments/scripts/audit_extended_gt_literal.py",
-    "audit_must_pass_before_generation": true
+    "extension_audit_script": "experiments/scripts/audit_extended_gt_literal.py",
+    "all_60_audit_script": "experiments/scripts/audit_all_60_gt_literal.py",
+    "all_60_audit_report": "experiments/results/analysis/all_60_gt_literal_audit.json",
+    "audit_must_pass_before_generation": true,
+    "final_acceptance_rule": "all 60 RAGAS references must literal-match their checked-in source PDFs"
   },
   "generation": {
     "model": "K-intelligence/Midm-2.0-Base-Instruct",
