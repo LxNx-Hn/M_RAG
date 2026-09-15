@@ -9,6 +9,11 @@ ROOT = Path(__file__).resolve().parents[2]
 SPLIT = ROOT / "experiments/data/query_splits/extended_validation_questions.json"
 MAIN = ROOT / "experiments/data/query_splits/decoder_main_queries.json"
 FROZEN = ROOT / "experiments/configs/frozen_params.yaml"
+FINAL_REFERENCE_GENERATION = (
+    ROOT
+    / "experiments/results/main_generation/"
+    "main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl"
+)
 RUNNER = ROOT / "experiments/runners/run_extended_validation.py"
 EXECUTOR = ROOT / "experiments/runners/extended_validation_executor.py"
 ALICE = ROOT / "experiments/scripts/alice/alice_extended_validation.sh"
@@ -55,14 +60,13 @@ def test_original_main_split_is_untouched_and_disjoint() -> None:
     )
 
 
-def test_frozen_main_settings_are_still_the_execution_contract() -> None:
+def test_frozen_non_scd_settings_match_final_reference_rerun() -> None:
     text = FROZEN.read_text(encoding="utf-8")
     expected = {
         "retrieval_pool_top_k": "8",
         "rerank_top_n": "8",
         "context_chunk_count": "5",
         "cad_alpha": "0.5",
-        "scd_beta": "0.3",
         "max_new_tokens": "512",
     }
     assert re.search(r"^\s*final_values_selected:\s*true\s*$", text, re.MULTILINE)
@@ -76,15 +80,39 @@ def test_frozen_main_settings_are_still_the_execution_contract() -> None:
     assert "decoding_mode: deterministic_greedy" in text
 
 
+def test_retained_final_reference_scd_artifact_has_expected_settings() -> None:
+    rows = [
+        json.loads(line)
+        for line in FINAL_REFERENCE_GENERATION.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert len(rows) == 152
+    assert all(row["status"] == "succeeded" for row in rows)
+    for row in rows:
+        if row["use_scd"]:
+            assert (
+                row["scd_mode"],
+                row["scd_alpha"],
+                row["scd_beta"],
+                row["scd_t_start"],
+            ) == ("reference_scd", 1.1, 0.9, 5)
+        if row["use_cad"]:
+            assert row["cad_alpha"] == 0.5
+
+
 def test_extended_runner_files_are_syntactically_valid_and_fail_closed() -> None:
     ast.parse(RUNNER.read_text(encoding="utf-8"))
     ast.parse(EXECUTOR.read_text(encoding="utf-8"))
     runner = RUNNER.read_text(encoding="utf-8")
     executor = EXECUTOR.read_text(encoding="utf-8")
     assert "CONFIRM_EXTENDED_VALIDATION_8CONFIG" in runner
+    assert "CONFIRM_SCD_V2_GENERATION" in runner
     assert "OPENAI_ENABLED" in runner and "RAGAS_ENABLED" in runner
     assert "GT_REGENERATION_ENABLED" in runner
-    assert "penalty_additive" in runner
+    assert 'REFERENCE_SCD_MODE = "reference_scd"' in runner
+    assert "REFERENCE_SCD_ALPHA = 1.1" in runner
+    assert "REFERENCE_SCD_BETA = 0.9" in runner
+    assert "REFERENCE_SCD_T_START = 5" in runner
     assert "validate_main_matrix" in executor
     assert "retrieve_fixed_backbone" in executor
     assert "create_combined_processor" in executor
@@ -92,9 +120,9 @@ def test_extended_runner_files_are_syntactically_valid_and_fail_closed() -> None
     assert "extended_validation_used" in executor
 
 
-def test_alice_and_scoring_scripts_target_exact_artifact() -> None:
+def test_alice_and_scoring_scripts_match_final_protocol() -> None:
     expected_name = (
-        "extended-hyde-cad-scd__extended_validation_questions__"
+        "extended-hyde-cad-scd-reference-scd__extended_validation_questions__"
         "extended_validation_generation.jsonl"
     )
     alice = ALICE.read_text(encoding="utf-8")
@@ -103,6 +131,11 @@ def test_alice_and_scoring_scripts_target_exact_artifact() -> None:
     assert expected_name in scorer
     assert 'if [ "$LINES" != "328" ]' in alice
     assert 'if [ "$LINES" != "328" ]' in scorer
+    assert "CONFIRM_SCD_V2_GENERATION" in alice
     assert "extended_validation_questions" in alice
     assert "extended_validation_questions" in scorer
-    assert "meta/llama-3.3-70b-instruct" in scorer
+    assert "translate_context_for_scd.py" in scorer
+    assert "run_scoring_until_converged.py" in scorer
+    assert "--judge openai" in scorer
+    assert "--judge-model gpt-4o" in scorer
+    assert "--null-threshold 0" in scorer
