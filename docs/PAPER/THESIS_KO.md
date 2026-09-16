@@ -1,14 +1,14 @@
-# M-RAG: 한국어 질의 기반 영문 학술논문 질의응답 시스템 구현과 HyDE × CAD × SCD 조합 평가
+# 한국어 질의 기반 영어 학술논문 RAG에서 HyDE·CAD·SCD 조합 실험
 
 ## 1. 초록
 
-검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색하고 그 근거에 조건화하여 답변을 생성한다. 한국어 사용자가 영어 학술논문을 질의하는 환경에서는 한국어 질의와 영어 학술 문장 사이의 표현 차이를 넘어 관련 근거를 찾아야 하며, 검색된 영어 근거에 충실하면서도 안정적인 한국어 답변을 생성해야 한다. 본 논문은 이 문제를 검색 확장, 근거 충실도 제어, 출력 언어 제어의 세 축으로 나누고, 이를 실제 논문 질의응답 시스템에 통합한 M-RAG를 제시한다.
+검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색하고 그 근거에 조건화하여 답변을 생성한다. 한국어 사용자가 영어 학술논문을 질의하는 환경에서는 한국어 질의와 영어 학술 문장 사이의 표현 차이를 넘어 관련 근거를 찾아야 하며, 검색된 영어 근거에 충실하면서도 안정적인 한국어 답변을 생성해야 한다. 본 논문은 이 문제를 검색 확장, 근거 충실도 제어, 출력 언어 제어의 세 실험 요인으로 나누어 분석한다.
 
 연구 대상은 HyDE(Hypothetical Document Embeddings), CAD(Context-Aware Decoding), 한국어 대상 SCD(Soft Constrained Decoding)이다. HyDE는 가상 답변형 문서로 검색 표현을 확장하고, CAD는 문맥 조건부 분포와 무문맥 분포를 대조하며, SCD는 목표·방해·중립 토큰으로 나눈 raw logit에 언어별 계수를 적용한다. BGE-M3, BM25, 가중 RRF, CrossEncoder reranking으로 구성한 Paper-RAG backbone과 Mi:dm 2.0 Base 생성 모델을 고정하고, 세 요인의 on/off 조합 8개를 19개 질의에 적용하여 152개 답변을 생성하였다.
 
 동일한 SCD-off 기준에서 수행한 19개 질의 대응 비교에서 HyDE의 answer relevancy 차이는 `+0.0303`(95% CI `[+0.0016, +0.0615]`)이었고, faithfulness·context precision·context recall 구간은 0을 포함했다. 검색 문맥이 19/19 완전히 같은 HyDE-off·SCD-off 비교에서 CAD의 faithfulness 차이는 `+0.0023`(95% CI `[−0.0903, +0.0952]`)으로 뚜렷한 개선이 확인되지 않았다. SCD 분석에서는 76개 대응쌍의 한국어 비율이 평균 `+0.2203` 증가했고 68쌍이 개선되었다. 한국어 비율 0.5 미만인 언어 이탈 출력은 26개에서 12개로 감소했으며, HyDE와 CAD의 네 조합 모두에서 평균 차이가 양수였다. 동일 검색 문맥을 사용한 HyDE-off 38쌍에서도 `+0.2198`이 유지되었다.
 
-M-RAG는 FastAPI backend와 React frontend 위에 논문 업로드, hybrid retrieval, reranking, 답변 생성, 출처 표시, 스트리밍, 비교, 요약, 인용, 퀴즈 기능을 A–F 질의 경로로 구현한다. 연구용 실행 경로는 HyDE, CAD, SCD를 명시적으로 조합하고, 서비스 경로는 필요한 모듈을 선택할 수 있는 지점을 제공한다. 본 연구는 한국어 질의-영어 학술문헌 RAG에서 세 기법을 하나의 2×2×2 생성 행렬로 실행하고, 기법별 목표에 맞는 통제 대비와 직접 언어 지표로 평가한 구현 연구다.
+본 연구에서는 이 2×2×2 조합 실험을 RAG-Cube로 지칭한다. RAG-Cube는 HyDE, CAD, SCD를 서로 독립적인 이진 실험 요인으로 두고 여덟 조합을 분석하는 실험 구성이다. 본 연구는 각 기법의 목표에 맞는 통제 대비와 직접 언어 지표로 이 조합을 평가한다.
 
 **주제어:** 검색 증강 생성, 학술논문 질의응답, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어, 언어 이탈, RAGAS
 
@@ -24,7 +24,7 @@ RAG는 외부 문서를 생성 모델에 제공하지만 검색 성공만으로 
 - **CAD:** 같은 모델의 문맥 조건부 점수와 무문맥 점수를 대조하여 근거와 무관한 생성을 억제한다.
 - **SCD:** 한국어 목표 토큰, 비목표 방해 토큰, 기호 중심 중립 토큰으로 어휘를 나누고 각 raw logit에 정해진 계수를 적용한다.
 
-논문의 연구 계층은 세 기법의 2×2×2 조합을 실행하고, 비교 조건이 통제된 대비와 기법별 목표 지표를 분석한다. 시스템 계층은 동일 코드베이스에서 논문 질의응답 기능과 모듈 선택 지점을 제공한다. 이에 따라 본 논문은 조합 실험, 결과 해석, 실제 시스템 구현을 하나의 흐름으로 다룬다.
+RAG-Cube는 세 기법의 2×2×2 조합을 실행하고, 비교 조건이 통제된 대비와 기법별 목표 지표를 분석한다. 본 논문은 이 조합 실험과 결과 해석을 다루며, 같은 저장소에 있는 제품 기능은 연구 범위에 포함하지 않는다.
 
 ## 3. 배경
 
@@ -83,19 +83,18 @@ Li 등 [11]은 다국어 RAG의 language drift를 분석하고 SCD를 제안한�
 - **RQ2:** HyDE와 SCD를 끄고 검색 문맥을 동일하게 유지할 때 CAD는 답변 품질을 어떻게 변화시키는가?
 - **RQ3:** 한국어 대상 SCD는 HyDE와 CAD의 포함 여부에 따라 언어 이탈을 줄이는가?
 - **RQ4:** 세 요인의 결합에서 어떤 품질·언어 trade-off가 나타나는가?
-- **RQ5:** 세 기법과 A–F 질의 기능은 M-RAG 코드베이스에서 어떻게 구현되는가?
 
 HyDE와 CAD는 faithfulness, answer relevancy, context precision, context recall을 모두 보고하되 통제된 19질의 대비를 사용한다. SCD는 직접 한국어 비율과 언어 이탈률을 1차 지표로 사용하고, 동일 문맥 대칭 패널에서 faithfulness와 answer relevancy를 별도로 확인한다.
 
-## 6. 시스템 개요
+## 6. RAG-Cube 실험 개요
 
-![M-RAG 시스템 개요](figures/system_overview.svg)
+![RAG-Cube 요인 설계](figures/factorial_design.svg)
 
-**그림 1.** M-RAG의 연구 계층과 서비스 계층. 연구 계층은 HyDE × CAD × SCD 조합을 평가하고, 서비스 계층은 A–F 논문 질의 기능을 구현한다.
+**그림 1.** RAG-Cube 실험 구성. HyDE, CAD, SCD를 독립적인 이진 요인으로 두고, 여덟 조합에 같은 고정 입력과 backbone을 사용한다.
 
-연구 계층은 `experiments/`의 고정 Paper-RAG backbone, 생성 runner, RAGAS evaluator, 언어 준수 analyzer로 구성된다. 서비스 계층은 FastAPI backend와 React frontend로 논문 업로드, 텍스트 추출, chunking, vector indexing, hybrid retrieval, reranking, 답변 생성, SSE streaming, 출처 표시, 후속 질문, 인용, 비교, 요약, 퀴즈 기능을 제공한다.
+실험 구성은 `experiments/`의 고정 Paper-RAG backbone, 생성 runner, RAGAS evaluator, 언어 준수 analyzer로 이루어진다. 코퍼스, 질의 분할, 검색 설정, 생성기, 평가 프로토콜은 고정하고 HyDE, CAD, SCD 요인만 바꾼다.
 
-문서는 parsing과 section detection을 거쳐 chunk로 분할되고 dense·sparse 색인에 저장된다. 사용자 질의는 서비스 경로가 제공하는 검색, 재정렬, 문맥 구성, 생성 단계를 거친다. 연구용 runner는 같은 모듈 구현을 사용하면서 실험에 필요한 HyDE, CAD, SCD 설정을 명시적으로 고정한다.
+연구용 runner는 각 조합에 필요한 HyDE, CAD, SCD 설정을 명시적으로 고정한다. 같은 저장소의 제품 기능은 실험 요인이나 본 논문의 연구 기여가 아니다.
 
 ## 7. 고정 Paper-RAG Backbone
 
@@ -229,24 +228,7 @@ Faithfulness는 네 패널 모두 신뢰구간이 0을 포함했다. Answer rele
 
 HyDE의 기준 대비에서는 answer relevancy가 소폭 개선됐지만 다른 품질 지표의 방향은 확정되지 않았다. CAD의 동일 문맥 대비에서도 품질 향상은 확인되지 않았다. 반면 SCD의 한국어 비율 차이는 HyDE와 CAD의 on/off 네 조합에서 모두 양수였다. 그러므로 이 결과는 세 기법을 항상 함께 켜는 단일 설정을 지지하지 않으며, SCD는 한국어 출력이 필요한 조건에서 사용하고 HyDE와 CAD는 작업별 검증을 거쳐 선택하는 해석에 부합한다.
 
-## 12. M-RAG 시스템 구현
-
-M-RAG backend의 진입점은 `backend/api/main.py`이며, FastAPI endpoint가 문서·질의·사용자·인용·내보내기 기능을 제공한다. `backend/modules/`는 parsing, section detection, embedding, hybrid retrieval, reranking, HyDE, CAD, SCD, follow-up generation을 담당한다. `backend/pipelines/`는 A–F 질의 흐름을 구성한다. Frontend는 Vite, React, TypeScript를 사용하며 논문 뷰어, 채팅, 출처 탐색, 스트리밍 응답을 제공한다. 실험 runner는 평가한 SCD 공식과 매개변수를 명시적으로 전달하며, 서비스 pipeline은 경로별 HyDE·CAD·SCD 활성화 선택 지점을 제공한다.
-
-**표 5. 현재 A–F 서비스 경로와 모듈 선택 지점**
-
-| 경로 | 서비스 목적 | 코드에 구현된 선택 지점 |
-|---|---|---|
-| A | 단순 질의응답 | HyDE 선택, CAD·SCD 선택 |
-| B | 절 중심 질의응답 | HyDE 선택, CAD·SCD 선택 |
-| C | 문서 비교 | CAD·SCD 선택 |
-| D | 인용·서지 탐색 | CAD·SCD 선택 |
-| E | 구조화 요약 | CAD·SCD 선택 |
-| F | 퀴즈·플래시카드 | HyDE 선택, CAD·SCD 선택 |
-
-표 5는 현재 코드의 함수 인자와 processor 연결을 요약한 것이며, 경로별 최적 설정을 뜻하지 않는다. A–F 유형별 모듈 선택은 충분한 유형별 질의로 별도 검증할 수 있다.
-
-## 13. 논의
+## 12. 논의
 
 HyDE 기준 대비는 answer relevancy에서 작지만 양의 차이를 보였다. Faithfulness와 context precision의 구간은 0을 포함했고 context recall 구간의 상한은 0이므로, 이 표본만으로 검색 품질 전반의 개선을 일반화할 수는 없다. HyDE on/off 문맥 변화는 질의 확장이 검색 결과를 바꾸는 종단간 효과에 해당한다.
 
@@ -254,21 +236,21 @@ CAD 대비는 검색 문맥이 19/19 동일했으므로 디코딩 변화에 초�
 
 SCD는 직접 측정한 한국어 준수율에서 가장 큰 차이를 보였고, HyDE와 CAD의 네 조합 모두에서 방향이 일관됐다. 검색 문맥이 같은 HyDE-off 38쌍에서도 비슷한 크기가 유지되어, 영어 학술 근거를 사용하는 조건에서 출력 언어를 디코딩 단계에서 조절할 수 있음을 보여준다. 숫자, 수식, 문장부호, 인용 표시는 중립으로 유지되지만 일반 영문 기술어는 별도 whitelist로 보호되지 않는다.
 
-세 기법의 결과는 하나의 최고 설정보다 모듈별 검증의 필요성을 보여준다. SCD의 언어 제어 효과는 확인됐고, HyDE와 CAD의 품질 효과는 이 표본의 통제 대비 범위에서 해석해야 한다. M-RAG 구현은 각 기능을 독립적으로 선택할 수 있는 구조를 제공한다.
+세 기법의 결과는 하나의 최고 설정보다 요인별 검증의 필요성을 보여준다. SCD의 언어 제어 효과는 확인됐고, HyDE와 CAD의 품질 효과는 이 표본의 통제 대비 범위에서 해석해야 한다. RAG-Cube는 이 요인들을 구분해 분석한다.
 
-## 14. 한계와 향후 연구
+## 13. 한계와 향후 연구
 
 첫째, 실험은 4개 영어 논문과 19개 한국어 질의에 한정되며 HyDE·CAD 품질 대비도 각각 19쌍이다. 더 다양한 학술 분야와 독립 작성 질의로 외적 타당성을 검증할 필요가 있다. 둘째, RAGAS 품질 평가는 LLM judge에 영향을 받으며, SCD 대칭 패널의 answer relevancy 구간은 judge에 따라 달랐다. 독립 제공자와 블라인드 사람 평가가 추가되면 품질 해석을 강화할 수 있다.
 
-셋째, HyDE-on 셀에서는 설정별로 가상 문서가 다시 생성되어 CAD on/off 사이의 검색 문맥이 충분히 일치하지 않았다. 따라서 CAD 품질 결론은 문맥이 완전히 같은 HyDE-off 대비에 한정했다. 넷째, 숫자 환각률과 질의 유형별 효과는 전용 주석과 충분한 표본이 없어 측정하지 않았다. 다섯째, CAD는 무문맥 분기 계산으로 추론 비용이 증가하고 SCD는 tokenizer의 subword 구성에 영향을 받는다. 여섯째, 서비스 계층은 경로별 최적화, 다중 사용자 부하, 관측성, 배포 안정성 검증이 더 필요하다.
+셋째, HyDE-on 셀에서는 설정별로 가상 문서가 다시 생성되어 CAD on/off 사이의 검색 문맥이 충분히 일치하지 않았다. 따라서 CAD 품질 결론은 문맥이 완전히 같은 HyDE-off 대비에 한정했다. 넷째, 숫자 환각률과 질의 유형별 효과는 전용 주석과 충분한 표본이 없어 측정하지 않았다. 다섯째, CAD는 무문맥 분기 계산으로 추론 비용이 증가하고 SCD는 tokenizer의 subword 구성에 영향을 받는다.
 
-## 15. 결론
+## 14. 결론
 
-본 논문은 한국어 질의 기반 영문 학술논문 RAG를 위해 HyDE, CAD, SCD의 2×2×2 조합을 실행하고, 이를 M-RAG 연구·서비스 코드베이스로 구현하였다. 통제된 19개 질의 대비에서 HyDE는 answer relevancy `+0.0303`의 차이를 보였지만 다른 품질 지표의 신뢰구간은 0을 포함하거나 경계에 닿았다. 검색 문맥이 완전히 같은 CAD 대비에서는 faithfulness 차이가 `+0.0023`이었고 품질 향상은 확인되지 않았다. SCD는 76개 대응쌍에서 한국어 비율을 평균 `+0.2203` 높이고 언어 이탈 출력을 26개에서 12개로 줄였으며, HyDE와 CAD의 네 조합 모두에서 양의 평균 차이를 보였다.
+본 논문은 한국어 질의 기반 영어 학술논문 RAG에서 RAG-Cube로 구성한 HyDE, CAD, SCD의 2×2×2 조합을 실행하였다. 통제된 19개 질의 대비에서 HyDE는 answer relevancy `+0.0303`의 차이를 보였지만 다른 품질 지표의 신뢰구간은 0을 포함하거나 경계에 닿았다. 검색 문맥이 완전히 같은 CAD 대비에서는 faithfulness 차이가 `+0.0023`이었고 품질 향상은 확인되지 않았다. SCD는 76개 대응쌍에서 한국어 비율을 평균 `+0.2203` 높이고 언어 이탈 출력을 26개에서 12개로 줄였으며, HyDE와 CAD의 네 조합 모두에서 양의 평균 차이를 보였다.
 
-SCD의 언어 준수 결과는 동일 문맥 38쌍에서도 유지됐으며, 대칭 품질 검증에서는 judge 간에 반복되는 비영점 품질 차이가 나타나지 않았다. 서비스 경로는 세 기법의 통합과 활성화 선택 지점을 제공하고, 평가한 SCD 설정은 연구 runner에서 재현한다. 본 연구는 하나의 생성 행렬에서 검증 가능한 통제 대비만 사용하여 한국어 학술문헌 RAG의 구현과 조합별 동작을 제시한다.
+SCD의 언어 준수 결과는 동일 문맥 38쌍에서도 유지됐으며, 대칭 품질 검증에서는 judge 간에 반복되는 비영점 품질 차이가 나타나지 않았다. 본 연구는 하나의 생성 행렬에서 검증 가능한 통제 대비만 사용하여 한국어 학술문헌 RAG의 조합별 동작을 제시한다.
 
-## 16. 참고문헌
+## 15. 참고문헌
 
 [1] P. Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," NeurIPS 33, 2020.
 

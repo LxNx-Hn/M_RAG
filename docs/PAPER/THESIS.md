@@ -1,14 +1,14 @@
-# M-RAG: System Implementation and HyDE × CAD × SCD Evaluation for Question Answering over English Academic Papers with Korean Queries
+# HyDE, CAD, and SCD Combination Experiments in RAG over English Academic Papers with Korean Queries
 
 ## 1. Abstract
 
-Retrieval-Augmented Generation (RAG) retrieves external documents and conditions answer generation on the retrieved evidence. Korean question answering over English academic papers adds two challenges: retrieval must bridge the linguistic and stylistic gap between Korean queries and English scholarly prose, and generation must remain faithful to English evidence while producing a stable Korean answer. This thesis decomposes the problem into retrieval expansion, evidence-faithfulness control, and output-language control, and integrates the three functions into an implemented paper-question-answering system named M-RAG.
+Retrieval-Augmented Generation (RAG) retrieves external documents and conditions answer generation on the retrieved evidence. Korean question answering over English academic papers adds two challenges: retrieval must bridge the linguistic and stylistic gap between Korean queries and English scholarly prose, and generation must remain faithful to English evidence while producing a stable Korean answer. This thesis analyzes retrieval expansion, evidence-faithfulness control, and output-language control as separate experimental factors.
 
 The investigated methods are Hypothetical Document Embeddings (HyDE), Context-Aware Decoding (CAD), and Korean-target Soft Constrained Decoding (SCD). HyDE expands the retrieval representation with a hypothetical answer-like document, CAD contrasts context-conditioned and no-context token distributions, and SCD applies language-specific coefficients to raw logits partitioned into target, distractor, and neutral tokens. The Paper-RAG backbone—BGE-M3, BM25, weighted Reciprocal Rank Fusion, and CrossEncoder reranking—and the Mi:dm 2.0 Base generator are held fixed. The eight on/off combinations are applied to 19 queries, producing 152 answers.
 
 In a 19-query SCD-off baseline comparison, HyDE changes answer relevancy by `+0.0303` (95% CI `[+0.0016, +0.0615]`), while the faithfulness, context-precision, and context-recall intervals include or touch zero. In a HyDE-off and SCD-off comparison with byte-identical contexts for all 19 queries, CAD changes faithfulness by `+0.0023` (95% CI `[−0.0903, +0.0952]`), providing no clear quality improvement. SCD raises the Korean-character ratio by `+0.2203` over 76 matched pairs, with 68 improvements. Outputs below the 0.5 threshold decrease from 26 to 12, and the mean difference is positive in all four HyDE × CAD strata. It remains `+0.2198` over 38 HyDE-off pairs with byte-identical contexts.
 
-M-RAG implements paper upload, hybrid retrieval, reranking, answer generation, source display, streaming, comparison, summarization, citation support, and quiz generation through a FastAPI backend, a React frontend, and six A–F query routes. Research runners explicitly compose HyDE, CAD, and SCD, while the service routes expose module-selection points required by their functions. The study implements one 2×2×2 generation matrix and evaluates each method through controlled contrasts and target-specific measurements within the same codebase.
+This study calls the resulting 2×2×2 configuration matrix RAG-Cube. RAG-Cube treats HyDE, CAD, and SCD as independent binary factors and analyzes their eight combinations through controlled contrasts and target-specific measurements.
 
 **Keywords:** Retrieval-Augmented Generation, academic question answering, HyDE, Context-Aware Decoding, Soft Constrained Decoding, Korean, language drift, RAGAS
 
@@ -24,7 +24,7 @@ This study separates retrieval and generation control into three factors:
 - **CAD:** contrasts the same model under context and no-context conditions to suppress generation that is weakly supported by the paper.
 - **SCD:** partitions the vocabulary into Korean target tokens, non-target distractor tokens, and symbol-oriented neutral tokens, then applies fixed coefficients to their raw logits.
 
-The research layer executes the 2×2×2 combinations and analyzes controlled contrasts with method-specific target measurements. The system layer provides paper-QA functions and module-selection points in the same codebase. The thesis therefore treats combination evaluation, result interpretation, and system implementation as one coherent workflow.
+RAG-Cube executes the 2×2×2 combinations and analyzes controlled contrasts with method-specific target measurements. The thesis concerns this experiment and its result interpretation; product-facing functions in the shared repository are outside the research scope.
 
 ## 3. Background
 
@@ -40,7 +40,7 @@ Missing evidence cannot be used by the generator, while retrieved evidence can s
 
 ### 3.2 Dense, Sparse, and Hybrid Retrieval
 
-BGE-M3 represents Korean queries and English passages in a shared multilingual vector space [3]. BM25 complements semantic retrieval with exact lexical matching for terminology, numbers, and acronyms [4]. M-RAG combines the two rankings with dense 0.6 and BM25 0.4 weighted Reciprocal Rank Fusion [5].
+BGE-M3 represents Korean queries and English passages in a shared multilingual vector space [3]. BM25 complements semantic retrieval with exact lexical matching for terminology, numbers, and acronyms [4]. The fixed backbone combines the two rankings with dense 0.6 and BM25 0.4 weighted Reciprocal Rank Fusion [5].
 
 ```text
 weighted_RRF(d) = 0.6 / (k + rank_dense(d))
@@ -81,19 +81,18 @@ Let `q_ko` be a Korean query, `D_en` a collection of English-paper chunks, `C` t
 - **RQ2:** With HyDE and SCD disabled and retrieved contexts held identical, how does CAD change answer quality?
 - **RQ3:** Does Korean-target SCD reduce language drift across the HyDE × CAD combinations?
 - **RQ4:** What quality and language trade-offs appear when the three factors are combined?
-- **RQ5:** How are the three methods and A–F query functions implemented in the M-RAG codebase?
 
 HyDE and CAD report faithfulness, answer relevancy, context precision, and context recall through controlled 19-query contrasts. SCD uses the direct Korean-character ratio and language-drift rate as primary measurements, with faithfulness and answer relevancy checked separately in matched-context symmetric panels.
 
-## 6. System Overview
+## 6. RAG-Cube Experimental Overview
 
-![M-RAG system overview](figures/system_overview.svg)
+![RAG-Cube factorial design](figures/factorial_design.svg)
 
-**Figure 1.** Research and service layers of M-RAG. The research layer evaluates HyDE × CAD × SCD combinations, and the service layer implements six paper-QA routes.
+**Figure 1.** RAG-Cube experimental configuration. HyDE, CAD, and SCD are independent binary factors; the eight combinations use the same fixed inputs and backbone.
 
-The research layer consists of the fixed Paper-RAG backbone, generation runners, RAGAS evaluators, and language-adherence analyzers under `experiments/`. The service layer uses FastAPI and React to provide paper upload, text extraction, chunking, indexing, hybrid retrieval, reranking, answer generation, SSE streaming, source display, follow-up questions, citation support, comparison, summarization, and quiz generation.
+The experiment consists of the fixed Paper-RAG backbone, generation runners, RAGAS evaluators, and language-adherence analyzers under `experiments/`. It retains the same corpus, query split, retrieval settings, generator, and evaluation protocol while changing only the HyDE, CAD, and SCD factors.
 
-Documents are parsed, section-detected, chunked, and stored in dense and sparse indexes. Each user request follows its service route through retrieval, reranking, context construction, and generation. Research runners use the same module implementations while explicitly fixing the HyDE, CAD, and SCD settings required by the experiment.
+Research runners explicitly fix the HyDE, CAD, and SCD settings required by each configuration. The repository also contains product-facing code, but that code is neither an experimental factor nor a research contribution in this thesis.
 
 ## 7. Fixed Paper-RAG Backbone
 
@@ -227,24 +226,7 @@ All four faithfulness intervals include zero. Mean answer-relevancy differences 
 
 HyDE yields a small answer-relevancy improvement in the baseline contrast, while the directions of the other quality metrics remain unresolved. The identical-context CAD contrast does not establish a quality improvement. In contrast, the Korean-ratio difference from SCD is positive in all four HyDE × CAD strata. The results do not support a single always-on configuration: SCD is appropriate when Korean output control is required, while HyDE and CAD require task-specific validation.
 
-## 12. M-RAG System Implementation
-
-The backend entry point is `backend/api/main.py`. FastAPI endpoints expose paper, query, user, citation, and export functions. Modules under `backend/modules/` implement parsing, section detection, embedding, hybrid retrieval, reranking, HyDE, CAD, SCD, and follow-up generation. Pipelines under `backend/pipelines/` compose the A–F query flows. The Vite, React, and TypeScript frontend provides paper viewing, chat, source navigation, and streaming responses. Research runners explicitly pass the evaluated SCD formula and parameters, while service pipelines expose route-specific HyDE, CAD, and SCD enable/disable points.
-
-**Table 5. Current A–F service routes and module-selection points**
-
-| Route | Service purpose | Selection points implemented in code |
-|---|---|---|
-| A | Simple QA | Optional HyDE, CAD, and SCD |
-| B | Section-focused QA | Optional HyDE, CAD, and SCD |
-| C | Paper comparison | Optional CAD and SCD |
-| D | Citation and bibliography | Optional CAD and SCD |
-| E | Structured summarization | Optional CAD and SCD |
-| F | Quiz and flashcards | Optional HyDE, CAD, and SCD |
-
-Table 5 summarizes current function arguments and processor connections; it is not a route-specific optimum. Module selection for each A–F query type requires a sufficiently large type-specific evaluation set.
-
-## 13. Discussion
+## 12. Discussion
 
 The baseline HyDE contrast shows a small positive answer-relevancy difference. The faithfulness and context-precision intervals include zero, and the context-recall interval reaches zero, so the sample does not support a broad retrieval-quality improvement. The context changes between HyDE on and off represent the intended end-to-end retrieval effect of query expansion.
 
@@ -252,21 +234,21 @@ The CAD contrast holds retrieved context identical for all 19 queries and theref
 
 SCD produces the largest direct difference in Korean adherence and preserves a positive direction across all HyDE × CAD combinations. A similar magnitude remains in the 38 HyDE-off pairs with identical contexts, showing that output language can be adjusted at decoding time when the evidence is English. Digits, formulas, punctuation, and citation markers are neutral, but general English technical terms are not protected by a separate whitelist.
 
-Together, the results show the need to validate each module rather than assume a universally optimal configuration. SCD has an established language-control effect, while HyDE and CAD quality effects remain bounded by the controlled comparisons in this sample. M-RAG provides a structure in which these functions can be selected independently.
+Together, the results show the need to validate each factor rather than assume a universally optimal configuration. SCD has an established language-control effect, while HyDE and CAD quality effects remain bounded by the controlled comparisons in this sample. RAG-Cube keeps these factors distinguishable in the analysis.
 
-## 14. Limitations and Future Work
+## 13. Limitations and Future Work
 
 The experiment is limited to four English papers and 19 Korean queries, and each HyDE or CAD quality contrast contains 19 pairs. Additional academic domains and independently authored queries are required to test external validity. RAGAS quality scores depend on the LLM judge, and the answer-relevancy intervals in the symmetric SCD panels differ by judge. Independent-provider evaluation and blinded human review would strengthen quality interpretation.
 
-In HyDE-on cells, hypothetical documents were regenerated independently across settings, so CAD on/off contexts were not sufficiently identical. The CAD quality conclusion is therefore restricted to the fully matched HyDE-off contrast. Numeric hallucination and query-type-specific effects are not measured because dedicated annotations and sufficiently large per-type samples are unavailable. CAD adds inference cost through its no-context branch, and SCD depends on tokenizer-specific subword composition. The service layer also requires route-specific optimization, load testing, observability, and deployment validation.
+In HyDE-on cells, hypothetical documents were regenerated independently across settings, so CAD on/off contexts were not sufficiently identical. The CAD quality conclusion is therefore restricted to the fully matched HyDE-off contrast. Numeric hallucination and query-type-specific effects are not measured because dedicated annotations and sufficiently large per-type samples are unavailable. CAD adds inference cost through its no-context branch, and SCD depends on tokenizer-specific subword composition.
 
-## 15. Conclusion
+## 14. Conclusion
 
-This thesis executes the 2×2×2 combinations of HyDE, CAD, and SCD for Korean-query question answering over English academic papers and implements them in the M-RAG research and service codebase. In a controlled 19-query contrast, HyDE changes answer relevancy by `+0.0303`, while the other quality intervals include or touch zero. In the byte-identical-context CAD contrast, faithfulness changes by `+0.0023`, and no quality improvement is established. SCD raises the Korean-character ratio by `+0.2203` over 76 matched pairs, reduces drifting outputs from 26 to 12, and produces a positive mean difference in all four HyDE × CAD strata.
+This thesis executes the RAG-Cube 2×2×2 combinations of HyDE, CAD, and SCD for Korean-query question answering over English academic papers. In a controlled 19-query contrast, HyDE changes answer relevancy by `+0.0303`, while the other quality intervals include or touch zero. In the byte-identical-context CAD contrast, faithfulness changes by `+0.0023`, and no quality improvement is established. SCD raises the Korean-character ratio by `+0.2203` over 76 matched pairs, reduces drifting outputs from 26 to 12, and produces a positive mean difference in all four HyDE × CAD strata.
 
-The SCD language result remains in 38 matched-context pairs, while the symmetric quality check finds no nonzero quality difference that replicates across judges. The service routes provide integration and enable/disable points for the three methods, while the evaluated SCD setting is reproduced by the research runner. By using only auditable controlled contrasts from one generation matrix, the study presents the implementation and combination-specific behavior of Korean academic RAG.
+The SCD language result remains in 38 matched-context pairs, while the symmetric quality check finds no nonzero quality difference that replicates across judges. By using only auditable controlled contrasts from one generation matrix, the study presents the combination-specific behavior of Korean academic RAG.
 
-## 16. References
+## 15. References
 
 [1] P. Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," NeurIPS 33, 2020.
 

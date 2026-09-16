@@ -22,7 +22,7 @@ This folder contains the current thesis-facing documents for the focused directi
 HyDE × CAD × SCD combination evaluation in Korean-query / English-paper RAG
 ```
 
-The folder covers both the 2×2×2 research matrix and the implemented A–F M-RAG service layer.
+The thesis-facing documents cover the 2×2×2 research matrix. Product features and A–F routes are retained in the separate application document, not presented as thesis contributions.
 
 ## Reading Order
 
@@ -41,8 +41,8 @@ The folder covers both the 2×2×2 research matrix and the implemented A–F M-R
 
 ## Current Research Scope
 
-- Research method: 2×2×2 HyDE × CAD × SCD generation matrix on a fixed Paper-RAG backbone.
-- System implementation: A-F routed M-RAG paper-review application.
+- Research method: RAG-Cube, a 2×2×2 HyDE × CAD × SCD configuration matrix on a fixed Paper-RAG backbone.
+- Out of thesis scope: the A-F routed M-RAG paper-review application; see the separate application document when its implementation record is needed.
 - HyDE quality contrast: answer relevancy `+0.0303 [+0.0016, +0.0615]` with CAD and SCD disabled; the other quality intervals include or touch zero.
 - CAD quality contrast: faithfulness `+0.0023 [−0.0903, +0.0952]` over 19 byte-identical-context pairs; no quality improvement is established.
 - Language-control result: SCD improves the direct Korean-character ratio by `+0.2203` over 76 matched pairs and reduces drift from 26/76 to 12/76.
@@ -56,8 +56,7 @@ The folder covers both the 2×2×2 research matrix and the implemented A–F M-R
 2. Controlled HyDE and CAD quality contrasts
 3. SCD language-adherence results
 4. Symmetric two-judge SCD quality check
-5. M-RAG implementation and A-F route policy
 
 ## Evidence Handling
 
-The manuscripts use only the current 152-answer generation matrix and contrasts whose inputs were audited. Experiment reports retain raw provenance, judge-specific scores remain in their stated protocols, and the A-F table describes implemented selection points rather than a route-level optimum.
+The manuscripts use only the current 152-answer generation matrix and contrasts whose inputs were audited. Experiment reports retain raw provenance and judge-specific scores remain in their stated protocols. Service implementation evidence is maintained separately and is not a route-level experimental result.
