@@ -140,6 +140,14 @@ KOREAN_REPAIR_SYSTEM_PROMPT = (
     "placeholder, symbol, number, citation, fact, omission, order, and formatting. "
     "Do not summarize, answer, or add commentary. Output only the numbered passages."
 )
+NUMERIC_INTEGRITY_REPAIR_SYSTEM_PROMPT = (
+    "Repair a lossless technical normalization whose numeric-token validation "
+    "failed. Translate only natural-language prose into the requested target "
+    "language. Preserve every opaque placeholder exactly once, and do not add "
+    "numbered-list prefixes, counters, dates, percentages, citations, or any "
+    "other numeric token. Preserve facts, omissions, order, and formatting. "
+    "Output only the numbered passages."
+)
 USER_PROMPT = """Normalize all {count} passages into {language}. Even if a passage is already mostly in {language}, process it under the same rule and preserve its meaning and defects. Return exactly {count} passages in the original order. Put each marker on its own line as [[N]]. The integrity list below gives opaque placeholders that must reappear verbatim in each corresponding output. Never translate, delete, duplicate, reorder, or add characters inside a placeholder. Do not print the integrity list separately.
 
 Integrity list:
@@ -648,6 +656,16 @@ def _normalize_segment_with_retries(
         try:
             return _normalize_batch_once(chat_model, [task])[task.key]
         except NormalizationError as exc:
+            if "number preservation" in str(exc):
+                for _ in range(3):
+                    try:
+                        return _normalize_batch_once(
+                            chat_model,
+                            [task],
+                            system_prompt=NUMERIC_INTEGRITY_REPAIR_SYSTEM_PROMPT,
+                        )[task.key]
+                    except NormalizationError:
+                        continue
             if task.target == "en" and "no Hangul" in str(exc):
                 try:
                     return _normalize_batch_once(
