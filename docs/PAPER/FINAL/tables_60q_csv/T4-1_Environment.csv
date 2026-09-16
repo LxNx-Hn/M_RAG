@@ -1,0 +1,6 @@
+"구성","저장 record 기준 값"
+"생성 모델","K-intelligence/Midm-2.0-Base-Instruct"
+"디코딩","deterministic greedy"
+"검색 backend","BGE-M3 dense + BM25 sparse + RRF + CrossEncoder rerank"
+"retrieval pool / rerank","8 / 8"
+"문맥 수","5"
