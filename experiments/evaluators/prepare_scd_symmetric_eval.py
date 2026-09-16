@@ -466,8 +466,14 @@ def _validate_normalized(task: TextTask, output: str) -> None:
             or 0x3130 <= ord(char) <= 0x318F
         )
         reference_entry_count = len(CITATION_RE.findall(task.source))
+        bibliography_signal_count = sum(
+            signal in task.source
+            for signal in ("arXiv", "et al.", "vol.", "pp.", "preprint")
+        )
         literal_technical_block = source_hangul == 0 and (
-            table_line_count >= 4 or reference_entry_count >= 4
+            table_line_count >= 4
+            or reference_entry_count >= 4
+            or (reference_entry_count >= 2 and bibliography_signal_count >= 1)
         )
         # Dataset labels, model identifiers, and citation cells remain literal in
         # table-heavy answers and citation blocks. Korean prose validation stays

@@ -186,6 +186,14 @@ def test_reference_only_korean_answer_allows_preserved_bibliography() -> None:
     _validate_normalized(TextTask("references", "answer", "ko", source), source)
 
 
+def test_bibliographic_answer_with_two_citations_allows_preserved_identifiers() -> None:
+    source = (
+        "arXiv preprint arXiv:2305.06296, 2023. [7] P. Lewis et al., "
+        "Retrieval-augmented generation, vol. 33, pp. 9459-9474, 2020. [8]"
+    )
+    _validate_normalized(TextTask("references", "answer", "ko", source), source)
+
+
 def test_korean_segment_rejects_untranslated_bibliographic_title() -> None:
     fragment = (
         '[26] Jia, Y., et al. "Evaluation of Retrieval-Augmented Generation Models." '
