@@ -657,12 +657,22 @@ def _normalize_segment_with_retries(
             return _normalize_batch_once(chat_model, [task])[task.key]
         except NormalizationError as exc:
             if "number preservation" in str(exc):
+                source_numbers = NUMBER_RE.findall(task.source)
+                numeric_repair_prompt = (
+                    NUMERIC_INTEGRITY_REPAIR_SYSTEM_PROMPT
+                    + " The exact source numeric-token list is "
+                    + json.dumps(source_numbers, ensure_ascii=False)
+                    + ". The output must contain this exact list and no other "
+                    "Arabic-number token. When the source uses a lexical concept "
+                    "such as 'non-zero', translate it lexically rather than adding "
+                    "a numeral."
+                )
                 for _ in range(3):
                     try:
                         return _normalize_batch_once(
                             chat_model,
                             [task],
-                            system_prompt=NUMERIC_INTEGRITY_REPAIR_SYSTEM_PROMPT,
+                            system_prompt=numeric_repair_prompt,
                         )[task.key]
                     except NormalizationError:
                         continue

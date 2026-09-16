@@ -71,6 +71,12 @@ def test_validation_preserves_numbers_and_citations() -> None:
         _validate_normalized(task, "점수는 88.0%이다 [12].")
 
 
+def test_validation_rejects_a_new_numeric_token_for_lexical_non_zero() -> None:
+    task = TextTask("key", "answer_segment", "ko", "even a non-zero alpha")
+    with pytest.raises(NormalizationError, match="number preservation"):
+        _validate_normalized(task, "0이 아닌 알파에서도")
+
+
 def test_validation_requires_target_language_dominance() -> None:
     english = TextTask("key-en", "question", "en", "질문입니다.")
     _validate_normalized(english, "This is a question.")
