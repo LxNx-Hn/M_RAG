@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="801.225pt" height="441.752187pt" viewBox="0 0 801.225 441.752187" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 441.752187 
+L 801.225 441.752187 
+L 801.225 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 47.402094)">때 어떤 차이점이 있는지 설명해주세요</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 57.832827)"/>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 68.263559)">Answer:</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 78.694292)"/>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 90.197708)">제공된 논문 컨텍스트를 바탕으로 RAG(Retrieval-Augmented</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 101.742561)">Generation)와 파인튜닝(Fine-tuning) 간의 주요 차이점을 설명드리겠습니다.</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 112.214731)"/>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 122.645464)">## 1. 외부 지식 요구사항 측면</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 133.076197)"/>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 143.750802)">**RAG(검색 증강 생성)**</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 154.181534)">- 외부 지식에 크게 의존하는 방식으로, 문서에서 언급된 바와 같이 "RAG relies on</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 165.739733)">external knowledge to enhance LLMs"(RAG는 LLM 향상을 위해</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 176.455775)">외부 지식에 의존한다)</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 187.013745)">- "RAG excels in dynamic environments by offering</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 197.613153)">realtime knowledge updates and effective utilization</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 208.212561)">of external knowledge sources with high</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 219.757414)">interpretability"(RAG는 실시간 지식 업데이트와 높은 해석 가능성을 가진 외부</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 230.583022)">지식 소스의 효과적 활용으로 동적 환경에서 탁월하다)</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 241.013755)"/>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 251.688359)">**파인튜닝(미세조정)**</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 262.119092)">- 상대적으로 외부 지식 의존도가 낮으며, 모델 자체의 내재적 능력에 더 중점을 둠</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 272.677062)">- "Unsupervised fine-tuning shows some improvement,</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 284.221916)">RAG consistently outperforms it"(비지도 미세조정은 일부 개선을</text>
+    </g>
+    <g clip-path="url(#pbbfc365718)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.0394 294.937958)">보이지만, RAG가 일관되게 이를 능가한다) … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="11.0394" y="426.276987" transform="rotate(-0 11.0394 426.276987)">faithfulness=1.0 · answer_relevancy=0.7184 · context_precision=0.95 · context_recall=1.0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2f6bff" x="7.2" y="14.792187" transform="rotate(-0 7.2 14.792187)">SCD OFF</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="text_4">
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 47.402094)">때 어떤 차이점이 있는지 설명해주세요</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 57.832827)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 68.507431)">[질문]</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 78.938164)">논문에서 언급된 세 가지 방법 중 파인튜닝과 프롬프트 엔지니어링의 특징을 비교하여 설명해주세요</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 89.368897)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 100.043502)">[질문] 파인튜닝과 프롬프트 엔지니어링의 차이점을 설명하고 각각의 장단점을 비교해주세요</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 110.474234)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 121.148839)">[질문] 파인튜닝과 프롬프트 엔지니어링의 차이점을 설명하고 각 방법의 특성을 비교해주세요.</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 131.579572)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 142.010305)">위 질문들은 모두 동일한 내용을 묻고 있으므로 하나의 질문으로 통합하여 답변하겠습니다.</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 152.441037)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 162.87177)">## 파인튜닝과 프롬프트 엔지니어링의 비교 분석</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 173.302503)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 183.733236)">논문에서 제시된 내용을 바탕으로 파인튜닝과 프롬프트 엔지니어링의 차이점을 체계적으로 분석하면</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 194.163969)">다음과 같습니다.</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 204.594702)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 215.025434)">### 기본 개념 및 접근 방식의 차이</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 225.456167)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 236.959583)">**프롬프트 엔지니어링(Prompt Engineering)**은 모델의 내재적 능력을 최대한</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 247.442356)">활용하는 접근법으로, 외부 지식이나 모델 적응에 대한 필요성이 최소화된 방법입니다. 이는 기존</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 257.873089)">모델의 파라미터를 변경하지 않고도 적절한 프롬프트 설계를 통해 원하는 결과를 얻는 방식입니다.</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 268.303822)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 279.807237)">반면 **파인튜닝(Fine-tuning)**은 모델의 파라미터를 특정 작업이나 데이터셋에 맞게</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 290.279408)">조정하는 방법입니다. 논문에서는 이를 "학생이 시간이 지남에 따라 지식을 내면화하는 것"에</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 300.759622)">비유하며, 특정 구조나 스타일, 형식을 복제해야 하는 시나리오에 적합하다고 설명합니다.</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 311.190355)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 321.621087)">### 두 방법의 특성 비교</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 332.05182)"/>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 342.482553)">**프롬프트 엔지니어링의 특징:**</text>
+    </g>
+    <g clip-path="url(#p90642a0f08)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(413.9244 353.157158)">- 외 … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="413.9244" y="426.276987" transform="rotate(-0 413.9244 426.276987)">faithfulness=0.8095 · answer_relevancy=0.4968 · context_precision=0.95 · context_recall=1.0</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #c86a1b" x="410.085" y="14.792187" transform="rotate(-0 410.085 14.792187)">SCD ON</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pbbfc365718">
+   <rect x="7.2" y="20.792187" width="383.94" height="413.76"/>
+  </clipPath>
+  <clipPath id="p90642a0f08">
+   <rect x="410.085" y="20.792187" width="383.94" height="413.76"/>
+  </clipPath>
+ </defs>
+</svg>
