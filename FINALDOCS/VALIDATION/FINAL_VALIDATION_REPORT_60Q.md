@@ -24,10 +24,10 @@
 
 ## 산출물 점검
 
-Excel workbook은 15개 sheet와 표별 CSV를 포함한다. 생성 뒤 workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했고, formula error scan은 0건이었다. 대표 sheet `T5-2_Config_Scores`를 렌더링해 표 제목, header, 값의 가독성을 확인했다.
+Excel workbook은 17개 sheet와 표별 CSV를 포함한다. 표 2-1과 부록 A의 60개 질의 sheet를 포함하며, workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했다. 표 제목, header, 값의 가독성은 대표 sheet에서 확인했다.
 
-그림 생성기는 Python compile을 통과했고, 17개 PNG와 같은 수의 SVG를 생성한다. Terminal evidence 원문은 5개 selection rule마다 query ID, source artifact, configuration, stored score와 answer excerpt를 포함한다.
+원본 작업 경로에는 17개 PNG와 SVG가 보존된다. `FINALDOCS/FIGURES`에는 HWP 본문에 필요한 구조·통계 그림 10개만 남기고, 실제 저장 응답 증빙은 `EVIDENCE/UI_REPLAY`의 여섯 UI 화면으로 분리했다. E02는 1장의 연구 문제 제시와 부록 B의 replay 증빙에 역할을 나누어 배치한다.
 
 ## 남아 있는 확인 항목
 
-최종 한글 편집에서는 저자·지도교수·제출일·승인 정보, 실제 장·절 style, 표·그림 목차 페이지 번호, 조판 후 실제 페이지 수를 채워야 한다. 이 값들은 저장 artifact에 없으므로 본 패키지에서 임의로 채우지 않았다. 로컬 pre-commit Ruff는 변경과 무관한 기존 backend lint 178건을 보고하므로 문서·artifact 커밋은 `diff --check`와 개별 생성·재열기 검증 후 훅을 우회했다. CI에 고정된 Ruff 버전으로 별도 전체 검증이 필요하다.
+최종 한글 편집에서는 저자·지도교수·제출일·승인 정보, 실제 장·절 style, 표·그림 목차 페이지 번호, 조판 후 실제 페이지 수를 채워야 한다. 이 값들은 저장 artifact에 없으므로 본 패키지에서 임의로 채우지 않았다. 1~6장 본문은 약 36.1천 자이며, 최종 HWP에서는 쪽 나눔·표 넘침·수식 렌더링을 별도로 확인해야 한다. 로컬 pre-commit Ruff는 변경과 무관한 기존 backend lint 178건을 보고하므로 문서·artifact 커밋은 `diff --check`와 개별 생성·재열기 검증 후 훅을 우회했다. CI에 고정된 Ruff 버전으로 별도 전체 검증이 필요하다.

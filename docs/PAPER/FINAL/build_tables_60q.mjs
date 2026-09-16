@@ -37,6 +37,15 @@ function csvText(rows) { return rows.map((row) => row.map((cell) => `"${String(c
 const tables = [];
 function add(name, title, headers, rows, source) { tables.push({ name, title, headers, rows, source }); }
 
+add("T2-1_Related_Work", "표 2-1. 관련 연구와 본 실험의 연결", ["연구 흐름", "대표 연구", "본 연구에서의 적용 범위", "본문 해석의 제한"], [
+  ["Dense retrieval", "DPR[10], BEIR[20]", "한국어 질의와 영어 passage 사이의 검색 표현 간극을 HyDE 조건으로 관찰", "retriever의 일반 순위 성능을 재측정한 것이 아님"],
+  ["Multi-passage generation", "FiD[11], long-context 분석[12]", "rerank된 상위 5개 문맥으로 answer/context 지표를 분리", "문맥 길이·순서 정책을 탐색하지 않음"],
+  ["Hypothetical-document retrieval", "HyDE[2]", "H1/H0 end-to-end 대응 비교 및 retrieved ID 확인", "가상 문서는 최종 답변의 근거가 아님"],
+  ["Contrastive decoding", "CAD[3], contrastive decoding[13]", "같은 input에서 C1/C0 paired 비교", "alpha 최적화 또는 일반적 개선을 주장하지 않음"],
+  ["Corrective/reflective RAG", "Self-RAG[15], CRAG[16]", "검색·생성·출력 문제를 분리해 읽는 관점", "해당 방법을 구현·비교하지 않음"],
+  ["RAG evaluation", "RAGAS[9], RAG survey[19]", "품질 지표와 artifact provenance 확인", "자동 judge가 사람 평가를 대체하지 않음"],
+], "GRADUATION_REPORT_TRANSFER_KO_60Q.md, 표 2-1");
+
 add("T3-1_Requirements", "표 3-1. 연구 및 실험 요구사항", ["요구사항", "확인 기준", "값"], [
   ["한국어 질의 기반 영문 문서 QA", "질의와 대상 문서 연결", "60개 질의-문서 쌍"],
   ["실험 요인", "HyDE·CAD·SCD ON/OFF", "2×2×2, 8개 조건"],
@@ -77,6 +86,27 @@ add("T5-5_SCD_Config", "표 5-5. SCD configuration별 언어 결과", ["SCD OFF"
 add("T5-6_SCD_Paired", "표 5-6. SCD matched-pair 요약", ["비교", "쌍 수", "한국어 문자 비율 평균 변화", "95% CI", "증가/감소/동률"], [
   ["전체 ON/OFF 대응", 240, 0.2289, "[+0.2051, +0.2532]", "219 / 10 / 11"], ["HyDE OFF 동일 문맥", 120, 0.2182, "[+0.1880, +0.2487]", "see analysis artifact"],
 ], "generated/RESULT_REVIEW_60Q.md");
+const sourcePaper = { paper_nlp_rag: "RAG Survey", paper_nlp_cad: "CAD", paper_nlp_raptor: "RAPTOR", paper_midm: "Mi:dm K 2.5 Pro Technical Report" };
+const querySources = ["decoder_main_queries.json", "extended_validation_questions.json"];
+const literalAudit = JSON.parse(await fs.readFile(path.join(root, "experiments/results/analysis/all_60_gt_literal_audit.json"), "utf8"));
+const sourcePageById = new Map([
+  ...literalAudit.main_19.results.map((row) => [row.query_id, row.matched_pages_human.join(", ")]),
+  ...literalAudit.extension_41.results.map((row) => [row.query_id, String(row.source_page_human)]),
+]);
+const appendixQueries = [];
+for (const name of querySources) {
+  const split = JSON.parse(await fs.readFile(path.join(root, "experiments/data/query_splits", name), "utf8"));
+  for (const row of split.queries) {
+    const sourcePage = sourcePageById.get(row.query_id);
+    if (!sourcePage) throw new Error(`missing literal-audit source page for ${row.query_id}`);
+    appendixQueries.push([
+      row.query_id, row.query, sourcePaper[row.applicable_papers[0]], row.normalized_query_type,
+      sourcePage, row.answer_span ?? row.gt_status,
+    ]);
+  }
+}
+appendixQueries.sort((left, right) => String(left[0]).localeCompare(String(right[0])));
+add("Appendix_Queries", "부록 표 A-1. 60개 질의-대상문서 쌍", ["query ID", "한국어 질문", "대상 문서", "유형", "source page", "answer span / GT"], appendixQueries, "frozen decoder_main_queries + extended_validation_questions");
 const paper = (await csv("paper_level_exploratory_60q.csv")).map((r) => [r.group, r.factor, r.metric, number(r.n_queries), number(r.mean_delta)]);
 const type = (await csv("query_type_exploratory_60q.csv")).map((r) => [r.group, r.factor, r.metric, number(r.n_queries), number(r.mean_delta)]);
 add("Appendix_Paper", "부록 표. 문서별 탐색 분석", ["대상 문서", "요인", "지표", "n", "평균 변화"], paper, "generated/paper_level_exploratory_60q.csv");

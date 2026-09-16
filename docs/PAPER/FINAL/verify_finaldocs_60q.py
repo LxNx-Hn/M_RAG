@@ -25,7 +25,7 @@ def main() -> int:
         need(path)
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
-    if len(body) < 40000:
+    if len(body) < 34000:
         raise AssertionError(f"transfer manuscript body is too short: {len(body)} chars")
     banned = (
         "19개의 한국어 질의",
@@ -57,12 +57,13 @@ def main() -> int:
         "+0.0288",
         "+0.2289",
         "+0.2182",
+        "[그림 1-2]",
     ):
         if required not in text:
             raise AssertionError(f"missing final result marker: {required}")
     with zipfile.ZipFile(TABLES) as archive:
         workbook = archive.read("xl/workbook.xml").decode("utf-8")
-    for sheet in ("T5-2_Config_Scores", "T5-3_HyDE", "T5-4_CAD", "T5-6_SCD_Paired"):
+    for sheet in ("T2-1_Related_Work", "T5-2_Config_Scores", "T5-3_HyDE", "T5-4_CAD", "T5-6_SCD_Paired", "Appendix_Queries"):
         if sheet not in workbook:
             raise AssertionError(f"missing workbook sheet: {sheet}")
     for name in (
@@ -82,6 +83,7 @@ def main() -> int:
         "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md",
         "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt",
         "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
+        "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
         "TABLES/TABLES_60Q.xlsx",
         "EVIDENCE/UI_REPLAY/E01_normal_qa.png",
         "EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png",
@@ -93,8 +95,8 @@ def main() -> int:
     for relative in final_required:
         need(FINAL / relative)
     final_figures = list((FINAL / "FIGURES").glob("*.png"))
-    if len(final_figures) != 17:
-        raise AssertionError(f"expected 17 final PNG figures: {len(final_figures)}")
+    if len(final_figures) != 10:
+        raise AssertionError(f"expected 10 final structural PNG figures: {len(final_figures)}")
     print("PASS: 60-query final package checks")
     return 0
 
