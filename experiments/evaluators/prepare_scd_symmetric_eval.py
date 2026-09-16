@@ -570,7 +570,7 @@ def _integrity_token_count(value: str) -> int:
 
 
 def _split_for_lossless_normalization(
-    source: str, max_chars: int = 450, max_integrity_tokens: int = 6
+    source: str, max_chars: int = 450, max_integrity_tokens: int = 50
 ) -> list[str]:
     def within_limits(value: str) -> bool:
         return (
@@ -582,11 +582,19 @@ def _split_for_lossless_normalization(
         chunks: list[str] = []
         current = ""
         for word in re.findall(r"\S+", value):
-            if (
-                len(word) > max_chars
-                or _integrity_token_count(word) > max_integrity_tokens
-            ):
-                raise NormalizationError("text token exceeds safe normalization limits")
+            if len(word) > max_chars:
+                if _integrity_token_count(word):
+                    raise NormalizationError(
+                        "text token with protected values exceeds safe normalization limits"
+                    )
+                if current:
+                    chunks.append(current)
+                    current = ""
+                chunks.extend(
+                    word[index : index + max_chars]
+                    for index in range(0, len(word), max_chars)
+                )
+                continue
             candidate = f"{current} {word}".strip()
             if current and not within_limits(candidate):
                 chunks.append(current)
@@ -664,7 +672,7 @@ def _normalize_segment_with_retries(
             parts = _split_for_lossless_normalization(
                 task.source,
                 max_chars=next_max_chars,
-                max_integrity_tokens=max(1, 3 - depth),
+                max_integrity_tokens=max(1, 50 - depth * 10),
             )
             if len(parts) <= 1:
                 raise
@@ -763,10 +771,7 @@ def _repair_combined_normalization(
 def _normalize_batch(
     chat_model: Any, tasks: list[TextTask], max_retries: int
 ) -> dict[str, str]:
-    if any(
-        len(task.source) > 450 or _integrity_token_count(task.source) > 6
-        for task in tasks
-    ):
+    if any(len(task.source) > 450 for task in tasks):
         print(
             f"segment_planned target={tasks[0].target} tasks={len(tasks)}",
             flush=True,

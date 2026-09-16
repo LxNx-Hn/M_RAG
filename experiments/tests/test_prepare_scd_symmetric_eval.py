@@ -238,6 +238,12 @@ def test_long_boundary_free_sentence_splits_only_at_whitespace() -> None:
     assert " ".join(parts).split() == source.split()
 
 
+def test_long_unbroken_korean_text_splits_without_inventing_letters() -> None:
+    source = "가" * 500
+    parts = _split_for_lossless_normalization(source, max_chars=100)
+    assert parts == ["가" * 100] * 5
+
+
 def test_number_dense_table_respects_integrity_budget() -> None:
     source = "Model " + " ".join(f"{index}.0" for index in range(100))
     parts = _split_for_lossless_normalization(
