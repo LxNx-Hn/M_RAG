@@ -1,0 +1,16 @@
+RAG 기본 흐름
+C_q = Retrieve(q, D)
+y = LM(q, C_q)
+
+Weighted Reciprocal Rank Fusion
+score_RRF(d) = 0.6 / (k + rank_dense(d)) + 0.4 / (k + rank_BM25(d))
+
+CAD decoding
+logits_CAD = (1 + alpha) logits_context - alpha logits_no_context
+
+Korean-character ratio
+KoreanRatio(y) = N_Hangul(y) / (N_Hangul(y) + N_ASCII_alpha(y))
+
+Paired contrast
+Delta_i = metric_i(ON) - metric_i(OFF)
+mean_Delta = (1 / n) sum_(i=1)^n Delta_i

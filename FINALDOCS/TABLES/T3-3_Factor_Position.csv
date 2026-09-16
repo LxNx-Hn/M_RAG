@@ -1,0 +1,4 @@
+"요인","적용 위치","주 비교","주 지표"
+"HyDE","검색 표현 확장","CAD OFF·SCD OFF의 60 대응쌍","RAGAS 4개 품질 지표"
+"CAD","문맥 기반 decoding","동일 문맥 60 대응쌍, faithfulness 58 완결쌍","RAGAS 4개 품질 지표"
+"SCD","출력 token logit 제어","동일 query·HyDE·CAD의 240 ON/OFF쌍","한국어 문자 비율"

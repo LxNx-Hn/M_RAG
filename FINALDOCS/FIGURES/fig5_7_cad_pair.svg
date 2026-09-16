@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="817.965pt" height="441.752187pt" viewBox="0 0 817.965 441.752187" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 441.752187 
+L 817.965 441.752187 
+L 817.965 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 47.402094)">문서 길이와 관련하여 어떤 성능 특성을 보이는지 설명해주세요</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 57.832827)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 68.263559)">이해를 돕기 위해 선형적 관계를 보여주는 그래프나 데이터가 있다면 함께 설명해 주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 78.694292)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 89.125025)">주어진 문서에서 관련 정보를 찾아 답변해주시기 바랍니다.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 99.555758)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 109.986491)">문서에서 언급된 그래프나 데이터를 바탕으로 답변해주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 120.417223)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 130.847956)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 141.278689)">초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 151.709422)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 162.140155)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 172.570888)">```python</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 183.043058)"># 이 부분은 실제 그래프나 데이터를 보여주는 것이 아니라</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 193.473791)"># 문서에서 언급된 내용을 요약한 것입니다</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 203.904523)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 214.335256)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 224.765989)">RAPTOR의 초기 문서 길이와 성능 특성 관계를 설명하는 그래프나 데이터가 있나요?</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 235.196722)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 245.627455)">그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 256.058187)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 266.48892)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 276.919653)">```python</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 287.391823)"># 이 부분도 실제 그래프나 데이터를 보여주는 것이 아니라</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 297.822556)"># 문서에서 언급된 내용을 요약한 것입니다</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 308.253289)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 318.684022)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 329.114755)">RAPTOR의 초기 문서 길이와 성능 간의 관계를 보여주는 그래프나 데이터가 있나요?</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 339.545487)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 349.97622)">그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 360.406953)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 370.837686)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 381.268419)">```python</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 391.740589)"># 이 부분도 실제 그래프나 데이터를 보여주는 것이 아니라</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 402.171322)"># 문서에서 언급된 내용을 요약한 것입니다</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 412.602055)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 423.032787)"/>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 433.46352)">RAPTOR의 초기 문서 길이와 성능 특성 간의 관계를 설명해주세요.</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 443.894253)">```</text>
+    </g>
+    <g clip-path="url(#p2c483bfd39)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.169225 454.623641)">선형적 관계를 보여주는 그래프나 데이터를 포함하여 설명해주세 … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="11.169225" y="426.276987" transform="rotate(-0 11.169225 426.276987)">faithfulness=0.25 · answer_relevancy=0.0 · context_precision=0.5 · context_recall=1.0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2f6bff" x="7.2" y="14.792187" transform="rotate(-0 7.2 14.792187)">CAD OFF</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="text_4">
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 47.402094)">문서 길이와 어떤 관계로 스케일링되는지 설명해 주세요</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 57.832827)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 68.263559)">Answer△&lt;/Answer&gt;</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 78.694292)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 89.125025)">본 논문의 실험 결과를 바탕으로 RAPTOR의 스케일링 특성을 설명하면 다음과 같습니다.</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 99.555758)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 109.986491)">## 시간 측면에서의 선형 스케일링</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 120.417223)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 131.146611)">RAPTOR는 빌드 시간(build time)이 초기 문서 길이와 선형적인 관계를 보입니다.</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 142.704809)">Figure 6에 제시된 실험 결과에 따르면, 최대 80,000 토큰에 이르는 문서들에 대해</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 153.420852)">RAPTOR 나무 구조(tree construction) 건설 시간이 문서 길이에 비례하여</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 163.851584)">선형적으로 증가합니다. 이는 문서의 복잡성이나 길이가 증가하더라도 구축 시간이 예측 가능한</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 174.282317)">비율로 증가함을 의미합니다.</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 184.71305)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 195.143783)">## 토큰 지출 측면에서의 선형 스케일링</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 205.574516)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 217.166291)">Figure 5의 실험 데이터에서도 명확하게 나타난 바와 같이, RAPTOR는 총 토큰</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 228.859587)">지출(total token expenditure)이 초기 문서 길이와 명확한 선형</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 239.534192)">상관관계(linear correlation)를 보입니다. QASPER, NarrativeQA,</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 251.037608)">QuALITY 세 가지 Published as a conference paper datasets</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 261.468341)">모두에서 이러한 패턴이 일관되게 관찰되었습니다.</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 271.899073)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 282.329806)">## 종합적 스케일링 특성</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 292.760539)"/>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 304.318737)">실험에서는 소비자급 Apple M1 Mac(16GB RAM) 하드웨어에서 맥락</text>
+    </g>
+    <g clip-path="url(#pb4f5668b14)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(417.811725 315.822153)">길이(context length)를 12,500부터 78,000 토큰까지 다 … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="417.811725" y="426.276987" transform="rotate(-0 417.811725 426.276987)">faithfulness=1.0 · answer_relevancy=0.7554 · context_precision=0.5 · context_recall=1.0</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #c86a1b" x="413.8425" y="14.792187" transform="rotate(-0 413.8425 14.792187)">CAD ON</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2c483bfd39">
+   <rect x="7.2" y="20.792187" width="396.9225" height="413.76"/>
+  </clipPath>
+  <clipPath id="pb4f5668b14">
+   <rect x="413.8425" y="20.792187" width="396.9225" height="413.76"/>
+  </clipPath>
+ </defs>
+</svg>

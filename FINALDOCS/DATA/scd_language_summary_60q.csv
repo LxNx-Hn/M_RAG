@@ -1,0 +1,5 @@
+off_config,on_config,n_pairs,mean_delta,ci95_lower,ci95_upper,increases_gt_0_02,decreases_lt_neg_0_02,ties_abs_le_0_02
+hyde_off__no_decoder_control,hyde_off__scd_only,60,0.2047,0.1566,0.2512,51,4,5
+hyde_off__cad_only,hyde_off__cad_scd,60,0.2317,0.1874,0.2786,54,2,4
+hyde_on__no_decoder_control,hyde_on__scd_only,60,0.2511,0.1938,0.3078,57,1,2
+hyde_on__cad_only,hyde_on__cad_scd,60,0.2283,0.1832,0.2762,57,3,0

@@ -1,0 +1,9 @@
+config,n_generations,duration_mean_seconds,duration_median_seconds
+hyde_off__no_decoder_control,60,20.792,16.077
+hyde_off__cad_only,60,63.867,57.819
+hyde_off__scd_only,60,18.898,17.579
+hyde_off__cad_scd,60,55.159,51.127
+hyde_on__no_decoder_control,60,23.44,22.245
+hyde_on__cad_only,60,73.532,71.7
+hyde_on__scd_only,60,24.892,24.714
+hyde_on__cad_scd,60,64.125,64.834

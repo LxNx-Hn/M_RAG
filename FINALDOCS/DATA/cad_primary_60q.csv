@@ -1,0 +1,5 @@
+factor,metric,mean_delta_on_minus_off,bootstrap_mean_95_ci,wins_gt_0.01,losses_lt_neg_0.01,ties_abs_le_0.01,n_queries,excluded_query_ids_due_to_missing_score
+cad,faithfulness,0.0288,"{'lower': -0.0367, 'upper': 0.0934}",21,24,13,58,"['ext_rag_003', 'ext_rag_006']"
+cad,answer_relevancy,-0.0073,"{'lower': -0.0855, 'upper': 0.0719}",19,32,9,60,[]
+cad,context_precision,-0.0092,"{'lower': -0.0306, 'upper': 0.0077}",4,4,52,60,[]
+cad,context_recall,-0.0167,"{'lower': -0.05, 'upper': 0.0}",0,1,59,60,[]

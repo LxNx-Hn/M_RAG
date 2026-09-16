@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="585.36pt" height="441.752187pt" viewBox="0 0 585.36 441.752187" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 441.752187 
+L 585.36 441.752187 
+L 585.36 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 47.570281)">제공된 논문 컨텍스트를 분석한 결과, Cinderella 사례의 정성 분석에서 RAPTOR의 트리 구조 기반 검색(tree-based retrieval)이</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 59.200934)">DPR(Dense Passage Retrieval)보다 주제형·멀티홉 질문에 유리했던 이유는 다음과 같이 확인됩니다.</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 69.673105)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 81.347938)">첫째, RAPTOR는 계층적 구조를 통해 다양한 수준의 추상화(abstraction)를 제공합니다. 논문의 Figure 4에서 확인할 수 있듯이,</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 93.064208)">RAPTOR는 질문의 요구사항에 따라 서로 다른 층위(layer)에서 노드를 선택할 수 있습니다. 반면 DPR은 단일 층위의 leaf 노드만을 선택하여</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 103.536378)">정보를 제공합니다.</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 113.967111)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 125.61897)">둘째, RAPTOR의 트리 구조는 더 포괄적이고 맥락적인 정보를 제공합니다. "What is the central theme of the story?"라는</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 137.163823)">질문에 대해 DPR이 제공한 맥락은 "The central theme of the story is transformation and the power of</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 148.708677)">inner beauty"로 이야기의 초반부만을 다루었으나, RAPTOR가 제공한 맥락은 "The central theme of the story is</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 160.308312)">transformation and overcoming adversity"로 신데렐라가 겪는 전체 여정과 행복한 결말까지 포함하여 더 완전한 답변을 가능하게</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 170.780483)">했습니다.</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 181.211216)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 191.88582)">셋째, RAPTOR는 상위 … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="12.9096" y="426.276987" transform="rotate(-0 12.9096 426.276987)">faithfulness=1.0 · answer_relevancy=0.9365 · context_precision=1.0 · context_recall=1.0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2f6bff" x="7.2" y="14.792187" transform="rotate(-0 7.2 14.792187)">H0C0S0 저장 답변</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p958eeb023f">
+   <rect x="7.2" y="20.792187" width="570.96" height="413.76"/>
+  </clipPath>
+ </defs>
+</svg>

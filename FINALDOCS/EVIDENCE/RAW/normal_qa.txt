@@ -1,0 +1,20 @@
+========================================================================
+M-RAG 60-query stored-artifact replay
+========================================================================
+selection rule   : normal_qa
+query ID         : ext_raptor_011
+target paper     : RAPTOR
+question         : Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?
+source artifact  : experiments\results\extended_validation\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl
+
+[A] config          : hyde_off__no_decoder_control
+[A] stored RAGAS    : faithfulness=1.0000, answer_relevancy=0.9365, context_precision=1.0000, context_recall=1.0000
+[A] answer excerpt  :
+제공된 논문 컨텍스트를 분석한 결과, Cinderella 사례의 정성 분석에서 RAPTOR의 트리 구조 기반 검색(tree-based retrieval)이 DPR(Dense Passage Retrieval)보다 주제형·멀티홉 질문에 유리했던 이유는 다음과 같이 확인됩니다.
+
+첫째, RAPTOR는 계층적 구조를 통해 다양한 수준의 추상화(abstraction)를 제공합니다. 논문의 Figure 4에서 확인할 수 있듯이, RAPTOR는 질문의 요구사항에 따라 서로 다른 층위(layer)에서 노드를 선택할 수 있습니다. 반면 DPR은 단일 층위의 leaf 노드만을 선택하여 정보를 제공합니다.
+
+둘째, RAPTOR의 트리 구조는 더 포괄적이고 맥락적인 정보를 제공합니다. "What is the central theme of the story?"라는 질문에 대해 DPR이 제공한 맥락은 "The central theme of the story is transformation and the power of inner beauty"로 이야기의 초반부만을 다루었으나, RAPTOR가 제공한 맥락은 "The central theme of the story is transformation and overcoming adversity"로 신데렐라가 겪는 전체 여정과 행복한 결말까지 포함하여 더 완전한 답변을 가능하게 했습니다.
+
+셋째, RAPTOR는 상위 … [이하 생략]
+========================================================================

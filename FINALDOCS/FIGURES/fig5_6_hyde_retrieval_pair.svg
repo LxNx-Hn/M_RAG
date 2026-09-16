@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="805.365pt" height="441.70375pt" viewBox="0 0 805.365 441.70375" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 441.70375 
+L 805.365 441.70375 
+L 805.365 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 48.093437)">제공된 논문 컨텍스트를 면밀히 검토한 결과, RAPTOR의 클러스터링 과정에서 Bayesian</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 58.80948)">Information Criterion(BIC)이 어떤 결정을 내리는 데 사용되는지에 관한</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 69.240212)">구체적인 정보는 확인할 수 없습니다.</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 79.670945)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 90.101678)">논문에서는 RAPTOR의 클러스터링 메커니즘에 대해 상세히 설명하고 있으나, 구체적으로 다음과</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 100.532411)">같은 내용만 언급되어 있습니다:</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 110.963144)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 121.637748)">1. RAPTOR는 Gaussian Mixture Models(GMMs)을 기반으로 하는</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 132.068481)">클러스터링 알고리즘을 사용합니다.</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 142.499214)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 154.00263)">2. 클러스터링 과정에서는 soft clustering 방식을 채택하여 노드들이 여러 클러스터에</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 164.4748)">동시에 소속될 수 있도록 합니다.</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 174.905533)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 186.408948)">3. ablation study에서는 RAPTOR의 표준 클러스터링 방법과 recency-</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 196.881119)">based tree 접근 방식을 비교하였습니다.</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 207.311852)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 218.815267)">그러나 BIC(Bayesian Information Criterion)가 클러스터 개수 결정이나</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 229.287437)">모델 선택에 어떻게 활용되는지에 관한 구체적인 설명이나 언급은 제공된 컨텍스트 내에서 발견되지</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 239.71817)">않았습니다.</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 250.148903)"/>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 260.579636)">따라서 RAPTOR의 클러스터링 과정에서 BIC의 구체적인 활용 방식에 대해서는 제공된 논문</text>
+    </g>
+    <g clip-path="url(#p6f9a6fb49e)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(11.106225 271.010369)">자료만으로는 정확한 답변을 드리기 어렵습니다.</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="11.106225" y="426.22855" transform="rotate(-0 11.106225 426.22855)">faithfulness=1.0 · answer_relevancy=0.0 · context_precision=1.0 · context_recall=0.0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2f6bff" x="7.2" y="14.74375" transform="rotate(-0 7.2 14.74375)">HyDE OFF</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="text_4">
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 48.093437)">제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서 Bayesian</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 58.80948)">Information Criterion(BIC)은 **최적의 클러스터 개수 결정**을 위해</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 69.240212)">사용됨이 확인됩니다.</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 79.670945)"/>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 90.101678)">구체적으로 BIC는 다음과 같은 목적으로 활용됩니다:</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 100.532411)"/>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 112.035827)">1. **모델 선택 기준**: 논문에서는 "To determine the optimal</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 122.593797)">number of clusters, we employ the Bayesian</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 133.309839)">Information Criterion (BIC) for model selection"이라고</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 143.740572)">명시하고 있습니다.</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 154.171305)"/>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 165.67472)">2. **가중치 메커니즘**: BIC는 "not only penalizes model</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 177.219573)">complexity but also rewards goodness of fit"라는 특성을 통해</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 187.691744)">모델의 복잡성과 적합도 사이의 균형을 평가합니다.</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 198.122477)"/>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 208.553209)">3. **수식적 정의**: 논문에서 제시된 BIC 공식은 다음과 같습니다:</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 218.983942)">   BIC = ln(N) - 2ln(ˆL)</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 229.414675)">   여기서 N은 텍스트 세그먼트 수, k는 모델 파라미터 수, ˆL은 모델의 최대 가능도</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 239.845408)">함수값입니다.</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 250.276141)"/>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 260.779328)">4. **GMM 파라미터 추정**: 최적 클러스터 개수가 BIC로 결정된 후,</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 271.210061)">"Expectation-Maximization algorithm is then used to</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 282.754914)">estimate the GMM parameters"라고 언급되어 있어, BIC를 통 … [이하</text>
+    </g>
+    <g clip-path="url(#pcafe9b5ba6)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(411.448725 293.429519)">생략]</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="411.448725" y="426.22855" transform="rotate(-0 411.448725 426.22855)">faithfulness=0.8571 · answer_relevancy=0.8947 · context_precision=0.7 · context_recall=1.0</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #c86a1b" x="407.5425" y="14.74375" transform="rotate(-0 407.5425 14.74375)">HyDE ON</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6f9a6fb49e">
+   <rect x="7.2" y="20.74375" width="390.6225" height="413.76"/>
+  </clipPath>
+  <clipPath id="pcafe9b5ba6">
+   <rect x="407.5425" y="20.74375" width="390.6225" height="413.76"/>
+  </clipPath>
+ </defs>
+</svg>

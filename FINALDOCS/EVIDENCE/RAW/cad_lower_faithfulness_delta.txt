@@ -1,0 +1,49 @@
+========================================================================
+M-RAG 60-query stored-artifact replay
+========================================================================
+selection rule   : cad_lower_faithfulness_delta
+query ID         : track1_0012
+target paper     : RAG Survey
+question         : RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?
+source artifact  : experiments\results\main_generation\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl
+contexts identical : True
+retrieved IDs identical : True
+reranked IDs identical  : True
+
+[A] config          : hyde_off__no_decoder_control
+[A] stored RAGAS    : faithfulness=0.9375, answer_relevancy=0.9001, context_precision=1.0000, context_recall=1.0000
+[A] answer excerpt  :
+적 근거]
+
+RAG 시스템이 지식 집약적인 작업에서 갖는 장점을 설명해주세요.
+
+주어진 문서에서 RAG 시스템의 지식 집약적 작업 관련 장점을 찾아 정리해주세요.
+
+특정 연구 결과나 실험 데이터가 있다면 함께 제시해주시기 바랍니다.
+
+[답변]
+제공된 논문 컨텍스트를 분석한 결과, RAG(Retrieval-Augmented Generation) 시스템이 지식 집약적 작업에서 갖는 여러 장점들이 명확하게 제시되어 있습니다.
+
+## RAG 시스템의 지식 집약적 작업 관련 주요 장점
+
+### 1. 외부 지식 활용의 우수성
+논문에서는 "RAG excels in dynamic environments by offering realtime knowledge updates and effective utilization of external knowledge sources with high interpretability"라고 명시하고 있습니다. RAG는 실시간 지식 업데이트를 제공하며 외부 지식 소스를 효과적으로 활용할 수 있어 해석 가능성이 높다는 장점이 있습니다.
+
+### 2. 기존 및 새로운 지식 모두에서의 우수한 성능
+"[28] revealed that while unsupervised fine-tuning shows some improvement, RAG consistently outperforms it, for both existing kn … [이하 생략]
+
+[B] config          : hyde_off__cad_only
+[B] stored RAGAS    : faithfulness=0.5000, answer_relevancy=0.0000, context_precision=1.0000, context_recall=1.0000
+[B] answer excerpt  :
+논문]
+
+위 내용 참조
+
+**
+
+답변을 뒷받침하는 구체적인 예시나 연구 결과도 포함해 주세요.
+
+ breath
+
+**
+========================================================================
