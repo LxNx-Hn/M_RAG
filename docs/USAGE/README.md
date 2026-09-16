@@ -6,26 +6,21 @@
 |---|---|
 | `DEPLOY.md` | Local, Docker, and service deployment notes |
 | `DEPLOYMENT_BOUNDARY.md` | Runtime/experiment/docs package boundary and verification checklist |
-| `ALICE_CLOUD.md` | Alice Cloud thesis execution runbook |
-| `ALICE_CLOUD_GUIDE.md` | Deprecated pointer to `ALICE_CLOUD.md` |
-| `ALICE_SETUP.md` | Deprecated pointer to `ALICE_CLOUD.md` |
 | `POSTGRES_GUIDE.md` | PostgreSQL operational database guide |
 | `TESTING_GUIDE.md` | Local validation and CI-oriented checks |
+| `../../FINALDOCS/VALIDATION/verify_finaldocs_60q.py` | Read-only final thesis-package verification |
 
 ## Execution Path Selection
 
 | Purpose | Recommended Path |
 |---|---|
 | Local smoke validation | Local SQLite + MIDM Mini, validation-only |
-| Thesis-grade BASE smoke | Alice Cloud + MIDM Base, 1 sample |
-| Thesis tuning and freeze | Alice Cloud + MIDM Base, explicit staged approval |
-| Main thesis generation | Alice Cloud + frozen params + 8 HyDE/CAD/SCD configs |
+| Final thesis verification | `FINALDOCS/VALIDATION/verify_finaldocs_60q.py` |
 | Service demonstration | PostgreSQL + service API path |
 
 ## Important Policy
 
 - Local MIDM Mini outputs are validation-only and must not be used for final thesis claims.
 - Local MIDM Base is blocked by VRAM and must not be attempted again without an explicit offload or smaller-scope approval.
-- Thesis-grade experiments use `K-intelligence/Midm-2.0-Base-Instruct` on Alice Cloud.
-- Main generation requires a parameter freeze checkpoint before it can run.
-- OpenAI and RAGAS remain disabled by default. They may run only in an explicitly approved evaluation phase; the completed `reference_scd` track documents `gpt-4o` and fixed `gpt-4.1` judge exceptions.
+- Final thesis claims are read from the stored 60-query package in `FINALDOCS/`; this directory no longer provides a cloud-execution guide.
+- OpenAI and RAGAS remain disabled by default. They may run only in an explicitly approved evaluation phase.

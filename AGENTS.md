@@ -97,7 +97,7 @@ python experiments\runners\run_generation.py --dry-run --plan-only --query-split
 - `CLAUDE.md`: existing detailed working guide and command reference.
 - `docs/ARCHITECTURE.md`: code-level system architecture.
 - `docs/FEATURES.md`: feature list with code evidence.
-- `docs/PAPER/GUIDE_ORIGINAL.md`: thesis/system design reference.
+- `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: final thesis and HWP-transfer source.
 - `docs/USAGE/DEPLOY.md`: local and deployment usage.
 - `backend/api/`: FastAPI app, routers, auth, database, models.
 - `backend/modules/`: retrieval, reranking, generation, CAD/SCD, follow-up generation, PPT export.

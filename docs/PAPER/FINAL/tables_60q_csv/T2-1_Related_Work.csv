@@ -1,7 +1,0 @@
-"연구 흐름","대표 연구","본 연구에서의 적용 범위","본문 해석의 제한"
-"Dense retrieval","DPR[10], BEIR[20]","한국어 질의와 영어 passage 사이의 검색 표현 간극을 HyDE 조건으로 관찰","retriever의 일반 순위 성능을 재측정한 것이 아님"
-"Multi-passage generation","FiD[11], long-context 분석[12]","rerank된 상위 5개 문맥으로 answer/context 지표를 분리","문맥 길이·순서 정책을 탐색하지 않음"
-"Hypothetical-document retrieval","HyDE[2]","H1/H0 end-to-end 대응 비교 및 retrieved ID 확인","가상 문서는 최종 답변의 근거가 아님"
-"Contrastive decoding","CAD[3], contrastive decoding[13]","같은 input에서 C1/C0 paired 비교","alpha 최적화 또는 일반적 개선을 주장하지 않음"
-"Corrective/reflective RAG","Self-RAG[15], CRAG[16]","검색·생성·출력 문제를 분리해 읽는 관점","해당 방법을 구현·비교하지 않음"
-"RAG evaluation","RAGAS[9], RAG survey[19]","품질 지표와 artifact provenance 확인","자동 judge가 사람 평가를 대체하지 않음"

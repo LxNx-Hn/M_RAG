@@ -11,7 +11,8 @@ it does not import either runtime layer.
 |---|---|---|
 | **Ops** (service runtime) | `backend/`, `frontend/` | FastAPI API + React app for the A–F paper-review chatbot |
 | **Experiment** (thesis) | `experiments/` | fixed Paper-RAG backbone, HyDE×CAD×SCD 8-config matrix, runners, official RAGAS evaluator, analyzers, results, reports |
-| **Docs** | `docs/` | architecture, paper (`docs/PAPER`), usage (`docs/USAGE`), explainers (`docs/EXPLAIN`) |
+| **Docs** | `docs/` | runtime architecture, feature, repository-layout, and service-usage documentation |
+| **Final thesis** | `FINALDOCS/` | self-contained 60-query Korean manuscript, HWP materials, evidence, and validation |
 | **Evidence CLI** | `cli/` | offline, read-only presentation/replay of final thesis artifacts |
 
 ## Decoupling guarantee

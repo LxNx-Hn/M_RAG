@@ -117,7 +117,7 @@ Alice setup: `git pull` -> all 8 papers immediately available in `backend/data/`
 ## Important Paths
 
 - Main doc `README.md`
-- Alice Cloud guide `docs/USAGE/ALICE_CLOUD_GUIDE.md`
+- Final thesis package `FINALDOCS/README.md`
 - Architecture doc `docs/ARCHITECTURE.md`
 - Current experiment results `experiments/results/`
 - Current experiment reports `experiments/reports/`

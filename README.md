@@ -1,8 +1,7 @@
 # M-RAG
 
-**Graduation submission:** [Korean manuscript, HWP-transfer text, presentation and separate app document](docs/PAPER/output/application_study/README.md).
-The [request audit](docs/PAPER/APPLICATION_STUDY_REVIEW.md) records how the supplied
-template and final experiment evidence are reflected in the submission package.
+**Graduation submission:** [FINALDOCS](FINALDOCS/README.md) is the self-contained
+Korean manuscript, HWP-transfer, table, figure, UI replay, and validation package.
 
 M-RAG is a Korean-query academic paper QA project. The thesis contribution is a
 HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated
@@ -10,18 +9,14 @@ on a fixed Paper-RAG backbone. The FastAPI + React application is a graduation-p
 service integration layer; its A-F routed paper-review features are preserved but are
 not the core thesis algorithm.
 
-**Final experiment results** use 152 answers from 19 Korean questions over four
-English papers and eight HyDE/CAD/SCD configurations with Mi:dm 2.0 Base.
-With CAD and SCD disabled, HyDE increases answer relevancy by
-`+0.0303 [+0.0016, +0.0615]`. CAD's matched-context faithfulness difference is
-`+0.0023 [−0.0903, +0.0952]`; no quality improvement is established.
-Reference SCD increases the Korean-character ratio by `+0.2203` over 76 pairs
-and reduces outputs below 0.5 from `26/76` to `12/76`.
-The symmetric quality analysis uses 38 identical-context HyDE-off pairs in
-English and Korean. No nonzero quality effect replicates across both `gpt-4o`
-and fixed `gpt-4.1-2025-04-14`. Post-generation translation and the limited
-sample constrain interpretation. The submitted manuscript states these final
-conditions and results; experiment reports retain the execution history.
+**Final thesis evidence** uses 60 Korean query-document pairs over four English
+papers and eight HyDE/CAD/SCD configurations, yielding 480 stored generation
+records. In the fixed comparisons, HyDE changes answer relevancy by `+0.0805`,
+CAD changes matched-context faithfulness by `+0.0288` across 58 valid pairs,
+and SCD increases the Korean-character ratio by `+0.2289`. These are
+application-study results: HyDE concerns query-side retrieval representation,
+CAD concerns decoding under identical context, and SCD concerns output-language
+adherence. The manuscript and claim map state the metric-specific limits.
 
 ## Repository Layout
 
@@ -165,12 +160,10 @@ npm run build
 
 | Path | Role |
 |---|---|
-| `docs/PAPER/THESIS.md` | verified full English manuscript |
-| `docs/PAPER/THESIS_KO.md` | verified full Korean manuscript |
-| `docs/PAPER/output/` | template-neutral A4 DOCX/PDF submission manuscripts |
-| `docs/EXPLAIN/COMPLETE_REPOSITORY_GUIDE_KO.md` | plain-language guide connecting code, service, experiments, and thesis claims |
-| `docs/PAPER/REFERENCE_AUDIT_2026-07-11.md` | primary-source audit of all thesis references |
-| `docs/PAPER/GUIDE_ORIGINAL.md` | Phase 5 thesis and experiment guide |
+| `FINALDOCS/` | self-contained 60-query Korean thesis and HWP submission package |
+| `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md` | final Korean manuscript for HWP transfer |
+| `FINALDOCS/VALIDATION/verify_finaldocs_60q.py` | read-only package completeness and claim-boundary verifier |
+| `FINALDOCS/VALIDATION/FINAL_CLAIM_MAP_60Q.md` | final claim-to-artifact map used by UI replay |
 | `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |
 | `experiments/configs/fixed_backbone.yaml` | fixed Paper-RAG backbone config |
 | `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |
@@ -193,11 +186,9 @@ npm run build
 
 ## Notes
 
-- Generation model is local Mi:dm 2.0 Base on GPU; the NVIDIA NIM endpoint is used only
-  as the original Phase 8 RAGAS judge. The `reference_scd` sensitivity panel uses a
-  documented `gpt-4o` judge exception after NIM failed to converge for that track. The
-  stricter bilingual follow-up uses both `gpt-4o` and fixed
-  `gpt-4.1-2025-04-14`; the nonzero answer-relevancy interval is not cross-judge robust.
+- Thesis claims and their 60-query source boundaries are fixed in `FINALDOCS/`.
+  Historical experiment reports remain in `experiments/` for provenance, but are
+  not an alternative thesis package.
 - Ground truth is the verified extractive `answer_span` in each query split; it is not
   regenerated.
 - Result claims come only from the scored artifacts under `experiments/results/`.

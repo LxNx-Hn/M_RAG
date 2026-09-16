@@ -12,5 +12,7 @@
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
+- `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: UI 재현이 읽는 주장-근거 연결표
+- `VALIDATION/verify_finaldocs_60q.py`: 네트워크·모델 호출 없이 실행하는 제출 패키지 점검기
 
 원고의 1~6장 본문은 약 36.1천 자이며, HyDE·CAD·SCD의 해석은 각각 검색 표현, 동일 문맥 decoding, 출력 언어 제어의 범위로 제한한다. SVG 원본, 표별 CSV, 중복 원고, 이전 검토 메모, 정리 로그는 원본 작업 경로에 보존하고 이 최종 작성 패키지에는 포함하지 않는다.

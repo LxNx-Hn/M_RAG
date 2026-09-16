@@ -92,7 +92,7 @@ changed.
 
 | Role | Paths |
 |---|---|
-| THESIS | `docs/PAPER/`, including `THESIS.md`, figures, evidence plan, and submission documents. |
+| THESIS | `FINALDOCS/`, including the Korean manuscript, HWP materials, evidence, and validation. |
 | OFFICIAL_EXPERIMENT | `experiments/runners/`, `evaluators/`, `analyzers/`, `configs/`, `scripts/`. |
 | EXPERIMENT_RESULT | `experiments/results/`, `experiments/reports/`. |
 | SOURCE_PAPER | `experiments/data/source_papers/`. |

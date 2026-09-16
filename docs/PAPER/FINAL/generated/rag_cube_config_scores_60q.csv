@@ -1,9 +1,0 @@
-config,n_generations,faithfulness_mean,faithfulness_n,answer_relevancy_mean,answer_relevancy_n,context_precision_mean,context_precision_n,context_recall_mean,context_recall_n,korean_ratio_mean,drift_below_0_5_count,duration_mean_seconds,duration_median_seconds
-hyde_off__no_decoder_control,60,0.7906,60,0.6828,60,0.7488,60,0.9333,60,0.4943,24,20.792,16.077
-hyde_off__cad_only,60,0.8385,58,0.6755,60,0.7395,60,0.9167,60,0.4877,24,63.867,57.819
-hyde_off__scd_only,60,0.7869,57,0.6372,60,0.7634,60,0.9,60,0.699,12,18.898,17.579
-hyde_off__cad_scd,60,0.7768,60,0.5996,60,0.7523,60,0.85,60,0.7195,10,55.159,51.127
-hyde_on__no_decoder_control,60,0.8342,60,0.7633,60,0.7145,60,0.9333,60,0.5561,15,23.44,22.245
-hyde_on__cad_only,60,0.8599,60,0.7045,60,0.7357,60,0.9,60,0.5031,21,73.532,71.7
-hyde_on__scd_only,60,0.8223,60,0.7097,60,0.7426,60,0.9,60,0.8072,5,24.892,24.714
-hyde_on__cad_scd,60,0.8313,60,0.6671,60,0.754,60,0.9167,60,0.7314,7,64.125,64.834

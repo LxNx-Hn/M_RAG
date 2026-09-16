@@ -2,8 +2,8 @@
 
 The renderer invokes ``evidence_replay.py show <case> --figure`` and draws the
 resulting text.  It does not load a model, call a service, or modify experiment
-artifacts.  PNG and raw display-text output are written only below
-``docs/PAPER/figures/evidence``.
+artifacts. PNG and raw display-text output are written only below
+``FINALDOCS/EVIDENCE/UI_REPLAY``.
 """
 
 from __future__ import annotations

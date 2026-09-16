@@ -53,42 +53,6 @@ cd C:\Users\KiKi\Desktop\CODE\M_RAG\frontend
 npm run dev -- --host 0.0.0.0
 ```
 
-## 논문 실험 실행
-
-```powershell
-cd C:\Users\KiKi\Desktop\CODE\M_RAG
-python experiments\runners\run_tuning_plan.py --dry-run --plan-only --limit 5
-python experiments\runners\dry_run_matrix.py --experiment main-hyde-cad-scd --estimate-cost --dry-run
-python experiments\runners\run_generation.py --dry-run --plan-only --query-split decoder_main_queries --config-limit 2 --limit 3
-```
-
-Alice Cloud 실제 실행은 `docs/USAGE/ALICE_CLOUD.md`와
-`experiments/scripts/alice/`를 따른다. 본 생성은
-`experiments/runners/run_generation.py --execute`(하드 가드) 경로를 사용한다.
-
-현재 실험 계획 기본값
-
-- `DATABASE_URL=sqlite+aiosqlite:///./mrag.db`
-- `GENERATION_MODEL=K-intelligence/Midm-2.0-Base-Instruct`
-- `LOAD_GPU_MODELS=true`
-- 토큰 획득: API health check 후 runner 계정 register-or-login
-
-논문 자산 (8편, 전부 저장소 포함)
-
-| 언어 | doc_id |
-|------|--------|
-| 영어 본문 | paper_nlp_bge, paper_nlp_rag, paper_nlp_cad, paper_nlp_raptor, paper_midm |
-| 한국어 본문 | paper_ko_rag_eval_framework, paper_ko_hyde_multihop, paper_ko_cad_contrastive |
-
-`git pull` 후 `experiments/data/source_papers/`에 8편 전부 존재한다. 별도
-수동 배치 없이 실험 소스 자산을 확인할 수 있다. backend 런타임 업로드
-디렉터리는 `MRAG_DATA_DIR` 또는 별도 마운트 볼륨으로 지정한다.
-
-현재 논문 실험은 `experiments/scripts/alice/`와 `experiments/runners/`를
-기준으로 실행한다. 성공 기준(파라미터 freeze)은 튜닝 출력을 공식 RAGAS로
-채점한 뒤 `experiments/runners/prepare_parameter_freeze.py`가
-`experiments/configs/frozen_params.yaml`을 작성하는 것으로 정의된다.
-
 ## Docker Compose
 
 ```powershell

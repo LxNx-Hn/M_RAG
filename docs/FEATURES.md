@@ -62,7 +62,7 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 | 본 생성 실행 | `experiments/runners/run_generation.py` (+ `main_generation_executor.py`) | 8-config HyDE×CAD×SCD 본 생성 (하드 가드) |
 | 튜닝/메모리 프로브 | `experiments/runners/run_alice_followup.py` | 고정 backbone 튜닝 비교, worst-case VRAM 프로브 |
 | 파라미터 freeze | `experiments/runners/prepare_parameter_freeze.py` | scored 결과 기반 `frozen_params.yaml` 작성 |
-| 공식 RAGAS 평가 | `experiments/evaluators/official_ragas_runner.py` | 기본 NVIDIA NIM judge, 승인된 `reference_scd` 예외는 `gpt-4o`와 고정 `gpt-4.1` 교차 judge; judge별 절대점수 비교 금지 |
+| 공식 RAGAS 평가 | `experiments/evaluators/official_ragas_runner.py` | 저장된 최종 60-query score artifact를 만들기 위한 평가 경로; 제출 원고는 `FINALDOCS`의 고정된 집계 결과만 사용 |
 | 점수 집계/표 변환 | `experiments/analyzers/aggregate_main_scores.py` | config별 CSV + 축별 요인효과 JSON |
 | 언어 준수 분석 | `experiments/analyzers/scd_language_adherence.py` | SCD 한국어 비율 직접 측정 |
 | dry-run 검증 | `experiments/runners/dry_run_matrix.py` | 계획/설정 정적 검증 |
@@ -78,5 +78,6 @@ F 경로는 운영/서비스 관점의 학습 보조 경로다. 논문 실험 �
 | 운영/서비스 | MIDM Base + PostgreSQL + SQLAlchemy + ChromaDB |
 | 다음 단계 추론 최적화 연구 | vLLM 기반 별도 연구 계획 |
 
-참고문헌 번호(`[N]`)는 `docs/PAPER/THESIS.md`의 참고문헌 목록 기준이다 (총 39편)
+참고문헌 번호(`[N]`)와 최종 해석은
+`FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md` 기준이다.
 

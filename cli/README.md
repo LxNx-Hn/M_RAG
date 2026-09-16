@@ -18,19 +18,17 @@ python -X utf8 cli/evidence_replay.py show E03 --figure
 python -X utf8 cli/render_evidence_figures.py
 ```
 
-Cases are selected deterministically from the final `reference_scd` generation
+Cases are selected deterministically from the final 60-query generation
 and stored score artifacts. `evidence_cases.py` stores only source paths and
 selection rules; it intentionally does not duplicate answers, contexts, or
 metrics. The original strings are shown unchanged. Without `--full`, the CLI
 only clips displayed characters and reports the omitted length.
 
-`E06` is a low stored-faithfulness candidate, not an automatic hallucination
+`E06` is a stored CAD trade-off candidate, not an automatic hallucination
 label. Read its original question, answer, and context before making a
-qualitative claim. `E07` and `E08` replay the retained normalization and
-cross-judge reports because their evidence is panel-level rather than a single
-generation row.
+qualitative claim.
 
 `--figure` keeps the source strings unchanged but selects only the fields needed
 for a paper-sized view. `render_evidence_figures.py` writes PNG files and the
-exact figure-display text under `docs/PAPER/figures/evidence/`; it uses Pillow
+exact figure-display text under `FINALDOCS/EVIDENCE/UI_REPLAY/`; it uses Pillow
 only for local text rendering and never writes under `experiments/`.
