@@ -111,7 +111,5 @@ const inspect = await wb.inspect({ kind: "workbook,sheet,table", maxChars: 8000,
 console.log(inspect.ndjson);
 const errors = await wb.inspect({ kind: "match", searchTerm: "#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A|#NUM!|#NULL!|#SPILL!|#CALC!", options: { useRegex: true, maxResults: 100 }, summary: "formula errors" });
 console.log(errors.ndjson);
-const preview = await wb.render({ sheetName: "T5-2_Config_Scores", autoCrop: "all", scale: 1, format: "png" });
-await fs.writeFile(path.join(here, "TABLES_60Q_preview.png"), new Uint8Array(await preview.arrayBuffer()));
 const xlsx = await SpreadsheetFile.exportXlsx(wb); await xlsx.save(output);
 console.log(JSON.stringify({ output, sheets: tables.map((t) => t.name), csvOut }, null, 2));

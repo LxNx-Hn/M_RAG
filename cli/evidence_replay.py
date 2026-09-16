@@ -17,11 +17,9 @@ from typing import Any
 
 from evidence_cases import (
     CLAIM_PLAN,
-    CROSS_JUDGE_REPORT,
     EVIDENCE_CASES,
-    GENERATION,
-    MAIN_SCORES,
-    SYMMETRIC_INPUT_AUDIT,
+    GENERATION_SOURCES,
+    SCORE_SOURCES,
 )
 
 CONFIG_ORDER = (
@@ -59,8 +57,12 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
 def _load_data() -> (
     tuple[dict[tuple[str, str], dict[str, Any]], dict[tuple[str, str], dict[str, Any]]]
 ):
-    records = _load_jsonl(GENERATION)
-    scores = json.loads(MAIN_SCORES.read_text(encoding="utf-8"))["per_sample"]
+    records = [row for source in GENERATION_SOURCES for row in _load_jsonl(source)]
+    scores = [
+        row
+        for source in SCORE_SOURCES
+        for row in json.loads(source.read_text(encoding="utf-8"))["per_sample"]
+    ]
     return (
         {(row["query_id"], row["config_name"]): row for row in records},
         {(row["query_id"], row["group"]): row for row in scores},
@@ -532,6 +534,16 @@ def _figure_case(
                 )
         _, left, right = _best(candidates)
         return _figure_pair(left, right, scores)
+    if kind == "selected_pair":
+        left = records[(case["query_id"], case["config_a"])]
+        right = records[(case["query_id"], case["config_b"])]
+        if not (
+            left.get("contexts") == right.get("contexts")
+            and left.get("retrieved_chunk_ids") == right.get("retrieved_chunk_ids")
+            and left.get("reranked_chunk_ids") == right.get("reranked_chunk_ids")
+        ):
+            raise AssertionError("selected pair no longer has identical stored inputs")
+        return _figure_pair(left, right, scores)
     if kind == "low_faithfulness":
         score = min(
             scores.values(),
@@ -541,10 +553,6 @@ def _figure_case(
         return "\n".join(
             _figure_record(record, score, answer_limit=1200, evidence_limit=1000)
         )
-    if kind == "translation_confound":
-        return _short(SYMMETRIC_INPUT_AUDIT.read_text(encoding="utf-8"), False, 4200)
-    if kind == "cross_judge":
-        return _short(CROSS_JUDGE_REPORT.read_text(encoding="utf-8"), False, 4200)
     raise ValueError(f"unsupported case kind: {kind}")
 
 
@@ -667,6 +675,16 @@ def _resolve_case(
                 )
         _, left, right = _best(candidates)
         return _show_pair(left, right, scores, full)
+    if kind == "selected_pair":
+        left = records[(case["query_id"], case["config_a"])]
+        right = records[(case["query_id"], case["config_b"])]
+        if not (
+            left.get("contexts") == right.get("contexts")
+            and left.get("retrieved_chunk_ids") == right.get("retrieved_chunk_ids")
+            and left.get("reranked_chunk_ids") == right.get("reranked_chunk_ids")
+        ):
+            raise AssertionError("selected pair no longer has identical stored inputs")
+        return _show_pair(left, right, scores, full)
     if kind == "low_faithfulness":
         score = min(
             scores.values(),
@@ -674,12 +692,6 @@ def _resolve_case(
         )
         record = records[(score["query_id"], score["group"])]
         return _show_record(record, score, full)
-    if kind == "translation_confound":
-        return _short(
-            SYMMETRIC_INPUT_AUDIT.read_text(encoding="utf-8"), full, limit=3500
-        )
-    if kind == "cross_judge":
-        return _short(CROSS_JUDGE_REPORT.read_text(encoding="utf-8"), full, limit=3500)
     raise ValueError(f"unsupported case kind: {kind}")
 
 
@@ -699,7 +711,7 @@ def command_show(case_id: str, full: bool, figure: bool = False) -> int:
             raise FileNotFoundError(f"required artifact is missing: {path}")
     records, scores = _load_data()
     print("=" * 60)
-    print("M-RAG Experimental Result (stored artifact replay)")
+    print("M-RAG 60-query Evidence Replay UI (stored artifacts)")
     print("=" * 60)
     print(_line("Case", f"{case_id.upper()} {case['title']}"))
     print(_line("Selection", case["selection"]))

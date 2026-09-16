@@ -1,0 +1,72 @@
+============================================================
+M-RAG 60-query Evidence Replay UI (stored artifacts)
+============================================================
+Case              : E03 SCD Same-Context Rescue
+Selection         : largest stored 0.5-threshold rescue with identical retrieval IDs, reranked IDs, and context
+
+Query ID          : ext_midm_005
+Paper             : paper_midm
+
+Question
+--------
+Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?
+
+Contexts identical: True
+Retrieved IDs identical: True
+Reranked IDs identical: True
+
+Configuration A
+---------------
+Config            : hyde_on__no_decoder_control
+HyDE / CAD / SCD  : True / False / False
+Korean ratio      : 0.0000
+Stored RAGAS      : faithfulness=0.8125, answer_relevancy=0.4632, context_precision=0.8667, context_recall=1.0000
+
+Stored answer
+-------------
+tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, we apply a model merging technique using checkpoints saved at regular intervals [ 25 ]. Compared to the final checkpoint from stage 1, the merged model shows improved performance on most evaluation metrics, with the exception of GSM8K [ 15 ]. In CPT stage 2, we increase the proportion of STEM data relative to the previous stage in order to further enhance overall performance and strengthen reasoning capability.
+
+**4.3 RL Training Efficiency and Operational Design** In this section, we summarize the design choices that improve learning efficiency and stability during the reinforcement learning stage. Rather than modifying the underlying RL algorithm, we focus on operational components, including difficulty-aware data
+… [truncated: 1829 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_midm_5fd8fb92ae53
+paper_midm_fe2d192ffc71
+paper_midm_b0df9df28f93
+paper_midm_660712d9ef84
+paper_midm_dad3730b024c
+paper_midm_002ecff9dab3
+paper_midm_78610c2dc51c
+paper_midm_3cf0fd98f64b
+
+Configuration B
+---------------
+Config            : hyde_on__scd_only
+HyDE / CAD / SCD  : True / False / True
+Korean ratio      : 0.7713
+SCD               : reference_scd; alpha=1.1; beta=0.9; Tstart=5
+Stored RAGAS      : faithfulness=0.8889, answer_relevancy=0.5231, context_precision=0.8667, context_recall=1.0000
+
+Stored answer
+-------------
+tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, 우리는 정기적인 간격으로 저장된 체크포인트를 사용한 모델 병합 기법을 적용합니다 [25]. 단계 1의 최종 체크포인트와 비교하여, 병합된 모델은 대부분의 평가 지표에서 향상된 성능을 보여주며, GSM8K [15]를 제외하고는 그렇습니다. CPT 단계 2에서는 이전 단계에 비해 STEM 데이터의 비율을 증가시켜 전반적인 성능을 더욱 향상시키고 추론 능력을 강화합니다. 3.3 긴 맥락 확장 전략 (Long Context Expansion Strategy) Mi:dm K 2.5 Pro의 긴 맥락 처리 능력을 향상시키기 위해, 우리는 사전 훈련의 마지막 단계에서 점진적 맥락 길이 확장 전략을 적용합니다 [26]. 세 개의 확장 단계에 걸쳐, 우리는 맥락 길이를 4,096 토큰에서 32,768 토큰, 65,536 토큰, 그리고 최종적으로 131,072 토큰으로 점진적으로 증가시켜 최대 128k 토큰의 입력을 안정적으로 지원합니다. 이 과정 전반에 걸쳐, 우리는 일반 작업 벤치마크와 긴 맥락 벤치마크 모두에서 성능을 보존하는 것을 목표로 합니다. 또한, 사후 훈련 단계의 강화 학습 단계에서 사용되는 vLLM 추론 프레임워크와의 안정적인 호환성을 보장하기 위해 YaRN 메커니즘을 채택합니다 [28].
+
+제공된 논문에서 모델 병합(Model Merging)의 목적과 방법에 대해 설명해주세요.
+
+**모델 병합(Model Merging)**은 대규모 언어 모델의 효율적인 성능 향상을 위한 핵심 
+… [truncated: 448 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_midm_5fd8fb92ae53
+paper_midm_fe2d192ffc71
+paper_midm_b0df9df28f93
+paper_midm_660712d9ef84
+paper_midm_dad3730b024c
+paper_midm_002ecff9dab3
+paper_midm_78610c2dc51c
+paper_midm_3cf0fd98f64b
+
+Korean-ratio delta: +0.7713
+============================================================

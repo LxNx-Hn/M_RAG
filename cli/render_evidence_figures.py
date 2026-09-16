@@ -17,7 +17,7 @@ from pathlib import Path
 from evidence_cases import EVIDENCE_CASES, ROOT
 from PIL import Image, ImageDraw, ImageFont
 
-DEFAULT_OUTPUT = ROOT / "docs/PAPER/figures/evidence"
+DEFAULT_OUTPUT = ROOT / "FINALDOCS/EVIDENCE/UI_REPLAY"
 FONT_PATH = Path(r"C:\Windows\Fonts\malgun.ttf")
 FONT_BOLD_PATH = Path(r"C:\Windows\Fonts\malgunbd.ttf")
 WIDTH = 2200
@@ -30,11 +30,8 @@ CASE_FILENAMES = {
     "E02": "E02_language_drift.png",
     "E03": "E03_scd_rescue.png",
     "E04": "E04_hyde_retrieval_change.png",
-    "E05": "E05_cad_identical_context.png",
-    "E06": "E06_low_faithfulness.png",
-    "E07": "E07_translation_confound.png",
-    "E08": "E08_symmetric_cross_judge.png",
-    "E09": "E09_language_drift_midm.png",
+    "E05": "E05_cad_positive_same_context.png",
+    "E06": "E06_cad_tradeoff_same_context.png",
 }
 
 
@@ -110,7 +107,7 @@ def _render(case_id: str, text: str, output_path: Path) -> tuple[int, int]:
         for rendered in _wrap_line(line, draw, font, WIDTH - 2 * MARGIN)
     ]
     line_height = BODY_SIZE + LINE_SPACING
-    title = f"M-RAG Evidence Replay — {case_id} {EVIDENCE_CASES[case_id]['title']}"
+    title = f"M-RAG 60-query Evidence Replay UI — {case_id} {EVIDENCE_CASES[case_id]['title']}"
     height = MARGIN + TITLE_SIZE + 38 + len(wrapped) * line_height + MARGIN
     image = Image.new("RGB", (WIDTH, height), "white")
     draw = ImageDraw.Draw(image)

@@ -1,0 +1,97 @@
+============================================================
+M-RAG 60-query Evidence Replay UI (stored artifacts)
+============================================================
+Case              : E04 HyDE Retrieval Change
+Selection         : largest absolute stored answer-relevancy difference in the 60-query HyDE-only pair with changed retrieval IDs
+
+Query ID          : ext_raptor_004
+Paper             : paper_nlp_raptor
+
+Question
+--------
+RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?
+
+Contexts identical: False
+Retrieved IDs identical: False
+Reranked IDs identical: False
+
+Configuration A
+---------------
+Config            : hyde_off__no_decoder_control
+HyDE / CAD / SCD  : False / False / False
+Korean ratio      : 0.6568
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.0000, context_precision=1.0000, context_recall=0.0000
+
+Stored answer
+-------------
+제공된 논문 컨텍스트를 면밀히 검토한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)이 어떤 결정을 내리는 데 사용되는지에 관한 구체적인 정보는 확인할 수 없습니다.
+
+논문에서는 RAPTOR의 클러스터링 메커니즘에 대해 상세히 설명하고 있으나, 구체적으로 다음과 같은 내용만 언급되어 있습니다:
+
+1. RAPTOR는 Gaussian Mixture Models(GMMs)을 기반으로 하는 클러스터링 알고리즘을 사용합니다.
+
+2. 클러스터링 과정에서는 soft clustering 방식을 채택하여 노드들이 여러 클러스터에 동시에 소속될 수 있도록 합니다.
+
+3. ablation study에서는 RAPTOR의 표준 클러스터링 방법과 recency-based tree 접근 방식을 비교하였습니다.
+
+그러나 BIC(Bayesian Information Criterion)가 클러스터 개수 결정이나 모델 선택에 어떻게 활용되는지에 관한 구체적인 설명이나 언급은 제공된 컨텍스트 내에서 발견되지 않았습니다.
+
+따라서 RAPTOR의 클러스터링 과정에서 BIC의 구체적인 활용 방식에 대해서는 제공된 논문 자료만으로는 정확한 답변을 드리기 어렵습니다.
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_0f4c6a947b3d
+paper_nlp_raptor_4f340664570a
+paper_nlp_raptor_ce65d951aa0e
+paper_nlp_raptor_b5ac09793e91
+paper_nlp_raptor_43b8fe1c477a
+paper_nlp_raptor_a479d51ff609
+paper_nlp_raptor_8146cc59f2bb
+paper_nlp_raptor_10fa315b4e5d
+
+Configuration B
+---------------
+Config            : hyde_on__no_decoder_control
+HyDE / CAD / SCD  : True / False / False
+Korean ratio      : 0.4871
+Stored RAGAS      : faithfulness=0.8571, answer_relevancy=0.8947, context_precision=0.7000, context_recall=1.0000
+
+Stored answer
+-------------
+제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 **최적의 클러스터 개수 결정**을 위해 사용됨이 확인됩니다.
+
+구체적으로 BIC는 다음과 같은 목적으로 활용됩니다:
+
+1. **모델 선택 기준**: 논문에서는 "To determine the optimal number of clusters, we employ the Bayesian Information Criterion (BIC) for model selection"이라고 명시하고 있습니다.
+
+2. **가중치 메커니즘**: BIC는 "not only penalizes model complexity but also rewards goodness of fit"라는 특성을 통해 모델의 복잡성과 적합도 사이의 균형을 평가합니다.
+
+3. **수식적 정의**: 논문에서 제시된 BIC 공식은 다음과 같습니다:
+   BIC = ln(N) - 2ln(ˆL)
+   여기서 N은 텍스트 세그먼트 수, k는 모델 파라미터 수, ˆL은 모델의 최대 가능도 함수값입니다.
+
+4. **GMM 파라미터 추정**: 최적 클러스터 개수가 BIC로 결정된 후, "Expectation-Maximization algorithm is then used to estimate the GMM parameters"라고 언급되어 있어, BIC를 통한 클러스터 개수 결정이 이후 EM 알고리즘 적용의 기초가 됨을 알 수 있습니다.
+
+이러한 BIC 활용 방식은 Gaussian Mixture Models(GMMs)의 클러스터링 과정에서 과적합을 방지하면서도 데이터에 적합한 모델 복잡도를 선택하는 통계적 방법론을 적용한 것입니다.
+
+Translated query
+----------------
+In RAPTOR's clustering process, what decision is the Bayesian Information Criterion (BIC) used for?
+
+HyDE document
+-------------
+In RAPTOR's clustering process, the Bayesian Information Criterion (BIC) is employed to determine the optimal number of clusters by evaluating model fit while penalizing complexity. Specifically, BIC is calculated for each candidate cluster solution, providing a quantitative measure that balances goodness-of-fit against the number of parameters required. This criterion helps in selecting the model with the lowest BIC value, which indicates the most parsimonious explanation of the data. For instance, in a dataset analyzed using RAPTOR, the BIC values for models with 2, 3, and 4 clusters might be -1500, -1450, and -1420, respectively, leading to the selection of the 4-cluster solution as the best fit based on the lowest BIC score.
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_3f38f619bf78
+paper_nlp_raptor_8ac610540f55
+paper_nlp_raptor_b5ac09793e91
+paper_nlp_raptor_4f340664570a
+paper_nlp_raptor_8146cc59f2bb
+paper_nlp_raptor_a479d51ff609
+paper_nlp_raptor_43b8fe1c477a
+paper_nlp_raptor_ce65d951aa0e
+
+Korean-ratio delta: -0.1697
+============================================================
