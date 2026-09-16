@@ -24,6 +24,9 @@ def main() -> int:
     for path in (MANUSCRIPT, TABLES, CSV_DIR, FIGURE_DIR, FINAL):
         need(path)
     text = MANUSCRIPT.read_text(encoding="utf-8")
+    body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
+    if len(body) < 40000:
+        raise AssertionError(f"transfer manuscript body is too short: {len(body)} chars")
     banned = (
         "19개의 한국어 질의",
         "19개 질의",
@@ -81,8 +84,11 @@ def main() -> int:
         "MANUSCRIPT/THESIS_FEEDBACK_AFTER_60Q.md",
         "MANUSCRIPT/FINAL_CLAIM_MAP_60Q.md",
         "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt",
+        "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
         "TABLES/TABLES_60Q.xlsx",
         "EVIDENCE/evidence_manifest_60q.json",
+        "EVIDENCE/UI_REPLAY/E01_normal_qa.png",
+        "EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png",
         "DATA/EXPERIMENT_60_VALIDATION.md",
         "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
     )
