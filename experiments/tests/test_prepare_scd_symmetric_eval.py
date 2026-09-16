@@ -167,6 +167,18 @@ def test_korean_segment_allows_acronym_heavy_fragment_but_parent_does_not() -> N
         )
 
 
+def test_table_heavy_korean_answer_allows_preserved_dataset_identifiers() -> None:
+    source = "\n".join(
+        ["| QA | HotpotQA | [112] |" for _ in range(5)]
+        + ["데이터셋의 역할을 설명하라."]
+    )
+    output = "\n".join(
+        ["| 질의응답 | HotpotQA | [112] |" for _ in range(5)]
+        + ["데이터셋의 역할을 설명한다."]
+    )
+    _validate_normalized(TextTask("table", "answer", "ko", source), output)
+
+
 def test_korean_segment_rejects_untranslated_bibliographic_title() -> None:
     fragment = (
         '[26] Jia, Y., et al. "Evaluation of Retrieval-Augmented Generation Models." '

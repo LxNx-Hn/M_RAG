@@ -455,7 +455,17 @@ def _validate_normalized(task: TextTask, output: str) -> None:
         ratio = hangul / (hangul + latin) if hangul + latin else 0.0
         base_kind = task.kind.split("_", 1)[0]
         is_segment = "_segment" in task.kind
-        minimum = 0.0 if is_segment else MIN_KOREAN_RATIOS[base_kind]
+        table_line_count = sum(
+            line.lstrip().startswith("|") for line in task.source.splitlines()
+        )
+        # Dataset labels, model identifiers, and citation cells remain literal in
+        # table-heavy answers. The Korean prose check remains active with a
+        # threshold calibrated to that preserved technical content.
+        minimum = (
+            0.0
+            if is_segment
+            else 0.15 if table_line_count >= 4 else MIN_KOREAN_RATIOS[base_kind]
+        )
         if not is_segment and (hangul == 0 or ratio < minimum):
             raise NormalizationError(
                 f"Korean script ratio {ratio:.3f} is below {minimum:.2f} "
