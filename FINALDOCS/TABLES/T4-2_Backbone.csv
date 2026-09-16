@@ -1,6 +1,0 @@
-"단계","고정 구성"
-"입력","한국어 질의와 지정 대상 문서"
-"검색","BGE-M3 dense retrieval + BM25 sparse retrieval"
-"결합","weighted Reciprocal Rank Fusion"
-"재정렬","CrossEncoder reranking"
-"생성","Mi:dm 2.0 Base Instruct, max_new_tokens=512"

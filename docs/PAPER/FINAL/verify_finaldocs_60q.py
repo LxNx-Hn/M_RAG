@@ -80,20 +80,21 @@ def main() -> int:
     final_required = (
         "README.md",
         "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md",
-        "MANUSCRIPT/THESIS_KO_60Q.md",
-        "MANUSCRIPT/THESIS_FEEDBACK_AFTER_60Q.md",
-        "MANUSCRIPT/FINAL_CLAIM_MAP_60Q.md",
         "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt",
         "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
         "TABLES/TABLES_60Q.xlsx",
-        "EVIDENCE/evidence_manifest_60q.json",
         "EVIDENCE/UI_REPLAY/E01_normal_qa.png",
         "EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png",
         "DATA/EXPERIMENT_60_VALIDATION.md",
+        "DATA/evidence_manifest_60q.json",
+        "APPENDIX/QUERY_60_AUDIT.md",
         "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
     )
     for relative in final_required:
         need(FINAL / relative)
+    final_figures = list((FINAL / "FIGURES").glob("*.png"))
+    if len(final_figures) != 17:
+        raise AssertionError(f"expected 17 final PNG figures: {len(final_figures)}")
     print("PASS: 60-query final package checks")
     return 0
 

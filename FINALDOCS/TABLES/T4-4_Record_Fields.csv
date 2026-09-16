@@ -1,6 +1,0 @@
-"구분","필드"
-"식별","query_id, paper, config_name, status"
-"요인","use_hyde, use_cad, use_scd, parameter fields"
-"검색","retrieved_chunk_ids, reranked_chunk_ids, contexts"
-"생성","generated_answer, duration_seconds, decoding_mode"
-"재현","generation_model, retrieval backend, context count"

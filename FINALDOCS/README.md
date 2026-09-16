@@ -1,13 +1,15 @@
-# 60-query RAG-Cube 졸업논문 최종 패키지
+# 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
-이 디렉터리는 한국어 질의 기반 영어 학술문서 RAG의 60-query RAG-Cube 실험 산출물을 한글 이전과 검토를 위해 모은다.
+이 디렉터리에는 HWP 최종 작성과 제출 전 사실 확인에 필요한 파일만 둔다.
 
-- `MANUSCRIPT`: 한글 이전용 원고, HWP 삽입 가이드, claim map, 수식 입력
-- `FIGURES`: 삽입용 PNG·SVG와 그림 안내
-- `TABLES`: Excel workbook과 표별 CSV
-- `EVIDENCE`: 기존 replay UI가 재현한 60-query 화면·원문과 evidence manifest
-- `DATA`: 질의 감사, 실험 검증, 파생 수치
-- `APPENDIX`: 질의 목록, 탐색 분석, provenance, 재현 명령
-- `VALIDATION`: 최종 package 검증 보고서
+- `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: 한글 이전용 단일 원고
+- `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: 표·그림·UI 화면의 HWP 배치 안내
+- `MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt`: HWP 수식 입력값
+- `TABLES/TABLES_60Q.xlsx`: 본문과 부록의 모든 표가 들어 있는 단일 workbook
+- `FIGURES/*.png`: HWP에 삽입할 17개 최종 그림
+- `EVIDENCE/UI_REPLAY/`: 실제 저장 artifact를 UI에서 재현한 여섯 화면과 원문
+- `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
+- `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
+- `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
 
-모든 결과 수치는 `DATA/EXPERIMENT_60_VALIDATION.md`와 CSV를 기준으로 대조한다. 원본 generation·evaluation artifact의 SHA-256은 해당 검증 보고서에 기록되어 있다.
+SVG 원본, 표별 CSV, 중복 원고, 이전 검토 메모, 정리 로그는 원본 작업 경로에 보존하고 이 최종 작성 패키지에는 포함하지 않는다.
