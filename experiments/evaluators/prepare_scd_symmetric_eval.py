@@ -30,7 +30,7 @@ EVALUATORS_DIR = Path(__file__).resolve().parent
 if str(EVALUATORS_DIR) not in sys.path:
     sys.path.insert(0, str(EVALUATORS_DIR))
 
-from official_ragas_runner import (  # noqa: E402
+from official_ragas_runner import (
     ENV_FILE,
     JUDGE_PROVIDERS,
     _load_key_from_env_file,
@@ -175,7 +175,7 @@ def _atomic_write_jsonl(path: Path, records: list[dict[str, Any]]) -> None:
 
 
 def _task_key(target: str, kind: str, source: str) -> str:
-    payload = f"{PROTOCOL_ID}\0{target}\0{kind}\0{source}".encode("utf-8")
+    payload = f"{PROTOCOL_ID}\0{target}\0{kind}\0{source}".encode()
     return hashlib.sha256(payload).hexdigest()
 
 
@@ -184,7 +184,9 @@ def _context_signature(contexts: list[str]) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def _load_selected_records(path: Path) -> list[dict[str, Any]]:
+def _load_selected_records(
+    path: Path, *, expected_queries_per_config: int = 19, profile: str = "main19"
+) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for line_number, line in enumerate(
         path.read_text(encoding="utf-8").splitlines(), start=1
@@ -201,14 +203,11 @@ def _load_selected_records(path: Path) -> list[dict[str, Any]]:
             )
         expected_cad, expected_scd = EXPECTED_CONFIG_FLAGS[config]
         required_values = {
-            "experiment": EXPECTED_EXPERIMENT,
             "generation_model": EXPECTED_GENERATION_MODEL,
-            "phase": "main_hyde_cad_scd_generation",
             "decoding_mode": "deterministic_greedy",
             "status": "succeeded",
             "error": None,
             "fallback_used": False,
-            "decoder_main_used": True,
             "use_cad": expected_cad,
             "use_scd": expected_scd,
         }
@@ -218,6 +217,34 @@ def _load_selected_records(path: Path) -> list[dict[str, Any]]:
                     f"line {line_number}: {field} must be {expected!r}; "
                     f"got {record.get(field)!r}"
                 )
+        if profile == "main19":
+            if record.get("experiment") != EXPECTED_EXPERIMENT:
+                raise NormalizationError(f"line {line_number}: unexpected experiment")
+            if record.get("phase") != "main_hyde_cad_scd_generation":
+                raise NormalizationError(f"line {line_number}: unexpected phase")
+            if record.get("decoder_main_used") is not True:
+                raise NormalizationError(
+                    f"line {line_number}: decoder_main_used must be true"
+                )
+        elif profile == "final60":
+            if record.get("experiment") not in {
+                EXPECTED_EXPERIMENT,
+                "extended-hyde-cad-scd-reference-scd",
+            }:
+                raise NormalizationError(f"line {line_number}: unexpected experiment")
+            if record.get("phase") not in {
+                "main_hyde_cad_scd_generation",
+                "extended_validation_hyde_cad_scd_generation",
+            }:
+                raise NormalizationError(f"line {line_number}: unexpected phase")
+            if not bool(record.get("decoder_main_used")) and not bool(
+                record.get("extended_validation_used")
+            ):
+                raise NormalizationError(
+                    f"line {line_number}: final60 origin marker missing"
+                )
+        else:
+            raise NormalizationError(f"unknown profile: {profile}")
         expected_cad_alpha = 0.5 if expected_cad else None
         if record.get("cad_alpha") != expected_cad_alpha:
             raise NormalizationError(
@@ -270,9 +297,11 @@ def _load_selected_records(path: Path) -> list[dict[str, Any]]:
         records.append(record)
 
     counts = Counter(str(record["config_name"]) for record in records)
-    if set(counts) != ALLOWED_CONFIGS or set(counts.values()) != {19}:
+    if set(counts) != ALLOWED_CONFIGS or set(counts.values()) != {
+        expected_queries_per_config
+    }:
         raise NormalizationError(
-            f"expected 19 records for each of four configs; got {dict(counts)}"
+            f"expected {expected_queries_per_config} records for each of four configs; got {dict(counts)}"
         )
 
     by_key = {
@@ -434,7 +463,11 @@ def _validate_normalized(task: TextTask, output: str) -> None:
                 f"Korean output contains a long untranslated English prose span "
                 f"for {task.kind} task {task.key}"
             )
-    if task.target == "en" and (latin == 0 or hangul > 0):
+    # A numeric- or symbol-only span has no natural-language script to convert.
+    # Requiring an added English letter would change the preserved source.  Text
+    # spans, including Hangul-only source text, still require English output.
+    source_has_letters = any(char.isalpha() for char in task.source)
+    if task.target == "en" and (hangul > 0 or (source_has_letters and latin == 0)):
         raise NormalizationError(
             f"English output must contain Latin text and no Hangul for task {task.key}"
         )
@@ -658,7 +691,7 @@ def _normalize_segment_with_retries(
             normalized = "\n\n".join(normalized_parts)
             _validate_normalized(task, normalized)
             return normalized
-        except Exception as exc:  # noqa: BLE001 - explicit hard-stop retries
+        except Exception as exc:
             if attempt >= max_retries or not _is_retryable(exc):
                 raise
             time.sleep(_retry_delay_seconds(exc, attempt))
@@ -742,7 +775,7 @@ def _normalize_batch(
     for attempt in range(max_retries + 1):
         try:
             return _normalize_batch_once(chat_model, tasks)
-        except Exception as exc:  # noqa: BLE001 - retry boundary is explicit
+        except Exception as exc:
             output_validation_failure = isinstance(exc, NormalizationError)
             if output_validation_failure:
                 print(
@@ -888,7 +921,7 @@ def _build_outputs(
     records: list[dict[str, Any]], values: dict[str, str], model: str
 ) -> dict[str, list[dict[str, Any]]]:
     outputs = {"en": [], "ko": []}
-    for target in outputs:
+    for target, output_records in outputs.items():
         for source_record in records:
             record = copy.deepcopy(source_record)
             question_key = _task_key(target, "question", str(record["query"]))
@@ -961,7 +994,7 @@ def _build_outputs(
                     "original character budget"
                 ),
             }
-            outputs[target].append(record)
+            output_records.append(record)
     return outputs
 
 
@@ -969,6 +1002,8 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--generation-results", default=str(DEFAULT_INPUT))
     parser.add_argument("--out-dir", default=str(DEFAULT_OUT_DIR))
+    parser.add_argument("--profile", choices=("main19", "final60"), default="main19")
+    parser.add_argument("--expected-queries-per-config", type=int, default=19)
     parser.add_argument("--model", default="gpt-4o")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--max-workers", type=int, default=4)
@@ -1000,7 +1035,11 @@ def main() -> int:
         return 2
 
     try:
-        records = _load_selected_records(source_path)
+        records = _load_selected_records(
+            source_path,
+            expected_queries_per_config=args.expected_queries_per_config,
+            profile=args.profile,
+        )
         tasks = _build_tasks(records)
     except (ValueError, KeyError, json.JSONDecodeError) as exc:
         print(f"REFUSED: input validation failed: {exc}")
@@ -1021,7 +1060,7 @@ def main() -> int:
         "source": str(source_path),
         "model": args.model,
         "selected_records": len(records),
-        "expected_scd_pairs": 38,
+        "expected_scd_pairs": args.expected_queries_per_config * len(PAIR_CONFIGS),
         "pair_context_identity_verified": True,
         "tasks_total": len(tasks),
         "tasks_by_target_kind": dict(

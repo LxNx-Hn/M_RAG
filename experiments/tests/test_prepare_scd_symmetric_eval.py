@@ -7,16 +7,16 @@ from experiments.evaluators.prepare_scd_symmetric_eval import (
     NormalizationError,
     TextTask,
     _acquire_execution_lock,
-    _load_selected_records,
     _is_validated_identity,
-    _normalize_tasks_by_segments,
+    _load_selected_records,
     _normalize_segment_with_retries,
+    _normalize_tasks_by_segments,
     _parse_passages,
     _protect_integrity,
-    _restore_integrity,
-    _replace_context_chunks,
-    _repair_combined_normalization,
     _release_execution_lock,
+    _repair_combined_normalization,
+    _replace_context_chunks,
+    _restore_integrity,
     _split_for_lossless_normalization,
     _validate_normalized,
 )
@@ -81,6 +81,11 @@ def test_validation_requires_target_language_dominance() -> None:
     _validate_normalized(korean, "이것은 충분히 자세한 한국어 답변입니다. API")
     with pytest.raises(NormalizationError, match="script ratio"):
         _validate_normalized(korean, "짧음 This is still mostly an English answer.")
+
+
+def test_english_numeric_only_segment_preserves_without_added_letters() -> None:
+    task = TextTask("numeric", "answer_segment", "en", "87.50 39.00 77.50")
+    _validate_normalized(task, "87.50 39.00 77.50")
 
 
 def test_validated_identity_is_symmetric_and_fail_closed() -> None:

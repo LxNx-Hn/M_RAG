@@ -437,6 +437,19 @@ def main() -> None:
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
+    # The symmetric evaluator consumes one contiguous 60-query generation
+    # input while retaining every original record unchanged.
+    symmetric_input = (
+        ROOT
+        / "experiments/results/evaluation_inputs/final60_scd_symmetric/"
+        "rag_cube_60_generation.jsonl"
+    )
+    symmetric_input.parent.mkdir(parents=True, exist_ok=True)
+    symmetric_input.write_text(
+        "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in generations),
+        encoding="utf-8",
+    )
+
     coverage = analysis["score_coverage"]["pooled_60"]
     primary = analysis["quality"]["pooled_60"]["contrasts"]
     scd = analysis["scd_language_adherence"]["pooled_60"]
