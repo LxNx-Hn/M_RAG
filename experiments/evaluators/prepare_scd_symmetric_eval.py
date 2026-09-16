@@ -458,15 +458,28 @@ def _validate_normalized(task: TextTask, output: str) -> None:
         table_line_count = sum(
             line.lstrip().startswith("|") for line in task.source.splitlines()
         )
+        source_hangul = sum(
+            1
+            for char in task.source
+            if 0xAC00 <= ord(char) <= 0xD7A3
+            or 0x1100 <= ord(char) <= 0x11FF
+            or 0x3130 <= ord(char) <= 0x318F
+        )
+        reference_entry_count = len(CITATION_RE.findall(task.source))
+        literal_technical_block = source_hangul == 0 and (
+            table_line_count >= 4 or reference_entry_count >= 4
+        )
         # Dataset labels, model identifiers, and citation cells remain literal in
-        # table-heavy answers. The Korean prose check remains active with a
-        # threshold calibrated to that preserved technical content.
+        # table-heavy answers and citation blocks. Korean prose validation stays
+        # active for records containing natural-language source text.
         minimum = (
             0.0
-            if is_segment
+            if is_segment or literal_technical_block
             else 0.15 if table_line_count >= 4 else MIN_KOREAN_RATIOS[base_kind]
         )
-        if not is_segment and (hangul == 0 or ratio < minimum):
+        if not is_segment and (
+            (hangul == 0 and not literal_technical_block) or ratio < minimum
+        ):
             raise NormalizationError(
                 f"Korean script ratio {ratio:.3f} is below {minimum:.2f} "
                 f"for {task.kind} task {task.key}"

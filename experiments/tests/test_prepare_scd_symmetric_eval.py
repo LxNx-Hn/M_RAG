@@ -179,6 +179,13 @@ def test_table_heavy_korean_answer_allows_preserved_dataset_identifiers() -> Non
     _validate_normalized(TextTask("table", "answer", "ko", source), output)
 
 
+def test_reference_only_korean_answer_allows_preserved_bibliography() -> None:
+    source = "\n".join(
+        [f"[{index}] A. Author, Conference Title, 202{index}." for index in range(4)]
+    )
+    _validate_normalized(TextTask("references", "answer", "ko", source), source)
+
+
 def test_korean_segment_rejects_untranslated_bibliographic_title() -> None:
     fragment = (
         '[26] Jia, Y., et al. "Evaluation of Retrieval-Augmented Generation Models." '
