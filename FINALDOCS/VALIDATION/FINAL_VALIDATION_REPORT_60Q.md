@@ -4,7 +4,7 @@
 
 - 최종 원고: `GRADUATION_REPORT_TRANSFER_KO_60Q.md`
 - 표: `TABLES_60Q.xlsx` 및 `tables_60q_csv/`
-- 그림: `figures_60q/` PNG·SVG
+- 그림: `FINALDOCS/FIGURES/`의 HWP 삽입용 구조·통계 PNG 10개와 `EVIDENCE/UI_REPLAY/`의 저장 응답 UI 화면
 - 증빙: `evidence_60q_raw/`, `generated/evidence_manifest_60q.json`
 - 집계 패키지: `FINALDOCS/`
 

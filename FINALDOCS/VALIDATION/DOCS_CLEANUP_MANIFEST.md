@@ -21,6 +21,9 @@ records the document-tree cleanup that established that boundary.
   packages and score tracks.
 - `docs/USAGE/ALICE_CLOUD.md`, `ALICE_CLOUD_GUIDE.md`, and `ALICE_SETUP.md`:
   no-longer-needed cloud execution runbooks and pointers.
+- The old `build_figures_60q.py`, figure index, insertion guides, and generated
+  `figures_60q/` panels: superseded regeneration material that could repopulate
+  deprecated evidence panels.
 
 ## Preserved outside FINALDOCS
 
@@ -29,3 +32,5 @@ records the document-tree cleanup that established that boundary.
 - `experiments/scripts/alice/` remains experiment-runner source code. It is not
   a thesis document or a current cloud-execution guide.
 - `experiments/results/` and other stored experiment artifacts remain unchanged.
+- `FINALDOCS/FIGURES/` is the fixed 10-PNG submission set; the six UI replay
+  screenshots are separately retained under `FINALDOCS/EVIDENCE/UI_REPLAY/`.
