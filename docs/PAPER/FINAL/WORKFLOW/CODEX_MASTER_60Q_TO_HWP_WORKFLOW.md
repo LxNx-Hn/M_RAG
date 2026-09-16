@@ -46,6 +46,13 @@ M_RAG 저장소에서 **총 60개의 질의-대상문서 쌍**으로 RAG-Cube �
 - 검증 기준
 을 참고하는 내부 작업 자료로만 사용한다.
 
+## 0.1.1 최종 근거 범위
+
+최종 원고의 결과·표·그림·결론은 60-query 주 평가와 240개 SCD 대응쌍의
+한국어 문자 비율 분석으로 구성한다. SCD 대칭 정규화·다중 judge 평가는
+최종 근거 범위에서 제외한다. 해당 작업의 부분 산출물은 재현성 점검을 위한
+보존 자료로 유지하며, 본문 수치·표·그림·결론에는 인용하지 않는다.
+
 ## 0.2 RAG-Cube의 의미
 
 RAG-Cube는 새 알고리즘, 새 방법, 새 프레임워크가 아니다.
@@ -316,26 +323,7 @@ expected:
 - primary CAD analysis sample을 어떻게 정의할지 report한다.
 - 논문 수치에 자동으로 60이라고 쓰지 않는다.
 
-## 4.5 symmetric SCD quality
-
-HyDE OFF에서:
-60 queries × 2 CAD states = 최대 **120 SCD ON/OFF pairs**
-
-실제 identical-context pair count를 검사한다.
-
-English-normalized / Korean-normalized panel 생성.
-
-judges:
-- gpt-4o
-- gpt-4.1-2025-04-14 또는 현재 고정 judge version
-
-metrics:
-- faithfulness
-- answer relevancy
-
-query-clustered bootstrap.
-
-## 4.6 평가 완료 report
+## 4.5 평가 완료 report
 
 생성:
 `docs/PAPER/FINAL/generated/EXPERIMENT_60_VALIDATION.md`
@@ -347,7 +335,6 @@ query-clustered bootstrap.
 - HyDE pair count
 - CAD identical-context count
 - SCD pair count
-- symmetric pair count
 - model versions
 - hashes
 - PASS/FAIL
@@ -463,19 +450,7 @@ formal interaction effect로 부르지 않는다.
 - baseline ratio별 effect
 - already-Korean answer stability
 
-## 5.5 symmetric quality
-
-두 judge × 두 languages × CAD strata.
-
-분석:
-- F/AR direction
-- CI
-- W/L/T
-- judge robustness
-- language robustness
-- positive/negative pair coexistence
-
-## 5.6 paper별 exploratory analysis
+## 5.5 paper별 exploratory analysis
 
 60개에서는 document별 sample이 커졌다면
 다음 탐색 분석을 수행한다.
@@ -490,7 +465,7 @@ formal interaction effect로 부르지 않는다.
 단:
 문서별 sample이 작으면 descriptive appendix로만 보낸다.
 
-## 5.7 query-type exploratory analysis
+## 5.6 query-type exploratory analysis
 
 query metadata가 충분히 신뢰 가능하면:
 - method
@@ -584,7 +559,6 @@ n이 작으면 본문에서 일반화하지 않는다.
 - `cad_primary_60q.csv`
 - `cad_strata_deltas_60q.csv`
 - `scd_language_summary_60q.csv`
-- `symmetric_quality_summary_60q.csv`
 - `runtime_summary_60q.csv`
 - `paper_level_exploratory_60q.csv`
 - `query_type_exploratory_60q.csv`
@@ -617,10 +591,9 @@ manuscript에 수동 복붙한 숫자를 source로 사용하지 않는다.
 [표 5-4] CAD identical-context primary result
 [표 5-5] SCD configuration별 Korean ratio / drift
 [표 5-6] SCD matched-pair language summary
-[표 5-7] symmetric quality result
 
 필요하면 추가:
-[표 5-8] 문서별 exploratory result
+[표 5-7] 문서별 exploratory result
 또는 부록으로 이동.
 
 표 제목은 위.
@@ -689,7 +662,6 @@ generation artifact → evaluation/analysis → tables/figures
 - HyDE primary n=60
 - CAD primary n=actual identical count
 - SCD language n=240
-- symmetric n=actual identical count
 
 ### [그림 5-2]
 RAG-Cube 8×4 quality matrix
@@ -716,19 +688,15 @@ SCD 240-pair language-adherence plot
 개별 pair 정보를 완전히 숨기지 않는다.
 
 ### [그림 5-6]
-Symmetric quality forest
-judge × language.
-
-### [그림 5-7]
 Normal QA evidence panel
 
-### [그림 5-8]
+### [그림 5-7]
 Language drift + SCD rescue evidence
 
-### [그림 5-9]
+### [그림 5-8]
 HyDE retrieval-change evidence
 
-### [그림 5-10]
+### [그림 5-9]
 CAD balanced identical-context cases
 - positive example
 - negative/trade-off example
@@ -879,17 +847,16 @@ Stored answer/context text를 새로 생성, 번역, 다듬지 않는다.
 5.4 HyDE 결과 및 해석
 5.5 CAD 결과 및 해석
 5.6 SCD 출력 언어 결과 및 해석
-5.7 SCD 대칭 품질 평가 및 해석
-5.8 대표 입출력 사례 분석
-5.9 종합 논의
-5.10 연구의 한계
+5.7 대표 입출력 사례 분석
+5.8 종합 논의
+5.9 연구의 한계
 
 6. 결론
 참고문헌
 부록
 
 3단계 번호는 사용하지 않는다.
-5.8 내부는:
+5.7 내부는:
 - 사례 1.
 - 사례 2.
 형태.
@@ -1027,7 +994,6 @@ Mi:dm K 2.5 Pro = target document
 - HyDE pair count
 - CAD identical pair count
 - SCD matched pair count
-- symmetric pair count
 - all mean/CI/WLT
 - config means
 - runtime
