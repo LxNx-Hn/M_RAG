@@ -3,14 +3,23 @@ C_q = Retrieve(q, D)
 y = LM(q, C_q)
 
 Weighted Reciprocal Rank Fusion
-score_RRF(d) = 0.6 / (k + rank_dense(d)) + 0.4 / (k + rank_BM25(d))
+RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}
 
 CAD decoding
-logits_CAD = (1 + alpha) logits_context - alpha logits_no_context
+z_CAD = (1 + alpha) z_ctx - alpha z_noctx
+
+SCD target-language token score
+tilde z_i = alpha z_i
+
+SCD non-target-language token score
+tilde z_i = beta z_i
+
+SCD neutral token score
+tilde z_i = z_i
 
 Korean-character ratio
-KoreanRatio(y) = N_Hangul(y) / (N_Hangul(y) + N_ASCII_alpha(y))
+KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}
 
 Paired contrast
-Delta_i = metric_i(ON) - metric_i(OFF)
-mean_Delta = (1 / n) sum_(i=1)^n Delta_i
+Delta_i = s_i^{ON} - s_i^{OFF}
+bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i

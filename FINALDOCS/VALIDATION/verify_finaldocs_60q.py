@@ -11,6 +11,33 @@ from pathlib import Path
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
 TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"
+EXPECTED_SHEETS = (
+    "T2-1_Related_Work",
+    "T3-1_Requirements",
+    "T3-2_RAG-Cube",
+    "T3-3_Factor_Position",
+    "T4-1_Environment",
+    "T4-2_Backbone",
+    "T4-3_Runtime",
+    "T4-4_Record_Fields",
+    "T5-1_Dataset",
+    "T5-2_Config_Scores",
+    "T5-3_HyDE",
+    "T5-4_CAD",
+    "T5-5_SCD_Config",
+    "T5-6_SCD_Paired",
+    "Appendix_Queries",
+    "Appendix_Paper",
+    "Appendix_QueryType",
+)
+UI_CASES = (
+    "E01_normal_qa",
+    "E02_language_drift",
+    "E03_scd_rescue",
+    "E04_hyde_retrieval_change",
+    "E05_cad_positive_same_context",
+    "E06_cad_tradeoff_same_context",
+)
 
 
 def need(path: Path) -> None:
@@ -31,8 +58,9 @@ def main() -> int:
     )
     for path in required:
         need(path)
-    for case in ("E01_normal_qa", "E02_language_drift", "E03_scd_rescue", "E04_hyde_retrieval_change", "E05_cad_positive_same_context", "E06_cad_tradeoff_same_context"):
+    for case in UI_CASES:
         need(FINAL / f"EVIDENCE/UI_REPLAY/{case}.png")
+        need(FINAL / f"EVIDENCE/UI_REPLAY/raw/{case}.txt")
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
@@ -56,6 +84,36 @@ def main() -> int:
     for section in detailed_toc:
         if section not in toc:
             raise AssertionError(f"missing detailed table-of-contents section: {section}")
+
+    figure_toc = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text.split("# 표 목 차", maxsplit=1)[0].split("# 그 림 목 차", maxsplit=1)[-1]))
+    figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
+    if figure_toc != figure_captions:
+        raise AssertionError("figure list and manuscript captions do not match")
+    table_toc = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text.split("# 참고문헌", maxsplit=1)[0].split("# 표 목 차", maxsplit=1)[-1]))
+    table_captions = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text))
+    if table_toc != table_captions:
+        raise AssertionError("table list and manuscript captions do not match")
+
+    cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
+    references = {int(number) for number in re.findall(r"(?m)^\[([0-9]{1,2})\]", text.split("# 참고문헌", maxsplit=1)[1])}
+    expected_references = set(range(1, 23))
+    if cited != expected_references or references != expected_references:
+        raise AssertionError("citation and reference-number sets must both be [1] through [22]")
+
+    equation_file = (FINAL / "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt").read_text(encoding="utf-8")
+    equations = (
+        "RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}",
+        "z_CAD = (1 + alpha) z_ctx - alpha z_noctx",
+        "tilde z_i = alpha z_i",
+        "tilde z_i = beta z_i",
+        "tilde z_i = z_i",
+        "KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}",
+        "Delta_i = s_i^{ON} - s_i^{OFF}",
+        "bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i",
+    )
+    for equation in equations:
+        if equation not in text or equation not in equation_file:
+            raise AssertionError(f"missing or mismatched HWP equation source: {equation}")
     chapter_five = text.split("# 5. 실험", maxsplit=1)[1].split("# 6. 결론", maxsplit=1)[0]
     if "[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E06_" in chapter_five:
         raise AssertionError("E06 trade-off UI must remain in appendix B, not chapter 5")
@@ -64,9 +122,15 @@ def main() -> int:
 
     with zipfile.ZipFile(TABLES) as archive:
         workbook = archive.read("xl/workbook.xml").decode("utf-8")
-    for sheet in ("T2-1_Related_Work", "T5-2_Config_Scores", "T5-3_HyDE", "T5-4_CAD", "T5-6_SCD_Paired", "Appendix_Queries"):
+        shared_strings = archive.read("xl/sharedStrings.xml").decode("utf-8")
+        query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
+    for sheet in EXPECTED_SHEETS:
         if sheet not in workbook:
             raise AssertionError(f"missing workbook sheet: {sheet}")
+    if "docs/PAPER/" in shared_strings or "generated/" in shared_strings:
+        raise AssertionError("workbook contains stale source metadata")
+    if len(re.findall(r"<x:row", query_rows)) != 63:
+        raise AssertionError("Appendix_Queries must contain its title, source, header, and 60 query rows")
 
     figures = sorted((FINAL / "FIGURES").glob("*.png"))
     if len(figures) != 10:
@@ -83,6 +147,29 @@ def main() -> int:
     guide = (FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md").read_text(encoding="utf-8")
     if "E01·E03·E04·E05·E06을" in guide or "E06 CAD trade-off 화면은\n본문" not in guide:
         raise AssertionError("HWP guide must place E06 only in appendix B")
+
+    package_text_paths = (
+        FINAL / "README.md",
+        MANUSCRIPT,
+        FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
+        FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
+        FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
+        FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
+    )
+    stale_paths = (
+        "docs/PAPER/",
+        "generated/",
+        "tables_60q_csv/",
+        "evidence_60q_raw/",
+        "build_query_60_audit.py",
+        "build_60q_derived_data.py",
+        "build_tables_60q.mjs",
+        "build_figures_60q.py",
+    )
+    for path in package_text_paths:
+        package_text = path.read_text(encoding="utf-8")
+        if found := [stale for stale in stale_paths if stale in package_text]:
+            raise AssertionError(f"stale final-package path in {path.relative_to(FINAL)}: {found}")
     print("PASS: FINALDOCS 60-query thesis package")
     return 0
 
