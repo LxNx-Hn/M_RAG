@@ -26,7 +26,7 @@
 
 Excel workbook은 15개 sheet와 표별 CSV를 포함한다. 생성 뒤 workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했고, formula error scan은 0건이었다. 대표 sheet `T5-2_Config_Scores`를 렌더링해 표 제목, header, 값의 가독성을 확인했다.
 
-그림 생성기는 Python compile을 통과했고, 10개 PNG와 같은 수의 SVG를 생성한다. Terminal evidence 원문은 5개 selection rule마다 query ID, source artifact, configuration, stored score와 answer excerpt를 포함한다.
+그림 생성기는 Python compile을 통과했고, 17개 PNG와 같은 수의 SVG를 생성한다. Terminal evidence 원문은 5개 selection rule마다 query ID, source artifact, configuration, stored score와 answer excerpt를 포함한다.
 
 ## 남아 있는 확인 항목
 

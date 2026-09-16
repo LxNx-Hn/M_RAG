@@ -12,7 +12,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 BASE = Path(__file__).resolve().parent
 MANIFEST = BASE / "generated" / "evidence_manifest_60q.json"
 
@@ -25,7 +24,11 @@ def load_cases() -> dict[str, dict[str, Any]]:
 def score_text(score: dict[str, Any]) -> str:
     keys = ("faithfulness", "answer_relevancy", "context_precision", "context_recall")
     return ", ".join(
-        f"{key}={float(score[key]):.4f}" if score.get(key) is not None else f"{key}=missing"
+        (
+            f"{key}={float(score[key]):.4f}"
+            if score.get(key) is not None
+            else f"{key}=missing"
+        )
         for key in keys
     )
 

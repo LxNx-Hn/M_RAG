@@ -7,7 +7,6 @@ import sys
 import zipfile
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[3]
 FINAL = ROOT / "FINALDOCS"
 MANUSCRIPT = ROOT / "docs/PAPER/FINAL/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
@@ -45,7 +44,17 @@ def main() -> int:
         raise AssertionError("three-level heading found")
     if "[수식 " in text or "(2-1)" in text:
         raise AssertionError("equation numbering found")
-    for required in ("60개", "480개", "240", "120", "58쌍", "+0.0805", "+0.0288", "+0.2289", "+0.2182"):
+    for required in (
+        "60개",
+        "480개",
+        "240",
+        "120",
+        "58쌍",
+        "+0.0805",
+        "+0.0288",
+        "+0.2289",
+        "+0.2182",
+    ):
         if required not in text:
             raise AssertionError(f"missing final result marker: {required}")
     with zipfile.ZipFile(TABLES) as archive:
@@ -53,7 +62,12 @@ def main() -> int:
     for sheet in ("T5-2_Config_Scores", "T5-3_HyDE", "T5-4_CAD", "T5-6_SCD_Paired"):
         if sheet not in workbook:
             raise AssertionError(f"missing workbook sheet: {sheet}")
-    for name in ("T5-2_Config_Scores.csv", "T5-3_HyDE.csv", "T5-4_CAD.csv", "T5-6_SCD_Paired.csv"):
+    for name in (
+        "T5-2_Config_Scores.csv",
+        "T5-3_HyDE.csv",
+        "T5-4_CAD.csv",
+        "T5-6_SCD_Paired.csv",
+    ):
         with (CSV_DIR / name).open(encoding="utf-8", newline="") as stream:
             if not list(csv.reader(stream)):
                 raise AssertionError(f"empty table CSV: {name}")
