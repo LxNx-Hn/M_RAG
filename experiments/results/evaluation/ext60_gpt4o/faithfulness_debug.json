@@ -1,0 +1,37 @@
+[
+  {
+    "query_id": "ext_rag_003",
+    "group": "hyde_off__cad_only",
+    "faithfulness": null,
+    "exception_class": "EmptyStatementSet",
+    "exception_message": "RAGAS Faithfulness produced no scorable statements for the answer."
+  },
+  {
+    "query_id": "ext_rag_006",
+    "group": "hyde_off__cad_only",
+    "faithfulness": null,
+    "exception_class": "EmptyStatementSet",
+    "exception_message": "RAGAS Faithfulness produced no scorable statements for the answer."
+  },
+  {
+    "query_id": "ext_rag_003",
+    "group": "hyde_off__scd_only",
+    "faithfulness": null,
+    "exception_class": "EmptyStatementSet",
+    "exception_message": "RAGAS Faithfulness produced no scorable statements for the answer."
+  },
+  {
+    "query_id": "ext_rag_005",
+    "group": "hyde_off__scd_only",
+    "faithfulness": null,
+    "exception_class": "EmptyStatementSet",
+    "exception_message": "RAGAS Faithfulness produced no scorable statements for the answer."
+  },
+  {
+    "query_id": "ext_rag_006",
+    "group": "hyde_off__scd_only",
+    "faithfulness": null,
+    "exception_class": "EmptyStatementSet",
+    "exception_message": "RAGAS Faithfulness produced no scorable statements for the answer."
+  }
+]

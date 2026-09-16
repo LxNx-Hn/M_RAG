@@ -5,7 +5,6 @@ import re
 from collections import Counter
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 QUESTIONS = ROOT / "experiments/data/query_splits/extended_validation_questions.json"
 LITERAL_GT = ROOT / "experiments/data/query_splits/extended_validation_literal_gt.json"
@@ -15,8 +14,7 @@ METHOD = ROOT / "experiments/configs/extended_validation_method.json"
 GT_AUDIT = ROOT / "experiments/scripts/audit_extended_gt_literal.py"
 ALL_GT_AUDIT = ROOT / "experiments/scripts/audit_all_60_gt_literal.py"
 FINAL_REFERENCE_GENERATION = (
-    ROOT
-    / "experiments/results/main_generation/"
+    ROOT / "experiments/results/main_generation/"
     "main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl"
 )
 RUNNER = ROOT / "experiments/runners/run_extended_validation.py"
@@ -75,7 +73,10 @@ def test_literal_gt_sidecar_is_manual_complete_and_disjoint_from_generation() ->
     assert data["source_query_split"] == "extended_validation_questions"
     assert data["status"] == "human_audited_literal_reference"
     assert data["count"] == 41 == len(rows)
-    assert data["policy"]["construction"] == "manual literal extraction from checked-in source PDFs"
+    assert (
+        data["policy"]["construction"]
+        == "manual literal extraction from checked-in source PDFs"
+    )
     assert data["policy"]["openai_or_llm_gt_generation"] is False
     assert data["policy"]["source_page_indexing"].startswith("zero_based")
     assert {row["query_id"] for row in rows} == {row["query_id"] for row in questions}
@@ -123,9 +124,7 @@ def test_original_main_split_is_untouched_and_query_ids_are_disjoint() -> None:
 def test_pooled_paper_allocation_is_exactly_15_each() -> None:
     main = _load(MAIN)["queries"]
     extension = _load(LITERAL_GT)["queries"]
-    counts = Counter(
-        row["applicable_papers"][0] for row in [*main, *extension]
-    )
+    counts = Counter(row["applicable_papers"][0] for row in [*main, *extension])
     assert counts == Counter(EXPECTED_POOLED_PAPERS)
 
 
@@ -163,7 +162,10 @@ def test_extended_method_contract_names_all_60_reference_audit() -> None:
     assert gt["retained_main_reference_source"] == (
         "verified extractive answer_span in decoder_main_queries"
     )
-    assert gt["extension_audit_script"] == "experiments/scripts/audit_extended_gt_literal.py"
+    assert (
+        gt["extension_audit_script"]
+        == "experiments/scripts/audit_extended_gt_literal.py"
+    )
     assert gt["all_60_audit_script"] == "experiments/scripts/audit_all_60_gt_literal.py"
     assert gt["all_60_audit_report"] == (
         "experiments/results/analysis/all_60_gt_literal_audit.json"
@@ -185,7 +187,10 @@ def test_extended_method_contract_names_all_60_reference_audit() -> None:
     assert method["scd"]["beta"] == 0.9
     assert method["scd"]["t_start"] == 5
     assert method["matrix"]["planned_generation_records"] == 328
-    assert method["quality_evaluation"]["reference_split"] == "extended_validation_literal_gt"
+    assert (
+        method["quality_evaluation"]["reference_split"]
+        == "extended_validation_literal_gt"
+    )
     assert method["quality_evaluation"]["judge_model"] == "gpt-4o"
     assert method["quality_evaluation"]["required_null_metric_cells"] == 0
     assert method["analysis"]["bootstrap_iterations"] == 200000
@@ -233,13 +238,60 @@ def test_extended_execution_files_are_syntactically_valid_and_fail_closed() -> N
     assert "create_combined_processor" in executor
     assert "force_greedy=True" in executor
     assert "extended_validation_used" in executor
-    assert "pooled_queries\": 60" in analyzer
+    assert 'pooled_queries": 60' in analyzer
     assert "hyde_off_same_context_pairs" in analyzer
     assert "literal_span_not_found_on_declared_page" in audit
     assert "llm_or_openai_gt_generation" in audit
     assert "main_literal_span_not_found_in_source_pdf" in all_audit
     assert "EXPECTED_COMBINED_PAPERS" in all_audit
     assert "total_matched == 60" in all_audit
+
+
+def test_60q_analyzer_keeps_metric_specific_paired_coverage() -> None:
+    analyzer = _load_module("analyze_extended_validation_60", ANALYZER)
+    score_map = {
+        ("q1", "hyde_on__no_decoder_control"): {
+            "faithfulness": 0.8,
+            "answer_relevancy": 0.7,
+            "context_precision": 0.6,
+            "context_recall": 0.5,
+        },
+        ("q1", "hyde_off__no_decoder_control"): {
+            "faithfulness": 0.6,
+            "answer_relevancy": 0.5,
+            "context_precision": 0.4,
+            "context_recall": 0.3,
+        },
+        ("q2", "hyde_on__no_decoder_control"): {
+            "faithfulness": 0.9,
+            "answer_relevancy": 0.8,
+            "context_precision": 0.7,
+            "context_recall": 0.6,
+        },
+        ("q2", "hyde_off__no_decoder_control"): {
+            "faithfulness": None,
+            "answer_relevancy": 0.6,
+            "context_precision": 0.5,
+            "context_recall": 0.4,
+        },
+        ("q1", "hyde_off__cad_only"): {
+            "faithfulness": 0.7,
+            "answer_relevancy": 0.6,
+            "context_precision": 0.5,
+            "context_recall": 0.4,
+        },
+        ("q2", "hyde_off__cad_only"): {
+            "faithfulness": 0.8,
+            "answer_relevancy": 0.7,
+            "context_precision": 0.6,
+            "context_recall": 0.5,
+        },
+    }
+    report = analyzer.quality_panel([score_map], [{"q1", "q2"}], iterations=100, seed=7)
+    metrics = report["contrasts"]["hyde"]["metrics"]
+    assert metrics["faithfulness"]["n_queries"] == 1
+    assert metrics["faithfulness"]["excluded_query_ids_due_to_missing_score"] == ["q2"]
+    assert metrics["answer_relevancy"]["n_queries"] == 2
 
 
 def test_alice_and_scoring_scripts_gate_on_all_60_literal_references() -> None:

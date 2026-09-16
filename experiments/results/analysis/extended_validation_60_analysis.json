@@ -1,0 +1,576 @@
+{
+  "method_contract": {
+    "model": "K-intelligence/Midm-2.0-Base-Instruct",
+    "configs": [
+      "hyde_off__no_decoder_control",
+      "hyde_off__cad_only",
+      "hyde_off__scd_only",
+      "hyde_off__cad_scd",
+      "hyde_on__no_decoder_control",
+      "hyde_on__cad_only",
+      "hyde_on__scd_only",
+      "hyde_on__cad_scd"
+    ],
+    "reference_scd": {
+      "alpha": 1.1,
+      "beta": 0.9,
+      "t_start": 5
+    },
+    "cad_alpha": 0.5,
+    "judge_for_quality": "gpt-4o",
+    "independent_statistical_unit": "query",
+    "quality_scope": "Only controlled HyDE and CAD contrasts are promoted. SCD RAGAS quality remains a separate sensitivity question."
+  },
+  "counts": {
+    "original_queries": 19,
+    "extension_queries": 41,
+    "pooled_queries": 60,
+    "original_generations": 152,
+    "extension_generations": 328,
+    "pooled_generations": 480
+  },
+  "score_coverage": {
+    "original_19": {
+      "expected_metric_cells": 608,
+      "scored_metric_cells": 608,
+      "missing_metric_cells": 0,
+      "missing_cells": [],
+      "policy": "Missing RAGAS cells remain explicit. Controlled contrasts use complete paired observations for the affected metric only."
+    },
+    "extension_41": {
+      "expected_metric_cells": 1312,
+      "scored_metric_cells": 1307,
+      "missing_metric_cells": 5,
+      "missing_cells": [
+        {
+          "query_id": "ext_rag_003",
+          "group": "hyde_off__cad_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_006",
+          "group": "hyde_off__cad_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_003",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_005",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_006",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        }
+      ],
+      "policy": "Missing RAGAS cells remain explicit. Controlled contrasts use complete paired observations for the affected metric only."
+    },
+    "pooled_60": {
+      "expected_metric_cells": 1920,
+      "scored_metric_cells": 1915,
+      "missing_metric_cells": 5,
+      "missing_cells": [
+        {
+          "query_id": "ext_rag_003",
+          "group": "hyde_off__cad_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_006",
+          "group": "hyde_off__cad_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_003",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_005",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        },
+        {
+          "query_id": "ext_rag_006",
+          "group": "hyde_off__scd_only",
+          "metric": "faithfulness"
+        }
+      ],
+      "policy": "Missing RAGAS cells remain explicit. Controlled contrasts use complete paired observations for the affected metric only."
+    }
+  },
+  "quality": {
+    "original_19": {
+      "query_units": 19,
+      "contrasts": {
+        "hyde": {
+          "on": "hyde_on__no_decoder_control",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0734,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0248,
+                "upper": 0.1777
+              },
+              "wins_gt_0.01": 9,
+              "losses_lt_neg_0.01": 6,
+              "ties_abs_le_0.01": 4,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": 0.0303,
+              "bootstrap_mean_95_ci": {
+                "lower": 0.0016,
+                "upper": 0.0615
+              },
+              "wins_gt_0.01": 9,
+              "losses_lt_neg_0.01": 3,
+              "ties_abs_le_0.01": 7,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0679,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.1702,
+                "upper": 0.0194
+              },
+              "wins_gt_0.01": 7,
+              "losses_lt_neg_0.01": 6,
+              "ties_abs_le_0.01": 6,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": -0.0526,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.1579,
+                "upper": 0.0
+              },
+              "wins_gt_0.01": 0,
+              "losses_lt_neg_0.01": 1,
+              "ties_abs_le_0.01": 18,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        },
+        "cad": {
+          "on": "hyde_off__cad_only",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0023,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0903,
+                "upper": 0.0952
+              },
+              "wins_gt_0.01": 7,
+              "losses_lt_neg_0.01": 9,
+              "ties_abs_le_0.01": 3,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": -0.0715,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.1792,
+                "upper": 0.0004
+              },
+              "wins_gt_0.01": 5,
+              "losses_lt_neg_0.01": 12,
+              "ties_abs_le_0.01": 2,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0022,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0447,
+                "upper": 0.0322
+              },
+              "wins_gt_0.01": 2,
+              "losses_lt_neg_0.01": 1,
+              "ties_abs_le_0.01": 16,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": -0.0526,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.1579,
+                "upper": 0.0
+              },
+              "wins_gt_0.01": 0,
+              "losses_lt_neg_0.01": 1,
+              "ties_abs_le_0.01": 18,
+              "n_queries": 19,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        }
+      }
+    },
+    "extension_41": {
+      "query_units": 41,
+      "contrasts": {
+        "hyde": {
+          "on": "hyde_on__no_decoder_control",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0298,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0603,
+                "upper": 0.1232
+              },
+              "wins_gt_0.01": 15,
+              "losses_lt_neg_0.01": 15,
+              "ties_abs_le_0.01": 11,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": 0.1037,
+              "bootstrap_mean_95_ci": {
+                "lower": 0.0032,
+                "upper": 0.2051
+              },
+              "wins_gt_0.01": 20,
+              "losses_lt_neg_0.01": 12,
+              "ties_abs_le_0.01": 9,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0187,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0906,
+                "upper": 0.0563
+              },
+              "wins_gt_0.01": 10,
+              "losses_lt_neg_0.01": 17,
+              "ties_abs_le_0.01": 14,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": 0.0244,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0976,
+                "upper": 0.1463
+              },
+              "wins_gt_0.01": 4,
+              "losses_lt_neg_0.01": 3,
+              "ties_abs_le_0.01": 34,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        },
+        "cad": {
+          "on": "hyde_off__cad_only",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0418,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0449,
+                "upper": 0.1262
+              },
+              "wins_gt_0.01": 14,
+              "losses_lt_neg_0.01": 15,
+              "ties_abs_le_0.01": 10,
+              "n_queries": 39,
+              "excluded_query_ids_due_to_missing_score": [
+                "ext_rag_003",
+                "ext_rag_006"
+              ]
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": 0.0224,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0813,
+                "upper": 0.1297
+              },
+              "wins_gt_0.01": 14,
+              "losses_lt_neg_0.01": 20,
+              "ties_abs_le_0.01": 7,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0125,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0374,
+                "upper": 0.0043
+              },
+              "wins_gt_0.01": 2,
+              "losses_lt_neg_0.01": 3,
+              "ties_abs_le_0.01": 36,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": 0.0,
+              "bootstrap_mean_95_ci": {
+                "lower": 0.0,
+                "upper": 0.0
+              },
+              "wins_gt_0.01": 0,
+              "losses_lt_neg_0.01": 0,
+              "ties_abs_le_0.01": 41,
+              "n_queries": 41,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        }
+      }
+    },
+    "pooled_60": {
+      "query_units": 60,
+      "contrasts": {
+        "hyde": {
+          "on": "hyde_on__no_decoder_control",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0436,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0262,
+                "upper": 0.1153
+              },
+              "wins_gt_0.01": 24,
+              "losses_lt_neg_0.01": 21,
+              "ties_abs_le_0.01": 15,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": 0.0805,
+              "bootstrap_mean_95_ci": {
+                "lower": 0.011,
+                "upper": 0.1514
+              },
+              "wins_gt_0.01": 29,
+              "losses_lt_neg_0.01": 15,
+              "ties_abs_le_0.01": 16,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0343,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0932,
+                "upper": 0.0247
+              },
+              "wins_gt_0.01": 17,
+              "losses_lt_neg_0.01": 23,
+              "ties_abs_le_0.01": 20,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": 0.0,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.1,
+                "upper": 0.1
+              },
+              "wins_gt_0.01": 4,
+              "losses_lt_neg_0.01": 4,
+              "ties_abs_le_0.01": 52,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        },
+        "cad": {
+          "on": "hyde_off__cad_only",
+          "off": "hyde_off__no_decoder_control",
+          "metrics": {
+            "faithfulness": {
+              "mean_delta_on_minus_off": 0.0288,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0367,
+                "upper": 0.0934
+              },
+              "wins_gt_0.01": 21,
+              "losses_lt_neg_0.01": 24,
+              "ties_abs_le_0.01": 13,
+              "n_queries": 58,
+              "excluded_query_ids_due_to_missing_score": [
+                "ext_rag_003",
+                "ext_rag_006"
+              ]
+            },
+            "answer_relevancy": {
+              "mean_delta_on_minus_off": -0.0073,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0855,
+                "upper": 0.0719
+              },
+              "wins_gt_0.01": 19,
+              "losses_lt_neg_0.01": 32,
+              "ties_abs_le_0.01": 9,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_precision": {
+              "mean_delta_on_minus_off": -0.0092,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.0306,
+                "upper": 0.0077
+              },
+              "wins_gt_0.01": 4,
+              "losses_lt_neg_0.01": 4,
+              "ties_abs_le_0.01": 52,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            },
+            "context_recall": {
+              "mean_delta_on_minus_off": -0.0167,
+              "bootstrap_mean_95_ci": {
+                "lower": -0.05,
+                "upper": 0.0
+              },
+              "wins_gt_0.01": 0,
+              "losses_lt_neg_0.01": 1,
+              "ties_abs_le_0.01": 59,
+              "n_queries": 60,
+              "excluded_query_ids_due_to_missing_score": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "scd_language_adherence": {
+    "original_19": {
+      "all_four_config_pairs": {
+        "query_units": 19,
+        "matched_scd_pairs": 76,
+        "pairs_per_query": 4,
+        "pair_level_mean_delta": 0.2203,
+        "query_clustered_mean_delta": 0.2203,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.1905,
+          "upper": 0.2529
+        },
+        "pair_wins_gt_0.02": 68,
+        "pair_losses_lt_neg_0.02": 3,
+        "pair_ties_abs_le_0.02": 5,
+        "drift_pairs_below_0.5": 26,
+        "rescued_to_0.5": 15,
+        "already_korean_pairs_ge_0.7": 20,
+        "dragged_below_0.65": 0
+      },
+      "hyde_off_same_context_pairs": {
+        "query_units": 19,
+        "matched_scd_pairs": 38,
+        "pairs_per_query": 2,
+        "pair_level_mean_delta": 0.2198,
+        "query_clustered_mean_delta": 0.2198,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.1583,
+          "upper": 0.2811
+        },
+        "pair_wins_gt_0.02": 32,
+        "pair_losses_lt_neg_0.02": 2,
+        "pair_ties_abs_le_0.02": 4,
+        "drift_pairs_below_0.5": 16,
+        "rescued_to_0.5": 9,
+        "already_korean_pairs_ge_0.7": 11,
+        "dragged_below_0.65": 0
+      },
+      "metric_scope": "generated-text Korean character ratio; no LLM judge",
+      "interpretation": "hyde_off_same_context_pairs is the stricter controlled SCD language contrast because retrieval contexts are asserted identical."
+    },
+    "extension_41": {
+      "all_four_config_pairs": {
+        "query_units": 41,
+        "matched_scd_pairs": 164,
+        "pairs_per_query": 4,
+        "pair_level_mean_delta": 0.233,
+        "query_clustered_mean_delta": 0.233,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.2012,
+          "upper": 0.2654
+        },
+        "pair_wins_gt_0.02": 151,
+        "pair_losses_lt_neg_0.02": 7,
+        "pair_ties_abs_le_0.02": 6,
+        "drift_pairs_below_0.5": 58,
+        "rescued_to_0.5": 37,
+        "already_korean_pairs_ge_0.7": 24,
+        "dragged_below_0.65": 1
+      },
+      "hyde_off_same_context_pairs": {
+        "query_units": 41,
+        "matched_scd_pairs": 82,
+        "pairs_per_query": 2,
+        "pair_level_mean_delta": 0.2175,
+        "query_clustered_mean_delta": 0.2175,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.1838,
+          "upper": 0.2521
+        },
+        "pair_wins_gt_0.02": 73,
+        "pair_losses_lt_neg_0.02": 4,
+        "pair_ties_abs_le_0.02": 5,
+        "drift_pairs_below_0.5": 32,
+        "rescued_to_0.5": 17,
+        "already_korean_pairs_ge_0.7": 13,
+        "dragged_below_0.65": 0
+      },
+      "metric_scope": "generated-text Korean character ratio; no LLM judge",
+      "interpretation": "hyde_off_same_context_pairs is the stricter controlled SCD language contrast because retrieval contexts are asserted identical."
+    },
+    "pooled_60": {
+      "all_four_config_pairs": {
+        "query_units": 60,
+        "matched_scd_pairs": 240,
+        "pairs_per_query": 4,
+        "pair_level_mean_delta": 0.2289,
+        "query_clustered_mean_delta": 0.2289,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.2051,
+          "upper": 0.2532
+        },
+        "pair_wins_gt_0.02": 219,
+        "pair_losses_lt_neg_0.02": 10,
+        "pair_ties_abs_le_0.02": 11,
+        "drift_pairs_below_0.5": 84,
+        "rescued_to_0.5": 52,
+        "already_korean_pairs_ge_0.7": 44,
+        "dragged_below_0.65": 1
+      },
+      "hyde_off_same_context_pairs": {
+        "query_units": 60,
+        "matched_scd_pairs": 120,
+        "pairs_per_query": 2,
+        "pair_level_mean_delta": 0.2182,
+        "query_clustered_mean_delta": 0.2182,
+        "query_clustered_bootstrap_95_ci": {
+          "lower": 0.188,
+          "upper": 0.2487
+        },
+        "pair_wins_gt_0.02": 105,
+        "pair_losses_lt_neg_0.02": 6,
+        "pair_ties_abs_le_0.02": 9,
+        "drift_pairs_below_0.5": 48,
+        "rescued_to_0.5": 26,
+        "already_korean_pairs_ge_0.7": 24,
+        "dragged_below_0.65": 0
+      },
+      "metric_scope": "generated-text Korean character ratio; no LLM judge",
+      "interpretation": "hyde_off_same_context_pairs is the stricter controlled SCD language contrast because retrieval contexts are asserted identical."
+    }
+  }
+}

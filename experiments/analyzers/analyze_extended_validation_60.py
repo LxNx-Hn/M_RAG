@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -26,24 +27,20 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OLD_GENERATION = (
-    ROOT
-    / "results/main_generation/"
+    ROOT / "results/main_generation/"
     "main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl"
 )
 DEFAULT_NEW_GENERATION = (
-    ROOT
-    / "results/extended_validation/"
+    ROOT / "results/extended_validation/"
     "extended-hyde-cad-scd-reference-scd__extended_validation_questions__"
     "extended_validation_generation.jsonl"
 )
 DEFAULT_OLD_SCORES = (
-    ROOT
-    / "results/evaluation/"
+    ROOT / "results/evaluation/"
     "main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json"
 )
 DEFAULT_NEW_SCORES = (
-    ROOT
-    / "results/evaluation/"
+    ROOT / "results/evaluation/"
     "extended-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json"
 )
 DEFAULT_OUT = ROOT / "results/analysis/extended_validation_60_analysis.json"
@@ -102,7 +99,9 @@ def korean_ratio(text: str) -> float:
 def validate_generation(rows: list[dict[str, Any]], expected_queries: int) -> set[str]:
     expected_records = expected_queries * 8
     if len(rows) != expected_records:
-        raise ValueError(f"expected {expected_records} generation rows, found {len(rows)}")
+        raise ValueError(
+            f"expected {expected_records} generation rows, found {len(rows)}"
+        )
     qids = {str(r["query_id"]) for r in rows}
     if len(qids) != expected_queries:
         raise ValueError(f"expected {expected_queries} query ids, found {len(qids)}")
@@ -132,9 +131,10 @@ def validate_generation(rows: list[dict[str, Any]], expected_queries: int) -> se
             if observed != ("reference_scd", 1.1, 0.9, 5):
                 raise ValueError(f"reference_scd mismatch: {observed}")
         if r.get("use_hyde"):
-            settings = r.get("retrieval_reformulation", {}).get(
-                "hyde_generation_settings"
-            ) or {}
+            settings = (
+                r.get("retrieval_reformulation", {}).get("hyde_generation_settings")
+                or {}
+            )
             observed = (
                 float(settings.get("temperature", -1)),
                 float(settings.get("top_p", -1)),
@@ -181,8 +181,17 @@ def validate_scores(
         if key in by_key:
             raise ValueError(f"duplicate score key: {key}")
         for metric in METRICS:
-            if row.get(metric) is None:
-                raise ValueError(f"null score cell: {key} {metric}")
+            value = row.get(metric)
+            # RAGAS faithfulness can intentionally yield NaN when its
+            # statement-generation stage returns an empty statement set.  The
+            # raw evaluator serializes that value as JSON null.  Preserve the
+            # row and handle coverage at the paired contrast level rather
+            # than inventing a score or discarding its valid companion
+            # metrics.
+            if value is not None and (
+                not isinstance(value, (int, float)) or not math.isfinite(float(value))
+            ):
+                raise ValueError(f"non-finite score cell: {key} {metric}={value!r}")
         by_key[key] = row
     return by_key
 
@@ -220,11 +229,18 @@ def quality_panel(
     for name, (on_cfg, off_cfg) in QUALITY_CONTRASTS.items():
         metric_out: dict[str, Any] = {}
         for metric in METRICS:
+            included_qids = [
+                qid
+                for qid in ordered_qids
+                if merged[(qid, on_cfg)].get(metric) is not None
+                and merged[(qid, off_cfg)].get(metric) is not None
+            ]
+            excluded_qids = [qid for qid in ordered_qids if qid not in included_qids]
             delta = np.array(
                 [
                     float(merged[(qid, on_cfg)][metric])
                     - float(merged[(qid, off_cfg)][metric])
-                    for qid in ordered_qids
+                    for qid in included_qids
                 ],
                 dtype=float,
             )
@@ -243,6 +259,7 @@ def quality_panel(
                 "losses_lt_neg_0.01": losses,
                 "ties_abs_le_0.01": int(delta.size - wins - losses),
                 "n_queries": int(delta.size),
+                "excluded_query_ids_due_to_missing_score": excluded_qids,
             }
         out["contrasts"][name] = {
             "on": on_cfg,
@@ -250,6 +267,34 @@ def quality_panel(
             "metrics": metric_out,
         }
     return out
+
+
+def score_coverage(score_maps: list[dict[tuple[str, str], dict]]) -> dict[str, Any]:
+    """Report metric-cell coverage without assigning values to empty cells."""
+    missing_cells: list[dict[str, str]] = []
+    expected = 0
+    for score_map in score_maps:
+        for (query_id, group), row in score_map.items():
+            for metric in METRICS:
+                expected += 1
+                if row.get(metric) is None:
+                    missing_cells.append(
+                        {
+                            "query_id": query_id,
+                            "group": group,
+                            "metric": metric,
+                        }
+                    )
+    return {
+        "expected_metric_cells": expected,
+        "scored_metric_cells": expected - len(missing_cells),
+        "missing_metric_cells": len(missing_cells),
+        "missing_cells": missing_cells,
+        "policy": (
+            "Missing RAGAS cells remain explicit. Controlled contrasts use "
+            "complete paired observations for the affected metric only."
+        ),
+    }
 
 
 def _language_stats(
@@ -388,6 +433,11 @@ def main() -> int:
             "original_generations": 152,
             "extension_generations": 328,
             "pooled_generations": 480,
+        },
+        "score_coverage": {
+            "original_19": score_coverage([old_scores]),
+            "extension_41": score_coverage([new_scores]),
+            "pooled_60": score_coverage([old_scores, new_scores]),
         },
         "quality": {
             "original_19": quality_panel(
