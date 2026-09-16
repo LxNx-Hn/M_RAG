@@ -58,7 +58,7 @@ def main() -> int:
             if not list(csv.reader(stream)):
                 raise AssertionError(f"empty table CSV: {name}")
     figures = list(FIGURE_DIR.glob("*.png"))
-    if len(figures) < 10:
+    if len(figures) < 17:
         raise AssertionError(f"insufficient rendered figures: {len(figures)}")
     final_required = (
         "README.md",

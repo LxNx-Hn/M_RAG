@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="570.216094pt" height="297.00499pt" viewBox="0 0 570.216094 297.00499" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 297.00499 
+L 570.216094 297.00499 
+L 570.216094 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 37.976094 255.884002 
+L 563.016094 255.884002 
+L 563.016094 7.2 
+L 37.976094 7.2 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 61.841548 255.884002 
+L 105.233284 255.884002 
+L 105.233284 188.914289 
+L 61.841548 188.914289 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #aab2ba"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 123.829742 255.884002 
+L 167.221477 255.884002 
+L 167.221477 50.172447 
+L 123.829742 50.172447 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #24866d"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 185.817936 255.884002 
+L 229.209671 255.884002 
+L 229.209671 195.014743 
+L 185.817936 195.014743 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #aab2ba"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 247.806129 255.884002 
+L 291.197865 255.884002 
+L 291.197865 78.220363 
+L 247.806129 78.220363 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #24866d"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 309.794323 255.884002 
+L 353.186058 255.884002 
+L 353.186058 180.385249 
+L 309.794323 180.385249 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #2f6bff"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 371.782516 255.884002 
+L 415.174252 255.884002 
+L 415.174252 19.042095 
+L 371.782516 19.042095 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #24866d"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 433.77071 255.884002 
+L 477.162446 255.884002 
+L 477.162446 175.708449 
+L 433.77071 175.708449 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #2f6bff"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 495.758904 255.884002 
+L 539.150639 255.884002 
+L 539.150639 49.341446 
+L 495.758904 49.341446 
+z
+" clip-path="url(#p189b1c0edf)" style="fill: #24866d"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mf804119be2" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf804119be2" x="83.537416" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(49.286006 287.962386) rotate(-30)">H0 C0 S0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mf804119be2" x="145.52561" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(111.2742 287.962386) rotate(-30)">H0 C1 S0</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mf804119be2" x="207.513803" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(173.262393 287.962386) rotate(-30)">H0 C0 S1</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mf804119be2" x="269.501997" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(235.250587 287.962386) rotate(-30)">H0 C1 S1</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mf804119be2" x="331.490191" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(297.23878 287.962386) rotate(-30)">H1 C0 S0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mf804119be2" x="393.478384" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(359.226974 287.962386) rotate(-30)">H1 C1 S0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mf804119be2" x="455.466578" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(421.215168 287.962386) rotate(-30)">H1 C0 S1</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mf804119be2" x="517.454771" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(483.203361 287.962386) rotate(-30)">H1 C1 S1</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <defs>
+       <path id="mb1040efef9" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="255.884002" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="259.300487" transform="rotate(-0 30.976094 259.300487)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="223.674637" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="227.091121" transform="rotate(-0 30.976094 227.091121)">10</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="191.465271" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="194.881755" transform="rotate(-0 30.976094 194.881755)">20</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="159.255906" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="162.67239" transform="rotate(-0 30.976094 162.67239)">30</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="127.04654" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="130.463024" transform="rotate(-0 30.976094 130.463024)">40</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="94.837174" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="98.253659" transform="rotate(-0 30.976094 98.253659)">50</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="62.627809" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="66.044293" transform="rotate(-0 30.976094 66.044293)">60</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mb1040efef9" x="37.976094" y="30.418443" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: end" x="30.976094" y="33.834928" transform="rotate(-0 30.976094 33.834928)">70</text>
+     </g>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="14.886563" y="131.542001" transform="rotate(-90 14.886563 131.542001)">평균 generation time (seconds)</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 37.976094 255.884002 
+L 37.976094 7.2 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 37.976094 255.884002 
+L 563.016094 255.884002 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="83.537416" y="184.082885" transform="rotate(-0 83.537416 184.082885)">20.8</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="145.52561" y="45.341042" transform="rotate(-0 145.52561 45.341042)">63.9</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="207.513803" y="190.183338" transform="rotate(-0 207.513803 190.183338)">18.9</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="269.501997" y="73.388958" transform="rotate(-0 269.501997 73.388958)">55.2</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="331.490191" y="175.553845" transform="rotate(-0 331.490191 175.553845)">23.4</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="393.478384" y="14.210691" transform="rotate(-0 393.478384 14.210691)">73.5</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="455.466578" y="170.877045" transform="rotate(-0 455.466578 170.877045)">24.9</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #222222" x="517.454771" y="44.510041" transform="rotate(-0 517.454771 44.510041)">64.1</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p189b1c0edf">
+   <rect x="37.976094" y="7.2" width="525.04" height="248.684002"/>
+  </clipPath>
+ </defs>
+</svg>

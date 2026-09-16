@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="585.36pt" height="441.752187pt" viewBox="0 0 585.36 441.752187" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 441.752187 
+L 585.36 441.752187 
+L 585.36 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 47.402094)">때 어떤 차이점이 있는지 설명해주세요</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 57.832827)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 68.263559)">Answer:</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 78.694292)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 90.197708)">제공된 논문 컨텍스트를 바탕으로 RAG(Retrieval-Augmented Generation)와 파인튜닝(Fine-tuning) 간의 주요 차이점을</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 100.669878)">설명드리겠습니다.</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 111.100611)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 121.531344)">## 1. 외부 지식 요구사항 측면</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 131.962077)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 142.636681)">**RAG(검색 증강 생성)**</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 154.140097)">- 외부 지식에 크게 의존하는 방식으로, 문서에서 언급된 바와 같이 "RAG relies on external knowledge to enhance</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 164.910922)">LLMs"(RAG는 LLM 향상을 위해 외부 지식에 의존한다)</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 175.468892)">- "RAG excels in dynamic environments by offering realtime knowledge updates and</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 186.626731)">effective utilization of external knowledge sources with high interpretability"(RAG는</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 197.452339)">실시간 지식 업데이트와 높은 해석 가능성을 가진 외부 지식 소스의 효과적 활용으로 동적 환경에서 탁월하다)</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 207.883072)"/>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 218.557677)">**파인튜닝(미세조정)**</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 228.988409)">- 상대적으로 외부 지식 의존도가 낮으며, 모델 자체의 내재적 능력에 더 중점을 둠</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 239.54638)">- "Unsupervised fine-tuning shows some improvement, RAG consistently outperforms</text>
+    </g>
+    <g clip-path="url(#p958eeb023f)">
+     <text style="font-size: 7.8px; font-family: 'Malgun Gothic'; fill: #222222" transform="translate(12.9096 250.262422)">it"(비지도 미세조정은 일부 개선을 보이지만, RAG가 일관되게 이를 능가한다) … [이하 생략]</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #222222" x="12.9096" y="426.276987" transform="rotate(-0 12.9096 426.276987)">faithfulness=1.0 · answer_relevancy=0.7184 · context_precision=0.95 · context_recall=1.0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2f6bff" x="7.2" y="14.792187" transform="rotate(-0 7.2 14.792187)">SCD OFF 저장 답변</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p958eeb023f">
+   <rect x="7.2" y="20.792187" width="570.96" height="413.76"/>
+  </clipPath>
+ </defs>
+</svg>

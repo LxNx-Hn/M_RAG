@@ -214,13 +214,73 @@ def evidence_figures():
     evidence_panel("fig5_7_cad_pair", "그림 5-7. 동일 문맥 CAD ON/OFF 응답 사례", cases["cad_higher_faithfulness_delta"], "CAD OFF", "CAD ON")
 
 
+def supplementary_figures():
+    """Additional data-backed panels; captions and numbering remain in the manuscript."""
+    manifest = json.loads((DATA / "evidence_manifest_60q.json").read_text(encoding="utf-8"))
+    cases = {case["selection_rule"]: case for case in manifest["cases"]}
+    evidence_panel("fig1_2_language_drift_case_a", "", cases["language_rescue"], "SCD OFF 저장 답변")
+    evidence_panel("fig1_3_language_drift_case_b", "", cases["language_rescue"], "SCD OFF", "SCD ON")
+    evidence_panel("fig5_8_cad_lower_case", "", cases["cad_lower_faithfulness_delta"], "CAD OFF", "CAD ON")
+
+    fig, ax = diagram_canvas(9.0, 3.8)
+    for x, label, edge, face in [
+        (5, "generation\nrecord", BLUE, "#F4F7FF"),
+        (28, "RAGAS·language\nanalysis", GREEN, "#F2FAF6"),
+        (51, "derived CSV\nvalidation", GRAY, LIGHT),
+        (74, "tables·figures\nmanuscript", ORANGE, "#FFF7F0"),
+    ]:
+        box(ax, x, 40, 16, 22, label, edge, face, 9)
+    for x in (21, 44, 67):
+        arrow(ax, (x, 51), (x + 7, 51), DARK)
+    text(ax, 50, 21, "source artifact hash · query ID · configuration · stored answer provenance", 8)
+    save(fig, "fig4_2_artifact_flow")
+
+    fig, ax = diagram_canvas(9.0, 4.2)
+    groups = [(8, "60 query-document\npairs", BLUE), (30, "8 configs\n480 records", GREEN), (52, "HyDE 60\nCAD 58/60", GRAY), (74, "SCD 240\nsame-context 120", ORANGE)]
+    for x, label, color in groups:
+        box(ax, x, 40, 16, 22, label, color, "white", 9)
+    for x in (24, 46, 68):
+        arrow(ax, (x, 51), (x + 6, 51), DARK)
+    text(ax, 50, 22, "quality: paired bootstrap 95% CI     language: Korean-character ratio", 8)
+    save(fig, "fig5_0_evaluation_design")
+
+    rows_h = rows("hyde_strata_deltas_60q.csv")
+    rows_c = rows("cad_strata_deltas_60q.csv")
+    selected = [r for r in [*rows_h, *rows_c] if r["metric"] in {"faithfulness", "answer_relevancy"}]
+    labels = [f"{r['factor']}\n{r['off_config'].replace('hyde_', 'H').replace('__', ' ')}" for r in selected]
+    values = np.array([float(r["mean_delta_on_minus_off"]) for r in selected])[:, None]
+    fig, ax = plt.subplots(figsize=(8.4, 5.2))
+    image = ax.imshow(values, cmap="RdBu", vmin=-0.16, vmax=0.16, aspect="auto")
+    ax.set_xticks([0], ["평균 대응 차이\n(ON - OFF)"])
+    ax.set_yticks(range(len(labels)), labels)
+    for i, value in enumerate(values[:, 0]):
+        ax.text(0, i, f"{value:+.4f}", ha="center", va="center", fontsize=8, color="white" if abs(value) > 0.09 else DARK)
+    fig.colorbar(image, ax=ax, fraction=0.04, pad=0.03).set_label("평균 대응 차이")
+    fig.tight_layout()
+    save(fig, "fig5_9_hyde_cad_strata")
+
+    runtime = rows("runtime_summary_60q.csv")
+    labels = [r["config"].replace("hyde_", "H").replace("__", " ").replace("no_decoder_control", "C0 S0").replace("cad_only", "C1 S0").replace("scd_only", "C0 S1").replace("cad_scd", "C1 S1").replace("off", "0").replace("on", "1") for r in runtime]
+    values = [float(r["duration_mean_seconds"]) for r in runtime]
+    fig, ax = plt.subplots(figsize=(8.0, 4.2))
+    colors = [GREEN if "cad" in r["config"] else BLUE if "hyde_on" in r["config"] else GRAY for r in runtime]
+    ax.bar(range(len(values)), values, color=colors, width=0.7)
+    ax.set_xticks(range(len(values)), labels, rotation=30, ha="right")
+    ax.set_ylabel("평균 generation time (seconds)")
+    for i, value in enumerate(values):
+        ax.text(i, value + 1.5, f"{value:.1f}", ha="center", fontsize=8)
+    fig.tight_layout()
+    save(fig, "fig5_10_runtime")
+
+
 def main():
     architecture_figures()
     quality_figures()
     evidence_figures()
+    supplementary_figures()
     expected = sorted(path.name for path in OUT.iterdir() if path.suffix in {".png", ".svg"})
-    if len(expected) != 20:
-        raise RuntimeError(f"expected 20 visual files, got {len(expected)}")
+    if len(expected) != 34:
+        raise RuntimeError(f"expected 34 visual files, got {len(expected)}")
     print(json.dumps({"out": str(OUT), "files": expected}, ensure_ascii=False, indent=2))
 
 
