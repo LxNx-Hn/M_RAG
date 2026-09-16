@@ -437,19 +437,6 @@ def main() -> None:
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    # The symmetric evaluator consumes one contiguous 60-query generation
-    # input while retaining every original record unchanged.
-    symmetric_input = (
-        ROOT
-        / "experiments/results/evaluation_inputs/final60_scd_symmetric/"
-        "rag_cube_60_generation.jsonl"
-    )
-    symmetric_input.parent.mkdir(parents=True, exist_ok=True)
-    symmetric_input.write_text(
-        "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in generations),
-        encoding="utf-8",
-    )
-
     coverage = analysis["score_coverage"]["pooled_60"]
     primary = analysis["quality"]["pooled_60"]["contrasts"]
     scd = analysis["scd_language_adherence"]["pooled_60"]
@@ -493,9 +480,9 @@ def main() -> None:
             "|---|---|",
             *[f"| `{path.relative_to(ROOT)}` | `{sha(path)}` |" for path in sources],
             "",
-            "## 후속 평가 범위",
+            "## 최종 근거 범위",
             "",
-            "SCD 대칭 품질 패널은 동일 문맥의 SCD ON/OFF 답변을 영어·한국어 정규화 조건과 두 고정 judge에서 평가하는 별도 단계다. 이 단계는 OpenAI 유료 호출 승인을 받은 뒤 동일한 artifact 기반으로 실행한다.",
+            "최종 원고는 60-query 주 평가와 240개 SCD ON/OFF 대응쌍의 한국어 문자 비율 분석을 사용한다. 별도의 SCD 대칭 정규화·다중 judge 패널은 최종 원고의 수치, 표, 그림, 결론에 포함하지 않는다.",
         ],
     )
     review_rows = [

@@ -41,6 +41,6 @@ faithfulness 명제 공백은 원본 평가 결과에 그대로 보존한다. �
 | `experiments\data\query_splits\extended_validation_questions.json` | `91e9c1da0dec40c32a8370881cf708b2b4229a7d40d15206ab5f1cd78803061c` |
 | `experiments\results\analysis\extended_validation_60_analysis.json` | `50870fc6c48407b22daf32861465accd459bd3972e5a80c58a3bb822d23a8e4d` |
 
-## 후속 평가 범위
+## 최종 근거 범위
 
-SCD 대칭 품질 패널은 동일 문맥의 SCD ON/OFF 답변을 영어·한국어 정규화 조건과 두 고정 judge에서 평가하는 별도 단계다. 이 단계는 OpenAI 유료 호출 승인을 받은 뒤 동일한 artifact 기반으로 실행한다.
+최종 원고는 60-query 주 평가와 240개 SCD ON/OFF 대응쌍의 한국어 문자 비율 분석을 사용한다. 별도의 SCD 대칭 정규화·다중 judge 패널은 최종 원고의 수치, 표, 그림, 결론에 포함하지 않는다.
