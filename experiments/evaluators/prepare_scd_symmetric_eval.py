@@ -526,6 +526,11 @@ def _contains_long_ascii_prose(output: str, kind: str) -> bool:
         min_span_length, min_words, min_function_words = 120, 15, 5
     non_hangul_spans = re.split(r"[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]+", output)
     for span in non_hangul_spans:
+        bibliography_signals = sum(
+            signal in span for signal in ("arXiv", "et al.", "vol.", "pp.", "preprint")
+        )
+        if len(CITATION_RE.findall(span)) >= 2 and bibliography_signals >= 1:
+            continue
         words = [word.lower() for word in re.findall(r"[A-Za-z]{2,}", span)]
         function_word_count = sum(word in ENGLISH_FUNCTION_WORDS for word in words)
         number_count = len(NUMBER_RE.findall(span))
