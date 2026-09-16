@@ -15,8 +15,9 @@ import os
 import random
 import statistics
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any
 
 METRICS = ("faithfulness", "answer_relevancy")
 PAIR_STRATA = {
@@ -30,8 +31,8 @@ PAIR_STRATA = {
     ),
 }
 EXPECTED_GROUPS = frozenset(group for pair in PAIR_STRATA.values() for group in pair)
-EXPECTED_QUERIES_PER_GROUP = 19
-EXPECTED_PAIRS = 38
+DEFAULT_QUERY_SPLIT = "decoder_main_queries"
+DEFAULT_QUERIES_PER_GROUP = 19
 PRACTICAL_THRESHOLD = 0.01
 NORMALIZATION_PROTOCOL = "reference_scd.symmetric_normalization.gpt4o.v9"
 
@@ -46,7 +47,12 @@ def _require(condition: bool, message: str) -> None:
 
 
 def load_and_validate_panel(
-    path: Path, panel_name: str, expected_target: str
+    path: Path,
+    panel_name: str,
+    expected_target: str,
+    *,
+    expected_query_split: str = DEFAULT_QUERY_SPLIT,
+    expected_queries_per_group: int = DEFAULT_QUERIES_PER_GROUP,
 ) -> dict[str, Any]:
     """Load one official score panel and reject incomplete or ambiguous inputs."""
     try:
@@ -69,8 +75,8 @@ def load_and_validate_panel(
         f"{panel_name}: judge_api_used must be true",
     )
     _require(
-        payload.get("query_split") == "decoder_main_queries",
-        f"{panel_name}: query_split must be decoder_main_queries",
+        payload.get("query_split") == expected_query_split,
+        f"{panel_name}: query_split must be {expected_query_split}",
     )
 
     metrics = payload.get("metrics")
@@ -95,8 +101,8 @@ def load_and_validate_panel(
         f"{panel_name}: dataset_record_count does not match per_sample length",
     )
     _require(
-        len(rows) == len(EXPECTED_GROUPS) * EXPECTED_QUERIES_PER_GROUP,
-        f"{panel_name}: expected 76 rows, found {len(rows)}",
+        len(rows) == len(EXPECTED_GROUPS) * expected_queries_per_group,
+        f"{panel_name}: expected {len(EXPECTED_GROUPS) * expected_queries_per_group} rows, found {len(rows)}",
     )
 
     generation_input = payload.get("generation_input")
@@ -181,13 +187,13 @@ def load_and_validate_panel(
     )
     for group, query_ids in groups.items():
         _require(
-            len(query_ids) == EXPECTED_QUERIES_PER_GROUP,
-            f"{panel_name}: {group} must contain exactly 19 unique queries",
+            len(query_ids) == expected_queries_per_group,
+            f"{panel_name}: {group} must contain exactly {expected_queries_per_group} unique queries",
         )
     common_query_ids = next(iter(groups.values()))
     _require(
         all(query_ids == common_query_ids for query_ids in groups.values()),
-        f"{panel_name}: all four groups must contain the same 19 query_ids",
+        f"{panel_name}: all four groups must contain the same query_ids",
     )
 
     return {
@@ -216,7 +222,7 @@ def _quantile(values: list[float], probability: float) -> float:
 def _bootstrap_mean_ci(
     clusters: list[list[float]], *, iterations: int, seed: int, key: str
 ) -> tuple[float, float]:
-    digest = hashlib.sha256(f"{seed}:{key}".encode("utf-8")).digest()
+    digest = hashlib.sha256(f"{seed}:{key}".encode()).digest()
     rng = random.Random(int.from_bytes(digest[:8], "big"))
     cluster_count = len(clusters)
     means: list[float] = []
@@ -325,9 +331,10 @@ def analyze_panel(
                 key=f"{panel_name}:{stratum}:{metric}",
             )
 
+    expected_pairs = len(query_ids) * len(PAIR_STRATA)
     _require(
-        all(results["overall"][metric]["n"] == EXPECTED_PAIRS for metric in METRICS),
-        f"{panel_name}: expected exactly 38 paired SCD contrasts",
+        all(results["overall"][metric]["n"] == expected_pairs for metric in METRICS),
+        f"{panel_name}: expected exactly {expected_pairs} paired SCD contrasts",
     )
     return {
         "source": panel["source"],
@@ -363,7 +370,7 @@ def build_analysis(
     )
     _require(
         english_panel["query_ids"] == korean_panel["query_ids"],
-        "English and Korean panels must contain the same 19 query_ids",
+        "English and Korean panels must contain the same query_ids",
     )
 
     panels = {
@@ -403,13 +410,14 @@ def build_analysis(
         "effect": "SCD-on minus matched SCD-off",
         "settings": {
             "metrics": list(METRICS),
-            "expected_pairs_per_panel": EXPECTED_PAIRS,
-            "expected_pairs_per_cad_stratum": EXPECTED_QUERIES_PER_GROUP,
+            "expected_pairs_per_panel": len(english_panel["query_ids"])
+            * len(PAIR_STRATA),
+            "expected_pairs_per_cad_stratum": len(english_panel["query_ids"]),
             "practical_band_threshold": PRACTICAL_THRESHOLD,
             "bootstrap": {
                 "statistic": "query-clustered paired mean delta",
                 "sampling_unit": "query_id",
-                "clusters_per_panel": EXPECTED_QUERIES_PER_GROUP,
+                "clusters_per_panel": len(english_panel["query_ids"]),
                 "contrasts_per_cluster_overall": len(PAIR_STRATA),
                 "iterations": iterations,
                 "confidence_level": 0.95,
@@ -427,11 +435,17 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines = [
         "# SCD symmetric evaluation",
         "",
-        "All deltas are paired `SCD-on - SCD-off` scores. Each panel contains "
-        "38 pairs: 19 CAD-off and 19 CAD-on.",
+        (
+            "All deltas are paired `SCD-on - SCD-off` scores. Each panel contains "
+            f"{report['settings']['expected_pairs_per_panel']} pairs: "
+            f"{report['settings']['expected_pairs_per_cad_stratum']} CAD-off and "
+            f"{report['settings']['expected_pairs_per_cad_stratum']} CAD-on."
+        ),
         "",
-        "| Stratum | Metric | EN mean delta [95% CI] | KO mean delta [95% CI] | "
-        "Direction match | CI classes |",
+        (
+            "| Stratum | Metric | EN mean delta [95% CI] | KO mean delta [95% CI] | "
+            "Direction match | CI classes |"
+        ),
         "|---|---|---:|---:|:---:|---|",
     ]
     panels = report["panels"]
@@ -487,28 +501,29 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "Counts for exact wins/losses/ties and the `±0.01` practical bands "
-            "are preserved in the JSON artifact.",
+            (
+                "Counts for exact wins/losses/ties and the `±0.01` practical bands "
+                "are preserved in the JSON artifact."
+            ),
             "",
-            f"Bootstrap: {bootstrap['iterations']} deterministic paired resamples, "
-            f"seed {bootstrap['seed']}, percentile 95% CI.",
+            (
+                f"Bootstrap: {bootstrap['iterations']} deterministic paired resamples, "
+                f"seed {bootstrap['seed']}, percentile 95% CI."
+            ),
             "",
             "## Interpretation boundary",
             "",
-            "This is a post-generation language-normalization sensitivity analysis, "
-            "not an unbiased causal estimate of SCD. It improves on the earlier "
-            "asymmetric panel by applying the same normalization policy to all four "
-            "HyDE-off conditions and by comparing only matched identical-context "
-            "SCD pairs.",
+            (
+                "This post-generation language-normalization sensitivity analysis applies "
+                "the same normalization policy to all four HyDE-off conditions and "
+                "compares matched identical-context SCD pairs."
+            ),
             "",
             result_boundary,
             "",
             judge_boundary
-            + " In the Korean panel, validated identity was realized for 15/38 "
-            "SCD-off answers and 27/38 SCD-on answers, so equal rules did not create "
-            "equal transformation exposure. The panel contains 19 query clusters, "
-            "and no human evaluation was run. Interpret this panel together with "
-            "cross-judge robustness evidence; it is not a deployment or causal verdict.",
+            + f" The panel contains {bootstrap['clusters_per_panel']} query clusters. "
+            "The paired estimates are read together with the cross-judge results.",
             "",
         ]
     )
@@ -546,13 +561,28 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--out-md", required=True, type=Path)
     parser.add_argument("--bootstrap-iterations", type=int, default=10_000)
     parser.add_argument("--seed", type=int, default=20260712)
+    parser.add_argument("--expected-query-split", default=DEFAULT_QUERY_SPLIT)
+    parser.add_argument(
+        "--expected-queries-per-group", type=int, default=DEFAULT_QUERIES_PER_GROUP
+    )
     args = parser.parse_args(argv)
 
+    _require(
+        args.expected_queries_per_group > 0, "expected query count must be positive"
+    )
     english = load_and_validate_panel(
-        args.english_scores, "english_normalized", expected_target="en"
+        args.english_scores,
+        "english_normalized",
+        expected_target="en",
+        expected_query_split=args.expected_query_split,
+        expected_queries_per_group=args.expected_queries_per_group,
     )
     korean = load_and_validate_panel(
-        args.korean_scores, "korean_normalized", expected_target="ko"
+        args.korean_scores,
+        "korean_normalized",
+        expected_target="ko",
+        expected_query_split=args.expected_query_split,
+        expected_queries_per_group=args.expected_queries_per_group,
     )
     report = build_analysis(
         english,

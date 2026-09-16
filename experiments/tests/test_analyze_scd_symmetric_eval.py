@@ -18,7 +18,13 @@ def load_analyzer():
     return module
 
 
-def score_payload(*, shift: float = 0.0, target: str = "en"):
+def score_payload(
+    *,
+    shift: float = 0.0,
+    target: str = "en",
+    query_count: int = 19,
+    query_split: str = "decoder_main_queries",
+):
     groups = {
         "hyde_off__no_decoder_control": (0.50, 0.60),
         "hyde_off__scd_only": (0.55, 0.58),
@@ -27,7 +33,7 @@ def score_payload(*, shift: float = 0.0, target: str = "en"):
     }
     rows = []
     for group, (faithfulness, relevancy) in groups.items():
-        for index in range(19):
+        for index in range(query_count):
             rows.append(
                 {
                     "query_id": f"q{index:02d}",
@@ -41,7 +47,7 @@ def score_payload(*, shift: float = 0.0, target: str = "en"):
         "ragas_used": True,
         "judge_api_used": True,
         "judge": {"provider": "openai", "model": "gpt-4o"},
-        "query_split": "decoder_main_queries",
+        "query_split": query_split,
         "ragas_version": "0.2.15",
         "embeddings": {"model": "test"},
         "metrics": ["faithfulness", "answer_relevancy"],
@@ -122,6 +128,36 @@ def test_main_writes_json_and_markdown(tmp_path):
     assert payload["settings"]["bootstrap"]["sampling_unit"] == "query_id"
     assert "# SCD symmetric evaluation" in out_md.read_text(encoding="utf-8")
     assert not list(tmp_path.glob("*.tmp"))
+
+
+def test_final60_profile_accepts_sixty_queries(tmp_path):
+    analyzer = load_analyzer()
+    english_path = tmp_path / "en60.json"
+    korean_path = tmp_path / "ko60.json"
+    split = "final60_scd_symmetric"
+    write_payload(english_path, score_payload(query_count=60, query_split=split))
+    write_payload(
+        korean_path, score_payload(target="ko", query_count=60, query_split=split)
+    )
+
+    english = analyzer.load_and_validate_panel(
+        english_path,
+        "english",
+        "en",
+        expected_query_split=split,
+        expected_queries_per_group=60,
+    )
+    korean = analyzer.load_and_validate_panel(
+        korean_path,
+        "korean",
+        "ko",
+        expected_query_split=split,
+        expected_queries_per_group=60,
+    )
+    report = analyzer.build_analysis(english, korean, iterations=100, seed=7)
+
+    assert report["settings"]["expected_pairs_per_panel"] == 120
+    assert report["settings"]["bootstrap"]["clusters_per_panel"] == 60
 
 
 @pytest.mark.parametrize("defect", ["null", "duplicate", "missing_pair"])
