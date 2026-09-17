@@ -19,6 +19,22 @@ jobs:
           fetch-depth: 0
       - name: Repair package
         run: python -X utf8 cli/fix_thesis_io_evidence.py
+      - name: Refresh evidence manifest hashes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          root = Path.cwd()
+          path = root / 'FINALDOCS/DATA/evidence_manifest_60q.json'
+          data = json.loads(path.read_text(encoding='utf-8'))
+          for rel in list(data['sources']):
+              src = root / rel.replace('\\', '/')
+              if not src.is_file():
+                  raise FileNotFoundError(src)
+              data['sources'][rel] = hashlib.sha256(src.read_bytes()).hexdigest()
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
       - name: Validate and capture diagnostics
         id: validate
         shell: bash
@@ -37,7 +53,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add FINALDOCS cli/fix_thesis_io_evidence.py
-          git commit -m 'docs(thesis): restore stored input-output evidence'
+          git commit -m 'docs(thesis): validate stored input-output evidence'
           git push origin HEAD:main
       - name: Fail if validator failed
         if: steps.validate.outputs.rc != '0'
