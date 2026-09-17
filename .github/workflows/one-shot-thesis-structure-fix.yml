@@ -17,6 +17,17 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+      - name: Align validator equation strings with canonical HWP inputs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('FINALDOCS/VALIDATION/verify_finaldocs_60q.py')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('"C_q = Retrieve(q,D)"', '"C_q = Retrieve(q, D)"')
+          text = text.replace('"y = LM(q,C_q)"', '"y = LM(q, C_q)"')
+          path.write_text(text, encoding='utf-8')
+          PY
       - name: Refresh evidence manifest hashes
         shell: bash
         run: |
@@ -45,14 +56,14 @@ jobs:
           exit 0
       - name: Validate diff
         run: git diff --check
-      - name: Commit hashes and diagnostics
+      - name: Commit validation fixes and diagnostics
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add FINALDOCS/DATA/evidence_manifest_60q.json FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          git add FINALDOCS/VALIDATION/verify_finaldocs_60q.py FINALDOCS/DATA/evidence_manifest_60q.json FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
           if ! git diff --cached --quiet; then
-            git commit -m 'docs(thesis): validate stored input-output evidence'
+            git commit -m 'fix(thesis): align validator and validate IO evidence'
             git push origin HEAD:main
           fi
       - name: Fail if validator failed
