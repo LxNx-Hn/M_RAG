@@ -12,6 +12,7 @@ the current document structure and the source artifacts retained for verificatio
 - `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings plus tab-delimited appendix C/D tables.
 - `TABLES/TABLES_60Q.xlsx`: 17 workbook sheets used by the body and appendix analysis tables.
 - `FIGURES/`: 10 structural and statistical submission figures.
+- `EVIDENCE/IO_CASES/`: six stored-artifact input/output evidence cases (PNG + raw TXT).
 - `APPENDIX/QUERY_60_AUDIT.md`: 60-query audit list.
 - `DATA/EXPERIMENT_60_VALIDATION.md` and `DATA/evidence_manifest_60q.json`: numerical and source-artifact verification.
 - `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: claim-to-artifact map.

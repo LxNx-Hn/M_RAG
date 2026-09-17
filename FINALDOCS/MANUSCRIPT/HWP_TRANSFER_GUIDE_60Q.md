@@ -63,6 +63,20 @@
 | 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 변화 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
 
+## 대표 입출력 증빙 삽입
+
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. E02는 1.1절에서 출력 언어 이탈의 실제 관찰 사례로 사용하고, 5.7절에는 E01·E03·E04·E05를 대표 사례로 배치한다. 부록 B에는 E01~E06 전체를 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+
+| 위치 | 파일 | 용도 |
+|---|---|---|
+| 1.1 | E02_language_drift.png | 출력 언어 이탈 문제 정의 |
+| 5.7 | E01_normal_qa.png | 정상 QA 기준 사례 |
+| 5.7 | E03_scd_rescue.png | 동일 문맥 SCD 완화 사례 |
+| 5.7 | E04_hyde_retrieval_change.png | HyDE 검색 변화 사례 |
+| 5.7 | E05_cad_positive_same_context.png | CAD 동일 문맥 증가 사례 |
+| 부록 B | E01~E06 | 전체 대표 입출력 provenance |
+
+
 ## 수식
 
 `HWP_EQUATION_INPUTS_60Q.txt`의 각 블록을 HWP 수식 입력기에 그대로

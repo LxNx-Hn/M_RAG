@@ -245,6 +245,31 @@ def main() -> int:
             "Appendix_Queries must contain its title, source, header, and 60 query rows"
         )
 
+    io_dir = FINAL / "EVIDENCE/IO_CASES"
+    expected_io = (
+        "E01_normal_qa",
+        "E02_language_drift",
+        "E03_scd_rescue",
+        "E04_hyde_retrieval_change",
+        "E05_cad_positive_same_context",
+        "E06_cad_tradeoff_same_context",
+    )
+    for stem in expected_io:
+        need(io_dir / f"{stem}.png")
+        need(io_dir / "raw" / f"{stem}.txt")
+    for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):
+        if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
+            raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
+    if "[입출력 증빙 E02]" not in body:
+        raise AssertionError("chapter 1 must include the stored language-drift IO evidence")
+    for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
+        if f"[입출력 증빙 {case_id}]" not in text:
+            raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
+    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):
+        section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
+        if len(section.strip()) < 500:
+            raise AssertionError(f"substantive section is empty/too short: {section_name}")
+
     figures = sorted((FINAL / "FIGURES").glob("*.png"))
     if len(figures) != 10:
         raise AssertionError(f"expected 10 structural figures, got {len(figures)}")

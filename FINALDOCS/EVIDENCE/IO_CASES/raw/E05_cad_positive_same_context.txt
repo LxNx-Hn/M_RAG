@@ -1,0 +1,112 @@
+============================================================
+Cube-RAG 60-query Evidence Replay UI (stored artifacts)
+============================================================
+Case              : E05 CAD Positive Same-Context Pair
+Selection         : stored 60-query CAD pair selected for higher faithfulness under identical retrieved inputs
+
+Query ID          : ext_raptor_001
+Paper             : paper_nlp_raptor
+
+Question
+--------
+RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?
+
+Contexts identical: True
+Retrieved IDs identical: True
+Reranked IDs identical: True
+
+Configuration A
+---------------
+Config            : hyde_off__no_decoder_control
+HyDE / CAD / SCD  : False / False / False
+Korean ratio      : 0.8753
+Stored RAGAS      : faithfulness=0.2500, answer_relevancy=0.0000, context_precision=0.5000, context_recall=1.0000
+
+Stored answer
+-------------
+문서 길이와 관련하여 어떤 성능 특성을 보이는지 설명해주세요
+
+이해를 돕기 위해 선형적 관계를 보여주는 그래프나 데이터가 있다면 함께 설명해 주세요.
+
+주어진 문서에서 관련 정보를 찾아 답변해주시기 바랍니다.
+
+문서에서 언급된 그래프나 데이터를 바탕으로 답변해주세요.
+
+```
+초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
+```
+
+```python
+# 이 부분은 실제 그래프나 데이터를 보여주는 것이 아니라
+# 문서에서 언급된 내용을 요약한 것입니다
+```
+
+RAPTOR의 초기 문서 길이와 성능 특성 관계를 설명하는 그래프나 데이터가 있나요?
+```
+그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
+```
+
+```python
+# 이 부분도 실제 그래프나 데이터를 보여주는 것이 아니라
+# 문서에서 언급된 내용을 요약한 것입니다
+```
+
+RAPTOR의 초기 문서 길이와 성능 간의 관계를 보여주는 그래프나 데이터가 있나요?
+```
+그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
+… [truncated: 353+ display characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_8146cc59f2bb
+paper_nlp_raptor_4f340664570a
+paper_nlp_raptor_a479d51ff609
+paper_nlp_raptor_162aacc5c646
+paper_nlp_raptor_fb96741ffe87
+paper_nlp_raptor_b5ac09793e91
+paper_nlp_raptor_fb3aa9881edd
+paper_nlp_raptor_e4819acc10d6
+
+Configuration B
+---------------
+Config            : hyde_off__cad_only
+HyDE / CAD / SCD  : False / True / False
+Korean ratio      : 0.5485
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.7554, context_precision=0.5000, context_recall=1.0000
+
+Stored answer
+-------------
+문서 길이와 어떤 관계로 스케일링되는지 설명해 주세요
+
+Answer△</Answer>
+
+본 논문의 실험 결과를 바탕으로 RAPTOR의 스케일링 특성을 설명하면 다음과 같습니다.
+
+## 시간 측면에서의 선형 스케일링
+
+RAPTOR는 빌드 시간(build time)이 초기 문서 길이와 선형적인 관계를 보입니다. Figure 6에 제시된 실험 결과에 따르면, 최대 80,000 토큰에 이르는 문서들에 대해 RAPTOR 나무 구조(tree construction) 건설 시간이 문서 길이에 비례하여 선형적으로 증가합니다. 이는 문서의 복잡성이나 길이가 증가하더라도 구축 시간이 예측 가능한 비율로 증가함을 의미합니다.
+
+## 토큰 지출 측면에서의 선형 스케일링
+
+Figure 5의 실험 데이터에서도 명확하게 나타난 바와 같이, RAPTOR는 총 토큰 지출(total token expenditure)이 초기 문서 길이와 명확한 선형 상관관계(linear correlation)를 보입니다. QASPER, NarrativeQA, QuALITY 세 가지 Published as a conference paper datasets 모두에서 이러한 패턴이 일관되게 관찰되었습니다.
+
+## 종합적 스케일링 특성
+
+실험에서는 소비자급 Apple M1 Mac(16GB RAM) 하드웨어에서 맥락 길이(context length)를 12,500부터 78,000 토큰까지 다양하게 변화시켜 테스트했습니다. 이 광범위한 실험 범위에서도 RAPTOR는 두 핵심 지표인 토큰 지출과 빌드 시간 모두에서 선형적 스케일링(linear scaling) 특성을 유지했습니다.
+
+이러한 선형적 스케일링 특성은 "Even as the complexity and volume of the input text grow, the cost of const
+… [truncated: 270 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_8146cc59f2bb
+paper_nlp_raptor_4f340664570a
+paper_nlp_raptor_a479d51ff609
+paper_nlp_raptor_162aacc5c646
+paper_nlp_raptor_fb96741ffe87
+paper_nlp_raptor_b5ac09793e91
+paper_nlp_raptor_fb3aa9881edd
+paper_nlp_raptor_e4819acc10d6
+
+Korean-ratio delta: -0.3268
+============================================================

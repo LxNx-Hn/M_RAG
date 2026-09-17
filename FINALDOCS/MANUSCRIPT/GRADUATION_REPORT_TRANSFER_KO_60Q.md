@@ -120,6 +120,12 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 본 연구가 다루는 환경은 한국어로 질문하고 영어 학술·기술 문서에서 근거를 찾은 뒤 한국어로 답하는 질의응답이다. 이 조건에서는 세 가지 요소가 중요하다. 첫째, 한국어 질문과 영어 학술문장의 어휘·표현 차이를 연결하는 검색 표현이 필요하다. 둘째, 검색된 근거를 생성 단계에서 얼마나 충실하게 활용하는지 확인해야 한다. 셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.
 
+저장된 generation record에서도 이 문제가 직접 관찰된다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 질문, 검색 근거, 생성 답변과 저장 평가값을 같은 record에서 확인할 수 있어 출력 언어 이탈을 실제 실험 입력·출력으로 제시한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례
+
 이 세 문제와 연결해 HyDE는 질의를 가상의 문서 표현으로 확장하는 retrieval-side 기법으로 사용한다[2]. CAD는 문맥이 있는 분포와 없는 분포를 대조하여 생성에서 문맥의 영향을 조절하는 decoding 기법이다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정해 출력 언어 이탈을 완화한다[4]. 세 기법은 검색 표현, 근거 반영, 출력 언어라는 서로 다른 위치에 개입하므로 각 목적에 대응하는 결과를 분리해 분석한다.
 
 본 연구의 목적은 동일한 Paper-RAG backbone에서 HyDE, CAD, SCD의 ON/OFF를 독립 요인으로 구성하고, 한국어 질의-영어 학술문서 환경에서 각 요인이 어떤 변화를 만드는지 통제된 대응 비교로 확인하는 것이다. 세 요인의 2×2×2 조합을 RAG-Cube로 지칭하며, configuration 평균과 동일 query의 검색 ID, contexts, 답변, 평가 점수를 함께 분석한다. 이 구조는 검색 단계와 decoding 단계에서 발생한 변화를 각각의 비교 단위로 추적할 수 있게 한다.
@@ -509,7 +515,7 @@ H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 
 HyDE의 주 비교에서 answer relevancy 평균 변화는 +0.0805이고 95% CI는 [+0.0110, +0.1514]다. 60개 대응 질의에서 win/loss/tie는 29/15/16이며, 이 값은 본 연구에서 가장 명확한 HyDE 관련 결과다. Faithfulness 평균 변화는 +0.0436이고 CI는 [-0.0262, +0.1153]이며 win/loss/tie는 24/21/15다. Context precision은 -0.0343, context recall은 0.0000이고 context recall은 52개 질의가 tie에 해당한다.
 
-HyDE는 answer relevancy에서 가장 명확한 양의 평균 변화를 보였고, faithfulness·context precision·context recall은 서로 다른 방향을 보였다. 검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 BIC 활용 정보를 찾지 못한 반면 HyDE ON 답변은 최적 cluster 수 선택을 설명했다. 이 사례는 retrieval change와 answer-level 결과를 실제 provenance로 연결한다.
+HyDE는 answer relevancy에서 가장 명확한 양의 평균 변화를 보였고, faithfulness·context precision·context recall은 서로 다른 방향을 보였다. 검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 GMM과 soft clustering의 일반 설명에 머물렀고, HyDE ON 답변은 BIC가 최적 cluster 수 선택에 사용된다는 근거를 포함했다. 이 사례는 retrieval change와 answer-level 결과를 실제 provenance로 연결한다.
 
 answer relevancy의 양의 변화와 context precision의 음의 변화가 함께 나타난 가능한 해석은 HyDE가 질문을 설명하는 문서형 검색 표현을 제공하면서 최종 답변이 질문의 요구에 더 직접 반응하도록 도왔고, reranked 상위 문맥의 관련성 구성은 일부 질의에서 달라졌다는 것이다. HyDE ON은 dense query representation, fusion 후보, reranking 이후의 context selection까지 바꾸므로, +0.0805는 고정 pipeline 전체를 통과한 end-to-end answer-level 대응 차이다.
 
@@ -557,7 +563,7 @@ context_recall	-0.0167	[-0.0500, +0.0000]	0	1	59	60
 
 [그림삽입: FINALDOCS/FIGURES/fig5_10_runtime.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-6] RAG-Cube 조건별 generation duration. CAD ON 조건의 실행 시간 증가를 품질 지표와 분리해 제시한다. [스타일=그림제목]
+[그림 5-4] RAG-Cube 조건별 generation duration. CAD ON 조건의 실행 시간 증가를 품질 지표와 분리해 제시한다. [스타일=그림제목]
 
 ## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]
 
@@ -595,9 +601,37 @@ HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
 
 [그림삽입: FINALDOCS/FIGURES/fig5_3_scd_language.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-7] HyDE·CAD strata별 SCD 적용에 따른 한국어 문자 비율 변화. 오차막대는 95% bootstrap 신뢰구간이다. [스타일=그림제목]
+[그림 5-5] HyDE·CAD strata별 SCD 적용에 따른 한국어 문자 비율 변화. 오차막대는 95% bootstrap 신뢰구간이다. [스타일=그림제목]
 
 ## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
+
+대표 입출력 분석에는 최종 60-query generation·evaluation artifact에서 다시 읽은 E01~E06을 사용하였다. 각 증빙은 query ID와 한국어 질문, 적용 configuration, retrieved·reranked chunk ID, 최종 context, generated answer, 저장 RAGAS score와 Korean-character ratio를 연결한다. 별도의 모델 호출이나 서비스 실행 결과를 새로 만든 것이 아니라 최종 실험 record를 사람이 확인할 수 있는 형태로 재구성한 provenance 자료다.
+
+E01은 정상 QA 기준 사례다. ext_raptor_011의 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록하고 있으며, RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻는 질문과 검색 근거, 생성 답변을 함께 제시한다. 이 사례는 이후 요인별 사례에서 query-condition-context-output을 읽는 기준 형식으로 사용한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E01] 정상 QA 저장 입출력 사례
+
+HyDE의 retrieval-side 변화는 E04에서 확인한다. ext_raptor_004는 RAPTOR의 GMM clustering에서 BIC의 역할을 묻는다. H0C0S0 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, H1C0S0에서는 retrieved IDs, reranked IDs와 최종 contexts가 함께 달라지면서 BIC가 최적 cluster 수를 결정하는 데 사용된다는 내용을 포함했다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 달라졌다. 이 사례는 5.4절의 HyDE answer relevancy 평균 변화 +0.0805를 실제 검색 경로와 답변 변화에 연결한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
+
+CAD는 검색 입력이 같은 generation-side 사례를 두 방향으로 확인한다. E05의 ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고 faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. E06의 track1_0012도 동일한 검색 입력을 공유하면서 faithfulness가 0.9375에서 0.5000으로, answer relevancy가 0.9001에서 0.0000으로 달라졌다. 같은 문맥에서도 질의별 변화 방향이 다르게 나타나는 점을 두 실제 답변으로 확인할 수 있다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E05] 동일 검색 문맥에서 CAD ON/OFF 생성 결과가 달라진 사례
+
+SCD의 출력 언어 제어는 E03에서 확인한다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 동일 입력 근거에서 생성 문자열의 표면 언어가 한국어 쪽으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
+
+E02는 1장에서 출력 언어 이탈 문제를 실제 record로 보여주고, E01·E03·E04·E05는 본 절에서 정상 QA와 세 실험 요인의 대표 변화를 연결한다. E01~E06 전체 세트와 각 PNG에 대응하는 raw TXT는 부록 B에 배치한다. 정량 통계는 전체 대응쌍을 요약하고, 대표 입출력은 그 통계가 형성된 질문·검색 근거·생성 답변·점수를 다시 추적하는 역할을 한다.
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
@@ -628,6 +662,12 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 세 번째 질문에 대해, SCD는 240개 대응쌍과 HyDE OFF 동일 문맥 120개 부분집합 모두에서 Korean-character ratio를 높였다. SCD의 직접 결과는 한국어 출력 유지 지표에서 확인되었다. 네 번째 질문에 대해, 여덟 configuration의 최고 조건은 지표별로 달랐다. 최종적으로 configuration은 검색 관련성, 근거 반영, 출력 언어, 허용 지연의 우선순위에 따라 선택한다.
 
 ## 6.2 실험 설계가 제공한 의미 [스타일=절(1.1)]
+
+본 실험 설계는 HyDE, CAD, SCD를 같은 RAG pipeline 안의 서로 다른 개입 지점으로 분리하고 각 요인에 맞는 비교 단위를 사용한다. HyDE에서는 검색 표현 변경이 retrieved IDs와 contexts의 변화까지 이어질 수 있도록 두어 retrieval-side end-to-end 효과를 관찰한다. CAD에서는 retrieved IDs, reranked IDs와 contexts가 같은 대응쌍을 구성해 검색 결과를 고정하고 decoding 변화에 집중한다. SCD에서는 query·HyDE·CAD 조건을 고정한 ON/OFF 대응쌍으로 출력 언어 변화를 계산한다.
+
+이 구조는 configuration 평균과 요인별 paired contrast를 구분한다. H1C1S0의 높은 평균 faithfulness는 특정 조합의 기술통계이고, CAD +0.0288은 동일 문맥에서 CAD ON/OFF를 비교한 요인 수준 결과다. 조합의 평균값과 특정 요인의 대응 차이를 분리하면 검색 표현, 문맥 기반 decoding, 출력 언어 제어가 서로 다른 평가 축에서 보인 변화를 각 실험 단위에 맞춰 해석할 수 있다.
+
+또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 5.7절의 E01~E06은 이 저장 구조를 실제 입출력 단위에서 보여준다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
 
 ## 6.3 적용 시 configuration 선택 [스타일=절(1.1)]
 
@@ -755,9 +795,31 @@ track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길
 track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	decoder_ablation	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
 ```
 
-# 부록 B. 추가 증빙 화면 [스타일=부록제목]
+# 부록 B. 대표 입출력 증빙 및 추가 정량 분석 [스타일=부록제목]
 
-# 부록 B. 추가 정량 분석 [스타일=부록제목]
+## B.1 저장 artifact 기반 대표 입출력 증빙 [스타일=절(1.1)]
+
+E01~E06은 최종 60-query 저장 artifact에서 선택한 실제 질문·검색 근거·생성 출력의 재현 자료다. 각 PNG와 같은 이름의 `raw/*.txt`는 동일 내용을 텍스트로 보존하며 query ID, configuration, retrieved/reranked IDs, context, generated answer와 저장 평가값을 추적할 수 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E01] 정상 QA 사례 — ext_raptor_011
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E03] 동일 문맥 SCD 언어 이탈 완화 사례 — ext_midm_005
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E04] HyDE retrieval 변화 사례 — ext_raptor_004
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_raptor_001
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E06] CAD 동일 문맥 trade-off 사례 — track1_0012
+
+## B.2 문서별·질문 유형별 탐색 분석 [스타일=절(1.1)]
 
 문서별·질문 유형별 분석과 strata별 결과는 표본 수를 함께 제시하며 탐색적으로 해석한다.
 

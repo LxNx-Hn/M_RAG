@@ -1,0 +1,48 @@
+============================================================
+Cube-RAG 60-query Evidence Replay UI (stored artifacts)
+============================================================
+Case              : E01 Normal QA
+Selection         : highest mean of four stored gpt-4o metrics among 60-query records at or above 0.5 Korean-character ratio
+
+Config            : hyde_off__no_decoder_control
+Query ID          : ext_raptor_011
+Paper             : paper_nlp_raptor
+HyDE / CAD / SCD  : False / False / False
+Korean ratio      : 0.5274
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.9365, context_precision=1.0000, context_recall=1.0000
+
+Question
+--------
+Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?
+
+Stored answer
+-------------
+제공된 논문 컨텍스트를 분석한 결과, Cinderella 사례의 정성 분석에서 RAPTOR의 트리 구조 기반 검색(tree-based retrieval)이 DPR(Dense Passage Retrieval)보다 주제형·멀티홉 질문에 유리했던 이유는 다음과 같이 확인됩니다.
+
+첫째, RAPTOR는 계층적 구조를 통해 다양한 수준의 추상화(abstraction)를 제공합니다. 논문의 Figure 4에서 확인할 수 있듯이, RAPTOR는 질문의 요구사항에 따라 서로 다른 층위(layer)에서 노드를 선택할 수 있습니다. 반면 DPR은 단일 층위의 leaf 노드만을 선택하여 정보를 제공합니다.
+
+둘째, RAPTOR의 트리 구조는 더 포괄적이고 맥락적인 정보를 제공합니다. "What is the central theme of the story?"라는 질문에 대해 DPR이 제공한 맥락은 "The central theme of the story is transformation and the power of inner beauty"로 이야기의 초반부만을 다루었으나, RAPTOR가 제공한 맥락은 "The central theme of the story is transformation and overcoming adversity"로 신데렐라가 겪는 전체 여정과 행복한 결말까지 포함하여 더 완전한 답변을 가능하게 했습니다.
+
+셋째, RAPTOR는 상위 노드(higher-level nodes)를 통해 요약 정보도 제공합니다. 논문에서 언급된 바와 같이 "RAPTOR’s context often encompasses the information retrieved by DPR, either directly or within higher-layer summaries"라는 점이 확인됩니다. 이는 멀티홉 질문처럼 여러 단계의 추론이 필요한 질문에서 특히 중요한 장점입니다.
+
+넷째, RAPTOR의 검색 메커니즘은 단순한 토큰 매칭을 넘어서 의미론적 관련성(semantic relevance)을 고려한 정보 선택이 가능합니다. "How does Cinderella find a happy ending?" 질문에서 RAPTOR는 신데렐라의 변신, 왕자와의 만남, 유리구두 사건, 그리고 최종적인 화해까지 전체 서사를 포괄하는 정보를 제공했습니다.
+
+결론적으로, RAPTOR의 트리 구조는 다양한 층위의 정보를 계층적으로 조직하여 제공함으로써, 주제형·멀
+… [truncated: 81 characters; use --full]
+
+Retrieved chunk IDs
+-------------------
+paper_nlp_raptor_12d47c916205
+paper_nlp_raptor_4f4f51e0f19a
+paper_nlp_raptor_dd8b323782ef
+paper_nlp_raptor_0f4c6a947b3d
+paper_nlp_raptor_10f0c730ad5d
+paper_nlp_raptor_ed1fa6412150
+paper_nlp_raptor_3208734b2ece
+paper_nlp_raptor_fb3aa9881edd
+
+Retrieved evidence [1]
+----------------------
+G Q UALITATIVE A NALYSIS To qualitatively examine RAPTOR’s retrieval process, we test it on thematic, multi-hop questions about a 1500-word version of the fairytale Cinderella. We compare the context retrieved by RAP- TOR with the context retrieved by Dense Passage Retrieval (DPR). Figure 4 in the main paper details the retrieval process within RAPTOR’s tree structure for two questions. The nodes that RAPTOR selects for each question are highlighted, while the leaf nodes that DPR selects for the same question are indicated with arrows. This comparison illustrates the advantage of RAPTOR’s tree structure. RAPTOR selects nodes from different layers depending on the level of granularity required by the Published as a conference paper at ICLR 2024 Algorithm 2 Collapsed Tree Algorithm function C OLLAPSED T REE (tree , query , k, max tokens) tr
+… [truncated: 2065 characters; use --full]
+============================================================
