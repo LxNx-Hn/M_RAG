@@ -100,6 +100,8 @@ def main() -> int:
         "API route",
         "배포 상태",
         "사용자 경험",
+        "[그림 B-",
+        "그림 1-2",
         "FastAPI",
         "React",
     )
@@ -114,6 +116,8 @@ def main() -> int:
         "API route",
         "배포 상태",
         "사용자 경험",
+        "[그림 B-",
+        "그림 1-2",
     )
     if found := [term for term in ui_thesis_terms if term.lower() in body.lower()]:
         raise AssertionError(f"UI/service material leaked into thesis body: {found}")
