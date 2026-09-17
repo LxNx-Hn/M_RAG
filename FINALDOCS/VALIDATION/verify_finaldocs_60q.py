@@ -185,8 +185,8 @@ def main() -> int:
     figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
     if figure_toc != figure_captions:
         raise AssertionError("figure list and manuscript captions do not match")
-    if len(figure_captions) != 10:
-        raise AssertionError(f"expected 10 manuscript figures, got {len(figure_captions)}")
+    if len(figure_captions) != 16:
+        raise AssertionError(f"expected 16 manuscript figures, got {len(figure_captions)}")
 
     table_toc = set(
         re.findall(
@@ -266,15 +266,13 @@ def main() -> int:
     for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):
         if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
             raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
-    if "[입출력 증빙 E02]" not in body:
-        raise AssertionError("chapter 1 must include the stored language-drift IO evidence")
     for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
         if f"[입출력 증빙 {case_id}]" not in text:
             raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
     placement_checks = (
-        ("## 1.1 연구배경 및 목적", "## 1.2 연구범위", "[입출력 증빙 E02]"),
         ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 증빙 E04]"),
         ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 증빙 E05]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 증빙 E02]"),
         ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 증빙 E03]"),
         ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[입출력 증빙 E01]"),
     )
@@ -289,6 +287,19 @@ def main() -> int:
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:
             raise AssertionError(f"substantive section is empty/too short: {section_name}")
+
+    literature_dir = FINAL / "FIGURES/LITERATURE"
+    expected_literature = (
+        "fig2_1_rag_original.png",
+        "fig2_2_lost_middle_original.png",
+        "fig2_3_hyde_original.png",
+        "fig2_4_cad_original.png",
+        "fig2_5_scd_language_drift_original.png",
+        "fig2_6_ragas_faithfulness_original.png",
+    )
+    for filename in expected_literature:
+        need(literature_dir / filename)
+    need(literature_dir / "README.md")
 
     figures = sorted((FINAL / "FIGURES").glob("*.png"))
     if len(figures) != 10:

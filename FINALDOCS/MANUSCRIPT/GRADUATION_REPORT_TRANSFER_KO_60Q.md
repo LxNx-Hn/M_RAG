@@ -80,6 +80,12 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 # 그 림 목 차 [스타일=목차제목]
 
 [그림 1-1] 한국어 질의 기반 영어 학술문서 RAG 연구 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-1] RAG의 retriever–generator 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-2] 관련 정보 위치에 따른 long-context 성능 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-3] HyDE의 hypothetical-document retrieval 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-4] Context-Aware Decoding의 분포 대조 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-5] 다국어 RAG의 language drift 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-6] RAGAS의 high/low faithfulness 예시 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-1] 고정 Paper-RAG backbone 실행 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-2] generation·evaluation·analysis artifact 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
@@ -120,12 +126,6 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 본 연구가 다루는 환경은 한국어로 질문하고 영어 학술·기술 문서에서 근거를 찾은 뒤 한국어로 답하는 질의응답이다. 이 조건에서는 세 가지 요소가 중요하다. 첫째, 한국어 질문과 영어 학술문장의 어휘·표현 차이를 연결하는 검색 표현이 필요하다. 둘째, 검색된 근거를 생성 단계에서 얼마나 충실하게 활용하는지 확인해야 한다. 셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.
 
-저장된 generation record에서도 이 문제가 직접 관찰된다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 질문, 검색 근거, 생성 답변과 저장 평가값을 같은 record에서 확인할 수 있어 출력 언어 이탈을 실제 실험 입력·출력으로 제시한다.
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
-
-[입출력 증빙 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례
-
 이 세 문제와 연결해 HyDE는 질의를 가상의 문서 표현으로 확장하는 retrieval-side 기법으로 사용한다[2]. CAD는 문맥이 있는 분포와 없는 분포를 대조하여 생성에서 문맥의 영향을 조절하는 decoding 기법이다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정해 출력 언어 이탈을 완화한다[4]. 세 기법은 검색 표현, 근거 반영, 출력 언어라는 서로 다른 위치에 개입하므로 각 목적에 대응하는 결과를 분리해 분석한다.
 
 본 연구의 목적은 동일한 Paper-RAG backbone에서 HyDE, CAD, SCD의 ON/OFF를 독립 요인으로 구성하고, 한국어 질의-영어 학술문서 환경에서 각 요인이 어떤 변화를 만드는지 통제된 대응 비교로 확인하는 것이다. 세 요인의 2×2×2 조합을 RAG-Cube로 지칭하며, configuration 평균과 동일 query의 검색 ID, contexts, 답변, 평가 점수를 함께 분석한다. 이 구조는 검색 단계와 decoding 단계에서 발생한 변화를 각각의 비교 단위로 추적할 수 있게 한다.
@@ -154,6 +154,12 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 RAG는 질의와 관련된 외부 문서를 검색하고, 선택된 문맥을 생성 모델의 입력에 포함하여 답변을 만드는 구조이다[1]. 문서 집합을 D, 질의를 q, 검색 문맥을 C, 답변을 y라고 하면 과정은 Retrieve(q, D)로 C를 얻고, 생성 모델이 q와 C를 조건으로 y를 생성하는 흐름으로 설명할 수 있다. 학술문서 질의응답에서는 검색 단계와 생성 단계를 구분해 보는 것이 중요하다. 필요한 문단의 검색 상태와 검색 문단이 최종 답변에 반영되는 정도는 서로 다른 분석 대상이기 때문이다.
 
+Lewis et al.[1]은 사전학습 retriever가 외부 document index에서 관련 문서를 찾고, generator가 질의와 검색 문서를 함께 사용해 출력을 생성하는 RAG 구조를 제시하였다. 그림 2-1은 원 논문의 Figure 1로, parametric generator와 non-parametric retriever가 결합되는 기본 구조를 보여준다. 본 연구의 hybrid retrieval과 decoding 실험은 이 retrieval–generation 분리를 공통 기반으로 사용한다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_1_rag_original.png | 권장폭=본문폭 90% | 정렬=가운데]
+
+[그림 2-1] RAG의 retriever–generator 구조. Lewis et al.[1]의 Figure 1을 인용함. [스타일=그림제목]
+
 본 연구는 이러한 구분을 결과 기록에도 유지한다. retrieval과 reranking의 chunk ID, 최종 contexts를 답변과 함께 저장하고, context-level 지표와 answer-level 지표를 별도로 해석한다. 이 기록 구조는 검색 결과와 답변 품질을 서로 다른 단계에서 확인할 수 있게 한다.
 
 [한글 수식 입력기 복붙용 — 최종 HWP에는 렌더링된 수식만 남김]
@@ -176,6 +182,12 @@ y = LM(q,C_q)
 
 재정렬은 후보 passage의 우선순위를 결정하고, 생성 모델은 상위 다섯 문맥에서 질문에 필요한 내용을 선택·종합한다. 이 때문에 본 연구는 최종 contexts를 고정한 CAD 비교와 contexts 자체가 달라질 수 있는 HyDE 비교를 분리한다. 동일한 hybrid backbone은 검색 단계 변화와 decoding 단계 변화를 공통 기준 위에서 비교할 수 있게 한다.
 
+검색된 문맥은 관련 passage가 포함되어 있다는 사실만으로 동일하게 활용되는 것은 아니다. Liu et al.[12]은 multi-document question answering에서 정답을 포함한 문서의 위치를 바꾸었을 때 관련 정보가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U-shaped pattern을 보고하였다. 그림 2-2는 해당 결과의 원 논문 Figure 1이다. 본 연구는 문맥 수와 순서 정책을 고정하고, retrieval 결과와 generation 결과를 별도 지표로 기록해 검색과 문맥 활용을 구분한다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_2_lost_middle_original.png | 권장폭=본문폭 75% | 정렬=가운데]
+
+[그림 2-2] 관련 정보 위치에 따른 long-context 성능 변화. Liu et al.[12]의 Figure 1을 인용함. [스타일=그림제목]
+
 Weighted RRF는 다음과 같이 표현할 수 있다.
 
 [한글 수식 입력기 복붙용 — 최종 HWP에는 렌더링된 수식만 남김]
@@ -188,6 +200,12 @@ RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}
 
 HyDE는 질의에 직접 임베딩을 적용하는 대신, 질의에 답할 법한 가상의 문서를 생성하고 그 표현을 검색에 사용하는 방법이다[2]. 짧거나 설명형인 질의와 학술문서의 전문적 표현 사이에 간극이 있을 때 hypothetical document가 검색 표현을 확장하는 역할을 할 수 있다.
 
+Gao et al.[2]의 HyDE는 instruction-following language model이 query에서 hypothetical document를 생성하고, contrastive encoder가 이를 embedding으로 변환해 실제 corpus의 유사 문서를 검색한다. 그림 2-3은 이 두 단계를 query–document 직접 매칭 대신 hypothetical document를 경유하는 구조로 보여준다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_3_hyde_original.png | 권장폭=본문폭 90% | 정렬=가운데]
+
+[그림 2-3] HyDE의 hypothetical-document retrieval 구조. Gao et al.[2]의 Figure 1을 인용함. [스타일=그림제목]
+
 본 실험에서 HyDE ON은 한국어 질의를 영어 검색 표현으로 바꾸고 hypothetical document를 생성한 뒤 이를 dense retrieval 입력으로 사용한다. BM25와 CrossEncoder에는 원질의를 유지한다. 최종 답변은 HyDE를 통해 선택된 실제 문서 passage를 근거로 생성한다. 따라서 HyDE 결과는 번역·가상 문서 생성·dense retrieval·fusion·reranking·context selection을 포함한 end-to-end pipeline effect로 해석한다.
 
 가상 문서는 질문을 영어 학술문서에 가까운 서술로 확장하고 검색 공간의 후보 순위에 영향을 준다. 포함된 표현에 따라 유용한 후보가 상위로 이동하거나 특정 세부사항의 비중이 커질 수 있다. 본 연구의 answer relevancy 변화는 이러한 검색 경로와 최종 답변의 질문 적합성 관계를 보여준다. retrieved ID와 최종 contexts를 함께 저장한 이유도 이 검색 경로 변화를 answer-level 결과와 연결해 확인하기 위해서다.
@@ -195,6 +213,12 @@ HyDE는 질의에 직접 임베딩을 적용하는 대신, 질의에 답할 법�
 ## 2.4 Context-Aware Decoding [스타일=절(1.1)]
 
 CAD는 문맥이 포함된 next-token distribution과 문맥이 없는 distribution을 대조하여, 주어진 문맥에 의해 상대적으로 강화된 token을 생성에 반영하는 decoding 방법이다[3]. 본 실험에서는 CAD alpha=0.5를 고정한다. CAD는 retrieval 이후 generation 단계에서 동작하며, 독립적인 decoding 변화를 보기 위해 CAD ON/OFF에서 retrieved IDs, reranked IDs와 contexts가 동일한 대응쌍을 구성한다.
+
+Shi et al.[3]은 context를 포함한 분포와 포함하지 않은 분포를 대조해 context에 의해 강화되는 token의 상대적 비중을 높이는 구조를 제시하였다. 그림 2-4의 원 논문 사례는 모델의 기존 지식과 제공된 context가 충돌할 때 두 분포가 서로 다른 token을 선호하고, CAD가 그 차이를 이용해 context 쪽 신호를 강화하는 방식을 보여준다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_4_cad_original.png | 권장폭=본문폭 72% | 정렬=가운데]
+
+[그림 2-4] Context-Aware Decoding의 분포 대조 구조. Shi et al.[3]의 Figure 1을 인용함. [스타일=그림제목]
 
 문맥이 포함된 logits를 `z_ctx`, 문맥이 없는 logits를 `z_noctx`라고 하면 본 연구의 CAD score는 다음과 같이 표현한다.
 
@@ -210,7 +234,13 @@ CAD 대응쌍은 query, retrieved ID, reranked ID, 최종 contexts가 같은지�
 
 ## 2.5 Soft Constrained Decoding과 언어 이탈 [스타일=절(1.1)]
 
-다국어 RAG에서는 질의 언어와 근거 문서 언어가 다를 때 답변의 표면 언어가 문맥 언어 쪽으로 이동할 수 있다. SCD는 vocabulary를 목표 언어, 비목표 언어, 중립 token으로 구분하고 decoding 중 token score에 서로 다른 제약을 적용해 이러한 언어 이탈을 완화한다[4]. 본 실험의 reference SCD는 alpha=1.1, beta=0.9, Tstart=5를 사용하며 CAD와 함께 적용될 때에는 CAD score를 구성한 뒤 SCD processor를 적용한다.
+다국어 RAG에서는 질의와 in-context example이 목표 언어로 주어지더라도 검색 근거가 다른 언어일 때 생성 과정의 언어가 검색 문서 언어 쪽으로 이동하는 language drift가 발생할 수 있다. Li et al.[4]은 multilingual RAG에서 이러한 출력 언어 이탈을 체계적으로 분석하고, reasoning 과정에서 target language와 distractor language가 혼합된 뒤 최종 출력이 비목표 언어로 이동하는 사례를 제시하였다. 그림 2-5는 원 논문의 language drift 개념 사례다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_5_scd_language_drift_original.png | 권장폭=본문폭 78% | 정렬=가운데]
+
+[그림 2-5] 다국어 RAG의 language drift 사례. Li et al.[4]의 Figure 1을 인용함. [스타일=그림제목]
+
+SCD는 vocabulary를 목표 언어, 비목표 언어, 중립 token으로 구분하고 decoding 중 token score에 서로 다른 제약을 적용해 이러한 언어 이탈을 완화한다[4]. 본 실험의 reference SCD는 alpha=1.1, beta=0.9, Tstart=5를 사용하며 CAD와 함께 적용될 때에는 CAD score를 구성한 뒤 SCD processor를 적용한다.
 
 언어 효과는 생성 답변의 한글 문자 수를 한글 문자와 ASCII 영문자 수의 합으로 나눈 Korean-character ratio로 측정한다. 분모는 한글 문자와 ASCII 영문자로 구성한다. 이 값은 출력 언어 성향을 측정하며, 문법성·내용 정확성·전문용어 사용의 적절성은 별도 평가 차원으로 둔다. 본 연구는 Korean-character ratio를 language adherence의 operational indicator로 사용한다.
 
@@ -245,6 +275,12 @@ SCD는 생성 중 token score를 조절해 목표 언어의 선택 성향을 조
 ## 2.6 RAG 평가 [스타일=절(1.1)]
 
 HyDE와 CAD의 품질 비교에는 RAGAS의 faithfulness, answer relevancy, context precision, context recall을 사용한다[9]. Faithfulness는 답변의 주장이 제공된 context에 의해 지지되는 정도를, answer relevancy는 답변이 질문에 직접 대응하는 정도를 본다. Context precision과 context recall은 검색된 근거의 관련성과 필요한 근거의 포함 정도를 측정한다. 네 지표는 각각 독립적으로 분석한다.
+
+RAGAS 원 연구는 자동 평가의 각 차원을 실제 question–context–answer 예시와 연결해 설명한다. 그림 2-6은 WikiEval의 동일 question과 context에 대해 근거에 의해 지지되는 답변과 지지되지 않는 답변을 대비한 원 논문 Table 2를 이미지로 인용한 것이다. 이 예시는 본 연구에서 faithfulness를 answer relevancy와 분리해 해석하는 이유를 직관적으로 보여준다.
+
+[그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_6_ragas_faithfulness_original.png | 권장폭=본문폭 92% | 정렬=가운데]
+
+[그림 2-6] RAGAS의 high/low faithfulness 예시. Es et al.[9]의 Table 2를 인용함. [스타일=그림제목]
 
 요인별 효과는 동일 query의 ON/OFF 차이를 이용한 paired comparison으로 분석하고, 질의를 재표집 단위로 하는 bootstrap 신뢰구간을 함께 제시한다. 자동 평가 분석은 score가 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 효과는 RAGAS와 별도로 Korean-character ratio로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 practical threshold는 5.2절에서 제시한다.
 
@@ -585,6 +621,12 @@ SCD의 직접 목적은 영어 근거 문맥에서 한국어 출력 언어를 �
 
 strata별 평균은 configuration 내 SCD ON/OFF 변화를 요약한다. SCD ON 답변에서도 영어 논문 제목, 모델명, 데이터셋명, 수식 기호가 자연스럽게 남을 수 있으며, Korean-character ratio는 한글 문자와 ASCII 영문자 비율을 통해 이러한 혼합 표기를 포함한 실제 답변의 언어 성향을 반영한다.
 
+기존 연구에서 보고된 language drift는 본 실험의 저장 record에서도 관찰되었다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 질문, 검색 근거, 생성 답변과 저장 평가값을 같은 record에서 확인할 수 있어 2.5절의 선행연구 현상이 본 실험 환경에서도 나타난 실제 입출력 사례로 사용한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례
+
 E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
@@ -623,7 +665,7 @@ HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
 
 ## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
 
-대표 입출력 증빙은 정량 결과가 제시되는 위치와 직접 연결해 배치하였다. 1.1절의 E02는 출력 언어 이탈 문제를, 5.4절의 E04는 HyDE에 따른 검색 근거와 답변 변화를, 5.5절의 E05는 동일 검색 문맥에서 CAD 적용 전후의 근거 충실도 차이를, 5.6절의 E03은 SCD 적용 전후의 출력 언어 변화를 보여준다. 본 절에는 전체 실행 흐름이 정상적으로 연결된 기준 사례인 E01을 두어 질문, 검색 근거, 생성 답변과 평가값이 하나의 저장 record에서 어떻게 추적되는지 제시한다.
+대표 입출력 증빙은 정량 결과가 제시되는 위치와 직접 연결해 배치하였다. 5.4절의 E04는 HyDE에 따른 검색 근거와 답변 변화를, 5.5절의 E05는 동일 검색 문맥에서 CAD 적용 전후의 근거 충실도 차이를, 5.6절의 E02와 E03은 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 출력 언어 변화를 보여준다. 본 절에는 전체 실행 흐름이 정상적으로 연결된 기준 사례인 E01을 두어 질문, 검색 근거, 생성 답변과 평가값이 하나의 저장 record에서 어떻게 추적되는지 제시한다.
 
 E01의 ext_raptor_011 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록한다. 질문은 RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻고, 저장 record에는 해당 query ID와 configuration, retrieved·reranked chunk ID, 최종 contexts, generated answer와 RAGAS score가 함께 남아 있다. 이를 통해 3장에서 정의한 추적성 요구사항과 4장에서 설명한 generation record 구조가 실제 결과에서 연결되는 방식을 확인할 수 있다.
 
@@ -631,7 +673,7 @@ E01의 ext_raptor_011 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9
 
 [입출력 증빙 E01] 정상 QA 저장 입출력 사례
 
-E01은 정상 답변의 기준 형태를 보여주고, E02·E03·E04·E05는 각각 언어 이탈, 출력 언어 제어, retrieval 변화, 동일 문맥 생성 차이를 각 결과 절에서 보완한다. CAD에서 반대 방향으로 나타난 E06은 부록 B에 함께 두어 positive case와 trade-off case를 같은 provenance 형식으로 확인할 수 있게 한다. 부록 B의 E01~E06과 각 `raw/*.txt`는 본문 사례의 질문·근거·답변·평가값을 다시 추적하는 원자료 역할을 한다.
+E01은 정상 답변의 기준 형태를 보여주고, E02·E03·E04·E05는 각각 언어 이탈, 출력 언어 제어, retrieval 변화, 동일 문맥 생성 차이를 5장의 각 결과 절에서 보완한다. CAD에서 반대 방향으로 나타난 E06은 부록 B에 함께 두어 positive case와 trade-off case를 같은 provenance 형식으로 확인할 수 있게 한다. 부록 B의 E01~E06과 각 `raw/*.txt`는 본문 사례의 질문·근거·답변·평가값을 다시 추적하는 원자료 역할을 한다.
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
@@ -667,7 +709,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 이 구조는 configuration 평균과 요인별 paired contrast를 구분한다. H1C1S0의 높은 평균 faithfulness는 특정 조합의 기술통계이고, CAD +0.0288은 동일 문맥에서 CAD ON/OFF를 비교한 요인 수준 결과다. 조합의 평균값과 특정 요인의 대응 차이를 분리하면 검색 표현, 문맥 기반 decoding, 출력 언어 제어가 서로 다른 평가 축에서 보인 변화를 각 실험 단위에 맞춰 해석할 수 있다.
 
-또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 1.1절과 5.4~5.7절에 배치한 E01~E05는 각 문제 정의와 정량 결과를 실제 입출력 단위에 연결하고, 부록 B의 E06은 CAD trade-off 사례를 같은 형식으로 보완한다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
+또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 5.4~5.7절에 배치한 E01~E05는 각 정량 결과와 관찰된 현상을 실제 입출력 단위에 연결하고, 부록 B의 E06은 CAD trade-off 사례를 같은 형식으로 보완한다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
 
 ## 6.3 적용 시 configuration 선택 [스타일=절(1.1)]
 

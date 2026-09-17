@@ -53,6 +53,12 @@
 | 본문 위치 | PNG 파일 | 그림 제목 |
 |---|---|---|
 | 1장 | fig1_1_research_setting.png | 한국어 질의 기반 영어 학술문서 RAG 연구 환경 |
+| 2.1 | LITERATURE/fig2_1_rag_original.png | RAG의 retriever–generator 구조 — Lewis et al.[1], Fig. 1 |
+| 2.2 | LITERATURE/fig2_2_lost_middle_original.png | 관련 정보 위치에 따른 long-context 성능 변화 — Liu et al.[12], Fig. 1 |
+| 2.3 | LITERATURE/fig2_3_hyde_original.png | HyDE의 hypothetical-document retrieval 구조 — Gao et al.[2], Fig. 1 |
+| 2.4 | LITERATURE/fig2_4_cad_original.png | Context-Aware Decoding의 분포 대조 구조 — Shi et al.[3], Fig. 1 |
+| 2.5 | LITERATURE/fig2_5_scd_language_drift_original.png | 다국어 RAG의 language drift 사례 — Li et al.[4], Fig. 1 |
+| 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS high/low faithfulness 예시 — Es et al.[9], Table 2 |
 | 3장 | fig3_1_rag_cube.png | HyDE·CAD·SCD RAG-Cube 8개 조건 |
 | 4장 | fig4_1_pipeline.png | 고정 Paper-RAG backbone 실행 흐름 |
 | 4장 | fig4_2_artifact_flow.png | generation·evaluation·analysis artifact 흐름 |
@@ -65,13 +71,13 @@
 
 ## 대표 입출력 증빙 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. 본문에서는 정량 주장과 가까운 위치에 사례를 배치한다. E02는 1.1절의 출력 언어 이탈 문제 정의, E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 근거 충실도 차이, E03은 5.6절의 SCD 언어 이탈 완화, E01은 5.7절의 정상 QA 기준 사례로 사용한다. E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치하며, 부록 B에는 E01~E06 전체를 다시 모아 provenance를 확인한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. 2장은 선행연구 원자료를 사용해 개념을 설명하고, 5장은 본 연구의 저장 입출력을 정량 결과와 연결한다. E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 근거 충실도 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 언어 이탈 완화를 보여주며, E01은 5.7절의 정상 QA 기준 사례로 사용한다. E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치하며, 부록 B에는 E01~E06 전체를 다시 모아 provenance를 확인한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
 
 | 위치 | 파일 | 용도 |
 |---|---|---|
-| 1.1 | E02_language_drift.png | 출력 언어 이탈 문제 정의 |
 | 5.4 | E04_hyde_retrieval_change.png | HyDE 검색 근거·답변 변화 사례 |
 | 5.5 | E05_cad_positive_same_context.png | CAD 동일 문맥 근거 충실도 차이 사례 |
+| 5.6 | E02_language_drift.png | SCD OFF 출력 언어 이탈 관찰 사례 |
 | 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 언어 이탈 완화 사례 |
 | 5.7 | E01_normal_qa.png | 정상 QA 기준 답변 사례 |
 | 부록 B | E06_cad_tradeoff_same_context.png | CAD 동일 문맥 trade-off 사례 |
