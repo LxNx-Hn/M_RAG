@@ -121,7 +121,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 [표 C-1] 문서별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [표 C-2] 질문 유형별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [표 D-1] 주요 연구 artifact provenance ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[표 E-1] 저장 artifact 기반 재현 절차 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[표 E-1] 저장 artifact 기반 점검 절차 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 
 # 1. 서론 [스타일=장(1.)]
 
@@ -968,18 +968,18 @@ extended_validation_questions.json	experiments/data/query_splits/extended_valida
 extended_validation_60_analysis.json	experiments/results/analysis/extended_validation_60_analysis.json	60-query source artifact	50870fc6c48407b22daf32861465accd459bd3972e5a80c58a3bb822d23a8e4d
 ```
 
-# 부록 E. 재현 절차 [스타일=부록제목]
+# 부록 E. 저장 artifact 점검 절차 [스타일=부록제목]
 
-[표 E-1] 저장 artifact 기반 재현 절차 [스타일=표제목]
+[표 E-1] 저장 artifact 기반 점검 절차 [스타일=표제목]
 
 [한글 표 복붙용 — 아래 탭 구분 블록 전체 복사 → 한글 `표 > 문자열을 표로` → 구분 문자 `탭`]
 
 ```text
-단계	script	input	output	목적
+점검 단계	실제 경로 또는 명령	입력	확인 결과	목적
 질의 감사	FINALDOCS/APPENDIX/QUERY_60_AUDIT.md	동결 query split 감사 결과	60개 질의 목록	60개 질의와 source metadata 확인
 수치 대조	FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md	해시로 고정한 저장 artifact	검증 범위·핵심 수치	표와 본문 수치 대조
 표 확인	FINALDOCS/TABLES/TABLES_60Q.xlsx	17개 HWP 이전용 sheet	HWP 표 이전	표 제목·값·출처 확인
 제출 그림 확인	FINALDOCS/FIGURES	최종 10개 PNG	HWP 삽입 그림	구조·통계 그림의 고정 제출본 확인
-UI 재현	evidence_replay.py show E01	저장 artifact	UI replay text	실제 저장 응답 확인
-패키지 검증	verify_finaldocs_60q.py	FINALDOCS	PASS/FAIL	원고·표·그림·출처 정합성 확인
+UI 재현	python -X utf8 cli/evidence_replay.py show E01	저장 artifact	UI replay text	실제 저장 응답 확인
+패키지 검증	python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py	FINALDOCS	PASS/FAIL	원고·표·그림·출처 정합성 확인
 ```

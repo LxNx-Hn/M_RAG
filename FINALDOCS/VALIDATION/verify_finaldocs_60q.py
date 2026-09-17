@@ -170,6 +170,16 @@ def main() -> int:
         package_text = path.read_text(encoding="utf-8")
         if found := [stale for stale in stale_paths if stale in package_text]:
             raise AssertionError(f"stale final-package path in {path.relative_to(FINAL)}: {found}")
+
+    appendix_e_text = text.split("# 부록 E.", maxsplit=1)[1]
+    expected_commands = (
+        "저장 artifact 기반 점검 절차",
+        "python -X utf8 cli/evidence_replay.py show E01",
+        "python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+    )
+    for command in expected_commands:
+        if command not in appendix_e_text or command not in table_copy:
+            raise AssertionError(f"missing canonical appendix-E check path: {command}")
     print("PASS: FINALDOCS 60-query thesis package")
     return 0
 
