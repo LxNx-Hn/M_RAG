@@ -241,7 +241,7 @@ def main() -> int:
         shared_strings = archive.read("xl/sharedStrings.xml").decode("utf-8")
         query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
 
-    sheet_names = re.findall(r'<sheet[^>]+name="([^"]+)"', workbook)
+    sheet_names = re.findall(r'<(?:[A-Za-z_][\w.-]*:)?sheet[^>]+name="([^"]+)"', workbook)
     if tuple(sheet_names) != EXPECTED_SHEETS:
         raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
     if "docs/PAPER/" in shared_strings or "generated/" in shared_strings:
