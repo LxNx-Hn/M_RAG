@@ -1,4 +1,4 @@
-name: One-shot thesis structure fix
+name: Restore thesis stored IO evidence
 
 on:
   push:
@@ -10,14 +10,20 @@ permissions:
   contents: write
 
 jobs:
-  fix:
+  fix-and-validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: Fix manuscript and provenance
+
+      - name: Restore stored experiment IO evidence
+        shell: bash
+        run: |
+          git checkout a4ba85276754bfde1b519a87850c1f9eb5c007e6 -- FINALDOCS/EVIDENCE/UI_REPLAY
+
+      - name: Repair manuscript, transfer guide, provenance and validator
         shell: bash
         run: |
           python - <<'PY'
@@ -26,9 +32,18 @@ jobs:
           import json
           import re
 
-          manuscript = Path('FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md')
+          ROOT = Path.cwd()
+          FINAL = ROOT / 'FINALDOCS'
+          manuscript = FINAL / 'MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md'
           text = manuscript.read_text(encoding='utf-8')
 
+          def sub_once(pattern: str, repl: str, value: str, label: str, flags: int = 0) -> str:
+              updated, count = re.subn(pattern, repl, value, count=1, flags=flags)
+              if count != 1:
+                  raise RuntimeError(f'{label}: expected one replacement, got {count}')
+              return updated
+
+          # Restore the figure numbering that the failed one-shot workflow intended to fix.
           text = re.sub(
               r'(?m)^\[그림 5-[0-9]+\] RAG-Cube 조건별 generation duration\.',
               '[그림 5-4] RAG-Cube 조건별 generation duration.',
@@ -44,39 +59,338 @@ jobs:
               '[그림 5-6] HyDE·CAD strata별 품질 지표 변화.',
               text,
           )
-          text = text.replace('# 부록 B. 추가 증빙 화면 [스타일=부록제목]\n\n', '')
 
-          section57 = (
-              '## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]\n\n'
-              '대표 입출력 분석은 저장된 generation·evaluation artifact의 query ID, 검색 문맥, 생성 답변과 평가 점수를 직접 대조하는 방식으로 수행하였다. HyDE는 retrieved ID와 final context가 달라진 대응쌍에서 검색 표현 변화와 답변 변화를 연결해 확인하였다. CAD는 retrieved IDs, reranked IDs와 contexts가 같은 대응쌍에서 decoding 조건에 따른 답변 차이를 비교하였다. SCD는 동일 query·HyDE·CAD 조건의 ON/OFF 대응쌍에서 Korean-character ratio와 생성 문자열 변화를 분석하였다.\n\n'
-              '이 절의 질의 단위 분석은 5.4~5.6절의 평균 결과를 각 record의 입력, 검색 문맥, 생성 답변과 평가 점수에 연결한다. HyDE는 retrieval provenance와 answer relevancy 변화를, CAD는 same-context 조건과 faithfulness·answer relevancy 변화를, SCD는 language-adherence 변화와 실제 생성 문자열을 중심으로 정리하였다.\n\n'
+          # Make the observed language-drift problem concrete with the stored E02 input/output.
+          chapter1 = text.split('# 2. 이론적 배경', maxsplit=1)[0]
+          if 'E02_language_drift.png' not in chapter1:
+              anchor = '셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.\n'
+              if anchor not in text:
+                  raise RuntimeError('chapter-1 language-drift anchor not found')
+              insertion = (
+                  '\n[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n'
+                  '[입출력 증빙 E02] SCD OFF 조건에서 관찰된 영어 출력 이탈 사례. ext_cad_007의 저장 record는 한국어 질문, 검색된 CAD 문맥, 생성 답변과 Korean-character ratio 0.0000을 함께 보여준다.\n'
+              )
+              text = text.replace(anchor, anchor + insertion, 1)
+
+          # Use direct positive wording for the HyDE retrieval-change example.
+          text = text.replace(
+              '검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 BIC 활용 정보를 찾지 못한 반면 HyDE ON 답변은 최적 cluster 수 선택을 설명했다.',
+              '검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 GMM과 soft clustering의 일반 설명에 머물렀고, HyDE ON 답변은 BIC가 최적 cluster 수 선택에 사용된다는 근거를 포함했다.',
           )
-          text = re.sub(
+
+          section57 = '''## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
+
+대표 입출력 분석에는 저장된 60-query generation·evaluation artifact를 읽어 재현한 E01~E06 증빙을 사용하였다. 각 증빙은 query ID와 한국어 질문, 적용 configuration, retrieved·reranked chunk ID, 최종 context, generated answer, 저장 RAGAS score와 Korean-character ratio를 한 화면에서 연결한다. 이 절의 검증 단위는 화면 구성보다 query-condition-context-output의 대응 관계와 저장 provenance다. 따라서 평균 지표가 어떤 실제 입력과 출력에서 형성되었는지를 record 수준에서 확인할 수 있다.
+
+E01은 일반적인 정상 QA 사례다. ext_raptor_011의 H0C0S0 답변은 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록했고, 검색된 RAPTOR 문맥과 생성 답변을 함께 제시한다. 이 사례는 이후 요인별 사례를 읽을 때 비교 기준이 되는 저장 입출력 형식을 보여준다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E01] 정상 QA 저장 입출력 사례
+
+HyDE의 retrieval-side 변화는 E04에서 직접 확인된다. ext_raptor_004는 RAPTOR의 GMM clustering에서 BIC의 역할을 묻는다. H0C0S0에서는 answer relevancy 0.0000, context recall 0.0000이었고 답변은 GMM과 soft clustering의 일반 설명에 머물렀다. H1C0S0에서는 retrieved IDs, reranked IDs와 최종 contexts가 함께 바뀌었고, 답변은 BIC가 최적 cluster 수를 결정하는 데 사용된다는 내용을 포함했다. 저장 answer relevancy는 0.8947, context recall은 1.0000이었다. 이 대응쌍은 5.4절의 HyDE 평균 answer relevancy 변화 +0.0805를 실제 검색 경로 변화와 연결한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
+
+CAD는 검색 입력을 고정한 generation-side 비교로 확인한다. E05의 ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs, contexts가 모두 같다. 같은 근거를 입력으로 사용한 상태에서 faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. 반대로 E06의 track1_0012도 동일한 검색 입력을 공유하지만 faithfulness 0.9375에서 0.5000, answer relevancy 0.9001에서 0.0000으로 변한다. 두 사례를 함께 보면 CAD의 평균값뿐 아니라 동일 문맥에서 질의별 변화 방향이 달라지는 분포를 실제 생성 문자열로 확인할 수 있다. E06 전체 화면은 부록 B에 배치한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E05] 동일 검색 문맥에서 CAD ON/OFF 생성 결과가 달라진 사례
+
+SCD의 출력 언어 제어는 E03에서 가장 직접적으로 확인된다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 모두 같으며 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했고, 같은 대응쌍에서 faithfulness는 0.8125에서 0.8889, answer relevancy는 0.4632에서 0.5231로 기록되었다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력 문자열의 변화와 연결한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
+
+E02는 1장의 문제 정의에서 출력 언어 이탈을 보여주고, E01·E03·E04·E05는 본 절에서 정상 QA와 세 실험 요인의 관찰 사례를 연결한다. E01~E06 전체 세트와 각 화면의 원문 TXT는 부록 B의 대표 입출력 증빙에 배치한다. 이 구성은 구조·통계 그림 10개와 별도로 실제 질문, 검색 근거, 생성 답변과 평가값을 확인하기 위한 실험 증빙으로 사용한다.
+
+'''
+          text = sub_once(
               r'## 5\.7 대표 입출력 및 요구사항별 실행 결과 \[스타일=절\(1\.1\)\]\n.*?(?=## 5\.8 종합 논의)',
               section57,
               text,
+              'section 5.7',
               flags=re.S,
           )
+
+          section62 = '''## 6.2 실험 설계가 제공한 의미 [스타일=절(1.1)]
+
+본 실험 설계의 핵심은 HyDE, CAD, SCD를 같은 RAG pipeline 안의 서로 다른 개입 지점으로 분리하고 각 요인에 맞는 비교 단위를 사용한 데 있다. HyDE 비교에서는 검색 표현이 바뀌면서 retrieved IDs와 contexts도 달라질 수 있도록 두어 retrieval-side end-to-end 효과를 관찰했다. CAD 비교에서는 retrieved IDs, reranked IDs와 contexts가 같은 대응쌍을 구성해 검색 결과의 차이를 고정하고 decoding 변화에 집중했다. SCD 비교에서는 query·HyDE·CAD 조건을 고정한 ON/OFF 대응쌍으로 출력 언어 변화를 계산했다.
+
+이 구조는 configuration 평균과 요인별 paired contrast를 구분해 해석할 수 있게 한다. 예를 들어 H1C1S0의 높은 평균 faithfulness는 특정 조합의 기술통계이고, CAD +0.0288은 동일 문맥에서 CAD ON/OFF를 비교한 요인 수준 결과다. 두 종류의 결과를 분리함으로써 조합 선택과 개별 기법의 관찰 효과를 같은 의미로 섞지 않고 각각의 실험 단위에 맞춰 읽을 수 있다.
+
+또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려갈 수 있는 provenance를 확보했다. 5.7절의 E01~E06은 이 저장 구조를 실제 입출력 단위에서 보여준다. 따라서 본 연구의 결과는 configuration별 평균, paired delta, 저장 검색 근거와 생성 답변을 서로 연결해 검토할 수 있는 형태로 구성된다.
+
+'''
+          text = sub_once(
+              r'## 6\.2 실험 설계가 제공한 의미 \[스타일=절\(1\.1\)\]\n.*?(?=## 6\.3 적용 시 configuration 선택)',
+              section62,
+              text,
+              'section 6.2',
+              flags=re.S,
+          )
+
+          appendix_intro = '''# 부록 B. 대표 입출력 증빙 및 추가 정량 분석 [스타일=부록제목]
+
+## B.1 저장 artifact 기반 대표 입출력 증빙 [스타일=절(1.1)]
+
+E01~E06은 별도의 제품 기능 평가가 아니라 최종 60-query 저장 artifact에서 선택한 실제 입력·검색 근거·생성 출력의 재현 자료다. 각 PNG와 같은 이름의 `raw/*.txt`는 동일한 query ID, configuration, retrieved/reranked IDs, context, generated answer와 저장 평가값을 담는다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지하며 그림목차 번호는 부여하지 않는다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E01] 정상 QA 사례 — ext_raptor_011
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E03] 동일 문맥 SCD 언어 복원 사례 — ext_midm_005
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E04] HyDE retrieval change 사례 — ext_raptor_004
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E05] CAD 동일 문맥 양의 변화 사례 — ext_raptor_001
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+[입출력 증빙 E06] CAD 동일 문맥 trade-off 사례 — track1_0012
+
+각 화면의 전체 텍스트는 `FINALDOCS/EVIDENCE/UI_REPLAY/raw/`에 같은 E번호로 저장한다.
+
+## B.2 문서별·질문 유형별 추가 정량 분석 [스타일=절(1.1)]
+'''
+          text = sub_once(
+              r'# 부록 B\. 추가 증빙 화면 \[스타일=부록제목\]\n\n# 부록 B\. 추가 정량 분석 \[스타일=부록제목\]\n',
+              appendix_intro,
+              text,
+              'appendix B structure',
+          )
+
           manuscript.write_text(text, encoding='utf-8')
 
-          manifest_path = Path('FINALDOCS/DATA/evidence_manifest_60q.json')
+          # HWP transfer guide: treat E01-E06 as stored experiment IO evidence.
+          guide_path = FINAL / 'MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md'
+          guide = guide_path.read_text(encoding='utf-8')
+          if '## 대표 입출력 증빙 삽입' not in guide:
+              evidence_guide = '''## 대표 입출력 증빙 삽입
+
+`FINALDOCS/EVIDENCE/UI_REPLAY/`의 E01~E06은 저장된 60-query artifact의 질의, retrieved/reranked IDs, context, generated answer, RAGAS와 Korean-character ratio를 읽기 쉽게 재현한 실험 입출력 자료다. `UI_REPLAY`는 기존 경로 호환을 위해 유지한 폴더명이다. HWP에서는 구조·통계 그림 10개와 구분하여 E번호를 그대로 사용하고 그림목차 번호를 부여하지 않는다.
+
+| 위치 | PNG | 역할 |
+|---|---|---|
+| 1.1 | E02_language_drift.png | 한국어 질문에서 관찰된 출력 언어 이탈 문제의 실제 입출력 |
+| 5.7 | E01_normal_qa.png | 정상 QA 저장 입출력 |
+| 5.7 | E04_hyde_retrieval_change.png | HyDE 적용 전후 retrieval provenance와 답변 변화 |
+| 5.7 | E05_cad_positive_same_context.png | 동일 문맥 CAD 생성 변화 |
+| 5.7 | E03_scd_rescue.png | 동일 문맥 SCD 출력 언어 변화 |
+| 부록 B | E01~E06 전체 | 대표 입출력 증빙 전체 세트 |
+
+E06은 부록 B에만 배치한다. 각 PNG의 원문은 `FINALDOCS/EVIDENCE/UI_REPLAY/raw/<same-name>.txt`에서 확인한다.
+
+'''
+              if '## 수식' not in guide:
+                  raise RuntimeError('HWP guide equation section anchor not found')
+              guide = guide.replace('## 수식\n', evidence_guide + '## 수식\n', 1)
+          guide_path.write_text(guide, encoding='utf-8')
+
+          # FINALDOCS README: define the evidence semantics explicitly.
+          readme_path = FINAL / 'README.md'
+          readme = readme_path.read_text(encoding='utf-8')
+          if 'EVIDENCE/UI_REPLAY/*.png' not in readme:
+              readme = readme.replace(
+                  '- `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림\n',
+                  '- `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림\n'
+                  '- `EVIDENCE/UI_REPLAY/*.png`, `EVIDENCE/UI_REPLAY/raw/*.txt`: 저장된 60-query 질의·검색 근거·생성 답변·평가값을 재현한 대표 입출력 증빙\n',
+                  1,
+              )
+              readme += '\n`UI_REPLAY`는 기존 경로 호환을 위해 유지한 이름이며, 이 자료의 검증 대상은 제품 화면 기능이 아니라 저장된 실험 input/retrieval/context/output의 대응 관계다.\n'
+          readme_path.write_text(readme, encoding='utf-8')
+
+          # Claim map: point representative examples at the restored IO evidence.
+          claim_path = FINAL / 'VALIDATION/FINAL_CLAIM_MAP_60Q.md'
+          claim = claim_path.read_text(encoding='utf-8')
+          claim = claim.replace(
+              '실제 응답 예시는 `FINALDOCS/DATA/evidence_manifest_60q.json`에 기록된 저장 excerpt와 provenance를 사용한다.',
+              '실제 응답 예시는 `FINALDOCS/EVIDENCE/UI_REPLAY/`의 E01~E06과 같은 이름의 `raw/*.txt`를 사용하고, 각 사례의 query·config·검색 ID·context·answer는 저장 generation/evaluation artifact와 대조한다.',
+          )
+          claim_path.write_text(claim, encoding='utf-8')
+
+          # Cleanup manifest: restored evidence is part of the canonical package.
+          cleanup_path = FINAL / 'VALIDATION/DOCS_CLEANUP_MANIFEST.md'
+          cleanup = cleanup_path.read_text(encoding='utf-8')
+          if '`EVIDENCE/UI_REPLAY/`' not in cleanup:
+              cleanup = cleanup.replace(
+                  '- `FIGURES/`: 10 structural and statistical submission figures.\n',
+                  '- `FIGURES/`: 10 structural and statistical submission figures.\n'
+                  '- `EVIDENCE/UI_REPLAY/`: six stored experiment input/output evidence PNGs and matching raw text replays.\n',
+                  1,
+              )
+              cleanup = cleanup.replace(
+                  'Experiment runners and raw result artifacts\nremain in their source locations for provenance and reproducibility.\n',
+                  'Experiment runners and raw result artifacts remain in their source locations for provenance and reproducibility. The E01–E06 evidence set is retained because it renders those stored experiment inputs, retrieval traces and outputs for direct inspection.\n',
+                  1,
+              )
+          cleanup_path.write_text(cleanup, encoding='utf-8')
+
+          # Recompute the raw-source hashes and add hashes for the restored IO evidence.
+          manifest_path = FINAL / 'DATA/evidence_manifest_60q.json'
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          manifest['schema_version'] = 'evidence_manifest_60q.v2'
           for relative_path in list(manifest['sources']):
-              source = Path(relative_path.replace('\\', '/'))
+              source = ROOT / Path(relative_path.replace('\\\\', '/'))
               if not source.is_file():
                   raise FileNotFoundError(f'missing manifest source: {source}')
               manifest['sources'][relative_path] = hashlib.sha256(source.read_bytes()).hexdigest()
+
+          evidence_dir = FINAL / 'EVIDENCE/UI_REPLAY'
+          evidence_files = sorted(
+              [p for p in evidence_dir.glob('E0*.png')]
+              + [p for p in (evidence_dir / 'raw').glob('E0*.txt')]
+          )
+          if len(evidence_files) != 12:
+              raise RuntimeError(f'expected 12 IO evidence files, got {len(evidence_files)}')
+          manifest['io_evidence'] = {
+              str(p.relative_to(ROOT)).replace('\\\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest()
+              for p in evidence_files
+          }
           manifest_path.write_text(
               json.dumps(manifest, ensure_ascii=False, indent=2) + '\n',
               encoding='utf-8',
           )
+
+          # Synchronize Appendix C's SHA-256 values with the refreshed source manifest.
+          text = manuscript.read_text(encoding='utf-8')
+          for relative_path, digest in manifest['sources'].items():
+              normalized = relative_path.replace('\\\\', '/')
+              pattern = rf'({re.escape(normalized)}\t60-query source artifact\t)[0-9a-f]{{64}}'
+              text, count = re.subn(pattern, rf'\g<1>{digest}', text)
+              if count != 1:
+                  raise RuntimeError(f'could not refresh Appendix C hash for {normalized}: {count}')
+          manuscript.write_text(text, encoding='utf-8')
+
+          # Keep the existing HWP copy file's Appendix C hashes in sync as well.
+          copy_path = FINAL / 'MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt'
+          copy = copy_path.read_text(encoding='utf-8')
+          for relative_path, digest in manifest['sources'].items():
+              normalized = relative_path.replace('\\\\', '/')
+              pattern = rf'({re.escape(normalized)}\t60-query source artifact\t)[0-9a-f]{{64}}'
+              copy, count = re.subn(pattern, rf'\g<1>{digest}', copy)
+              if count != 1:
+                  raise RuntimeError(f'could not refresh HWP copy hash for {normalized}: {count}')
+          copy_path.write_text(copy, encoding='utf-8')
+
+          # Strengthen the validator: allow the evidence path, reject product leakage, and
+          # compare every raw E01-E06 replay with a fresh read of the current stored artifacts.
+          validator_path = FINAL / 'VALIDATION/verify_finaldocs_60q.py'
+          validator = validator_path.read_text(encoding='utf-8')
+          if 'import subprocess' not in validator:
+              validator = validator.replace('import re\n', 'import re\nimport subprocess\n', 1)
+
+          validator = re.sub(
+              r'UI_SERVICE_TERMS = \(.*?\)\n\nDEFENSIVE_PHRASES',
+              '''PRODUCT_SERVICE_TERMS = (\n    "서비스 화면",\n    "서비스 UI",\n    "API route",\n    "배포 상태",\n    "사용자 경험",\n    "FastAPI",\n    "React",\n)\n\nDEFENSIVE_PHRASES''',
+              validator,
+              count=1,
+              flags=re.S,
+          )
+          validator = validator.replace('UI_SERVICE_TERMS', 'PRODUCT_SERVICE_TERMS')
+
+          validator = validator.replace(
+              '        "cross-judge",\n    )',
+              '        "cross-judge",\n        "+0.2203",\n        "68/76",\n        "+0.0303",\n        "+0.0023",\n        "multi-judge",\n        "19-query",\n    )',
+              1,
+          )
+
+          section_check_anchor = '    if len(body) < 30000:\n        raise AssertionError(f"body is too short after substantive edit: {len(body)} chars")\n'
+          if 'section 5.7 is not substantive' not in validator:
+              section_check = '''    if len(body) < 30000:\n        raise AssertionError(f"body is too short after substantive edit: {len(body)} chars")\n\n    for start, end, minimum, label in (\n        ("## 5.7 ", "## 5.8 ", 1800, "5.7"),\n        ("## 6.2 ", "## 6.3 ", 700, "6.2"),\n    ):\n        section = text.split(start, maxsplit=1)[1].split(end, maxsplit=1)[0]\n        if len(section) < minimum:\n            raise AssertionError(f"section {label} is not substantive: {len(section)} chars")\n'''
+              if section_check_anchor not in validator:
+                  raise RuntimeError('validator body-length anchor not found')
+              validator = validator.replace(section_check_anchor, section_check, 1)
+
+          evidence_anchor = '    if len(set(hashes)) != len(hashes):\n        raise AssertionError("duplicate structural figure content")\n'
+          if 'fresh evidence replay mismatch' not in validator:
+              evidence_check = '''    if len(set(hashes)) != len(hashes):\n        raise AssertionError("duplicate structural figure content")\n\n    evidence_dir = FINAL / "EVIDENCE/UI_REPLAY"\n    evidence_cases = {\n        "E01": "E01_normal_qa",\n        "E02": "E02_language_drift",\n        "E03": "E03_scd_rescue",\n        "E04": "E04_hyde_retrieval_change",\n        "E05": "E05_cad_positive_same_context",\n        "E06": "E06_cad_tradeoff_same_context",\n    }\n    evidence_png_hashes = []\n    for case_id, stem in evidence_cases.items():\n        png = evidence_dir / f"{stem}.png"\n        raw = evidence_dir / "raw" / f"{stem}.txt"\n        need(png)\n        need(raw)\n        evidence_png_hashes.append(hashlib.sha256(png.read_bytes()).hexdigest())\n        result = subprocess.run(\n            [\n                sys.executable,\n                "-X",\n                "utf8",\n                str(FINAL.parent / "cli/evidence_replay.py"),\n                "show",\n                case_id,\n                "--figure",\n            ],\n            cwd=FINAL.parent,\n            text=True,\n            encoding="utf-8",\n            errors="strict",\n            capture_output=True,\n            check=False,\n        )\n        if result.returncode:\n            raise AssertionError(f"fresh evidence replay failed for {case_id}: {result.stderr}")\n        if result.stdout.replace("\\r\\n", "\\n") != raw.read_text(encoding="utf-8").replace("\\r\\n", "\\n"):\n            raise AssertionError(f"fresh evidence replay mismatch for {case_id}")\n    if len(set(evidence_png_hashes)) != 6:\n        raise AssertionError("duplicate stored IO evidence PNG content")\n\n    chapter1 = text.split("# 2. 이론적 배경", maxsplit=1)[0]\n    chapter5 = text.split("# 5. 실험", maxsplit=1)[1].split("# 6. 결론", maxsplit=1)[0]\n    appendix_b = text.split("# 부록 B.", maxsplit=1)[1].split("# 부록 C.", maxsplit=1)[0]\n    if "E02_language_drift.png" not in chapter1:\n        raise AssertionError("E02 language-drift IO evidence is missing from chapter 1")\n    for required_case in ("E01_normal_qa.png", "E03_scd_rescue.png", "E04_hyde_retrieval_change.png", "E05_cad_positive_same_context.png"):\n        if required_case not in chapter5:\n            raise AssertionError(f"chapter 5.7 is missing stored IO evidence: {required_case}")\n    if "E06_cad_tradeoff_same_context.png" in chapter5:\n        raise AssertionError("E06 trade-off evidence must remain appendix-only")\n    for stem in evidence_cases.values():\n        if f"{stem}.png" not in appendix_b:\n            raise AssertionError(f"appendix B is missing stored IO evidence: {stem}")\n'''
+              if evidence_anchor not in validator:
+                  raise RuntimeError('validator figure anchor not found')
+              validator = validator.replace(evidence_anchor, evidence_check, 1)
+
+          # Evidence guidance is expected now; only product/service leakage is prohibited.
+          validator = validator.replace(
+              '    if "증빙 화면" in hwp_material or "실제 응답 증빙 화면" in hwp_material:\n        raise AssertionError("UI screenshot insertion guidance returned to HWP-transfer package")\n',
+              '    for evidence_name in ("E01_normal_qa.png", "E02_language_drift.png", "E03_scd_rescue.png", "E04_hyde_retrieval_change.png", "E05_cad_positive_same_context.png", "E06_cad_tradeoff_same_context.png"):\n        if evidence_name not in guide:\n            raise AssertionError(f"missing HWP stored IO evidence guidance: {evidence_name}")\n',
+              1,
+          )
+          validator = validator.replace(
+              '    if "증빙 경로" in validation_report:\n        raise AssertionError("validation report still describes UI/evidence insertion paths")\n',
+              '    if "stored experiment input/output evidence" not in validation_report:\n        raise AssertionError("validation report does not describe the restored IO evidence contract")\n',
+              1,
+          )
+
+          # Validate io_evidence hashes from the evidence manifest.
+          manifest_check_anchor = '    for relative_path, expected_hash in evidence_manifest["sources"].items():\n        source_path = FINAL.parent / Path(relative_path.replace("\\\\", "/"))\n        need(source_path)\n        actual_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()\n        if actual_hash != expected_hash:\n            raise AssertionError(\n                f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"\n            )\n'
+          if 'io_evidence-manifest hash mismatch' not in validator:
+              manifest_check = manifest_check_anchor + '''\n    if len(evidence_manifest.get("io_evidence", {})) != 12:\n        raise AssertionError("evidence manifest must contain 12 stored IO evidence files")\n    for relative_path, expected_hash in evidence_manifest["io_evidence"].items():\n        evidence_path = FINAL.parent / Path(relative_path.replace("\\\\", "/"))\n        need(evidence_path)\n        actual_hash = hashlib.sha256(evidence_path.read_bytes()).hexdigest()\n        if actual_hash != expected_hash:\n            raise AssertionError(\n                f"io_evidence-manifest hash mismatch: {evidence_path.relative_to(FINAL.parent)}"\n            )\n'''
+              if manifest_check_anchor not in validator:
+                  raise RuntimeError('validator manifest anchor not found')
+              validator = validator.replace(manifest_check_anchor, manifest_check, 1)
+
+          validator_path.write_text(validator, encoding='utf-8')
+
+          # The report describes what this commit is required to have passed.
+          report_path = FINAL / 'VALIDATION/FINAL_VALIDATION_REPORT_60Q.md'
+          report_path.write_text('''# 60-query 최종 패키지 검증 보고서
+
+## 검증 범위
+
+- 최종 원고: `GRADUATION_REPORT_TRANSFER_KO_60Q.md`
+- 17-sheet workbook: `FINALDOCS/TABLES/TABLES_60Q.xlsx`
+- 구조·통계 그림 10개: `FINALDOCS/FIGURES/`
+- stored experiment input/output evidence: `FINALDOCS/EVIDENCE/UI_REPLAY/`의 E01~E06 PNG와 동일 이름 raw TXT
+- source provenance: `FINALDOCS/DATA/evidence_manifest_60q.json`
+
+## 입출력 증빙 계약
+
+E01~E06은 제품 UI 구현 여부를 평가하는 자료가 아니라 저장된 60-query 실험의 실제 입력·검색 근거·생성 출력을 확인하는 증빙이다. 각 raw TXT는 현재 repository의 generation/evaluation artifact를 `cli/evidence_replay.py show E0X --figure`로 다시 읽은 출력과 byte-for-text 수준으로 대조한다. PNG 6개는 이 raw 내용을 HWP에서 읽기 쉽게 표시하는 고정 증빙이며, 구조·통계 그림 10개와 별도 E번호를 사용한다.
+
+E02는 1장의 출력 언어 이탈 문제 정의에, E01·E03·E04·E05는 5.7의 대표 입출력 분석에 연결한다. E06은 CAD 동일 문맥 trade-off의 보조 사례로 부록 B에 배치한다. 부록 B에는 E01~E06 전체와 raw TXT 경로를 함께 기록한다.
+
+## 원자료 및 수치 대조
+
+source manifest의 generation·evaluation·analysis artifact를 현재 bytes로 다시 SHA-256 계산한다. 최종 기준은 60 질의-대상문서 쌍, 8 configuration, 480 generation record, HyDE primary 60쌍, CAD 동일 문맥 primary 60쌍, SCD ON/OFF 240쌍이다. CAD faithfulness는 양쪽 score가 존재하는 58 완결쌍을 사용한다.
+
+핵심값은 HyDE answer relevancy +0.0805 [95% CI +0.0110, +0.1514], CAD faithfulness +0.0288 [95% CI -0.0367, +0.0934] (n=58), SCD 전체 +0.2289 [95% CI +0.2051, +0.2532] (n=240), HyDE OFF 동일 문맥 SCD +0.2182 [95% CI +0.1880, +0.2487] (n=120)이다.
+
+## 구조 점검
+
+원고의 5.7은 E01~E06을 이용한 실제 record-level 분석으로 구성하고, 6.2는 HyDE retrieval-side, CAD same-context generation-side, SCD output-language control을 분리한 실험 설계의 의미를 설명한다. 5장 구조·통계 그림 번호는 5-1부터 5-6까지 그림목차와 일치한다. 구조·통계 그림은 총 10개이며 입출력 증빙 E01~E06은 그림목차 번호에서 분리한다.
+
+## 자동 검증
+
+`python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py`가 source hash, 핵심 수치 marker, 30,000자 이상의 실질 본문, 5.7·6.2 최소 내용량, 17-sheet workbook, 10개 구조·통계 PNG, E01~E06 PNG/raw 존재, E01~E06 fresh replay 일치, 그림·표 목차, 참고문헌 [1]~[22], HWP 수식 입력과 canonical path를 함께 검사한다. 이 보고서는 해당 validator가 PASS한 commit에서만 최종 상태로 사용한다.
+
+## HWP 최종 확인 항목
+
+저자·지도교수·제출일·승인 정보, 실제 장·절 style, 목차 페이지 번호, 쪽 나눔, 표 넘침, 그림 크기, 수식 렌더링과 최종 페이지 수는 실제 HWP 조판에서 확인한다.
+''', encoding='utf-8')
           PY
 
+      - name: Validate final thesis package
+        shell: bash
+        run: |
           python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+          git diff --check
+
+      - name: Commit validated final package
+        shell: bash
+        run: |
           rm -f .github/workflows/one-shot-thesis-structure-fix.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add FINALDOCS .github/workflows/one-shot-thesis-structure-fix.yml
           git diff --cached --check
-          git commit -m 'docs(thesis): finalize manuscript after UI removal'
+          git commit -m 'docs(thesis): restore stored IO evidence and finalize structure'
           git push origin HEAD:main
