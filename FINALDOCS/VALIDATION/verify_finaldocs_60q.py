@@ -226,8 +226,14 @@ def main() -> int:
         "Delta_i = s_i^{ON} - s_i^{OFF}",
         "bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i",
     )
+    normalized_manuscript = re.sub(r"\s+", "", text)
+    normalized_equation_file = re.sub(r"\s+", "", equation_file)
     for equation in equations:
-        if equation not in text or equation not in equation_file:
+        normalized_equation = re.sub(r"\s+", "", equation)
+        if (
+            normalized_equation not in normalized_manuscript
+            or normalized_equation not in normalized_equation_file
+        ):
             raise AssertionError(f"missing or mismatched HWP equation source: {equation}")
 
     with zipfile.ZipFile(TABLES) as archive:
