@@ -10,15 +10,13 @@ permissions:
   contents: write
 
 jobs:
-  fix-and-validate:
+  validate-committed-package:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: Repair package
-        run: python -X utf8 cli/fix_thesis_io_evidence.py
       - name: Refresh evidence manifest hashes
         shell: bash
         run: |
@@ -47,14 +45,16 @@ jobs:
           exit 0
       - name: Validate diff
         run: git diff --check
-      - name: Commit repaired package and diagnostics
+      - name: Commit hashes and diagnostics
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add FINALDOCS cli/fix_thesis_io_evidence.py
-          git commit -m 'docs(thesis): validate stored input-output evidence'
-          git push origin HEAD:main
+          git add FINALDOCS/DATA/evidence_manifest_60q.json FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs(thesis): validate stored input-output evidence'
+            git push origin HEAD:main
+          fi
       - name: Fail if validator failed
         if: steps.validate.outputs.rc != '0'
         run: exit 1
