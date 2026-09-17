@@ -55,7 +55,7 @@ export default function LoginPage({ onLogin, onSignup }: Props) {
             <BookOpen size={24} style={{ color: 'var(--accent)' }} />
           </div>
           <h1 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
-            M-RAG
+            Cube-RAG
           </h1>
           <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
             {t('common.appDesc')}

@@ -1,4 +1,4 @@
-# M-RAG Architecture
+# Cube-RAG Architecture
 
 ## Purpose
 

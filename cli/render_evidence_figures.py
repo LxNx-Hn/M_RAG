@@ -107,7 +107,7 @@ def _render(case_id: str, text: str, output_path: Path) -> tuple[int, int]:
         for rendered in _wrap_line(line, draw, font, WIDTH - 2 * MARGIN)
     ]
     line_height = BODY_SIZE + LINE_SPACING
-    title = f"M-RAG 60-query Evidence Replay UI — {case_id} {EVIDENCE_CASES[case_id]['title']}"
+    title = f"Cube-RAG 60-query Evidence Replay UI — {case_id} {EVIDENCE_CASES[case_id]['title']}"
     height = MARGIN + TITLE_SIZE + 38 + len(wrapped) * line_height + MARGIN
     image = Image.new("RGB", (WIDTH, height), "white")
     draw = ImageDraw.Draw(image)

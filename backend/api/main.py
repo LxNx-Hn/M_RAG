@@ -1,5 +1,5 @@
 """
-M-RAG FastAPI backend entrypoint.
+Cube-RAG FastAPI backend entrypoint.
 """
 
 import json
@@ -125,7 +125,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="M-RAG API",
+    title="Cube-RAG API",
     description="Modular RAG paper review agent API",
     version="1.0.0",
     lifespan=lifespan,
@@ -327,7 +327,7 @@ async def health_check():
 @app.get("/", tags=["system"])
 async def root():
     return {
-        "name": "M-RAG API",
+        "name": "Cube-RAG API",
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/health",

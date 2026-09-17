@@ -153,6 +153,6 @@ try:
 
 except ImportError as _sqlalchemy_import_error:
     raise ImportError(
-        "sqlalchemy is required for M-RAG API models. "
+        "sqlalchemy is required for Cube-RAG API models. "
         "Install with: pip install sqlalchemy aiosqlite"
     ) from _sqlalchemy_import_error

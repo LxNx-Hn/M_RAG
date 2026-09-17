@@ -22,12 +22,12 @@ export async function searchRAG(req: SearchRequest): Promise<SearchResponse> {
 export async function exportPPT(answer: string, title?: string): Promise<void> {
   const response = await api.post('/api/chat/export/ppt', {
     answer,
-    title: title || 'M-RAG Summary',
+    title: title || 'Cube-RAG Summary',
   }, { responseType: 'blob' })
   const url = URL.createObjectURL(response.data)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'm-rag-summary.pptx'
+  a.download = 'cube-rag-summary.pptx'
   a.click()
   URL.revokeObjectURL(url)
 }

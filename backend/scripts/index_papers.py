@@ -14,7 +14,7 @@ DEFAULT_DATA_DIR = Path(os.environ.get("MRAG_DATA_DIR", str(PROJECT_ROOT / "data
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Upload PDFs from a runtime data directory to the local M-RAG API."
+        description="Upload PDFs from a runtime data directory to the local Cube-RAG API."
     )
     parser.add_argument("--api-url", default="http://localhost:8000")
     parser.add_argument(

@@ -1,5 +1,5 @@
 """
-Download runtime models used by the local M-RAG stack.
+Download runtime models used by the local Cube-RAG stack.
 
 Usage:
     python scripts/download_models.py
@@ -28,7 +28,7 @@ def main() -> None:
     args = parser.parse_args()
 
     print("=" * 60)
-    print("M-RAG Model Downloader")
+    print("Cube-RAG Model Downloader")
     print("=" * 60)
 
     print("\n[1/3] Downloading BGE-M3 embedding model...")

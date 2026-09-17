@@ -1,9 +1,9 @@
-# M-RAG
+# Cube-RAG
 
 **Graduation submission:** [FINALDOCS](FINALDOCS/README.md) is the self-contained
 Korean manuscript, HWP-transfer, table, figure, UI replay, and validation package.
 
-M-RAG is a Korean-query academic paper QA project. The thesis contribution is a
+Cube-RAG is a Korean-query academic paper QA project. The thesis contribution is a
 HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated
 on a fixed Paper-RAG backbone. The FastAPI + React application is a graduation-project
 service integration layer; its A-F routed paper-review features are preserved but are

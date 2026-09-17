@@ -39,7 +39,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ steps.owner.outputs.owner_lc }}/m-rag-backend
+          images: ghcr.io/${{ steps.owner.outputs.owner_lc }}/cube-rag-backend
           tags: |
             type=raw,value=latest
             type=sha

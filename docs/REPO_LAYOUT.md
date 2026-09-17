@@ -1,6 +1,6 @@
 # Repository Layout
 
-M-RAG is organized into four responsibility boundaries. The **ops** runtime does not
+Cube-RAG is organized into four responsibility boundaries. The **ops** runtime does not
 import any code from the **experiment** layer, so the service runs even if
 `experiments/` is deleted. The evidence CLI reads only stored experiment artifacts;
 it does not import either runtime layer.

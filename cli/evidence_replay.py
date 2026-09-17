@@ -1,4 +1,4 @@
-"""Read-only offline viewer for final M-RAG thesis evidence.
+"""Read-only offline viewer for final Cube-RAG thesis evidence.
 
 This module uses only the Python standard library.  It never imports backend or
 frontend code, starts a model, opens a database, calls a network service, or
@@ -711,7 +711,7 @@ def command_show(case_id: str, full: bool, figure: bool = False) -> int:
             raise FileNotFoundError(f"required artifact is missing: {path}")
     records, scores = _load_data()
     print("=" * 60)
-    print("M-RAG 60-query Evidence Replay UI (stored artifacts)")
+    print("Cube-RAG 60-query Evidence Replay UI (stored artifacts)")
     print("=" * 60)
     print(_line("Case", f"{case_id.upper()} {case['title']}"))
     print(_line("Selection", case["selection"]))

@@ -726,7 +726,7 @@ async def export_ppt(
     return StreamingResponse(
         pptx_bytes,
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        headers={"Content-Disposition": 'attachment; filename="m-rag-summary.pptx"'},
+        headers={"Content-Disposition": 'attachment; filename="cube-rag-summary.pptx"'},
     )
 
 

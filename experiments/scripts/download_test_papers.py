@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download the paper PDFs used by the M-RAG Alice experiment."""
+"""Download the paper PDFs used by the Cube-RAG Alice experiment."""
 
 from __future__ import annotations
 
@@ -78,7 +78,7 @@ def download_paper(arxiv_id: str, dest_path: Path, retries: int = 3) -> bool:
             )
             request = urllib.request.Request(
                 url,
-                headers={"User-Agent": "M-RAG/1.0 (research)"},
+                headers={"User-Agent": "Cube-RAG/1.0 (research)"},
             )
             with urllib.request.urlopen(request, timeout=60) as response:
                 data = response.read()
@@ -98,7 +98,7 @@ def _manual_message(dest_path: Path) -> str:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Download M-RAG experiment PDFs.")
+    parser = argparse.ArgumentParser(description="Download Cube-RAG experiment PDFs.")
     parser.add_argument(
         "--skip-korean",
         action="store_true",

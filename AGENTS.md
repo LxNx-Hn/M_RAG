@@ -12,7 +12,7 @@
 
 ## Project Overview
 
-- M-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다.
+- Cube-RAG는 한국어 중심 학술 문서 질의응답을 위한 모듈러 RAG 시스템이다.
 - Backend는 FastAPI 기반이며 `backend/api/main.py`가 진입점이다.
 - Frontend는 Vite + React + TypeScript 기반이며 `frontend/src/`에 앱 코드가 있다.
 - 주요 RAG 모듈은 `backend/modules/`, A-F 질의 파이프라인은 `backend/pipelines/`에 있다.

@@ -1,7 +1,7 @@
 """
 MODULE 12: Generator
 
-Context-grounded answer generation for M-RAG using the Mi:dm instruct models.
+Context-grounded answer generation for Cube-RAG using the Mi:dm instruct models.
 """
 
 from __future__ import annotations

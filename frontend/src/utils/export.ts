@@ -2,7 +2,7 @@ import type { Message } from '@/types/chat'
 
 /** 단일 메시지를 마크다운으로 포맷 */
 export function formatMessageAsMarkdown(msg: Message): string {
-  const role = msg.role === 'user' ? 'User' : 'M-RAG'
+  const role = msg.role === 'user' ? 'User' : 'Cube-RAG'
   let md = `**${role}**\n\n${msg.content}\n`
 
   if (msg.route) {
@@ -21,7 +21,7 @@ export function formatMessageAsMarkdown(msg: Message): string {
 
 /** 전체 대화를 마크다운으로 포맷 */
 export function formatConversationAsMarkdown(messages: Message[]): string {
-  const header = `# M-RAG Conversation\n\n*Exported: ${new Date().toLocaleString()}*\n\n---\n\n`
+  const header = `# Cube-RAG Conversation\n\n*Exported: ${new Date().toLocaleString()}*\n\n---\n\n`
   const body = messages.map(formatMessageAsMarkdown).join('\n---\n\n')
   return header + body
 }
@@ -38,7 +38,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 
 /** 마크다운 파일로 다운로드 */
 export function downloadAsMarkdown(content: string, filename?: string) {
-  const fname = filename || `m-rag-export-${Date.now()}.md`
+  const fname = filename || `cube-rag-export-${Date.now()}.md`
   const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')

@@ -60,7 +60,12 @@ def main() -> int:
         need(path)
     for case in UI_CASES:
         need(FINAL / f"EVIDENCE/UI_REPLAY/{case}.png")
-        need(FINAL / f"EVIDENCE/UI_REPLAY/raw/{case}.txt")
+        raw_evidence = FINAL / f"EVIDENCE/UI_REPLAY/raw/{case}.txt"
+        need(raw_evidence)
+        if "Cube-RAG 60-query Evidence Replay UI" not in raw_evidence.read_text(
+            encoding="utf-8"
+        ):
+            raise AssertionError(f"UI replay evidence was not regenerated with Cube-RAG branding: {case}")
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]

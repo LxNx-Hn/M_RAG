@@ -97,7 +97,7 @@ def bootstrap_auth():
 
 def main():
     print("=" * 60)
-    print("M-RAG API Integration Tests")
+    print("Cube-RAG API Integration Tests")
     print("=" * 60)
 
     # ─── 1. System ───

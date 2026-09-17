@@ -116,7 +116,7 @@ class PatentTracker:
                 url,
                 timeout=15,
                 headers={
-                    "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
+                    "User-Agent": "Mozilla/5.0 (compatible; Cube-RAG/1.0; academic research)"
                 },
             )
 
@@ -239,7 +239,7 @@ class PatentTracker:
                 search_url,
                 timeout=15,
                 headers={
-                    "User-Agent": "Mozilla/5.0 (compatible; M-RAG/1.0; academic research)"
+                    "User-Agent": "Mozilla/5.0 (compatible; Cube-RAG/1.0; academic research)"
                 },
             )
             response.raise_for_status()

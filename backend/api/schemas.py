@@ -156,5 +156,5 @@ class CitationDownloadResponse(BaseModel):
 
 class PPTExportRequest(BaseModel):
     answer: str = Field(..., min_length=1)
-    title: str = Field(default="M-RAG Summary")
+    title: str = Field(default="Cube-RAG Summary")
     subtitle: str = Field(default="")

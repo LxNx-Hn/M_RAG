@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next'
 
 const ko = {
   common: {
-    appName: 'M-RAG',
+    appName: 'Cube-RAG',
     appDesc: '모듈러 RAG 논문 리뷰 에이전트',
     loading: '로딩 중...',
     error: '오류가 발생했습니다',
@@ -56,7 +56,7 @@ const ko = {
     sources: '출처',
     streaming: '답변 생성 중...',
     searchOnly: '검색 결과만 표시됩니다 (GPU 모델 미로드)',
-    welcomeTitle: 'M-RAG에 오신 것을 환영합니다',
+    welcomeTitle: 'Cube-RAG에 오신 것을 환영합니다',
     welcomeDesc: 'PDF를 업로드하고 자연어로 질문하면, AI가 최적의 분석 방식을 자동 선택합니다.',
     uploadFirst: '좌측에서 PDF를 업로드하면 아래 기능을 사용할 수 있습니다.',
     suggestions: {
@@ -112,7 +112,7 @@ const ko = {
 
 const en: typeof ko = {
   common: {
-    appName: 'M-RAG',
+    appName: 'Cube-RAG',
     appDesc: 'Modular RAG Paper Review Agent',
     loading: 'Loading...',
     error: 'An error occurred',
@@ -165,7 +165,7 @@ const en: typeof ko = {
     sources: 'Sources',
     streaming: 'Generating answer...',
     searchOnly: 'Search results only (GPU model not loaded)',
-    welcomeTitle: 'Welcome to M-RAG',
+    welcomeTitle: 'Welcome to Cube-RAG',
     welcomeDesc: 'Upload a PDF and ask questions in natural language. The AI will automatically choose the best analysis method.',
     uploadFirst: 'Upload a PDF on the left panel to start using these features.',
     suggestions: {

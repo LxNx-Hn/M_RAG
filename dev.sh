@@ -1,5 +1,5 @@
 #!/bin/bash
-# M-RAG 로컬 개발 실행 스크립트
+# Cube-RAG 로컬 개발 실행 스크립트
 # 사용법:
 #   ./dev.sh          → 백엔드(FastAPI) + 프론트엔드(React) 동시 실행
 #   ./dev.sh backend  → FastAPI만 실행
@@ -20,7 +20,7 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-log() { echo -e "${GREEN}[M-RAG]${NC} $1"; }
+log() { echo -e "${GREEN}[Cube-RAG]${NC} $1"; }
 info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 
