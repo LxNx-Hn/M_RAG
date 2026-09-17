@@ -1,9 +1,9 @@
-"""Render selected offline evidence cases as paper-ready PNG figures.
+"""Render selected stored 60-query input/output evidence as paper-ready PNG figures.
 
 The renderer invokes ``evidence_replay.py show <case> --figure`` and draws the
-resulting text.  It does not load a model, call a service, or modify experiment
-artifacts. PNG and raw display-text output are written only below
-``FINALDOCS/EVIDENCE/UI_REPLAY``.
+stored-artifact text. It does not load a model, call a service, or modify
+experiment artifacts. PNG and raw text are written below
+``FINALDOCS/EVIDENCE/IO_CASES``.
 """
 
 from __future__ import annotations
@@ -17,9 +17,15 @@ from pathlib import Path
 from evidence_cases import EVIDENCE_CASES, ROOT
 from PIL import Image, ImageDraw, ImageFont
 
-DEFAULT_OUTPUT = ROOT / "FINALDOCS/EVIDENCE/UI_REPLAY"
-FONT_PATH = Path(r"C:\Windows\Fonts\malgun.ttf")
-FONT_BOLD_PATH = Path(r"C:\Windows\Fonts\malgunbd.ttf")
+DEFAULT_OUTPUT = ROOT / "FINALDOCS/EVIDENCE/IO_CASES"
+FONT_CANDIDATES = (
+    Path(r"C:\Windows\Fonts\malgun.ttf"),
+    Path("/usr/share/fonts/truetype/nanum/NanumGothic.ttf"),
+)
+FONT_BOLD_CANDIDATES = (
+    Path(r"C:\Windows\Fonts\malgunbd.ttf"),
+    Path("/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf"),
+)
 WIDTH = 2200
 MARGIN = 90
 BODY_SIZE = 27
@@ -35,15 +41,14 @@ CASE_FILENAMES = {
 }
 
 
-def _font(path: Path, size: int) -> ImageFont.FreeTypeFont:
-    if not path.is_file():
-        raise FileNotFoundError(f"Korean-capable figure font is missing: {path}")
-    return ImageFont.truetype(str(path), size=size)
+def _font(candidates: tuple[Path, ...], size: int) -> ImageFont.FreeTypeFont:
+    for path in candidates:
+        if path.is_file():
+            return ImageFont.truetype(str(path), size=size)
+    raise FileNotFoundError(f"Korean-capable figure font is missing: {candidates}")
 
 
-def _wrap_line(
-    line: str, draw: ImageDraw.ImageDraw, font: ImageFont.FreeTypeFont, width: int
-) -> list[str]:
+def _wrap_line(line: str, draw: ImageDraw.ImageDraw, font: ImageFont.FreeTypeFont, width: int) -> list[str]:
     if not line:
         return [""]
     indentation = line[: len(line) - len(line.lstrip())]
@@ -71,43 +76,21 @@ def _wrap_line(
 
 
 def _case_text(case_id: str) -> str:
-    command = [
-        sys.executable,
-        "-X",
-        "utf8",
-        str(ROOT / "cli/evidence_replay.py"),
-        "show",
-        case_id,
-        "--figure",
-    ]
-    result = subprocess.run(
-        command,
-        cwd=ROOT,
-        text=True,
-        encoding="utf-8",
-        errors="strict",
-        capture_output=True,
-        check=False,
-    )
+    command = [sys.executable, "-X", "utf8", str(ROOT / "cli/evidence_replay.py"), "show", case_id, "--figure"]
+    result = subprocess.run(command, cwd=ROOT, text=True, encoding="utf-8", errors="strict", capture_output=True, check=False)
     if result.returncode:
-        raise RuntimeError(
-            f"{case_id} replay failed:\n{result.stderr or result.stdout}"
-        )
+        raise RuntimeError(f"{case_id} replay failed:\n{result.stderr or result.stdout}")
     return result.stdout.replace("\r\n", "\n")
 
 
 def _render(case_id: str, text: str, output_path: Path) -> tuple[int, int]:
-    font = _font(FONT_PATH, BODY_SIZE)
-    bold_font = _font(FONT_BOLD_PATH, TITLE_SIZE)
+    font = _font(FONT_CANDIDATES, BODY_SIZE)
+    bold_font = _font(FONT_BOLD_CANDIDATES, TITLE_SIZE)
     probe = Image.new("RGB", (WIDTH, 10), "white")
     draw = ImageDraw.Draw(probe)
-    wrapped = [
-        rendered
-        for line in text.splitlines()
-        for rendered in _wrap_line(line, draw, font, WIDTH - 2 * MARGIN)
-    ]
+    wrapped = [rendered for line in text.splitlines() for rendered in _wrap_line(line, draw, font, WIDTH - 2 * MARGIN)]
     line_height = BODY_SIZE + LINE_SPACING
-    title = f"Cube-RAG 60-query Evidence Replay UI — {case_id} {EVIDENCE_CASES[case_id]['title']}"
+    title = f"RAG-Cube 60-query Stored Input/Output Evidence — {case_id} {EVIDENCE_CASES[case_id]['title']}"
     height = MARGIN + TITLE_SIZE + 38 + len(wrapped) * line_height + MARGIN
     image = Image.new("RGB", (WIDTH, height), "white")
     draw = ImageDraw.Draw(image)
