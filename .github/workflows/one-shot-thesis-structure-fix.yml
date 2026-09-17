@@ -21,6 +21,23 @@ jobs:
       - name: Place claim-adjacent IO evidence
         run: python -X utf8 cli/place_claim_adjacent_io_evidence.py
 
+      - name: Align placement check with manuscript headings
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [
+              Path('FINALDOCS/VALIDATION/verify_finaldocs_60q.py'),
+              Path('cli/place_claim_adjacent_io_evidence.py'),
+          ]
+          old = '("## 1.1 연구 배경", "## 1.2 연구 목적과 범위", "[입출력 증빙 E02]")'
+          new = '("## 1.1 연구배경 및 목적", "## 1.2 연구범위", "[입출력 증빙 E02]")'
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              if old not in text and new not in text:
+                  raise RuntimeError(f'placement heading pattern missing: {path}')
+              path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
       - name: Validate final thesis package
         run: |
           set +e
@@ -41,7 +58,8 @@ jobs:
             FINALDOCS/MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md \
             FINALDOCS/VALIDATION/verify_finaldocs_60q.py \
             FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt \
-            cli/fix_thesis_io_evidence.py
+            cli/fix_thesis_io_evidence.py \
+            cli/place_claim_adjacent_io_evidence.py
           if ! git diff --cached --quiet; then
             git commit -m 'fix(thesis): align IO evidence with result sections'
             git push origin HEAD:main
