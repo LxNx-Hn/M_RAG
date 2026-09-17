@@ -271,6 +271,20 @@ def main() -> int:
     for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
         if f"[입출력 증빙 {case_id}]" not in text:
             raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
+    placement_checks = (
+        ("## 1.1 연구배경 및 목적", "## 1.2 연구범위", "[입출력 증빙 E02]"),
+        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 증빙 E04]"),
+        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 증빙 E05]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 증빙 E03]"),
+        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[입출력 증빙 E01]"),
+    )
+    for start, end, evidence_marker in placement_checks:
+        section = text.split(start, 1)[1].split(end, 1)[0]
+        if evidence_marker not in section:
+            raise AssertionError(f"claim-adjacent IO evidence placement mismatch: {evidence_marker}")
+    chapter5 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("# 6. 결론", 1)[0]
+    if "[입출력 증빙 E06]" in chapter5:
+        raise AssertionError("E06 trade-off evidence must remain appendix-only")
     for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:

@@ -521,6 +521,12 @@ answer relevancy의 양의 변화와 context precision의 음의 변화가 함�
 
 win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다. 본문에서는 HyDE가 이 corpus의 질문 적합성에서 가장 명확한 평균 변화를 보였다는 결과를 중심으로 정리한다.
 
+E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_raptor_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하지만 HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 결정에 사용된다는 근거를 포함했다. 정량 결과와 함께 보면 검색 표현의 변경이 실제 검색 근거와 최종 답변에 어떻게 이어졌는지 확인할 수 있다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
+
 [표 5-3] HyDE 주 비교 결과 [스타일=표제목]
 
 [표삽입: FINALDOCS/TABLES/TABLES_60Q.xlsx | Sheet=T5-3_HyDE | 한글 표로 복사]
@@ -547,6 +553,12 @@ CAD의 문맥 기반 logit 조절은 지표별 방향과 질의별 분포를 함
 
 CAD faithfulness의 win/loss/tie 21/24/13은 질의별 변동이 컸음을 보여준다. faithfulness의 신뢰구간은 0을 포함하며, 양쪽 score가 존재한 58쌍을 기준으로 계산하였다. 같은 문맥을 입력으로 하더라도 문맥에 직접 답이 포함된 정도, 여러 문장의 종합 필요성, 질문 유형에 따라 대조식 decoding의 반응이 달라질 수 있다.
 
+E05는 같은 검색 문맥에서 CAD 적용 전후 답변의 근거 충실도가 달라진 실제 사례다. ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. 검색 근거를 고정한 상태에서 생성 답변이 어떻게 달라지는지 직접 확인할 수 있어 CAD의 generation-side 효과와 근거 충실도 문제를 정량값과 실제 답변 사이에서 연결한다. 반대 방향의 trade-off 사례인 E06은 부록 B에 함께 제시한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례
+
 [표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]
 
 [표삽입: FINALDOCS/TABLES/TABLES_60Q.xlsx | Sheet=T5-4_CAD | 한글 표로 복사]
@@ -572,6 +584,12 @@ SCD의 직접 목적은 영어 근거 문맥에서 한국어 출력 언어를 �
 네 HyDE·CAD strata에서 SCD ON−OFF 평균 변화는 각각 +0.2047, +0.2317, +0.2511, +0.2283이다. 네 strata 모두 양의 평균 변화를 보였으며, SCD의 직접 목표인 output-language control에서 일관된 방향을 확인했다. Korean-character ratio는 출력 언어 성향을 측정하고, faithfulness·answer relevancy·문법성·전문용어 적절성은 별도 지표와 평가 차원으로 둔다.
 
 strata별 평균은 configuration 내 SCD ON/OFF 변화를 요약한다. SCD ON 답변에서도 영어 논문 제목, 모델명, 데이터셋명, 수식 기호가 자연스럽게 남을 수 있으며, Korean-character ratio는 한글 문자와 ASCII 영문자 비율을 통해 이러한 혼합 표기를 포함한 실제 답변의 언어 성향을 반영한다.
+
+E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.
+
+[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
+
+[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
 
 [표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]
 
@@ -605,33 +623,15 @@ HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
 
 ## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
 
-대표 입출력 분석에는 최종 60-query generation·evaluation artifact에서 다시 읽은 E01~E06을 사용하였다. 각 증빙은 query ID와 한국어 질문, 적용 configuration, retrieved·reranked chunk ID, 최종 context, generated answer, 저장 RAGAS score와 Korean-character ratio를 연결한다. 별도의 모델 호출이나 서비스 실행 결과를 새로 만든 것이 아니라 최종 실험 record를 사람이 확인할 수 있는 형태로 재구성한 provenance 자료다.
+대표 입출력 증빙은 정량 결과가 제시되는 위치와 직접 연결해 배치하였다. 1.1절의 E02는 출력 언어 이탈 문제를, 5.4절의 E04는 HyDE에 따른 검색 근거와 답변 변화를, 5.5절의 E05는 동일 검색 문맥에서 CAD 적용 전후의 근거 충실도 차이를, 5.6절의 E03은 SCD 적용 전후의 출력 언어 변화를 보여준다. 본 절에는 전체 실행 흐름이 정상적으로 연결된 기준 사례인 E01을 두어 질문, 검색 근거, 생성 답변과 평가값이 하나의 저장 record에서 어떻게 추적되는지 제시한다.
 
-E01은 정상 QA 기준 사례다. ext_raptor_011의 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록하고 있으며, RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻는 질문과 검색 근거, 생성 답변을 함께 제시한다. 이 사례는 이후 요인별 사례에서 query-condition-context-output을 읽는 기준 형식으로 사용한다.
+E01의 ext_raptor_011 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록한다. 질문은 RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻고, 저장 record에는 해당 query ID와 configuration, retrieved·reranked chunk ID, 최종 contexts, generated answer와 RAGAS score가 함께 남아 있다. 이를 통해 3장에서 정의한 추적성 요구사항과 4장에서 설명한 generation record 구조가 실제 결과에서 연결되는 방식을 확인할 수 있다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
 
 [입출력 증빙 E01] 정상 QA 저장 입출력 사례
 
-HyDE의 retrieval-side 변화는 E04에서 확인한다. ext_raptor_004는 RAPTOR의 GMM clustering에서 BIC의 역할을 묻는다. H0C0S0 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, H1C0S0에서는 retrieved IDs, reranked IDs와 최종 contexts가 함께 달라지면서 BIC가 최적 cluster 수를 결정하는 데 사용된다는 내용을 포함했다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 달라졌다. 이 사례는 5.4절의 HyDE answer relevancy 평균 변화 +0.0805를 실제 검색 경로와 답변 변화에 연결한다.
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
-
-[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
-
-CAD는 검색 입력이 같은 generation-side 사례를 두 방향으로 확인한다. E05의 ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고 faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. E06의 track1_0012도 동일한 검색 입력을 공유하면서 faithfulness가 0.9375에서 0.5000으로, answer relevancy가 0.9001에서 0.0000으로 달라졌다. 같은 문맥에서도 질의별 변화 방향이 다르게 나타나는 점을 두 실제 답변으로 확인할 수 있다.
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-
-[입출력 증빙 E05] 동일 검색 문맥에서 CAD ON/OFF 생성 결과가 달라진 사례
-
-SCD의 출력 언어 제어는 E03에서 확인한다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 동일 입력 근거에서 생성 문자열의 표면 언어가 한국어 쪽으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
-
-[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
-
-E02는 1장에서 출력 언어 이탈 문제를 실제 record로 보여주고, E01·E03·E04·E05는 본 절에서 정상 QA와 세 실험 요인의 대표 변화를 연결한다. E01~E06 전체 세트와 각 PNG에 대응하는 raw TXT는 부록 B에 배치한다. 정량 통계는 전체 대응쌍을 요약하고, 대표 입출력은 그 통계가 형성된 질문·검색 근거·생성 답변·점수를 다시 추적하는 역할을 한다.
+E01은 정상 답변의 기준 형태를 보여주고, E02·E03·E04·E05는 각각 언어 이탈, 출력 언어 제어, retrieval 변화, 동일 문맥 생성 차이를 각 결과 절에서 보완한다. CAD에서 반대 방향으로 나타난 E06은 부록 B에 함께 두어 positive case와 trade-off case를 같은 provenance 형식으로 확인할 수 있게 한다. 부록 B의 E01~E06과 각 `raw/*.txt`는 본문 사례의 질문·근거·답변·평가값을 다시 추적하는 원자료 역할을 한다.
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
@@ -667,7 +667,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 이 구조는 configuration 평균과 요인별 paired contrast를 구분한다. H1C1S0의 높은 평균 faithfulness는 특정 조합의 기술통계이고, CAD +0.0288은 동일 문맥에서 CAD ON/OFF를 비교한 요인 수준 결과다. 조합의 평균값과 특정 요인의 대응 차이를 분리하면 검색 표현, 문맥 기반 decoding, 출력 언어 제어가 서로 다른 평가 축에서 보인 변화를 각 실험 단위에 맞춰 해석할 수 있다.
 
-또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 5.7절의 E01~E06은 이 저장 구조를 실제 입출력 단위에서 보여준다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
+또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 1.1절과 5.4~5.7절에 배치한 E01~E05는 각 문제 정의와 정량 결과를 실제 입출력 단위에 연결하고, 부록 B의 E06은 CAD trade-off 사례를 같은 형식으로 보완한다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
 
 ## 6.3 적용 시 configuration 선택 [스타일=절(1.1)]
 

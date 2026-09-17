@@ -65,15 +65,16 @@
 
 ## 대표 입출력 증빙 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. E02는 1.1절에서 출력 언어 이탈의 실제 관찰 사례로 사용하고, 5.7절에는 E01·E03·E04·E05를 대표 사례로 배치한다. 부록 B에는 E01~E06 전체를 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. 본문에서는 정량 주장과 가까운 위치에 사례를 배치한다. E02는 1.1절의 출력 언어 이탈 문제 정의, E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 근거 충실도 차이, E03은 5.6절의 SCD 언어 이탈 완화, E01은 5.7절의 정상 QA 기준 사례로 사용한다. E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치하며, 부록 B에는 E01~E06 전체를 다시 모아 provenance를 확인한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
 
 | 위치 | 파일 | 용도 |
 |---|---|---|
 | 1.1 | E02_language_drift.png | 출력 언어 이탈 문제 정의 |
-| 5.7 | E01_normal_qa.png | 정상 QA 기준 사례 |
-| 5.7 | E03_scd_rescue.png | 동일 문맥 SCD 완화 사례 |
-| 5.7 | E04_hyde_retrieval_change.png | HyDE 검색 변화 사례 |
-| 5.7 | E05_cad_positive_same_context.png | CAD 동일 문맥 증가 사례 |
+| 5.4 | E04_hyde_retrieval_change.png | HyDE 검색 근거·답변 변화 사례 |
+| 5.5 | E05_cad_positive_same_context.png | CAD 동일 문맥 근거 충실도 차이 사례 |
+| 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 언어 이탈 완화 사례 |
+| 5.7 | E01_normal_qa.png | 정상 QA 기준 답변 사례 |
+| 부록 B | E06_cad_tradeoff_same_context.png | CAD 동일 문맥 trade-off 사례 |
 | 부록 B | E01~E06 | 전체 대표 입출력 provenance |
 
 

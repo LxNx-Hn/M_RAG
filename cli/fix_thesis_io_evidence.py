@@ -46,6 +46,28 @@ def restore_evidence() -> None:
                 raise RuntimeError(f"missing restored evidence: {path}")
 
 
+
+# claim-adjacent IO placement hook
+
+def place_claim_adjacent_io(text: str) -> str:
+    def insert_local(start: str, end: str, anchor: str, block: str, marker: str) -> None:
+        nonlocal text
+        before, rest = text.split(start, 1)
+        section, after = rest.split(end, 1)
+        if marker not in section:
+            if anchor not in section:
+                raise RuntimeError(f"evidence anchor missing: {anchor}")
+            section = section.replace(anchor, block + anchor, 1)
+            text = before + start + section + end + after
+
+    e04 = """E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_raptor_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하지만 HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 결정에 사용된다는 근거를 포함했다. 정량 결과와 함께 보면 검색 표현의 변경이 실제 검색 근거와 최종 답변에 어떻게 이어졌는지 확인할 수 있다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례\n\n"""
+    e05 = """E05는 같은 검색 문맥에서 CAD 적용 전후 답변의 근거 충실도가 달라진 실제 사례다. ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. 검색 근거를 고정한 상태에서 생성 답변이 어떻게 달라지는지 직접 확인할 수 있어 CAD의 generation-side 효과와 근거 충실도 문제를 정량값과 실제 답변 사이에서 연결한다. 반대 방향의 trade-off 사례인 E06은 부록 B에 함께 제시한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례\n\n"""
+    e03 = """E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례\n\n"""
+    insert_local("## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]", "## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "[표 5-3] HyDE 주 비교 결과 [스타일=표제목]", e04, "[입출력 증빙 E04]")
+    insert_local("## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "[표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]", e05, "[입출력 증빙 E05]")
+    insert_local("## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]", "[표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]", e03, "[입출력 증빙 E03]")
+    return text
+
 def repair_manuscript() -> None:
     text = MANUSCRIPT.read_text(encoding="utf-8")
 
@@ -172,6 +194,7 @@ E01~E06은 최종 60-query 저장 artifact에서 선택한 실제 질문·검색
         raise RuntimeError("appendix B anchors missing")
     text = text[:start] + appendix + text[end:]
 
+    text = place_claim_adjacent_io(text)
     MANUSCRIPT.write_text(text, encoding="utf-8")
 
 
@@ -182,15 +205,15 @@ def repair_support_files() -> None:
         block = """
 ## 대표 입출력 증빙 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. E02는 1.1절에서 출력 언어 이탈의 실제 관찰 사례로 사용하고, 5.7절에는 E01·E03·E04·E05를 대표 사례로 배치한다. 부록 B에는 E01~E06 전체를 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 제품 기능 소개가 아니라 최종 60-query 저장 artifact의 실제 질문·생성 답변·검색 근거·평가값을 재현한 실험 증빙이다. E02는 1.1절, E04는 5.4절, E05는 5.5절, E03은 5.6절, E01은 5.7절에 배치하고 E06은 부록 B의 CAD trade-off 사례로 유지한다. 부록 B에는 E01~E06 전체를 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
 
 | 위치 | 파일 | 용도 |
 |---|---|---|
 | 1.1 | E02_language_drift.png | 출력 언어 이탈 문제 정의 |
 | 5.7 | E01_normal_qa.png | 정상 QA 기준 사례 |
-| 5.7 | E03_scd_rescue.png | 동일 문맥 SCD 완화 사례 |
-| 5.7 | E04_hyde_retrieval_change.png | HyDE 검색 변화 사례 |
-| 5.7 | E05_cad_positive_same_context.png | CAD 동일 문맥 증가 사례 |
+| 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 완화 사례 |
+| 5.4 | E04_hyde_retrieval_change.png | HyDE 검색 변화 사례 |
+| 5.5 | E05_cad_positive_same_context.png | CAD 동일 문맥 증가 사례 |
 | 부록 B | E01~E06 | 전체 대표 입출력 provenance |
 
 """
