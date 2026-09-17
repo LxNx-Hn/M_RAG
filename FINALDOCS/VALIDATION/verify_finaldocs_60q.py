@@ -215,8 +215,8 @@ def main() -> int:
         encoding="utf-8"
     )
     equations = (
-        "C_q = Retrieve(q,D)",
-        "y = LM(q,C_q)",
+        "C_q = Retrieve(q, D)",
+        "y = LM(q, C_q)",
         "RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}",
         "z_CAD = (1 + alpha) z_ctx - alpha z_noctx",
         "tilde z_i = alpha z_i",
