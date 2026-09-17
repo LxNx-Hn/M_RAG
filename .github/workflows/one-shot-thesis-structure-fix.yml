@@ -23,8 +23,11 @@ jobs:
 
       - name: Validate final thesis package
         run: |
+          set +e
           python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py > FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt 2>&1
+          rc=$?
           cat FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          exit $rc
 
       - name: Validate diff
         run: git diff --check
