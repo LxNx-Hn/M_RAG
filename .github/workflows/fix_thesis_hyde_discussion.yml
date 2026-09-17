@@ -1,0 +1,49 @@
+name: Fix thesis HyDE synthesis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix_thesis_hyde_discussion.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add HyDE synthesis to section 5.8
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md')
+          text = p.read_text(encoding='utf-8')
+          old = '''## 5.8 종합 논의 [스타일=절(1.1)]\n\nCAD의 동일 문맥 비교에서는 faithfulness +0.0288, answer relevancy -0.0073이었고 두 신뢰구간은 0을 포함했다.'''
+          new = '''## 5.8 종합 논의 [스타일=절(1.1)]\n\nHyDE는 세 요인 중 answer relevancy에서 가장 명확한 양의 대응 차이를 보였다. 반면 context precision은 감소하고 context recall의 평균 변화는 없었기 때문에, 본 실험에서 HyDE의 효과는 전체 검색 품질의 일괄적 향상보다 질문 적합성과 retrieval 경로 변화의 관점에서 해석한다.\n\nCAD의 동일 문맥 비교에서는 faithfulness +0.0288, answer relevancy -0.0073이었고 두 신뢰구간은 0을 포함했다.'''
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one 5.8 anchor, got {text.count(old)}')
+          p.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Validate final package
+        run: |
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+
+      - name: Commit thesis update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "docs(thesis): add HyDE synthesis to discussion"
+          git push origin HEAD:main
