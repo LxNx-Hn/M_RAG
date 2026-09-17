@@ -1,12 +1,12 @@
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
-이 디렉터리는 HWP 최종 작성과 제출 전 사실 확인에 필요한 원고·표·그림·증빙·검증 자료로 구성한다.
+이 디렉터리는 HWP 최종 작성과 제출 전 사실 확인에 필요한 원고·표·그림·검증 자료로 구성한다.
 
 - `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: 한글 이전용 단일 원고
-- `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: 표·그림·증빙 화면의 HWP 배치 안내
+- `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: 표·그림의 HWP 배치 안내
 - `MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt`: HWP 수식 입력값
-- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 한글 표 변환용 탭 구분 원본
-- `TABLES/TABLES_60Q.xlsx`: 본문과 부록의 17개 표가 들어 있는 단일 workbook
+- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17개 workbook 표 대응표와 부록 C·D 탭 구분 원본
+- `TABLES/TABLES_60Q.xlsx`: 본문 및 부록용 17개 workbook sheet
 - `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용

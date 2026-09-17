@@ -2,33 +2,33 @@
 
 Date: 2026-09-17
 
-`FINALDOCS/` is the sole thesis-writing and HWP-transfer package. This manifest
-records the document-tree cleanup that established that boundary.
+`FINALDOCS/` is the thesis-writing and HWP-transfer package. This manifest records
+the current document structure and the source artifacts retained for verification.
 
-## Migrated into this package
+## Current thesis package
 
-- `FINAL_CLAIM_MAP_60Q.md` is the claim-to-artifact map consumed by the offline
-- `verify_finaldocs_60q.py` verifies the manuscript, HWP-transfer materials,
-  workbook, evidence files, and current 60-query claim boundaries without a
-  network call, model load, retrieval, generation, judge call, or write.
+- `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: canonical 60-query manuscript.
+- `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: HWP style, table, figure, and equation placement guide.
+- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings plus tab-delimited appendix C/D tables.
+- `TABLES/TABLES_60Q.xlsx`: 17 workbook sheets used by the body and appendix analysis tables.
+- `FIGURES/`: 10 structural and statistical submission figures.
+- `APPENDIX/QUERY_60_AUDIT.md`: 60-query audit list.
+- `DATA/EXPERIMENT_60_VALIDATION.md` and `DATA/evidence_manifest_60q.json`: numerical and source-artifact verification.
+- `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: claim-to-artifact map.
+- `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: package validation record.
+- `VALIDATION/verify_finaldocs_60q.py`: local package consistency validator.
 
-## Removed legacy documentation
+## Historical documentation cleanup
 
-- `docs/PAPER/`: superseded 19-query manuscripts, duplicate output packages,
-  historical prompts, planning notes, and thesis figures.
-- `docs/EXPLAIN/`: superseded explanatory copies tied to the prior thesis
-  packages and score tracks.
-- `docs/USAGE/ALICE_CLOUD.md`, `ALICE_CLOUD_GUIDE.md`, and `ALICE_SETUP.md`:
-  no-longer-needed cloud execution runbooks and pointers.
-- The old `build_figures_60q.py`, figure index, insertion guides, and generated
-  `figures_60q/` panels: superseded regeneration material that could repopulate
-  deprecated evidence panels.
+The final package uses the 60-query experiment, 480 generation records, current
+RAG-Cube tables, and the fixed 10-figure submission set. Superseded manuscript
+trees and generated-document packages under the former documentation layout were
+removed from the final writing path. Experiment runners and raw result artifacts
+remain in their source locations for provenance and reproducibility.
 
-## Preserved outside FINALDOCS
+## Submission structure
 
-- `docs/ARCHITECTURE.md`, `docs/FEATURES.md`, `docs/REPO_LAYOUT.md`, and the
-  non-thesis files under `docs/USAGE/` remain service and repository guides.
-- `experiments/scripts/alice/` remains experiment-runner source code. It is not
-  a thesis document or a current cloud-execution guide.
-- `experiments/results/` and other stored experiment artifacts remain unchanged.
-- `FINALDOCS/FIGURES/` is the fixed 10-PNG submission set; the six UI replay
+The manuscript contains chapters 1–6, references, appendices A–D, 19 table
+captions, and 10 figure captions. HWP transfer materials mirror that structure
+and use the stored experiment artifacts as the numerical source of record.
+현재 제출 구조를 기준으로 유지한다.

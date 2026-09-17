@@ -15,8 +15,8 @@
    `[스타일=목차리스트(장)]`, `[스타일=목차리스트(절)]`, `[스타일=표/그림리스트]`를 사용한다.
 3. 장 시작 전에는 새 쪽을 넣고, 표가 분리되면 표 제목과 첫 행이
    같은 쪽에 남도록 한다.
-4. 본문은 학교 양식의 10pt와 150~160% 줄간격을 유지한다. 원고 본문
-   1장~6장에는 초록·목차·참고문헌·부록을 포함하지 않는다.
+4. 본문은 학교 양식의 10pt와 150~160% 줄간격을 유지한다. 본문 분량과
+   조판은 1장~6장을 기준으로 확인하고, 초록·목차·참고문헌·부록은 별도 구성한다.
 
 ## 표 삽입 대응
 
@@ -39,13 +39,16 @@
 | 5.6 | T5-5_SCD_Config | SCD configuration별 언어 결과 |
 | 5.6 | T5-6_SCD_Paired | SCD matched-pair summary |
 | 부록 A | Appendix_Queries | 60개 질의-대상문서 쌍 |
-| 부록 C | Appendix_Paper | 문서별 탐색 집계 |
-| 부록 C | Appendix_QueryType | 질문 유형별 탐색 집계 |
+| 부록 B | Appendix_Paper | 문서별 탐색 집계 |
+| 부록 B | Appendix_QueryType | 질문 유형별 탐색 집계 |
+
+부록 C의 artifact provenance와 부록 D의 저장 artifact 점검 절차는 원고와
+`HWP_COPYPASTE_TABLES_60Q.txt`의 탭 구분 블록을 사용한다.
 
 ## 그림 삽입 대응
 
 아래 항목은 `[그림삽입: FINALDOCS/FIGURES/<filename>.png | 권장폭=본문폭 90% | 정렬=가운데]`로 처리한다.
-번호는 그림 파일 내부가 아니라 HWP 그림 제목에서 부여한다.
+번호는 HWP 그림 제목에서 부여한다.
 
 | 본문 위치 | PNG 파일 | 그림 제목 |
 |---|---|---|
@@ -59,13 +62,6 @@
 | 5.6 | fig5_3_scd_language.png | SCD의 한국어 문자 비율 변화 |
 | 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 변화 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
-
-## 실제 응답 증빙 화면 삽입
-
-아래 여섯 화면은 60-query 저장 artifact의 질문·문맥·답변·점수를 재현한 증빙 화면이다.
-
-| 증빙 화면 | 파일 |
-|---|---|
 
 ## 수식
 
@@ -82,4 +78,3 @@ weighted RRF, CAD score, SCD token score, Korean-character ratio를 이
 - 표가 쪽을 넘을 때 제목과 첫 행을 같은 쪽에 두고, 부록 A의 60행 표는 이어지는 표로 처리한다.
 - 수식은 HWP 수식 입력기의 렌더링 결과로 배치한다.
 - 5장 수치가 `EXPERIMENT_60_VALIDATION.md` 및 workbook과 일치하는지 확인한다.
-- 증빙 화면의 `Contexts identical`, `Retrieved IDs identical`, `Reranked IDs identical` 표시와 본문 설명을 대조한다.

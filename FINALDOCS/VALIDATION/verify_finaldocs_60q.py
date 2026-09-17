@@ -12,6 +12,7 @@ from pathlib import Path
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
 TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"
+
 EXPECTED_SHEETS = (
     "T2-1_Related_Work",
     "T3-1_Requirements",
@@ -32,6 +33,51 @@ EXPECTED_SHEETS = (
     "Appendix_QueryType",
 )
 
+UI_SERVICE_TERMS = (
+    "evidence replay",
+    "UI_REPLAY",
+    "서비스 화면",
+    "서비스 UI",
+    "API route",
+    "배포 상태",
+    "사용자 경험",
+    "FastAPI",
+    "React",
+    "cli/evidence_replay.py",
+)
+
+DEFENSIVE_PHRASES = (
+    "일반화하지 않는다",
+    "한 사례만으로 전체 효과를 주장하지 않는다",
+    "일반화하는 증거가 아니라",
+    "일반 법칙으로 확대하지 않는다",
+    "모든 retrieval·answer metric이 함께 개선되었다고 말할 수는 없다",
+    "인과적 증거는 아니다",
+    "CAD를 기본값으로 둘 수는 없다",
+    "새 방법으로 제안했다는 데 있지 않다",
+    "고정된 권장값으로 복사하지 않는다",
+    "무효화하는 사후 조건이 아니라",
+    "서비스 화면이 아니라",
+    "근거나 정답으로 사용하지",
+    "직접 보장하지",
+    "외적 대표성을 보장하는 표본추출로 해석하지",
+    "뜻하지 않는다",
+    "대표하지는 않는다",
+    "후속 검증의 필요성을 없애지 않는다",
+)
+
+STALE_PATHS = (
+    "docs/PAPER/",
+    "generated/",
+    "tables_60q_csv/",
+    "evidence_60q_raw/",
+    "build_query_60_audit.py",
+    "build_60q_derived_data.py",
+    "build_tables_60q.mjs",
+    "build_figures_60q.py",
+)
+
+
 def need(path: Path) -> None:
     if not path.is_file():
         raise AssertionError(f"missing final-package artifact: {path.relative_to(FINAL)}")
@@ -47,6 +93,7 @@ def main() -> int:
         FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
         FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
         FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
+        FINAL / "DATA/evidence_manifest_60q.json",
     )
     for path in required:
         need(path)
@@ -62,7 +109,6 @@ def main() -> int:
             raise AssertionError(
                 f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"
             )
-
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
@@ -94,47 +140,13 @@ def main() -> int:
     if found := [term for term in stale_terms if term.lower() in text.lower()]:
         raise AssertionError(f"stale manuscript terms: {found}")
 
-    service_scope_terms = (
-        "서비스 화면",
-        "서비스 UI",
-        "API route",
-        "배포 상태",
-        "사용자 경험",
-        "[그림 B-",
-        "그림 1-2",
-        "FastAPI",
-        "React",
-    )
-    if found := [term for term in service_scope_terms if term.lower() in body.lower()]:
-        raise AssertionError(f"service-scope prose leaked into thesis body: {found}")
-
-    ui_thesis_terms = (
-        "evidence replay",
-        "UI_REPLAY",
-        "서비스 화면",
-        "서비스 UI",
-        "API route",
-        "배포 상태",
-        "사용자 경험",
-        "[그림 B-",
-        "그림 1-2",
-    )
-    if found := [term for term in ui_thesis_terms if term.lower() in body.lower()]:
+    if found := [term for term in UI_SERVICE_TERMS if term.lower() in body.lower()]:
         raise AssertionError(f"UI/service material leaked into thesis body: {found}")
 
-    defensive_phrases = (
-        "일반화하지 않는다",
-        "한 사례만으로 전체 효과를 주장하지 않는다",
-        "일반화하는 증거가 아니라",
-        "일반 법칙으로 확대하지 않는다",
-        "모든 retrieval·answer metric이 함께 개선되었다고 말할 수는 없다",
-        "인과적 증거는 아니다",
-        "CAD를 기본값으로 둘 수는 없다",
-        "새 방법으로 제안했다는 데 있지 않다",
-        "고정된 권장값으로 복사하지 않는다",
-        "무효화하는 사후 조건이 아니라",
-    )
-    if found := [phrase for phrase in defensive_phrases if phrase in body]:
+    if "[그림 B-" in body or "그림 1-2" in body:
+        raise AssertionError("UI screenshot numbering returned to thesis body")
+
+    if found := [phrase for phrase in DEFENSIVE_PHRASES if phrase in body]:
         raise AssertionError(f"defensive manuscript prose returned: {found}")
 
     toc = text.split("# 그 림 목 차", maxsplit=1)[0]
@@ -158,6 +170,7 @@ def main() -> int:
         "6.2 실험 설계가 제공한 의미",
         "6.3 적용 시 configuration 선택",
         "6.4 제한점과 후속 검증",
+        "부록 A~D",
     )
     for section in detailed_toc:
         if section not in toc:
@@ -172,6 +185,8 @@ def main() -> int:
     figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
     if figure_toc != figure_captions:
         raise AssertionError("figure list and manuscript captions do not match")
+    if len(figure_captions) != 10:
+        raise AssertionError(f"expected 10 manuscript figures, got {len(figure_captions)}")
 
     table_toc = set(
         re.findall(
@@ -182,6 +197,8 @@ def main() -> int:
     table_captions = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text))
     if table_toc != table_captions:
         raise AssertionError("table list and manuscript captions do not match")
+    if len(table_captions) != 19:
+        raise AssertionError(f"expected 19 manuscript tables, got {len(table_captions)}")
 
     cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
     references = {
@@ -198,6 +215,8 @@ def main() -> int:
         encoding="utf-8"
     )
     equations = (
+        "C_q = Retrieve(q,D)",
+        "y = LM(q,C_q)",
         "RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}",
         "z_CAD = (1 + alpha) z_ctx - alpha z_noctx",
         "tilde z_i = alpha z_i",
@@ -211,16 +230,14 @@ def main() -> int:
         if equation not in text or equation not in equation_file:
             raise AssertionError(f"missing or mismatched HWP equation source: {equation}")
 
-    if "build_figures_60q.py" in text:
-        raise AssertionError("final manuscript references the removed figure generator")
-
     with zipfile.ZipFile(TABLES) as archive:
         workbook = archive.read("xl/workbook.xml").decode("utf-8")
         shared_strings = archive.read("xl/sharedStrings.xml").decode("utf-8")
         query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
-    for sheet in EXPECTED_SHEETS:
-        if sheet not in workbook:
-            raise AssertionError(f"missing workbook sheet: {sheet}")
+
+    sheet_names = re.findall(r'<sheet[^>]+name="([^"]+)"', workbook)
+    if tuple(sheet_names) != EXPECTED_SHEETS:
+        raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
     if "docs/PAPER/" in shared_strings or "generated/" in shared_strings:
         raise AssertionError("workbook contains stale source metadata")
     if len(re.findall(r"<x:row", query_rows)) != 63:
@@ -238,13 +255,48 @@ def main() -> int:
     table_copy = (FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt").read_text(
         encoding="utf-8"
     )
-    if len(re.findall(r"(?m)^표 [0-9A-Z-]+\.", table_copy)) != 17:
-        raise AssertionError("HWP table-copy file does not contain 17 tables")
-    if "build_figures_60q.py" in table_copy:
-        raise AssertionError("HWP table-copy file references the removed figure generator")
+    table_copy_blocks = re.findall(r"(?m)^\[표\s+[CD]-[0-9]+\]", table_copy)
+    if len(table_copy_blocks) != 2:
+        raise AssertionError(
+            f"HWP copy file must contain appendix C/D tab blocks, got {len(table_copy_blocks)}"
+        )
+    for required_table in (
+        "[표 C-1] 주요 연구 artifact provenance",
+        "[표 D-1] 저장 artifact 기반 점검 절차",
+    ):
+        if required_table not in table_copy:
+            raise AssertionError(f"missing HWP appendix table: {required_table}")
+    for sheet in EXPECTED_SHEETS:
+        if sheet not in table_copy:
+            raise AssertionError(f"missing HWP workbook mapping: {sheet}")
 
     guide = (FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md").read_text(encoding="utf-8")
-        raise AssertionError("HWP guide must place E06 in appendix B")
+    readme = (FINAL / "README.md").read_text(encoding="utf-8")
+    validation_report = (FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md").read_text(
+        encoding="utf-8"
+    )
+    cleanup_manifest = (FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md").read_text(
+        encoding="utf-8"
+    )
+
+    hwp_material = "\n".join((guide, table_copy, readme))
+    if found := [term for term in UI_SERVICE_TERMS if term.lower() in hwp_material.lower()]:
+        raise AssertionError(f"UI/service material leaked into HWP-transfer package: {found}")
+    if "증빙 화면" in hwp_material or "실제 응답 증빙 화면" in hwp_material:
+        raise AssertionError("UI screenshot insertion guidance returned to HWP-transfer package")
+
+    appendix_d_text = text.split("# 부록 D.", maxsplit=1)[1]
+    expected_check_items = (
+        "저장 artifact 기반 점검 절차",
+        "FINALDOCS/APPENDIX/QUERY_60_AUDIT.md",
+        "FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md",
+        "FINALDOCS/TABLES/TABLES_60Q.xlsx",
+        "FINALDOCS/FIGURES",
+        "python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+    )
+    for item in expected_check_items:
+        if item not in appendix_d_text or item not in table_copy:
+            raise AssertionError(f"missing canonical appendix-D check item: {item}")
 
     package_text_paths = (
         FINAL / "README.md",
@@ -253,33 +305,19 @@ def main() -> int:
         FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
         FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
         FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
-    )
-    stale_paths = (
-        "docs/PAPER/",
-        "generated/",
-        "tables_60q_csv/",
-        "evidence_60q_raw/",
-        "build_query_60_audit.py",
-        "build_60q_derived_data.py",
-        "build_tables_60q.mjs",
-        "build_figures_60q.py",
+        FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
     )
     for path in package_text_paths:
         package_text = path.read_text(encoding="utf-8")
-        if found := [stale for stale in stale_paths if stale in package_text]:
+        if found := [stale for stale in STALE_PATHS if stale in package_text]:
             raise AssertionError(
                 f"stale final-package path in {path.relative_to(FINAL)}: {found}"
             )
 
-    appendix_e_text = text.split("# 부록 E.", maxsplit=1)[1]
-    expected_commands = (
-        "저장 artifact 기반 점검 절차",
-        "python -X utf8 cli/evidence_replay.py show E01",
-        "python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
-    )
-    for command in expected_commands:
-        if command not in appendix_e_text or command not in table_copy:
-            raise AssertionError(f"missing canonical appendix-E check path: {command}")
+    if "증빙 경로" in validation_report:
+        raise AssertionError("validation report still describes UI/evidence insertion paths")
+    if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):
+        raise AssertionError("cleanup manifest is incomplete or truncated")
 
     print("PASS: FINALDOCS 60-query thesis package")
     return 0
@@ -288,6 +326,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (AssertionError, OSError, KeyError, zipfile.BadZipFile) as exc:
+    except (AssertionError, OSError, KeyError, IndexError, zipfile.BadZipFile) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
         raise SystemExit(1)

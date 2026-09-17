@@ -1,339 +1,30 @@
-Cube-RAG 60Q 한글(HWP) 표 복붙용
+Cube-RAG 60Q 한글(HWP) 표 이전 가이드
 
-사용법: 각 [표 ...] 아래의 탭 구분 영역만 복사 → 한글 [표] > [문자열을 표로] → 구분 문자 [탭].
+본문과 부록 A·B의 17개 표는 `FINALDOCS/TABLES/TABLES_60Q.xlsx`에서 해당 sheet를 열어 한글 표로 복사한다.
 
-표 안의 글에는 학교 양식의 [스타일=표내용]을 적용합니다.
+Sheet 대응
+T2-1_Related_Work	표 2-1 관련 연구와 본 실험의 연결
+T3-1_Requirements	표 3-1 연구 및 실험 요구사항
+T3-2_RAG-Cube	표 3-2 RAG-Cube 8개 조건
+T3-3_Factor_Position	표 3-3 실험 요인별 적용 위치와 비교 단위
+T4-1_Environment	표 4-1 실험 실행 환경
+T4-2_Backbone	표 4-2 고정 Paper-RAG backbone
+T4-3_Runtime	표 4-3 조건별 평균 생성 시간
+T4-4_Record_Fields	표 4-4 생성 기록의 주요 필드
+T5-1_Dataset	표 5-1 4개 문서별 질의 구성
+T5-2_Config_Scores	표 5-2 RAG-Cube 8개 조건의 평균 품질 지표
+T5-3_HyDE	표 5-3 HyDE 주 비교 결과
+T5-4_CAD	표 5-4 CAD 동일 문맥 주 비교 결과
+T5-5_SCD_Config	표 5-5 SCD 조합별 한국어 문자 비율 변화
+T5-6_SCD_Paired	표 5-6 SCD 대응쌍 분석 요약
+Appendix_Queries	표 A-1 60개 질의-대상문서 쌍
+Appendix_Paper	표 B-1 문서별 탐색 분석
+Appendix_QueryType	표 B-2 질문 유형별 탐색 분석
 
-
-================================================================================
-표 2-1. 관련 연구와 본 실험의 연결
-Sheet: T2-1_Related_Work
---------------------------------------------------------------------------------
-연구 흐름	대표 연구	본 연구에서의 적용 범위	해석 범위
-Dense retrieval	DPR[10], BEIR[20]	한국어 질의와 영어 passage 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 고정 backbone의 application study 범위
-Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 문맥을 고정해 answer/context 지표를 분리	문맥 길이와 순서 정책은 고정
-Hypothetical-document retrieval	HyDE[2]	H1/H0 end-to-end 대응 비교와 retrieved ID 확인	가상 문서는 검색 표현으로만 사용
-Contrastive decoding	CAD[3], contrastive decoding[13]	같은 input에서 C1/C0 paired 비교	CAD alpha=0.5 고정 조건
-Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	네 품질 지표와 artifact 기반 provenance 확인	자동 평가와 저장 artifact를 함께 사용
-
-================================================================================
-표 3-1. 연구 및 실험 요구사항
-Sheet: T3-1_Requirements
---------------------------------------------------------------------------------
-요구사항	확인 기준	값
-한국어 질의 기반 영문 문서 QA	질의와 대상 문서 연결	60개 질의-문서 쌍
-실험 요인	HyDE·CAD·SCD ON/OFF	2×2×2, 8개 조건
-생성 기록	조건별 저장 record	480개, 조건별 60개
-출력 언어	한국어 문자 비율	SCD ON/OFF 240개 대응쌍
-추적성	source hash와 generation record	검증 보고서에 기록
-
-================================================================================
-표 3-2. RAG-Cube 8개 조건
-Sheet: T3-2_RAG-Cube
---------------------------------------------------------------------------------
-조건	HyDE	CAD	SCD	생성 수
-H0C0S0	OFF	OFF	OFF	60
-H0C1S0	OFF	ON	OFF	60
-H0C0S1	OFF	OFF	ON	60
-H0C1S1	OFF	ON	ON	60
-H1C0S0	ON	OFF	OFF	60
-H1C1S0	ON	ON	OFF	60
-H1C0S1	ON	OFF	ON	60
-H1C1S1	ON	ON	ON	60
-
-================================================================================
-표 3-3. 실험 요인별 적용 위치와 비교 단위
-Sheet: T3-3_Factor_Position
---------------------------------------------------------------------------------
-요인	적용 위치	주 비교	주 지표
-HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 4개 품질 지표
-CAD	문맥 기반 decoding	동일 문맥 60 대응쌍; faithfulness 58 완결쌍	RAGAS 4개 품질 지표
-SCD	출력 token logit 제어	동일 query·HyDE·CAD의 240 ON/OFF쌍	한국어 문자 비율
-
-================================================================================
-표 4-1. 실험 실행 환경
-Sheet: T4-1_Environment
---------------------------------------------------------------------------------
-구성	저장 record 기준 값
-생성 모델	K-intelligence/Midm-2.0-Base-Instruct
-디코딩	deterministic greedy
-검색 backend	BGE-M3 dense + BM25 sparse + weighted RRF + CrossEncoder rerank
-retrieval pool / rerank	8 / 8
-최종 문맥 수	5
-max_new_tokens	512
-CAD alpha	0.5
-SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
-
-================================================================================
-표 4-2. 고정 Paper-RAG backbone
-Sheet: T4-2_Backbone
---------------------------------------------------------------------------------
-단계	고정 구성
-입력	한국어 질의와 지정 대상 문서
-검색	BGE-M3 dense retrieval + BM25 sparse retrieval
-결합	weighted Reciprocal Rank Fusion
-재정렬	CrossEncoder reranking
-문맥 구성	rerank 결과에서 상위 5개 context
-생성	Mi:dm 2.0 Base Instruct; max_new_tokens=512
-요인	HyDE retrieval-side / CAD·SCD generation-side
-
-================================================================================
-표 4-3. 조건별 평균 생성 시간
-Sheet: T4-3_Runtime
---------------------------------------------------------------------------------
-조건	생성 수	평균 초	중앙값 초
-H0C0S0	60	20.792	16.077
-H0C1S0	60	63.867	57.819
-H0C0S1	60	18.898	17.579
-H0C1S1	60	55.159	51.127
-H1C0S0	60	23.440	22.245
-H1C1S0	60	73.532	71.700
-H1C0S1	60	24.892	24.714
-H1C1S1	60	64.125	64.834
-
-================================================================================
-표 4-4. 생성 기록의 주요 필드
-Sheet: T4-4_Record_Fields
---------------------------------------------------------------------------------
-구분	필드
-식별	query_id, paper, config_name, status
-요인	use_hyde, use_cad, use_scd, parameter fields
-검색	retrieved_chunk_ids, reranked_chunk_ids, contexts
-생성	generated_answer, duration_seconds, decoding_mode
-재현	generation_model, retrieval backend, context count
-
-================================================================================
-표 5-1. 4개 문서별 질의 구성
-Sheet: T5-1_Dataset
---------------------------------------------------------------------------------
-대상 문서	질의 수
-RAG Survey	15
-CAD	15
-RAPTOR	15
-Mi:dm K 2.5 Pro Technical Report	15
-합계	60
-
-================================================================================
-표 5-2. RAG-Cube 8개 조건의 평균 품질 지표
-Sheet: T5-2_Config_Scores
---------------------------------------------------------------------------------
-조건	생성 수	Faithfulness	Answer relevancy	Context precision	Context recall	Korean ratio
-H0C0S0	60	0.7906	0.6828	0.7488	0.9333	0.4943
-H0C1S0	60	0.8385	0.6755	0.7395	0.9167	0.4877
-H0C0S1	60	0.7869	0.6372	0.7634	0.9000	0.6990
-H0C1S1	60	0.7768	0.5996	0.7523	0.8500	0.7195
-H1C0S0	60	0.8342	0.7633	0.7145	0.9333	0.5561
-H1C1S0	60	0.8599	0.7045	0.7357	0.9000	0.5031
-H1C0S1	60	0.8223	0.7097	0.7426	0.9000	0.8072
-H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
-
-================================================================================
-표 5-3. HyDE 주 비교 결과
-Sheet: T5-3_HyDE
---------------------------------------------------------------------------------
-지표	평균 변화 ON-OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0436	[-0.0262, +0.1153]	24	21	15	60
-answer_relevancy	+0.0805	[+0.0110, +0.1514]	29	15	16	60
-context_precision	-0.0343	[-0.0932, +0.0247]	17	23	20	60
-context_recall	0	[-0.1000, +0.1000]	4	4	52	60
-
-================================================================================
-표 5-4. CAD 동일 문맥 주 비교 결과
-Sheet: T5-4_CAD
---------------------------------------------------------------------------------
-지표	평균 변화 ON-OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0288	[-0.0367, +0.0934]	21	24	13	58
-answer_relevancy	-0.0073	[-0.0855, +0.0719]	19	32	9	60
-context_precision	-0.0092	[-0.0306, +0.0077]	4	4	52	60
-context_recall	-0.0167	[-0.0500, +0.0000]	0	1	59	60
-
-================================================================================
-표 5-5. SCD 조합별 한국어 문자 비율 변화
-Sheet: T5-5_SCD_Config
---------------------------------------------------------------------------------
-SCD OFF	SCD ON	쌍 수	평균 변화	CI 하한	CI 상한	증가	감소	동률
-H0C0S0	H0C0S1	60	+0.2047	+0.1566	+0.2512	51	4	5
-H0C1S0	H0C1S1	60	+0.2317	+0.1874	+0.2786	54	2	4
-H1C0S0	H1C0S1	60	+0.2511	+0.1938	+0.3078	57	1	2
-H1C1S0	H1C1S1	60	+0.2283	+0.1832	+0.2762	57	3	0
-
-================================================================================
-표 5-6. SCD 대응쌍 분석 요약
-Sheet: T5-6_SCD_Paired
---------------------------------------------------------------------------------
-비교	쌍 수	Korean-character ratio 평균 변화	95% CI	증가 / 감소 / 동률
-전체 SCD ON/OFF 대응	240	+0.2289	[+0.2051, +0.2532]	219 / 10 / 11
-HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
-
-================================================================================
-표 A-1. 60개 질의-대상문서 쌍
-Sheet: Appendix_Queries
---------------------------------------------------------------------------------
-query ID	한국어 질문	대상 문서	유형	source page	answer span / GT
-ext_cad_001	언어 모델이 생성 시 활용하는 prior knowledge와 context knowledge는 각각 어디에서 오는 정보입니까?	CAD	simple_qa	1	the context contains external knowledge; prior knowledge is encoded in the model parameters
-ext_cad_002	CAD의 요약 실험에는 어떤 데이터셋과 평가 지표가 사용되었습니까?	CAD	section_result	3	CNN-DM and XSUM; ROUGE-L, BERT-Precision, and FactKB
-ext_cad_003	CAD의 지식 충돌 실험에는 어떤 두 데이터셋이 사용되었고 각각 무엇을 평가합니까?	CAD	section_result	3	MemoTrap investigates memorization traps; NQ-Swap tests faithful answering from a modified reliable document.
-ext_cad_004	NQ-Swap 데이터셋은 기존 Natural Questions의 정답과 문서를 어떤 방식으로 변형해 만들어집니까?	CAD	section_method	3	identify questions with named entity answers, find the supportive document, then replace the gold answer entity with a random entity
-ext_cad_005	CAD 실험에서 요약 과제와 지식 충돌 과제에 사용한 α 값은 각각 얼마이며, 지식 충돌 과제에서 더 큰 값을 사용한 이유는 무엇입니까?	CAD	section_method	3	α = 0.5 for summarization and α = 1 for knowledge conflicts, where prior knowledge needs to be factored out more
-ext_cad_006	CAD 논문의 베이스라인 디코딩은 요약 과제와 지식 충돌 과제에서 각각 어떤 샘플링 전략을 사용합니까?	CAD	section_method	3	greedy decoding for knowledge conflict tasks and top-p sampling with p=0.9 for summarization tasks
-ext_cad_007	CAD가 실험에서 적용된 사전학습 및 instruction-finetuned 언어 모델 계열은 무엇입니까?	CAD	simple_qa	3	OPT, GPT-Neo, LLaMA, and FLAN-T5
-ext_cad_008	지식 충돌 과제에서 모델 크기가 커질수록 CAD의 성능 향상 폭은 어떤 경향을 보였습니까?	CAD	section_result	5	the gain increases as the model size grows
-ext_cad_009	LLaMA-30B에 CAD를 적용했을 때 XSUM에서 ROUGE-L, factKB, BERT-P 점수는 regular decoding과 비교해 어떻게 달라졌습니까?	CAD	section_result	4	Regular: 18.7, 47.7, 87.1; CAD: 22.0, 66.4, 90.3
-ext_cad_010	외부 컨텍스트가 생성 토큰과 조건부 독립이라면 α가 0이 아니어도 CAD의 출력 분포에는 어떤 영향이 있습니까?	CAD	section_method	2	even a non-zero α would not have an impact to the original output distribution
-ext_cad_011	CAD는 특정 instruction-finetuned 언어 모델에만 제한됩니까, 아니면 어떤 언어 모델에도 적용 가능한 디코딩 전략입니까?	CAD	simple_qa	6	a decoding strategy applicable to any LM
-ext_midm_001	Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?	Mi:dm K 2.5 Pro Technical Report	section_method	3	licensed proprietary datasets, public datasets that permit commercial use, and in-house synthetic data
-ext_midm_002	Mi:dm K 2.5 Pro는 한국어 중심 학습을 유지하기 위해 다국어 데이터를 한국어 코퍼스 대비 어느 정도 비율로 제한하며, 그 이유는 무엇입니까?	Mi:dm K 2.5 Pro Technical Report	section_method	3	3–10% of the Korean corpus, to encourage cross-lingual transfer without diluting the Korean-language focus
-ext_midm_003	응답 스타일 재작성 후 평균 응답 길이는 몇 % 증가했고, bullet_count=0인 응답의 비율은 어떻게 변했습니까?	Mi:dm K 2.5 Pro Technical Report	section_result	8	mean response length increases by 256.70%; bullet_count = 0 drops from 82.8% to 3.9%
-ext_midm_004	Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?	Mi:dm K 2.5 Pro Technical Report	section_method	15	interaction structure, topic and task, and persona
-ext_midm_005	Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?	Mi:dm K 2.5 Pro Technical Report	section_method	21	to favor versatile conversational alignment; creative writing, translation, and general question answering
-ext_midm_006	Fully asynchronous GSPO 학습은 synchronous 방식과 비교해 step time과 token throughput을 각각 어느 정도 개선했습니까?	Mi:dm K 2.5 Pro Technical Report	section_result	23	reduces step time by approximately 15% and improves token throughput by approximately 30%
-ext_midm_007	LLM-as-a-Judge 기반 reward signal은 사람의 평가와 어느 정도의 일치율을 보였습니까?	Mi:dm K 2.5 Pro Technical Report	simple_qa	24	an agreement rate of 91%
-ext_midm_008	Reasoning-enabled 평가에서 Mi:dm K 2.5 Pro가 HumanEval+와 τ²-Bench Telecom에서 기록한 점수는 각각 얼마입니까?	Mi:dm K 2.5 Pro Technical Report	section_result	25	HumanEval+ 92.07% and τ²-Bench Telecom 89%
-ext_midm_009	한국어 red-teaming 평가에서 Mi:dm K 2.5 Pro의 Attack Success Rate는 얼마였으며 비교 모델들 가운데 어떤 수준이었습니까?	Mi:dm K 2.5 Pro Technical Report	section_result	31	ASR of 36.3%, the lowest attack success rate among the compared models
-ext_rag_001	Advanced RAG의 pre-retrieval 단계는 인덱스와 사용자 질의를 각각 어떤 방향으로 최적화합니까?	RAG Survey	section_method	4	optimizing the indexing structure and the original query
-ext_rag_002	Advanced RAG의 post-retrieval 단계에서 사용되는 두 가지 핵심 방법은 무엇입니까?	RAG Survey	section_method	4	rerank chunks and context compressing
-ext_rag_003	RAG에서 큰 청크와 작은 청크를 사용할 때 각각 어떤 장단점이 발생합니까?	RAG Survey	simple_qa	8	Larger chunks can capture more context, but they also generate more noise; smaller chunks may not fully convey the necessary context, but have less noise.
-ext_rag_004	문서 청크에 타임스탬프 같은 메타데이터를 부여하면 time-aware RAG는 최신 정보를 어떻게 우선할 수 있습니까?	RAG Survey	section_method	8	Assigning different weights to document timestamps during retrieval can achieve time-aware RAG, ensuring the freshness of knowledge and avoiding outdated information.
-ext_rag_005	Reverse HyDE는 문서로부터 가상의 질문을 생성해 원래 질문과 답변 사이의 의미적 간극을 어떻게 줄입니까?	RAG Survey	section_method	8	using LLM to generate questions that can be answered by the document, then calculating the similarity between the original question and the hypothetical question
-ext_rag_006	Multi-Query와 Sub-Query 방식은 원래 질의를 확장하거나 분해하는 방식에서 어떻게 다릅니까?	RAG Survey	section_method	8	Multi-Query expands queries via LLMs for parallel execution; Sub-Query decomposes a complex question into simpler sub-questions.
-ext_rag_007	Iterative Retrieval, Recursive Retrieval, Adaptive Retrieval은 검색을 반복하거나 중단하는 방식에서 각각 어떻게 구분됩니까?	RAG Survey	section_method	11	Iterative retrieval alternates retrieval and generation; recursive retrieval refines queries and breaks problems into sub-problems; adaptive retrieval determines whether retrieval is necessary and when to stop.
-ext_rag_008	RAG 평가에서 요구되는 네 가지 핵심 능력은 무엇입니까?	RAG Survey	section_result	12	noise robustness, negative rejection, information integration, and counterfactual robustness
-ext_rag_009	RAG 평가에서 Negative Rejection은 어떤 능력을 측정합니까?	RAG Survey	simple_qa	12	refraining from responding when the retrieved documents do not contain the necessary knowledge to answer a question
-ext_rag_010	RAG와 파인튜닝을 비교할 때 지식 업데이트의 동적 특성과 해석 가능성 측면에서 RAG가 갖는 특징은 무엇입니까?	RAG Survey	simple_qa	5	real-time knowledge updates and effective utilization of external knowledge sources with high interpretability
-ext_raptor_001	RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?	RAPTOR	section_method	3	length 100; if a sentence exceeds the 100-token limit, the entire sentence is moved to the next chunk
-ext_raptor_002	RAPTOR의 leaf node를 만들 때 텍스트 임베딩에 사용한 모델은 무엇입니까?	RAPTOR	simple_qa	3	SBERT, a BERT-based encoder (multi-qa-mpnet-base-cos-v1)
-ext_raptor_003	RAPTOR의 GMM 클러스터링 전에 UMAP을 사용하는 이유는 무엇입니까?	RAPTOR	section_method	4	to mitigate the challenge of high-dimensional vector embeddings by dimensionality reduction
-ext_raptor_004	RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?	RAPTOR	section_method	4	to determine the optimal number of clusters
-ext_raptor_005	RAPTOR에서 클러스터별 요약을 생성하는 데 사용한 언어 모델은 무엇입니까?	RAPTOR	simple_qa	4	gpt-3.5-turbo
-ext_raptor_006	RAPTOR의 트리 구축 비용은 문서 길이가 증가할 때 build time과 token expenditure 측면에서 어떻게 확장됩니까?	RAPTOR	section_result	16	both build time and token expenditure scale linearly with document length
-ext_raptor_007	QASPER 데이터셋은 몇 개의 질문과 NLP 논문으로 구성되며, 논문에서는 어떤 지표로 성능을 평가합니까?	RAPTOR	section_result	6	5,049 questions across 1,585 NLP papers; accuracy is measured using standard F1
-ext_raptor_008	QuALITY-HARD는 일반 QuALITY 질문 중 어떤 기준을 만족하는 질문들로 구성됩니까?	RAPTOR	simple_qa	6	questions that a majority of human annotators answered incorrectly in a speed-setting
-ext_raptor_009	QASPER에서 RAPTOR의 F1 Match 점수는 GPT-3, GPT-4, UnifiedQA를 사용할 때 각각 얼마였습니까?	RAPTOR	section_result	7	53.1%, 55.7%, and 36.6%, respectively
-ext_raptor_010	QuALITY의 한 스토리에서 RAPTOR가 전체 3개 계층을 검색했을 때의 성능은 leaf node 한 계층만 검색했을 때와 어떻게 달라졌습니까?	RAPTOR	section_result	9	57.9 with one leaf layer versus 73.68 with all three layers
-ext_raptor_011	Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?	RAPTOR	simple_qa	20	RAPTOR retrieves relevant information across tree layers, while DPR retrieves detailed descriptions of a narrow subset of the story
-track1_0009	RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?	RAG Survey	simple_qa	1	By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content.
-track1_0010	RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?	RAG Survey	section_method	3	The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.
-track1_0012	RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?	RAG Survey	section_abstract	1	This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.
-track1_0015	RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?	RAG Survey	crosslingual_ko	2	the aspects of Retrieval, Generation and Augmentation
-track1_0016	RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?	RAG Survey	decoder_ablation	2	We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.
-track1_0019	LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?	CAD	section_result	3	Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P.
-track1_0021	CAD는 어떻게 잘못된 정보 생성을 줄이나요?	CAD	numeric_or_factual_hallucination	2	These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information.
-track1_0023	CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?	CAD	crosslingual_ko	1	Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022).
-track1_0024	CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?	CAD	decoder_ablation	2	CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021).
-track1_0025	RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?	RAPTOR	simple_qa	1	we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy.
-track1_0026	RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?	RAPTOR	section_method	2	RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up.
-track1_0027	RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?	RAPTOR	section_result	2	RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022).
-track1_0032	RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?	RAPTOR	decoder_ablation	22	We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes.
-track1_0033	Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?	Mi:dm K 2.5 Pro Technical Report	simple_qa	2	32B parameters
-track1_0034	Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?	Mi:dm K 2.5 Pro Technical Report	section_method	1	abstract syntax tree (AST) analysis for code
-track1_0035	Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?	Mi:dm K 2.5 Pro Technical Report	section_result	1	sets state-of-the-art results on Korean-specific benchmarks
-track1_0036	Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?	Mi:dm K 2.5 Pro Technical Report	section_abstract	1	address enterprise-grade complexity through reasoning-focused optimization
-track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?	Mi:dm K 2.5 Pro Technical Report	numeric_or_factual_hallucination	1	128K token context window
-track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	decoder_ablation	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
-
-================================================================================
-표 C-1. 문서별 탐색 분석
-Sheet: Appendix_Paper
---------------------------------------------------------------------------------
-대상 문서	요인	지표	n	평균 변화
-Mi:dm K 2.5 Pro Technical Report	HyDE	faithfulness	15	0.0007
-Mi:dm K 2.5 Pro Technical Report	HyDE	answer_relevancy	15	0.0994
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_precision	15	-0.0145
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_recall	15	0.1333
-Mi:dm K 2.5 Pro Technical Report	CAD	faithfulness	15	0.0081
-Mi:dm K 2.5 Pro Technical Report	CAD	answer_relevancy	15	0.0339
-Mi:dm K 2.5 Pro Technical Report	CAD	context_precision	15	0
-Mi:dm K 2.5 Pro Technical Report	CAD	context_recall	15	0
-CAD	HyDE	faithfulness	15	-0.0491
-CAD	HyDE	answer_relevancy	15	-0.0019
-CAD	HyDE	context_precision	15	-0.0823
-CAD	HyDE	context_recall	15	-0.0667
-CAD	CAD	faithfulness	15	0.0664
-CAD	CAD	answer_relevancy	15	-0.0099
-CAD	CAD	context_precision	15	-0.0552
-CAD	CAD	context_recall	15	-0.0667
-RAG Survey	HyDE	faithfulness	15	0.1575
-RAG Survey	HyDE	answer_relevancy	15	0.1314
-RAG Survey	HyDE	context_precision	15	0.0036
-RAG Survey	HyDE	context_recall	15	0.0667
-RAG Survey	CAD	faithfulness	13	-0.0416
-RAG Survey	CAD	answer_relevancy	15	-0.1004
-RAG Survey	CAD	context_precision	15	0.0074
-RAG Survey	CAD	context_recall	15	0
-RAPTOR	HyDE	faithfulness	15	0.0652
-RAPTOR	HyDE	answer_relevancy	15	0.093
-RAPTOR	HyDE	context_precision	15	-0.0441
-RAPTOR	HyDE	context_recall	15	-0.1333
-RAPTOR	CAD	faithfulness	15	0.0731
-RAPTOR	CAD	answer_relevancy	15	0.047
-RAPTOR	CAD	context_precision	15	0.0108
-RAPTOR	CAD	context_recall	15	0
-
-================================================================================
-표 C-2. 질문 유형별 탐색 분석
-Sheet: Appendix_QueryType
---------------------------------------------------------------------------------
-질문 유형	요인	지표	n	평균 변화
-crosslingual_ko	HyDE	faithfulness	2	0.1282
-crosslingual_ko	HyDE	answer_relevancy	2	0.0899
-crosslingual_ko	HyDE	context_precision	2	0.0528
-crosslingual_ko	HyDE	context_recall	2	0
-crosslingual_ko	CAD	faithfulness	2	-0.0333
-crosslingual_ko	CAD	answer_relevancy	2	-0.0794
-crosslingual_ko	CAD	context_precision	2	-0.077
-crosslingual_ko	CAD	context_recall	2	0
-decoder_ablation	HyDE	faithfulness	4	-0.1266
-decoder_ablation	HyDE	answer_relevancy	4	0.0059
-decoder_ablation	HyDE	context_precision	4	-0.0834
-decoder_ablation	HyDE	context_recall	4	0
-decoder_ablation	CAD	faithfulness	4	-0.0767
-decoder_ablation	CAD	answer_relevancy	4	0.039
-decoder_ablation	CAD	context_precision	4	0
-decoder_ablation	CAD	context_recall	4	0
-numeric_or_factual_hallucination	HyDE	faithfulness	2	-0.1357
-numeric_or_factual_hallucination	HyDE	answer_relevancy	2	0.0711
-numeric_or_factual_hallucination	HyDE	context_precision	2	0.0563
-numeric_or_factual_hallucination	HyDE	context_recall	2	0
-numeric_or_factual_hallucination	CAD	faithfulness	2	-0.05
-numeric_or_factual_hallucination	CAD	answer_relevancy	2	-0.0606
-numeric_or_factual_hallucination	CAD	context_precision	2	0
-numeric_or_factual_hallucination	CAD	context_recall	2	0
-section_abstract	HyDE	faithfulness	2	0.0312
-section_abstract	HyDE	answer_relevancy	2	-0.0447
-section_abstract	HyDE	context_precision	2	-0.2334
-section_abstract	HyDE	context_recall	2	0
-section_abstract	CAD	faithfulness	2	-0.2188
-section_abstract	CAD	answer_relevancy	2	-0.4501
-section_abstract	CAD	context_precision	2	0
-section_abstract	CAD	context_recall	2	0
-section_method	HyDE	faithfulness	20	0.1295
-section_method	HyDE	answer_relevancy	20	0.2685
-section_method	HyDE	context_precision	20	-0.0594
-section_method	HyDE	context_recall	20	0.1
-section_method	CAD	faithfulness	19	0.1284
-section_method	CAD	answer_relevancy	20	0.1157
-section_method	CAD	context_precision	20	0
-section_method	CAD	context_recall	20	0
-section_result	HyDE	faithfulness	16	0.0244
-section_result	HyDE	answer_relevancy	16	-0.0364
-section_result	HyDE	context_precision	16	-0.0029
-section_result	HyDE	context_recall	16	0
-section_result	CAD	faithfulness	16	0.0014
-section_result	CAD	answer_relevancy	16	-0.0727
-section_result	CAD	context_precision	16	0.0045
-section_result	CAD	context_recall	16	-0.0625
-simple_qa	HyDE	faithfulness	14	0.0066
-simple_qa	HyDE	answer_relevancy	14	-0.0154
-simple_qa	HyDE	context_precision	14	-0.0174
-simple_qa	HyDE	context_recall	14	-0.1429
-simple_qa	CAD	faithfulness	13	0.0094
-simple_qa	CAD	answer_relevancy	14	-0.0405
-simple_qa	CAD	context_precision	14	-0.0337
-simple_qa	CAD	context_recall	14	0
+아래 두 표는 workbook 외의 원고 부록 표다. 탭 구분 영역을 한글 `표 > 문자열을 표로`에서 구분 문자 `탭`으로 변환한다.
 
 ==========================================================================================
-[표 D-1] 주요 연구 artifact provenance
+[표 C-1] 주요 연구 artifact provenance
 ==========================================================================================
 artifact	상대 경로	역할	SHA-256
 main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	60-query source artifact	916817150e40e0d2803f7e145633d13737c2304d17efdc4d42dc65cb4ed007d5
@@ -345,12 +36,11 @@ extended_validation_questions.json	experiments/data/query_splits/extended_valida
 extended_validation_60_analysis.json	experiments/results/analysis/extended_validation_60_analysis.json	60-query source artifact	50870fc6c48407b22daf32861465accd459bd3972e5a80c58a3bb822d23a8e4d
 
 ==========================================================================================
-[표 E-1] 저장 artifact 기반 점검 절차
+[표 D-1] 저장 artifact 기반 점검 절차
 ==========================================================================================
 점검 단계	실제 경로 또는 명령	입력	확인 결과	목적
 질의 감사	FINALDOCS/APPENDIX/QUERY_60_AUDIT.md	동결 query split 감사 결과	60개 질의 목록	60개 질의와 source metadata 확인
 수치 대조	FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md	해시로 고정한 저장 artifact	검증 범위·핵심 수치	표와 본문 수치 대조
 표 확인	FINALDOCS/TABLES/TABLES_60Q.xlsx	17개 HWP 이전용 sheet	HWP 표 이전	표 제목·값·출처 확인
 제출 그림 확인	FINALDOCS/FIGURES	최종 10개 PNG	HWP 삽입 그림	구조·통계 그림의 고정 제출본 확인
-UI 재현	python -X utf8 cli/evidence_replay.py show E01	저장 artifact	UI replay text	실제 저장 응답 확인
 패키지 검증	python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py	FINALDOCS	PASS/FAIL	원고·표·그림·출처 정합성 확인
