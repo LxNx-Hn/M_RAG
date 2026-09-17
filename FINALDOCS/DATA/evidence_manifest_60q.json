@@ -3,11 +3,11 @@
   "sources": {
     "experiments\\results\\main_generation\\main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl": "916817150e40e0d2803f7e145633d13737c2304d17efdc4d42dc65cb4ed007d5",
     "experiments\\results\\extended_validation\\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl": "93c0932f4f5071bf726e4cd5a31c7a9cc02ef243775fdef99a1a0d486b51f41e",
-    "experiments\\results\\evaluation\\main-hyde-cad-scd-reference-scd-gpt4o-official\\merged.ragas_scores.json": "700a2932a03bf615aab849297d6114968aafeff9bd49c0dfa0659050e8a4ef08",
-    "experiments\\results\\evaluation\\ext60_gpt4o\\merged.ragas_scores.json": "fc705e3d3580246d53f17ff179027c2b43f3584f785fea3f047934ff2178476b",
-    "experiments\\data\\query_splits\\decoder_main_queries.json": "378a7a3e6ffb446759b228943010e2a4861d4efb9626f3d066dae40d43410ff5",
-    "experiments\\data\\query_splits\\extended_validation_questions.json": "91e9c1da0dec40c32a8370881cf708b2b4229a7d40d15206ab5f1cd78803061c",
-    "experiments\\results\\analysis\\extended_validation_60_analysis.json": "50870fc6c48407b22daf32861465accd459bd3972e5a80c58a3bb822d23a8e4d"
+    "experiments\\results\\evaluation\\main-hyde-cad-scd-reference-scd-gpt4o-official\\merged.ragas_scores.json": "0c10a2a5df0c7084919ed8a780b7ce200cb23939a37b76b026fc3f745dad61b9",
+    "experiments\\results\\evaluation\\ext60_gpt4o\\merged.ragas_scores.json": "0b38b79b5f3a426197b275f61eacdb64d83814150deb1eb5ad5e4a338331f327",
+    "experiments\\data\\query_splits\\decoder_main_queries.json": "36c90ab2d4d13993a71abbfcab8f2a828e3487e802a68c228f4c97e3a482eac5",
+    "experiments\\data\\query_splits\\extended_validation_questions.json": "acc2211012904b23c30a4f16f70c18fbad4038c4a2ea76bcf1e602a5161efd23",
+    "experiments\\results\\analysis\\extended_validation_60_analysis.json": "6ec588a3a8cbe63e2cfe923286dfa3fad46c1a9cb4d59eb670bc6864e4455f57"
   },
   "cases": [
     {
