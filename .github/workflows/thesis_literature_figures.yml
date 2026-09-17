@@ -1,0 +1,52 @@
+name: Build thesis literature figures
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cli/add_literature_figures_60q.py"
+      - ".github/workflows/thesis_literature_figures.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check pymupdf
+
+      - name: Add source figures and patch thesis
+        run: python -X utf8 cli/add_literature_figures_60q.py
+
+      - name: Validate final package
+        run: |
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+
+      - name: Commit generated thesis update
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md \
+                  FINALDOCS/MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md \
+                  FINALDOCS/FIGURES/LITERATURE \
+                  FINALDOCS/VALIDATION/verify_finaldocs_60q.py \
+                  FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          git commit -m "docs(thesis): add cited literature figures"
+          git push origin HEAD:main
