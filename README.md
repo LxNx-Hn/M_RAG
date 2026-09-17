@@ -1,7 +1,7 @@
 # Cube-RAG
 
 **Graduation submission:** [FINALDOCS](FINALDOCS/README.md) is the self-contained
-Korean manuscript, HWP-transfer, table, figure, UI replay, and validation package.
+Korean manuscript, HWP-transfer, table, figure, and validation package.
 
 Cube-RAG is a Korean-query academic paper QA project. The thesis contribution is a
 HyDE × CAD × SCD factor analysis for Korean questions over English papers, evaluated
@@ -163,7 +163,7 @@ npm run build
 | `FINALDOCS/` | self-contained 60-query Korean thesis and HWP submission package |
 | `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md` | final Korean manuscript for HWP transfer |
 | `FINALDOCS/VALIDATION/verify_finaldocs_60q.py` | read-only package completeness and claim-boundary verifier |
-| `FINALDOCS/VALIDATION/FINAL_CLAIM_MAP_60Q.md` | final claim-to-artifact map used by UI replay |
+| `FINALDOCS/VALIDATION/FINAL_CLAIM_MAP_60Q.md` | final claim-to-artifact map |
 | `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |
 | `experiments/configs/fixed_backbone.yaml` | fixed Paper-RAG backbone config |
 | `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |
