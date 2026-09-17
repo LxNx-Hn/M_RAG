@@ -4,8 +4,6 @@
 
 - 최종 원고: `GRADUATION_REPORT_TRANSFER_KO_60Q.md`
 - 표: `FINALDOCS/TABLES/TABLES_60Q.xlsx`의 17개 HWP 이전용 sheet
-- 그림: `FINALDOCS/FIGURES/`의 HWP 삽입용 구조·통계 PNG 10개와 `EVIDENCE/UI_REPLAY/`의 저장 응답 증빙 화면
-- 증빙: `FINALDOCS/DATA/evidence_manifest_60q.json`, `FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md`, `EVIDENCE/UI_REPLAY/`
 - 집계 패키지: `FINALDOCS/`
 
 ## 원자료 및 수치 대조
@@ -26,8 +24,6 @@
 ## 산출물 점검
 
 Excel workbook은 17개 HWP 이전용 sheet를 포함한다. 표 2-1과 부록 A의 60개 질의 sheet를 포함하며, workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했다. 표 제목, header, 값의 가독성은 대표 sheet에서 확인했다.
-
-`FINALDOCS/FIGURES`에는 HWP 본문에 필요한 구조·통계 그림 10개를 두고, 실제 저장 응답 증빙은 `EVIDENCE/UI_REPLAY`의 여섯 화면으로 분리했다. E02는 1장의 연구 문제 제시와 부록 B의 추가 증빙에 배치하며, E06은 부록 B의 CAD trade-off 증빙에 배치한다.
 
 ## 최종 HWP 확인 항목
 

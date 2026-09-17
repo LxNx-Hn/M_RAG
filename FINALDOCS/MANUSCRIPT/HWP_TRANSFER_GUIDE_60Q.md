@@ -63,17 +63,9 @@
 ## 실제 응답 증빙 화면 삽입
 
 아래 여섯 화면은 60-query 저장 artifact의 질문·문맥·답변·점수를 재현한 증빙 화면이다.
-부록 B에는 여섯 화면을 배치하고, 본문 1장에는 E02, 5장에는 E01·E03·E04·E05를
-각 해석 절에 배치한다. E06은 CAD의 win/loss 분포를 보조하는 부록 B 증빙으로 배치한다.
 
 | 증빙 화면 | 파일 |
 |---|---|
-| Normal QA | `FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png` |
-| Language drift | `FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png` |
-| SCD same-context rescue | `FINALDOCS/EVIDENCE/UI_REPLAY/E03_scd_rescue.png` |
-| HyDE retrieval change | `FINALDOCS/EVIDENCE/UI_REPLAY/E04_hyde_retrieval_change.png` |
-| CAD positive pair | `FINALDOCS/EVIDENCE/UI_REPLAY/E05_cad_positive_same_context.png` |
-| CAD trade-off pair | `FINALDOCS/EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png` |
 
 ## 수식
 
@@ -87,7 +79,6 @@ weighted RRF, CAD score, SCD token score, Korean-character ratio를 이
 - 모든 표 제목이 표 위에 있는지 확인한다.
 - 모든 그림 제목이 그림 아래에 있는지 확인한다.
 - 표·그림 번호와 목차를 HWP 필드 갱신 후 다시 확인한다.
-- 1장의 E02는 연구 문제 제시용으로 두고, 부록 B의 E02는 replay 조건·비교 출력 확인용으로 사용한다.
 - 표가 쪽을 넘을 때 제목과 첫 행을 같은 쪽에 두고, 부록 A의 60행 표는 이어지는 표로 처리한다.
 - 수식은 HWP 수식 입력기의 렌더링 결과로 배치한다.
 - 5장 수치가 `EXPERIMENT_60_VALIDATION.md` 및 workbook과 일치하는지 확인한다.

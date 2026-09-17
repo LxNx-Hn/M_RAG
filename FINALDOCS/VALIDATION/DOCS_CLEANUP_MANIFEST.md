@@ -8,7 +8,6 @@ records the document-tree cleanup that established that boundary.
 ## Migrated into this package
 
 - `FINAL_CLAIM_MAP_60Q.md` is the claim-to-artifact map consumed by the offline
-  UI evidence replay.
 - `verify_finaldocs_60q.py` verifies the manuscript, HWP-transfer materials,
   workbook, evidence files, and current 60-query claim boundaries without a
   network call, model load, retrieval, generation, judge call, or write.
@@ -33,4 +32,3 @@ records the document-tree cleanup that established that boundary.
   a thesis document or a current cloud-execution guide.
 - `experiments/results/` and other stored experiment artifacts remain unchanged.
 - `FINALDOCS/FIGURES/` is the fixed 10-PNG submission set; the six UI replay
-  screenshots are separately retained under `FINALDOCS/EVIDENCE/UI_REPLAY/`.

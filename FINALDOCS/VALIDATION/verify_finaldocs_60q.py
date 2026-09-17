@@ -31,15 +31,6 @@ EXPECTED_SHEETS = (
     "Appendix_Paper",
     "Appendix_QueryType",
 )
-UI_CASES = (
-    "E01_normal_qa",
-    "E02_language_drift",
-    "E03_scd_rescue",
-    "E04_hyde_retrieval_change",
-    "E05_cad_positive_same_context",
-    "E06_cad_tradeoff_same_context",
-)
-
 
 def need(path: Path) -> None:
     if not path.is_file():
@@ -72,14 +63,6 @@ def main() -> int:
                 f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"
             )
 
-    for case in UI_CASES:
-        need(FINAL / f"EVIDENCE/UI_REPLAY/{case}.png")
-        raw_evidence = FINAL / f"EVIDENCE/UI_REPLAY/raw/{case}.txt"
-        need(raw_evidence)
-        if "Cube-RAG 60-query Evidence Replay UI" not in raw_evidence.read_text(
-            encoding="utf-8"
-        ):
-            raise AssertionError(f"evidence replay branding mismatch: {case}")
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
@@ -96,7 +79,6 @@ def main() -> int:
         "+0.0288",
         "+0.2289",
         "+0.2182",
-        "[그림 1-2]",
     ):
         if marker not in text:
             raise AssertionError(f"missing result marker: {marker}")
@@ -123,6 +105,18 @@ def main() -> int:
     )
     if found := [term for term in service_scope_terms if term.lower() in body.lower()]:
         raise AssertionError(f"service-scope prose leaked into thesis body: {found}")
+
+    ui_thesis_terms = (
+        "evidence replay",
+        "UI_REPLAY",
+        "서비스 화면",
+        "서비스 UI",
+        "API route",
+        "배포 상태",
+        "사용자 경험",
+    )
+    if found := [term for term in ui_thesis_terms if term.lower() in body.lower()]:
+        raise AssertionError(f"UI/service material leaked into thesis body: {found}")
 
     defensive_phrases = (
         "일반화하지 않는다",
@@ -213,9 +207,6 @@ def main() -> int:
         if equation not in text or equation not in equation_file:
             raise AssertionError(f"missing or mismatched HWP equation source: {equation}")
 
-    chapter_five = text.split("# 5. 실험", maxsplit=1)[1].split("# 6. 결론", maxsplit=1)[0]
-    if "[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E06_" in chapter_five:
-        raise AssertionError("E06 trade-off evidence must remain in appendix B, not chapter 5")
     if "build_figures_60q.py" in text:
         raise AssertionError("final manuscript references the removed figure generator")
 
@@ -249,10 +240,6 @@ def main() -> int:
         raise AssertionError("HWP table-copy file references the removed figure generator")
 
     guide = (FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md").read_text(encoding="utf-8")
-    expected_guide_line = (
-        "E06은 CAD의 win/loss 분포를 보조하는 부록 B 증빙으로 배치한다."
-    )
-    if expected_guide_line not in guide:
         raise AssertionError("HWP guide must place E06 in appendix B")
 
     package_text_paths = (

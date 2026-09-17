@@ -76,24 +76,19 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 6.3 적용 시 configuration 선택 ···· [쪽번호 자동갱신] [스타일=목차리스트(절)]
 6.4 제한점과 후속 검증 ···· [쪽번호 자동갱신] [스타일=목차리스트(절)]
 참고문헌 ···· [쪽번호 자동갱신] [스타일=목차리스트(장)]
-부록 A~E ···· [쪽번호 자동갱신] [스타일=목차리스트(장)]
+부록 A~D ···· [쪽번호 자동갱신] [스타일=목차리스트(장)]
 # 그 림 목 차 [스타일=목차제목]
 
 [그림 1-1] 한국어 질의 기반 영어 학술문서 RAG 연구 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 1-2] 영어 근거 문맥의 저장 언어 이탈 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-1] 고정 Paper-RAG backbone 실행 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-2] generation·evaluation·analysis artifact 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-1] 60-query 평가 및 대응 비교 설계 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-2] RAG-Cube 8개 조건의 평균 품질 지표 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-3] HyDE·CAD 주 비교와 신뢰구간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-4] HyDE 검색 변화 evidence replay ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-5] CAD 동일 문맥 positive evidence replay ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-6] RAG-Cube 조건별 생성 시간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-7] SCD의 한국어 문자 비율 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-8] SCD 동일 문맥 rescue evidence replay ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-9] 정상 QA evidence replay ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-10] HyDE·CAD strata별 품질 지표 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-4] RAG-Cube 조건별 생성 시간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-5] SCD의 한국어 문자 비율 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-6] HyDE·CAD strata별 품질 지표 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 B-1] Normal QA 추가 증빙 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 B-2] Stored language drift ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 B-3] SCD same-context rescue ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
@@ -118,10 +113,10 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 [표 5-5] SCD 조합별 한국어 문자 비율 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [표 5-6] SCD 대응쌍 분석 요약 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [표 A-1] 60개 질의-대상문서 쌍 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[표 C-1] 문서별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[표 C-2] 질문 유형별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[표 D-1] 주요 연구 artifact provenance ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[표 E-1] 저장 artifact 기반 점검 절차 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[표 B-1] 문서별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[표 B-2] 질문 유형별 탐색 분석 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[표 C-1] 주요 연구 artifact provenance ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[표 D-1] 저장 artifact 기반 점검 절차 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 
 # 1. 서론 [스타일=장(1.)]
 
@@ -139,9 +134,6 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 [그림 1-1] 한국어 질의 기반 영어 학술문서 RAG 연구 환경 [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png | 권장폭=본문폭 86% | 정렬=가운데]
-
-[그림 1-2] 영어 근거 문맥에서 관찰된 저장 언어 이탈 사례. 본문은 연구 문제를 제시하고, 대응 조건과 전체 replay 정보는 부록 B에서 확인한다. [스타일=그림제목]
 
 그림 1-2는 영어 근거 문맥에서 출력 언어가 이동한 저장 사례를 보여준다. 저장 record의 질문·근거·답변을 함께 제시해 SCD 분석에서 다루는 언어 이탈 문제를 구체화한다. 이후 분석에서는 한국어 문자 비율과 RAGAS 품질 지표를 각각 계산해 출력 언어와 답변 품질을 서로 다른 축에서 비교한다.
 
@@ -355,7 +347,6 @@ SCD	출력 token logit 제어	동일 query·HyDE·CAD의 240 ON/OFF쌍	한국어
 
 각 generation record에는 검색 후보와 최종 문맥을 함께 남긴다. retrieved IDs와 reranked IDs가 같더라도 context 구성 결과가 달라질 수 있으므로 실제 contexts까지 저장한다. 이러한 provenance는 HyDE의 검색 변화와 CAD의 동일 입력 비교를 구분하는 근거가 된다. evaluation artifact는 generation과 분리해 저장하며, derived-data builder가 두 artifact를 읽어 configuration 평균, paired delta와 bootstrap interval을 계산한다. 표와 그림은 이 파생 자료를 읽어 생성한다.
 
-Evidence replay는 저장 artifact의 normal QA, HyDE retrieval change, CAD same-context pair, SCD language rescue 사례를 query/config selector와 input-identity 조건으로 선택한다. 재현 화면은 저장 answer와 source path, record key를 함께 제시하며, 정량 결과를 실제 stored input/output과 연결하는 보조 증거로 사용한다.
 
 # 4. 프로그램 구현 [스타일=장(1.)]
 
@@ -447,7 +438,6 @@ H1C1S1	60	64.125	64.834
 
 HyDE의 hypothetical document는 dense retrieval 입력으로 사용하고, 최종 답변은 검색된 실제 문서 passage를 근거로 생성한다. CAD는 같은 generated prefix에서 context branch와 no-context branch를 계산하며, 표 4-3의 duration은 이 계산 구조에 따른 실행 시간 차이를 보여준다. SCD는 생성 중 token score를 조정하는 processor이며, Korean-character ratio는 저장된 answer 문자열에서 다시 계산할 수 있다.
 
-Generation과 evaluation은 분리한다. generation JSONL은 질문·문서·문맥·답변·조건·시간을 보존하고, merged score JSON은 네 RAGAS 지표와 결측 상태를 보존한다. 분석 스크립트는 두 artifact를 읽어 표와 그림에 필요한 통계를 계산한다. Evidence replay는 같은 저장 파일의 answer와 score를 표시한다. 이 구조를 통해 본문 수치와 실제 사례가 동일한 source artifact에 연결된다.
 
 [그림삽입: FINALDOCS/FIGURES/fig4_2_artifact_flow.png | 권장폭=본문폭 90% | 정렬=가운데]
 
@@ -478,7 +468,7 @@ Mi:dm K 2.5 Pro Technical Report	15
 
 평가는 3.3절의 comparison contract에 따라 저장된 generation·evaluation artifact에서 대응쌍을 구성한다. RAGAS는 480개 score row의 faithfulness, answer relevancy, context precision, context recall을 사용한다. 전체 1,920 metric cell 중 5개 faithfulness 값은 빈 명제 집합으로 인해 결측이며, 각 비교는 유효값이 존재하는 대응쌍을 기준으로 계산한다. HyDE primary는 60쌍, CAD primary는 동일 검색 문맥의 대응쌍을 사용하며 CAD faithfulness는 양쪽 score가 존재하는 58쌍을 사용한다. SCD는 query·HyDE·CAD를 고정한 240 ON/OFF쌍의 Korean-character ratio를 비교하고, HyDE OFF 동일 문맥 120쌍을 별도로 확인한다.
 
-60개 질의는 네 문서에 15개씩 배정되며 각 질의에는 source page와 answer span이 보존되어 있다. 문서별 균등 배정은 네 대상 문서의 결과를 같은 수의 질의로 비교하기 위한 표본 내 설계다. 각 문서와 질문 유형의 하위집단 결과는 부록 C에서 탐색 분석으로 제시한다.
+60개 질의는 네 문서에 15개씩 배정되며 각 질의에는 source page와 answer span이 보존되어 있다. 문서별 균등 배정은 네 대상 문서의 결과를 같은 수의 질의로 비교하기 위한 표본 내 설계다. 각 문서와 질문 유형의 하위집단 결과는 부록 B에서 탐색 분석으로 제시한다.
 
 요인 효과는 동일 query의 ON−OFF 차이로 계산한다. 질의를 재표집 단위로 하는 paired bootstrap을 사용하여 평균 차이의 95% 신뢰구간을 구한다. 품질 지표는 +0.01 초과를 win, -0.01 미만을 loss, 그 사이를 tie로 집계하고, SCD ratio는 ±0.02 practical band를 사용한다. configuration 평균은 여덟 조합의 기술통계로 제시하고, paired contrast는 특정 요인의 ON/OFF 차이를 통제 비교로 제시한다.
 
@@ -496,7 +486,6 @@ Delta_i = s_i^{ON} - s_i^{OFF}
 bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i
 ```
 
-정량 결과와 함께 실제 stored record를 확인하기 위해 evidence replay를 사용한다. HyDE 사례는 retrieval ID 변화, CAD 사례는 input identity, SCD 사례는 동일 query·HyDE·CAD 조건을 확인한 뒤 선택한다. 재현 화면은 저장 answer 문자열을 사용하며, 길이 때문에 일부만 보일 때에는 truncation을 표시한다.
 
 [그림삽입: FINALDOCS/FIGURES/fig5_0_evaluation_design.png | 권장폭=본문폭 90% | 정렬=가운데]
 
@@ -536,7 +525,7 @@ HyDE는 answer relevancy에서 가장 명확한 양의 평균 변화를 보였�
 
 answer relevancy의 양의 변화와 context precision의 음의 변화가 함께 나타난 가능한 해석은 HyDE가 질문을 설명하는 문서형 검색 표현을 제공하면서 최종 답변이 질문의 요구에 더 직접 반응하도록 도왔고, reranked 상위 문맥의 관련성 구성은 일부 질의에서 달라졌다는 것이다. HyDE ON은 dense query representation, fusion 후보, reranking 이후의 context selection까지 바꾸므로, +0.0805는 고정 pipeline 전체를 통과한 end-to-end answer-level 대응 차이다.
 
-win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 C는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다. 본문에서는 HyDE가 이 corpus의 질문 적합성에서 가장 명확한 평균 변화를 보였다는 결과를 중심으로 정리한다.
+win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다. 본문에서는 HyDE가 이 corpus의 질문 적합성에서 가장 명확한 평균 변화를 보였다는 결과를 중심으로 정리한다.
 
 [표 5-3] HyDE 주 비교 결과 [스타일=표제목]
 
@@ -556,9 +545,6 @@ context_recall	0	[-0.1000, +0.1000]	4	4	52	60
 
 [그림 5-3] HyDE와 CAD의 통제 비교. 점은 ON−OFF 평균 차이, 선은 95% bootstrap 신뢰구간이다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E04_hyde_retrieval_change.png | 권장폭=본문폭 90% | 정렬=가운데]
-
-[그림 5-4] HyDE OFF·ON 저장 응답 증빙 화면. query ID, configuration, 저장 점수와 answer excerpt를 60-query artifact에서 재현한다. [스타일=그림제목]
 
 ## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]
 
@@ -584,9 +570,6 @@ context_precision	-0.0092	[-0.0306, +0.0077]	4	4	52	60
 context_recall	-0.0167	[-0.0500, +0.0000]	0	1	59	60
 ```
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E05_cad_positive_same_context.png | 권장폭=본문폭 90% | 정렬=가운데]
-
-[그림 5-5] 동일 문맥 CAD positive 증빙 화면. retrieval·rerank ID와 contexts identity를 함께 제시한다. [스타일=그림제목]
 
 [그림삽입: FINALDOCS/FIGURES/fig5_10_runtime.png | 권장폭=본문폭 90% | 정렬=가운데]
 
@@ -632,17 +615,9 @@ HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
 
 [그림 5-7] HyDE·CAD strata별 SCD 적용에 따른 한국어 문자 비율 변화. 오차막대는 95% bootstrap 신뢰구간이다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E03_scd_rescue.png | 권장폭=본문폭 90% | 정렬=가운데]
-
-[그림 5-8] 동일 문맥 SCD OFF·ON 저장 응답 증빙 화면. 원문 answer excerpt와 점수를 함께 제시한다. [스타일=그림제목]
 
 ## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
 
-정상 QA 사례는 저장된 query ID `ext_raptor_011`에서 H0C0S0 답변과 RAGAS score를 재현한다. HyDE 사례는 `ext_raptor_004`, SCD 언어 사례는 동일 input rescue 조건으로 선택한 record, CAD 사례는 input identity를 assertion으로 확인한 selected pair를 사용한다. 그림은 저장 answer를 display-only truncation으로 제시한다. 전체 replay 원문은 `FINALDOCS/EVIDENCE/UI_REPLAY/raw/`에 보존한다.
-
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png | 권장폭=본문폭 90% | 정렬=가운데]
-
-[그림 5-9] 정상 QA 저장 응답 증빙 화면. 답변과 score는 저장된 generation·evaluation artifact에서 재현한다. [스타일=그림제목]
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
@@ -658,7 +633,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 [그림삽입: FINALDOCS/FIGURES/fig5_9_hyde_cad_strata.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-10] HyDE·CAD strata별 품질 지표 변화. strata 결과는 configuration-level descriptive pattern으로 해석한다. [스타일=그림제목]
+[그림 5-6] HyDE·CAD strata별 품질 지표 변화. strata 결과는 configuration-level descriptive pattern으로 해석한다. [스타일=그림제목]
 
 ## 5.9 연구의 한계 [스타일=절(1.1)]
 
@@ -676,7 +651,6 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 ## 6.2 실험 설계가 제공한 의미 [스타일=절(1.1)]
 
-본 연구의 설계적 의미는 각 기법의 pipeline position에 맞춘 비교 계약에 있다. HyDE에는 검색 변화까지 포함한 end-to-end 대응 비교를, CAD에는 retrieval·rerank·contexts가 같은 same-context 비교를, SCD에는 query·HyDE·CAD 조건을 고정한 language ON/OFF 비교를 적용했다. 이 분리는 각 결과의 원인 범위를 retrieval-side, generation-side, output-language control로 구분해 재검토할 수 있게 한다. 저장 record와 evidence replay를 함께 사용해 통계 표와 실제 입력·출력의 연결도 확인할 수 있다.
 
 ## 6.3 적용 시 configuration 선택 [스타일=절(1.1)]
 
@@ -806,37 +780,29 @@ track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합
 
 # 부록 B. 추가 증빙 화면 [스타일=부록제목]
 
-아래 화면은 저장된 generation·evaluation artifact의 질문·근거·답변·점수를 evidence replay로 재현한 결과다.
-
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-1] Normal QA. `ext_raptor_011`, H0C0S0의 저장 응답과 RAGAS score를 보여 준다. 정상 질의응답에서 질문·근거·답변·점수의 연결을 확인하는 사례다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-2] Stored language drift. SCD OFF에서 선택된 저장 record를 보여 준다. 영어 근거 문맥 아래에서 출력 언어 성향이 이동할 수 있는 문제 상황을 제시한다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E03_scd_rescue.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-3] SCD same-context rescue. query·retrieval ID·reranked ID·contexts가 같은 SCD OFF/ON 대응쌍을 보여 준다. 출력 언어 제어의 직접 비교 사례다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E04_hyde_retrieval_change.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-4] HyDE retrieval change. `ext_raptor_004`에서 HyDE OFF/ON의 검색 ID와 답변이 달라진 저장 pair를 보여 준다. HyDE의 end-to-end 검색 표현 변화를 확인한다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E05_cad_positive_same_context.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-5] CAD positive same-context pair. `ext_raptor_001`의 동일 입력 pair를 보여 준다. CAD ON에서 faithfulness가 높았던 개별 사례다. [스타일=그림제목]
 
-[그림삽입: FINALDOCS/EVIDENCE/UI_REPLAY/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 90% | 정렬=가운데]
 
 [그림 B-6] CAD trade-off same-context pair. `track1_0012`의 동일 입력 pair를 보여 준다. CAD의 질의별 변동을 함께 확인하는 사례다. [스타일=그림제목]
 
-# 부록 C. 추가 정량 분석 [스타일=부록제목]
+# 부록 B. 추가 정량 분석 [스타일=부록제목]
 
 문서별·질문 유형별 분석과 strata별 결과는 표본 수를 함께 제시하며 탐색적으로 해석한다.
 
-[표 C-1] 문서별 탐색 분석 [스타일=표제목]
+[표 B-1] 문서별 탐색 분석 [스타일=표제목]
 
 [표삽입: FINALDOCS/TABLES/TABLES_60Q.xlsx | Sheet=Appendix_Paper | 한글 표로 복사]
 
@@ -878,7 +844,7 @@ RAPTOR	CAD	context_precision	15	0.0108
 RAPTOR	CAD	context_recall	15	0
 ```
 
-[표 C-2] 질문 유형별 탐색 분석 [스타일=표제목]
+[표 B-2] 질문 유형별 탐색 분석 [스타일=표제목]
 
 [표삽입: FINALDOCS/TABLES/TABLES_60Q.xlsx | Sheet=Appendix_QueryType | 한글 표로 복사]
 
@@ -944,9 +910,9 @@ simple_qa	CAD	context_precision	14	-0.0337
 simple_qa	CAD	context_recall	14	0
 ```
 
-# 부록 D. Artifact provenance [스타일=부록제목]
+# 부록 C. Artifact provenance [스타일=부록제목]
 
-[표 D-1] 주요 연구 artifact provenance [스타일=표제목]
+[표 C-1] 주요 연구 artifact provenance [스타일=표제목]
 
 [한글 표 복붙용 — 아래 탭 구분 블록 전체 복사 → 한글 `표 > 문자열을 표로` → 구분 문자 `탭`]
 
@@ -961,9 +927,9 @@ extended_validation_questions.json	experiments/data/query_splits/extended_valida
 extended_validation_60_analysis.json	experiments/results/analysis/extended_validation_60_analysis.json	60-query source artifact	50870fc6c48407b22daf32861465accd459bd3972e5a80c58a3bb822d23a8e4d
 ```
 
-# 부록 E. 저장 artifact 점검 절차 [스타일=부록제목]
+# 부록 D. 저장 artifact 점검 절차 [스타일=부록제목]
 
-[표 E-1] 저장 artifact 기반 점검 절차 [스타일=표제목]
+[표 D-1] 저장 artifact 기반 점검 절차 [스타일=표제목]
 
 [한글 표 복붙용 — 아래 탭 구분 블록 전체 복사 → 한글 `표 > 문자열을 표로` → 구분 문자 `탭`]
 

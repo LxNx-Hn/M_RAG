@@ -8,7 +8,6 @@
 - `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 한글 표 변환용 탭 구분 원본
 - `TABLES/TABLES_60Q.xlsx`: 본문과 부록의 17개 표가 들어 있는 단일 workbook
 - `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림
-- `EVIDENCE/UI_REPLAY/`: 실제 저장 artifact를 재현한 여섯 증빙 화면과 원문
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
