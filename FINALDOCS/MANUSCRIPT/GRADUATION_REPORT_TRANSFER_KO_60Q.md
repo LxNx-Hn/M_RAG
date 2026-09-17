@@ -677,6 +677,8 @@ E01은 정상 답변의 기준 형태를 보여주고, E02·E03·E04·E05는 각
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
+HyDE는 세 요인 중 answer relevancy에서 가장 명확한 양의 대응 차이를 보였다. 반면 context precision은 감소하고 context recall의 평균 변화는 없었기 때문에, 본 실험에서 HyDE의 효과는 전체 검색 품질의 일괄적 향상보다 질문 적합성과 retrieval 경로 변화의 관점에서 해석한다.
+
 CAD의 동일 문맥 비교에서는 faithfulness +0.0288, answer relevancy -0.0073이었고 두 신뢰구간은 0을 포함했다. 같은 입력에서 질의별 결과가 다양하게 분포했으며, CAD ON은 no-context branch 계산에 따라 generation duration도 증가했다. 따라서 CAD 분석은 품질 분포와 시간 비용을 함께 사용한다.
 
 SCD는 직접 목표인 출력 언어 유지에서 가장 일관된 결과를 보였다. 240개 대응쌍의 Korean-character ratio는 +0.2289 증가했고, HyDE OFF 동일 문맥 120쌍에서도 +0.2182가 유지되었다. SCD 결과는 output-language control 지표를 중심으로 해석한다. 여덟 configuration의 최고 조건도 faithfulness, answer relevancy, context precision, context recall, Korean ratio에서 서로 달랐으며, configuration 선택은 사용 목적과 허용 지연, 출력 언어 요구에 따라 달라진다.
