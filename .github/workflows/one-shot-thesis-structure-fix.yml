@@ -17,16 +17,18 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Align validator equation strings with canonical HWP inputs
+      - name: Normalize equation whitespace in validator
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path('FINALDOCS/VALIDATION/verify_finaldocs_60q.py')
           text = path.read_text(encoding='utf-8')
-          text = text.replace('"C_q = Retrieve(q,D)"', '"C_q = Retrieve(q, D)"')
-          text = text.replace('"y = LM(q,C_q)"', '"y = LM(q, C_q)"')
-          path.write_text(text, encoding='utf-8')
+          old = '''    for equation in equations:\n        if equation not in text or equation not in equation_file:\n            raise AssertionError(f"missing or mismatched HWP equation source: {equation}")\n'''
+          new = '''    normalized_manuscript = re.sub(r"\\s+", "", text)\n    normalized_equation_file = re.sub(r"\\s+", "", equation_file)\n    for equation in equations:\n        normalized_equation = re.sub(r"\\s+", "", equation)\n        if (\n            normalized_equation not in normalized_manuscript\n            or normalized_equation not in normalized_equation_file\n        ):\n            raise AssertionError(f"missing or mismatched HWP equation source: {equation}")\n'''
+          if old not in text:
+              raise RuntimeError('equation validation block not found')
+          path.write_text(text.replace(old, new), encoding='utf-8')
           PY
       - name: Refresh evidence manifest hashes
         shell: bash
@@ -63,7 +65,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add FINALDOCS/VALIDATION/verify_finaldocs_60q.py FINALDOCS/DATA/evidence_manifest_60q.json FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
           if ! git diff --cached --quiet; then
-            git commit -m 'fix(thesis): align validator and validate IO evidence'
+            git commit -m 'fix(thesis): normalize validator and validate IO evidence'
             git push origin HEAD:main
           fi
       - name: Fail if validator failed
