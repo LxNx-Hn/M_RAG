@@ -1,0 +1,2719 @@
+{
+  "mode": "official_scored_execution",
+  "executed_at": "2026-09-15T19:03:44.456781+00:00",
+  "judge": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "interface": "openai_compatible_chat_completions",
+    "note": "The official judge is an OpenAI-compatible endpoint (openai). Execution requires the key in $OPENAI_API_KEY, installed ragas+datasets+langchain-openai, and an explicitly approved execution phase. The judge model must stay fixed across all scored evaluations."
+  },
+  "embeddings": {
+    "model": "BAAI/bge-m3",
+    "runtime": "local (no API)"
+  },
+  "ragas_version": "0.2.15",
+  "ragas_run_config": {
+    "max_workers": 4,
+    "timeout": 2400,
+    "max_retries": 10,
+    "max_wait": 60,
+    "log_tenacity": true
+  },
+  "metrics": [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall"
+  ],
+  "generation_input": {
+    "path": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\experiments\\results\\evaluation\\ext60_gpt4o\\pass5\\_retry_input.jsonl",
+    "sha256": "5f77b9000564c5cd4fe64d3f1ccf77d5fe27f8b7cd84ac111c0dbae6176daa4a",
+    "byte_size": 288073,
+    "record_count": 7,
+    "symmetric_normalization": {
+      "present_records": 0,
+      "protocol_ids": [],
+      "schema_versions": [],
+      "target_languages": [],
+      "all_selected_conditions_normalized_values": [],
+      "scopes": []
+    }
+  },
+  "query_split": "extended_validation_literal_gt",
+  "dataset_record_count": 328,
+  "scores": {
+    "faithfulness": null,
+    "answer_relevancy": 0.1813,
+    "context_precision": 0.8095,
+    "context_recall": 0.7143
+  },
+  "per_group": {
+    "hyde_off__cad_only": {
+      "n": 2,
+      "faithfulness": null,
+      "answer_relevancy": 0.2543,
+      "context_precision": 0.7084,
+      "context_recall": 0.5
+    },
+    "hyde_off__cad_scd": {
+      "n": 1,
+      "faithfulness": null,
+      "answer_relevancy": 0.3158,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    "hyde_off__no_decoder_control": {
+      "n": 1,
+      "faithfulness": null,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    "hyde_off__scd_only": {
+      "n": 3,
+      "faithfulness": null,
+      "answer_relevancy": 0.1483,
+      "context_precision": 0.75,
+      "context_recall": 0.6667
+    }
+  },
+  "per_sample": [
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_off__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.4167,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": 0.5086,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_off__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.3333,
+      "context_recall": 0.0
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": 0.4449,
+      "context_precision": 0.9167,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": 0.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_off__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": 0.3158,
+      "context_precision": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_off__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_on__no_decoder_control",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_on__cad_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_on__scd_only",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_001",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_002",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_003",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_004",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_005",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_006",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_007",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_008",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_009",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_rag_010",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_001",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_002",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_003",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_004",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_005",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_006",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_007",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_008",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_009",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_010",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_cad_011",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_001",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_002",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_003",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_004",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_005",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_006",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_007",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_008",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    {
+      "query_id": "ext_midm_009",
+      "group": "hyde_on__cad_scd",
+      "faithfulness": null,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    }
+  ],
+  "ragas_used": true,
+  "judge_api_used": true,
+  "openai_used": true,
+  "network_used": true,
+  "gt_regenerated": false,
+  "note": "Scored measurement artifact. Group = tuning profile_id or main config_name. Feeds prepare_parameter_freeze.py.",
+  "aligned_for_merge": {
+    "source": "subset retry pass expanded to previous merged row order",
+    "raw_retry_dataset_record_count": 7,
+    "raw_retry_per_sample_count": 7
+  }
+}

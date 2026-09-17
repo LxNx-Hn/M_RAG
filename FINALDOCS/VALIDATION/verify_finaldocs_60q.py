@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import sys
 import zipfile
@@ -58,6 +59,18 @@ def main() -> int:
     )
     for path in required:
         need(path)
+
+    evidence_manifest = json.loads(
+        (FINAL / "DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
+    )
+    for relative_path, expected_hash in evidence_manifest["sources"].items():
+        source_path = FINAL.parent / Path(relative_path.replace("\\", "/"))
+        need(source_path)
+        actual_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
+        if actual_hash != expected_hash:
+            raise AssertionError(
+                f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"
+            )
     for case in UI_CASES:
         need(FINAL / f"EVIDENCE/UI_REPLAY/{case}.png")
         raw_evidence = FINAL / f"EVIDENCE/UI_REPLAY/raw/{case}.txt"

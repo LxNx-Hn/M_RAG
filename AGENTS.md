@@ -98,7 +98,6 @@ python experiments\runners\run_generation.py --dry-run --plan-only --query-split
 - `docs/ARCHITECTURE.md`: code-level system architecture.
 - `docs/FEATURES.md`: feature list with code evidence.
 - `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: final thesis and HWP-transfer source.
-- `docs/USAGE/DEPLOY.md`: local and deployment usage.
 - `backend/api/`: FastAPI app, routers, auth, database, models.
 - `backend/modules/`: retrieval, reranking, generation, CAD/SCD, follow-up generation, PPT export.
 - `backend/pipelines/`: A-F query pipelines.
