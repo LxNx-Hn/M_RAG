@@ -1,0 +1,74 @@
+name: One-shot thesis structure fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-thesis-structure-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fix figure numbering and fill section 5.7
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md')
+          s = p.read_text(encoding='utf-8')
+
+          s = re.sub(
+              r'(?m)^\[그림 5-[0-9]+\] RAG-Cube 조건별 generation duration\.',
+              '[그림 5-4] RAG-Cube 조건별 generation duration.',
+              s,
+          )
+          s = re.sub(
+              r'(?m)^\[그림 5-[0-9]+\] HyDE·CAD strata별 SCD 적용에 따른 한국어 문자 비율 변화\.',
+              '[그림 5-5] HyDE·CAD strata별 SCD 적용에 따른 한국어 문자 비율 변화.',
+              s,
+          )
+          s = re.sub(
+              r'(?m)^\[그림 5-[0-9]+\] HyDE·CAD strata별 품질 지표 변화\.',
+              '[그림 5-6] HyDE·CAD strata별 품질 지표 변화.',
+              s,
+          )
+
+          empty = '## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]\n\n## 5.8 종합 논의 [스타일=절(1.1)]'
+          filled = '''## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
+
+대표 입출력 분석은 저장된 generation·evaluation artifact의 query ID, 검색 문맥, 생성 답변과 평가 점수를 직접 대조하는 방식으로 수행하였다. HyDE는 retrieved ID와 final context가 달라진 대응쌍을 통해 검색 표현 변화가 최종 답변에 연결되는 과정을 확인했고, CAD는 동일한 retrieved IDs·reranked IDs·contexts를 가진 대응쌍에서 decoding 조건에 따른 답변 차이를 비교하였다. SCD는 동일 query·HyDE·CAD 조건의 ON/OFF 대응쌍에서 답변의 Korean-character ratio 변화를 확인하였다.
+
+이 분석은 정량 통계와 개별 record를 같은 source artifact에 연결한다. HyDE의 경우 answer relevancy 변화와 retrieval provenance를 함께 확인하고, CAD는 same-context 조건과 faithfulness·answer relevancy 차이를 함께 비교하며, SCD는 language-adherence 변화와 실제 생성 문자열을 함께 검토한다. 이를 통해 5.4~5.6절의 평균 결과를 질의 단위의 입력·문맥·답변 변화와 연결해 해석하였다.
+
+## 5.8 종합 논의 [스타일=절(1.1)]'''
+          if empty in s:
+              s = s.replace(empty, filled)
+          else:
+              s = re.sub(
+                  r'## 5\.7 대표 입출력 및 요구사항별 실행 결과 \[스타일=절\(1\.1\)\]\n\s*(?=## 5\.8)',
+                  filled.split('## 5.8')[0],
+                  s,
+              )
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+
+          rm -f .github/workflows/one-shot-thesis-structure-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add FINALDOCS .github/workflows/one-shot-thesis-structure-fix.yml
+          git diff --cached --check
+          git commit -m 'docs(thesis): finalize structure after UI removal'
+          git push origin HEAD:main
