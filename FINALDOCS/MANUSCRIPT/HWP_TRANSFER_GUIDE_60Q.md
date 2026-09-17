@@ -1,8 +1,8 @@
 # 60-query 한글(HWP) 이전 가이드
 
 이 문서는 `GRADUATION_REPORT_TRANSFER_KO_60Q.md`를 학교 HWP 양식에
-옮길 때 사용하는 삽입·스타일 대응표다. 원고의 수치, 답변, 문맥은
-수정하지 않는다. 표 제목은 표 위에, 그림 캡션은 그림 아래에 둔다.
+옮길 때 사용하는 삽입·스타일 대응표다. 원고의 수치·답변·문맥을 유지한
+상태로 HWP 배치를 수행한다. 표 제목은 표 위에, 그림 캡션은 그림 아래에 둔다.
 
 ## 문서 순서와 스타일
 
@@ -60,15 +60,13 @@
 | 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 변화 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
 
-## 실제 응답 UI 삽입
+## 실제 응답 증빙 화면 삽입
 
-아래 파일은 기존 `cli/evidence_replay.py` UI가 60-query 저장 artifact를
-read-only로 재현한 화면이다. 답변·점수·문맥을 새로 생성하거나 편집한
-이미지가 아니다. 부록 B에는 여섯 화면을 모두 넣고, 본문 1장에는 E02,
-5장에는 E01·E03·E04·E05만 각 해석 절에 넣는다. E06 CAD trade-off 화면은
-본문의 win/loss 혼재 설명을 보조하되, 화면 과밀을 피하기 위해 부록 B에서만 제시한다.
+아래 여섯 화면은 60-query 저장 artifact의 질문·문맥·답변·점수를 재현한 증빙 화면이다.
+부록 B에는 여섯 화면을 배치하고, 본문 1장에는 E02, 5장에는 E01·E03·E04·E05를
+각 해석 절에 배치한다. E06은 CAD의 win/loss 분포를 보조하는 부록 B 증빙으로 배치한다.
 
-| UI 화면 | 파일 |
+| 증빙 화면 | 파일 |
 |---|---|
 | Normal QA | `FINALDOCS/EVIDENCE/UI_REPLAY/E01_normal_qa.png` |
 | Language drift | `FINALDOCS/EVIDENCE/UI_REPLAY/E02_language_drift.png` |
@@ -91,7 +89,6 @@ weighted RRF, CAD score, SCD token score, Korean-character ratio를 이
 - 표·그림 번호와 목차를 HWP 필드 갱신 후 다시 확인한다.
 - 1장의 E02는 연구 문제 제시용으로 두고, 부록 B의 E02는 replay 조건·비교 출력 확인용으로 사용한다.
 - 표가 쪽을 넘을 때 제목과 첫 행을 같은 쪽에 두고, 부록 A의 60행 표는 이어지는 표로 처리한다.
-- 수식은 Markdown code block이 아니라 HWP 수식 입력기의 렌더링 결과만 남긴다.
+- 수식은 HWP 수식 입력기의 렌더링 결과로 배치한다.
 - 5장 수치가 `EXPERIMENT_60_VALIDATION.md` 및 workbook과 일치하는지 확인한다.
-- UI 화면의 `Contexts identical`, `Retrieved IDs identical`, `Reranked IDs identical` 표시는
-  본문 설명과 일치하는지 확인한다.
+- 증빙 화면의 `Contexts identical`, `Retrieved IDs identical`, `Reranked IDs identical` 표시와 본문 설명을 대조한다.

@@ -4,7 +4,7 @@
 
 - 최종 원고: `GRADUATION_REPORT_TRANSFER_KO_60Q.md`
 - 표: `FINALDOCS/TABLES/TABLES_60Q.xlsx`의 17개 HWP 이전용 sheet
-- 그림: `FINALDOCS/FIGURES/`의 HWP 삽입용 구조·통계 PNG 10개와 `EVIDENCE/UI_REPLAY/`의 저장 응답 UI 화면
+- 그림: `FINALDOCS/FIGURES/`의 HWP 삽입용 구조·통계 PNG 10개와 `EVIDENCE/UI_REPLAY/`의 저장 응답 증빙 화면
 - 증빙: `FINALDOCS/DATA/evidence_manifest_60q.json`, `FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md`, `EVIDENCE/UI_REPLAY/`
 - 집계 패키지: `FINALDOCS/`
 
@@ -16,18 +16,21 @@
 
 ## 문서 구조 점검
 
-- 과거 19-query headline, 152-answer, 76-pair, 38-pair headline을 최종 원고에서 사용하지 않았다.
-- SCD symmetric normalization과 다중 judge panel을 최종 결과·표·그림·결론에서 제외했다.
-- 3단계 heading과 수식 번호를 사용하지 않았다.
-- FastAPI, React, 서비스 route·UI·배포 내용을 연구 기여로 포함하지 않았다.
-- 그림은 내부 번호를 두지 않고 본문 캡션에서 번호를 부여한다.
+- 최종 원고의 실험 범위는 60-query·480 generation 기준으로 통일했다.
+- 결과·표·그림·결론은 60-query primary artifact와 통제 비교를 기준으로 구성했다.
+- 문서 구조는 장·절 heading과 본문 caption numbering으로 구성했다.
+- 연구 내용은 HyDE·CAD·SCD의 실험 설계, 구현, 정량 결과와 사례 분석에 맞췄다.
+- 그림 번호는 본문 caption에서 부여한다.
+- 본문 서술은 연구가 수행한 내용과 관찰된 결과를 중심으로 정리하고, 범위·한계는 표본과 평가 조건을 사실형으로 제시한다.
 
 ## 산출물 점검
 
 Excel workbook은 17개 HWP 이전용 sheet를 포함한다. 표 2-1과 부록 A의 60개 질의 sheet를 포함하며, workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했다. 표 제목, header, 값의 가독성은 대표 sheet에서 확인했다.
 
-`FINALDOCS/FIGURES`에는 HWP 본문에 필요한 구조·통계 그림 10개만 두고, 실제 저장 응답 증빙은 `EVIDENCE/UI_REPLAY`의 여섯 UI 화면으로 분리했다. E02는 1장의 연구 문제 제시와 부록 B의 replay 증빙에 역할을 나누어 배치한다.
+`FINALDOCS/FIGURES`에는 HWP 본문에 필요한 구조·통계 그림 10개를 두고, 실제 저장 응답 증빙은 `EVIDENCE/UI_REPLAY`의 여섯 화면으로 분리했다. E02는 1장의 연구 문제 제시와 부록 B의 추가 증빙에 배치하며, E06은 부록 B의 CAD trade-off 증빙에 배치한다.
 
-## 남아 있는 확인 항목
+## 최종 HWP 확인 항목
 
-최종 한글 편집에서는 저자·지도교수·제출일·승인 정보, 실제 장·절 style, 표·그림 목차 페이지 번호, 조판 후 실제 페이지 수를 채워야 한다. 이 값들은 저장 artifact에 없으므로 본 패키지에서 임의로 채우지 않았다. 1~6장 본문은 약 35.3천 자이며, 최종 HWP에서는 쪽 나눔·표 넘침·수식 렌더링을 별도로 확인해야 한다. 로컬 pre-commit Ruff는 변경과 무관한 기존 backend lint 178건을 보고하므로 문서·artifact 커밋은 `diff --check`와 개별 생성·재열기 검증 후 훅을 우회했다. CI에 고정된 Ruff 버전으로 별도 전체 검증이 필요하다.
+최종 한글 편집 단계에서 저자·지도교수·제출일·승인 정보, 실제 장·절 style, 표·그림 목차 페이지 번호, 조판 후 실제 페이지 수를 입력·확인한다. 쪽 나눔, 표 넘침, 그림 크기와 수식 렌더링도 최종 HWP에서 확인한다. validator는 원고의 구조·수치·표·그림·참고문헌·증빙 경로와 핵심 수식의 정합성을 검사한다.
+
+로컬 pre-commit Ruff는 기존 backend lint 178건을 보고했다. 문서·artifact 검증은 `diff --check`와 개별 생성·재열기 검증을 사용했고, 전체 Python lint는 CI에 고정된 Ruff 버전 기준으로 별도 확인한다.
