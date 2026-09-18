@@ -8,6 +8,7 @@
 - `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17개 workbook 표 대응표와 부록 C·D 탭 구분 원본
 - `TABLES/TABLES_60Q.xlsx`: 본문 및 부록용 17개 workbook sheet
 - `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림
+- `FIGURES/LITERATURE/`: 이론적 배경에 삽입할 선행연구 인용 그림 6개
 - `EVIDENCE/IO_CASES/`: 저장된 60-query artifact의 E01~E06 실제 입출력 PNG와 대응 raw TXT
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
