@@ -840,11 +840,11 @@ track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길
 track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	decoder_ablation	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
 ```
 
-# 부록 B. 대표 입출력 증빙 및 추가 정량 분석 [스타일=부록제목]
+# 부록 B. 대표 입출력 사례 및 추가 정량 분석 [스타일=부록제목]
 
-## B.1 저장 artifact 기반 대표 입출력 증빙 [스타일=절(1.1)]
+## B.1 대표 입출력 사례 [스타일=절(1.1)]
 
-E01~E06은 최종 60-query 저장 artifact에서 선택한 실제 질문·검색 근거·생성 출력의 재현 자료다. 각 PNG와 같은 이름의 `raw/*.txt`는 동일 내용을 텍스트로 보존하며 query ID, configuration, retrieved/reranked IDs, context, generated answer와 저장 평가값을 추적할 수 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
+E01~E06은 최종 60-query의 실제 질문, 검색 근거, 생성 답변과 평가값을 제시한다. 각 PNG와 같은 이름의 `raw/*.txt`에는 query ID, configuration, retrieved/reranked IDs, contexts, generated answer와 평가값이 동일한 내용으로 기록되어 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
 [입출력 사례 E01] 정상 QA 사례 — ext_raptor_011
