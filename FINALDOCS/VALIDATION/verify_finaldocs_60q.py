@@ -115,6 +115,49 @@ def main() -> int:
     if len(body) < 30000:
         raise AssertionError(f"body is too short after substantive edit: {len(body)} chars")
 
+    # Content-regression checks for the current 60-query thesis narrative.
+    if "한국어 질의 기반 영어 학술·기술 문서 RAG에서 HyDE·CAD·SCD 조합 실험" not in text:
+        raise AssertionError("thesis title must match the academic/technical-document study scope")
+
+    section_54 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("## 5.5 CAD 결과 및 해석", 1)[0]
+    for marker in (
+        "ext_midm_004",
+        "interaction structure",
+        "topic and task",
+        "persona",
+        "0.0000에서 0.8531",
+    ):
+        if marker not in section_54:
+            raise AssertionError(f"E04 current-case marker missing from section 5.4: {marker}")
+    stale_e04 = ("GMM", "soft clustering", "BIC")
+    if found := [term for term in stale_e04 if term in section_54]:
+        raise AssertionError(f"stale E04 RAPTOR case prose remains in section 5.4: {found}")
+
+    section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[0]
+    for marker in (
+        "context precision과 context recall은 동일 retrieval 입력에 대해 계산된 저장 평가값의 변동으로 함께 제시한다",
+        "CAD의 generation-side 결과는 faithfulness, answer relevancy와 generation duration을 중심으로 분석한다",
+    ):
+        if marker not in section_55:
+            raise AssertionError(f"CAD interpretation contract missing from section 5.5: {marker}")
+
+    section_56 = text.split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[1].split("## 5.7 대표 입출력 및 요구사항별 실행 결과", 1)[0]
+    for marker in (
+        "ext_midm_005",
+        "H1C0S0과 H1C0S1",
+        "H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511",
+        "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
+    ):
+        if marker not in section_56:
+            raise AssertionError(f"SCD current-analysis marker missing from section 5.6: {marker}")
+    stale_e03 = "이 사례는 HyDE OFF 동일 문맥 120쌍의 평균 +0.2182"
+    if stale_e03 in section_56:
+        raise AssertionError("E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset")
+
+    scd_design_row = "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율"
+    if scd_design_row not in text:
+        raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
+
     for marker in (
         "60개",
         "480개",
@@ -246,6 +289,18 @@ def main() -> int:
         raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
     if "docs/PAPER/" in shared_strings or "generated/" in shared_strings:
         raise AssertionError("workbook contains stale source metadata")
+    for marker in (
+        "HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍",
+        "105 / 6 / 9",
+    ):
+        if marker not in shared_strings:
+            raise AssertionError(f"workbook thesis table content is stale: missing {marker}")
+    for stale in (
+        "동일 query·HyDE·CAD의 240 ON/OFF쌍",
+        "분석 artifact 참조",
+    ):
+        if stale in shared_strings:
+            raise AssertionError(f"workbook thesis table content is stale: {stale}")
     if len(re.findall(r"<x:row", query_rows)) != 63:
         raise AssertionError(
             "Appendix_Queries must contain its title, source, header, and 60 query rows"
@@ -333,6 +388,12 @@ def main() -> int:
     table_copy = (FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt").read_text(
         encoding="utf-8"
     )
+    for marker in (
+        "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율",
+        "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
+    ):
+        if marker not in table_copy:
+            raise AssertionError(f"HWP copy table content is stale: missing {marker}")
     table_copy_blocks = re.findall(r"(?m)^\[표\s+C-[0-9]+\]", table_copy)
     if len(table_copy_blocks) != 1:
         raise AssertionError(
