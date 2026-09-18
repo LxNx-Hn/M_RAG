@@ -117,7 +117,7 @@ def main() -> int:
         raise AssertionError(f"body is too short after substantive edit: {len(body)} chars")
 
     # Content-regression checks for the current 60-query thesis narrative.
-    if "한국어 질의 기반 영어 학술·기술 문서 RAG에서 HyDE·CAD·SCD 조합 실험" not in text:
+    if "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험" not in text:
         raise AssertionError("thesis title must match the academic/technical-document study scope")
 
     section_54 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("## 5.5 CAD 결과 및 해석", 1)[0]
@@ -136,8 +136,8 @@ def main() -> int:
 
     section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[0]
     for marker in (
-        "context precision은 8/60쌍, context recall은 1/60쌍에서 evaluator 값 차이가 기록되어 evaluator 변동 진단값으로 분리하였다",
-        "CAD의 generation-side 결과는 faithfulness, answer relevancy와 generation duration을 중심으로 분석한다",
+        "context precision은 8/60쌍, context recall은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다",
+        "CAD의 생성 단계 결과는 faithfulness, answer relevancy와 생성 시간을 중심으로 분석한다",
     ):
         if marker not in section_55:
             raise AssertionError(f"CAD interpretation contract missing from section 5.5: {marker}")
@@ -155,13 +155,16 @@ def main() -> int:
     if stale_e03 in section_56:
         raise AssertionError("E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset")
 
-    scd_design_row = "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율"
+    scd_design_row = "SCD\t출력 토큰 logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율"
     if scd_design_row not in text:
         raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
 
     for marker in (
-        "60개 질의 전체가 한국어 질의–영어 문서 검색의 동일한 cross-lingual 조건을 공유한다",
+        "60개 질의 전체가 한국어 질의–영어 문서 검색이라는 동일한 교차언어 조건을 공유한다",
         "사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개",
+        "연구자가 문서별 3개의 초기 질문을 직접 작성하였다",
+        "LLM을 이용해 각 문서의 주요 내용을 유사한 질문 관점에서 활용할 수 있도록 요약하였다",
+        "최종 60개 질의는 모두 원문 근거가 확인된 답변 가능 질의로 구성하였다",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
         "공백 분리 기준 최대 512개 단어",
@@ -169,8 +172,8 @@ def main() -> int:
         "ContextCompressor",
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
         "H0S0 -0.0073, H1S0 -0.0588",
-        "HyDE ON 조건은 각 configuration에서 temperature=0.1, top_p=0.9 sampling으로 hypothetical document를 독립 생성한다",
-        "그림 5-6은 이 실행 구조에서 관측된 조건별 기술적 변화 패턴을 제시",
+        "HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성한다",
+        "그림 5-6은 각 조건에서 측정된 대응 차이를 제시",
     ):
         if marker not in text:
             raise AssertionError(f"current thesis-method marker missing: {marker}")
@@ -254,7 +257,7 @@ def main() -> int:
         "5.9 연구의 한계",
         "6.1 연구 질문별 최종 답",
         "6.2 실험 설계가 제공한 의미",
-        "6.3 적용 시 configuration 선택",
+        "6.3 적용 시 실험 조건 선택",
         "6.4 제한점과 후속 연구",
         "부록 A~B",
     )
@@ -343,7 +346,7 @@ def main() -> int:
     if "docs/PAPER/" in workbook_text or "generated/" in workbook_text:
         raise AssertionError("workbook contains stale source metadata")
     for marker in (
-        "HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍",
+        "HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍",
         "105 / 6 / 9",
         "사실·정의",
         "방법·절차",
@@ -353,7 +356,8 @@ def main() -> int:
         "공백 분리 기준 최대 512개 단어",
         "SCD OFF — 영어 검색 문맥 평가",
         "SCD ON — 한국어 변환 평가 문맥",
-        "evaluator 값 차이: context precision 8/60쌍, context recall 1/60쌍",
+        "한국어 문자 비율",
+        "생성 기록 기준 값",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
     ):
         if marker not in workbook_text:
@@ -439,7 +443,7 @@ def main() -> int:
     chapter5 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("# 6. 결론", 1)[0]
     if "[입출력 사례 E06]" in chapter5:
         raise AssertionError("E06 trade-off evidence must remain appendix-only")
-    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):
+    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 실험 조건 선택")):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:
             raise AssertionError(f"substantive section is empty/too short: {section_name}")
@@ -468,13 +472,14 @@ def main() -> int:
         encoding="utf-8"
     )
     for marker in (
-        "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율",
+        "SCD\t출력 토큰 logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
         "방법·절차\tHyDE\tanswer_relevancy\t29\t0.1719",
         "사실·정의\tCAD\tfaithfulness\t8\t0.0005",
         "공백 분리 기준 최대 512개 단어",
         "SCD OFF — 영어 검색 문맥 평가",
         "SCD ON — 한국어 변환 평가 문맥",
+        "한국어 문자 비율 평균 변화",
     ):
         if marker not in table_copy:
             raise AssertionError(f"HWP copy table content is stale: missing {marker}")
