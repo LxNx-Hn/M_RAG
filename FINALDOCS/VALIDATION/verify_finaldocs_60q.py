@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 FINAL = Path(__file__).resolve().parents[1]
@@ -311,7 +312,14 @@ def main() -> int:
     ):
         if stale in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: {stale}")
-    if len(re.findall(r"<x:row", query_rows)) != 63:
+    query_root = ET.fromstring(query_rows)
+    nonempty_query_rows = [
+        row
+        for row in query_root.iter()
+        if row.tag.rsplit("}", 1)[-1] == "row"
+        and any(child.tag.rsplit("}", 1)[-1] == "c" for child in row)
+    ]
+    if len(nonempty_query_rows) != 63:
         raise AssertionError(
             "Appendix_Queries must contain its title, source, header, and 60 query rows"
         )
