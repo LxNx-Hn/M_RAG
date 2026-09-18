@@ -2,12 +2,13 @@ RAG 기본 흐름
 C_q = Retrieve(q, D)
 y = LM(q, C_q)
 
-Weighted Reciprocal Rank Fusion
+Weighted Reciprocal Rank Fusion (k = 60)
 RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}
 
 CAD decoding
 z_CAD = (1 + alpha) z_ctx - alpha z_noctx
 
+SCD token score (generated token count < 5: original score 유지; count >= 5부터 아래 규칙 적용)
 SCD target-language token score
 tilde z_i = alpha z_i
 
