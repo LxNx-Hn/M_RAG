@@ -13,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Find CAD same-context positive candidates
+      - name: Summarize CAD same-context candidates
         shell: bash
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-
           root=Path('.')
           gen_paths=[
             root/'experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl',
@@ -29,52 +28,24 @@ jobs:
             root/'experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json',
             root/'experiments/results/evaluation/ext60_gpt4o/merged.ragas_scores.json',
           ]
-          query_paths=[
-            root/'experiments/data/query_splits/decoder_main_queries.json',
-            root/'experiments/data/query_splits/extended_validation_questions.json',
-          ]
-          rows=[]
-          for p in gen_paths:
-            rows += [json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
-          scores=[]
-          for p in score_paths:
-            scores += json.loads(p.read_text(encoding='utf-8'))['per_sample']
+          rows=[json.loads(x) for p in gen_paths for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          scores=[r for p in score_paths for r in json.loads(p.read_text(encoding='utf-8'))['per_sample']]
           rec={(r['query_id'],r['config_name']):r for r in rows}
           sc={(r['query_id'],r['group']):r for r in scores}
-          qmap={}
-          for p in query_paths:
-            data=json.loads(p.read_text(encoding='utf-8'))
-            items=data if isinstance(data,list) else data.get('queries', data.get('items', []))
-            for q in items:
-              if isinstance(q,dict) and 'query_id' in q: qmap[q['query_id']]=q
-
-          a='hyde_off__no_decoder_control'
-          b='hyde_off__cad_only'
+          a='hyde_off__no_decoder_control'; b='hyde_off__cad_only'
           cand=[]
-          for qid in sorted({q for q,c in rec if c==a} & {q for q,c in rec if c==b}):
+          for qid in sorted({q for q,c in rec if c==a}&{q for q,c in rec if c==b}):
             ra,rb=rec[(qid,a)],rec[(qid,b)]
-            if (ra.get('contexts') or []) != (rb.get('contexts') or []): continue
-            if (ra.get('retrieved_chunk_ids') or []) != (rb.get('retrieved_chunk_ids') or []): continue
-            if (ra.get('reranked_chunk_ids') or []) != (rb.get('reranked_chunk_ids') or []): continue
+            if (ra.get('contexts') or [])!=(rb.get('contexts') or []): continue
+            if (ra.get('retrieved_chunk_ids') or [])!=(rb.get('retrieved_chunk_ids') or []): continue
+            if (ra.get('reranked_chunk_ids') or [])!=(rb.get('reranked_chunk_ids') or []): continue
             sa,sb=sc.get((qid,a),{}),sc.get((qid,b),{})
-            fa,fb=sa.get('faithfulness'),sb.get('faithfulness')
-            aa,ab=sa.get('answer_relevancy'),sb.get('answer_relevancy')
-            if None in (fa,fb,aa,ab): continue
-            d_f=fb-fa; d_a=ab-aa
-            # Favor cases where CAD improves both faithfulness and answer relevance,
-            # while still printing enough alternatives for human inspection.
-            rank=(d_f>0, d_a>0, min(fb,ab), d_f+d_a)
-            cand.append((rank,qid,d_f,d_a,fa,fb,aa,ab,ra,rb,qmap.get(qid,{})))
+            vals=[sa.get('faithfulness'),sb.get('faithfulness'),sa.get('answer_relevancy'),sb.get('answer_relevancy')]
+            if any(v is None for v in vals): continue
+            fa,fb,aa,ab=vals
+            rank=(fb>fa,ab>aa,min(fb,ab),fb-fa+ab-aa)
+            cand.append((rank,qid,ra['paper'],fa,fb,aa,ab,ra['query']))
           cand.sort(reverse=True,key=lambda x:x[0])
-
-          for i,row in enumerate(cand[:15],1):
-            _,qid,df,da,fa,fb,aa,ab,ra,rb,q=row
-            gt=q.get('answer_span') or q.get('reference_answer') or q.get('ground_truth') or ''
-            print('\n'+'='*100)
-            print(f'#{i} {qid} paper={ra.get("paper")}')
-            print(f'faithfulness {fa:.4f}->{fb:.4f} delta={df:+.4f}; answer_relevancy {aa:.4f}->{ab:.4f} delta={da:+.4f}')
-            print('QUESTION:', ra.get('query',''))
-            print('GT:', gt)
-            print('OFF:', (ra.get('generated_answer') or '')[:1800].replace('\n',' '))
-            print('ON :', (rb.get('generated_answer') or '')[:1800].replace('\n',' '))
+          for i,(_,qid,paper,fa,fb,aa,ab,q) in enumerate(cand[:20],1):
+            print(f'{i:02d}\t{qid}\t{paper}\tfaith={fa:.4f}->{fb:.4f} ({fb-fa:+.4f})\trel={aa:.4f}->{ab:.4f} ({ab-aa:+.4f})\t{q}')
           PY
