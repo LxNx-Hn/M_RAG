@@ -66,7 +66,7 @@ def tsv_table_html(lines: list[str]) -> str:
 def cover_html() -> str:
     return """<div class="cover">
 <h1>졸업자격실험보고서</h1>
-<h2>한국어 질의 기반 영어 학술문서 RAG에서의 HyDE·CAD·SCD 조합 실험</h2>
+<h2>한국어 질의 기반 영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험</h2>
 <p>지도교수 김진석</p><p>컴퓨터공학과</p><p>동국대학교 WISE캠퍼스</p><p>문종건</p><p>2026</p>
 </div>
 <div class="approval">
