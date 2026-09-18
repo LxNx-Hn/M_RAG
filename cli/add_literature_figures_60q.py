@@ -49,7 +49,7 @@ SOURCES = {
     "fig2_5_scd_language_drift_original.png": {
         "url": "https://arxiv.org/pdf/2511.09984",
         "page": 0,
-        "clip": (0.479, 0.274, 0.989, 0.499),
+        "clip": (0.479, 0.274, 0.989, 0.486),
         "source": "Li et al. [4], Figure 1",
     },
     "fig2_6_ragas_faithfulness_original.png": {
