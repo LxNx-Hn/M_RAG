@@ -159,7 +159,7 @@ Lewis et al.[1]은 사전학습 retriever가 외부 document index에서 관련 
 
 [그림 2-1] RAG의 retriever–generator 구조. Lewis et al.[1]의 Figure 1을 인용함. [스타일=그림제목]
 
-본 연구는 이러한 구분을 결과 기록에도 유지한다. retrieval과 reranking의 chunk ID, 최종 contexts를 답변과 함께 저장하고, context-level 지표와 answer-level 지표를 별도로 해석한다. 이 기록 구조는 검색 결과와 답변 품질을 서로 다른 단계에서 확인할 수 있게 한다.
+본 연구는 retrieval과 reranking의 chunk ID, 최종 contexts를 답변과 함께 저장하고, context-level 지표와 answer-level 지표를 별도로 계산한다. 검색 단계와 답변 단계의 결과를 각각의 지표로 제시한다.
 
 [한글 수식 입력기 복붙용 — 최종 HWP에는 렌더링된 수식만 남김]
 
@@ -306,14 +306,14 @@ Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 
 Hypothetical-document retrieval	HyDE[2]	H1/H0 end-to-end 대응 비교와 retrieved ID 확인	가상 문서는 검색 표현으로 사용
 Contrastive decoding	CAD[3], contrastive decoding[13]	같은 input에서 C1/C0 paired 비교	CAD alpha=0.5 고정 조건
 Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	네 품질 지표와 artifact 기반 provenance 확인	자동 평가와 저장 artifact를 함께 사용
+RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context precision·context recall 평가	자동 평가 지표와 paired comparison에 사용
 ```
 
 # 3. 시스템 설계 [스타일=장(1.)]
 
 ## 3.1 연구 및 실험 요구사항 [스타일=절(1.1)]
 
-설계는 실험 변인의 통제와 결과 추적 가능성을 중심으로 구성하였다. 첫째, 각 query ID는 하나의 대상 문서와 고정 연결되어야 한다. 둘째, 60개 질의에 여덟 configuration이 빠짐없이 실행되어 동일 질문을 조건별로 비교할 수 있어야 한다. 셋째, H·C·S 이외의 검색·생성 backbone은 모든 조건에서 동일해야 한다. 넷째, answer와 함께 retrieved·reranked chunk ID, contexts, decoding metadata와 실행 시간을 저장해야 한다. 마지막으로 본문 수치와 사례가 source artifact로 다시 연결되어야 한다.
+설계는 세 요인의 비교 조건을 모든 60개 질의에 동일하게 적용하도록 구성하였다. 각 query ID는 하나의 대상 문서와 연결하고, 모든 질의에 여덟 configuration을 적용한다. H·C·S 이외의 검색·생성 backbone은 모든 조건에서 동일하게 유지한다. Generation record에는 answer와 함께 retrieved·reranked chunk ID, contexts, decoding metadata와 실행 시간을 저장한다. Query data에는 source page와 answer span을 함께 기록한다.
 
 [표 3-1] 연구 및 실험 요구사항 [스타일=표제목]
 
@@ -327,7 +327,7 @@ RAG evaluation	RAGAS[9], RAG survey[19]	네 품질 지표와 artifact 기반 pro
 실험 요인	HyDE·CAD·SCD ON/OFF	2×2×2, 8개 조건
 생성 기록	조건별 저장 record	480개, 조건별 60개
 출력 언어	한국어 문자 비율	SCD ON/OFF 240개 대응쌍
-추적성	source hash와 generation record	검증 보고서에 기록
+자료 식별	query ID, config_name, source page, answer span	60개 query metadata와 480개 generation record
 ```
 
 ## 3.2 아키텍처 설계 [스타일=절(1.1)]
@@ -622,7 +622,7 @@ SCD의 직접 목적은 영어 근거 문맥에서 한국어 출력 언어를 �
 
 strata별 평균은 configuration 내 SCD ON/OFF 변화를 요약한다. SCD ON 답변에서도 영어 논문 제목, 모델명, 데이터셋명, 수식 기호가 자연스럽게 남을 수 있으며, Korean-character ratio는 한글 문자와 ASCII 영문자 비율을 통해 이러한 혼합 표기를 포함한 실제 답변의 언어 성향을 반영한다.
 
-기존 연구에서 보고된 language drift는 본 실험의 저장 record에서도 관찰되었다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 질문, 검색 근거, 생성 답변과 저장 평가값을 같은 record에서 확인할 수 있어 2.5절의 선행연구 현상이 본 실험 환경에서도 나타난 실제 입출력 사례로 사용한다.
+기존 연구에서 보고된 language drift는 본 실험의 저장 record에서도 관찰되었다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 같은 record에는 질문, 검색 근거, 생성 답변과 평가값이 함께 기록되어 있으며 Korean-character ratio는 0.0000이다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
 
@@ -672,7 +672,7 @@ E01의 ext_raptor_011 H0C0S0 record는 faithfulness 1.0000, answer relevancy 0.9
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E01] 정상 QA 저장 입출력 사례
+[입출력 사례 E01] 기본 질문·검색·답변·평가 사례
 
 E02는 SCD OFF의 language drift, E03은 SCD의 output-language control, E04는 HyDE의 retrieval 변화, E05는 CAD 동일 문맥의 faithfulness 변화, E06은 CAD의 반대 방향 trade-off를 제시한다. E01~E06은 각 결과 절의 정량값과 개별 입출력을 같은 query·configuration 단위로 연결한다.
 
@@ -686,7 +686,7 @@ SCD는 출력 언어 유지에서 일관된 변화를 보였다. HyDE OFF 동일
 
 configuration 평균과 primary contrast는 서로 다른 역할을 가진다. 표 5-2의 평균은 각 조합의 기술통계를 보여주고, 표 5-3과 표 5-4의 primary contrast는 다른 요인을 고정한 상태에서 특정 요인의 ON/OFF 차이를 보여준다. H1C1S0의 faithfulness 평균과 H1C0S0의 answer relevancy 평균은 configuration 수준의 결과이며, HyDE·CAD paired contrast는 요인 수준의 결과다. 이 구분을 바탕으로 configuration은 목표 지표에 따라 선택한다.
 
-문서별·질문유형별 부록 분석은 평균 아래의 차이를 탐색하는 용도다. 각 문서에 15개 질의가 배정되어 문서 단위의 방향을 확인할 수 있고, 질문 유형별 하위 집단은 후속 실험 가설을 구성하는 탐색 분석으로 사용한다. 본 연구가 제공하는 적용 기준은 질문 적합성이 중요할 때 HyDE의 answer relevancy와 검색 변화 사례를, 고정 근거의 생성 반영이 중요할 때 CAD의 same-context 결과와 시간을, 한국어 응답 유지가 중요할 때 SCD의 language ratio와 실제 답변을 함께 확인하는 방식이다.
+문서별·질문유형별 부록 분석은 configuration 평균 아래의 하위집단 분포를 제시한다. 각 문서에는 15개 질의가 배정되어 문서 단위 결과를 같은 표본 수로 비교한다. 질문 유형별 하위집단은 후속 실험 가설을 구성하는 탐색 분석으로 사용한다. 적용 기준은 HyDE의 answer relevancy와 검색 문맥 변화, CAD의 same-context 품질 분포와 generation duration, SCD의 Korean-character ratio와 출력 사례를 각각 사용한다.
 
 [그림삽입: FINALDOCS/FIGURES/fig5_9_hyde_cad_strata.png | 권장폭=본문폭 90% | 정렬=가운데]
 
@@ -847,7 +847,7 @@ track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합
 E01~E06은 최종 60-query의 실제 질문, 검색 근거, 생성 답변과 평가값을 제시한다. 각 PNG와 같은 이름의 `raw/*.txt`에는 query ID, configuration, retrieved/reranked IDs, contexts, generated answer와 평가값이 동일한 내용으로 기록되어 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E01] 정상 QA 사례 — ext_raptor_011
+[입출력 사례 E01] 기본 질문·검색·답변·평가 사례 — ext_raptor_011
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
 [입출력 사례 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
