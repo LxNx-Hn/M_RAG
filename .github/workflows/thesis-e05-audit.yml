@@ -1,4 +1,4 @@
-name: Thesis E05 Audit
+name: Thesis Finalize
 
 on:
   push:
@@ -6,46 +6,29 @@ on:
       - '.github/workflows/thesis-e05-audit.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  audit:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Summarize CAD same-context candidates
-        shell: bash
+      - name: Install Korean figure font
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          root=Path('.')
-          gen_paths=[
-            root/'experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl',
-            root/'experiments/results/extended_validation/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl',
-          ]
-          score_paths=[
-            root/'experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json',
-            root/'experiments/results/evaluation/ext60_gpt4o/merged.ragas_scores.json',
-          ]
-          rows=[json.loads(x) for p in gen_paths for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
-          scores=[r for p in score_paths for r in json.loads(p.read_text(encoding='utf-8'))['per_sample']]
-          rec={(r['query_id'],r['config_name']):r for r in rows}
-          sc={(r['query_id'],r['group']):r for r in scores}
-          a='hyde_off__no_decoder_control'; b='hyde_off__cad_only'
-          cand=[]
-          for qid in sorted({q for q,c in rec if c==a}&{q for q,c in rec if c==b}):
-            ra,rb=rec[(qid,a)],rec[(qid,b)]
-            if (ra.get('contexts') or [])!=(rb.get('contexts') or []): continue
-            if (ra.get('retrieved_chunk_ids') or [])!=(rb.get('retrieved_chunk_ids') or []): continue
-            if (ra.get('reranked_chunk_ids') or [])!=(rb.get('reranked_chunk_ids') or []): continue
-            sa,sb=sc.get((qid,a),{}),sc.get((qid,b),{})
-            vals=[sa.get('faithfulness'),sb.get('faithfulness'),sa.get('answer_relevancy'),sb.get('answer_relevancy')]
-            if any(v is None for v in vals): continue
-            fa,fb,aa,ab=vals
-            rank=(fb>fa,ab>aa,min(fb,ab),fb-fa+ab-aa)
-            cand.append((rank,qid,ra['paper'],fa,fb,aa,ab,ra['query']))
-          cand.sort(reverse=True,key=lambda x:x[0])
-          for i,(_,qid,paper,fa,fb,aa,ab,q) in enumerate(cand[:20],1):
-            print(f'{i:02d}\t{qid}\t{paper}\tfaith={fa:.4f}->{fb:.4f} ({fb-fa:+.4f})\trel={aa:.4f}->{ab:.4f} ({ab-aa:+.4f})\t{q}')
-          PY
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
+      - name: Regenerate stored input output evidence
+        run: python -X utf8 cli/render_evidence_figures.py --output-dir FINALDOCS/EVIDENCE/IO_CASES
+      - name: Validate final thesis package
+        run: |
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          git diff --check
+      - name: Commit generated evidence
+        run: |
+          git config user.name "KiKi"
+          git config user.email "51896910+LxNx-Hn@users.noreply.github.com"
+          git add FINALDOCS/EVIDENCE/IO_CASES FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(thesis): regenerate final evidence"
+            git push
+          fi
