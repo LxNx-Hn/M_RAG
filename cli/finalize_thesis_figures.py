@@ -135,58 +135,72 @@ def render_project_figures() -> None:
     fig, ax = plt.subplots(figsize=(16,7), dpi=160)
     ax.set_xlim(0,1); ax.set_ylim(0,1); ax.axis("off")
     labels=[
-        ("Generation\nrecords","#2f6df6","#f5f7ff"),
-        ("RAGAS +\nlanguage metrics","#23866f","#f2faf7"),
-        ("Paired analysis +\nbootstrap CI","0.55","#f7f8fa"),
-        ("Tables · figures\n· manuscript","#cc6400","#fff7f0"),
+        ("생성 기록","#2f6df6","#f5f7ff"),
+        ("RAGAS +\n언어 지표","#23866f","#f2faf7"),
+        ("대응 분석 +\n부트스트랩 CI","0.55","#f7f8fa"),
+        ("표 · 그림\n· 논문","#cc6400","#fff7f0"),
     ]
     xs=[.05,.285,.52,.755]
     for x,(lab,edge,face) in zip(xs,labels):
         box(ax,(x,.48),(.17,.20),lab,edge=edge,face=face,fs=15)
     for x in [.22,.455,.69]:
         arrow(ax,(x,.58),(x+.065,.58))
-    ax.text(.5,.29,"query ID · configuration · retrieved/reranked IDs · contexts · answer · duration",ha="center",fontsize=13)
+    ax.text(.5,.29,"질의 ID · 실험 조건 · 검색/재정렬 ID · 검색 문맥 · 생성 답변 · 생성 시간",ha="center",fontsize=13)
     fig.savefig(FIG/"fig4_2_artifact_flow.png", bbox_inches="tight", pad_inches=.12)
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(16,7), dpi=160)
     ax.set_xlim(0,1); ax.set_ylim(0,1); ax.axis("off")
     items=[
-        ("60 query-document\npairs","#2f6df6"),
-        ("8 configurations\n480 records","#23866f"),
-        ("HyDE 60 pairs\nCAD 58/60 pairs","0.6"),
-        ("SCD 240\nconfiguration-matched\n120 same-context","#cc6400"),
+        ("60 질의–문서\n쌍","#2f6df6"),
+        ("8 실험 조건\n480 생성 기록","#23866f"),
+        ("HyDE 60 대응쌍\nCAD 58/60 유효쌍","0.6"),
+        ("SCD 240 상태 일치\n120 동일 문맥","#cc6400"),
     ]
     xs=[.06,.30,.54,.78]
     for x,(lab,edge) in zip(xs,items):
         box(ax,(x,.48),(.16,.22),lab,edge=edge,face="white",fs=14)
     for x in [.22,.46,.70]:
         arrow(ax,(x,.59),(x+.08,.59))
-    ax.text(.5,.30,"quality: paired bootstrap 95% CI     language: Korean-character ratio",ha="center",fontsize=13)
+    ax.text(.5,.30,"품질: 대응 부트스트랩 95% CI     출력 언어: 한국어 문자 비율",ha="center",fontsize=13)
     fig.savefig(FIG/"fig5_0_evaluation_design.png", bbox_inches="tight", pad_inches=.12)
     plt.close(fig)
 
-    rows=["H0 C0 S0","H0 C1 S0","H0 C0 S1","H0 C1 S1","H1 C0 S0","H1 C1 S0","H1 C0 S1","H1 C1 S1"]
+    rows=[
+        "H0 C0 S0","H0 C1 S0","H1 C0 S0","H1 C1 S0",
+        "",
+        "H0 C0 S1","H0 C1 S1","H1 C0 S1","H1 C1 S1",
+    ]
     cols=["Faithfulness","Answer\nrelevancy","Context\nprecision","Context\nrecall"]
     data=np.array([
         [.7906,.6828,.7488,.9333],[.8385,.6755,.7395,.9167],
-        [.7869,.6372,.7634,.9000],[.7768,.5996,.7523,.8500],
         [.8342,.7633,.7145,.9333],[.8599,.7045,.7357,.9000],
+        [np.nan,np.nan,np.nan,np.nan],
+        [.7869,.6372,.7634,.9000],[.7768,.5996,.7523,.8500],
         [.8223,.7097,.7426,.9000],[.8313,.6671,.7540,.9167],
     ])
-    fig,ax=plt.subplots(figsize=(13.5,8.5),dpi=160)
-    im=ax.imshow(data,vmin=.45,vmax=1.0,cmap="Blues",aspect="auto")
+    masked=np.ma.masked_invalid(data)
+    cmap=plt.get_cmap("Blues").copy()
+    cmap.set_bad("white")
+    fig,ax=plt.subplots(figsize=(13.5,9.2),dpi=160)
+    im=ax.imshow(masked,vmin=.45,vmax=1.0,cmap=cmap,aspect="auto")
     ax.set_xticks(range(len(cols)),cols,fontsize=12)
     ax.set_yticks(range(len(rows)),rows,fontsize=12)
     for i in range(data.shape[0]):
         for j in range(data.shape[1]):
+            if np.isnan(data[i,j]):
+                continue
             ax.text(j,i,f"{data[i,j]:.3f}",ha="center",va="center",fontsize=11,color="white" if data[i,j]<.69 else "black")
-    for y in [1.5,3.5,5.5]:
-        ax.axhline(y,color="white",lw=2)
+    ax.axhline(3.5,color="0.25",lw=1.3)
+    ax.axhline(4.5,color="0.25",lw=1.3)
+    ax.text(-0.12,1.5,"SCD OFF\n영어 검색 문맥 평가",transform=ax.get_yaxis_transform(),
+            ha="right",va="center",fontsize=11.5,fontweight="bold")
+    ax.text(-0.12,6.5,"SCD ON\n한국어 변환 평가 문맥",transform=ax.get_yaxis_transform(),
+            ha="right",va="center",fontsize=11.5,fontweight="bold")
     cbar=fig.colorbar(im,ax=ax,fraction=.03,pad=.03)
     cbar.set_label("평균 점수",fontsize=12)
-    fig.text(.5,.02,"SCD ON 행(H0 C0 S1, H0 C1 S1, H1 C0 S1, H1 C1 S1): RAGAS는 한국어로 변환된 평가 context를 사용",ha="center",fontsize=10.5)
-    fig.tight_layout(rect=[0,0.05,1,1])
+    fig.text(.5,.02,"두 블록은 서로 다른 평가 문맥 프로토콜을 사용하므로 각 블록 안에서 조건별 기술통계로 해석",ha="center",fontsize=10.5)
+    fig.tight_layout(rect=[0.08,0.05,1,1])
     fig.savefig(FIG/"fig5_1_quality_matrix.png", bbox_inches="tight", pad_inches=.12)
     plt.close(fig)
 
