@@ -341,7 +341,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "32B parameters",
       "gt_status": "valid",
@@ -366,7 +366,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "abstract syntax tree (AST) analysis for code",
       "gt_status": "valid",
@@ -391,7 +391,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "sets state-of-the-art results on Korean-specific benchmarks",
       "gt_status": "valid",
@@ -416,7 +416,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "address enterprise-grade complexity through reasoning-focused optimization",
       "gt_status": "valid",
@@ -441,7 +441,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "128K token context window",
       "gt_status": "valid",
@@ -466,7 +466,7 @@
       "applicable_papers": [
         "paper_midm"
       ],
-      "paper_language": "ko",
+      "paper_language": "en",
       "has_answer_span": true,
       "answer_span": "improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution",
       "gt_status": "valid",
