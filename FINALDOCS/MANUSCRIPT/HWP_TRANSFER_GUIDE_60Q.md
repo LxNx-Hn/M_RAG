@@ -44,8 +44,6 @@
 
 표 5-2 아래에는 다음 주석을 함께 배치한다: `SCD ON 품질 지표는 한국어로 변환된 평가 context를 사용한 configuration-level 기술통계이며, SCD의 주 효과 평가는 표 5-5와 표 5-6의 Korean-character ratio 대응 비교를 사용한다.`
 
-부록 C의 실험 자료 식별 정보는 원고와 `HWP_COPYPASTE_TABLES_60Q.txt`의 탭 구분 블록을 사용한다.
-
 ## 그림 삽입 대응
 
 아래 항목은 `[그림삽입: FINALDOCS/FIGURES/<filename>.png | 권장폭=본문폭 90% | 정렬=가운데]`로 처리한다.
@@ -62,12 +60,12 @@
 | 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS high/low faithfulness 예시 — Es et al.[9], Table 2 |
 | 3장 | fig3_1_rag_cube.png | HyDE·CAD·SCD RAG-Cube 8개 조건 |
 | 4장 | fig4_1_pipeline.png | 고정 Paper-RAG backbone 실행 흐름 |
-| 4장 | fig4_2_artifact_flow.png | generation record → 평가 → paired analysis → 표·그림 흐름 |
+| 4장 | fig4_2_artifact_flow.png | 생성 기록 → 평가 → 대응 분석 → 표·그림 흐름 |
 | 5.2 | fig5_0_evaluation_design.png | 60-query 평가 및 HyDE·CAD·SCD 대응 비교 설계 |
 | 5.3 | fig5_1_quality_matrix.png | configuration별 평균 품질 지표와 SCD ON 평가 context 주석 |
 | 5.4 | fig5_2_primary_forest.png | HyDE·CAD primary contrast와 신뢰구간 |
 | 5.6 | fig5_3_scd_language.png | SCD의 한국어 문자 비율 변화 |
-| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 faithfulness·answer relevancy 대응 차이 |
+| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD 조건군별 faithfulness·answer relevancy 대응 차이 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
 
 ## 대표 입출력 사례 삽입
