@@ -58,66 +58,68 @@ def render_project_figures() -> None:
     )
 
     # Stage headers.
-    box(ax, (.03,.875), (.46,.065), "1. Retrieval (HyDE는 dense branch에만 적용)",
-        edge="#9bbce8", face="#edf5ff", fs=15, lw=1.2)
-    box(ax, (.51,.875), (.43,.065), "2. Fusion & Reranking",
+    box(ax, (.03,.875), (.43,.065), "1. Retrieval (HyDE는 dense branch에만 적용)",
+        edge="#9bbce8", face="#edf5ff", fs=14.2, lw=1.2)
+    box(ax, (.51,.875), (.42,.065), "2. Fusion & Reranking",
         edge="#b5bdd0", face="#f4f6fa", fs=15, lw=1.2)
-    box(ax, (.97,.875), (.42,.065), "3. Generation (CAD / SCD)",
+    box(ax, (.98,.875), (.40,.065), "3. Generation (CAD / SCD)",
         edge="#91cdb7", face="#eefaf5", fs=15, lw=1.2)
 
     # Query and retrieval branches.
     box(ax, (.02,.48), (.12,.14), "한국어 질의\nQuery", edge="#5c6b7a", face="#f7f8fa", fs=14)
-    box(ax, (.18,.70), (.14,.14), "HyDE (선택)\n번역 질의 → 가상 문서", edge="#2f6df6", face="#eef5ff", fs=13.0)
-    box(ax, (.36,.60), (.14,.14), "Dense retrieval\nBGE-M3", edge="#2f6df6", face="#f5f8ff", fs=14)
-    box(ax, (.36,.36), (.14,.14), "BM25 retrieval\nlexical search", edge="#58708a", face="#f7f8fa", fs=14)
+    box(ax, (.16,.675), (.14,.14), "HyDE (선택)\n번역 질의 → 가상 문서", edge="#2f6df6", face="#eef5ff", fs=12.5)
+    box(ax, (.36,.585), (.14,.14), "Dense retrieval\nBGE-M3", edge="#2f6df6", face="#f5f8ff", fs=14)
+    box(ax, (.36,.355), (.14,.14), "BM25 retrieval\nlexical search", edge="#58708a", face="#f7f8fa", fs=14)
 
     # Direct query paths.
-    arrow(ax, (.14,.55), (.36,.67))
-    arrow(ax, (.14,.55), (.36,.43))
+    arrow(ax, (.16,.55), (.34,.64))
+    arrow(ax, (.16,.55), (.34,.425))
     # Optional HyDE branch: dashed query -> HyDE -> dense.
     ax.add_patch(FancyArrowPatch(
-        (.11,.62), (.18,.77), arrowstyle="-|>", mutation_scale=14,
+        (.11,.62), (.16,.745), arrowstyle="-|>", mutation_scale=14,
         linewidth=1.5, linestyle="--", color="#2f6df6",
         connectionstyle="angle3,angleA=90,angleB=180",
     ))
     ax.add_patch(FancyArrowPatch(
-        (.32,.77), (.39,.74), arrowstyle="-|>", mutation_scale=14,
+        (.30,.745), (.36,.705), arrowstyle="-|>", mutation_scale=14,
         linewidth=1.5, linestyle="--", color="#2f6df6",
         connectionstyle="angle3,angleA=0,angleB=90",
     ))
-    ax.text(.335,.79,"ON: HyDE document",ha="center",va="bottom",fontsize=11.0,color="#2f6df6")
-    ax.text(.255,.625,"OFF: query",ha="center",va="center",fontsize=10.5,color="0.25")
+    ax.text(.327,.753,"ON",ha="center",va="bottom",fontsize=10.5,color="#2f6df6",
+            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
+    ax.text(.255,.592,"OFF",ha="center",va="center",fontsize=10.0,color="0.25",
+            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
 
     # Hybrid fusion and reranking.
-    box(ax, (.55,.48), (.12,.14), "Weighted RRF\nmerge & score", edge="#746aa8", face="#f7f5ff", fs=13.5)
-    box(ax, (.72,.48), (.13,.14), "CrossEncoder\nreranking", edge="#746aa8", face="#f7f5ff", fs=13.5)
-    box(ax, (.90,.48), (.11,.14), "Top-5\ncontexts", edge="#54708b", face="#f6f8fa", fs=13.5)
-    arrow(ax, (.50,.67), (.55,.57))
-    arrow(ax, (.50,.43), (.55,.53))
-    arrow(ax, (.67,.55), (.72,.55))
-    arrow(ax, (.85,.55), (.90,.55))
-    arrow(ax, (1.01,.55), (1.06,.55))
+    box(ax, (.56,.48), (.11,.14), "Weighted RRF\nmerge & score", edge="#746aa8", face="#f7f5ff", fs=13.0)
+    box(ax, (.73,.48), (.12,.14), "CrossEncoder\nreranking", edge="#746aa8", face="#f7f5ff", fs=13.0)
+    box(ax, (.91,.48), (.10,.14), "Top-5\ncontexts", edge="#54708b", face="#f6f8fa", fs=13.2)
+    arrow(ax, (.52,.655), (.54,.57))
+    arrow(ax, (.52,.425), (.54,.53))
+    arrow(ax, (.69,.55), (.71,.55))
+    arrow(ax, (.87,.55), (.89,.55))
+    arrow(ax, (1.03,.55), (1.07,.55))
 
     # Generation box: CAD/SCD are part of decoding, not pre-generation modules.
     outer = FancyBboxPatch(
-        (1.06,.27), .21,.57,
+        (1.07,.255), .21,.57,
         boxstyle="round,pad=0.018,rounding_size=0.025",
         linewidth=1.8, edgecolor="#16825f", facecolor="#fbfffd",
     )
     ax.add_patch(outer)
-    ax.text(1.165,.805,"Generation · Mi:dm 2.0",ha="center",va="center",fontsize=14.5,fontweight="bold")
-    ax.text(1.165,.775,"autoregressive decoding",ha="center",va="center",fontsize=11.5)
+    ax.text(1.175,.805,"Generation · Mi:dm 2.0",ha="center",va="center",fontsize=14.5,fontweight="bold")
+    ax.text(1.175,.775,"autoregressive decoding",ha="center",va="center",fontsize=11.5)
 
-    box(ax, (1.085,.665), (.16,.075), "Base logits", edge="#86909b", face="#f7f8fa", fs=12.5)
-    box(ax, (1.085,.545), (.16,.075), "CAD processor (선택)", edge="#23866f", face="#eefaf5", fs=12.5)
-    box(ax, (1.085,.425), (.16,.075), "SCD processor (선택)", edge="#cc6400", face="#fff6ed", fs=12.5)
-    box(ax, (1.085,.305), (.16,.075), "Greedy token selection", edge="#86909b", face="#f7f8fa", fs=12.0)
-    arrow(ax, (1.165,.665), (1.165,.62), lw=1.3)
-    arrow(ax, (1.165,.545), (1.165,.50), lw=1.3)
-    arrow(ax, (1.165,.425), (1.165,.38), lw=1.3)
+    box(ax, (1.095,.665), (.16,.075), "Base logits", edge="#86909b", face="#f7f8fa", fs=12.5)
+    box(ax, (1.095,.545), (.16,.075), "CAD processor (선택)", edge="#23866f", face="#eefaf5", fs=12.5)
+    box(ax, (1.095,.425), (.16,.075), "SCD processor (선택)", edge="#cc6400", face="#fff6ed", fs=12.5)
+    box(ax, (1.095,.305), (.16,.075), "Greedy token selection", edge="#86909b", face="#f7f8fa", fs=12.0)
+    arrow(ax, (1.175,.645), (1.175,.64), lw=1.3)
+    arrow(ax, (1.175,.525), (1.175,.52), lw=1.3)
+    arrow(ax, (1.175,.405), (1.175,.40), lw=1.3)
 
-    box(ax, (1.31,.48), (.10,.14), "한국어 응답", edge="#58708a", face="#f7f8fa", fs=14)
-    arrow(ax, (1.27,.55), (1.31,.55))
+    box(ax, (1.33,.48), (.10,.14), "한국어 응답", edge="#58708a", face="#f7f8fa", fs=14)
+    arrow(ax, (1.30,.55), (1.31,.55))
 
     # Bottom legend: each factor's intervention point, kept separate from the pipeline.
     box(ax, (.04,.055), (.38,.14), "HyDE = retrieval-side\nDense search text: OFF=query / ON=HyDE document\nBM25는 원 질문 사용",
