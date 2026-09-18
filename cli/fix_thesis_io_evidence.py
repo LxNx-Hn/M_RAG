@@ -60,12 +60,12 @@ def place_claim_adjacent_io(text: str) -> str:
             section = section.replace(anchor, block + anchor, 1)
             text = before + start + section + end + after
 
-    e04 = """E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_midm_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 질문과 다른 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시했다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례\n\n"""
-    e05 = """E05는 같은 검색 문맥에서 CAD 적용 전후 faithfulness가 달라진 실제 사례다. ext_midm_001에서 CAD OFF와 ON의 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.8333에서 1.0000으로 변했다. Answer relevancy는 0.8261과 0.8124였다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 동일 retrieval 입력에서 generation-side 차이를 보여준다. 반대 방향의 E06은 부록 B에 함께 제시한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례\n\n"""
-    e03 = """E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 이 사례가 속한 H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511이다. 전체 240 configuration-matched 대응쌍의 평균 변화는 +0.2289이다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례\n\n"""
-    insert_local("## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]", "## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "[표 5-3] HyDE 주 비교 결과 [스타일=표제목]", e04, "[입출력 증빙 E04]")
-    insert_local("## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "[표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]", e05, "[입출력 증빙 E05]")
-    insert_local("## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]", "[표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]", e03, "[입출력 증빙 E03]")
+    e04 = """E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_midm_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 질문과 다른 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시했다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 사례 E04] HyDE 적용에 따라 검색 문맥과 답변이 함께 변한 사례\n\n"""
+    e05 = """E05는 같은 검색 문맥에서 CAD 적용 전후 faithfulness가 달라진 실제 사례다. ext_midm_001에서 CAD OFF와 ON의 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.8333에서 1.0000으로 변했다. Answer relevancy는 0.8261과 0.8124였다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 동일 retrieval 입력에서 generation-side 차이를 보여준다. 반대 방향의 E06은 부록 B에 함께 제시한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 사례 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례\n\n"""
+    e03 = """E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 이 사례가 속한 H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511이다. 전체 240 configuration-matched 대응쌍의 평균 변화는 +0.2289이다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 사례 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례\n\n"""
+    insert_local("## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]", "## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "[표 5-3] HyDE 주 비교 결과 [스타일=표제목]", e04, "[입출력 사례 E04]")
+    insert_local("## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "[표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]", e05, "[입출력 사례 E05]")
+    insert_local("## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]", "[표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]", e03, "[입출력 사례 E03]")
     return text
 
 def repair_manuscript() -> None:
@@ -88,11 +88,11 @@ def repair_manuscript() -> None:
     )
 
     language_anchor = "셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.\n"
-    if "[입출력 증빙 E02]" not in text.split("# 2. 이론적 배경", 1)[0]:
+    if "[입출력 사례 E02]" not in text.split("# 2. 이론적 배경", 1)[0]:
         insert = (
             "\n저장된 generation record에서도 이 문제가 직접 관찰된다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 질문, 검색 근거, 생성 답변과 저장 평가값을 같은 record에서 확인할 수 있어 출력 언어 이탈을 실제 실험 입력·출력으로 제시한다.\n\n"
             "[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n"
-            "[입출력 증빙 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례\n"
+            "[입출력 사례 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례\n"
         )
         if language_anchor not in text:
             raise RuntimeError("chapter 1 language anchor missing")
@@ -111,25 +111,25 @@ E01은 정상 QA 기준 사례다. ext_raptor_011의 H0C0S0 record는 faithfulne
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 증빙 E01] 정상 QA 저장 입출력 사례
+[입출력 사례 E01] 정상 QA 저장 입출력 사례
 
 HyDE의 retrieval-side 변화는 E04에서 확인한다. ext_midm_004는 Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터 설계 차원을 묻는다. HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌고, answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE ON 답변은 interaction structure, topic and task, persona의 세 차원을 제시한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
+[입출력 사례 E04] HyDE 적용에 따라 검색 문맥과 답변이 함께 변한 사례
 
 CAD는 검색 입력이 같은 generation-side 사례를 두 방향으로 확인한다. E05의 ext_midm_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고 faithfulness는 0.8333에서 1.0000으로 변했으며, answer relevancy는 0.8261과 0.8124였다. E06의 track1_0012도 동일한 검색 입력을 공유하면서 faithfulness가 0.9375에서 0.5000으로, answer relevancy가 0.9001에서 0.0000으로 달라졌다. 같은 문맥에서도 질의별 변화 방향이 다르게 나타나는 점을 두 실제 답변으로 확인할 수 있다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 증빙 E05] 동일 검색 문맥에서 CAD ON/OFF 생성 결과가 달라진 사례
+[입출력 사례 E05] 동일 검색 문맥에서 CAD ON/OFF 생성 결과가 달라진 사례
 
 SCD의 출력 언어 제어는 E03에서 확인한다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 동일 입력 근거에서 생성 문자열의 표면 언어가 한국어 쪽으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
+[입출력 사례 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
 
 E02는 1장에서 출력 언어 이탈 문제를 실제 record로 보여주고, E01·E03·E04·E05는 본 절에서 정상 QA와 세 실험 요인의 대표 변화를 연결한다. E01~E06 전체 세트와 각 PNG에 대응하는 raw TXT는 부록 B에 배치한다. 정량 통계는 전체 대응쌍을 요약하고, 대표 입출력은 그 통계가 형성된 질문·검색 근거·생성 답변·점수를 다시 추적하는 역할을 한다.
 
@@ -164,29 +164,29 @@ E02는 1장에서 출력 언어 이탈 문제를 실제 record로 보여주고, 
 E01~E06은 최종 60-query 저장 artifact에서 선택한 실제 질문·검색 근거·생성 출력의 재현 자료다. 각 PNG와 같은 이름의 `raw/*.txt`는 동일 내용을 텍스트로 보존하며 query ID, configuration, retrieved/reranked IDs, context, generated answer와 저장 평가값을 추적할 수 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E01] 정상 QA 사례 — ext_raptor_011
+[입출력 사례 E01] 정상 QA 사례 — ext_raptor_011
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
+[입출력 사례 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E03] 동일 문맥 SCD 언어 이탈 완화 사례 — ext_midm_005
+[입출력 사례 E03] 동일 문맥 SCD 언어 이탈 완화 사례 — ext_midm_005
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E04] HyDE retrieval 변화 사례 — ext_raptor_004
+[입출력 사례 E04] HyDE retrieval 변화 사례 — ext_midm_004
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_raptor_001
+[입출력 사례 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_midm_001
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 증빙 E06] CAD 동일 문맥 trade-off 사례 — track1_0012
+[입출력 사례 E06] CAD 동일 문맥 trade-off 사례 — track1_0012
 
 ## B.2 문서별·질문 유형별 탐색 분석 [스타일=절(1.1)]
 
 문서별·질문 유형별 분석과 strata별 결과는 표본 수를 함께 제시하며 탐색적으로 해석한다.
 
 """
-    start = text.find("# 부록 B. 추가 증빙 화면 [스타일=부록제목]")
+    start = text.find("# 부록 B. 추가 입출력 사례 [스타일=부록제목]")
     if start < 0:
         start = text.find("# 부록 B. 추가 정량 분석 [스타일=부록제목]")
     end = text.find("[표 B-1] 문서별 탐색 분석", start)
@@ -243,7 +243,7 @@ def extend_validator() -> None:
     path = FINAL / "VALIDATION/verify_finaldocs_60q.py"
     text = path.read_text(encoding="utf-8")
     if "expected_io = (" not in text:
-        block = '''    io_dir = FINAL / "EVIDENCE/IO_CASES"\n    expected_io = (\n        "E01_normal_qa",\n        "E02_language_drift",\n        "E03_scd_rescue",\n        "E04_hyde_retrieval_change",\n        "E05_cad_positive_same_context",\n        "E06_cad_tradeoff_same_context",\n    )\n    for stem in expected_io:\n        need(io_dir / f"{stem}.png")\n        need(io_dir / "raw" / f"{stem}.txt")\n    for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):\n        if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):\n            raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")\n    if "[입출력 증빙 E02]" not in body:\n        raise AssertionError("chapter 1 must include the stored language-drift IO evidence")\n    for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):\n        if f"[입출력 증빙 {case_id}]" not in text:\n            raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")\n    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):\n        section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]\n        if len(section.strip()) < 500:\n            raise AssertionError(f"substantive section is empty/too short: {section_name}")\n\n'''
+        block = '''    io_dir = FINAL / "EVIDENCE/IO_CASES"\n    expected_io = (\n        "E01_normal_qa",\n        "E02_language_drift",\n        "E03_scd_rescue",\n        "E04_hyde_retrieval_change",\n        "E05_cad_positive_same_context",\n        "E06_cad_tradeoff_same_context",\n    )\n    for stem in expected_io:\n        need(io_dir / f"{stem}.png")\n        need(io_dir / "raw" / f"{stem}.txt")\n    for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):\n        if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):\n            raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")\n    if "[입출력 사례 E02]" not in body:\n        raise AssertionError("chapter 1 must include the stored language-drift IO evidence")\n    for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):\n        if f"[입출력 증빙 {case_id}]" not in text:\n            raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")\n    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):\n        section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]\n        if len(section.strip()) < 500:\n            raise AssertionError(f"substantive section is empty/too short: {section_name}")\n\n'''
         anchor = '    figures = sorted((FINAL / "FIGURES").glob("*.png"))\n'
         if anchor not in text:
             raise RuntimeError("validator figure anchor missing")
