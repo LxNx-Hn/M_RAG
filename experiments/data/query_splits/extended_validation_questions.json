@@ -16,7 +16,9 @@
     {
       "query_id": "ext_rag_001",
       "query": "Advanced RAG의 pre-retrieval 단계는 인덱스와 사용자 질의를 각각 어떤 방향으로 최적화합니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -30,7 +32,9 @@
     {
       "query_id": "ext_rag_002",
       "query": "Advanced RAG의 post-retrieval 단계에서 사용되는 두 가지 핵심 방법은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -44,7 +48,9 @@
     {
       "query_id": "ext_rag_003",
       "query": "RAG에서 큰 청크와 작은 청크를 사용할 때 각각 어떤 장단점이 발생합니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -58,7 +64,9 @@
     {
       "query_id": "ext_rag_004",
       "query": "문서 청크에 타임스탬프 같은 메타데이터를 부여하면 time-aware RAG는 최신 정보를 어떻게 우선할 수 있습니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -72,7 +80,9 @@
     {
       "query_id": "ext_rag_005",
       "query": "Reverse HyDE는 문서로부터 가상의 질문을 생성해 원래 질문과 답변 사이의 의미적 간극을 어떻게 줄입니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -86,7 +96,9 @@
     {
       "query_id": "ext_rag_006",
       "query": "Multi-Query와 Sub-Query 방식은 원래 질의를 확장하거나 분해하는 방식에서 어떻게 다릅니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -100,7 +112,9 @@
     {
       "query_id": "ext_rag_007",
       "query": "Iterative Retrieval, Recursive Retrieval, Adaptive Retrieval은 검색을 반복하거나 중단하는 방식에서 각각 어떻게 구분됩니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -114,7 +128,9 @@
     {
       "query_id": "ext_rag_008",
       "query": "RAG 평가에서 요구되는 네 가지 핵심 능력은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -128,7 +144,9 @@
     {
       "query_id": "ext_rag_009",
       "query": "RAG 평가에서 Negative Rejection은 어떤 능력을 측정합니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -142,7 +160,9 @@
     {
       "query_id": "ext_rag_010",
       "query": "RAG와 파인튜닝을 비교할 때 지식 업데이트의 동적 특성과 해석 가능성 측면에서 RAG가 갖는 특징은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_rag"],
+      "applicable_papers": [
+        "paper_nlp_rag"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -156,7 +176,9 @@
     {
       "query_id": "ext_cad_001",
       "query": "언어 모델이 생성 시 활용하는 prior knowledge와 context knowledge는 각각 어디에서 오는 정보입니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -170,7 +192,9 @@
     {
       "query_id": "ext_cad_002",
       "query": "CAD의 요약 실험에는 어떤 데이터셋과 평가 지표가 사용되었습니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -184,7 +208,9 @@
     {
       "query_id": "ext_cad_003",
       "query": "CAD의 지식 충돌 실험에는 어떤 두 데이터셋이 사용되었고 각각 무엇을 평가합니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -198,7 +224,9 @@
     {
       "query_id": "ext_cad_004",
       "query": "NQ-Swap 데이터셋은 기존 Natural Questions의 정답과 문서를 어떤 방식으로 변형해 만들어집니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -212,7 +240,9 @@
     {
       "query_id": "ext_cad_005",
       "query": "CAD 실험에서 요약 과제와 지식 충돌 과제에 사용한 α 값은 각각 얼마이며, 지식 충돌 과제에서 더 큰 값을 사용한 이유는 무엇입니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -226,7 +256,9 @@
     {
       "query_id": "ext_cad_006",
       "query": "CAD 논문의 베이스라인 디코딩은 요약 과제와 지식 충돌 과제에서 각각 어떤 샘플링 전략을 사용합니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -240,7 +272,9 @@
     {
       "query_id": "ext_cad_007",
       "query": "CAD가 실험에서 적용된 사전학습 및 instruction-finetuned 언어 모델 계열은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -254,7 +288,9 @@
     {
       "query_id": "ext_cad_008",
       "query": "지식 충돌 과제에서 모델 크기가 커질수록 CAD의 성능 향상 폭은 어떤 경향을 보였습니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -268,7 +304,9 @@
     {
       "query_id": "ext_cad_009",
       "query": "LLaMA-30B에 CAD를 적용했을 때 XSUM에서 ROUGE-L, factKB, BERT-P 점수는 regular decoding과 비교해 어떻게 달라졌습니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -282,7 +320,9 @@
     {
       "query_id": "ext_cad_010",
       "query": "외부 컨텍스트가 생성 토큰과 조건부 독립이라면 α가 0이 아니어도 CAD의 출력 분포에는 어떤 영향이 있습니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -296,7 +336,9 @@
     {
       "query_id": "ext_cad_011",
       "query": "CAD는 특정 instruction-finetuned 언어 모델에만 제한됩니까, 아니면 어떤 언어 모델에도 적용 가능한 디코딩 전략입니까?",
-      "applicable_papers": ["paper_nlp_cad"],
+      "applicable_papers": [
+        "paper_nlp_cad"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -310,7 +352,9 @@
     {
       "query_id": "ext_raptor_001",
       "query": "RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -324,7 +368,9 @@
     {
       "query_id": "ext_raptor_002",
       "query": "RAPTOR의 leaf node를 만들 때 텍스트 임베딩에 사용한 모델은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -338,7 +384,9 @@
     {
       "query_id": "ext_raptor_003",
       "query": "RAPTOR의 GMM 클러스터링 전에 UMAP을 사용하는 이유는 무엇입니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -352,7 +400,9 @@
     {
       "query_id": "ext_raptor_004",
       "query": "RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
@@ -366,7 +416,9 @@
     {
       "query_id": "ext_raptor_005",
       "query": "RAPTOR에서 클러스터별 요약을 생성하는 데 사용한 언어 모델은 무엇입니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -380,7 +432,9 @@
     {
       "query_id": "ext_raptor_006",
       "query": "RAPTOR의 트리 구축 비용은 문서 길이가 증가할 때 build time과 token expenditure 측면에서 어떻게 확장됩니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -394,7 +448,9 @@
     {
       "query_id": "ext_raptor_007",
       "query": "QASPER 데이터셋은 몇 개의 질문과 NLP 논문으로 구성되며, 논문에서는 어떤 지표로 성능을 평가합니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -408,7 +464,9 @@
     {
       "query_id": "ext_raptor_008",
       "query": "QuALITY-HARD는 일반 QuALITY 질문 중 어떤 기준을 만족하는 질문들로 구성됩니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -422,7 +480,9 @@
     {
       "query_id": "ext_raptor_009",
       "query": "QASPER에서 RAPTOR의 F1 Match 점수는 GPT-3, GPT-4, UnifiedQA를 사용할 때 각각 얼마였습니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -436,7 +496,9 @@
     {
       "query_id": "ext_raptor_010",
       "query": "QuALITY의 한 스토리에서 RAPTOR가 전체 3개 계층을 검색했을 때의 성능은 leaf node 한 계층만 검색했을 때와 어떻게 달라졌습니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
@@ -450,7 +512,9 @@
     {
       "query_id": "ext_raptor_011",
       "query": "Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?",
-      "applicable_papers": ["paper_nlp_raptor"],
+      "applicable_papers": [
+        "paper_nlp_raptor"
+      ],
       "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
@@ -464,8 +528,10 @@
     {
       "query_id": "ext_midm_001",
       "query": "Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -478,8 +544,10 @@
     {
       "query_id": "ext_midm_002",
       "query": "Mi:dm K 2.5 Pro는 한국어 중심 학습을 유지하기 위해 다국어 데이터를 한국어 코퍼스 대비 어느 정도 비율로 제한하며, 그 이유는 무엇입니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -492,8 +560,10 @@
     {
       "query_id": "ext_midm_003",
       "query": "응답 스타일 재작성 후 평균 응답 길이는 몇 % 증가했고, bullet_count=0인 응답의 비율은 어떻게 변했습니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -506,8 +576,10 @@
     {
       "query_id": "ext_midm_004",
       "query": "Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -520,8 +592,10 @@
     {
       "query_id": "ext_midm_005",
       "query": "Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_method",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -534,8 +608,10 @@
     {
       "query_id": "ext_midm_006",
       "query": "Fully asynchronous GSPO 학습은 synchronous 방식과 비교해 step time과 token throughput을 각각 어느 정도 개선했습니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -548,8 +624,10 @@
     {
       "query_id": "ext_midm_007",
       "query": "LLM-as-a-Judge 기반 reward signal은 사람의 평가와 어느 정도의 일치율을 보였습니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "simple_qa",
       "expected_service_route": "A",
       "has_answer_span": true,
@@ -562,8 +640,10 @@
     {
       "query_id": "ext_midm_008",
       "query": "Reasoning-enabled 평가에서 Mi:dm K 2.5 Pro가 HumanEval+와 τ²-Bench Telecom에서 기록한 점수는 각각 얼마입니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
       "has_answer_span": true,
@@ -576,8 +656,10 @@
     {
       "query_id": "ext_midm_009",
       "query": "한국어 red-teaming 평가에서 Mi:dm K 2.5 Pro의 Attack Success Rate는 얼마였으며 비교 모델들 가운데 어떤 수준이었습니까?",
-      "applicable_papers": ["paper_midm"],
-      "paper_language": "ko",
+      "applicable_papers": [
+        "paper_midm"
+      ],
+      "paper_language": "en",
       "normalized_query_type": "section_result",
       "expected_service_route": "B",
       "has_answer_span": true,
