@@ -48,9 +48,9 @@
     },
     {
       "case_id": "E04",
-      "selection_rule": "hyde_retrieval_change",
-      "query_id": "ext_raptor_004",
-      "target_paper": "RAPTOR",
+      "selection_rule": "hyde_retrieval_change_question_aligned",
+      "query_id": "ext_midm_004",
+      "target_paper": "Mi:dm K 2.5 Pro Technical Report",
       "config_a": "hyde_off__no_decoder_control",
       "config_b": "hyde_on__no_decoder_control",
       "source_artifact": "experiments\\results\\extended_validation\\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl",
