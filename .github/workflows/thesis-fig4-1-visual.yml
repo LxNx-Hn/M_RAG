@@ -1,0 +1,21 @@
+name: Thesis Figure 4-1 Visual Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-fig4-1-visual.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thesis-fig4-1-final
+          path: FINALDOCS/FIGURES/fig4_1_pipeline.png
+          retention-days: 1
