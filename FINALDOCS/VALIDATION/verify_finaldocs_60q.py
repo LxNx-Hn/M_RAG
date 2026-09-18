@@ -281,25 +281,35 @@ def main() -> int:
 
     with zipfile.ZipFile(TABLES) as archive:
         workbook = archive.read("xl/workbook.xml").decode("utf-8")
-        shared_strings = archive.read("xl/sharedStrings.xml").decode("utf-8")
+        shared_strings = (
+            archive.read("xl/sharedStrings.xml").decode("utf-8")
+            if "xl/sharedStrings.xml" in archive.namelist()
+            else ""
+        )
+        worksheet_xml = "\n".join(
+            archive.read(name).decode("utf-8")
+            for name in archive.namelist()
+            if name.startswith("xl/worksheets/sheet") and name.endswith(".xml")
+        )
+        workbook_text = shared_strings + "\n" + worksheet_xml
         query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
 
     sheet_names = re.findall(r'<(?:[A-Za-z_][\w.-]*:)?sheet[^>]+name="([^"]+)"', workbook)
     if tuple(sheet_names) != EXPECTED_SHEETS:
         raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
-    if "docs/PAPER/" in shared_strings or "generated/" in shared_strings:
+    if "docs/PAPER/" in workbook_text or "generated/" in workbook_text:
         raise AssertionError("workbook contains stale source metadata")
     for marker in (
         "HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍",
         "105 / 6 / 9",
     ):
-        if marker not in shared_strings:
+        if marker not in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: missing {marker}")
     for stale in (
         "동일 query·HyDE·CAD의 240 ON/OFF쌍",
         "분석 artifact 참조",
     ):
-        if stale in shared_strings:
+        if stale in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: {stale}")
     if len(re.findall(r"<x:row", query_rows)) != 63:
         raise AssertionError(
