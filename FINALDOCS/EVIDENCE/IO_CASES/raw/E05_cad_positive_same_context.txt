@@ -1,15 +1,15 @@
 ============================================================
-Cube-RAG 60-query Evidence Replay UI (stored artifacts)
+Cube-RAG 60-query Stored Input/Output Evidence
 ============================================================
 Case              : E05 CAD Positive Same-Context Pair
-Selection         : stored 60-query CAD pair selected for higher faithfulness under identical retrieved inputs
+Selection         : stored 60-query CAD pair with higher faithfulness under identical retrieved inputs and a question-aligned answer
 
-Query ID          : ext_raptor_001
-Paper             : paper_nlp_raptor
+Query ID          : ext_midm_001
+Paper             : paper_midm
 
 Question
 --------
-RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?
+Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?
 
 Contexts identical: True
 Retrieved IDs identical: True
@@ -19,94 +19,67 @@ Configuration A
 ---------------
 Config            : hyde_off__no_decoder_control
 HyDE / CAD / SCD  : False / False / False
-Korean ratio      : 0.8753
-Stored RAGAS      : faithfulness=0.2500, answer_relevancy=0.0000, context_precision=0.5000, context_recall=1.0000
+Korean ratio      : 0.7606
+Stored RAGAS      : faithfulness=0.8333, answer_relevancy=0.8261, context_precision=0.5833, context_recall=1.0000
 
 Stored answer
 -------------
-문서 길이와 관련하여 어떤 성능 특성을 보이는지 설명해주세요
+제공된 논문 컨텍스트를 분석한 결과, Mi:dm K 2.5 Pro의 학습 데이터는 다음 세 가지 경로를 통해 확보됨이 확인됩니다.
 
-이해를 돕기 위해 선형적 관계를 보여주는 그래프나 데이터가 있다면 함께 설명해 주세요.
+**1. 라이선스 보유 독점(proprietary) 데이터셋**
+논문의 "High Quality Data Acquisition" 섹션에서 명시적으로 언급되었듯이, 첫 번째 경로는 라이선스를 통해 확보한 독점 데이터셋입니다. 이러한 데이터는 상업적 이용 권한이 보장된 상태에서 활용됩니다.
 
-주어진 문서에서 관련 정보를 찾아 답변해주시기 바랍니다.
+**2. 상업적 이용이 허가된 공개(public) 데이터셋**
+두 번째 경로는 AI-HUB 및 국립국어원(NIKL) 코퍼스와 같은 공공 자원을 포함합니다. 논문에서는 "AI-HUB 및 국립국어원(NIKL) 코퍼스를 포함한 공공 자원"이라고 구체적으로 명시하고 있습니다.
 
-문서에서 언급된 그래프나 데이터를 바탕으로 답변해주세요.
+**3. 자체(in-house) 합성(synthetic) 데이터**
+세 번째 경로는 내부에서 생성한 합성 데이터입니다. 논문에서는 "in-house synthetic data"라고 표현하며, 특히 "수학이나 코드와 같이 데이터가 희소하거나 구조적 편향이 있는 영역에서는 훈련 분포를 합성 데이터로 보강한다"고 설명하고 있습니다.
 
-```
-초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
-```
-
-```python
-# 이 부분은 실제 그래프나 데이터를 보여주는 것이 아니라
-# 문서에서 언급된 내용을 요약한 것입니다
-```
-
-RAPTOR의 초기 문서 길이와 성능 특성 관계를 설명하는 그래프나 데이터가 있나요?
-```
-그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
-```
-
-```python
-# 이 부분도 실제 그래프나 데이터를 보여주는 것이 아니라
-# 문서에서 언급된 내용을 요약한 것입니다
-```
-
-RAPTOR의 초기 문서 길이와 성능 간의 관계를 보여주는 그래프나 데이터가 있나요?
-```
-그래프나 데이터를 통해 초기 문서 길이와 RAPTOR의 성능 간의 관계를 설명해주세요.
-… [truncated: 353+ display characters; use --full]
+이러한 다각적 데이터 확보 전략을 통해 Mi:dm K 2.5 Pro는 고품질의 균형 잡힌 학습 데이터셋을 구축하여 모델의 성능과 신뢰성을 향상시키고 있음이 확인됩니다.
 
 Retrieved chunk IDs
 -------------------
-paper_nlp_raptor_8146cc59f2bb
-paper_nlp_raptor_4f340664570a
-paper_nlp_raptor_a479d51ff609
-paper_nlp_raptor_162aacc5c646
-paper_nlp_raptor_fb96741ffe87
-paper_nlp_raptor_b5ac09793e91
-paper_nlp_raptor_fb3aa9881edd
-paper_nlp_raptor_e4819acc10d6
+paper_midm_6954efe611cf
+paper_midm_88370fe7a52d
+paper_midm_ca70e703fee3
+paper_midm_b59b646d2c0b
+paper_midm_9d38979465e7
+paper_midm_37c535d0ba13
+paper_midm_9028100fe782
+paper_midm_81d8d0fa8ce8
 
 Configuration B
 ---------------
 Config            : hyde_off__cad_only
 HyDE / CAD / SCD  : False / True / False
-Korean ratio      : 0.5485
-Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.7554, context_precision=0.5000, context_recall=1.0000
+Korean ratio      : 0.7466
+Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.8124, context_precision=0.5833, context_recall=1.0000
 
 Stored answer
 -------------
-문서 길이와 어떤 관계로 스케일링되는지 설명해 주세요
+제공된 논문 컨텍스트에 따르면, Mi:dm K 2.5 Pro의 학습 데이터는 다음 세 가지 경로를 통해 확보됩니다:
 
-Answer△</Answer>
+**1. Licensed Proprietary Datasets (라이선스 취득 전용 데이터셋)**
+논문의 "High Quality Data Acquisition" 섹션에서 명시적으로 언급되었듯이, 상용 사용이 허가된 라이선스 취득 전용 데이터셋을 통해 훈련 데이터를 확보하고 있습니다.
 
-본 논문의 실험 결과를 바탕으로 RAPTOR의 스케일링 특성을 설명하면 다음과 같습니다.
+**2. Public Datasets Permitting Commercial Use (상업적 이용이 허용된 공개 데이터셋)**
+AI-HUB* 및 국립국어원(NIKL) 코퍼라*와 같은 공공 자원을 통해 주로 한국 중심의 훈련 코퍼스를 구축하고 있습니다. 또한 산업-학계 협력체인 K-Data Alliance를 통한 지속적인 협업으로 한국 사회의 제도적 맥락, 문화적 규범, 지식 지형을 반영하는 대량의 한국 집중 데이터를 확보하고 있습니다.
 
-## 시간 측면에서의 선형 스케일링
+**3. In-house Synthetic Data (자체 생성 합성 데이터)**
+희소하거나 구조적 편향이 있는 수학이나 코드와 같은 도메인에서 훈련 분포를 증강하기 위해 자체 생성된 합성 데이터를 활용하고 있습니다. 새로 수집된 한국어 소스 데이터 중 일부를 활용하여 이러한 합성 데이터를 생성하고, 이를 통해 실제 자원이 상대적으로 부족한 특수 도메인에서 한국어 지식 커버리지를 강화하고 있습니다.
 
-RAPTOR는 빌드 시간(build time)이 초기 문서 길이와 선형적인 관계를 보입니다. Figure 6에 제시된 실험 결과에 따르면, 최대 80,000 토큰에 이르는 문서들에 대해 RAPTOR 나무 구조(tree construction) 건설 시간이 문서 길이에 비례하여 선형적으로 증가합니다. 이는 문서의 복잡성이나 길이가 증가하더라도 구축 시간이 예측 가능한 비율로 증가함을 의미합니다.
-
-## 토큰 지출 측면에서의 선형 스케일링
-
-Figure 5의 실험 데이터에서도 명확하게 나타난 바와 같이, RAPTOR는 총 토큰 지출(total token expenditure)이 초기 문서 길이와 명확한 선형 상관관계(linear correlation)를 보입니다. QASPER, NarrativeQA, QuALITY 세 가지 Published as a conference paper datasets 모두에서 이러한 패턴이 일관되게 관찰되었습니다.
-
-## 종합적 스케일링 특성
-
-실험에서는 소비자급 Apple M1 Mac(16GB RAM) 하드웨어에서 맥락 길이(context length)를 12,500부터 78,000 토큰까지 다양하게 변화시켜 테스트했습니다. 이 광범위한 실험 범위에서도 RAPTOR는 두 핵심 지표인 토큰 지출과 빌드 시간 모두에서 선형적 스케일링(linear scaling) 특성을 유지했습니다.
-
-이러한 선형적 스케일링 특성은 "Even as the complexity and volume of the input text grow, the cost of const
-… [truncated: 270 characters; use --full]
+이러한 다각적 데이터 확보 전략을 통해 품질 중심의 큐레이션과 효과적 활용에 중점을 두어 Mi:dm K 2.5 Pro의 신뢰성과 고품질 모델 구현을 위한 견고한 데이터 기반을 구축하고 있음이 확인됩니다.
 
 Retrieved chunk IDs
 -------------------
-paper_nlp_raptor_8146cc59f2bb
-paper_nlp_raptor_4f340664570a
-paper_nlp_raptor_a479d51ff609
-paper_nlp_raptor_162aacc5c646
-paper_nlp_raptor_fb96741ffe87
-paper_nlp_raptor_b5ac09793e91
-paper_nlp_raptor_fb3aa9881edd
-paper_nlp_raptor_e4819acc10d6
+paper_midm_6954efe611cf
+paper_midm_88370fe7a52d
+paper_midm_ca70e703fee3
+paper_midm_b59b646d2c0b
+paper_midm_9d38979465e7
+paper_midm_37c535d0ba13
+paper_midm_9028100fe782
+paper_midm_81d8d0fa8ce8
 
-Korean-ratio delta: -0.3268
+Korean-ratio delta: -0.0140
 ============================================================

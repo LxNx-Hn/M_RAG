@@ -1,5 +1,5 @@
 ============================================================
-Cube-RAG 60-query Evidence Replay UI (stored artifacts)
+Cube-RAG 60-query Stored Input/Output Evidence
 ============================================================
 Case              : E01 Normal QA
 Selection         : highest mean of four stored gpt-4o metrics among 60-query records at or above 0.5 Korean-character ratio
