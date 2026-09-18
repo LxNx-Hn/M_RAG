@@ -53,9 +53,12 @@ EVIDENCE_CASES = {
     },
     "E04": {
         "title": "HyDE Retrieval Change",
-        "kind": "hyde_change",
+        "kind": "selected_pair",
         "sources": (*GENERATION_SOURCES, *SCORE_SOURCES),
-        "selection": "largest absolute stored answer-relevancy difference in the 60-query HyDE-only pair with changed retrieval IDs",
+        "selection": "stored HyDE pair with changed retrieval/context and a question-aligned answer",
+        "query_id": "ext_midm_004",
+        "config_a": "hyde_off__no_decoder_control",
+        "config_b": "hyde_on__no_decoder_control",
     },
     "E05": {
         "title": "CAD Positive Same-Context Pair",
