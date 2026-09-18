@@ -136,7 +136,7 @@ def main() -> int:
 
     section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[0]
     for marker in (
-        "context precision과 context recall은 동일 retrieval 입력에 대해 계산된 저장 평가값의 변동으로 함께 제시한다",
+        "context precision은 8/60쌍, context recall은 1/60쌍에서 evaluator 값 차이가 기록되어 evaluator 변동 진단값으로 분리하였다",
         "CAD의 generation-side 결과는 faithfulness, answer relevancy와 generation duration을 중심으로 분석한다",
     ):
         if marker not in section_55:
@@ -161,29 +161,39 @@ def main() -> int:
 
     for marker in (
         "60개 질의 전체가 한국어 질의–영어 문서 검색의 동일한 cross-lingual 조건을 공유한다",
-        "simple_qa 16개, section_method 22개, section_result 20개, section_abstract 2개",
+        "사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
-        "512-token chunk, 64-token overlap, 최소 50-token",
+        "공백 분리 기준 최대 512개 단어",
+        "공백 분리 기준 최대 3,072개 단어",
         "ContextCompressor",
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
         "H0S0 -0.0073, H1S0 -0.0588",
-        "상호작용 패턴",
+        "HyDE ON 조건은 각 configuration에서 temperature=0.1, top_p=0.9 sampling으로 hypothetical document를 독립 생성한다",
+        "그림 5-6은 이 실행 구조에서 관측된 조건별 기술적 변화 패턴을 제시",
     ):
         if marker not in text:
             raise AssertionError(f"current thesis-method marker missing: {marker}")
 
     appendix_a = text.split("# 부록 A. 60개 질의 목록", 1)[1].split("# 부록 B.", 1)[0]
-    for stale_type in ("crosslingual_ko", "decoder_ablation", "numeric_or_factual_hallucination"):
+    for stale_type in (
+        "crosslingual_ko",
+        "decoder_ablation",
+        "numeric_or_factual_hallucination",
+        "simple_qa",
+        "section_method",
+        "section_result",
+        "section_abstract",
+    ):
         if stale_type in appendix_a:
             raise AssertionError(f"legacy mixed query-type label remains in appendix A: {stale_type}")
 
     appendix_b = text.split("## B.2 문서별·질문 유형별 탐색 분석", 1)[1]
     expected_query_type_rows = (
-        "simple_qa\tHyDE\tanswer_relevancy\t16\t-0.0036",
-        "section_method\tHyDE\tanswer_relevancy\t22\t0.2438",
-        "section_result\tCAD\tanswer_relevancy\t20\t-0.0606",
-        "section_abstract\tCAD\tfaithfulness\t2\t-0.2188",
+        "사실·정의\tHyDE\tanswer_relevancy\t8\t0.0455",
+        "방법·절차\tHyDE\tanswer_relevancy\t29\t0.1719",
+        "결과·비교\tCAD\tanswer_relevancy\t20\t-0.0683",
+        "목적·기여\tCAD\tfaithfulness\t3\t-0.1597",
     )
     for marker in expected_query_type_rows:
         if marker not in appendix_b:
@@ -335,11 +345,15 @@ def main() -> int:
     for marker in (
         "HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍",
         "105 / 6 / 9",
-        "simple_qa",
-        "section_method",
-        "section_result",
-        "section_abstract",
-        "0.2438",
+        "사실·정의",
+        "방법·절차",
+        "결과·비교",
+        "목적·기여",
+        "0.1719",
+        "공백 분리 기준 최대 512개 단어",
+        "SCD OFF — 영어 검색 문맥 평가",
+        "SCD ON — 한국어 변환 평가 문맥",
+        "evaluator 값 차이: context precision 8/60쌍, context recall 1/60쌍",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
     ):
         if marker not in workbook_text:
@@ -350,6 +364,12 @@ def main() -> int:
         "crosslingual_ko",
         "decoder_ablation",
         "numeric_or_factual_hallucination",
+        "simple_qa",
+        "section_method",
+        "section_result",
+        "section_abstract",
+        "512 tokens / overlap 64 / minimum 50",
+        "max 3072 tokens",
     ):
         if stale in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: {stale}")
@@ -450,8 +470,11 @@ def main() -> int:
     for marker in (
         "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
-        "section_method\tHyDE\tanswer_relevancy\t22\t0.2438",
-        "simple_qa\tCAD\tfaithfulness\t15\t-0.0085",
+        "방법·절차\tHyDE\tanswer_relevancy\t29\t0.1719",
+        "사실·정의\tCAD\tfaithfulness\t8\t0.0005",
+        "공백 분리 기준 최대 512개 단어",
+        "SCD OFF — 영어 검색 문맥 평가",
+        "SCD ON — 한국어 변환 평가 문맥",
     ):
         if marker not in table_copy:
             raise AssertionError(f"HWP copy table content is stale: missing {marker}")
@@ -498,6 +521,19 @@ def main() -> int:
         r"기존\s*19",
         r"추가한\s*41",
     )
+    superseded_terms = (
+        "simple_qa",
+        "section_method",
+        "section_result",
+        "section_abstract",
+        "512-token chunk",
+        "64-token overlap",
+        "최소 50-token",
+        "3,072-token",
+        "상호작용 패턴",
+        "source page",
+        "answer span",
+    )
     audit_phrases = (
         "provenance",
         "추적성",
@@ -520,6 +556,8 @@ def main() -> int:
         for pattern in legacy_patterns:
             if re.search(pattern, package_text, flags=re.IGNORECASE):
                 raise AssertionError(f"legacy thesis history remains in {path.relative_to(FINAL)}: {pattern}")
+        if found := [term for term in superseded_terms if term in package_text]:
+            raise AssertionError(f"superseded thesis term remains in {path.relative_to(FINAL)}: {found}")
         if found := [phrase for phrase in audit_phrases if phrase in package_text]:
             raise AssertionError(f"audit/defensive thesis prose remains in {path.relative_to(FINAL)}: {found}")
 
