@@ -388,14 +388,19 @@ def main() -> int:
         r"추가한\\s*41",
     )
     audit_phrases = (
-        "provenance를 확보",
-        "추적성 요구사항",
+        "provenance",
+        "추적성",
         "원자료 역할",
         "정상적으로 연결된 기준 사례",
         "검토할 수 있다",
         "가장 명확한 결과",
         "가장 명확한 HyDE",
         "확인할 수 있다",
+        "확인 가능하다",
+        "검증 보고서",
+        "저장 artifact",
+        "질의 감사",
+        "정상 QA",
     )
     for path in thesis_facing_paths:
         package_text = path.read_text(encoding="utf-8")
