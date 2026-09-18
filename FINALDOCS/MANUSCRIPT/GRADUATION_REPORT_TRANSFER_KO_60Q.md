@@ -88,13 +88,13 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 [그림 2-6] RAGAS의 high/low faithfulness 예시 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-1] 고정 Paper-RAG backbone 실행 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 4-2] generation·evaluation·analysis artifact 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-1] 60-query 평가 및 대응 비교 설계 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 4-2] generation record–평가–paired analysis 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-1] 60-query 평가 및 HyDE·CAD·SCD 대응 비교 설계 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-2] RAG-Cube 8개 조건의 평균 품질 지표 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-3] HyDE·CAD 주 비교와 신뢰구간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-4] RAG-Cube 조건별 생성 시간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-5] SCD의 한국어 문자 비율 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-6] HyDE·CAD strata별 품질 지표 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-6] HyDE·CAD strata별 faithfulness·answer relevancy 대응 차이 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 
 # 표 목 차 [스타일=목차제목]
 
