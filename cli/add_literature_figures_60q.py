@@ -31,7 +31,7 @@ SOURCES = {
     "fig2_2_lost_middle_original.png": {
         "url": "https://arxiv.org/pdf/2307.03172",
         "page": 0,
-        "clip": (0.43, 0.19, 0.91, 0.62),
+        "clip": (0.504, 0.238, 0.916, 0.631),
         "source": "Liu et al. [12], Figure 1",
     },
     "fig2_3_hyde_original.png": {
@@ -43,13 +43,13 @@ SOURCES = {
     "fig2_4_cad_original.png": {
         "url": "https://aclanthology.org/2024.naacl-short.69.pdf",
         "page": 0,
-        "clip": (0.34, 0.22, 0.84, 0.46),
+        "clip": (0.504, 0.245, 0.921, 0.434),
         "source": "Shi et al. [3], Figure 1",
     },
     "fig2_5_scd_language_drift_original.png": {
         "url": "https://arxiv.org/pdf/2511.09984",
         "page": 0,
-        "clip": (0.45, 0.215, 0.95, 0.47),
+        "clip": (0.479, 0.274, 0.989, 0.499),
         "source": "Li et al. [4], Figure 1",
     },
     "fig2_6_ragas_faithfulness_original.png": {
