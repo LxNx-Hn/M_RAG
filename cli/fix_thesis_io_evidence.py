@@ -60,9 +60,9 @@ def place_claim_adjacent_io(text: str) -> str:
             section = section.replace(anchor, block + anchor, 1)
             text = before + start + section + end + after
 
-    e04 = """E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_raptor_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하지만 HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 결정에 사용된다는 근거를 포함했다. 정량 결과와 함께 보면 검색 표현의 변경이 실제 검색 근거와 최종 답변에 어떻게 이어졌는지 확인할 수 있다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례\n\n"""
-    e05 = """E05는 같은 검색 문맥에서 CAD 적용 전후 답변의 근거 충실도가 달라진 실제 사례다. ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. 검색 근거를 고정한 상태에서 생성 답변이 어떻게 달라지는지 직접 확인할 수 있어 CAD의 generation-side 효과와 근거 충실도 문제를 정량값과 실제 답변 사이에서 연결한다. 반대 방향의 trade-off 사례인 E06은 부록 B에 함께 제시한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례\n\n"""
-    e03 = """E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 직접 확인할 수 있다. 이 사례는 240개 대응쌍 평균 +0.2289와 HyDE OFF 동일 문맥 120쌍 평균 +0.2182를 실제 출력과 연결한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례\n\n"""
+    e04 = """E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_midm_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 질문과 다른 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시했다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례\n\n"""
+    e05 = """E05는 같은 검색 문맥에서 CAD 적용 전후 faithfulness가 달라진 실제 사례다. ext_midm_001에서 CAD OFF와 ON의 retrieved IDs, reranked IDs와 contexts가 모두 같고, faithfulness는 0.8333에서 1.0000으로 변했다. Answer relevancy는 0.8261과 0.8124였다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 동일 retrieval 입력에서 generation-side 차이를 보여준다. 반대 방향의 E06은 부록 B에 함께 제시한다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례\n\n"""
+    e03 = """E03은 SCD의 출력 언어 제어를 동일 검색 문맥의 실제 답변으로 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 저장 답변의 Korean-character ratio는 0.0000에서 0.7713으로 증가했으며, 이 사례가 속한 H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511이다. 전체 240 configuration-matched 대응쌍의 평균 변화는 +0.2289이다.\n\n[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]\n\n[입출력 증빙 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례\n\n"""
     insert_local("## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]", "## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "[표 5-3] HyDE 주 비교 결과 [스타일=표제목]", e04, "[입출력 증빙 E04]")
     insert_local("## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]", "## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "[표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]", e05, "[입출력 증빙 E05]")
     insert_local("## 5.6 SCD 출력 언어 결과 및 해석 [스타일=절(1.1)]", "## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]", "[표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]", e03, "[입출력 증빙 E03]")
@@ -100,7 +100,7 @@ def repair_manuscript() -> None:
 
     text = text.replace(
         "검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 BIC 활용 정보를 찾지 못한 반면 HyDE ON 답변은 최적 cluster 수 선택을 설명했다.",
-        "검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 GMM과 soft clustering의 일반 설명에 머물렀고, HyDE ON 답변은 BIC가 최적 cluster 수 선택에 사용된다는 근거를 포함했다.",
+        "검색 ID가 실제로 바뀐 E04에서는 HyDE OFF 답변이 질문과 다른 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 interaction structure, topic and task, persona의 세 설계 차원을 제시했다.",
     )
 
     section57 = """## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
@@ -113,13 +113,13 @@ E01은 정상 QA 기준 사례다. ext_raptor_011의 H0C0S0 record는 faithfulne
 
 [입출력 증빙 E01] 정상 QA 저장 입출력 사례
 
-HyDE의 retrieval-side 변화는 E04에서 확인한다. ext_raptor_004는 RAPTOR의 GMM clustering에서 BIC의 역할을 묻는다. H0C0S0 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, H1C0S0에서는 retrieved IDs, reranked IDs와 최종 contexts가 함께 달라지면서 BIC가 최적 cluster 수를 결정하는 데 사용된다는 내용을 포함했다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 달라졌다. 이 사례는 5.4절의 HyDE answer relevancy 평균 변화 +0.0805를 실제 검색 경로와 답변 변화에 연결한다.
+HyDE의 retrieval-side 변화는 E04에서 확인한다. ext_midm_004는 Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터 설계 차원을 묻는다. HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌고, answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE ON 답변은 interaction structure, topic and task, persona의 세 차원을 제시한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
 
 [입출력 증빙 E04] HyDE 적용에 따라 retrieval provenance와 답변이 함께 변한 사례
 
-CAD는 검색 입력이 같은 generation-side 사례를 두 방향으로 확인한다. E05의 ext_raptor_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고 faithfulness는 0.2500에서 1.0000으로, answer relevancy는 0.0000에서 0.7554로 달라졌다. E06의 track1_0012도 동일한 검색 입력을 공유하면서 faithfulness가 0.9375에서 0.5000으로, answer relevancy가 0.9001에서 0.0000으로 달라졌다. 같은 문맥에서도 질의별 변화 방향이 다르게 나타나는 점을 두 실제 답변으로 확인할 수 있다.
+CAD는 검색 입력이 같은 generation-side 사례를 두 방향으로 확인한다. E05의 ext_midm_001에서 CAD OFF와 ON은 retrieved IDs, reranked IDs와 contexts가 모두 같고 faithfulness는 0.8333에서 1.0000으로 변했으며, answer relevancy는 0.8261과 0.8124였다. E06의 track1_0012도 동일한 검색 입력을 공유하면서 faithfulness가 0.9375에서 0.5000으로, answer relevancy가 0.9001에서 0.0000으로 달라졌다. 같은 문맥에서도 질의별 변화 방향이 다르게 나타나는 점을 두 실제 답변으로 확인할 수 있다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
 
