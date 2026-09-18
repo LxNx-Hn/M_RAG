@@ -1,0 +1,22 @@
+name: Thesis Final Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-final-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate FINALDOCS
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+          git diff --check
