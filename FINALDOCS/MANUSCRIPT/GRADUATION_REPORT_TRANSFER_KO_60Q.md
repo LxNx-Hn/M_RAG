@@ -424,7 +424,7 @@ SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
 
 프로그램은 query split과 source document chunk를 읽는 입력부, HyDE를 포함한 검색 표현 구성부, dense·sparse retrieval과 fusion·reranking을 수행하는 검색부, CAD·SCD를 선택적으로 적용하는 생성부, generation/evaluation artifact 저장부, 분석·재현 모듈로 구성된다. 모든 configuration은 같은 query split과 backbone을 사용하고 H·C·S 상태만 바꾼다.
 
-HyDE ON에서는 translated query와 hypothetical document를 dense branch에 전달한다. 검색 결과는 weighted RRF와 CrossEncoder를 거쳐 다섯 문맥으로 구성된다. 생성부는 이 문맥과 질문을 입력으로 받아 기준 decoding 또는 CAD·SCD processor가 적용된 decoding을 수행한다. 저장부는 answer와 함께 검색 ID, contexts, parameter와 duration을 기록하며, 이 field를 paired comparison의 query·configuration·context 조건에 사용한다.
+HyDE ON에서는 한국어 질의를 영어로 번역해 hypothetical document를 생성하고, dense branch는 해당 HyDE document를 search text로 사용한다. BM25 branch는 원 질문을 사용한다. 두 retrieval 결과는 weighted RRF로 결합한 뒤 CrossEncoder를 거쳐 다섯 문맥으로 구성된다. 생성부는 이 문맥과 질문을 입력으로 받아 기준 decoding 또는 CAD·SCD processor가 적용된 decoding을 수행한다. 저장부는 answer와 함께 검색 ID, contexts, parameter와 duration을 기록하며, 이 field를 paired comparison의 query·configuration·context 조건에 사용한다.
 
 [그림삽입: FINALDOCS/FIGURES/fig4_1_pipeline.png | 권장폭=본문폭 90% | 정렬=가운데]
 
