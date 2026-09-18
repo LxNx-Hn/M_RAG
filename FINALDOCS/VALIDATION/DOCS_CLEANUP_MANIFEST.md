@@ -9,7 +9,7 @@ the current document structure and the source artifacts retained for verificatio
 
 - `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: canonical 60-query manuscript.
 - `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: HWP style, table, figure, and equation placement guide.
-- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings plus tab-delimited appendix C/D tables.
+- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings plus the tab-delimited appendix C table.
 - `TABLES/TABLES_60Q.xlsx`: 17 workbook sheets used by the body and appendix analysis tables.
 - `FIGURES/`: 10 project-generated structural/statistical figures plus 6 literature-source figures under `FIGURES/LITERATURE/`.
 - `EVIDENCE/IO_CASES/`: six stored-artifact input/output evidence cases (PNG + raw TXT).
@@ -29,7 +29,7 @@ remain in their source locations for provenance and reproducibility.
 
 ## Submission structure
 
-The manuscript contains chapters 1–6, references, appendices A–D, 19 table
+The manuscript contains chapters 1–6, references, appendices A–C, 18 table
 captions, and 16 figure captions. HWP transfer materials mirror that structure
 and use the stored experiment artifacts as the numerical source of record.
 현재 제출 구조를 기준으로 유지한다.
