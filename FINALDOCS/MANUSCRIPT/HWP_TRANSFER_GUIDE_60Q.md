@@ -53,7 +53,7 @@
 
 | 본문 위치 | PNG 파일 | 그림 제목 |
 |---|---|---|
-| 1장 | fig1_1_research_setting.png | 한국어 질의 기반 영어 학술문서 RAG 연구 환경 |
+| 1장 | fig1_1_research_setting.png | 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경 |
 | 2.1 | LITERATURE/fig2_1_rag_original.png | RAG의 retriever–generator 구조 — Lewis et al.[1], Fig. 1 |
 | 2.2 | LITERATURE/fig2_2_lost_middle_original.png | 관련 정보 위치에 따른 long-context 성능 변화 — Liu et al.[12], Fig. 1 |
 | 2.3 | LITERATURE/fig2_3_hyde_original.png | HyDE의 hypothetical-document retrieval 구조 — Gao et al.[2], Fig. 1 |
