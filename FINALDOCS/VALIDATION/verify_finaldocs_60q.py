@@ -169,8 +169,8 @@ def main() -> int:
         "6.1 연구 질문별 최종 답",
         "6.2 실험 설계가 제공한 의미",
         "6.3 적용 시 configuration 선택",
-        "6.4 제한점과 후속 검증",
-        "부록 A~D",
+        "6.4 제한점과 후속 연구",
+        "부록 A~C",
     )
     for section in detailed_toc:
         if section not in toc:
@@ -197,8 +197,8 @@ def main() -> int:
     table_captions = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text))
     if table_toc != table_captions:
         raise AssertionError("table list and manuscript captions do not match")
-    if len(table_captions) != 19:
-        raise AssertionError(f"expected 19 manuscript tables, got {len(table_captions)}")
+    if len(table_captions) != 18:
+        raise AssertionError(f"expected 18 manuscript tables, got {len(table_captions)}")
 
     cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
     references = {
@@ -285,25 +285,25 @@ def main() -> int:
         if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
             raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
     for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
-        if f"[입출력 증빙 {case_id}]" not in text:
+        if f"[입출력 사례 {case_id}]" not in text:
             raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
     for raw_path in sorted((io_dir / "raw").glob("E*.txt")):
         raw_text = raw_path.read_text(encoding="utf-8")
         if "Evidence Replay UI" in raw_text or "evidence replay" in raw_text.lower():
             raise AssertionError(f"UI/replay label remains in raw evidence: {raw_path.name}")
     placement_checks = (
-        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 증빙 E04]"),
-        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 증빙 E05]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 증빙 E02]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 증빙 E03]"),
-        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[입출력 증빙 E01]"),
+        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 사례 E04]"),
+        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 사례 E05]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 사례 E02]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 사례 E03]"),
+        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[입출력 사례 E01]"),
     )
     for start, end, evidence_marker in placement_checks:
         section = text.split(start, 1)[1].split(end, 1)[0]
         if evidence_marker not in section:
             raise AssertionError(f"claim-adjacent IO evidence placement mismatch: {evidence_marker}")
     chapter5 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("# 6. 결론", 1)[0]
-    if "[입출력 증빙 E06]" in chapter5:
+    if "[입출력 사례 E06]" in chapter5:
         raise AssertionError("E06 trade-off evidence must remain appendix-only")
     for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 configuration 선택")):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
@@ -333,20 +333,17 @@ def main() -> int:
     table_copy = (FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt").read_text(
         encoding="utf-8"
     )
-    table_copy_blocks = re.findall(r"(?m)^\[표\s+[CD]-[0-9]+\]", table_copy)
-    if len(table_copy_blocks) != 2:
+    table_copy_blocks = re.findall(r"(?m)^\[표\s+C-[0-9]+\]", table_copy)
+    if len(table_copy_blocks) != 1:
         raise AssertionError(
-            f"HWP copy file must contain appendix C/D tab blocks, got {len(table_copy_blocks)}"
+            f"HWP copy file must contain appendix C tab block, got {len(table_copy_blocks)}"
         )
     workbook_blocks = re.findall(r"(?m)^\[Workbook Sheet\]\s+(.+)$", table_copy)
     if tuple(workbook_blocks) != EXPECTED_SHEETS:
         raise AssertionError(f"HWP copy workbook blocks mismatch: {workbook_blocks}")
-    for required_table in (
-        "[표 C-1] 주요 연구 artifact provenance",
-        "[표 D-1] 저장 artifact 기반 점검 절차",
-    ):
-        if required_table not in table_copy:
-            raise AssertionError(f"missing HWP appendix table: {required_table}")
+    required_table = "[표 C-1] 주요 연구 자료와 SHA-256"
+    if required_table not in table_copy:
+        raise AssertionError(f"missing HWP appendix table: {required_table}")
     hash_holders = {
         "experiment validation": (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(encoding="utf-8"),
         "manuscript": text,
@@ -375,18 +372,38 @@ def main() -> int:
     if "증빙 화면" in hwp_material or "실제 응답 증빙 화면" in hwp_material:
         raise AssertionError("UI screenshot insertion guidance returned to HWP-transfer package")
 
-    appendix_d_text = text.split("# 부록 D.", maxsplit=1)[1]
-    expected_check_items = (
-        "저장 artifact 기반 점검 절차",
-        "FINALDOCS/APPENDIX/QUERY_60_AUDIT.md",
-        "FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md",
-        "FINALDOCS/TABLES/TABLES_60Q.xlsx",
-        "FINALDOCS/FIGURES",
-        "python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+    thesis_facing_paths = (
+        MANUSCRIPT,
+        FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
+        FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
     )
-    for item in expected_check_items:
-        if item not in appendix_d_text or item not in table_copy:
-            raise AssertionError(f"missing canonical appendix-D check item: {item}")
+    legacy_patterns = (
+        r"(?<!\\d)19개(?!\\d)",
+        r"(?<!\\d)41개(?!\\d)",
+        r"retained",
+        r"held-out",
+        r"extension\\s*단계",
+        r"parameter를\\s*고정한\\s*뒤",
+        r"기존\\s*19",
+        r"추가한\\s*41",
+    )
+    audit_phrases = (
+        "provenance를 확보",
+        "추적성 요구사항",
+        "원자료 역할",
+        "정상적으로 연결된 기준 사례",
+        "검토할 수 있다",
+        "가장 명확한 결과",
+        "가장 명확한 HyDE",
+        "확인할 수 있다",
+    )
+    for path in thesis_facing_paths:
+        package_text = path.read_text(encoding="utf-8")
+        for pattern in legacy_patterns:
+            if re.search(pattern, package_text, flags=re.IGNORECASE):
+                raise AssertionError(f"legacy thesis history remains in {path.relative_to(FINAL)}: {pattern}")
+        if found := [phrase for phrase in audit_phrases if phrase in package_text]:
+            raise AssertionError(f"audit/defensive thesis prose remains in {path.relative_to(FINAL)}: {found}")
 
     package_text_paths = (
         FINAL / "README.md",
