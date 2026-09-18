@@ -378,14 +378,14 @@ def main() -> int:
         FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
     )
     legacy_patterns = (
-        r"(?<!\\d)19개(?!\\d)",
-        r"(?<!\\d)41개(?!\\d)",
+        r"(?<!\d)19개(?!\d)",
+        r"(?<!\d)41개(?!\d)",
         r"retained",
         r"held-out",
-        r"extension\\s*단계",
-        r"parameter를\\s*고정한\\s*뒤",
-        r"기존\\s*19",
-        r"추가한\\s*41",
+        r"extension\s*단계",
+        r"parameter를\s*고정한\s*뒤",
+        r"기존\s*19",
+        r"추가한\s*41",
     )
     audit_phrases = (
         "provenance",
