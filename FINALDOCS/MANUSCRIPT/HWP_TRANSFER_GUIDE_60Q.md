@@ -62,12 +62,12 @@
 | 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS high/low faithfulness 예시 — Es et al.[9], Table 2 |
 | 3장 | fig3_1_rag_cube.png | HyDE·CAD·SCD RAG-Cube 8개 조건 |
 | 4장 | fig4_1_pipeline.png | 고정 Paper-RAG backbone 실행 흐름 |
-| 4장 | fig4_2_artifact_flow.png | generation·evaluation·analysis artifact 흐름 |
-| 5.2 | fig5_0_evaluation_design.png | 60-query 평가 및 대응 비교 설계 |
-| 5.3 | fig5_1_quality_matrix.png | configuration별 평균 품질 지표 |
+| 4장 | fig4_2_artifact_flow.png | generation record → 평가 → paired analysis → 표·그림 흐름 |
+| 5.2 | fig5_0_evaluation_design.png | 60-query 평가 및 HyDE·CAD·SCD 대응 비교 설계 |
+| 5.3 | fig5_1_quality_matrix.png | configuration별 평균 품질 지표와 SCD ON 평가 context 주석 |
 | 5.4 | fig5_2_primary_forest.png | HyDE·CAD primary contrast와 신뢰구간 |
 | 5.6 | fig5_3_scd_language.png | SCD의 한국어 문자 비율 변화 |
-| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 변화 |
+| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 faithfulness·answer relevancy 대응 차이 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
 
 ## 대표 입출력 사례 삽입
