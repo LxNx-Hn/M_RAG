@@ -1,0 +1,24 @@
+name: Thesis Final Figure Audit Bundle
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-final-figure-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thesis-final-figure-audit
+          path: |
+            FINALDOCS/FIGURES/**/*.png
+            FINALDOCS/EVIDENCE/IO_CASES/*.png
+          if-no-files-found: error
+          retention-days: 1
