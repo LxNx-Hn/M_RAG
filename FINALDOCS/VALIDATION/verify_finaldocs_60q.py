@@ -311,7 +311,7 @@ def main() -> int:
     ):
         if stale in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: {stale}")
-    if len(re.findall(r"<x:row", query_rows)) != 63:
+    if len(re.findall(r"<(?:[A-Za-z_][\\w.-]*:)?row\\b", query_rows)) != 63:
         raise AssertionError(
             "Appendix_Queries must contain its title, source, header, and 60 query rows"
         )
