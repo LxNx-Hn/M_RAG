@@ -1,6 +1,7 @@
 name: Thesis Figure Finalize
 # rerun after E04 renderer fix
 # final visual micro-fixes
+# rerun on cleaned main
 
 on:
   push:
