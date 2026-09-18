@@ -263,12 +263,34 @@ def main() -> int:
     for stem in expected_io:
         need(io_dir / f"{stem}.png")
         need(io_dir / "raw" / f"{stem}.txt")
+    manifest_cases = {case["case_id"]: case for case in evidence_manifest["cases"]}
+    expected_case_queries = {
+        "E01": "ext_raptor_011",
+        "E02": "ext_cad_007",
+        "E03": "ext_midm_005",
+        "E04": "ext_raptor_004",
+        "E05": "ext_midm_001",
+        "E06": "track1_0012",
+    }
+    if set(manifest_cases) != set(expected_case_queries):
+        raise AssertionError("evidence manifest must contain E01 through E06 exactly")
+    for case_id, query_id in expected_case_queries.items():
+        if manifest_cases[case_id]["query_id"] != query_id:
+            raise AssertionError(f"{case_id} manifest query mismatch")
+        raw_name = next(name for name in expected_io if name.startswith(case_id))
+        raw_text = (io_dir / "raw" / f"{raw_name}.txt").read_text(encoding="utf-8")
+        if f"Query ID          : {query_id}" not in raw_text:
+            raise AssertionError(f"{case_id} raw evidence query mismatch")
     for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):
         if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
             raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
     for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
         if f"[입출력 증빙 {case_id}]" not in text:
             raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
+    for raw_path in sorted((io_dir / "raw").glob("E*.txt")):
+        raw_text = raw_path.read_text(encoding="utf-8")
+        if "Evidence Replay UI" in raw_text or "evidence replay" in raw_text.lower():
+            raise AssertionError(f"UI/replay label remains in raw evidence: {raw_path.name}")
     placement_checks = (
         ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 증빙 E04]"),
         ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 증빙 E05]"),
@@ -316,12 +338,24 @@ def main() -> int:
         raise AssertionError(
             f"HWP copy file must contain appendix C/D tab blocks, got {len(table_copy_blocks)}"
         )
+    workbook_blocks = re.findall(r"(?m)^\[Workbook Sheet\]\s+(.+)$", table_copy)
+    if tuple(workbook_blocks) != EXPECTED_SHEETS:
+        raise AssertionError(f"HWP copy workbook blocks mismatch: {workbook_blocks}")
     for required_table in (
         "[표 C-1] 주요 연구 artifact provenance",
         "[표 D-1] 저장 artifact 기반 점검 절차",
     ):
         if required_table not in table_copy:
             raise AssertionError(f"missing HWP appendix table: {required_table}")
+    hash_holders = {
+        "experiment validation": (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(encoding="utf-8"),
+        "manuscript": text,
+        "HWP copy": table_copy,
+    }
+    for relative_path, expected_hash in evidence_manifest["sources"].items():
+        for label, holder in hash_holders.items():
+            if expected_hash not in holder:
+                raise AssertionError(f"{label} missing current source hash for {relative_path}")
     for sheet in EXPECTED_SHEETS:
         if sheet not in table_copy:
             raise AssertionError(f"missing HWP workbook mapping: {sheet}")
@@ -372,6 +406,8 @@ def main() -> int:
 
     if "증빙 경로" in validation_report:
         raise AssertionError("validation report still describes UI/evidence insertion paths")
+    if "16 figure captions" not in cleanup_manifest:
+        raise AssertionError("cleanup manifest figure count is stale")
     if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):
         raise AssertionError("cleanup manifest is incomplete or truncated")
 
