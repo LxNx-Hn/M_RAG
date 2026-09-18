@@ -160,6 +160,38 @@ def main() -> int:
         raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
 
     for marker in (
+        "60개 질의 전체가 한국어 질의–영어 문서 검색의 동일한 cross-lingual 조건을 공유한다",
+        "simple_qa 16개, section_method 22개, section_result 20개, section_abstract 2개",
+        "weighted RRF(k=60)",
+        "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        "512-token chunk, 64-token overlap, 최소 50-token",
+        "ContextCompressor",
+        "C0S0에서 +0.0805, C1S0에서 +0.0290",
+        "H0S0 -0.0073, H1S0 -0.0588",
+        "상호작용 패턴",
+    ):
+        if marker not in text:
+            raise AssertionError(f"current thesis-method marker missing: {marker}")
+
+    appendix_a = text.split("# 부록 A. 60개 질의 목록", 1)[1].split("# 부록 B.", 1)[0]
+    for stale_type in ("crosslingual_ko", "decoder_ablation", "numeric_or_factual_hallucination"):
+        if stale_type in appendix_a:
+            raise AssertionError(f"legacy mixed query-type label remains in appendix A: {stale_type}")
+
+    appendix_b = text.split("## B.2 문서별·질문 유형별 탐색 분석", 1)[1]
+    expected_query_type_rows = (
+        "simple_qa\tHyDE\tanswer_relevancy\t16\t-0.0036",
+        "section_method\tHyDE\tanswer_relevancy\t22\t0.2438",
+        "section_result\tCAD\tanswer_relevancy\t20\t-0.0606",
+        "section_abstract\tCAD\tfaithfulness\t2\t-0.2188",
+    )
+    for marker in expected_query_type_rows:
+        if marker not in appendix_b:
+            raise AssertionError(f"reclassified B-2 row missing: {marker}")
+    if "# 부록 C." in text or "[표 C-1]" in text:
+        raise AssertionError("appendix C internal audit material returned to thesis-facing manuscript")
+
+    for marker in (
         "60개",
         "480개",
         "240",
@@ -214,7 +246,7 @@ def main() -> int:
         "6.2 실험 설계가 제공한 의미",
         "6.3 적용 시 configuration 선택",
         "6.4 제한점과 후속 연구",
-        "부록 A~C",
+        "부록 A~B",
     )
     for section in detailed_toc:
         if section not in toc:
@@ -241,8 +273,8 @@ def main() -> int:
     table_captions = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text))
     if table_toc != table_captions:
         raise AssertionError("table list and manuscript captions do not match")
-    if len(table_captions) != 18:
-        raise AssertionError(f"expected 18 manuscript tables, got {len(table_captions)}")
+    if len(table_captions) != 17:
+        raise AssertionError(f"expected 17 manuscript tables, got {len(table_captions)}")
 
     cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
     references = {
@@ -303,12 +335,21 @@ def main() -> int:
     for marker in (
         "HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍",
         "105 / 6 / 9",
+        "simple_qa",
+        "section_method",
+        "section_result",
+        "section_abstract",
+        "0.2438",
+        "cross-encoder/ms-marco-MiniLM-L-6-v2",
     ):
         if marker not in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: missing {marker}")
     for stale in (
         "동일 query·HyDE·CAD의 240 ON/OFF쌍",
         "분석 artifact 참조",
+        "crosslingual_ko",
+        "decoder_ablation",
+        "numeric_or_factual_hallucination",
     ):
         if stale in workbook_text:
             raise AssertionError(f"workbook thesis table content is stale: {stale}")
@@ -409,29 +450,20 @@ def main() -> int:
     for marker in (
         "SCD\t출력 token logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍\t한국어 문자 비율",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
+        "section_method\tHyDE\tanswer_relevancy\t22\t0.2438",
+        "simple_qa\tCAD\tfaithfulness\t15\t-0.0085",
     ):
         if marker not in table_copy:
             raise AssertionError(f"HWP copy table content is stale: missing {marker}")
-    table_copy_blocks = re.findall(r"(?m)^\[표\s+C-[0-9]+\]", table_copy)
-    if len(table_copy_blocks) != 1:
-        raise AssertionError(
-            f"HWP copy file must contain appendix C tab block, got {len(table_copy_blocks)}"
-        )
+    if re.search(r"(?m)^\[표\s+C-[0-9]+\]", table_copy):
+        raise AssertionError("appendix C audit table returned to the HWP copy package")
     workbook_blocks = re.findall(r"(?m)^\[Workbook Sheet\]\s+(.+)$", table_copy)
     if tuple(workbook_blocks) != EXPECTED_SHEETS:
         raise AssertionError(f"HWP copy workbook blocks mismatch: {workbook_blocks}")
-    required_table = "[표 C-1] 주요 연구 자료와 SHA-256"
-    if required_table not in table_copy:
-        raise AssertionError(f"missing HWP appendix table: {required_table}")
-    hash_holders = {
-        "experiment validation": (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(encoding="utf-8"),
-        "manuscript": text,
-        "HWP copy": table_copy,
-    }
+    experiment_validation = (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(encoding="utf-8")
     for relative_path, expected_hash in evidence_manifest["sources"].items():
-        for label, holder in hash_holders.items():
-            if expected_hash not in holder:
-                raise AssertionError(f"{label} missing current source hash for {relative_path}")
+        if expected_hash not in experiment_validation:
+            raise AssertionError(f"experiment validation missing current source hash for {relative_path}")
     for sheet in EXPECTED_SHEETS:
         if sheet not in table_copy:
             raise AssertionError(f"missing HWP workbook mapping: {sheet}")
@@ -480,6 +512,8 @@ def main() -> int:
         "저장 artifact",
         "질의 감사",
         "정상 QA",
+        "source artifact",
+        "generation/evaluation artifact",
     )
     for path in thesis_facing_paths:
         package_text = path.read_text(encoding="utf-8")
