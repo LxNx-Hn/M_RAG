@@ -315,7 +315,7 @@ simple_qa	CAD	context_precision	14	-0.0337
 simple_qa	CAD	context_recall	14	0
 
 ==========================================================================================
-[표 C-1] 주요 연구 artifact provenance
+[표 C-1] 주요 연구 자료와 SHA-256
 ==========================================================================================
 artifact	상대 경로	역할	SHA-256
 main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	60-query source artifact	916817150e40e0d2803f7e145633d13737c2304d17efdc4d42dc65cb4ed007d5
@@ -325,13 +325,3 @@ merged.ragas_scores.json	experiments/results/evaluation/ext60_gpt4o/merged.ragas
 decoder_main_queries.json	experiments/data/query_splits/decoder_main_queries.json	60-query source artifact	36c90ab2d4d13993a71abbfcab8f2a828e3487e802a68c228f4c97e3a482eac5
 extended_validation_questions.json	experiments/data/query_splits/extended_validation_questions.json	60-query source artifact	acc2211012904b23c30a4f16f70c18fbad4038c4a2ea76bcf1e602a5161efd23
 extended_validation_60_analysis.json	experiments/results/analysis/extended_validation_60_analysis.json	60-query source artifact	6ec588a3a8cbe63e2cfe923286dfa3fad46c1a9cb4d59eb670bc6864e4455f57
-
-==========================================================================================
-[표 D-1] 저장 artifact 기반 점검 절차
-==========================================================================================
-점검 단계	실제 경로 또는 명령	입력	확인 결과	목적
-질의 감사	FINALDOCS/APPENDIX/QUERY_60_AUDIT.md	동결 query split 감사 결과	60개 질의 목록	60개 질의와 source metadata 확인
-수치 대조	FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md	해시로 고정한 저장 artifact	검증 범위·핵심 수치	표와 본문 수치 대조
-표 확인	FINALDOCS/TABLES/TABLES_60Q.xlsx	17개 HWP 이전용 sheet	HWP 표 이전	표 제목·값·출처 확인
-제출 그림 확인	FINALDOCS/FIGURES	구조·통계 10개 + 선행연구 6개	HWP 삽입 그림	본문 16개 그림과 출처 확인
-패키지 검증	python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py	FINALDOCS	PASS/FAIL	원고·표·그림·출처 정합성 확인
