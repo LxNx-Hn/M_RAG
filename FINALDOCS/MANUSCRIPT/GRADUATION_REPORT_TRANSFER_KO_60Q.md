@@ -1,6 +1,6 @@
 # 졸업자격실험보고서 [스타일=논문제목]
 
-## 한국어 질의 기반 영어 학술문서 RAG에서 HyDE·CAD·SCD 조합 실험 [스타일=논문제목]
+## 한국어 질의 기반 영어 학술·기술 문서 RAG에서 HyDE·CAD·SCD 조합 실험 [스타일=논문제목]
 
 [학생명 입력] · [학번 입력] · [지도교수 입력] · [제출일 입력]
 
@@ -18,7 +18,7 @@
 
 # 국문초록 [스타일=목차제목]
 
-검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 문맥으로 제공함으로써 특정 문서에 근거한 질의응답을 가능하게 한다. 한국어로 질문하고 영어 학술문서에서 근거를 검색한 뒤 한국어로 답하는 환경에서는 질의와 문서의 언어·표현 차이, 검색 근거의 생성 단계 활용, 영어 문맥에 따른 출력 언어 이탈을 함께 고려해야 한다. 본 연구는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 표현 확장, 문맥 기반 생성 제어, 한국어 출력 언어 제어의 실험 요인으로 두고 2×2×2 조합을 RAG-Cube로 구성하였다.
+검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 문맥으로 제공함으로써 특정 문서에 근거한 질의응답을 가능하게 한다. 한국어로 질문하고 영어 학술·기술 문서에서 근거를 검색한 뒤 한국어로 답하는 환경에서는 질의와 문서의 언어·표현 차이, 검색 근거의 생성 단계 활용, 영어 문맥에 따른 출력 언어 이탈을 함께 고려해야 한다. 본 연구는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 표현 확장, 문맥 기반 생성 제어, 한국어 출력 언어 제어의 실험 요인으로 두고 2×2×2 조합을 RAG-Cube로 구성하였다.
 
 실험은 BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, K-intelligence/Midm-2.0-Base-Instruct를 고정 Paper-RAG backbone으로 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 문서에 문서별 15개씩 총 60개의 한국어 질의-대상문서 쌍을 구성하고, 여덟 configuration을 적용하여 480개 generation record를 저장하였다. HyDE는 CAD·SCD OFF의 60 대응쌍, CAD는 동일 검색 문맥 대응쌍, SCD는 같은 query와 HyDE·CAD configuration을 짝지은 240 ON/OFF쌍과 HyDE OFF 동일 검색 문맥 120쌍으로 비교하였다.
 
@@ -26,17 +26,17 @@ HyDE 적용 시 answer relevancy 평균 변화는 +0.0805이고 95% 신뢰구간
 
 HyDE, CAD, SCD는 각각 검색 표현, 문맥 기반 생성, 출력 언어 제어 위치에서 서로 다른 변화를 보였다. HyDE의 answer relevancy, CAD의 동일 문맥 faithfulness, SCD의 Korean-character ratio를 각 요인의 대응 비교 결과로 정리하였다.
 
-주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술문서, 언어 이탈
+주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술·기술 문서, 언어 이탈
 
 # Abstract [스타일=목차제목]
 
-Retrieval-augmented generation (RAG) enables document-grounded question answering by retrieving external evidence and supplying it to a generator. When Korean questions target English academic documents and the expected answer language is Korean, retrieval and generation involve three coupled issues: cross-lingual mismatch between queries and evidence, use of retrieved context during generation, and output-language drift toward English. This study treats Hypothetical Document Embeddings (HyDE), Context-Aware Decoding (CAD), and Soft Constrained Decoding (SCD) as binary factors for retrieval-query expansion, context-aware generation, and Korean-output control, forming a 2×2×2 configuration called RAG-Cube.
+Retrieval-augmented generation (RAG) enables document-grounded question answering by retrieving external evidence and supplying it to a generator. When Korean questions target English academic or technical documents and the expected answer language is Korean, retrieval and generation involve three coupled issues: cross-lingual mismatch between queries and evidence, use of retrieved context during generation, and output-language drift toward English. This study treats Hypothetical Document Embeddings (HyDE), Context-Aware Decoding (CAD), and Soft Constrained Decoding (SCD) as binary factors for retrieval-query expansion, context-aware generation, and Korean-output control, forming a 2×2×2 configuration called RAG-Cube.
 
 The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, and K-intelligence/Midm-2.0-Base-Instruct. Sixty Korean query-document pairs are constructed from four English academic or technical documents, and eight configurations are applied to every pair, yielding 480 stored generation records. HyDE is compared on 60 pairs with CAD and SCD disabled, CAD on identical-context pairs, and SCD on 240 configuration-matched on/off pairs together with a 120-pair HyDE-OFF identical-context subset.
 
 HyDE increases answer relevancy by +0.0805 on average with a 95% bootstrap interval of [+0.0110, +0.1514]. Its changes in faithfulness, context precision, and context recall are +0.0436, -0.0343, and 0.0000, respectively. Under identical contexts, CAD changes faithfulness by +0.0288 on 58 complete pairs and answer relevancy by -0.0073 on 60 pairs. SCD increases the Korean-character ratio by +0.2289 across 240 matched pairs and by +0.2182 in the 120-pair HyDE-OFF identical-context subset. The paired results characterize HyDE through answer relevancy, CAD through same-context faithfulness, and SCD through Korean-output control.
 
-Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, Korean query, English academic document, language drift
+Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, Korean query, English academic or technical document, language drift
 
 # 목    차 [스타일=목차제목]
 
@@ -79,7 +79,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 부록 A~C ···· [쪽번호 자동갱신] [스타일=목차리스트(장)]
 # 그 림 목 차 [스타일=목차제목]
 
-[그림 1-1] 한국어 질의 기반 영어 학술문서 RAG 연구 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 2-1] RAG의 retriever–generator 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 2-2] 관련 정보 위치에 따른 long-context 성능 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 2-3] HyDE의 hypothetical-document retrieval 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
@@ -123,7 +123,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 대규모 언어모델은 자연어 질의에 대한 설명형 응답을 생성할 수 있어 학술정보 탐색에도 활용된다. 특정 논문의 방법, 실험 조건, 수치와 결론을 확인하는 작업에서는 답변과 실제 문서 근거의 연결이 중요하다. Retrieval-Augmented Generation(RAG)은 질의와 관련된 외부 문서를 검색해 생성 문맥으로 제공함으로써 문서 근거와 답변의 연결을 강화한다[1].
 
-본 연구가 다루는 환경은 한국어로 질문하고 영어 학술·기술 문서에서 근거를 찾은 뒤 한국어로 답하는 질의응답이다. 이 조건에서는 세 가지 요소가 중요하다. 첫째, 한국어 질문과 영어 학술문장의 어휘·표현 차이를 연결하는 검색 표현이 필요하다. 둘째, 검색된 근거를 생성 단계에서 얼마나 충실하게 활용하는지 확인해야 한다. 셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.
+본 연구가 다루는 환경은 한국어로 질문하고 영어 학술·기술 문서에서 근거를 찾은 뒤 한국어로 답하는 질의응답이다. 이 조건에서는 세 가지 요소가 중요하다. 첫째, 한국어 질문과 영어 학술·기술 문장의 어휘·표현 차이를 연결하는 검색 표현이 필요하다. 둘째, 검색된 근거를 생성 단계에서 얼마나 충실하게 활용하는지 확인해야 한다. 셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.
 
 이 세 문제와 연결해 HyDE는 질의를 가상의 문서 표현으로 확장하는 retrieval-side 기법으로 사용한다[2]. CAD는 문맥이 있는 분포와 없는 분포를 대조하여 생성에서 문맥의 영향을 조절하는 decoding 기법이다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정해 출력 언어 이탈을 완화한다[4]. 세 기법은 검색 표현, 근거 반영, 출력 언어라는 서로 다른 위치에 개입하므로 각 목적에 대응하는 결과를 분리해 분석한다.
 
@@ -131,7 +131,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 [그림삽입: FINALDOCS/FIGURES/fig1_1_research_setting.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 1-1] 한국어 질의 기반 영어 학술문서 RAG 연구 환경 [스타일=그림제목]
+[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경 [스타일=그림제목]
 
 ## 1.2 연구범위 [스타일=절(1.1)]
 
@@ -372,10 +372,10 @@ H1C1S1	ON	ON	ON	60
 요인	적용 위치	주 비교	주 지표
 HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 4개 품질 지표
 CAD	문맥 기반 decoding	동일 문맥 60 대응쌍; faithfulness 58 완결쌍	RAGAS 4개 품질 지표
-SCD	출력 token logit 제어	동일 query·HyDE·CAD의 240 ON/OFF쌍	한국어 문자 비율
+SCD	출력 token logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍	한국어 문자 비율
 ```
 
-비교 설계는 요인별로 다르다. HyDE primary contrast는 같은 query의 H1C0S0과 H0C0S0을 연결하며, 검색 결과 변화를 end-to-end 효과에 포함한다. CAD primary contrast는 같은 query의 H0C1S0과 H0C0S0을 연결하고 retrieved IDs, reranked IDs, contexts가 모두 같은지를 확인한다. SCD는 query와 H·C 조건을 고정하고 S만 다른 240쌍을 만들며, HyDE OFF 120쌍에서는 context identity도 확인한다.
+비교 설계는 요인별로 다르다. HyDE primary contrast는 같은 query의 H1C0S0과 H0C0S0을 연결하며, 검색 결과 변화를 end-to-end 효과에 포함한다. CAD primary contrast는 같은 query의 H0C1S0과 H0C0S0을 연결하고 retrieved IDs, reranked IDs, contexts가 모두 같은지를 확인한다. SCD primary contrast는 HyDE OFF에서 S 상태만 다른 120 same-context 대응쌍으로 구성하며 retrieved IDs, reranked IDs와 contexts의 동일성을 확인한다. 추가로 같은 query와 HyDE·CAD configuration을 고정한 전체 240 ON/OFF쌍에서 조합 전반의 출력 언어 변화를 분석한다.
 
 각 generation record에는 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장한다. HyDE 비교에서는 검색 ID와 contexts의 변화를 포함하고, CAD 비교에서는 retrieved IDs, reranked IDs와 contexts가 같은 대응쌍을 사용한다. Evaluation 결과는 generation record와 query ID·configuration으로 결합하며, configuration 평균, paired delta와 bootstrap interval을 계산한다.
 
@@ -552,7 +552,7 @@ H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 
 HyDE의 answer relevancy 평균 변화는 +0.0805이고 95% CI는 [+0.0110, +0.1514]이다. 60개 대응 질의의 win/loss/tie는 29/15/16이다. Faithfulness 평균 변화는 +0.0436, 95% CI는 [-0.0262, +0.1153]이며 win/loss/tie는 24/21/15이다. Context precision은 -0.0343, context recall은 0.0000이며 context recall의 win/loss/tie는 4/4/52이다.
 
-HyDE의 answer relevancy는 +0.0805의 평균 변화를 보였고, faithfulness는 +0.0436, context precision은 -0.0343, context recall은 0.0000이었다. E04에서 HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 생성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 선택에 사용된다는 내용을 포함했다.
+HyDE의 answer relevancy는 +0.0805의 평균 변화를 보였고, faithfulness는 +0.0436, context precision은 -0.0343, context recall은 0.0000이었다. E04에서 HyDE OFF 답변은 질문과 다른 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시했다.
 
 HyDE ON에서는 dense query representation, fusion 후보, reranking 이후의 context selection까지 달라졌다. 이 조건에서 answer relevancy 평균 변화는 +0.0805였고 context precision은 -0.0343이었다. 두 지표의 방향 차이는 검색 경로 변화가 answer-level 결과와 context-level 결과에서 서로 다르게 나타난 패턴이다.
 
@@ -586,7 +586,7 @@ context_recall	0	[-0.1000, +0.1000]	4	4	52	60
 
 CAD의 주 비교는 검색 문맥을 동일하게 유지하고 decoding만 달리한 대응쌍이다. Faithfulness는 완결된 58쌍에서 평균 +0.0288, 95% CI [-0.0367, +0.0934], win/loss/tie 21/24/13이다. Answer relevancy는 60쌍에서 -0.0073, CI [-0.0855, +0.0719], win/loss/tie 19/32/9이다. Context precision은 -0.0092, context recall은 -0.0167이며, context recall은 59개 질의가 tie다.
 
-CAD의 문맥 기반 logit 조절은 동일 검색 문맥에서 지표별 평균 변화와 질의별 분포로 제시한다. 표 4-3에서 CAD ON 평균 generation duration은 대응 strata에서 20.792→63.867초, 18.898→55.159초, 23.440→73.532초, 24.892→64.125초로 증가했다. 품질 지표와 실행 시간은 generation-side decoding 변화의 결과와 계산 비용을 각각 나타낸다.
+CAD의 문맥 기반 logit 조절은 동일 검색 문맥에서 faithfulness와 answer relevancy의 평균 변화와 질의별 분포로 제시한다. CAD 대응쌍은 query와 retrieval 입력을 동일하게 구성하므로 context precision과 context recall은 동일 retrieval 입력에 대해 계산된 저장 평가값의 변동으로 함께 제시한다. 표 4-3에서 CAD ON 평균 generation duration은 대응 strata에서 20.792→63.867초, 18.898→55.159초, 23.440→73.532초, 24.892→64.125초로 증가했다. CAD의 generation-side 결과는 faithfulness, answer relevancy와 generation duration을 중심으로 분석한다.
 
 CAD faithfulness의 win/loss/tie 21/24/13은 질의별 변동이 컸음을 보여준다. faithfulness의 신뢰구간은 0을 포함하며, 양쪽 score가 존재한 58쌍을 기준으로 계산하였다. 같은 문맥을 입력으로 하더라도 문맥에 직접 답이 포함된 정도, 여러 문장의 종합 필요성, 질문 유형에 따라 대조식 decoding의 반응이 달라질 수 있다.
 
@@ -628,7 +628,7 @@ strata별 평균은 configuration 내 SCD ON/OFF 변화를 요약한다. SCD ON 
 
 [입출력 사례 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례
 
-E03은 SCD의 output-language control에 따른 표면 언어 변화를 동일 검색 문맥에서 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. Korean-character ratio는 0.0000에서 0.7713으로 증가하며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 보여준다. 이 사례는 HyDE OFF 동일 문맥 120쌍의 평균 +0.2182와 전체 240 configuration-matched 대응쌍의 평균 +0.2289를 실제 출력과 연결한다.
+E03은 SCD의 output-language control에 따른 표면 언어 변화를 동일 검색 문맥에서 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. Korean-character ratio는 0.0000에서 0.7713으로 증가하며, 같은 입력 근거에서 생성 문자열의 표면 언어가 영어 중심에서 한국어 중심으로 이동한 과정을 보여준다. 이 사례가 속한 H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511이며, 전체 240 configuration-matched 대응쌍의 평균 변화는 +0.2289이다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
 
@@ -657,7 +657,7 @@ H1C1S0	H1C1S1	60	+0.2283	+0.1832	+0.2762	57	3	0
 ```text
 비교	쌍 수	Korean-character ratio 평균 변화	95% CI	증가 / 감소 / 동률
 전체 SCD ON/OFF 대응	240	+0.2289	[+0.2051, +0.2532]	219 / 10 / 11
-HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	분석 artifact 참조
+HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	105 / 6 / 9
 ```
 
 [그림삽입: FINALDOCS/FIGURES/fig5_3_scd_language.png | 권장폭=본문폭 90% | 정렬=가운데]
@@ -698,7 +698,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 # 6. 결론 [스타일=장(1.)]
 
-본 연구는 한국어 질의로 영어 학술문서를 검색하고 한국어 답변을 생성하는 RAG 환경에서 HyDE, CAD, SCD를 각각 검색 표현, 문맥 기반 생성, 출력 언어 제어의 요인으로 비교하였다. 네 문서의 60개 질의-대상문서 쌍에 여덟 configuration을 적용한 480개 저장 generation record를 바탕으로, 연구 질문별 결과, 설계적 의미, 적용 시 선택 기준과 제한점을 다음 절에서 구분해 정리한다.
+본 연구는 한국어 질의로 영어 학술·기술 문서를 검색하고 한국어 답변을 생성하는 RAG 환경에서 HyDE, CAD, SCD를 각각 검색 표현, 문맥 기반 생성, 출력 언어 제어의 요인으로 비교하였다. 네 문서의 60개 질의-대상문서 쌍에 여덟 configuration을 적용한 480개 저장 generation record를 바탕으로, 연구 질문별 결과, 설계적 의미, 적용 시 선택 기준과 제한점을 다음 절에서 구분해 정리한다.
 
 ## 6.1 연구 질문별 최종 답 [스타일=절(1.1)]
 
