@@ -146,7 +146,7 @@ def main() -> int:
     for marker in (
         "ext_midm_005",
         "H1C0S0과 H1C0S1",
-        "H1C0S0→H1C0S1 strata의 평균 변화는 +0.2511",
+        "H1C0S0→H1C0S1 조건군의 평균 변화는 +0.2511",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
     ):
         if marker not in section_56:
