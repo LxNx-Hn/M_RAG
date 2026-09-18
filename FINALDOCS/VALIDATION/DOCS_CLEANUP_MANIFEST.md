@@ -3,13 +3,13 @@
 Date: 2026-09-17
 
 `FINALDOCS/` is the thesis-writing and HWP-transfer package. This manifest records
-the current document structure and the source artifacts retained for verification.
+the current document structure and the source artifacts used for verification.
 
 ## Current thesis package
 
 - `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: canonical 60-query manuscript.
 - `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: HWP style, table, figure, and equation placement guide.
-- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings plus the tab-delimited appendix C table.
+- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17 workbook-table mappings for the body and appendices.
 - `TABLES/TABLES_60Q.xlsx`: 17 workbook sheets used by the body and appendix analysis tables.
 - `FIGURES/`: 10 project-generated structural/statistical figures plus 6 literature-source figures under `FIGURES/LITERATURE/`.
 - `EVIDENCE/IO_CASES/`: six stored-artifact input/output evidence cases (PNG + raw TXT).
