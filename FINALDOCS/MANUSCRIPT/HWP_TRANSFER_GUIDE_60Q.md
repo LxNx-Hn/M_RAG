@@ -44,8 +44,7 @@
 
 표 5-2 아래에는 다음 주석을 함께 배치한다: `SCD ON 품질 지표는 한국어로 변환된 평가 context를 사용한 configuration-level 기술통계이며, SCD의 주 효과 평가는 표 5-5와 표 5-6의 Korean-character ratio 대응 비교를 사용한다.`
 
-부록 C의 artifact provenance와 부록 D의 저장 artifact 점검 절차는 원고와
-`HWP_COPYPASTE_TABLES_60Q.txt`의 탭 구분 블록을 사용한다.
+부록 C의 실험 자료 식별 정보는 원고와 `HWP_COPYPASTE_TABLES_60Q.txt`의 탭 구분 블록을 사용한다.
 
 ## 그림 삽입 대응
 
@@ -71,9 +70,9 @@
 | 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD strata별 변화 |
 | 5.5 | fig5_10_runtime.png | configuration별 생성 시간 |
 
-## 대표 입출력 증빙 삽입
+## 대표 입출력 사례 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 최종 60-query의 실제 질문·생성 답변·검색 근거·평가값을 연결한 실험 증빙이다. 2장은 선행연구 원자료로 개념을 설명하고, 5장은 본 연구의 입출력 사례를 정량 결과와 연결한다. E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 faithfulness 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 언어 이탈 완화를 보여주며, E01은 5.7절의 정상 QA 기준 사례로 사용한다. E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치하며, 부록 B에는 E01~E06 전체를 다시 모아 provenance를 확인한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 최종 60-query의 실제 질문·생성 답변·검색 근거·평가값을 함께 제시하는 입출력 사례다. 2장은 선행연구 원자료로 개념을 설명하고, 5장은 본 연구의 입출력 사례를 정량 결과와 연결한다. E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 faithfulness 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 output-language control을 보여준다. E01은 5.7절의 기본 입출력 사례이며, E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
 
 | 위치 | 파일 | 용도 |
 |---|---|---|
@@ -83,7 +82,7 @@
 | 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 언어 이탈 완화 사례 |
 | 5.7 | E01_normal_qa.png | 정상 QA 기준 답변 사례 |
 | 부록 B | E06_cad_tradeoff_same_context.png | CAD 동일 문맥 trade-off 사례 |
-| 부록 B | E01~E06 | 전체 대표 입출력 provenance |
+| 부록 B | E01~E06 | 전체 대표 입출력 사례 |
 
 
 ## 수식
