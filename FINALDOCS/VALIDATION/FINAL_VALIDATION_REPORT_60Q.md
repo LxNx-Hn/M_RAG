@@ -2,32 +2,31 @@
 
 ## 검증 대상
 
-- 최종 원고: `GRADUATION_REPORT_TRANSFER_KO_60Q.md`
-- 표: `FINALDOCS/TABLES/TABLES_60Q.xlsx`의 17개 HWP 이전용 sheet
-- 집계 패키지: `FINALDOCS/`
+- 원고: `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`
+- 표: `FINALDOCS/TABLES/TABLES_60Q.xlsx` 17개 HWP 이전용 sheet
+- 그림: 프로젝트 구조·통계 10개 + 선행연구 인용 6개
+- 입출력 증빙: E01~E06 PNG + raw TXT
+- provenance: `evidence_manifest_60q.json`과 부록 C
 
-## 원자료 및 수치 대조
+## 원자료 및 수치
 
-`FINALDOCS/DATA/evidence_manifest_60q.json`에 기록된 저장 generation·evaluation·analysis artifact의 해시를 대조했다. 그 결과 60 질의-대상문서 쌍, 8 configuration, 480 generation record, HyDE primary 60쌍, CAD 동일 문맥 primary 60쌍, SCD ON/OFF 240쌍을 확인했다. Faithfulness의 5개 빈 명제 집합은 결측으로 유지했고 CAD faithfulness 대응 비교는 58 완결쌍으로 표기했다.
+60개 질의는 retained 19개와 held-out extension 41개로 구성되고, 8 configuration에서 480 generation record를 사용한다. HyDE primary 60쌍, CAD 동일 문맥 60쌍, SCD configuration-matched 240쌍, HyDE OFF 동일 문맥 SCD 120쌍을 확인한다.
 
-원고·표에서 대조한 핵심값은 HyDE answer relevancy +0.0805 [+0.0110, +0.1514], CAD faithfulness +0.0288 [-0.0367, +0.0934] (n=58), SCD 전체 +0.2289 [+0.2051, +0.2532] (n=240), HyDE OFF 동일 문맥 SCD +0.2182 [+0.1880, +0.2487] (n=120)이다.
+핵심 결과는 HyDE answer relevancy +0.0805 [+0.0110, +0.1514], CAD faithfulness +0.0288 [-0.0367, +0.0934] (n=58), SCD HyDE-OFF same-context +0.2182 [+0.1880, +0.2487] (n=120), SCD configuration-matched +0.2289 [+0.2051, +0.2532] (n=240)이다.
 
-## 문서 구조 점검
+## 평가 protocol
 
-- 최종 원고의 실험 범위는 60-query·480 generation 기준으로 통일했다.
-- 결과·표·그림·결론은 60-query primary artifact와 통제 비교를 기준으로 구성했다.
-- 문서 구조는 장·절 heading과 본문 caption numbering으로 구성했다.
-- 연구 내용은 HyDE·CAD·SCD의 실험 설계, 구현, 정량 결과와 사례 분석에 맞췄다.
-- 그림 번호는 본문 caption에서 부여한다.
-- 본문 서술은 연구가 수행한 내용과 관찰된 결과를 중심으로 정리하고, 범위·한계는 표본과 평가 조건을 사실형으로 제시한다.
-- HWP 이전 자료는 원고의 19개 표와 10개 구조·통계 그림을 기준으로 정리했다.
+RAGAS 0.2.15, OpenAI gpt-4o judge, BAAI/bge-m3 embedding을 사용한다. SCD ON quality evaluation은 retrieved context를 gpt-4o로 한국어 변환하고 generated answer는 그대로 유지하며, SCD OFF는 저장된 영어 context를 사용한다. Paired bootstrap은 query 단위 200,000회, seed 20260713이다.
 
-## 산출물 점검
+## 패키지 정합성
 
-Excel workbook은 17개 HWP 이전용 sheet를 포함한다. 표 2-1과 부록 A의 60개 질의 sheet를 포함하며, workbook 재열기로 HyDE Win/Loss/Tie 24/21/15와 CAD faithfulness n=58을 확인했다. 표 제목, header, 값의 가독성은 대표 sheet에서 확인했다. 부록 C의 provenance 표와 부록 D의 점검 절차 표는 원고의 탭 구분 블록으로 제공한다.
+- `evidence_manifest_60q.json`의 source SHA-256과 실제 source artifact를 대조한다.
+- 같은 SHA-256을 `EXPERIMENT_60_VALIDATION.md`, 원고 부록 C, HWP copy file에서 사용한다.
+- E01~E06의 query/config를 manifest와 raw evidence에서 대조한다.
+- E05는 `ext_midm_001`의 CAD same-context pair를 사용한다.
+- 일반 그림 caption은 16개, 표 caption은 19개이다.
+- HWP copy file은 17개 workbook sheet의 탭 구분 표 블록과 부록 C/D 표를 포함한다.
 
 ## 최종 HWP 확인 항목
 
-최종 한글 편집 단계에서 저자·지도교수·제출일·승인 정보, 실제 장·절 style, 표·그림 목차 페이지 번호, 조판 후 실제 페이지 수를 입력·확인한다. 쪽 나눔, 표 넘침, 그림 크기와 수식 렌더링도 최종 HWP에서 확인한다. validator는 원고의 구조·수치·표·그림·참고문헌·출처 경로와 핵심 수식의 정합성을 검사한다.
-
-로컬 pre-commit Ruff는 기존 backend lint 178건을 보고했다. 문서·artifact 검증은 `diff --check`와 개별 생성·재열기 검증을 사용했고, 전체 Python lint는 CI에 고정된 Ruff 버전 기준으로 별도 확인한다.
+저자·학번·지도교수·제출일·승인 정보, 목차/그림목차/표목차 쪽번호, 표 넘침, 그림 크기, 수식 렌더링, 페이지 나눔은 최종 HWP에서 확인한다.
