@@ -1,7 +1,7 @@
-"""Registry for the 60-query, stored-artifact evidence replay UI.
+"""Registry for the 60-query stored input/output evidence.
 
-The registry deliberately stores only selectors and source paths. The replay
-viewer resolves answers, contexts, IDs, and scores from unchanged final
+The registry stores only selectors and source paths. The evidence viewer
+resolves answers, contexts, IDs, and scores from unchanged final
 generation/evaluation artifacts at display time.
 """
 
@@ -61,8 +61,8 @@ EVIDENCE_CASES = {
         "title": "CAD Positive Same-Context Pair",
         "kind": "selected_pair",
         "sources": (*GENERATION_SOURCES, *SCORE_SOURCES),
-        "selection": "stored 60-query CAD pair selected for higher faithfulness under identical retrieved inputs",
-        "query_id": "ext_raptor_001",
+        "selection": "stored 60-query CAD pair with higher faithfulness under identical retrieved inputs and a question-aligned answer",
+        "query_id": "ext_midm_001",
         "config_a": "hyde_off__no_decoder_control",
         "config_b": "hyde_off__cad_only",
     },
