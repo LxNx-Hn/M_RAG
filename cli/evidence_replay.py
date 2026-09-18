@@ -534,6 +534,17 @@ def _figure_case(
                 )
         _, left, right = _best(candidates)
         return _figure_pair(left, right, scores)
+    if kind == "selected_changed_pair":
+        left = records[(case["query_id"], case["config_a"])]
+        right = records[(case["query_id"], case["config_b"])]
+        changed = (
+            left.get("contexts") != right.get("contexts")
+            or left.get("retrieved_chunk_ids") != right.get("retrieved_chunk_ids")
+            or left.get("reranked_chunk_ids") != right.get("reranked_chunk_ids")
+        )
+        if not changed:
+            raise AssertionError("selected changed pair no longer changes retrieval/context")
+        return _figure_pair(left, right, scores, include_hyde=True)
     if kind == "selected_pair":
         left = records[(case["query_id"], case["config_a"])]
         right = records[(case["query_id"], case["config_b"])]
@@ -674,6 +685,17 @@ def _resolve_case(
                     )
                 )
         _, left, right = _best(candidates)
+        return _show_pair(left, right, scores, full)
+    if kind == "selected_changed_pair":
+        left = records[(case["query_id"], case["config_a"])]
+        right = records[(case["query_id"], case["config_b"])]
+        changed = (
+            left.get("contexts") != right.get("contexts")
+            or left.get("retrieved_chunk_ids") != right.get("retrieved_chunk_ids")
+            or left.get("reranked_chunk_ids") != right.get("reranked_chunk_ids")
+        )
+        if not changed:
+            raise AssertionError("selected changed pair no longer changes retrieval/context")
         return _show_pair(left, right, scores, full)
     if kind == "selected_pair":
         left = records[(case["query_id"], case["config_a"])]
