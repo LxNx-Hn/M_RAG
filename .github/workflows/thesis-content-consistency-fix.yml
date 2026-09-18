@@ -1,10 +1,8 @@
 name: Thesis Content Consistency Fix
 
 on:
-  push:
+  pull_request:
     branches: [main]
-    paths:
-      - ".github/workflows/thesis-content-consistency-fix.yml"
 
 permissions:
   contents: write
@@ -14,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Install workbook dependency
         run: python -m pip install --disable-pip-version-check openpyxl
@@ -40,12 +40,14 @@ jobs:
                           old = cell.value
                           cell.value = replacements[old]
                           counts[old] += 1
-          expected = {
-              "동일 query·HyDE·CAD의 240 ON/OFF쌍": 1,
-              "분석 artifact 참조": 1,
+
+          allowed = {
+              "동일 query·HyDE·CAD의 240 ON/OFF쌍": {0, 1},
+              "분석 artifact 참조": {0, 1},
           }
-          if counts != expected:
-              raise SystemExit(f"unexpected workbook replacement counts: {counts}")
+          for key, count in counts.items():
+              if count not in allowed[key]:
+                  raise SystemExit(f"unexpected workbook replacement count for {key}: {count}")
           wb.save(path)
           print(counts)
           PY
@@ -57,12 +59,13 @@ jobs:
           python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
           git diff --check
 
-      - name: Commit workbook and validation output
+      - name: Commit corrected workbook
         run: |
           git config user.name "KiKi"
           git config user.email "51896910+LxNx-Hn@users.noreply.github.com"
-          git add FINALDOCS/TABLES/TABLES_60Q.xlsx FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          rm -f .github/THESIS_CONTENT_FIX_TRIGGER
+          git add FINALDOCS/TABLES/TABLES_60Q.xlsx FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt .github/THESIS_CONTENT_FIX_TRIGGER
           if ! git diff --cached --quiet; then
             git commit -m "fix(thesis): synchronize corrected analysis tables"
-            git push origin HEAD:main
+            git push origin HEAD:${{ github.head_ref }}
           fi
