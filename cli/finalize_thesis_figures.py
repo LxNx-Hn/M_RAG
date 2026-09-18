@@ -47,7 +47,7 @@ def render_project_figures() -> None:
     # HyDE augments only the dense branch; BM25 remains a separate lexical branch.
     # CAD/SCD are logits processors inside generation, applied in CAD -> SCD order.
     fig, ax = plt.subplots(figsize=(20, 10.5), dpi=170)
-    ax.set_xlim(0, 1.42)
+    ax.set_xlim(0, 1.48)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
