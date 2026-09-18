@@ -53,7 +53,7 @@ EVIDENCE_CASES = {
     },
     "E04": {
         "title": "HyDE Retrieval Change",
-        "kind": "selected_pair",
+        "kind": "selected_changed_pair",
         "sources": (*GENERATION_SOURCES, *SCORE_SOURCES),
         "selection": "stored HyDE pair with changed retrieval/context and a question-aligned answer",
         "query_id": "ext_midm_004",
