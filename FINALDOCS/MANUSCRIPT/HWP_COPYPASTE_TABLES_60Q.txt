@@ -40,8 +40,8 @@ H1C1S1	ON	ON	ON	60
 [Workbook Sheet] T3-3_Factor_Position
 ==========================================================================================
 요인	적용 위치	주 비교	주 지표
-HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 4개 품질 지표
-CAD	문맥 기반 decoding	동일 문맥 60 대응쌍; faithfulness 58 완결쌍	RAGAS 4개 품질 지표
+HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 품질 지표
+CAD	문맥 기반 decoding	동일 문맥 60 대응쌍; faithfulness 58 유효쌍	faithfulness·answer relevancy·generation duration
 SCD	출력 token logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍	한국어 문자 비율
 
 ==========================================================================================
@@ -50,8 +50,10 @@ SCD	출력 token logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 configur
 구성	저장 record 기준 값
 생성 모델	K-intelligence/Midm-2.0-Base-Instruct
 디코딩	deterministic greedy
-검색 backend	BGE-M3 dense + BM25 sparse + weighted RRF + CrossEncoder rerank
+검색 backend	BGE-M3 dense + BM25 sparse + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2
 retrieval pool / rerank	8 / 8
+chunking	512 tokens / overlap 64 / minimum 50
+문맥 길이 관리	ContextCompressor extractive; max 3072 tokens; ratio 0.5
 최종 문맥 수	5
 max_new_tokens	512
 CAD alpha	0.5
@@ -64,8 +66,8 @@ SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
 입력	한국어 질의와 지정 대상 문서
 검색	BGE-M3 dense retrieval + BM25 sparse retrieval
 결합	weighted Reciprocal Rank Fusion
-재정렬	CrossEncoder reranking
-문맥 구성	rerank 결과에서 상위 5개 context
+재정렬	cross-encoder/ms-marco-MiniLM-L-6-v2
+문맥 구성	ContextCompressor 문맥 길이 관리 후 rerank 상위 5개 context
 생성	Mi:dm 2.0 Base Instruct; max_new_tokens=512
 요인	HyDE retrieval-side / CAD·SCD generation-side
 
@@ -199,22 +201,22 @@ ext_raptor_011	Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based ret
 track1_0009	RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?	RAG Survey	simple_qa	1	By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content.
 track1_0010	RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?	RAG Survey	section_method	3	The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.
 track1_0012	RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?	RAG Survey	section_abstract	1	This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.
-track1_0015	RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?	RAG Survey	crosslingual_ko	2	the aspects of Retrieval, Generation and Augmentation
-track1_0016	RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?	RAG Survey	decoder_ablation	2	We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.
+track1_0015	RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?	RAG Survey	simple_qa	2	the aspects of Retrieval, Generation and Augmentation
+track1_0016	RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?	RAG Survey	section_method	2	We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.
 track1_0019	LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?	CAD	section_result	3	Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P.
-track1_0021	CAD는 어떻게 잘못된 정보 생성을 줄이나요?	CAD	numeric_or_factual_hallucination	2	These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information.
-track1_0023	CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?	CAD	crosslingual_ko	1	Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022).
-track1_0024	CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?	CAD	decoder_ablation	2	CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021).
+track1_0021	CAD는 어떻게 잘못된 정보 생성을 줄이나요?	CAD	section_result	2	These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information.
+track1_0023	CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?	CAD	section_result	1	Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022).
+track1_0024	CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?	CAD	section_result	2	CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021).
 track1_0025	RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?	RAPTOR	simple_qa	1	we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy.
 track1_0026	RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?	RAPTOR	section_method	2	RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up.
 track1_0027	RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?	RAPTOR	section_result	2	RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022).
-track1_0032	RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?	RAPTOR	decoder_ablation	22	We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes.
+track1_0032	RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?	RAPTOR	section_result	22	We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes.
 track1_0033	Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?	Mi:dm K 2.5 Pro Technical Report	simple_qa	2	32B parameters
 track1_0034	Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?	Mi:dm K 2.5 Pro Technical Report	section_method	1	abstract syntax tree (AST) analysis for code
 track1_0035	Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?	Mi:dm K 2.5 Pro Technical Report	section_result	1	sets state-of-the-art results on Korean-specific benchmarks
 track1_0036	Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?	Mi:dm K 2.5 Pro Technical Report	section_abstract	1	address enterprise-grade complexity through reasoning-focused optimization
-track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?	Mi:dm K 2.5 Pro Technical Report	numeric_or_factual_hallucination	1	128K token context window
-track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	decoder_ablation	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
+track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?	Mi:dm K 2.5 Pro Technical Report	simple_qa	1	128K token context window
+track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	section_method	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
 
 ==========================================================================================
 [Workbook Sheet] Appendix_Paper
@@ -257,31 +259,31 @@ RAPTOR	CAD	context_recall	15	0
 [Workbook Sheet] Appendix_QueryType
 ==========================================================================================
 질문 유형	요인	지표	n	평균 변화
-crosslingual_ko	HyDE	faithfulness	2	0.1282
-crosslingual_ko	HyDE	answer_relevancy	2	0.0899
-crosslingual_ko	HyDE	context_precision	2	0.0528
-crosslingual_ko	HyDE	context_recall	2	0
-crosslingual_ko	CAD	faithfulness	2	-0.0333
-crosslingual_ko	CAD	answer_relevancy	2	-0.0794
-crosslingual_ko	CAD	context_precision	2	-0.077
-crosslingual_ko	CAD	context_recall	2	0
-decoder_ablation	HyDE	faithfulness	4	-0.1266
-decoder_ablation	HyDE	answer_relevancy	4	0.0059
-decoder_ablation	HyDE	context_precision	4	-0.0834
-decoder_ablation	HyDE	context_recall	4	0
-decoder_ablation	CAD	faithfulness	4	-0.0767
-decoder_ablation	CAD	answer_relevancy	4	0.039
-decoder_ablation	CAD	context_precision	4	0
-decoder_ablation	CAD	context_recall	4	0
-numeric_or_factual_hallucination	HyDE	faithfulness	2	-0.1357
-numeric_or_factual_hallucination	HyDE	answer_relevancy	2	0.0711
-numeric_or_factual_hallucination	HyDE	context_precision	2	0.0563
-numeric_or_factual_hallucination	HyDE	context_recall	2	0
-numeric_or_factual_hallucination	CAD	faithfulness	2	-0.05
-numeric_or_factual_hallucination	CAD	answer_relevancy	2	-0.0606
-numeric_or_factual_hallucination	CAD	context_precision	2	0
-numeric_or_factual_hallucination	CAD	context_recall	2	0
-section_abstract	HyDE	faithfulness	2	0.0312
+simple_qa	HyDE	faithfulness	16	0.0118
+simple_qa	HyDE	answer_relevancy	16	-0.0036
+simple_qa	HyDE	context_precision	16	-0.0016
+simple_qa	HyDE	context_recall	16	-0.1250
+simple_qa	CAD	faithfulness	15	-0.0085
+simple_qa	CAD	answer_relevancy	16	-0.0478
+simple_qa	CAD	context_precision	16	-0.0191
+simple_qa	CAD	context_recall	16	0
+section_method	HyDE	faithfulness	22	0.1097
+section_method	HyDE	answer_relevancy	22	0.2438
+section_method	HyDE	context_precision	22	-0.0727
+section_method	HyDE	context_recall	22	0.0909
+section_method	CAD	faithfulness	21	0.1080
+section_method	CAD	answer_relevancy	22	0.1108
+section_method	CAD	context_precision	22	0
+section_method	CAD	context_recall	22	0
+section_result	HyDE	faithfulness	20	-0.0025
+section_result	HyDE	answer_relevancy	20	-0.0193
+section_result	HyDE	context_precision	20	0.0016
+section_result	HyDE	context_recall	20	0
+section_result	CAD	faithfulness	20	-0.0014
+section_result	CAD	answer_relevancy	20	-0.0606
+section_result	CAD	context_precision	20	-0.0124
+section_result	CAD	context_recall	20	-0.0500
+section_abstract	HyDE	faithfulness	2	0.0313
 section_abstract	HyDE	answer_relevancy	2	-0.0447
 section_abstract	HyDE	context_precision	2	-0.2334
 section_abstract	HyDE	context_recall	2	0
@@ -289,39 +291,3 @@ section_abstract	CAD	faithfulness	2	-0.2188
 section_abstract	CAD	answer_relevancy	2	-0.4501
 section_abstract	CAD	context_precision	2	0
 section_abstract	CAD	context_recall	2	0
-section_method	HyDE	faithfulness	20	0.1295
-section_method	HyDE	answer_relevancy	20	0.2685
-section_method	HyDE	context_precision	20	-0.0594
-section_method	HyDE	context_recall	20	0.1
-section_method	CAD	faithfulness	19	0.1284
-section_method	CAD	answer_relevancy	20	0.1157
-section_method	CAD	context_precision	20	0
-section_method	CAD	context_recall	20	0
-section_result	HyDE	faithfulness	16	0.0244
-section_result	HyDE	answer_relevancy	16	-0.0364
-section_result	HyDE	context_precision	16	-0.0029
-section_result	HyDE	context_recall	16	0
-section_result	CAD	faithfulness	16	0.0014
-section_result	CAD	answer_relevancy	16	-0.0727
-section_result	CAD	context_precision	16	0.0045
-section_result	CAD	context_recall	16	-0.0625
-simple_qa	HyDE	faithfulness	14	0.0066
-simple_qa	HyDE	answer_relevancy	14	-0.0154
-simple_qa	HyDE	context_precision	14	-0.0174
-simple_qa	HyDE	context_recall	14	-0.1429
-simple_qa	CAD	faithfulness	13	0.0094
-simple_qa	CAD	answer_relevancy	14	-0.0405
-simple_qa	CAD	context_precision	14	-0.0337
-simple_qa	CAD	context_recall	14	0
-
-==========================================================================================
-[표 C-1] 주요 연구 자료와 SHA-256
-==========================================================================================
-artifact	상대 경로	역할	SHA-256
-main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl	60-query source artifact	916817150e40e0d2803f7e145633d13737c2304d17efdc4d42dc65cb4ed007d5
-extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl	experiments/results/extended_validation/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl	60-query source artifact	93c0932f4f5071bf726e4cd5a31c7a9cc02ef243775fdef99a1a0d486b51f41e
-merged.ragas_scores.json	experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json	60-query source artifact	0c10a2a5df0c7084919ed8a780b7ce200cb23939a37b76b026fc3f745dad61b9
-merged.ragas_scores.json	experiments/results/evaluation/ext60_gpt4o/merged.ragas_scores.json	60-query source artifact	0b38b79b5f3a426197b275f61eacdb64d83814150deb1eb5ad5e4a338331f327
-decoder_main_queries.json	experiments/data/query_splits/decoder_main_queries.json	60-query source artifact	36c90ab2d4d13993a71abbfcab8f2a828e3487e802a68c228f4c97e3a482eac5
-extended_validation_questions.json	experiments/data/query_splits/extended_validation_questions.json	60-query source artifact	acc2211012904b23c30a4f16f70c18fbad4038c4a2ea76bcf1e602a5161efd23
-extended_validation_60_analysis.json	experiments/results/analysis/extended_validation_60_analysis.json	60-query source artifact	6ec588a3a8cbe63e2cfe923286dfa3fad46c1a9cb4d59eb670bc6864e4455f57
