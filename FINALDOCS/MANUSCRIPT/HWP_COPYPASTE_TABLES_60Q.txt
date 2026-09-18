@@ -11,7 +11,7 @@ Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 
 Hypothetical-document retrieval	HyDE[2]	H1/H0 end-to-end 대응 비교와 retrieved ID 확인	가상 문서는 검색 표현으로 사용
 Contrastive decoding	CAD[3], contrastive decoding[13]	같은 input에서 C1/C0 paired 비교	CAD alpha=0.5 고정 조건
 Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context precision·context recall 평가	자동 평가 지표와 paired comparison에 사용
+RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context precision·context recall 평가	자동 평가 지표와 대응 비교에 사용
 
 ==========================================================================================
 [Workbook Sheet] T3-1_Requirements
@@ -21,7 +21,7 @@ RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context 
 실험 요인	HyDE·CAD·SCD ON/OFF	2×2×2, 8개 조건
 생성 기록	조건별 저장 record	480개, 조건별 60개
 출력 언어	한국어 문자 비율	SCD ON/OFF 240개 대응쌍
-자료 식별	query ID, config_name, 원문 페이지, 정답 근거 구간	60개 query metadata와 480개 generation record
+자료 식별	query ID, config_name, 원문 페이지, 정답 근거 구간	60개 질의 메타데이터와 480개 생성 기록
 
 ==========================================================================================
 [Workbook Sheet] T3-2_RAG-Cube
@@ -41,19 +41,19 @@ H1C1S1	ON	ON	ON	60
 ==========================================================================================
 요인	적용 위치	주 비교	주 지표
 HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 품질 지표
-CAD	문맥 기반 decoding	동일 문맥 60 대응쌍; faithfulness 58 유효쌍	faithfulness·answer relevancy·generation duration
-SCD	출력 token logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 configuration-matched 쌍	한국어 문자 비율
+CAD	문맥 기반 디코딩	동일 문맥 60쌍(최종 faithfulness 유효쌍 58개)	faithfulness·answer relevancy·생성 시간
+SCD	출력 토큰 logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍	한국어 문자 비율
 
 ==========================================================================================
 [Workbook Sheet] T4-1_Environment
 ==========================================================================================
-구성	저장 record 기준 값
+구성	생성 기록 기준 값
 생성 모델	K-intelligence/Midm-2.0-Base-Instruct
 디코딩	deterministic greedy
-검색 backend	BGE-M3 dense + BM25 sparse + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2
-retrieval pool / rerank	8 / 8
+검색 구성	BGE-M3 dense + BM25 sparse + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2
+검색 후보 수 / 재정렬 후보 수	8 / 8
 chunking	공백 분리 기준 최대 512개 단어 / 64개 단어 중첩 / 최소 50개 단어
-문맥 길이 관리	ContextCompressor extractive; 공백 분리 기준 최대 3,072개 단어; ratio 0.5
+문맥 길이 관리	ContextCompressor 추출식; 공백 분리 기준 최대 3,072개 단어; 압축 비율 0.5
 최종 문맥 수	5
 max_new_tokens	512
 CAD alpha	0.5
@@ -121,7 +121,7 @@ H0C1S1	60	0.7768	0.5996	0.7523	0.8500	0.7195
 H1C0S1	60	0.8223	0.7097	0.7426	0.9000	0.8072
 H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 
-[표 5-2 주석] 두 protocol 블록은 각 평가 context 구성 방식 안에서 configuration-level 기술통계로 해석한다. SCD의 주 효과 평가는 표 5-5와 표 5-6의 Korean-character ratio 대응 비교를 사용한다.
+[표 5-2 주석] 두 평가 프로토콜 블록은 각 평가 문맥 구성 방식 안에서 조건별 기술통계로 해석한다. SCD의 주 비교는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과를 사용한다.
 
 ==========================================================================================
 [Workbook Sheet] T5-3_HyDE
@@ -153,7 +153,7 @@ H1C1S0	H1C1S1	60	+0.2283	+0.1832	+0.2762	57	3	0
 ==========================================================================================
 [Workbook Sheet] T5-6_SCD_Paired
 ==========================================================================================
-비교	쌍 수	Korean-character ratio 평균 변화	95% CI	증가 / 감소 / 동률
+비교	쌍 수	한국어 문자 비율 평균 변화	95% CI	증가 / 감소 / 동률
 전체 SCD ON/OFF 대응	240	+0.2289	[+0.2051, +0.2532]	219 / 10 / 11
 HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	105 / 6 / 9
 
