@@ -4,7 +4,7 @@ import hashlib
 import urllib.request
 from pathlib import Path
 
-import fitz
+import pymupdf as fitz
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
@@ -53,10 +53,12 @@ def render_project_figures() -> None:
     box(ax, (.76,.48), (.18,.26), "Generation\n상위 5개 문맥 + Mi:dm 2.0\nDeterministic greedy", edge="0.15", face="white", fs=13)
     for a,b in [((.165,.61),(.20,.61)),((.33,.61),(.365,.61)),((.515,.61),(.55,.61)),((.70,.61),(.76,.61))]:
         arrow(ax,a,b)
-    box(ax, (.60,.16), (.13,.14), "CAD processor\n(선택)", edge="#23866f", face="#f2faf7", fs=13)
-    box(ax, (.78,.16), (.13,.14), "SCD processor\n(선택)", edge="#cc6400", face="#fff7f0", fs=13)
-    arrow(ax, (.665,.30), (.80,.48)); arrow(ax, (.845,.30), (.86,.48))
-    ax.text(.755,.37, "둘 다 ON일 때 CAD → SCD 순서", ha="center", fontsize=12)
+    ax.text(.75,.36, "logits_processor chain (선택)", ha="center", fontsize=12)
+    box(ax, (.59,.15), (.13,.14), "CAD processor\n(선택)", edge="#23866f", face="#f2faf7", fs=13)
+    box(ax, (.77,.15), (.13,.14), "SCD processor\n(선택)", edge="#cc6400", face="#fff7f0", fs=13)
+    arrow(ax, (.72,.22), (.77,.22))
+    arrow(ax, (.835,.29), (.84,.48))
+    ax.text(.75,.10, "활성화된 processor만 적용 · 둘 다 ON: CAD → SCD", ha="center", fontsize=11.5)
     fig.savefig(FIG/"fig4_1_pipeline.png", bbox_inches="tight", pad_inches=.12)
     plt.close(fig)
 
@@ -158,7 +160,7 @@ def recrop_literature() -> None:
     specs={
         "fig2_2_lost_middle_original.png":("https://arxiv.org/pdf/2307.03172",0,(0.504,0.238,0.916,0.631)),
         "fig2_4_cad_original.png":("https://aclanthology.org/2024.naacl-short.69.pdf",0,(0.504,0.245,0.921,0.434)),
-        "fig2_5_scd_language_drift_original.png":("https://arxiv.org/pdf/2511.09984",0,(0.479,0.274,0.989,0.499)),
+        "fig2_5_scd_language_drift_original.png":("https://arxiv.org/pdf/2511.09984",0,(0.479,0.274,0.989,0.486)),
     }
     cache=ROOT/".tmp_thesis_figure_source"
     cache.mkdir(exist_ok=True)
