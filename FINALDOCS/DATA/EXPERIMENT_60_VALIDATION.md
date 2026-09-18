@@ -6,8 +6,6 @@
 
 | 항목 | 결과 |
 |---|---:|
-| 기존 retained 질의 | 19 |
-| held-out extension | 41 |
 | 질의-대상문서 쌍 | 60 |
 | RAG-Cube 조건 | 8 |
 | 생성 record | 480 |
@@ -22,7 +20,7 @@
 
 ## 평가 및 통계
 
-RAGAS 0.2.15에서 OpenAI gpt-4o judge와 BAAI/bge-m3 embedding을 사용하였다. SCD ON quality evaluation은 retrieved context를 gpt-4o로 한국어 변환하고 generated answer는 그대로 유지했으며, SCD OFF는 저장된 영어 context를 사용하였다. Paired bootstrap은 query를 재표집 단위로 200,000회 수행했고 seed는 20260713이다.
+RAGAS 0.2.15에서 OpenAI gpt-4o judge와 BAAI/bge-m3 embedding을 사용하였다. SCD OFF는 저장된 영어 검색 문맥을, SCD ON은 gpt-4o로 한국어 변환한 평가 문맥을 사용하였다. Paired bootstrap은 query를 재표집 단위로 200,000회 수행했고 seed는 20260713이다. HyDE ON의 hypothetical document는 configuration별 sampling으로 생성되어 조건별 기술 비교에서 검색 문맥 변화와 함께 해석한다.
 
 | 항목 | 값 |
 |---|---:|
@@ -49,8 +47,8 @@ RAGAS 0.2.15에서 OpenAI gpt-4o judge와 BAAI/bge-m3 embedding을 사용하였�
 | `experiments\results\extended_validation\extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl` | `93c0932f4f5071bf726e4cd5a31c7a9cc02ef243775fdef99a1a0d486b51f41e` |
 | `experiments\results\evaluation\main-hyde-cad-scd-reference-scd-gpt4o-official\merged.ragas_scores.json` | `0c10a2a5df0c7084919ed8a780b7ce200cb23939a37b76b026fc3f745dad61b9` |
 | `experiments\results\evaluation\ext60_gpt4o\merged.ragas_scores.json` | `0b38b79b5f3a426197b275f61eacdb64d83814150deb1eb5ad5e4a338331f327` |
-| `experiments\data\query_splits\decoder_main_queries.json` | `36c90ab2d4d13993a71abbfcab8f2a828e3487e802a68c228f4c97e3a482eac5` |
-| `experiments\data\query_splits\extended_validation_questions.json` | `acc2211012904b23c30a4f16f70c18fbad4038c4a2ea76bcf1e602a5161efd23` |
+| `experiments\data\query_splits\decoder_main_queries.json` | `39e3d86a615069969aed667ed256021d98752ca7b2472067243801bb17bf5181` |
+| `experiments\data\query_splits\extended_validation_questions.json` | `268a6c66427d3e31a982a050445cf8e2da4df485c362cadf30f9a24873df2285` |
 | `experiments\results\analysis\extended_validation_60_analysis.json` | `6ec588a3a8cbe63e2cfe923286dfa3fad46c1a9cb4d59eb670bc6864e4455f57` |
 
 ## 최종 근거 범위
