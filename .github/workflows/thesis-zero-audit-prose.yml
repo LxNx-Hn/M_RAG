@@ -1,0 +1,31 @@
+name: Thesis Zero Audit Prose Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-zero-audit-prose.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Diff check
+        run: git diff --check 29c76f148f4394a6fab9acea2fe287c5c3821f64...HEAD -- FINALDOCS
+      - name: Run validator
+        run: python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+      - name: Commit validator output if changed
+        run: |
+          git config user.name "KiKi"
+          git config user.email "51896910+LxNx-Hn@users.noreply.github.com"
+          git add FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(thesis): record zero-audit-prose validation"
+            git push origin HEAD:main
+          fi
