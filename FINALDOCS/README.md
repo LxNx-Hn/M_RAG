@@ -5,7 +5,7 @@
 - `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: 한글 이전용 단일 원고
 - `MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md`: 표·그림의 HWP 배치 안내
 - `MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt`: HWP 수식 입력값
-- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17개 workbook 표 대응표와 부록 C·D 탭 구분 원본
+- `MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt`: 17개 workbook 표 대응표와 부록 C 탭 구분 원본
 - `TABLES/TABLES_60Q.xlsx`: 본문 및 부록용 17개 workbook sheet
 - `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림
 - `FIGURES/LITERATURE/`: 이론적 배경에 삽입할 선행연구 인용 그림 6개
