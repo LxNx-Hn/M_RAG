@@ -1,0 +1,23 @@
+name: Thesis Last Visual Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-last-visual-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thesis-last-visual-check
+          path: |
+            FINALDOCS/FIGURES/fig4_1_pipeline.png
+            FINALDOCS/FIGURES/LITERATURE/fig2_5_scd_language_drift_original.png
+          retention-days: 1
