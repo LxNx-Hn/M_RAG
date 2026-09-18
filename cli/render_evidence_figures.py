@@ -120,7 +120,7 @@ def main(argv: list[str] | None = None) -> int:
         raw_path.write_text(text, encoding="utf-8")
         image_path = args.output_dir / CASE_FILENAMES[case_id]
         width, height = _render(case_id, text, image_path)
-        print(f"{case_id}: {image_path.relative_to(ROOT)} ({width}x{height})")
+        print(f"{case_id}: {image_path} ({width}x{height})")
     return 0
 
 
