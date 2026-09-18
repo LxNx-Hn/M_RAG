@@ -72,7 +72,7 @@
 
 ## 대표 입출력 사례 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 최종 60-query의 실제 질문·생성 답변·검색 근거·평가값을 함께 제시하는 입출력 사례다. 2장은 선행연구 원자료로 개념을 설명하고, 5장은 본 연구의 입출력 사례를 정량 결과와 연결한다. E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 faithfulness 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 output-language control을 보여준다. E01은 5.7절의 기본 입출력 사례이며, E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 최종 60-query의 실제 질문·생성 답변·검색 근거·평가값을 함께 제시하는 입출력 사례다. 2장은 선행연구 원문 그림으로 개념을 설명하고, 5장은 본 연구의 입출력 사례를 정량 결과와 연결한다. E04는 5.4절의 HyDE retrieval 변화, E05는 5.5절의 CAD 동일 문맥 faithfulness 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 output-language control을 보여준다. E01은 5.7절의 기본 입출력 사례이며, E06은 CAD의 반대 방향 trade-off 사례로 부록 B에 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
 
 | 위치 | 파일 | 용도 |
 |---|---|---|
@@ -80,7 +80,7 @@
 | 5.5 | E05_cad_positive_same_context.png | CAD 동일 문맥 근거 충실도 차이 사례 |
 | 5.6 | E02_language_drift.png | SCD OFF 출력 언어 이탈 관찰 사례 |
 | 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 언어 이탈 완화 사례 |
-| 5.7 | E01_normal_qa.png | 정상 QA 기준 답변 사례 |
+| 5.7 | E01_normal_qa.png | 기본 질문·검색·답변·평가 사례 |
 | 부록 B | E06_cad_tradeoff_same_context.png | CAD 동일 문맥 trade-off 사례 |
 | 부록 B | E01~E06 | 전체 대표 입출력 사례 |
 
@@ -92,11 +92,11 @@
 weighted RRF, CAD score, SCD token score, Korean-character ratio를 이
 순서로 배치한다.
 
-## 최종 전송 검토
+## 최종 HWP 배치
 
-- 모든 표 제목이 표 위에 있는지 확인한다.
-- 모든 그림 제목이 그림 아래에 있는지 확인한다.
-- 표·그림 번호와 목차를 HWP 필드 갱신 후 다시 확인한다.
+- 모든 표 제목은 표 위에 배치한다.
+- 모든 그림 제목은 그림 아래에 배치한다.
+- 표·그림 번호와 목차는 HWP 필드 갱신 결과를 반영한다.
 - 표가 쪽을 넘을 때 제목과 첫 행을 같은 쪽에 두고, 부록 A의 60행 표는 이어지는 표로 처리한다.
 - 수식은 HWP 수식 입력기의 렌더링 결과로 배치한다.
-- 5장 수치가 `EXPERIMENT_60_VALIDATION.md` 및 workbook과 일치하는지 확인한다.
+- 5장 수치는 `EXPERIMENT_60_VALIDATION.md` 및 workbook의 값과 동일하게 유지한다.
