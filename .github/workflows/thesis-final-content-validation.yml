@@ -20,3 +20,5 @@ jobs:
           set -euo pipefail
           python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
           git diff --check
+
+# rerun after terminology normalization
