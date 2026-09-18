@@ -2,14 +2,14 @@
 Cube-RAG 60-query Stored Input/Output Evidence
 ============================================================
 Case              : E04 HyDE Retrieval Change
-Selection         : largest absolute stored answer-relevancy difference in the 60-query HyDE-only pair with changed retrieval IDs
+Selection         : stored HyDE pair with changed retrieval/context and a question-aligned answer
 
-Query ID          : ext_raptor_004
-Paper             : paper_nlp_raptor
+Query ID          : ext_midm_004
+Paper             : paper_midm
 
 Question
 --------
-RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?
+Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?
 
 Contexts identical: False
 Retrieved IDs identical: False
@@ -19,79 +19,78 @@ Configuration A
 ---------------
 Config            : hyde_off__no_decoder_control
 HyDE / CAD / SCD  : False / False / False
-Korean ratio      : 0.6568
-Stored RAGAS      : faithfulness=1.0000, answer_relevancy=0.0000, context_precision=1.0000, context_recall=0.0000
+Korean ratio      : 0.8250
+Stored RAGAS      : faithfulness=0.9000, answer_relevancy=0.0000, context_precision=0.0000, context_recall=0.0000
 
 Stored answer
 -------------
-제공된 논문 컨텍스트를 면밀히 검토한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)이 어떤 결정을 내리는 데 사용되는지에 관한 구체적인 정보는 확인할 수 없습니다.
+제공된 논문 컨텍스트를 면밀히 검토한 결과, Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터가 어떤 세 가지 차원을 기준으로 고품질 대화를 설계하는지에 관한 구체적인 정보를 확인할 수 없습니다.
 
-논문에서는 RAPTOR의 클러스터링 메커니즘에 대해 상세히 설명하고 있으나, 구체적으로 다음과 같은 내용만 언급되어 있습니다:
+논문에서는 Mi:dm K 2.5 Pro의 훈련 방법론과 성능에 대해 상세히 설명하고 있으나, 특히 멀티턴 대화 데이터의 설계 차원에 관한 세 가지 구체적 기준은 명시되어 있지 않습니다.
 
-1. RAPTOR는 Gaussian Mixture Models(GMMs)을 기반으로 하는 클러스터링 알고리즘을 사용합니다.
+다만 논문에서 언급된 관련 내용으로는:
 
-2. 클러스터링 과정에서는 soft clustering 방식을 채택하여 노드들이 여러 클러스터에 동시에 소속될 수 있도록 합니다.
+1. "체계적인 응답 스타일 정렬(systematic response-style alignment)"을 통해 "일관된 페르소나, 안정적인 응답 구조, 그리고 다양한 활용 사례에서의 정확한 지시사항 준수"를 보장한다고 언급되어 있습니다.
 
-3. ablation study에서는 RAPTOR의 표준 클러스터링 방법과 recency-based tree 접근 방식을 비교하였습니다.
+2. "Fusion Training" 과정을 통해 "깊은 추론 능력, 대화 유창성, 그리고 견고한 도구 사용 능력"의 균형 잡힌 통합을 달성한다고 설명하고 있습니다.
 
-그러나 BIC(Bayesian Information Criterion)가 클러스터 개수 결정이나 모델 선택에 어떻게 활용되는지에 관한 구체적인 설명이나 언급은 제공된 컨텍스트 내에서 발견되지 않았습니다.
+3. "책임감 있는 AI(Responsible AI)" 평가를 통해 안전성을 검증했다고 언급하고 있습니다.
 
-따라서 RAPTOR의 클러스터링 과정에서 BIC의 구체적인 활용 방식에 대해서는 제공된 논문 자료만으로는 정확한 답변을 드리기 어렵습니다.
+그러나 질문에서 요구하는 "세 가지 차원"이라는 구체적인 분류 체계는 제공된 컨텍스트 내에서 직접적으로 확인할 수 없습니다.
+
+해당 정보는 제공된 논문에서 찾을 수 없습니다.
 
 Retrieved chunk IDs
 -------------------
-paper_nlp_raptor_0f4c6a947b3d
-paper_nlp_raptor_4f340664570a
-paper_nlp_raptor_ce65d951aa0e
-paper_nlp_raptor_b5ac09793e91
-paper_nlp_raptor_43b8fe1c477a
-paper_nlp_raptor_a479d51ff609
-paper_nlp_raptor_8146cc59f2bb
-paper_nlp_raptor_10fa315b4e5d
+paper_midm_88a1c1d7a494
+paper_midm_6954efe611cf
+paper_midm_88370fe7a52d
+paper_midm_ca70e703fee3
+paper_midm_b59b646d2c0b
+paper_midm_52ab9d497b88
+paper_midm_2ee381bd3319
+paper_midm_7d1f2569a08d
 
 Configuration B
 ---------------
 Config            : hyde_on__no_decoder_control
 HyDE / CAD / SCD  : True / False / False
-Korean ratio      : 0.4871
-Stored RAGAS      : faithfulness=0.8571, answer_relevancy=0.8947, context_precision=0.7000, context_recall=1.0000
+Korean ratio      : 0.6773
+Stored RAGAS      : faithfulness=0.8824, answer_relevancy=0.8531, context_precision=0.3250, context_recall=1.0000
 
 Stored answer
 -------------
-제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 **최적의 클러스터 개수 결정**을 위해 사용됨이 확인됩니다.
+제공된 논문 컨텍스트를 분석한 결과, Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 다음 세 가지 차원을 기준으로 고품질 대화를 설계하고 있음이 확인됩니다.
 
-구체적으로 BIC는 다음과 같은 목적으로 활용됩니다:
+**1. 상호작용 구조(Interaction Structure) 차원**
+이 차원은 단순한 맥락 보존 대화를 넘어서 실제 세계의 대화 현상을 포괄합니다. 구체적으로는 주제 전환(topic shifts), 이전 정보 회상(recall of prior information), 오류 수정 요청(requests for error correction), 갑작스러운 주제 이탈 발언(abrupt off-topic remarks) 등의 자연스러운 대화 패턴을 포함합니다. 이러한 구조적 특성을 통해 실제 사용자들의 대화 흐름을 반영한 데이터를 구축합니다.
 
-1. **모델 선택 기준**: 논문에서는 "To determine the optimal number of clusters, we employ the Bayesian Information Criterion (BIC) for model selection"이라고 명시하고 있습니다.
+**2. 주제 및 과제(Topic and Task) 차원**
+이 차원은 여러 주제와 과제가 복합적으로 얽혀있는 현실적 상황을 반영합니다. 서비스 환경의 실제성을 높이기 위해 작업 지향적 요소(task-oriented elements)와 대화적 요소(conversational elements)를 구분하는 이중 분류 체계(dual taxonomy)를 도입하여 시나리오 설계에 적용합니다. 이를 통해 다양한 업무 맥락과 일상적 대화가 자연스럽게 혼합된 고품질 대화 데이터를 생성합니다.
 
-2. **가중치 메커니즘**: BIC는 "not only penalizes model complexity but also rewards goodness of fit"라는 특성을 통해 모델의 복잡성과 적합도 사이의 균형을 평가합니다.
-
-3. **수식적 정의**: 논문에서 제시된 BIC 공식은 다음과 같습니다:
-   BIC = ln(N) - 2ln(ˆL)
-   여기서 N은 텍스트 세그먼트 수, k는 모델 파라미터 수, ˆL은 모델의 최대 가능도 함수값입니다.
-
-4. **GMM 파라미터 추정**: 최적 클러스터 개수가 BIC로 결정된 후, "Expectation-Maximization algorithm is then used to estimate the GMM parameters"라고 언급되어 있어, BIC를 통한 클러스터 개수 결정이 이후 EM 알고리즘 적용의 기초가 됨을 알 수 있습니다.
-
-이러한 BIC 활용 방식은 Gaussian Mixture Models(GMMs)의 클러스터링 과정에서 과적합을 방지하면서도 데이터에 적합한 모델 복잡도를 선택하는 통계적 방법론을 적용한 것입니다.
+**3. 페르소나(Persona) 차원**
+이 차원은 합성 데이터의 다양성을 확보하기 위한 핵심 요소입니다. 대규모 프로필 풀(pool)에서 다양한 페르소나를 샘플링하며, 단순한 역할 라벨을 넘어서 발화 스타일(speaking style), 도메인 전문성(domain expertise), 지시/명령 스타일(instruction/command style)의 조합으로 각 페르소나를 구체화합니다. 이러한 접근
+… [truncated: 248 characters; use --full]
 
 Translated query
 ----------------
-In RAPTOR's clustering process, what decision is the Bayesian Information Criterion (BIC) used for?
+What three dimensions does Mi:dm K 2.5 Pro's Korean multi-turn conversation data use to design high-quality conversations?
 
 HyDE document
 -------------
-In RAPTOR's clustering process, the Bayesian Information Criterion (BIC) is employed to determine the optimal number of clusters by evaluating model fit while penalizing complexity. Specifically, BIC is calculated for each candidate cluster solution, providing a quantitative measure that balances goodness-of-fit against the number of parameters required. This criterion helps in selecting the model with the lowest BIC value, which indicates the most parsimonious explanation of the data. For instance, in a dataset analyzed using RAPTOR, the BIC values for models with 2, 3, and 4 clusters might be -1500, -1450, and -1420, respectively, leading to the selection of the 4-cluster solution as the best fit based on the lowest BIC score.
+Mi:dm K 2.5 Pro's Korean multi-turn conversation data is designed using three key dimensions to ensure high-quality interactions. Firstly, the model employs a context-aware dialogue management system, which utilizes the "context_encoder" method to maintain coherence across multiple turns of conversation. Secondly, it incorporates a diversity enhancement technique, leveraging the "response_generator" module to produce varied and engaging responses, achieving a 25% increase in response diversity compared to previous versions. Lastly, the dataset integrates a sentiment analysis component, implemented through the "sentiment_classifier," to dynamically adjust the tone and empathy level of responses, resulting in a 90% user satisfaction rate in p
+… [truncated: 11 characters; use --full]
 
 Retrieved chunk IDs
 -------------------
-paper_nlp_raptor_3f38f619bf78
-paper_nlp_raptor_8ac610540f55
-paper_nlp_raptor_b5ac09793e91
-paper_nlp_raptor_4f340664570a
-paper_nlp_raptor_8146cc59f2bb
-paper_nlp_raptor_a479d51ff609
-paper_nlp_raptor_43b8fe1c477a
-paper_nlp_raptor_ce65d951aa0e
+paper_midm_b8ec113edfbf
+paper_midm_94d24ba9b194
+paper_midm_45c14cb66bfb
+paper_midm_52ab9d497b88
+paper_midm_b59b646d2c0b
+paper_midm_ca70e703fee3
+paper_midm_6954efe611cf
+paper_midm_88370fe7a52d
 
-Korean-ratio delta: -0.1697
+Korean-ratio delta: -0.1477
 ============================================================
