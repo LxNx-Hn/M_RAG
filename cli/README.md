@@ -1,4 +1,4 @@
-# Offline thesis evidence replay
+# Offline thesis stored evidence
 
 `evidence_replay.py` is a presentation and inspection layer over checked-in
 final artifacts. It does not import `backend/` or `frontend/`, load a model,
@@ -30,5 +30,5 @@ qualitative claim.
 
 `--figure` keeps the source strings unchanged but selects only the fields needed
 for a paper-sized view. `render_evidence_figures.py` writes PNG files and the
-exact figure-display text under `FINALDOCS/EVIDENCE/UI_REPLAY/`; it uses Pillow
+exact figure-display text under `FINALDOCS/EVIDENCE/IO_CASES/`; it uses Pillow
 only for local text rendering and never writes under `experiments/`.
