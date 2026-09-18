@@ -43,23 +43,90 @@ def arrow(ax, start, end, lw=1.5):
 def render_project_figures() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
 
-    fig, ax = plt.subplots(figsize=(16, 7.5), dpi=160)
-    ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis("off")
-    ax.text(.5, .91, "고정 요소: retrieval pool 8 · rerank top-N 8 · context 5 · max new tokens 512", ha="center", fontsize=14)
-    box(ax, (.035,.52), (.13,.18), "한국어 질의", edge="0.65", face="#f7f8fa")
-    box(ax, (.20,.52), (.13,.18), "HyDE\n(선택)", edge="#2f6df6", face="#f5f7ff")
-    box(ax, (.365,.52), (.15,.18), "Hybrid retrieval\nBGE-M3 + BM25", edge="0.65", face="#f7f8fa")
-    box(ax, (.55,.52), (.15,.18), "Weighted RRF\n+ reranking", edge="0.65", face="#f7f8fa")
-    box(ax, (.76,.48), (.18,.26), "Generation\n상위 5개 문맥 + Mi:dm 2.0\nDeterministic greedy", edge="0.15", face="white", fs=13)
-    for a,b in [((.165,.61),(.20,.61)),((.33,.61),(.365,.61)),((.515,.61),(.55,.61)),((.70,.61),(.76,.61))]:
-        arrow(ax,a,b)
-    ax.text(.75,.36, "logits_processor chain (선택)", ha="center", fontsize=12)
-    box(ax, (.59,.15), (.13,.14), "CAD processor\n(선택)", edge="#23866f", face="#f2faf7", fs=13)
-    box(ax, (.77,.15), (.13,.14), "SCD processor\n(선택)", edge="#cc6400", face="#fff7f0", fs=13)
-    arrow(ax, (.72,.22), (.77,.22))
-    arrow(ax, (.835,.29), (.84,.48))
-    ax.text(.75,.10, "활성화된 processor만 적용 · 둘 다 ON: CAD → SCD", ha="center", fontsize=11.5)
-    fig.savefig(FIG/"fig4_1_pipeline.png", bbox_inches="tight", pad_inches=.12)
+    # Figure 4-1: fixed Paper-RAG backbone and factor intervention points.
+    # HyDE augments only the dense branch; BM25 remains a separate lexical branch.
+    # CAD/SCD are logits processors inside generation, applied in CAD -> SCD order.
+    fig, ax = plt.subplots(figsize=(20, 10.5), dpi=170)
+    ax.set_xlim(0, 1.42)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(
+        .71, .965,
+        "고정 요소: retrieval pool 8 · rerank top-N 8 · context 5 · max new tokens 512",
+        ha="center", va="center", fontsize=15,
+    )
+
+    # Stage headers.
+    box(ax, (.03,.875), (.46,.065), "1. Retrieval (HyDE는 dense branch에만 적용)",
+        edge="#9bbce8", face="#edf5ff", fs=15, lw=1.2)
+    box(ax, (.51,.875), (.43,.065), "2. Fusion & Reranking",
+        edge="#b5bdd0", face="#f4f6fa", fs=15, lw=1.2)
+    box(ax, (.97,.875), (.42,.065), "3. Generation (CAD / SCD)",
+        edge="#91cdb7", face="#eefaf5", fs=15, lw=1.2)
+
+    # Query and retrieval branches.
+    box(ax, (.02,.48), (.12,.14), "한국어 질의\nQuery", edge="#5c6b7a", face="#f7f8fa", fs=14)
+    box(ax, (.18,.70), (.14,.14), "HyDE (선택)\n가상 문서 생성", edge="#2f6df6", face="#eef5ff", fs=13.5)
+    box(ax, (.36,.60), (.14,.14), "Dense retrieval\nBGE-M3", edge="#2f6df6", face="#f5f8ff", fs=14)
+    box(ax, (.36,.36), (.14,.14), "BM25 retrieval\nlexical search", edge="#58708a", face="#f7f8fa", fs=14)
+
+    # Direct query paths.
+    arrow(ax, (.14,.55), (.36,.67))
+    arrow(ax, (.14,.55), (.36,.43))
+    # Optional HyDE branch: dashed query -> HyDE -> dense.
+    ax.add_patch(FancyArrowPatch(
+        (.11,.62), (.18,.77), arrowstyle="-|>", mutation_scale=14,
+        linewidth=1.5, linestyle="--", color="#2f6df6",
+        connectionstyle="angle3,angleA=90,angleB=180",
+    ))
+    ax.add_patch(FancyArrowPatch(
+        (.32,.77), (.39,.74), arrowstyle="-|>", mutation_scale=14,
+        linewidth=1.5, linestyle="--", color="#2f6df6",
+        connectionstyle="angle3,angleA=0,angleB=90",
+    ))
+    ax.text(.335,.79,"dense input\n확장",ha="center",va="bottom",fontsize=11.5,color="#2f6df6")
+
+    # Hybrid fusion and reranking.
+    box(ax, (.55,.48), (.12,.14), "Weighted RRF\nmerge & score", edge="#746aa8", face="#f7f5ff", fs=13.5)
+    box(ax, (.72,.48), (.13,.14), "CrossEncoder\nreranking", edge="#746aa8", face="#f7f5ff", fs=13.5)
+    box(ax, (.90,.48), (.11,.14), "Top-5\ncontexts", edge="#54708b", face="#f6f8fa", fs=13.5)
+    arrow(ax, (.50,.67), (.55,.57))
+    arrow(ax, (.50,.43), (.55,.53))
+    arrow(ax, (.67,.55), (.72,.55))
+    arrow(ax, (.85,.55), (.90,.55))
+    arrow(ax, (1.01,.55), (1.06,.55))
+
+    # Generation box: CAD/SCD are part of decoding, not pre-generation modules.
+    outer = FancyBboxPatch(
+        (1.06,.27), .21,.57,
+        boxstyle="round,pad=0.018,rounding_size=0.025",
+        linewidth=1.8, edgecolor="#16825f", facecolor="#fbfffd",
+    )
+    ax.add_patch(outer)
+    ax.text(1.165,.805,"Generation · Mi:dm 2.0",ha="center",va="center",fontsize=14.5,fontweight="bold")
+    ax.text(1.165,.775,"autoregressive decoding",ha="center",va="center",fontsize=11.5)
+
+    box(ax, (1.085,.665), (.16,.075), "Base logits", edge="#86909b", face="#f7f8fa", fs=12.5)
+    box(ax, (1.085,.545), (.16,.075), "CAD processor (선택)", edge="#23866f", face="#eefaf5", fs=12.5)
+    box(ax, (1.085,.425), (.16,.075), "SCD processor (선택)", edge="#cc6400", face="#fff6ed", fs=12.5)
+    box(ax, (1.085,.305), (.16,.075), "Greedy token selection", edge="#86909b", face="#f7f8fa", fs=12.0)
+    arrow(ax, (1.165,.665), (1.165,.62), lw=1.3)
+    arrow(ax, (1.165,.545), (1.165,.50), lw=1.3)
+    arrow(ax, (1.165,.425), (1.165,.38), lw=1.3)
+
+    box(ax, (1.31,.48), (.10,.14), "한국어 응답", edge="#58708a", face="#f7f8fa", fs=14)
+    arrow(ax, (1.27,.55), (1.31,.55))
+
+    # Bottom legend: each factor's intervention point, kept separate from the pipeline.
+    box(ax, (.04,.055), (.38,.14), "HyDE = retrieval-side\nDense retrieval 입력 표현 확장\nBM25 branch에는 영향 없음",
+        edge="#2f6df6", face="#f3f8ff", fs=12.3, lw=1.3)
+    box(ax, (.52,.055), (.38,.14), "CAD = generation-side\n동일 context에서 logits 조절\nSCD와 함께 ON이면 CAD → SCD",
+        edge="#23866f", face="#f2faf7", fs=12.3, lw=1.3)
+    box(ax, (1.00,.055), (.38,.14), "SCD = output-language control\nGeneration 내부 logits processor\n한국어 출력 언어 제어",
+        edge="#cc6400", face="#fff7f0", fs=12.3, lw=1.3)
+
+    fig.savefig(FIG/"fig4_1_pipeline.png", bbox_inches="tight", pad_inches=.15)
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(16,7), dpi=160)
