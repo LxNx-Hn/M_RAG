@@ -471,7 +471,7 @@ HyDE의 hypothetical document는 dense retrieval 입력으로 사용하고, 최�
 
 [그림삽입: FINALDOCS/FIGURES/fig4_2_artifact_flow.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 4-2] generation, evaluation, analysis와 최종 표·그림 사이의 artifact 흐름 [스타일=그림제목]
+[그림 4-2] generation record에서 평가·대응 분석을 거쳐 표와 그림으로 이어지는 분석 흐름 [스타일=그림제목]
 
 # 5. 실험 [스타일=장(1.)]
 
@@ -518,7 +518,7 @@ bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i
 
 [그림삽입: FINALDOCS/FIGURES/fig5_0_evaluation_design.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-1] 60-query 평가와 HyDE·CAD·SCD 대응 비교 설계 [스타일=그림제목]
+[그림 5-1] 60-query 평가와 HyDE·CAD·SCD 대응 비교 설계. SCD는 240 configuration-matched 쌍과 120 same-context 쌍으로 분석함. [스타일=그림제목]
 
 ## 5.3 RAG-Cube 조합별 결과 [스타일=절(1.1)]
 
@@ -546,7 +546,7 @@ H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 
 [그림삽입: FINALDOCS/FIGURES/fig5_1_quality_matrix.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-2] RAG-Cube 8개 조건의 평균 품질 지표. 셀 값은 저장된 RAGAS score의 configuration별 평균이다. [스타일=그림제목]
+[그림 5-2] RAG-Cube 8개 조건의 평균 품질 지표. SCD ON 행의 RAGAS는 한국어로 변환된 평가 context를 사용한다. [스타일=그림제목]
 
 ## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]
 
@@ -558,7 +558,7 @@ HyDE ON에서는 dense query representation, fusion 후보, reranking 이후의 
 
 win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다.
 
-E04는 HyDE 적용에 따른 검색 문맥 변화와 답변 변화를 함께 보여준다. ext_raptor_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. Answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 결정에 사용된다는 내용을 포함했다.
+E04는 HyDE 적용에 따른 검색 문맥 변화와 답변 변화를 함께 보여준다. ext_midm_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. Answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변했다. HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
 
@@ -690,7 +690,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 [그림삽입: FINALDOCS/FIGURES/fig5_9_hyde_cad_strata.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-6] HyDE·CAD strata별 품질 지표 변화 [스타일=그림제목]
+[그림 5-6] HyDE·CAD strata별 faithfulness와 answer relevancy 대응 차이 [스타일=그림제목]
 
 ## 5.9 연구의 한계 [스타일=절(1.1)]
 
@@ -856,10 +856,10 @@ E01~E06은 최종 60-query의 실제 질문, 검색 근거, 생성 답변과 평
 [입출력 사례 E03] 동일 문맥 SCD 언어 이탈 완화 사례 — ext_midm_005
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E04] HyDE retrieval 변화 사례 — ext_raptor_004
+[입출력 사례 E04] HyDE retrieval 변화 사례 — ext_midm_004
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_raptor_001
+[입출력 사례 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_midm_001
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
 [입출력 사례 E06] CAD 동일 문맥 trade-off 사례 — track1_0012
