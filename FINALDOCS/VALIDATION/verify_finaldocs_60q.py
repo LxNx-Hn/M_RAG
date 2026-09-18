@@ -268,7 +268,7 @@ def main() -> int:
         "E01": "ext_raptor_011",
         "E02": "ext_cad_007",
         "E03": "ext_midm_005",
-        "E04": "ext_raptor_004",
+        "E04": "ext_midm_004",
         "E05": "ext_midm_001",
         "E06": "track1_0012",
     }
