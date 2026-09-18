@@ -1,0 +1,68 @@
+name: Thesis E04 Candidate Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thesis-e04-candidate-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rank HyDE retrieval-change cases
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('.')
+          gens=[
+            root/'experiments/results/main_generation/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.jsonl',
+            root/'experiments/results/extended_validation/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.jsonl',
+          ]
+          scores=[
+            root/'experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json',
+            root/'experiments/results/evaluation/ext60_gpt4o/merged.ragas_scores.json',
+          ]
+          qfiles=[
+            root/'experiments/data/query_splits/decoder_main_queries.json',
+            root/'experiments/data/query_splits/extended_validation_questions.json',
+          ]
+          rows=[json.loads(x) for p in gens for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+          sc=[r for p in scores for r in json.loads(p.read_text(encoding='utf-8'))['per_sample']]
+          rec={(r['query_id'],r['config_name']):r for r in rows}
+          sm={(r['query_id'],r['group']):r for r in sc}
+          qmap={}
+          for p in qfiles:
+            d=json.loads(p.read_text(encoding='utf-8')); items=d if isinstance(d,list) else d.get('queries',d.get('items',[]))
+            for q in items:
+              if isinstance(q,dict) and q.get('query_id'): qmap[q['query_id']]=q
+          a='hyde_off__no_decoder_control'; b='hyde_on__no_decoder_control'
+          cand=[]
+          qids=sorted({q for q,c in rec if c==a}&{q for q,c in rec if c==b})
+          for qid in qids:
+            ra,rb=rec[(qid,a)],rec[(qid,b)]
+            changed=((ra.get('retrieved_chunk_ids') or [])!=(rb.get('retrieved_chunk_ids') or []) or (ra.get('contexts') or [])!=(rb.get('contexts') or []))
+            if not changed: continue
+            sa,sb=sm.get((qid,a),{}),sm.get((qid,b),{})
+            aa,ab=sa.get('answer_relevancy'),sb.get('answer_relevancy')
+            cr0,cr1=sa.get('context_recall'),sb.get('context_recall')
+            if aa is None or ab is None: continue
+            rank=(ab-aa, ab, (cr1 or 0)-(cr0 or 0))
+            cand.append((rank,qid,ra,rb,sa,sb,qmap.get(qid,{})))
+          cand.sort(reverse=True,key=lambda x:x[0])
+          for i,(_,qid,ra,rb,sa,sb,q) in enumerate(cand[:18],1):
+            gt=q.get('answer_span') or q.get('reference_answer') or q.get('ground_truth') or ''
+            print('\n'+'='*110)
+            print(f'#{i} {qid} paper={ra.get("paper")}')
+            print('QUESTION:',ra.get('query'))
+            print('GT:',gt)
+            print('scores OFF->ON: answer_rel',sa.get('answer_relevancy'),'->',sb.get('answer_relevancy'),'context_recall',sa.get('context_recall'),'->',sb.get('context_recall'),'context_precision',sa.get('context_precision'),'->',sb.get('context_precision'))
+            print('OFF:',(ra.get('generated_answer') or '').replace('\n',' ')[:1800])
+            print('ON :',(rb.get('generated_answer') or '').replace('\n',' ')[:1800])
+          PY
