@@ -1,8 +1,8 @@
 name: Thesis Content Consistency Fix
 
 on:
-  pull_request:
-    branches: [main]
+  push:
+    branches: [thesis-content-table-sync-v2]
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: thesis-content-table-sync-v2
 
       - name: Install workbook dependency
         run: python -m pip install --disable-pip-version-check openpyxl
@@ -67,5 +67,5 @@ jobs:
           git add FINALDOCS/TABLES/TABLES_60Q.xlsx FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt .github/THESIS_CONTENT_FIX_TRIGGER
           if ! git diff --cached --quiet; then
             git commit -m "fix(thesis): synchronize corrected analysis tables"
-            git push origin HEAD:${{ github.head_ref }}
+            git push origin HEAD:thesis-content-table-sync-v2
           fi
