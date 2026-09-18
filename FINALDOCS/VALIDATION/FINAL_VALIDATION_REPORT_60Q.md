@@ -5,7 +5,7 @@
 - 원고: `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`
 - 표: `FINALDOCS/TABLES/TABLES_60Q.xlsx` 17개 HWP 이전용 sheet
 - 그림: 프로젝트 구조·통계 10개 + 선행연구 인용 6개
-- 입출력 증빙: E01~E06 PNG + raw TXT
+- 입출력 사례: E01~E06 PNG + raw TXT
 - provenance: `evidence_manifest_60q.json`과 부록 C
 
 ## 원자료 및 수치
@@ -24,8 +24,8 @@ RAGAS 0.2.15, OpenAI gpt-4o judge, BAAI/bge-m3 embedding을 사용한다. SCD ON
 - 같은 SHA-256을 `EXPERIMENT_60_VALIDATION.md`, 원고 부록 C, HWP copy file에서 사용한다.
 - E01~E06의 query/config를 manifest와 raw evidence에서 대조한다.
 - E05는 `ext_midm_001`의 CAD same-context pair를 사용한다.
-- 일반 그림 caption은 16개, 표 caption은 19개이다.
-- HWP copy file은 17개 workbook sheet의 탭 구분 표 블록과 부록 C/D 표를 포함한다.
+- 일반 그림 caption은 16개, 표 caption은 18개이다.
+- HWP copy file은 17개 workbook sheet의 탭 구분 표 블록과 부록 C 표를 포함한다.
 
 ## 최종 HWP 확인 항목
 
