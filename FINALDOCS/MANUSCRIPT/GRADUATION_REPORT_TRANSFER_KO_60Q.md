@@ -555,9 +555,9 @@ HyDE의 주 비교에서 answer relevancy 평균 변화는 +0.0805이고 95% CI�
 
 HyDE는 answer relevancy에서 가장 명확한 양의 평균 변화를 보였고, faithfulness·context precision·context recall은 서로 다른 방향을 보였다. 검색 ID가 실제로 바뀐 저장 사례에서는 HyDE OFF 답변이 GMM과 soft clustering의 일반 설명에 머물렀고, HyDE ON 답변은 BIC가 최적 cluster 수 선택에 사용된다는 근거를 포함했다. 이 사례는 retrieval change와 answer-level 결과를 실제 provenance로 연결한다.
 
-answer relevancy의 양의 변화와 context precision의 음의 변화가 함께 나타난 가능한 해석은 HyDE가 질문을 설명하는 문서형 검색 표현을 제공하면서 최종 답변이 질문의 요구에 더 직접 반응하도록 도왔고, reranked 상위 문맥의 관련성 구성은 일부 질의에서 달라졌다는 것이다. HyDE ON은 dense query representation, fusion 후보, reranking 이후의 context selection까지 바꾸므로, +0.0805는 고정 pipeline 전체를 통과한 end-to-end answer-level 대응 차이다.
+HyDE ON에서는 dense query representation, fusion 후보, reranking 이후의 context selection까지 달라졌다. 이 조건에서 answer relevancy 평균 변화는 +0.0805였고 context precision은 -0.0343이었다. 두 지표의 방향 차이는 검색 경로 변화가 answer-level 결과와 context-level 결과에서 서로 다르게 나타난 패턴이다.
 
-win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다. 본문에서는 HyDE가 이 corpus의 질문 적합성에서 가장 명확한 평균 변화를 보였다는 결과를 중심으로 정리한다.
+win/loss/tie 29/15/16은 평균과 신뢰구간의 결과를 질의 수준에서 보완한다. 29개 win과 함께 15개 loss, 16개 tie가 분포해 질문별 반응의 이질성을 보여준다. 특히 수치·모델명처럼 표면 단서가 강한 질문과 여러 문장을 종합해야 하는 설명형 질문은 검색 표현 변경에 다르게 반응할 수 있다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시하며, 일부 질문유형 하위집단의 표본 수는 작다.
 
 E04는 HyDE의 retrieval-side 변화를 실제 입출력으로 확인하는 사례다. ext_raptor_004에서 H0C0S0과 H1C0S0은 같은 질문을 사용하지만 HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 저장 answer relevancy는 0.0000에서 0.8947로, context recall은 0.0000에서 1.0000으로 변했다. HyDE OFF 답변은 GMM과 soft clustering의 일반 설명을 중심으로 구성되었고, HyDE ON 답변은 BIC가 최적 cluster 수 결정에 사용된다는 근거를 포함했다. 정량 결과와 함께 보면 검색 표현의 변경이 실제 검색 근거와 최종 답변에 어떻게 이어졌는지 확인할 수 있다.
 
@@ -679,9 +679,9 @@ E01은 정상 답변의 기준 형태를 보여주고, E02·E03·E04·E05는 각
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
-HyDE는 세 요인 중 answer relevancy에서 가장 명확한 양의 대응 차이를 보였다. 반면 context precision은 감소하고 context recall의 평균 변화는 없었기 때문에, 본 실험에서 HyDE의 효과는 전체 검색 품질의 일괄적 향상보다 질문 적합성과 retrieval 경로 변화의 관점에서 해석한다.
+HyDE는 answer relevancy에서 +0.0805의 대응 차이를 보였고, context precision은 -0.0343, context recall은 0.0000이었다. E04에서는 HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 함께 달라졌다.
 
-CAD의 동일 문맥 비교에서는 faithfulness +0.0288, answer relevancy -0.0073이었고 두 신뢰구간은 0을 포함했다. 같은 입력에서 질의별 결과가 다양하게 분포했으며, CAD ON은 no-context branch 계산에 따라 generation duration도 증가했다. 따라서 CAD 분석은 품질 분포와 시간 비용을 함께 사용한다.
+CAD의 동일 문맥 비교에서는 faithfulness +0.0288, answer relevancy -0.0073이었고 두 신뢰구간은 0을 포함했다. 같은 입력에서 질의별 결과가 다양하게 분포했으며, CAD ON은 no-context branch 계산에 따라 generation duration도 증가했다.
 
 SCD는 출력 언어 유지에서 일관된 변화를 보였다. HyDE OFF 동일 문맥 120쌍의 Korean-character ratio는 +0.2182 증가했고, 전체 240 configuration-matched 대응쌍에서는 +0.2289 증가했다. 여덟 configuration의 평균은 표 5-2에서 조합 수준으로 정리하고, HyDE·CAD·SCD의 변화는 각 요인의 대응 비교에서 확인한다. Configuration 선택은 질문 적합성, 근거 반영, 실행 시간, 출력 언어 요구에 따라 달라진다.
 
@@ -691,7 +691,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 [그림삽입: FINALDOCS/FIGURES/fig5_9_hyde_cad_strata.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-6] HyDE·CAD strata별 품질 지표 변화. strata 결과는 configuration-level descriptive pattern으로 해석한다. [스타일=그림제목]
+[그림 5-6] HyDE·CAD strata별 품질 지표 변화 [스타일=그림제목]
 
 ## 5.9 연구의 한계 [스타일=절(1.1)]
 
@@ -711,7 +711,7 @@ configuration 평균과 primary contrast는 서로 다른 역할을 가진다. �
 
 본 실험 설계는 HyDE, CAD, SCD를 같은 RAG pipeline 안의 서로 다른 개입 지점으로 분리하고 각 요인에 맞는 비교 단위를 사용한다. HyDE에서는 검색 표현 변경이 retrieved IDs와 contexts의 변화까지 이어질 수 있도록 두어 retrieval-side end-to-end 효과를 관찰한다. CAD에서는 retrieved IDs, reranked IDs와 contexts가 같은 대응쌍을 구성해 검색 결과를 고정하고 decoding 변화에 집중한다. SCD에서는 query와 HyDE·CAD configuration을 고정한 240 ON/OFF쌍을 구성하고, HyDE OFF 120쌍에서는 retrieved IDs, reranked IDs와 contexts의 동일성까지 확인해 출력 언어 변화를 계산한다.
 
-이 구조는 configuration 평균과 요인별 paired contrast를 구분한다. H1C1S0의 높은 평균 faithfulness는 특정 조합의 기술통계이고, CAD +0.0288은 동일 문맥에서 CAD ON/OFF를 비교한 요인 수준 결과다. 조합의 평균값과 특정 요인의 대응 차이를 분리하면 검색 표현, 문맥 기반 decoding, 출력 언어 제어가 서로 다른 평가 축에서 보인 변화를 각 실험 단위에 맞춰 해석할 수 있다.
+이 구조에서 configuration 평균은 조합 수준의 결과이고, paired contrast는 요인 수준의 결과다. H1C1S0의 faithfulness 평균은 configuration 단위 값이며, CAD +0.0288은 동일 문맥의 CAD ON/OFF 대응 차이다.
 
 또한 generation record에 query, retrieved·reranked chunk ID, contexts, answer, decoding metadata와 duration을 함께 저장하여 평균 수치에서 개별 사례로 다시 내려가는 provenance를 확보했다. 5.4~5.7절에 배치한 E01~E05는 각 정량 결과와 관찰된 현상을 실제 입출력 단위에 연결하고, 부록 B의 E06은 CAD trade-off 사례를 같은 형식으로 보완한다. 따라서 configuration별 평균, paired delta, 검색 근거와 생성 답변을 서로 연결해 결과를 검토할 수 있다.
 
