@@ -48,11 +48,11 @@ def render_project_figures() -> None:
     # CAD/SCD are logits processors inside generation, applied in CAD -> SCD order.
     fig, ax = plt.subplots(figsize=(20, 10.5), dpi=170)
     ax.set_xlim(0, 1.48)
-    ax.set_ylim(0, 1)
+    ax.set_ylim(0, 1.08)
     ax.axis("off")
 
     ax.text(
-        .71, .965,
+        .71, 1.025,
         "고정 요소: retrieval pool 8 · rerank top-N 8 · context 5 · max new tokens 512",
         ha="center", va="center", fontsize=15,
     )
@@ -67,7 +67,7 @@ def render_project_figures() -> None:
 
     # Query and retrieval branches.
     box(ax, (.02,.48), (.12,.14), "한국어 질의\nQuery", edge="#5c6b7a", face="#f7f8fa", fs=14)
-    box(ax, (.18,.70), (.14,.14), "HyDE (선택)\n가상 문서 생성", edge="#2f6df6", face="#eef5ff", fs=13.5)
+    box(ax, (.18,.70), (.14,.14), "HyDE (선택)\n번역 질의 → 가상 문서", edge="#2f6df6", face="#eef5ff", fs=13.0)
     box(ax, (.36,.60), (.14,.14), "Dense retrieval\nBGE-M3", edge="#2f6df6", face="#f5f8ff", fs=14)
     box(ax, (.36,.36), (.14,.14), "BM25 retrieval\nlexical search", edge="#58708a", face="#f7f8fa", fs=14)
 
@@ -85,7 +85,8 @@ def render_project_figures() -> None:
         linewidth=1.5, linestyle="--", color="#2f6df6",
         connectionstyle="angle3,angleA=0,angleB=90",
     ))
-    ax.text(.335,.79,"dense input\n확장",ha="center",va="bottom",fontsize=11.5,color="#2f6df6")
+    ax.text(.335,.79,"ON: HyDE document",ha="center",va="bottom",fontsize=11.0,color="#2f6df6")
+    ax.text(.255,.625,"OFF: query",ha="center",va="center",fontsize=10.5,color="0.25")
 
     # Hybrid fusion and reranking.
     box(ax, (.55,.48), (.12,.14), "Weighted RRF\nmerge & score", edge="#746aa8", face="#f7f5ff", fs=13.5)
@@ -119,8 +120,8 @@ def render_project_figures() -> None:
     arrow(ax, (1.27,.55), (1.31,.55))
 
     # Bottom legend: each factor's intervention point, kept separate from the pipeline.
-    box(ax, (.04,.055), (.38,.14), "HyDE = retrieval-side\nDense retrieval 입력 표현 확장\nBM25 branch에는 영향 없음",
-        edge="#2f6df6", face="#f3f8ff", fs=12.3, lw=1.3)
+    box(ax, (.04,.055), (.38,.14), "HyDE = retrieval-side\nDense search text: OFF=query / ON=HyDE document\nBM25는 원 질문 사용",
+        edge="#2f6df6", face="#f3f8ff", fs=11.8, lw=1.3)
     box(ax, (.52,.055), (.38,.14), "CAD = generation-side\n동일 context에서 logits 조절\nSCD와 함께 ON이면 CAD → SCD",
         edge="#23866f", face="#f2faf7", fs=12.3, lw=1.3)
     box(ax, (1.00,.055), (.38,.14), "SCD = output-language control\nGeneration 내부 logits processor\n한국어 출력 언어 제어",
