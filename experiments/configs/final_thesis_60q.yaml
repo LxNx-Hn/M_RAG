@@ -1,0 +1,82 @@
+schema_version: final_thesis_60q.v1
+status: canonical
+experiment: m_rag_thesis_60q
+purpose: Canonical configuration for the final 60-query graduation-thesis experiment.
+
+dataset:
+  document_count: 4
+  query_count: 60
+  queries_per_document: 15
+  query_language: ko
+  document_language: en
+  response_target_language: ko
+  configuration_count: 8
+  generation_count: 480
+  source_evidence_required: true
+
+retrieval:
+  dense_model: BAAI/bge-m3
+  sparse_method: BM25
+  fusion_method: weighted_rrf
+  rrf_k: 60
+  dense_weight: 0.6
+  sparse_weight: 0.4
+  retrieval_pool_top_k: 8
+  rerank_top_n: 8
+  context_chunk_count: 5
+
+reranker:
+  model: cross-encoder/ms-marco-MiniLM-L-6-v2
+
+generation:
+  model: K-intelligence/Midm-2.0-Base-Instruct
+  decoding_mode: deterministic_greedy
+  max_new_tokens: 512
+
+hyde:
+  axis: true
+  temperature: 0.1
+  top_p: 0.9
+  do_sample: true
+
+cad:
+  axis: true
+  alpha: 0.5
+
+scd:
+  axis: true
+  mode: reference_scd
+  alpha: 1.1
+  beta: 0.9
+  t_start: 5
+  primary_metric: korean_character_ratio
+
+evaluation:
+  ragas_version: 0.2.15
+  judge_provider: openai
+  judge_model: gpt-4o
+  embedding_model: BAAI/bge-m3
+  metrics:
+    - faithfulness
+    - answer_relevancy
+    - context_precision
+    - context_recall
+  scd_off_context_language: en
+  scd_on_evaluation_context_language: ko
+  scd_context_translation_model: gpt-4o
+
+statistics:
+  independent_unit: query
+  paired_bootstrap_iterations: 200000
+  seed: 20260713
+  hyde_primary_pairs: 60
+  cad_primary_pairs: 60
+  cad_faithfulness_valid_pairs: 58
+  scd_primary_same_context_pairs: 120
+  scd_all_state_matched_pairs: 240
+
+canonical_artifacts:
+  manuscript: FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md
+  claim_map: FINALDOCS/VALIDATION/FINAL_CLAIM_MAP_60Q.md
+  query_protocol: FINALDOCS/VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md
+  tables: FINALDOCS/TABLES/TABLES_60Q.xlsx

@@ -1,33 +1,31 @@
 name: fixed-paper-rag-backbone
-description: Fixed Paper-RAG retrieval backbone for HyDE/CAD/SCD evaluation.
+description: Fixed Paper-RAG retrieval backbone used by the final 60-query HyDE/CAD/SCD thesis experiment.
 retrieval:
   dense:
     enabled: true
-    model: BGE-M3 or repository-configured dense embedder
+    model: BAAI/bge-m3
   sparse:
     enabled: true
     method: BM25
   fusion:
     enabled: true
-    method: RRF
+    method: weighted_rrf
+    rrf_k: 60
+    dense_weight: 0.6
+    sparse_weight: 0.4
   reranker:
     enabled: true
-    model: CrossEncoder or repository-configured reranker
+    model: cross-encoder/ms-marco-MiniLM-L-6-v2
 frozen_parameters:
-  # Distinct retrieval stages (do not collapse into one "top_k"):
-  retrieval_pool_top_k: 20   # initial dense + BM25 candidate pool (backend config.TOP_K_RETRIEVAL)
-  rerank_top_n: 5            # documents kept after CrossEncoder reranking (backend config.TOP_K_RERANK)
-  context_chunk_count: 5     # final chunks handed to generation (= rerank_top_n in the fixed backbone)
+  retrieval_pool_top_k: 8
+  rerank_top_n: 8
+  context_chunk_count: 5
   section_filter: null
   doc_id_filter: set_by_query_or_runtime_scope
 parameter_semantics:
   retrieval_pool_top_k: initial dense/BM25 candidate count before fusion
-  rerank_top_n: count after CrossEncoder reranking
-  context_chunk_count: final chunk count passed to the generator
-  note: >
-    The legacy single "top_k: 5" referred to the API/rerank-output level
-    (backend/api/schemas.py QueryRequest.top_k default = 5), which corresponds to
-    rerank_top_n here, not to the larger dense/BM25 candidate pool.
+  rerank_top_n: count retained after CrossEncoder reranking
+  context_chunk_count: final chunk count passed to generation
 excluded_from_fixed_backbone:
   hyde: main_experiment_axis
   cad: main_experiment_axis
@@ -37,4 +35,3 @@ forbidden_backbone_claims:
   multi_query_fusion: false
   hierarchical_third_party_retrieval_claim: false
   compression_method_claim: false
-

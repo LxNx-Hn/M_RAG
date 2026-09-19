@@ -12,7 +12,7 @@ from pathlib import Path
 
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
-TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"
+TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"\nCANONICAL_CONFIG = FINAL.parent / "experiments/configs/final_thesis_60q.yaml"\nQUERY_PROTOCOL = FINAL / "VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md"
 
 EXPECTED_SHEETS = (
     "T2-1_Related_Work",
@@ -94,10 +94,51 @@ def main() -> int:
         FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
         FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
         FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
-        FINAL / "DATA/evidence_manifest_60q.json",
+        FINAL / "DATA/evidence_manifest_60q.json",\n        CANONICAL_CONFIG,\n        QUERY_PROTOCOL,
     )
     for path in required:
         need(path)
+
+    canonical_config = CANONICAL_CONFIG.read_text(encoding="utf-8")
+    for marker in (
+        "status: canonical",
+        "query_count: 60",
+        "configuration_count: 8",
+        "generation_count: 480",
+        "retrieval_pool_top_k: 8",
+        "rerank_top_n: 8",
+        "context_chunk_count: 5",
+        "mode: reference_scd",
+        "alpha: 1.1",
+        "beta: 0.9",
+        "t_start: 5",
+        "judge_model: gpt-4o",
+        "paired_bootstrap_iterations: 200000",
+        "seed: 20260713",
+    ):
+        if marker not in canonical_config:
+            raise AssertionError(f"canonical 60Q config mismatch: missing {marker}")
+
+    for stale in ("retained final 19", "held-out 41", "legacy_note"):
+        if stale.lower() in canonical_config.lower():
+            raise AssertionError(f"research-history term leaked into canonical config: {stale}")
+
+    query_protocol = QUERY_PROTOCOL.read_text(encoding="utf-8")
+    for marker in (
+        "초기 질문 3개",
+        "LLM",
+        "15개의 내용 단위",
+        "4 documents × 15 queries = 60 queries",
+        "source page",
+        "reference evidence",
+        "answerability",
+    ):
+        if marker not in query_protocol:
+            raise AssertionError(f"query-construction protocol missing marker: {marker}")
+
+    finaldocs_readme = (FINAL / "README.md").read_text(encoding="utf-8")
+    if "experiments/configs/final_thesis_60q.yaml" not in finaldocs_readme:
+        raise AssertionError("FINALDOCS README must identify the canonical 60Q config")
 
     evidence_manifest = json.loads(
         (FINAL / "DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
@@ -162,14 +203,14 @@ def main() -> int:
     for marker in (
         "60개 질의 전체가 한국어 질의–영어 문서 검색이라는 동일한 교차언어 조건을 공유한다",
         "사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개",
-        "연구자가 문서별 3개의 초기 질문을 직접 작성하였다",
-        "LLM에 해당 문서의 주요 내용을 질문 작성에 활용할 수 있는 형태로 요약하도록 하였다",
-        "요약 결과를 15개의 내용 단위로 세분화",
-        "최종 평가 집합의 60개 질의는 모두 원문에서 대응 근거가 확인된 질의로 구성하였다",
+        "연구자는 각 문서의 주요 내용을 바탕으로 질문의 표현 방식과 범위를 정의하는 초기 질문 3개를 작성하였다",
+        "LLM을 사용하여 문서의 주요 내용을 질문 작성에 활용할 수 있는 형태로 요약",
+        "요약 결과를 15개의 내용 단위로 구분하였다",
+        "60개 질의 각각에 source page와 reference evidence를 연결하였다",
         "5개 튜닝 질의",
         "세 가지 retrieval profile",
-        "retrieval pool 8, rerank top-N 8, 최종 문맥 5",
-        "검색 설정 선정과 최종 효과 평가는 서로 다른 질의 집합으로 수행하였다",
+        "retrieval pool 8, rerank top-N 8, 최종 생성 문맥 5",
+        "검색 설정은 별도의 5개 튜닝 질의로 선정하였다",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
         "공백 분리 기준 최대 512개 단어",

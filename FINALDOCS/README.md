@@ -16,4 +16,10 @@
 - `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: 최종 주장-근거 연결표
 - `VALIDATION/verify_finaldocs_60q.py`: 네트워크·모델 호출 없이 실행하는 제출 패키지 점검기
 
+## Canonical experiment definition
+
+최종 60-query 졸업논문의 실험 설정은 `experiments/configs/final_thesis_60q.yaml`을 기준으로 한다. 이 파일은 60개 평가 질의, 8개 HyDE×CAD×SCD 조건, 검색·재정렬 설정, 생성 모델과 decoding 설정, reference SCD 설정, 평가 모델과 통계 절차를 하나의 최종 configuration으로 정의한다.
+
+질의 구성 절차는 `VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md`에 기록한다. 실험 결과의 수치와 생성 기록은 `VALIDATION/FINAL_CLAIM_MAP_60Q.md` 및 연결된 source artifact에서 추적한다.
+
 원고의 1~6장은 HyDE·CAD·SCD를 각각 검색 표현, 동일 문맥 decoding, 출력 언어 제어 관점에서 분석한다. 현재 제출 근거는 `FINALDOCS/`의 집계 자료와 검증 문서가 해시로 연결한 source artifact로 구성한다.
