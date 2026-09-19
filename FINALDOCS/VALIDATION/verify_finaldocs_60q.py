@@ -12,7 +12,9 @@ from pathlib import Path
 
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
-TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"\nCANONICAL_CONFIG = FINAL.parent / "experiments/configs/final_thesis_60q.yaml"\nQUERY_PROTOCOL = FINAL / "VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md"
+TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"
+CANONICAL_CONFIG = FINAL.parent / "experiments/configs/final_thesis_60q.yaml"
+QUERY_PROTOCOL = FINAL / "VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md"
 
 EXPECTED_SHEETS = (
     "T2-1_Related_Work",
@@ -94,7 +96,9 @@ def main() -> int:
         FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
         FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
         FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
-        FINAL / "DATA/evidence_manifest_60q.json",\n        CANONICAL_CONFIG,\n        QUERY_PROTOCOL,
+        FINAL / "DATA/evidence_manifest_60q.json",
+        CANONICAL_CONFIG,
+        QUERY_PROTOCOL,
     )
     for path in required:
         need(path)
@@ -201,7 +205,7 @@ def main() -> int:
         raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
 
     for marker in (
-        "60개 질의 전체가 한국어 질의–영어 문서 검색이라는 동일한 교차언어 조건을 공유한다",
+        "모든 질의는 한국어 질의로 영어 문서에서 근거를 검색하는 동일한 교차언어 조건을 공유한다",
         "사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개",
         "연구자는 각 문서의 주요 내용을 바탕으로 질문의 표현 방식과 범위를 정의하는 초기 질문 3개를 작성하였다",
         "LLM을 사용하여 문서의 주요 내용을 질문 작성에 활용할 수 있는 형태로 요약",
