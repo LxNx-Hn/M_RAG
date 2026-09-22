@@ -138,7 +138,7 @@ jobs:
           # Binary + semantic validation.
           check = load_workbook(out, read_only=True, data_only=False)
           assert check.sheetnames == expected
-          assert check["T4-1_Environment"]["B7"].value == "각 단계에서 확률이 가장 높은 토큰 선택"
+          assert check["T4-1_Environment"]["B5"].value == "각 단계에서 확률이 가장 높은 토큰 선택"
           assert check["T5-3_HyDE"]["A4"].value == "근거 충실도"
           assert check["T5-6_SCD_Paired"]["D5"].value == "95% 신뢰구간"
           assert check["Appendix_Queries"].max_row == 63
