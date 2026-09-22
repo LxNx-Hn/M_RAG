@@ -174,15 +174,15 @@ def main() -> int:
         "0.0000에서 0.8531",
     ):
         if marker not in section_54:
-            raise AssertionError(f"E04 current-case marker missing from section 5.4: {marker}")
+            raise AssertionError(f"HyDE case marker missing from section 5.4: {marker}")
     stale_e04 = ("GMM", "soft clustering", "BIC")
     if found := [term for term in stale_e04 if term in section_54]:
         raise AssertionError(f"stale E04 RAPTOR case prose remains in section 5.4: {found}")
 
     section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[0]
     for marker in (
-        "context precision은 8/60쌍, context recall은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다",
-        "CAD의 생성 단계 결과는 faithfulness, answer relevancy와 생성 시간을 중심으로 분석한다",
+        "문맥 정밀도는 8/60쌍, 문맥 재현율은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다",
+        "CAD의 생성 단계 결과는 근거 충실도, 답변 관련성과 생성 시간을 중심으로 분석한다",
     ):
         if marker not in section_55:
             raise AssertionError(f"CAD interpretation contract missing from section 5.5: {marker}")
@@ -200,7 +200,7 @@ def main() -> int:
     if stale_e03 in section_56:
         raise AssertionError("E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset")
 
-    scd_design_row = "SCD\t출력 토큰 logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율"
+    scd_design_row = "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율"
     if scd_design_row not in text:
         raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
 
@@ -212,8 +212,8 @@ def main() -> int:
         "요약 결과를 15개의 내용 단위로 구분하였다",
         "60개 질의 각각에 source page와 reference evidence를 연결하였다",
         "5개 튜닝 질의",
-        "세 가지 retrieval profile",
-        "retrieval pool 8, rerank top-N 8, 최종 생성 문맥 5",
+        "검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정",
+        "검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5",
         "검색 설정은 별도의 5개 튜닝 질의로 선정하였다",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
@@ -223,7 +223,7 @@ def main() -> int:
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
         "H0S0 -0.0073, H1S0 -0.0588",
         "HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성한다",
-        "그림 5-6은 각 조건에서 측정된 대응 차이를 제시",
+        "그림 5-11은 각 조건에서 측정된 대응 차이를 제시",
     ):
         if marker not in text:
             raise AssertionError(f"current thesis-method marker missing: {marker}")
@@ -243,10 +243,10 @@ def main() -> int:
 
     appendix_b = text.split("## B.2 문서별·질문 유형별 탐색 분석", 1)[1]
     expected_query_type_rows = (
-        "사실·정의\tHyDE\tanswer_relevancy\t8\t0.0455",
-        "방법·절차\tHyDE\tanswer_relevancy\t29\t0.1719",
-        "결과·비교\tCAD\tanswer_relevancy\t20\t-0.0683",
-        "목적·기여\tCAD\tfaithfulness\t3\t-0.1597",
+        "사실·정의\tHyDE\t답변 관련성\t8\t0.0455",
+        "방법·절차\tHyDE\t답변 관련성\t29\t0.1719",
+        "결과·비교\tCAD\t답변 관련성\t20\t-0.0683",
+        "목적·기여\tCAD\t근거 충실도\t3\t-0.1597",
     )
     for marker in expected_query_type_rows:
         if marker not in appendix_b:
@@ -288,6 +288,12 @@ def main() -> int:
     if found := [phrase for phrase in DEFENSIVE_PHRASES if phrase in body]:
         raise AssertionError(f"defensive manuscript prose returned: {found}")
 
+    if found := [term for term in ("retrieval-side", "generation-side", "retrieval profile", "retrieval_recall_oriented") if term in body]:
+        raise AssertionError(f"mixed internal terminology returned to thesis body: {found}")
+    if "faithfulness의 결측값 5개" in body:
+        raise AssertionError("explicit five-missing-value prose returned outside the focused analysis note")
+
+
     toc = text.split("# 그 림 목 차", maxsplit=1)[0]
     detailed_toc = (
         "3.1 연구 및 실험 요구사항",
@@ -324,8 +330,8 @@ def main() -> int:
     figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
     if figure_toc != figure_captions:
         raise AssertionError("figure list and manuscript captions do not match")
-    if len(figure_captions) != 16:
-        raise AssertionError(f"expected 16 manuscript figures, got {len(figure_captions)}")
+    if len(figure_captions) != 22:
+        raise AssertionError(f"expected 22 manuscript figures including appendix figure B-1, got {len(figure_captions)}")
 
     table_toc = set(
         re.findall(
@@ -472,27 +478,24 @@ def main() -> int:
     for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):
         if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
             raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
-    for case_id in ("E01", "E02", "E03", "E04", "E05", "E06"):
-        if f"[입출력 사례 {case_id}]" not in text:
-            raise AssertionError(f"missing manuscript IO evidence marker: {case_id}")
+    if "[입출력 사례 E" in text:
+        raise AssertionError("internal E-case numbering leaked into thesis-facing captions")
     for raw_path in sorted((io_dir / "raw").glob("E*.txt")):
         raw_text = raw_path.read_text(encoding="utf-8")
         if "Evidence Replay UI" in raw_text or "evidence replay" in raw_text.lower():
             raise AssertionError(f"UI/replay label remains in raw evidence: {raw_path.name}")
     placement_checks = (
-        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[입출력 사례 E04]"),
-        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[입출력 사례 E05]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 사례 E02]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[입출력 사례 E03]"),
-        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[입출력 사례 E01]"),
+        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[그림 5-3]"),
+        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[그림 5-5]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[그림 5-7]"),
+        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[그림 5-8]"),
+        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[그림 5-10]"),
+        ("# 부록 B. 추가 사례 및 탐색 분석", "## B.2 문서별·질문 유형별 탐색 분석", "[그림 B-1]"),
     )
     for start, end, evidence_marker in placement_checks:
         section = text.split(start, 1)[1].split(end, 1)[0]
         if evidence_marker not in section:
-            raise AssertionError(f"claim-adjacent IO evidence placement mismatch: {evidence_marker}")
-    chapter5 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("# 6. 결론", 1)[0]
-    if "[입출력 사례 E06]" in chapter5:
-        raise AssertionError("E06 trade-off evidence must remain appendix-only")
+            raise AssertionError(f"claim-adjacent figure placement mismatch: {evidence_marker}")
     for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 실험 조건 선택")):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:
