@@ -11,7 +11,7 @@ Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 
 Hypothetical-document retrieval	HyDE[2]	H1/H0 end-to-end 대응 비교와 retrieved ID 확인	가상 문서는 검색 표현으로 사용
 Contrastive decoding	CAD[3], contrastive decoding[13]	같은 input에서 C1/C0 paired 비교	CAD alpha=0.5 고정 조건
 Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context precision·context recall 평가	자동 평가 지표와 대응 비교에 사용
+RAG evaluation	RAGAS[9], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
 
 ==========================================================================================
 [Workbook Sheet] T3-1_Requirements
@@ -41,7 +41,7 @@ H1C1S1	ON	ON	ON	60
 ==========================================================================================
 요인	적용 위치	주 비교	주 지표
 HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 품질 지표
-CAD	문맥 기반 디코딩	동일 문맥 60쌍(최종 faithfulness 유효쌍 58개)	faithfulness·answer relevancy·생성 시간
+CAD	문맥 기반 디코딩	동일 문맥 60쌍(근거 충실도 유효쌍 58개)	근거 충실도·답변 관련성·생성 시간
 SCD	출력 토큰 logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍	한국어 문자 비율
 
 ==========================================================================================
@@ -69,7 +69,7 @@ SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
 재정렬	cross-encoder/ms-marco-MiniLM-L-6-v2
 문맥 구성	ContextCompressor 문맥 길이 관리 후 rerank 상위 5개 context
 생성	Mi:dm 2.0 Base Instruct; max_new_tokens=512
-요인	HyDE retrieval-side / CAD·SCD generation-side
+요인	HyDE 검색 단계 / CAD·SCD 생성 단계
 
 [표 4-2 주석] 검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 수 5는 최종 평가 집합과 분리된 5개 튜닝 질의의 검색 폭 비교를 통해 사전에 선정한 값이다. CAD와 SCD의 파라미터는 각 기법의 실험 설정에 따라 별도로 적용하였다.
 
@@ -110,14 +110,14 @@ Mi:dm K 2.5 Pro Technical Report	15
 [Workbook Sheet] T5-2_Config_Scores
 ==========================================================================================
 [SCD OFF — 영어 검색 문맥 평가]
-조건	생성 수	Faithfulness	Answer relevancy	Context precision	Context recall	Korean ratio
+조건	생성 수	근거 충실도	답변 관련성	문맥 정밀도	문맥 재현율	한국어 문자 비율
 H0C0S0	60	0.7906	0.6828	0.7488	0.9333	0.4943
 H0C1S0	60	0.8385	0.6755	0.7395	0.9167	0.4877
 H1C0S0	60	0.8342	0.7633	0.7145	0.9333	0.5561
 H1C1S0	60	0.8599	0.7045	0.7357	0.9000	0.5031
 
 [SCD ON — 한국어 변환 평가 문맥]
-조건	생성 수	Faithfulness	Answer relevancy	Context precision	Context recall	Korean ratio
+조건	생성 수	근거 충실도	답변 관련성	문맥 정밀도	문맥 재현율	한국어 문자 비율
 H0C0S1	60	0.7869	0.6372	0.7634	0.9000	0.6990
 H0C1S1	60	0.7768	0.5996	0.7523	0.8500	0.7195
 H1C0S1	60	0.8223	0.7097	0.7426	0.9000	0.8072
@@ -128,25 +128,25 @@ H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 ==========================================================================================
 [Workbook Sheet] T5-3_HyDE
 ==========================================================================================
-지표	평균 변화 ON−OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0436	[-0.0262, +0.1153]	24	21	15	60
-answer_relevancy	+0.0805	[+0.0110, +0.1514]	29	15	16	60
-context_precision	-0.0343	[-0.0932, +0.0247]	17	23	20	60
-context_recall	0	[-0.1000, +0.1000]	4	4	52	60
+지표	평균 변화 ON−OFF	95% 신뢰구간	증가	감소	동률	n
+근거 충실도	+0.0436	[-0.0262, +0.1153]	24	21	15	60
+답변 관련성	+0.0805	[+0.0110, +0.1514]	29	15	16	60
+문맥 정밀도	-0.0343	[-0.0932, +0.0247]	17	23	20	60
+문맥 재현율	0	[-0.1000, +0.1000]	4	4	52	60
 
 ==========================================================================================
 [Workbook Sheet] T5-4_CAD
 ==========================================================================================
-지표	평균 변화 ON−OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0288	[-0.0367, +0.0934]	21	24	13	58
-answer_relevancy	-0.0073	[-0.0855, +0.0719]	19	32	9	60
+지표	평균 변화 ON−OFF	95% 신뢰구간	증가	감소	동률	n
+근거 충실도	+0.0288	[-0.0367, +0.0934]	21	24	13	58
+답변 관련성	-0.0073	[-0.0855, +0.0719]	19	32	9	60
 
-[진단값] 동일 retrieval 입력에서 evaluator 값 차이: context precision 8/60쌍, context recall 1/60쌍
+[진단값] 동일 검색 입력에서 자동 평가 모델 값 차이: 문맥 정밀도 8/60쌍, 문맥 재현율 1/60쌍
 
 ==========================================================================================
 [Workbook Sheet] T5-5_SCD_Config
 ==========================================================================================
-SCD OFF	SCD ON	쌍 수	평균 변화	CI 하한	CI 상한	증가	감소	동률
+SCD OFF	SCD ON	쌍 수	평균 변화	신뢰구간 하한	신뢰구간 상한	증가	감소	동률
 H0C0S0	H0C0S1	60	+0.2047	+0.1566	+0.2512	51	4	5
 H0C1S0	H0C1S1	60	+0.2317	+0.1874	+0.2786	54	2	4
 H1C0S0	H1C0S1	60	+0.2511	+0.1938	+0.3078	57	1	2
@@ -155,7 +155,7 @@ H1C1S0	H1C1S1	60	+0.2283	+0.1832	+0.2762	57	3	0
 ==========================================================================================
 [Workbook Sheet] T5-6_SCD_Paired
 ==========================================================================================
-비교	쌍 수	한국어 문자 비율 평균 변화	95% CI	증가 / 감소 / 동률
+비교	쌍 수	한국어 문자 비율 평균 변화	95% 신뢰구간	증가 / 감소 / 동률
 전체 SCD ON/OFF 대응	240	+0.2289	[+0.2051, +0.2532]	219 / 10 / 11
 HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	105 / 6 / 9
 
@@ -228,72 +228,72 @@ track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합
 [Workbook Sheet] Appendix_Paper
 ==========================================================================================
 대상 문서	요인	지표	n	평균 변화
-Mi:dm K 2.5 Pro Technical Report	HyDE	faithfulness	15	0.0007
-Mi:dm K 2.5 Pro Technical Report	HyDE	answer_relevancy	15	0.0994
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_precision	15	-0.0145
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_recall	15	0.1333
-Mi:dm K 2.5 Pro Technical Report	CAD	faithfulness	15	0.0081
-Mi:dm K 2.5 Pro Technical Report	CAD	answer_relevancy	15	0.0339
-Mi:dm K 2.5 Pro Technical Report	CAD	context_precision	15	0
-Mi:dm K 2.5 Pro Technical Report	CAD	context_recall	15	0
-CAD	HyDE	faithfulness	15	-0.0491
-CAD	HyDE	answer_relevancy	15	-0.0019
-CAD	HyDE	context_precision	15	-0.0823
-CAD	HyDE	context_recall	15	-0.0667
-CAD	CAD	faithfulness	15	0.0664
-CAD	CAD	answer_relevancy	15	-0.0099
-CAD	CAD	context_precision	15	-0.0552
-CAD	CAD	context_recall	15	-0.0667
-RAG Survey	HyDE	faithfulness	15	0.1575
-RAG Survey	HyDE	answer_relevancy	15	0.1314
-RAG Survey	HyDE	context_precision	15	0.0036
-RAG Survey	HyDE	context_recall	15	0.0667
-RAG Survey	CAD	faithfulness	13	-0.0416
-RAG Survey	CAD	answer_relevancy	15	-0.1004
-RAG Survey	CAD	context_precision	15	0.0074
-RAG Survey	CAD	context_recall	15	0
-RAPTOR	HyDE	faithfulness	15	0.0652
-RAPTOR	HyDE	answer_relevancy	15	0.093
-RAPTOR	HyDE	context_precision	15	-0.0441
-RAPTOR	HyDE	context_recall	15	-0.1333
-RAPTOR	CAD	faithfulness	15	0.0731
-RAPTOR	CAD	answer_relevancy	15	0.047
-RAPTOR	CAD	context_precision	15	0.0108
-RAPTOR	CAD	context_recall	15	0
+Mi:dm K 2.5 Pro Technical Report	HyDE	근거 충실도	15	0.0007
+Mi:dm K 2.5 Pro Technical Report	HyDE	답변 관련성	15	0.0994
+Mi:dm K 2.5 Pro Technical Report	HyDE	문맥 정밀도	15	-0.0145
+Mi:dm K 2.5 Pro Technical Report	HyDE	문맥 재현율	15	0.1333
+Mi:dm K 2.5 Pro Technical Report	CAD	근거 충실도	15	0.0081
+Mi:dm K 2.5 Pro Technical Report	CAD	답변 관련성	15	0.0339
+Mi:dm K 2.5 Pro Technical Report	CAD	문맥 정밀도	15	0
+Mi:dm K 2.5 Pro Technical Report	CAD	문맥 재현율	15	0
+CAD	HyDE	근거 충실도	15	-0.0491
+CAD	HyDE	답변 관련성	15	-0.0019
+CAD	HyDE	문맥 정밀도	15	-0.0823
+CAD	HyDE	문맥 재현율	15	-0.0667
+CAD	CAD	근거 충실도	15	0.0664
+CAD	CAD	답변 관련성	15	-0.0099
+CAD	CAD	문맥 정밀도	15	-0.0552
+CAD	CAD	문맥 재현율	15	-0.0667
+RAG Survey	HyDE	근거 충실도	15	0.1575
+RAG Survey	HyDE	답변 관련성	15	0.1314
+RAG Survey	HyDE	문맥 정밀도	15	0.0036
+RAG Survey	HyDE	문맥 재현율	15	0.0667
+RAG Survey	CAD	근거 충실도	13	-0.0416
+RAG Survey	CAD	답변 관련성	15	-0.1004
+RAG Survey	CAD	문맥 정밀도	15	0.0074
+RAG Survey	CAD	문맥 재현율	15	0
+RAPTOR	HyDE	근거 충실도	15	0.0652
+RAPTOR	HyDE	답변 관련성	15	0.093
+RAPTOR	HyDE	문맥 정밀도	15	-0.0441
+RAPTOR	HyDE	문맥 재현율	15	-0.1333
+RAPTOR	CAD	근거 충실도	15	0.0731
+RAPTOR	CAD	답변 관련성	15	0.047
+RAPTOR	CAD	문맥 정밀도	15	0.0108
+RAPTOR	CAD	문맥 재현율	15	0
 
 ==========================================================================================
 [Workbook Sheet] Appendix_QueryType
 ==========================================================================================
 질문 유형	요인	지표	n	평균 변화
-사실·정의	HyDE	faithfulness	8	0.0966
-사실·정의	HyDE	answer_relevancy	8	0.0455
-사실·정의	HyDE	context_precision	8	-0.1328
-사실·정의	HyDE	context_recall	8	-0.1250
-사실·정의	CAD	faithfulness	8	0.0005
-사실·정의	CAD	answer_relevancy	8	-0.0145
-사실·정의	CAD	context_precision	8	-0.0486
-사실·정의	CAD	context_recall	8	0
-방법·절차	HyDE	faithfulness	29	0.0792
-방법·절차	HyDE	answer_relevancy	29	0.1719
-방법·절차	HyDE	context_precision	29	-0.0029
-방법·절차	HyDE	context_recall	29	0.0690
-방법·절차	CAD	faithfulness	27	0.0823
-방법·절차	CAD	answer_relevancy	29	0.0684
-방법·절차	CAD	context_precision	29	0.0029
-방법·절차	CAD	context_recall	29	0
-결과·비교	HyDE	faithfulness	20	-0.0509
-결과·비교	HyDE	answer_relevancy	20	-0.0216
-결과·비교	HyDE	context_precision	20	-0.0289
-결과·비교	HyDE	context_recall	20	-0.0500
-결과·비교	CAD	faithfulness	20	-0.0037
-결과·비교	CAD	answer_relevancy	20	-0.0683
-결과·비교	CAD	context_precision	20	-0.0124
-결과·비교	CAD	context_recall	20	-0.0500
-목적·기여	HyDE	faithfulness	3	0.1875
-목적·기여	HyDE	answer_relevancy	3	-0.0289
-목적·기여	HyDE	context_precision	3	-0.1111
-목적·기여	HyDE	context_recall	3	0
-목적·기여	CAD	faithfulness	3	-0.1597
-목적·기여	CAD	answer_relevancy	3	-0.3139
-목적·기여	CAD	context_precision	3	0
-목적·기여	CAD	context_recall	3	0
+사실·정의	HyDE	근거 충실도	8	0.0966
+사실·정의	HyDE	답변 관련성	8	0.0455
+사실·정의	HyDE	문맥 정밀도	8	-0.1328
+사실·정의	HyDE	문맥 재현율	8	-0.1250
+사실·정의	CAD	근거 충실도	8	0.0005
+사실·정의	CAD	답변 관련성	8	-0.0145
+사실·정의	CAD	문맥 정밀도	8	-0.0486
+사실·정의	CAD	문맥 재현율	8	0
+방법·절차	HyDE	근거 충실도	29	0.0792
+방법·절차	HyDE	답변 관련성	29	0.1719
+방법·절차	HyDE	문맥 정밀도	29	-0.0029
+방법·절차	HyDE	문맥 재현율	29	0.0690
+방법·절차	CAD	근거 충실도	27	0.0823
+방법·절차	CAD	답변 관련성	29	0.0684
+방법·절차	CAD	문맥 정밀도	29	0.0029
+방법·절차	CAD	문맥 재현율	29	0
+결과·비교	HyDE	근거 충실도	20	-0.0509
+결과·비교	HyDE	답변 관련성	20	-0.0216
+결과·비교	HyDE	문맥 정밀도	20	-0.0289
+결과·비교	HyDE	문맥 재현율	20	-0.0500
+결과·비교	CAD	근거 충실도	20	-0.0037
+결과·비교	CAD	답변 관련성	20	-0.0683
+결과·비교	CAD	문맥 정밀도	20	-0.0124
+결과·비교	CAD	문맥 재현율	20	-0.0500
+목적·기여	HyDE	근거 충실도	3	0.1875
+목적·기여	HyDE	답변 관련성	3	-0.0289
+목적·기여	HyDE	문맥 정밀도	3	-0.1111
+목적·기여	HyDE	문맥 재현율	3	0
+목적·기여	CAD	근거 충실도	3	-0.1597
+목적·기여	CAD	답변 관련성	3	-0.3139
+목적·기여	CAD	문맥 정밀도	3	0
+목적·기여	CAD	문맥 재현율	3	0
