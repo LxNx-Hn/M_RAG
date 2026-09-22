@@ -14,7 +14,7 @@ FINAL = ROOT / "FINALDOCS"
 FIG = FINAL / "FIGURES"
 LIT = FIG / "LITERATURE"
 
-plt.rcParams["font.family"] = "NanumSquare"
+plt.rcParams["font.family"] = "NanumGothic"
 plt.rcParams["axes.unicode_minus"] = False
 
 
