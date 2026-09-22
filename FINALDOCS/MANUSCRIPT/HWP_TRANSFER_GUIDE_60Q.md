@@ -34,10 +34,10 @@
 | 4.3 | T4-4_Record_Fields | 생성 기록 주요 필드 |
 | 5.1 | T5-1_Dataset | 4개 문서와 60개 질의 분포 |
 | 5.3 | T5-2_Config_Scores | SCD 평가 프로토콜별 RAG-Cube 조건 평균 |
-| 5.4 | T5-3_HyDE | HyDE primary 통제 비교 |
-| 5.5 | T5-4_CAD | CAD primary 동일 문맥 비교 |
+| 5.4 | T5-3_HyDE | HyDE 주 대응 비교 |
+| 5.5 | T5-4_CAD | CAD 동일 문맥 주 비교 |
 | 5.6 | T5-5_SCD_Config | SCD 조건별 한국어 문자 비율 결과 |
-| 5.6 | T5-6_SCD_Paired | SCD matched-pair summary |
+| 5.6 | T5-6_SCD_Paired | SCD 대응쌍 분석 요약 |
 | 부록 A | Appendix_Queries | 60개 질의-대상문서 쌍 |
 | 부록 B | Appendix_Paper | 문서별 탐색 집계 |
 | 부록 B | Appendix_QueryType | 질문 유형별 탐색 집계 |
