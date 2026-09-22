@@ -59,31 +59,29 @@
 | 2.3 | LITERATURE/fig2_3_hyde_original.png | HyDE의 hypothetical-document retrieval 구조 — Gao et al.[2], Fig. 1 |
 | 2.4 | LITERATURE/fig2_4_cad_original.png | Context-Aware Decoding의 분포 대조 구조 — Shi et al.[3], Fig. 1 |
 | 2.5 | LITERATURE/fig2_5_scd_language_drift_original.png | 다국어 RAG의 language drift 사례 — Li et al.[4], Fig. 1 |
-| 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS high/low faithfulness 예시 — Es et al.[9], Table 2 |
+| 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS 근거 충실도 높음/낮음 예시 — Es et al.[9], Table 2 |
 | 3장 | fig3_1_rag_cube.png | HyDE·CAD·SCD RAG-Cube 8개 조건 |
 | 4장 | fig4_1_pipeline.png | 고정 Paper-RAG backbone 실행 흐름 |
 | 4장 | fig4_2_artifact_flow.png | 생성 기록 → 평가 → 대응 분석 → 표·그림 흐름 |
-| 5.2 | fig5_0_evaluation_design.png | 60-query 평가 및 HyDE·CAD·SCD 대응 비교 설계 |
+| 5.2 | fig5_0_evaluation_design.png | 60개 질의 평가 및 HyDE·CAD·SCD 대응 비교 설계 |
 | 5.3 | fig5_1_quality_matrix.png | SCD OFF/ON 평가 프로토콜을 분리한 조건별 평균 품질 지표 |
 | 5.4 | fig5_2_primary_forest.png | HyDE·CAD 주 대응 비교와 신뢰구간 |
 | 5.6 | fig5_3_scd_language.png | SCD의 한국어 문자 비율 변화 |
-| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD 조건군별 faithfulness·answer relevancy 대응 차이 |
+| 5.8 | fig5_9_hyde_cad_strata.png | HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이 |
 | 5.5 | fig5_10_runtime.png | 실험 조건별 생성 시간 |
 
-## 대표 입출력 사례 삽입
+## 본문·부록 사례 그림 삽입
 
-`FINALDOCS/EVIDENCE/IO_CASES/`의 E01~E06은 최종 60개 질의의 실제 질문·생성 답변·검색 근거·평가값을 함께 제시하는 입출력 사례다. 2장은 선행연구 원문 그림으로 개념을 설명하고, 5장은 본 연구의 입출력 사례를 정량 결과와 연결한다. E04는 5.4절의 HyDE 검색 변화, E05는 5.5절의 CAD 동일 문맥 faithfulness 차이, E02와 E03은 5.6절에서 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 출력 언어 제어를 보여준다. E01은 5.7절의 기본 입출력 사례이며, E06은 CAD의 상충 사례로 부록 B에 배치한다. `raw/*.txt`는 각 PNG의 텍스트 원본이다.
+`FINALDOCS/EVIDENCE/IO_CASES/`의 PNG는 저장소 내부 파일명을 유지하되, HWP 원고에서는 일반 그림 번호로 배치한다. 본문 사례는 등장 순서에 따라 그림 5-3, 5-5, 5-7, 5-8, 5-10으로 번호를 부여하고, 추가 CAD 상충 사례는 부록의 그림 B-1로 배치한다. 저장소 파일명의 E번호는 논문 캡션에 사용하지 않는다.
 
-| 위치 | 파일 | 용도 |
-|---|---|---|
-| 5.4 | E04_hyde_retrieval_change.png | HyDE 검색 근거·답변 변화 사례 |
-| 5.5 | E05_cad_positive_same_context.png | CAD 동일 문맥 근거 충실도 차이 사례 |
-| 5.6 | E02_language_drift.png | SCD OFF 출력 언어 이탈 관찰 사례 |
-| 5.6 | E03_scd_rescue.png | 동일 문맥 SCD 언어 이탈 완화 사례 |
-| 5.7 | E01_normal_qa.png | 기본 질문·검색·답변·평가 사례 |
-| 부록 B | E06_cad_tradeoff_same_context.png | CAD 동일 문맥 trade-off 사례 |
-| 부록 B | E01~E06 | 전체 대표 입출력 사례 |
-
+| 위치 | 내부 PNG 파일 | 논문 그림 번호 | 그림 제목 |
+|---|---|---|---|
+| 5.4 | E04_hyde_retrieval_change.png | 그림 5-3 | HyDE 적용에 따른 검색 문맥 및 답변 변화 사례 |
+| 5.5 | E05_cad_positive_same_context.png | 그림 5-5 | 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례 |
+| 5.6 | E02_language_drift.png | 그림 5-7 | SCD OFF 조건의 출력 언어 이탈 사례 |
+| 5.6 | E03_scd_rescue.png | 그림 5-8 | 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례 |
+| 5.7 | E01_normal_qa.png | 그림 5-10 | 질의·검색 근거·생성 답변·평가 결과 예시 |
+| 부록 B | E06_cad_tradeoff_same_context.png | 그림 B-1 | 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례 |
 
 ## 수식
 
