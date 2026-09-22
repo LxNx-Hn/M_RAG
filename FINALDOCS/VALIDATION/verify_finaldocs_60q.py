@@ -637,7 +637,7 @@ def main() -> int:
 
     if "증빙 경로" in validation_report:
         raise AssertionError("validation report still describes UI/evidence insertion paths")
-    if "16 figure captions" not in cleanup_manifest:
+    if "22 figure captions" not in cleanup_manifest:
         raise AssertionError("cleanup manifest figure count is stale")
     if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):
         raise AssertionError("cleanup manifest is incomplete or truncated")
