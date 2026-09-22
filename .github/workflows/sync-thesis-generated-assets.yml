@@ -1,0 +1,55 @@
+name: Sync thesis generated assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sync-thesis-generated-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install figure dependencies and Korean fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
+          python -m pip install --disable-pip-version-check matplotlib numpy pymupdf
+
+      - name: Regenerate project figures
+        run: |
+          python -X utf8 - <<'PY'
+          from cli.finalize_thesis_figures import render_project_figures
+          render_project_figures()
+          PY
+
+      - name: Validate final thesis package
+        run: |
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py | tee FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+
+      - name: Check diff
+        run: git diff --check
+
+      - name: Commit generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FINALDOCS/FIGURES/*.png FINALDOCS/VALIDATION/LAST_VALIDATOR_OUTPUT.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(thesis): regenerate Korean-labeled figures"
+            git push origin HEAD:main
+          fi
