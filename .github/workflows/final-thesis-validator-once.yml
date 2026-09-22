@@ -1,0 +1,26 @@
+name: Final thesis validator once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/final-thesis-validator-once.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run final package validator
+        run: python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
