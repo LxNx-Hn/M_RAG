@@ -29,7 +29,7 @@ remain in their source locations for provenance and reproducibility.
 
 ## Submission structure
 
-The manuscript contains chapters 1–6, references, appendices A–C, 18 table
-captions, and 16 figure captions. HWP transfer materials mirror that structure
+The manuscript contains chapters 1–6, references, appendices A–B, 17 table
+captions, and 22 figure captions. HWP transfer materials mirror that structure
 and use the stored experiment artifacts as the numerical source of record.
 현재 제출 구조를 기준으로 유지한다.
