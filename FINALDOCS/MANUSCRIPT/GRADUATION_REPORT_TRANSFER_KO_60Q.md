@@ -22,9 +22,9 @@
 
 실험은 BGE-M3 밀집 검색, BM25 희소 검색, weighted Reciprocal Rank Fusion, CrossEncoder 재정렬, K-intelligence/Midm-2.0-Base-Instruct로 구성된 고정 Paper-RAG 백본을 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 문서에 문서별 15개씩 총 60개의 한국어 질의–대상 문서 쌍을 구성하고, 8개 실험 조건을 적용하여 480개의 생성 기록을 저장하였다. HyDE는 CAD·SCD OFF의 60개 대응쌍, CAD는 동일 검색 문맥 대응쌍, SCD는 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 240개 대응쌍과 HyDE OFF 동일 검색 문맥 120개 대응쌍으로 비교하였다.
 
-HyDE 적용 시 answer relevancy 평균 변화는 +0.0805이고 95% 신뢰구간은 [+0.0110, +0.1514]였다. Faithfulness는 +0.0436, context precision은 -0.0343, context recall은 0.0000으로 지표별 방향이 달랐다. CAD의 동일 문맥 비교에서 faithfulness는 양쪽 평가값이 존재하는 58쌍에서 +0.0288, 95% 신뢰구간은 [-0.0367, +0.0934]였고, answer relevancy는 60쌍에서 -0.0073이었다. SCD의 주 비교인 HyDE OFF 동일 문맥 120개 대응쌍에서 한국어 문자 비율은 평균 +0.2182, 95% 신뢰구간은 [+0.1880, +0.2487] 증가했으며, 전체 240개 대응쌍에서도 +0.2289의 변화가 나타났다.
+HyDE 적용 시 답변 관련성 평균 변화는 +0.0805이고 95% 신뢰구간은 [+0.0110, +0.1514]였다. 근거 충실도는 +0.0436, 문맥 정밀도은 -0.0343, 문맥 재현율은 0.0000으로 지표별 방향이 달랐다. CAD의 동일 문맥 비교에서 근거 충실도는 양쪽 평가값이 존재하는 58쌍에서 +0.0288, 95% 신뢰구간은 [-0.0367, +0.0934]였고, 답변 관련성는 60쌍에서 -0.0073이었다. SCD의 주 비교인 HyDE OFF 동일 문맥 120개 대응쌍에서 한국어 문자 비율은 평균 +0.2182, 95% 신뢰구간은 [+0.1880, +0.2487] 증가했으며, 전체 240개 대응쌍에서도 +0.2289의 변화가 나타났다.
 
-HyDE, CAD, SCD는 각각 검색 표현, 문맥 기반 생성, 출력 언어 제어의 각 단계에서 서로 다른 변화를 보였다. HyDE의 answer relevancy, CAD의 동일 문맥 faithfulness, SCD의 한국어 문자 비율을 각 요인의 대응 비교 결과로 정리하였다.
+HyDE, CAD, SCD는 각각 검색 표현, 문맥 기반 생성, 출력 언어 제어의 각 단계에서 서로 다른 변화를 보였다. HyDE의 답변 관련성, CAD의 동일 문맥 근거 충실도, SCD의 한국어 문자 비율을 각 요인의 대응 비교 결과로 정리하였다.
 
 주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술·기술 문서, 언어 이탈
 
@@ -85,7 +85,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 [그림 2-3] HyDE의 hypothetical-document retrieval 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 2-4] Context-Aware Decoding의 분포 대조 구조 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 2-5] 다국어 RAG의 language drift 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 2-6] RAGAS의 high/low faithfulness 예시 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-1] 고정 Paper-RAG backbone 실행 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 4-2] 생성 기록–평가–대응 분석 흐름 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
@@ -94,7 +94,13 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 [그림 5-3] HyDE·CAD 주 비교와 신뢰구간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-4] RAG-Cube 조건별 생성 시간 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 [그림 5-5] SCD의 한국어 문자 비율 변화 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
-[그림 5-6] HyDE·CAD 조건군별 faithfulness·answer relevancy 대응 차이 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-6] HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-7] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-8] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-9] SCD OFF 조건의 출력 언어 이탈 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-10] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 5-11] 질의·검색 근거·생성 답변·평가 결과 예시 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
+[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]
 
 # 표 목 차 [스타일=목차제목]
 
@@ -124,7 +130,7 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 본 연구는 한국어로 질문하고 영어 학술·기술 문서에서 근거를 찾은 뒤 한국어로 답변하는 질의응답 환경을 대상으로 한다. 이 조건에서는 세 가지 요소가 중요하다. 첫째, 한국어 질문과 영어 학술·기술 문장의 어휘·표현 차이를 연결하는 검색 표현이 필요하다. 둘째, 검색된 근거를 생성 단계에서 얼마나 충실하게 활용하는지 확인해야 한다. 셋째, 영어 문맥이 길게 제공되는 조건에서도 한국어 출력 언어를 안정적으로 유지할 필요가 있다.
 
-이 세 문제에 대응하여 HyDE는 질의를 가상의 문서 표현으로 확장하는 retrieval-side 기법으로 사용한다[2]. CAD는 문맥이 있는 분포와 없는 분포를 대조하여 생성에서 문맥의 영향을 조절하는 decoding 기법이다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정해 출력 언어 이탈을 완화한다[4]. 세 기법은 검색 표현, 근거 반영, 출력 언어라는 서로 다른 위치에 개입하므로 각 목적에 대응하는 결과를 분리해 분석한다.
+이 세 문제에 대응하여 HyDE는 질의를 가상 문서 표현으로 확장하는 검색 단계 기법으로 사용한다[2]. CAD는 문맥이 있는 분포와 없는 분포를 대조하여 생성에서 문맥의 영향을 조절하는 디코딩 기법이다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정해 출력 언어 이탈을 완화한다[4]. 세 기법은 검색 표현, 근거 반영, 출력 언어라는 서로 다른 위치에 개입하므로 각 목적에 대응하는 결과를 분리해 분석한다.
 
 본 연구의 실험적 기여는 한국어 질의–영어 학술·기술 문서–한국어 응답 환경에서 HyDE를 검색 단계의 검색 표현 요인, CAD를 동일 문맥 생성 단계의 요인, SCD를 출력 언어 제어 요인으로 분리하고, 고정된 Paper-RAG 백본에서 각 개입 위치에 맞는 대응 비교 설계를 적용한 데 있다. HyDE, CAD, SCD의 알고리즘 정의는 선행연구[2][3][4]를 따르며, 본 연구는 세 기법을 하나의 백본에서 서로 다른 실험 요인으로 배치해 검색 단계, 생성 단계, 출력 언어 단계의 변화를 각각의 비교 단위로 측정한다.
 
@@ -136,11 +142,11 @@ Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Con
 
 연구 대상은 RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 영어 학술·기술 문서와 문서별 15개씩 구성한 60개 한국어 질의–대상 문서 쌍이다. 각 질의에는 8개 RAG-Cube 실험 조건을 모두 적용하여 480개의 생성 기록을 저장하였다. 모든 실험 조건은 BGE-M3 밀집 검색, BM25 희소 검색, weighted RRF, CrossEncoder 재정렬, 상위 5개 문맥, Mi:dm 2.0 Base Instruct와 deterministic greedy decoding으로 구성된 동일 백본을 공유한다.
 
-비교 범위는 세 요인의 평가 목표에 맞춘다. HyDE는 CAD·SCD OFF의 60개 대응쌍에서 검색 표현 변경을 포함한 종단 간 변화를 측정한다. CAD는 검색·재정렬 청크 ID와 최종 검색 문맥이 같은 대응쌍에서 생성 단계의 차이를 측정한다. SCD의 주 비교는 HyDE OFF에서 검색·재정렬 청크 ID와 최종 검색 문맥이 같은 120개 대응쌍의 한국어 문자 비율을 사용하고, 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 전체 240개 대응쌍으로 조건 전반의 출력 언어 변화를 확인한다. 품질 평가는 RAGAS 점수를 사용하며, faithfulness의 결측값 5개는 유효값 기반 분석에 반영한다.
+비교 범위는 세 요인의 평가 목표에 맞춘다. HyDE는 CAD·SCD OFF의 60개 대응쌍에서 검색 표현 변경을 포함한 종단 간 변화를 측정한다. CAD는 검색·재정렬 청크 ID와 최종 검색 문맥이 같은 대응쌍에서 생성 단계의 차이를 측정한다. SCD의 주 비교는 HyDE OFF에서 검색·재정렬 청크 ID와 최종 검색 문맥이 같은 120개 대응쌍의 한국어 문자 비율을 사용하고, 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 전체 240개 대응쌍으로 조건 전반의 출력 언어 변화를 확인한다. 품질 평가는 RAGAS 지표를 사용한다.
 
 ## 1.3 연구 질문, 분석 관점 및 논문 구성 [스타일=절(1.1)]
 
-본 연구는 네 가지 질문을 다룬다. 첫째, H1C0S0과 H0C0S0의 대응 비교에서 HyDE ON/OFF에 따라 answer relevancy와 다른 RAGAS 지표에 어떤 차이가 나타나는가. 둘째, 검색 입력을 동일하게 유지했을 때 CAD ON/OFF에서 생성 품질과 실행 시간에 어떤 차이가 나타나는가. 셋째, 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 SCD 대응쌍에서 한국어 출력 비율이 얼마나 달라지는가. 넷째, 8개 실험 조건의 조합 수준 기술통계와 요인별 대응 비교를 함께 볼 때 목표 지표별 선택 기준이 어떻게 달라지는가.
+본 연구는 네 가지 질문을 다룬다. 첫째, H1C0S0과 H0C0S0의 대응 비교에서 HyDE ON/OFF에 따라 답변 관련성과 다른 RAGAS 지표에 어떤 차이가 나타나는가. 둘째, 검색 입력을 동일하게 유지했을 때 CAD ON/OFF에서 생성 품질과 실행 시간에 어떤 차이가 나타나는가. 셋째, 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 SCD 대응쌍에서 한국어 출력 비율이 얼마나 달라지는가. 넷째, 8개 실험 조건의 조합 수준 기술통계와 요인별 대응 비교를 함께 볼 때 목표 지표별 선택 기준이 어떻게 달라지는가.
 
 분석은 대응 평균 차이와 부트스트랩 신뢰구간, 검색·재정렬 청크 ID와 문맥 동일성, 실제 질문·검색 근거·생성 답변·평가값을 함께 사용한다. 정량 결과와 개별 입출력 사례를 동일한 질의와 실험 조건 단위에서 제시한다.
 
@@ -272,15 +278,15 @@ SCD는 생성 중 token score를 조절해 목표 언어의 선택 성향을 조
 
 ## 2.6 RAG 평가 [스타일=절(1.1)]
 
-HyDE와 CAD의 품질 비교에는 RAGAS의 faithfulness, answer relevancy, context precision, context recall을 사용한다[9]. Faithfulness는 답변의 주장이 제공된 context에 의해 지지되는 정도를, answer relevancy는 답변이 질문에 직접 대응하는 정도를 본다. Context precision과 context recall은 검색된 근거의 관련성과 필요한 근거의 포함 정도를 측정한다. 네 지표는 각각 독립적으로 분석한다.
+HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용한다[9]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 직접 대응하는 정도를 측정한다. 문맥 정밀도와 문맥 재현율은 각각 검색된 근거의 관련성과 필요한 근거의 포함 정도를 측정한다. 이후 본문에서는 네 지표를 한글명으로 표기한다.
 
-RAGAS 원 연구는 자동 평가의 각 차원을 실제 question–context–answer 예시와 연결해 설명한다. 그림 2-6은 WikiEval의 동일 question과 context에 대해 근거에 의해 지지되는 답변과 지지되지 않는 답변을 대비한 원 논문 Table 2를 이미지로 인용한 것이다. 이 예시는 본 연구에서 faithfulness를 answer relevancy와 분리해 해석하는 이유를 직관적으로 보여준다.
+RAGAS 원 연구는 자동 평가의 각 차원을 실제 질문–문맥–답변 예시와 연결해 설명한다. 그림 2-6은 WikiEval의 동일 질문과 문맥에 대해 근거에 의해 지지되는 답변과 지지되지 않는 답변을 대비한 원 논문 Table 2를 이미지로 인용한 것이다. 이 예시는 본 연구에서 근거 충실도를 답변 관련성과 분리해 해석하는 이유를 직관적으로 보여준다.
 
 [그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_6_ragas_faithfulness_original.png | 권장폭=본문폭 92% | 정렬=가운데]
 
-[그림 2-6] RAGAS의 high/low faithfulness 예시. Es et al.[9]의 Table 2를 인용함. [스타일=그림제목]
+[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시. Es et al.[9]의 Table 2를 인용함. [스타일=그림제목]
 
-요인별 대응 차이는 동일 질의의 ON/OFF 차이를 이용한 대응 비교로 분석하고, 질의를 재표집 단위로 하는 부트스트랩 신뢰구간을 함께 제시한다. 자동 평가 분석은 score가 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 효과는 RAGAS와 별도로 Korean-character ratio로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 변화 판정 기준은 5.2절에서 제시한다.
+요인별 대응 차이는 동일 질의의 ON/OFF 차이를 이용한 대응 비교로 분석하고, 질의를 재표집 단위로 하는 부트스트랩 신뢰구간을 함께 제시한다. 자동 평가 분석은 평가값이 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 변화는 RAGAS와 별도로 한국어 문자 비율로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 변화 판정 기준은 5.2절에서 제시한다.
 
 ## 2.7 관련 연구와 본 연구의 위치 [스타일=절(1.1)]
 
@@ -300,12 +306,12 @@ RAG 시스템 전반을 정리한 조사 연구[17], 한국어·영어 이중언
 
 ```text
 연구 흐름	대표 연구	본 연구에서의 적용 범위	해석 범위
-Dense retrieval	DPR[10], BEIR[20]	한국어 질의와 영어 passage 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 연구의 고정 백본 적용 범위
-Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 문맥을 고정해 answer/context 지표를 분리	문맥 길이와 순서 정책은 고정
-Hypothetical-document retrieval	HyDE[2]	H1/H0 end-to-end 대응 비교와 retrieved ID 확인	가상 문서는 검색 표현으로 사용
-Contrastive decoding	CAD[3], contrastive decoding[13]	같은 input에서 C1/C0 paired 비교	CAD alpha=0.5 고정 조건
+Dense retrieval	DPR[10], BEIR[20]	한국어 질의와 영어 문장 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 연구의 고정 백본 적용 범위
+Multi-passage generation	FiD[11], long-context 분석[12]	재정렬된 상위 5개 문맥을 고정해 답변/문맥 지표를 분리	문맥 길이와 순서 정책은 고정
+Hypothetical-document retrieval	HyDE[2]	H1/H0 종단 간 대응 비교와 검색 청크 ID 확인	가상 문서는 검색 표현으로 사용
+Contrastive decoding	CAD[3], contrastive decoding[13]	같은 입력에서 C1/C0 대응 비교	CAD alpha=0.5 고정 조건
 Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	faithfulness·answer relevancy·context precision·context recall 평가	자동 평가 지표와 대응 비교에 사용
+RAG evaluation	RAGAS[9], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
 ```
 
 # 3. 시스템 설계 [스타일=장(1.)]
@@ -370,7 +376,7 @@ H1C1S1	ON	ON	ON	60
 ```text
 요인	적용 위치	주 비교	주 지표
 HyDE	검색 표현 확장	CAD OFF·SCD OFF의 60 대응쌍	RAGAS 품질 지표
-CAD	문맥 기반 디코딩	동일 문맥 60쌍(최종 faithfulness 유효쌍 58개)	faithfulness·answer relevancy·생성 시간
+CAD	문맥 기반 디코딩	동일 문맥 60쌍(근거 충실도 유효쌍 58개)	근거 충실도·답변 관련성·생성 시간
 SCD	출력 토큰 logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍	한국어 문자 비율
 ```
 
@@ -384,7 +390,7 @@ SCD	출력 토큰 logit 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 상태 
 
 생성 기록에는 K-intelligence/Midm-2.0-Base-Instruct, deterministic greedy decoding, max_new_tokens=512가 기록되어 있다. 문서 청크는 Python `split()`의 공백 분리 단위를 기준으로 최대 512개 단어, 64개 단어 중첩, 최소 50개 단어로 구성한다. 검색 구성은 BGE-M3 밀집 검색과 BM25 희소 검색을 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬한다. 실험 요인 이외의 재정렬 조건을 일정하게 유지하기 위해 동일 CrossEncoder를 모든 실험 조건에 적용하였다. 사전 선정 결과에 따라 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다. ContextCompressor는 `split()`으로 계산한 공백 분리 기준 최대 3,072개 단어와 압축 비율 0.5의 추출식 문맥 길이 관리 단계를 제공한다. 환경 표는 생성 기록에 저장된 모델, 디코딩, 검색 후보 수, 재정렬 후보 수, 문맥 수와 요인별 파라미터를 정리한다.
 
-검색 폭 설정은 최종 평가 집합과 분리된 5개 튜닝 질의를 사용하여 사전에 선정하였다. 세 가지 retrieval profile에서 검색 후보 수, 재정렬 후보 수와 최종 문맥 수의 조합을 비교하였으며, context recall 0.95 이상을 충족한 후보 가운데 mean faithfulness가 가장 높은 `retrieval_recall_oriented`를 선택하였다. 그 결과 retrieval pool 8, rerank top-N 8, 최종 문맥 5를 검색 설정으로 확정하였다. 이후 60개 평가 질의의 모든 RAG-Cube 실험 조건에 동일한 검색 설정을 적용하였다.
+검색 폭 설정은 최종 평가 집합과 분리된 5개 튜닝 질의를 사용하여 사전에 선정하였다. 검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정을 비교하였으며, 문맥 재현율 0.95 이상을 충족한 후보 가운데 평균 근거 충실도가 가장 높은 설정을 선택하였다. 그 결과 검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 수 5를 확정하고 이후 60개 평가 질의의 모든 RAG-Cube 실험 조건에 동일하게 적용하였다.
 
 [표 4-1] 실험 실행 환경 [스타일=표제목]
 
@@ -420,7 +426,7 @@ SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
 재정렬	cross-encoder/ms-marco-MiniLM-L-6-v2
 문맥 구성	ContextCompressor 문맥 길이 관리 후 rerank 상위 5개 context
 생성	Mi:dm 2.0 Base Instruct; max_new_tokens=512
-요인	HyDE retrieval-side / CAD·SCD generation-side
+요인	HyDE 검색 단계 / CAD·SCD 생성 단계
 ```
 
 주: 검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 수 5는 최종 평가 집합과 분리된 5개 튜닝 질의의 검색 폭 비교를 통해 사전에 선정한 값이다. CAD와 SCD의 파라미터는 각 기법의 실험 설정에 따라 별도로 적용하였다.
@@ -490,7 +496,7 @@ HyDE의 가상 문서는 밀집 검색 입력으로 사용하고, 최종 답변�
 
 질문 유형은 요구되는 답의 성격을 기준으로 사실·정의, 방법·절차, 결과·비교, 목적·기여의 네 범주로 구분하였다. 사실·정의는 개념·수치·구성 요소, 방법·절차는 모델 구조·처리 과정·데이터셋 구성·평가 방법·실험 설정, 결과·비교는 정량·정성 결과와 방법 간 비교, 목적·기여는 연구 목적·문제 설정·주요 기여를 묻는 질의로 정의하였다. 최종 분포는 사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개다.
 
-검색 설정은 별도의 5개 튜닝 질의로 선정하였다. 이 과정에서 retrieval pool 8, rerank top-N 8, 최종 생성 문맥 5를 확정하였다. 최종 평가는 60개 평가 질의에 고정된 검색 설정과 HyDE·CAD·SCD의 ON/OFF 조합으로 구성한 8개 RAG-Cube 조건을 적용하였다. 이에 따라 60개 질의 × 8개 조건으로 총 480개의 생성 기록을 구성하였다.
+검색 설정은 별도의 5개 튜닝 질의로 선정하였다. 이 과정에서 검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5를 확정하였다. 최종 평가는 60개 평가 질의에 고정된 검색 설정과 HyDE·CAD·SCD의 ON/OFF 조합으로 구성한 8개 RAG-Cube 조건을 적용하였다. 이에 따라 60개 질의 × 8개 조건으로 총 480개의 생성 기록을 구성하였다.
 
 [표 5-1] 4개 문서별 질의 구성 [스타일=표제목]
 
@@ -509,15 +515,15 @@ Mi:dm K 2.5 Pro Technical Report	15
 
 ## 5.2 평가 및 분석 방법 [스타일=절(1.1)]
 
-평가는 3.3절에서 정의한 대응 비교 설계에 따라 저장된 생성 기록과 평가 결과를 질의 단위로 연결하여 수행하였다. RAGAS 0.2.15를 사용하고, 평가 모델은 OpenAI `gpt-4o`, answer relevancy 계산에 사용하는 임베딩 모델은 BAAI/bge-m3로 설정하였다. 평가 지표는 faithfulness, answer relevancy, context precision, context recall의 네 항목으로 구성하였다.
+평가는 3.3절에서 정의한 대응 비교 설계에 따라 저장된 생성 기록과 평가 결과를 질의 단위로 연결하여 수행하였다. RAGAS 0.2.15를 사용하고, 평가 모델은 OpenAI `gpt-4o`, 답변 관련성 계산에 사용하는 임베딩 모델은 BAAI/bge-m3로 설정하였다. 평가 지표는 근거 충실도, 답변 관련성, 문맥 정밀도, 문맥 재현율의 네 항목으로 구성하였다.
 
-SCD OFF 평가는 저장된 영어 검색 문맥을 evaluation context로 사용하였다. SCD ON 평가는 동일하게 저장된 검색 문맥을 `gpt-4o`로 한국어 변환한 뒤 evaluation context로 사용하고 생성 답변은 원문 상태로 유지하였다. 따라서 SCD OFF와 SCD ON의 RAGAS 값은 각각의 평가 프로토콜 내부에서 조건별 기술통계로 해석한다. SCD의 주 효과는 생성 답변에서 직접 계산한 한국어 문자 비율의 대응 차이로 평가하였다.
+SCD OFF 평가는 저장된 영어 검색 문맥을 평가 문맥으로 사용하였다. SCD ON 평가는 동일하게 저장된 검색 문맥을 `gpt-4o`로 한국어 변환한 뒤 평가 문맥으로 사용하고 생성 답변은 원문 상태로 유지하였다. 따라서 SCD OFF와 SCD ON의 RAGAS 값은 각각의 평가 프로토콜 내부에서 조건별 기술통계로 해석한다. SCD의 주 효과는 생성 답변에서 직접 계산한 한국어 문자 비율의 대응 차이로 평가하였다.
 
-총 1,920개의 RAGAS 지표 값 가운데 faithfulness 5개는 빈 명제 집합에서 결측으로 기록되었다. 각 faithfulness 비교는 양쪽 조건에 유효값이 존재하는 대응쌍을 분석 단위로 사용하였다.
+근거 충실도 비교는 양쪽 조건에 평가값이 존재하는 대응쌍을 분석 단위로 사용하였다. 이에 따라 CAD 주 비교의 근거 충실도 분석에는 58개 대응쌍을 사용하였다.
 
-HyDE 주 비교는 CAD와 SCD를 OFF로 고정한 60개 질의를 대상으로 수행하였다. CAD 주 비교는 retrieved chunk ID, reranked chunk ID와 최종 context가 동일한 대응쌍을 사용하여 검색 결과를 고정한 상태의 생성 차이를 측정하였다. SCD 주 비교는 HyDE OFF 조건에서 검색·재정렬 ID와 최종 context가 동일한 120개 대응쌍을 사용하였다. 추가로 동일 질의에서 HyDE와 CAD 상태를 각각 맞춘 240개 SCD 대응쌍을 이용하여 8개 실험 조건 전반의 출력 언어 변화를 집계하였다.
+HyDE 주 비교는 CAD와 SCD를 OFF로 고정한 60개 질의를 대상으로 수행하였다. CAD 주 비교는 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥이 동일한 대응쌍을 사용하여 검색 결과를 고정한 상태의 생성 차이를 측정하였다. SCD 주 비교는 HyDE OFF 조건에서 검색·재정렬 청크 ID와 최종 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 동일 질의에서 HyDE와 CAD 상태를 각각 맞춘 240개 SCD 대응쌍을 이용하여 8개 실험 조건 전반의 출력 언어 변화를 집계하였다.
 
-Generation은 K-intelligence/Midm-2.0-Base-Instruct의 deterministic greedy decoding과 max_new_tokens=512를 사용하였다. HyDE 가상 문서 생성에는 temperature=0.1, top_p=0.9의 샘플링을 사용하였다. 요인별 차이는 동일 질의에서 ON 점수와 OFF 점수의 차이로 계산하였다. 질의를 재표집 단위로 200,000회의 대응 bootstrap을 수행하고 seed는 20260713으로 고정하였다. 질의별 방향 분포는 RAGAS 차이 +0.01 초과를 증가, -0.01 미만을 감소, 그 사이를 동률로 집계하고, SCD의 한국어 문자 비율은 ±0.02를 기준으로 집계하였다. 이 신뢰구간은 네 대상 문서를 고정한 연구 설계에서 질의 수준의 변동성을 나타낸다.
+답변 생성은 K-intelligence/Midm-2.0-Base-Instruct의 deterministic greedy decoding과 max_new_tokens=512를 사용하였다. HyDE 가상 문서 생성에는 temperature=0.1, top_p=0.9의 샘플링을 사용하였다. 요인별 차이는 동일 질의에서 ON 점수와 OFF 점수의 차이로 계산하였다. 질의를 재표집 단위로 200,000회의 대응 부트스트랩을 수행하고 seed는 20260713으로 고정하였다. 질의별 방향 분포는 RAGAS 차이 +0.01 초과를 증가, -0.01 미만을 감소, 그 사이를 동률로 집계하고, SCD의 한국어 문자 비율은 ±0.02를 기준으로 집계하였다. 이 신뢰구간은 네 대상 문서를 고정한 연구 설계에서 질의 수준의 변동성을 나타낸다.
 
 대응쌍의 개별 차이와 평균 변화는 다음 식으로 계산한다.
 
@@ -541,7 +547,7 @@ bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i
 
 표 5-2는 SCD OFF와 SCD ON을 각각의 평가 프로토콜로 구분하여 8개 RAG-Cube 조건의 기술통계를 제시한다. SCD OFF는 영어 검색 문맥을 evaluation context로 사용하고, SCD ON은 한국어로 변환한 검색 문맥을 사용한다. 따라서 RAGAS 값은 각 프로토콜 내부의 조건 차이를 중심으로 해석하며, SCD의 주 효과는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과로 평가한다.
 
-SCD OFF에서는 H1C1S0의 faithfulness가 0.8599, H1C0S0의 answer relevancy가 0.7633으로 가장 높았다. Context precision은 H0C0S0에서 0.7488이었고, context recall은 H0C0S0과 H1C0S0에서 0.9333이었다. 한국어 문자 비율은 전체 8개 조건 가운데 H1C0S1에서 0.8072로 가장 높았다. 각 요인의 대응 비교는 5.4~5.6절에서 제시한다.
+SCD OFF에서는 H1C1S0의 근거 충실도가 0.8599, H1C0S0의 답변 관련성이 0.7633으로 가장 높았다. 문맥 정밀도는 H0C0S0에서 0.7488이었고, 문맥 재현율은 H0C0S0과 H1C0S0에서 0.9333이었다. 한국어 문자 비율은 전체 8개 조건 가운데 H1C0S1에서 0.8072로 가장 높았다. 각 요인의 대응 비교는 5.4~5.6절에서 제시한다.
 
 [표 5-2] SCD 평가 프로토콜별 RAG-Cube 조건 평균 [스타일=표제목]
 
@@ -552,7 +558,7 @@ SCD OFF에서는 H1C1S0의 faithfulness가 0.8599, H1C0S0의 answer relevancy가
 SCD OFF 블록은 저장된 영어 검색 문맥을 평가 context로 사용한다.
 
 ```text
-조건	생성 수	Faithfulness	Answer relevancy	Context precision	Context recall	Korean ratio
+조건	생성 수	근거 충실도	답변 관련성	문맥 정밀도	문맥 재현율	한국어 문자 비율
 H0C0S0	60	0.7906	0.6828	0.7488	0.9333	0.4943
 H0C1S0	60	0.8385	0.6755	0.7395	0.9167	0.4877
 H1C0S0	60	0.8342	0.7633	0.7145	0.9333	0.5561
@@ -562,14 +568,14 @@ H1C1S0	60	0.8599	0.7045	0.7357	0.9000	0.5031
 SCD ON 블록은 한국어로 변환한 검색 문맥을 평가 context로 사용한다.
 
 ```text
-조건	생성 수	Faithfulness	Answer relevancy	Context precision	Context recall	Korean ratio
+조건	생성 수	근거 충실도	답변 관련성	문맥 정밀도	문맥 재현율	한국어 문자 비율
 H0C0S1	60	0.7869	0.6372	0.7634	0.9000	0.6990
 H0C1S1	60	0.7768	0.5996	0.7523	0.8500	0.7195
 H1C0S1	60	0.8223	0.7097	0.7426	0.9000	0.8072
 H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 ```
 
-표의 생성 수는 각 실험 조건에서 저장된 생성 기록 수를 의미한다. Faithfulness 평균의 유효 n은 H0C1S0 58, H0C0S1 57, 나머지 실험 조건 60이다. SCD OFF와 SCD ON의 RAGAS 값은 각각 영어 검색 문맥과 한국어 변환 평가 문맥을 사용하므로 각 평가 프로토콜 블록 안에서 조건별 기술통계로 해석한다. SCD의 주 비교는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과를 사용한다.
+표의 생성 수는 각 실험 조건에서 저장된 생성 기록 수를 의미한다. 근거 충실도 평균의 유효 n은 H0C1S0 58, H0C0S1 57, 나머지 실험 조건 60이다. SCD OFF와 SCD ON의 RAGAS 값은 각각 영어 검색 문맥과 한국어 변환 평가 문맥을 사용하므로 각 평가 프로토콜 블록 안에서 조건별 기술통계로 해석한다. SCD의 주 비교는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과를 사용한다.
 
 [그림삽입: FINALDOCS/FIGURES/fig5_1_quality_matrix.png | 권장폭=본문폭 90% | 정렬=가운데]
 
@@ -577,15 +583,15 @@ H1C1S1	60	0.8313	0.6671	0.7540	0.9167	0.7314
 
 ## 5.4 HyDE 결과 및 해석 [스타일=절(1.1)]
 
-HyDE의 answer relevancy 평균 대응 차이는 +0.0805이고 95% bootstrap CI는 [+0.0110, +0.1514]이다. 질의별 변화는 증가 29개, 감소 15개, 동률 16개로 분포하였다. Faithfulness 평균 대응 차이는 +0.0436, 95% CI는 [-0.0262, +0.1153]이며 증가 24개, 감소 21개, 동률 15개였다. Context precision의 평균 대응 차이는 -0.0343이었고, context recall의 평균 대응 차이는 0.0000이었다.
+HyDE의 답변 관련성 평균 대응 차이는 +0.0805이고 95% 부트스트랩 신뢰구간은 [+0.0110, +0.1514]이다. 질의별 변화는 증가 29개, 감소 15개, 동률 16개로 분포하였다. 근거 충실도 평균 대응 차이는 +0.0436, 95% 신뢰구간은 [-0.0262, +0.1153]이며 증가 24개, 감소 21개, 동률 15개였다. 문맥 정밀도의 평균 대응 차이는 -0.0343이었고, 문맥 재현율의 평균 대응 차이는 0.0000이었다.
 
 HyDE는 가상 문서를 이용해 밀집 검색 입력을 변경하므로 retrieved chunk, reranked chunk와 최종 context까지 달라질 수 있다. 따라서 본 연구의 HyDE 비교는 검색 표현 변경에서 생성 답변까지 이어지는 종단 간 변화를 측정한다. Answer relevancy에서 관찰된 +0.0805의 대응 차이는 이 실험 조건에서 HyDE 적용에 따라 답변의 질문 관련성이 증가한 결과를 나타낸다. 부록 B는 문서별·질문유형별 차이를 탐색적으로 제시한다.
 
-E04는 이러한 검색 문맥 변화를 개별 사례에서 보여준다. `ext_midm_004`에서 H0C0S0과 H1C0S0은 동일한 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. Answer relevancy는 0.0000에서 0.8531로, context recall은 0.0000에서 1.0000으로 변하였다. HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시하였다.
+그림 5-7은 이러한 검색 문맥 변화를 개별 사례에서 보여준다. `ext_midm_004`에서 H0C0S0과 H1C0S0은 동일한 질문을 사용하며, HyDE 적용에 따라 retrieved IDs, reranked IDs와 최종 contexts가 달라졌다. 답변 관련성은 0.0000에서 0.8531로, 문맥 재현율은 0.0000에서 1.0000으로 변하였다. HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시하였다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E04] HyDE 적용에 따라 검색 문맥과 답변이 함께 변한 사례
+[그림 5-7] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례 [스타일=그림제목]
 
 [표 5-3] HyDE 주 비교 결과 [스타일=표제목]
 
@@ -594,11 +600,11 @@ E04는 이러한 검색 문맥 변화를 개별 사례에서 보여준다. `ext_
 [한글 표 복붙용 — 아래 탭 구분 블록 전체 복사 → 한글 `표 > 문자열을 표로` → 구분 문자 `탭`]
 
 ```text
-지표	평균 변화 ON−OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0436	[-0.0262, +0.1153]	24	21	15	60
-answer_relevancy	+0.0805	[+0.0110, +0.1514]	29	15	16	60
-context_precision	-0.0343	[-0.0932, +0.0247]	17	23	20	60
-context_recall	0	[-0.1000, +0.1000]	4	4	52	60
+지표	평균 변화 ON−OFF	95% 신뢰구간	Win	Loss	Tie	n
+근거 충실도	+0.0436	[-0.0262, +0.1153]	24	21	15	60
+답변 관련성	+0.0805	[+0.0110, +0.1514]	29	15	16	60
+문맥 정밀도	-0.0343	[-0.0932, +0.0247]	17	23	20	60
+문맥 재현율	0	[-0.1000, +0.1000]	4	4	52	60
 ```
 
 [그림삽입: FINALDOCS/FIGURES/fig5_2_primary_forest.png | 권장폭=본문폭 90% | 정렬=가운데]
@@ -607,17 +613,17 @@ context_recall	0	[-0.1000, +0.1000]	4	4	52	60
 
 ## 5.5 CAD 결과 및 해석 [스타일=절(1.1)]
 
-CAD의 주 비교는 검색 문맥을 동일하게 유지하고 decoding만 달리한 대응쌍이다. Faithfulness는 양쪽 평가값이 존재하는 58쌍에서 평균 +0.0288, 95% CI [-0.0367, +0.0934], win/loss/tie 21/24/13이다. Answer relevancy는 60쌍에서 -0.0073, CI [-0.0855, +0.0719], win/loss/tie 19/32/9이다.
+CAD의 주 비교는 검색 문맥을 동일하게 유지하고 decoding만 달리한 대응쌍이다. 근거 충실도는 양쪽 평가값이 존재하는 58쌍에서 평균 +0.0288, 95% 신뢰구간 [-0.0367, +0.0934], 증가/감소/동률 21/24/13이다. 답변 관련성은 60쌍에서 -0.0073, 신뢰구간 [-0.0855, +0.0719], 증가/감소/동률 19/32/9이다.
 
-CAD의 문맥 기반 logit 조절은 동일 검색 문맥에서 faithfulness와 answer relevancy의 평균 변화와 질의별 분포로 제시한다. 동일 검색 입력에 대해 context precision은 8/60쌍, context recall은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다. 표 4-3에서 CAD ON 평균 생성 시간은 대응 조건군에서 20.792→63.867초, 18.898→55.159초, 23.440→73.532초, 24.892→64.125초로 증가했다. CAD의 생성 단계 결과는 faithfulness, answer relevancy와 생성 시간을 중심으로 분석한다.
+CAD의 문맥 기반 logit 조절은 동일 검색 문맥에서 근거 충실도와 답변 관련성의 평균 변화와 질의별 분포로 제시한다. 동일 검색 입력에 대해 문맥 정밀도는 8/60쌍, 문맥 재현율은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다. 표 4-3에서 CAD ON 평균 생성 시간은 대응 조건군에서 20.792→63.867초, 18.898→55.159초, 23.440→73.532초, 24.892→64.125초로 증가했다. CAD의 생성 단계 결과는 근거 충실도, 답변 관련성과 생성 시간을 중심으로 분석한다.
 
-CAD faithfulness의 win/loss/tie 21/24/13은 질의별 변동이 컸음을 보여준다. faithfulness의 신뢰구간은 0을 포함하며, 양쪽 score가 존재한 58쌍을 기준으로 계산하였다. 동일 문맥에서도 정답 근거의 명시성, 다문장 정보 통합의 필요성, 질문 유형에 따라 대조 디코딩의 생성 결과가 다르게 나타났다.
+CAD 근거 충실도의 증가/감소/동률 21/24/13은 질의별 변동이 컸음을 보여준다. 근거 충실도의 신뢰구간은 0을 포함하며, 양쪽 평가값이 존재한 58쌍을 기준으로 계산하였다. 동일 문맥에서도 정답 근거의 명시성, 다문장 정보 통합의 필요성, 질문 유형에 따라 대조 디코딩의 생성 결과가 다르게 나타났다.
 
-E05는 같은 검색 문맥에서 CAD 적용 전후 faithfulness가 달라진 실제 사례다. ext_midm_001은 Mi:dm K 2.5 Pro의 학습 데이터 확보 경로 세 가지를 묻고, CAD OFF와 ON의 retrieved IDs, reranked IDs와 contexts가 모두 같다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 저장 faithfulness는 0.8333에서 1.0000으로 변했다. Answer relevancy는 0.8261과 0.8124였다. faithfulness가 감소한 E06 사례는 부록 B에 함께 제시한다.
+그림 5-8은 같은 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 실제 사례다. ext_midm_001은 Mi:dm K 2.5 Pro의 학습 데이터 확보 경로 세 가지를 묻고, CAD OFF와 ON의 retrieved IDs, reranked IDs와 contexts가 모두 같다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 저장된 근거 충실도는 0.8333에서 1.0000으로 변했다. 답변 관련성은 0.8261과 0.8124였다. 근거 충실도가 감소한 추가 사례는 부록 B의 그림 B-1에 제시한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E05] 동일 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 답변 사례
+[그림 5-8] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례 [스타일=그림제목]
 
 [표 5-4] CAD 동일 문맥 주 비교 결과 [스타일=표제목]
 
@@ -627,8 +633,8 @@ E05는 같은 검색 문맥에서 CAD 적용 전후 faithfulness가 달라진 �
 
 ```text
 지표	평균 변화 ON−OFF	95% CI	Win	Loss	Tie	n
-faithfulness	+0.0288	[-0.0367, +0.0934]	21	24	13	58
-answer_relevancy	-0.0073	[-0.0855, +0.0719]	19	32	9	60
+근거 충실도	+0.0288	[-0.0367, +0.0934]	21	24	13	58
+답변 관련성	-0.0073	[-0.0855, +0.0719]	19	32	9	60
 ```
 
 [그림삽입: FINALDOCS/FIGURES/fig5_10_runtime.png | 권장폭=본문폭 90% | 정렬=가운데]
@@ -643,17 +649,17 @@ SCD의 평가 목표는 영어 근거 문맥에서 한국어 출력 언어를 �
 
 조건군별 평균은 각 실험 조건에서 SCD ON/OFF 변화를 요약한다. SCD ON 답변에서도 영어 논문 제목, 모델명, 데이터셋명, 수식 기호가 자연스럽게 남을 수 있으며, Korean-character ratio는 한글 문자와 ASCII 영문자 비율을 통해 이러한 혼합 표기를 포함한 실제 답변의 언어 성향을 반영한다.
 
-선행연구에서 보고된 language drift는 본 실험의 저장된 생성 답변에서도 관찰되었다. E02는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 Korean-character ratio가 0.0000으로 기록된 사례다. 같은 record에는 질문, 검색 근거, 생성 답변과 평가값이 함께 기록되어 있으며 Korean-character ratio는 0.0000이다.
+선행연구에서 보고된 출력 언어 이탈은 본 실험의 저장된 생성 답변에서도 관찰되었다. 그림 5-9는 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 한국어 문자 비율이 0.0000으로 기록된 사례다. 같은 생성 기록에는 질문, 검색 근거, 생성 답변과 평가값이 함께 기록되어 있다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E02] SCD OFF 조건의 저장 출력 언어 이탈 사례
+[그림 5-9] SCD OFF 조건의 출력 언어 이탈 사례 [스타일=그림제목]
 
-E03은 SCD의 출력 언어 제어에 따른 답변 언어 변화를 동일 검색 문맥에서 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 한국어 문자 비율은 0.0000에서 0.7713으로 증가하며, 같은 입력 근거에서 생성 답변의 언어 구성이 영어 중심에서 한국어 중심으로 변화한 결과를 보여준다. 이 사례가 속한 H1C0S0→H1C0S1 조건군의 평균 변화는 +0.2511이며, 전체 240개 상태 일치 대응쌍의 평균 변화는 +0.2289이다.
+그림 5-10은 SCD의 출력 언어 제어에 따른 답변 언어 변화를 동일 검색 문맥에서 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 retrieved IDs, reranked IDs와 contexts가 같고 SCD 상태만 다르다. 한국어 문자 비율은 0.0000에서 0.7713으로 증가하며, 같은 입력 근거에서 생성 답변의 언어 구성이 영어 중심에서 한국어 중심으로 변화한 결과를 보여준다. 이 사례가 속한 H1C0S0→H1C0S1 조건군의 평균 변화는 +0.2511이며, 전체 240개 상태 일치 대응쌍의 평균 변화는 +0.2289이다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E03] 동일 검색 문맥에서 SCD 적용 후 한국어 문자 비율이 증가한 사례
+[그림 5-10] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례 [스타일=그림제목]
 
 [표 5-5] SCD 조합별 한국어 문자 비율 변화 [스타일=표제목]
 
@@ -676,7 +682,7 @@ H1C1S0	H1C1S1	60	+0.2283	+0.1832	+0.2762	57	3	0
 [한글 표 복붙용 — 아래 탭 구분 블록 전체 복사 → 한글 `표 > 문자열을 표로` → 구분 문자 `탭`]
 
 ```text
-비교	쌍 수	Korean-character ratio 평균 변화	95% CI	증가 / 감소 / 동률
+비교	쌍 수	한국어 문자 비율 평균 변화	95% CI	증가 / 감소 / 동률
 전체 SCD ON/OFF 대응	240	+0.2289	[+0.2051, +0.2532]	219 / 10 / 11
 HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	105 / 6 / 9
 ```
@@ -687,37 +693,37 @@ HyDE OFF 동일 문맥	120	+0.2182	[+0.1880, +0.2487]	105 / 6 / 9
 
 ## 5.7 대표 입출력 및 요구사항별 실행 결과 [스타일=절(1.1)]
 
-5.4절의 E04는 HyDE 적용에 따른 검색 문맥과 답변 변화를, 5.5절의 E05는 동일 검색 문맥에서 CAD 적용 전후의 faithfulness 변화를, 5.6절의 E02와 E03은 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 출력 언어 변화를 보여준다. E01은 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하는 기본 입출력 사례다.
+그림 5-7은 HyDE 적용에 따른 검색 문맥과 답변 변화를, 그림 5-8은 동일 검색 문맥에서 CAD 적용 전후의 근거 충실도 변화를 보여준다. 그림 5-9와 그림 5-10은 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 출력 언어 변화를 제시한다. 그림 5-11은 질문, 검색 근거, 생성 답변과 평가값을 한 번에 확인할 수 있는 기본 입출력 사례다.
 
-E01의 ext_raptor_011 H0C0S0 생성 기록은 faithfulness 1.0000, answer relevancy 0.9365, context precision 1.0000, context recall 1.0000을 기록한다. 질문은 RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻는다. 같은 생성 기록에 질의 ID, 실험 조건, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변과 RAGAS 점수가 함께 저장되어 있다.
+그림 5-11의 ext_raptor_011 H0C0S0 생성 기록은 근거 충실도 1.0000, 답변 관련성 0.9365, 문맥 정밀도 1.0000, 문맥 재현율 1.0000을 기록한다. 질문은 RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻는다. 같은 생성 기록에 질의 ID, 실험 조건, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변과 RAGAS 점수가 함께 저장되어 있다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
 
-[입출력 사례 E01] 기본 질문·검색·답변·평가 사례
+[그림 5-11] 질의·검색 근거·생성 답변·평가 결과 예시 [스타일=그림제목]
 
-E02는 SCD OFF의 language drift, E03은 SCD의 출력 언어 제어, E04는 HyDE의 검색 변화, E05는 CAD 동일 문맥의 faithfulness 변화, E06은 CAD의 상충 사례를 제시한다. E01~E06은 각 결과 절의 정량값과 개별 입출력을 같은 질의·실험 조건 단위로 연결한다.
+본문의 그림 5-7~5-11은 각 결과 절의 정량값과 개별 입출력을 같은 질의·실험 조건 단위로 연결한다. 추가적인 CAD 상충 사례는 부록 B의 그림 B-1에 제시한다.
 
 ## 5.8 종합 논의 [스타일=절(1.1)]
 
-HyDE 비교에서 answer relevancy의 평균 대응 차이는 +0.0805였으며, context precision은 -0.0343, context recall은 0.0000이었다. HyDE는 검색 입력을 변경하는 요인으로 작동하며, E04에서 retrieved IDs, reranked IDs, 최종 contexts와 생성 답변의 변화를 함께 확인하였다.
+HyDE 비교에서 답변 관련성의 평균 대응 차이는 +0.0805였으며, 문맥 정밀도는 -0.0343, 문맥 재현율은 0.0000이었다. HyDE는 검색 입력을 변경하는 요인으로 작동하며, 그림 5-7에서 검색·재정렬 청크 ID, 최종 검색 문맥과 생성 답변의 변화를 함께 확인하였다.
 
-CAD 동일 문맥 비교에서 faithfulness의 평균 대응 차이는 +0.0288, answer relevancy는 -0.0073이었다. 두 지표의 95% bootstrap CI는 모두 0을 포함하였다. CAD ON은 동일한 검색 문맥에서 context-free 분포를 추가로 계산하며, 대응 조건군에서 생성 시간이 증가하였다. 이 결과는 CAD의 적용 판단에서 생성 품질 분포와 계산 비용을 함께 고려할 근거를 제공한다.
+CAD 동일 문맥 비교에서 근거 충실도의 평균 대응 차이는 +0.0288, 답변 관련성은 -0.0073이었다. 두 지표의 95% 부트스트랩 신뢰구간은 모두 0을 포함하였다. CAD ON은 동일한 검색 문맥에서 문맥 제외 분포를 추가로 계산하며, 대응 조건군에서 생성 시간이 증가하였다. 이 결과는 CAD의 적용 판단에서 생성 품질 분포와 계산 비용을 함께 고려할 근거를 제공한다.
 
 SCD는 생성 답변의 한국어 문자 비율을 높였다. HyDE OFF 동일 문맥 120개 대응쌍에서 평균 대응 차이는 +0.2182였고, HyDE·CAD 상태를 맞춘 전체 240개 대응쌍에서는 +0.2289였다. 따라서 본 연구에서 SCD의 직접적인 측정 결과는 출력 언어 성향의 변화로 정리된다.
 
-조건별 평균과 요인별 대응 비교는 서로 다른 분석 수준을 제공한다. 표 5-2는 8개 조합의 기술통계를 제시하고, 표 5-3~5-6은 특정 요인의 ON/OFF 차이를 질의 단위 대응 구조에서 제시한다. 실험 조건의 선택 기준은 answer relevancy, faithfulness, 생성 시간, 한국어 문자 비율처럼 적용 환경에서 우선하는 목표 지표에 따라 달라진다.
+조건별 평균과 요인별 대응 비교는 서로 다른 분석 수준을 제공한다. 표 5-2는 8개 조합의 기술통계를 제시하고, 표 5-3~5-6은 특정 요인의 ON/OFF 차이를 질의 단위 대응 구조에서 제시한다. 실험 조건의 선택 기준은 답변 관련성, 근거 충실도, 생성 시간, 한국어 문자 비율처럼 적용 환경에서 우선하는 목표 지표에 따라 달라진다.
 
-그림 5-6은 HyDE와 CAD의 조건별 기술적 대응 차이를 정리한다. Answer relevancy에서 HyDE의 평균 대응 차이는 C0S0에서 +0.0805, C1S0에서 +0.0290이었고, SCD ON에서는 C0S1 +0.0725, C1S1 +0.0675였다. CAD의 answer relevancy 대응 차이는 H0S0 -0.0073, H1S0 -0.0588이었으며, SCD ON에서는 H0S1 -0.0377, H1S1 -0.0427이었다. Faithfulness에서도 조건군별 대응 차이가 서로 다른 크기로 나타났다. HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성한다. 이에 따라 H1 조건의 CAD·SCD 비교에는 decoding 조건에 따른 생성 변화와 HyDE sampling에 따른 검색 문맥 변화가 함께 반영된다. 그림 5-6은 각 조건에서 측정된 대응 차이를 제시하며, 실험 조건 선택은 목표 지표와 검색 문맥 변화를 함께 기준으로 한다.
+그림 5-6은 HyDE와 CAD의 조건별 기술적 대응 차이를 정리한다. 답변 관련성에서 HyDE의 평균 대응 차이는 C0S0에서 +0.0805, C1S0에서 +0.0290이었고, SCD ON에서는 C0S1 +0.0725, C1S1 +0.0675였다. CAD의 답변 관련성 대응 차이는 H0S0 -0.0073, H1S0 -0.0588이었으며, SCD ON에서는 H0S1 -0.0377, H1S1 -0.0427이었다. 근거 충실도에서도 조건군별 대응 차이가 서로 다른 크기로 나타났다. HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성한다. 이에 따라 H1 조건의 CAD·SCD 비교에는 디코딩 조건에 따른 생성 변화와 HyDE 샘플링에 따른 검색 문맥 변화가 함께 반영된다. 그림 5-6은 각 조건에서 측정된 대응 차이를 제시하며, 실험 조건 선택은 목표 지표와 검색 문맥 변화를 함께 기준으로 한다.
 
-문서별·질문유형별 부록 분석은 조건별 평균 아래의 하위집단 분포를 제시한다. 각 문서에는 15개 질의가 배정되어 문서 단위 결과를 같은 표본 수로 비교한다. 질문 유형별 하위집단은 후속 실험 가설을 구성하는 탐색 분석으로 사용한다. 적용 기준은 HyDE의 answer relevancy와 검색 문맥 변화, CAD의 동일 문맥 품질 분포와 생성 시간, SCD의 한국어 문자 비율와 출력 사례를 각각 사용한다.
+문서별·질문유형별 부록 분석은 조건별 평균 아래의 하위집단 분포를 제시한다. 각 문서에는 15개 질의가 배정되어 문서 단위 결과를 같은 표본 수로 비교한다. 질문 유형별 하위집단은 후속 실험 가설을 구성하는 탐색 분석으로 사용한다. 적용 기준은 HyDE의 답변 관련성과 검색 문맥 변화, CAD의 동일 문맥 품질 분포와 생성 시간, SCD의 한국어 문자 비율와 출력 사례를 각각 사용한다.
 
 [그림삽입: FINALDOCS/FIGURES/fig5_9_hyde_cad_strata.png | 권장폭=본문폭 90% | 정렬=가운데]
 
-[그림 5-6] HyDE·CAD 조건별 faithfulness와 answer relevancy 기술적 대응 차이 [스타일=그림제목]
+[그림 5-6] HyDE·CAD 조건별 근거 충실도와 답변 관련성 대응 차이 [스타일=그림제목]
 
 ## 5.9 연구의 한계 [스타일=절(1.1)]
 
-본 연구의 실험 범위는 네 영어 학술·기술 문서, 60개 한국어 답변 가능 질의, 하나의 생성 모델, CAD α=0.5 단일 설정으로 구성한다. 60개 질의 전체는 한국어 질의–영어 문서 검색의 cross-lingual 조건을 공유한다. 각 질의는 원문 페이지와 정답 근거 구간을 기준으로 확인한다. 후속 표본은 답변 불가능 질의, 오문서 질의, 무근거 조건을 포함해 확장할 수 있다. HyDE는 한국어 질의 재구성, 가상 문서 생성, 밀집 검색 변경을 포함한 종단 간 검색 요인으로 측정한다. HyDE 분석은 각 질의에 대해 저장된 hypothetical document를 기준으로 수행하며, sampling 조건은 temperature=0.1과 top_p=0.9이다. 반복 sampling에 따른 검색 변동성은 동일 질의의 다중 hypothetical-document 생성으로 추가 측정할 수 있다. Korean-character ratio는 출력 언어 성향을 측정한다. 자연스러움, 번역 충실도, 내용 정확성, 전문용어 보존은 후속 사람 평가에서 별도의 축으로 측정할 수 있다. RAGAS는 자동 평가 프로토콜을 사용하며 faithfulness의 결측값 5개는 유효값 기반 분석에 반영하였다. 추가 도메인과 다양한 생성 모델·토크나이저는 후속 실험의 확장 조건이다.
+본 연구의 실험 범위는 네 영어 학술·기술 문서, 60개 한국어 답변 가능 질의, 하나의 생성 모델, CAD α=0.5 단일 설정으로 구성한다. 60개 질의 전체는 한국어 질의–영어 문서 검색의 교차언어 조건을 공유한다. 각 질의는 원문 페이지와 정답 근거 구간을 기준으로 확인한다. 후속 표본은 답변 불가능 질의, 오문서 질의, 무근거 조건을 포함해 확장할 수 있다. HyDE는 한국어 질의 재구성, 가상 문서 생성, 밀집 검색 변경을 포함한 종단 간 검색 요인으로 측정한다. HyDE 분석은 각 질의에 대해 저장된 가상 문서를 기준으로 수행하며, 샘플링 조건은 temperature=0.1과 top_p=0.9이다. 반복 샘플링에 따른 검색 변동성은 동일 질의의 다중 가상 문서 생성으로 추가 측정할 수 있다. 한국어 문자 비율은 출력 언어 성향을 측정한다. 자연스러움, 번역 충실도, 내용 정확성, 전문용어 보존은 후속 사람 평가에서 별도의 축으로 측정할 수 있다. 추가 도메인과 다양한 생성 모델·토크나이저는 후속 실험의 확장 조건이다.
 
 # 6. 결론 [스타일=장(1.)]
 
@@ -725,25 +731,25 @@ SCD는 생성 답변의 한국어 문자 비율을 높였다. HyDE OFF 동일 �
 
 ## 6.1 연구 질문별 최종 답 [스타일=절(1.1)]
 
-첫 번째 연구 질문에서 HyDE의 answer relevancy 평균 대응 차이는 +0.0805이고 95% bootstrap CI는 [+0.0110, +0.1514]이다. Faithfulness는 +0.0436, context precision은 -0.0343, context recall은 0.0000이었다. 이 결과는 HyDE가 검색 표현을 변경하는 조건에서 답변의 질문 관련성에 가장 뚜렷한 차이가 나타났음을 보여준다.
+첫 번째 연구 질문에서 HyDE의 답변 관련성 평균 대응 차이는 +0.0805이고 95% 부트스트랩 신뢰구간은 [+0.0110, +0.1514]이다. 근거 충실도는 +0.0436, 문맥 정밀도는 -0.0343, 문맥 재현율은 0.0000이었다. 이 결과는 HyDE가 검색 표현을 변경하는 조건에서 답변의 질문 관련성에 가장 뚜렷한 차이가 나타났음을 보여준다.
 
-두 번째 연구 질문에서 CAD의 동일 검색 문맥 faithfulness 평균 대응 차이는 +0.0288, answer relevancy 평균 대응 차이는 -0.0073이었고 두 지표의 95% CI는 모두 0을 포함했다. CAD ON 조건의 생성 시간은 대응 조건군에서 모두 증가하였다. CAD는 동일 검색 문맥에서 생성 분포와 계산 비용을 함께 비교하는 요인으로 해석한다.
+두 번째 연구 질문에서 CAD의 동일 검색 문맥 근거 충실도 평균 대응 차이는 +0.0288, 답변 관련성 평균 대응 차이는 -0.0073이었고 두 지표의 95% 신뢰구간은 모두 0을 포함했다. CAD ON 조건의 생성 시간은 대응 조건군에서 모두 증가하였다. CAD는 동일 검색 문맥에서 생성 분포와 계산 비용을 함께 비교하는 요인으로 해석한다.
 
 세 번째 연구 질문에서 SCD의 한국어 문자 비율 평균 대응 차이는 HyDE OFF 동일 문맥 120개 대응쌍에서 +0.2182, 전체 240개 상태 일치 대응쌍에서 +0.2289였다. 이 결과는 SCD가 영어 검색 문맥이 제공되는 조건에서 생성 답변의 한국어 문자 비율을 높이는 출력 언어 제어 요인으로 작동했음을 보여준다.
 
-네 번째 연구 질문은 8개 실험 조건에서 하나의 조합을 일괄적으로 선택하는 방식보다 목표 지표에 따라 조건 선택 기준을 구분하는 방식으로 답할 수 있다. 질문 관련성은 HyDE의 answer relevancy 대응 결과, 동일 검색 문맥에서의 근거 반영은 CAD의 faithfulness와 answer relevancy 분포, 생성 비용은 CAD의 실행 시간, 한국어 출력 유지는 SCD의 한국어 문자 비율로 평가하였다. 따라서 본 실험에서는 적용 목적에 대응하는 지표를 먼저 정하고 해당 요인의 대응 결과를 기준으로 실험 조건을 선택한다.
+네 번째 연구 질문은 8개 실험 조건에서 하나의 조합을 일괄적으로 선택하는 방식보다 목표 지표에 따라 조건 선택 기준을 구분하는 방식으로 답할 수 있다. 질문 관련성은 HyDE의 답변 관련성 대응 결과, 동일 검색 문맥에서의 근거 반영은 CAD의 근거 충실도와 답변 관련성 분포, 생성 비용은 CAD의 실행 시간, 한국어 출력 유지는 SCD의 한국어 문자 비율로 평가하였다. 따라서 본 실험에서는 적용 목적에 대응하는 지표를 먼저 정하고 해당 요인의 대응 결과를 기준으로 실험 조건을 선택한다.
 
 ## 6.2 실험 설계가 제공한 의미 [스타일=절(1.1)]
 
 본 연구의 실험적 기여는 한국어 질의–영어 학술·기술 문서–한국어 응답 환경에서 HyDE를 검색 단계의 검색 표현 요인, CAD를 동일 문맥 생성 단계의 요인, SCD를 출력 언어 제어 요인으로 분리하고, 고정된 Paper-RAG 백본에서 각 개입 위치에 맞는 대응 비교를 적용한 실험 설계에 있다. HyDE는 검색 표현 변경이 검색 청크 ID와 최종 검색 문맥의 변화까지 이어지는 종단 간 요인으로 측정한다. CAD는 검색·재정렬 청크 ID와 최종 검색 문맥이 같은 대응쌍에서 디코딩 변화에 집중한다. SCD의 주 비교 결과는 HyDE OFF 동일 문맥 120개 대응쌍의 한국어 문자 비율로 측정하고, 전체 240개 상태 일치 대응쌍에서 조합 전반의 출력 언어 변화를 함께 확인한다.
 
-이 구조에서 조건별 평균은 조합 수준의 결과이고, 대응 차이는 요인 수준의 결과다. H1C1S0의 faithfulness 평균은 실험 조건 단위 값이며, CAD +0.0288은 동일 문맥의 CAD ON/OFF 대응 차이다.
+이 구조에서 조건별 평균은 조합 수준의 결과이고, 대응 차이는 요인 수준의 결과다. H1C1S0의 근거 충실도 평균은 실험 조건 단위 값이며, CAD +0.0288은 동일 문맥의 CAD ON/OFF 대응 차이다.
 
-생성 기록에는 질의, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변, 디코딩 메타데이터와 생성 시간을 함께 저장하였다. 정량 결과와 개별 입출력 사례를 동일한 분석 단위에서 제시하였다. E01~E05는 5.4~5.7절의 정량 결과와 대응하고, E06은 CAD의 상충 사례를 제시한다.
+생성 기록에는 질의, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변, 디코딩 메타데이터와 생성 시간을 함께 저장하였다. 정량 결과와 개별 입출력 사례를 동일한 분석 단위에서 제시하였다. 본문의 그림 5-7~5-11은 각 결과 절의 대표 사례와 대응하며, 부록 B의 그림 B-1은 CAD의 추가 상충 사례를 제시한다.
 
 ## 6.3 적용 시 실험 조건 선택 [스타일=절(1.1)]
 
-한국어 질의–영어 문서 RAG의 실험 조건은 적용 환경의 목표 지표에 따라 선택한다. 답변의 질문 관련성과 검색 표현 변화는 HyDE ON/OFF의 검색 청크 ID 변화와 answer relevancy로 평가한다. 고정된 검색 문맥에서의 근거 반영과 생성 비용은 CAD의 동일 문맥 품질 분포와 생성 시간으로 평가한다. 한국어 출력 유지는 SCD 동일 문맥 120개 대응쌍의 한국어 문자 비율로 평가한다. 실무 적용에서는 고유명사·인용·전문용어 보존을 별도 평가 항목으로 두고, 후속 사람 평가에서는 자연스러움과 내용 정확성을 별도 축으로 측정한다.
+한국어 질의–영어 문서 RAG의 실험 조건은 적용 환경의 목표 지표에 따라 선택한다. 답변의 질문 관련성과 검색 표현 변화는 HyDE ON/OFF의 검색 청크 ID 변화와 답변 관련성으로 평가한다. 고정된 검색 문맥에서의 근거 반영과 생성 비용은 CAD의 동일 문맥 품질 분포와 생성 시간으로 평가한다. 한국어 출력 유지는 SCD 동일 문맥 120개 대응쌍의 한국어 문자 비율로 평가한다. 실무 적용에서는 고유명사·인용·전문용어 보존을 별도 평가 항목으로 두고, 후속 사람 평가에서는 자연스러움과 내용 정확성을 별도 축으로 측정한다.
 
 ## 6.4 제한점과 후속 연구 [스타일=절(1.1)]
 
@@ -869,29 +875,14 @@ track1_0037	Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길
 track1_0040	Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?	Mi:dm K 2.5 Pro Technical Report	방법·절차	2	improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution
 ```
 
-# 부록 B. 대표 입출력 사례 및 추가 정량 분석 [스타일=부록제목]
+# 부록 B. 추가 사례 및 탐색 분석 [스타일=부록제목]
 
-## B.1 대표 입출력 사례 [스타일=절(1.1)]
+## B.1 추가 입출력 사례 [스타일=절(1.1)]
 
-E01~E06은 최종 60개 질의의 실제 질문, 검색 근거, 생성 답변과 평가값을 제시한다. 각 PNG와 같은 이름의 `raw/*.txt`에는 질의 ID, 실험 조건, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변과 평가값이 동일한 내용으로 기록되어 있다. 구조·통계 그림 10개와 구분하기 위해 E번호를 유지한다.
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E01] 기본 질문·검색·답변·평가 사례 — ext_raptor_011
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E02] SCD OFF 출력 언어 이탈 사례 — ext_cad_007
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E03] 동일 문맥 SCD 언어 이탈 완화 사례 — ext_midm_005
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E04] HyDE 검색 변화 사례 — ext_midm_004
-
-[입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E05] CAD 동일 문맥 faithfulness 증가 사례 — ext_midm_001
+본문에서는 각 요인의 대표 사례를 그림 5-7~5-11에 제시하였다. 부록에서는 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례를 제시하여 질의별 변화 방향을 함께 확인한다.
 
 [입출력증빙삽입: FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png | 권장폭=본문폭 95% | 정렬=가운데]
-[입출력 사례 E06] CAD 동일 문맥 상충 사례 — track1_0012
+[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례 — track1_0012 [스타일=그림제목]
 
 ## B.2 문서별·질문 유형별 탐색 분석 [스타일=절(1.1)]
 
@@ -905,38 +896,38 @@ E01~E06은 최종 60개 질의의 실제 질문, 검색 근거, 생성 답변과
 
 ```text
 대상 문서	요인	지표	n	평균 변화
-Mi:dm K 2.5 Pro Technical Report	HyDE	faithfulness	15	0.0007
-Mi:dm K 2.5 Pro Technical Report	HyDE	answer_relevancy	15	0.0994
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_precision	15	-0.0145
-Mi:dm K 2.5 Pro Technical Report	HyDE	context_recall	15	0.1333
-Mi:dm K 2.5 Pro Technical Report	CAD	faithfulness	15	0.0081
-Mi:dm K 2.5 Pro Technical Report	CAD	answer_relevancy	15	0.0339
-Mi:dm K 2.5 Pro Technical Report	CAD	context_precision	15	0
-Mi:dm K 2.5 Pro Technical Report	CAD	context_recall	15	0
-CAD	HyDE	faithfulness	15	-0.0491
-CAD	HyDE	answer_relevancy	15	-0.0019
-CAD	HyDE	context_precision	15	-0.0823
-CAD	HyDE	context_recall	15	-0.0667
-CAD	CAD	faithfulness	15	0.0664
-CAD	CAD	answer_relevancy	15	-0.0099
-CAD	CAD	context_precision	15	-0.0552
-CAD	CAD	context_recall	15	-0.0667
-RAG Survey	HyDE	faithfulness	15	0.1575
-RAG Survey	HyDE	answer_relevancy	15	0.1314
-RAG Survey	HyDE	context_precision	15	0.0036
-RAG Survey	HyDE	context_recall	15	0.0667
-RAG Survey	CAD	faithfulness	13	-0.0416
-RAG Survey	CAD	answer_relevancy	15	-0.1004
-RAG Survey	CAD	context_precision	15	0.0074
-RAG Survey	CAD	context_recall	15	0
-RAPTOR	HyDE	faithfulness	15	0.0652
-RAPTOR	HyDE	answer_relevancy	15	0.093
-RAPTOR	HyDE	context_precision	15	-0.0441
-RAPTOR	HyDE	context_recall	15	-0.1333
-RAPTOR	CAD	faithfulness	15	0.0731
-RAPTOR	CAD	answer_relevancy	15	0.047
-RAPTOR	CAD	context_precision	15	0.0108
-RAPTOR	CAD	context_recall	15	0
+Mi:dm K 2.5 Pro Technical Report	HyDE	근거 충실도	15	0.0007
+Mi:dm K 2.5 Pro Technical Report	HyDE	답변 관련성	15	0.0994
+Mi:dm K 2.5 Pro Technical Report	HyDE	문맥 정밀도	15	-0.0145
+Mi:dm K 2.5 Pro Technical Report	HyDE	문맥 재현율	15	0.1333
+Mi:dm K 2.5 Pro Technical Report	CAD	근거 충실도	15	0.0081
+Mi:dm K 2.5 Pro Technical Report	CAD	답변 관련성	15	0.0339
+Mi:dm K 2.5 Pro Technical Report	CAD	문맥 정밀도	15	0
+Mi:dm K 2.5 Pro Technical Report	CAD	문맥 재현율	15	0
+CAD	HyDE	근거 충실도	15	-0.0491
+CAD	HyDE	답변 관련성	15	-0.0019
+CAD	HyDE	문맥 정밀도	15	-0.0823
+CAD	HyDE	문맥 재현율	15	-0.0667
+CAD	CAD	근거 충실도	15	0.0664
+CAD	CAD	답변 관련성	15	-0.0099
+CAD	CAD	문맥 정밀도	15	-0.0552
+CAD	CAD	문맥 재현율	15	-0.0667
+RAG Survey	HyDE	근거 충실도	15	0.1575
+RAG Survey	HyDE	답변 관련성	15	0.1314
+RAG Survey	HyDE	문맥 정밀도	15	0.0036
+RAG Survey	HyDE	문맥 재현율	15	0.0667
+RAG Survey	CAD	근거 충실도	13	-0.0416
+RAG Survey	CAD	답변 관련성	15	-0.1004
+RAG Survey	CAD	문맥 정밀도	15	0.0074
+RAG Survey	CAD	문맥 재현율	15	0
+RAPTOR	HyDE	근거 충실도	15	0.0652
+RAPTOR	HyDE	답변 관련성	15	0.093
+RAPTOR	HyDE	문맥 정밀도	15	-0.0441
+RAPTOR	HyDE	문맥 재현율	15	-0.1333
+RAPTOR	CAD	근거 충실도	15	0.0731
+RAPTOR	CAD	답변 관련성	15	0.047
+RAPTOR	CAD	문맥 정밀도	15	0.0108
+RAPTOR	CAD	문맥 재현율	15	0
 ```
 
 [표 B-2] 질문 유형별 탐색 분석 [스타일=표제목]
@@ -947,36 +938,36 @@ RAPTOR	CAD	context_recall	15	0
 
 ```text
 질문 유형	요인	지표	n	평균 변화
-사실·정의	HyDE	faithfulness	8	0.0966
-사실·정의	HyDE	answer_relevancy	8	0.0455
-사실·정의	HyDE	context_precision	8	-0.1328
-사실·정의	HyDE	context_recall	8	-0.1250
-사실·정의	CAD	faithfulness	8	0.0005
-사실·정의	CAD	answer_relevancy	8	-0.0145
-사실·정의	CAD	context_precision	8	-0.0486
-사실·정의	CAD	context_recall	8	0
-방법·절차	HyDE	faithfulness	29	0.0792
-방법·절차	HyDE	answer_relevancy	29	0.1719
-방법·절차	HyDE	context_precision	29	-0.0029
-방법·절차	HyDE	context_recall	29	0.0690
-방법·절차	CAD	faithfulness	27	0.0823
-방법·절차	CAD	answer_relevancy	29	0.0684
-방법·절차	CAD	context_precision	29	0.0029
-방법·절차	CAD	context_recall	29	0
-결과·비교	HyDE	faithfulness	20	-0.0509
-결과·비교	HyDE	answer_relevancy	20	-0.0216
-결과·비교	HyDE	context_precision	20	-0.0289
-결과·비교	HyDE	context_recall	20	-0.0500
-결과·비교	CAD	faithfulness	20	-0.0037
-결과·비교	CAD	answer_relevancy	20	-0.0683
-결과·비교	CAD	context_precision	20	-0.0124
-결과·비교	CAD	context_recall	20	-0.0500
-목적·기여	HyDE	faithfulness	3	0.1875
-목적·기여	HyDE	answer_relevancy	3	-0.0289
-목적·기여	HyDE	context_precision	3	-0.1111
-목적·기여	HyDE	context_recall	3	0
-목적·기여	CAD	faithfulness	3	-0.1597
-목적·기여	CAD	answer_relevancy	3	-0.3139
-목적·기여	CAD	context_precision	3	0
-목적·기여	CAD	context_recall	3	0
+사실·정의	HyDE	근거 충실도	8	0.0966
+사실·정의	HyDE	답변 관련성	8	0.0455
+사실·정의	HyDE	문맥 정밀도	8	-0.1328
+사실·정의	HyDE	문맥 재현율	8	-0.1250
+사실·정의	CAD	근거 충실도	8	0.0005
+사실·정의	CAD	답변 관련성	8	-0.0145
+사실·정의	CAD	문맥 정밀도	8	-0.0486
+사실·정의	CAD	문맥 재현율	8	0
+방법·절차	HyDE	근거 충실도	29	0.0792
+방법·절차	HyDE	답변 관련성	29	0.1719
+방법·절차	HyDE	문맥 정밀도	29	-0.0029
+방법·절차	HyDE	문맥 재현율	29	0.0690
+방법·절차	CAD	근거 충실도	27	0.0823
+방법·절차	CAD	답변 관련성	29	0.0684
+방법·절차	CAD	문맥 정밀도	29	0.0029
+방법·절차	CAD	문맥 재현율	29	0
+결과·비교	HyDE	근거 충실도	20	-0.0509
+결과·비교	HyDE	답변 관련성	20	-0.0216
+결과·비교	HyDE	문맥 정밀도	20	-0.0289
+결과·비교	HyDE	문맥 재현율	20	-0.0500
+결과·비교	CAD	근거 충실도	20	-0.0037
+결과·비교	CAD	답변 관련성	20	-0.0683
+결과·비교	CAD	문맥 정밀도	20	-0.0124
+결과·비교	CAD	문맥 재현율	20	-0.0500
+목적·기여	HyDE	근거 충실도	3	0.1875
+목적·기여	HyDE	답변 관련성	3	-0.0289
+목적·기여	HyDE	문맥 정밀도	3	-0.1111
+목적·기여	HyDE	문맥 재현율	3	0
+목적·기여	CAD	근거 충실도	3	-0.1597
+목적·기여	CAD	답변 관련성	3	-0.3139
+목적·기여	CAD	문맥 정밀도	3	0
+목적·기여	CAD	문맥 재현율	3	0
 ```
