@@ -7,11 +7,11 @@
 ==========================================================================================
 연구 흐름	대표 연구	본 연구에서의 적용 범위	해석 범위
 Dense retrieval	DPR[10], BEIR[20]	한국어 질의와 영어 passage 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 고정 backbone의 application study 범위
-Multi-passage generation	FiD[11], long-context 분석[12]	rerank된 상위 5개 문맥을 고정해 answer/context 지표를 분리	문맥 길이와 순서 정책은 고정
+다중 문맥 생성	FiD[11], 긴 문맥 분석[12]	rerank된 상위 5개 문맥을 고정해 answer/context 지표를 분리	문맥 길이와 순서 정책은 고정
 가상 문서 검색	HyDE[2]	H1/H0 종단 간 대응 비교와 검색 청크 ID 확인	가상 문서는 검색 표현으로 사용
-Contrastive decoding	CAD[3], contrastive decoding[13]	같은 입력에서 C1/C0 대응 비교	CAD alpha=0.5 고정 조건
-Corrective/reflective RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG evaluation	RAGAS[9], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
+대조 디코딩	CAD[3], Contrastive Decoding[13]	같은 입력에서 C1/C0 대응 비교	CAD alpha=0.5 고정 조건
+교정·자기검증 RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
+RAG 평가	RAGAS[9], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
 
 ==========================================================================================
 [Workbook Sheet] T3-1_Requirements
@@ -50,14 +50,14 @@ SCD	출력 토큰 로짓 제어	HyDE OFF 동일 문맥 120쌍; 전체 240 상태
 구성	생성 기록 기준 값
 생성 모델	K-intelligence/Midm-2.0-Base-Instruct
 답변 생성 방식	각 단계에서 확률이 가장 높은 토큰 선택
-검색 구성	BGE-M3 dense + BM25 sparse + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2
+검색 구성	BGE-M3 밀집 검색 + BM25 희소 검색 + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2
 검색 후보 수 / 재정렬 후보 수	8 / 8
-chunking	공백 분리 기준 최대 512개 단어 / 64개 단어 중첩 / 최소 50개 단어
+청크 분할	공백 분리 기준 최대 512개 단어 / 64개 단어 중첩 / 최소 50개 단어
 문맥 길이 관리	ContextCompressor 추출식; 공백 분리 기준 최대 3,072개 단어; 압축 비율 0.5
 최종 문맥 수	5
 max_new_tokens	512
-CAD alpha	0.5
-SCD	reference_scd; alpha=1.1, beta=0.9, Tstart=5
+CAD α	0.5
+SCD	α=1.1, β=0.9, Tstart=5
 
 ==========================================================================================
 [Workbook Sheet] T4-2_Backbone
