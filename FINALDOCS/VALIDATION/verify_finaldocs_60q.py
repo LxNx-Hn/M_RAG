@@ -525,14 +525,15 @@ def main() -> int:
         encoding="utf-8"
     )
     for marker in (
-        "SCD\t출력 토큰 logit 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율",
+        "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
-        "방법·절차\tHyDE\tanswer_relevancy\t29\t0.1719",
-        "사실·정의\tCAD\tfaithfulness\t8\t0.0005",
+        "방법·절차\tHyDE\t답변 관련성\t29\t0.1719",
+        "사실·정의\tCAD\t근거 충실도\t8\t0.0005",
         "공백 분리 기준 최대 512개 단어",
         "SCD OFF — 영어 검색 문맥 평가",
         "SCD ON — 한국어 변환 평가 문맥",
         "한국어 문자 비율 평균 변화",
+        "각 단계에서 확률이 가장 높은 토큰 선택",
     ):
         if marker not in table_copy:
             raise AssertionError(f"HWP copy table content is stale: missing {marker}")
