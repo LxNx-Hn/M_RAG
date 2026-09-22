@@ -16,7 +16,7 @@
 | SCD configuration-matched ON/OFF 대응쌍 | 240 |
 | HyDE OFF 동일 문맥 SCD 대응쌍 | 120 |
 
-고정 생성 모델은 `K-intelligence/Midm-2.0-Base-Instruct`이며 final answer는 deterministic greedy decoding, `max_new_tokens=512`로 생성하였다. HyDE hypothetical document는 temperature=0.1, top_p=0.9, sampling을 사용한다. CAD alpha=0.5, reference SCD는 alpha=1.1, beta=0.9, T_start=5를 사용한다.
+고정 생성 모델은 `K-intelligence/Midm-2.0-Base-Instruct`이며, 최종 답변은 샘플링을 사용하지 않고 각 생성 단계에서 점수가 가장 높은 토큰을 선택하는 방식으로 생성하였다. 최대 생성 길이는 `max_new_tokens=512`로 설정하였다. HyDE hypothetical document는 temperature=0.1, top_p=0.9, sampling을 사용한다. CAD alpha=0.5, reference SCD는 alpha=1.1, beta=0.9, T_start=5를 사용한다.
 
 ## 평가 및 통계
 
