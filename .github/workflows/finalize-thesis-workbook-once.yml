@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  sync:
+  rebuild:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current main
@@ -27,118 +27,128 @@ jobs:
       - name: Install workbook dependency
         run: python -m pip install --disable-pip-version-check openpyxl
 
-      - name: Update workbook text without changing experiment values
+      - name: Rebuild workbook from canonical HWP table text
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
-          from openpyxl import load_workbook
-          from openpyxl.styles import Alignment
+          from openpyxl import Workbook, load_workbook
+          from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
+          from openpyxl.utils import get_column_letter
 
-          p = Path("FINALDOCS/TABLES/TABLES_60Q.xlsx")
-          wb = load_workbook(p)
+          src = Path("FINALDOCS/MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt")
+          out = Path("FINALDOCS/TABLES/TABLES_60Q.xlsx")
+          text = src.read_text(encoding="utf-8")
 
-          ws = wb["T2-1_Related_Work"]
-          rows = {
-              4: ("밀집 검색", "DPR[10], BEIR[20]", "한국어 질의와 영어 문장 사이의 검색 표현 간극을 HyDE 조건으로 관찰", "본 연구의 고정 백본 적용 범위"),
-              5: ("다중 문맥 생성", "FiD[11], 긴 문맥 분석[12]", "재정렬된 상위 5개 문맥을 고정해 답변/문맥 지표를 분리", "문맥 길이와 순서 정책은 고정"),
-              6: ("가상 문서 검색", "HyDE[2]", "H1/H0 종단 간 대응 비교와 검색 청크 ID 확인", "가상 문서는 검색 표현으로 사용"),
-              7: ("대조 디코딩", "CAD[3], Contrastive Decoding[13]", "같은 입력에서 C1/C0 대응 비교", "CAD α=0.5 고정 조건"),
-              8: ("교정·자기검증 RAG", "Self-RAG[15], CRAG[16]", "검색·생성·출력 문제를 별도 층위로 해석하는 관점", "관련 연구의 비교 관점으로 참조"),
-              9: ("RAG 평가", "RAGAS[9], RAG survey[19]", "근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가", "자동 평가 지표와 대응 비교에 사용"),
+          pattern = re.compile(
+              r"=+\n\[Workbook Sheet\] ([^\n]+)\n=+\n(.*?)(?=\n=+\n\[Workbook Sheet\]|\Z)",
+              re.S,
+          )
+          sections = [(name.strip(), body.strip()) for name, body in pattern.findall(text)]
+
+          expected = [
+              "T2-1_Related_Work","T3-1_Requirements","T3-2_RAG-Cube",
+              "T3-3_Factor_Position","T4-1_Environment","T4-2_Backbone",
+              "T4-3_Runtime","T4-4_Record_Fields","T5-1_Dataset",
+              "T5-2_Config_Scores","T5-3_HyDE","T5-4_CAD",
+              "T5-5_SCD_Config","T5-6_SCD_Paired","Appendix_Queries",
+              "Appendix_Paper","Appendix_QueryType",
+          ]
+          assert [name for name, _ in sections] == expected, [name for name, _ in sections]
+
+          titles = {
+              "T2-1_Related_Work": "표 2-1 관련 연구와 본 실험의 연결",
+              "T3-1_Requirements": "표 3-1 연구 및 실험 요구사항",
+              "T3-2_RAG-Cube": "표 3-2 RAG-Cube 2×2×2 실험 조건",
+              "T3-3_Factor_Position": "표 3-3 실험 요인별 적용 위치와 비교 단위",
+              "T4-1_Environment": "표 4-1 실험 실행 환경",
+              "T4-2_Backbone": "표 4-2 고정 Paper-RAG backbone",
+              "T4-3_Runtime": "표 4-3 조건별 생성 시간",
+              "T4-4_Record_Fields": "표 4-4 생성 기록의 재현성 필드",
+              "T5-1_Dataset": "표 5-1 4개 문서별 질의 구성",
+              "T5-2_Config_Scores": "표 5-2 SCD 평가 프로토콜별 RAG-Cube 조건 평균",
+              "T5-3_HyDE": "표 5-3 HyDE 주 비교 결과",
+              "T5-4_CAD": "표 5-4 CAD 동일 문맥 주 비교 결과",
+              "T5-5_SCD_Config": "표 5-5 SCD 조합별 한국어 문자 비율 변화",
+              "T5-6_SCD_Paired": "표 5-6 SCD 대응쌍 분석 요약",
+              "Appendix_Queries": "표 A-1 60개 질의–대상 문서 쌍",
+              "Appendix_Paper": "표 B-1 문서별 탐색 분석",
+              "Appendix_QueryType": "표 B-2 질문 유형별 탐색 분석",
           }
-          for r, vals in rows.items():
-              for col, val in enumerate(vals, 1):
-                  ws.cell(r, col).value = val
 
-          ws = wb["T3-1_Requirements"]
-          ws["B6"] = "조건별 생성 기록"
-          ws["C8"] = "60개 질의 메타데이터와 480개 생성 기록"
+          def scalar(v):
+              v = v.strip()
+              if re.fullmatch(r"-?\d+", v):
+                  return int(v)
+              if re.fullmatch(r"-?\d+\.\d+", v):
+                  return float(v)
+              return v
 
-          ws = wb["T3-3_Factor_Position"]
-          ws["B5"] = "문맥 기반 디코딩"
-          ws["C5"] = "동일 문맥 60쌍(근거 충실도 유효쌍 58개)"
-          ws["D5"] = "근거 충실도·답변 관련성·생성 시간"
-          ws["B6"] = "출력 토큰 로짓 제어"
-          ws["C6"] = "HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍"
+          wb = Workbook()
+          wb.remove(wb.active)
+          thin = Side(style="thin", color="D9D9D9")
+          header_fill = PatternFill("solid", fgColor="E8EDF3")
+          group_fill = PatternFill("solid", fgColor="F3F5F7")
+          title_fill = PatternFill("solid", fgColor="DCE6F1")
 
-          ws = wb["T4-1_Environment"]
-          ws["A3"], ws["B3"] = "구성", "생성 기록 기준 값"
-          ws["A5"], ws["B5"] = "답변 생성 방식", "각 단계에서 확률이 가장 높은 토큰 선택"
-          ws["A6"], ws["B6"] = "검색 구성", "BGE-M3 밀집 검색 + BM25 희소 검색 + weighted RRF(k=60; 0.6/0.4) + cross-encoder/ms-marco-MiniLM-L-6-v2"
-          ws["A7"], ws["B7"] = "검색 후보 수 / 재정렬 후보 수", "8 / 8"
-          ws["A8"] = "청크 분할"
-          ws["A9"], ws["B9"] = "문맥 길이 관리", "ContextCompressor 추출식; 공백 분리 기준 최대 3,072개 단어; 압축 비율 0.5"
-          ws["A12"], ws["B12"] = "CAD α", "0.5"
-          ws["A13"], ws["B13"] = "SCD", "α=1.1, β=0.9, Tstart=5"
+          for name, body in sections:
+              ws = wb.create_sheet(name)
+              lines = [ln for ln in body.splitlines() if ln.strip()]
+              rows = [[scalar(x) for x in ln.split("\t")] for ln in lines]
+              max_cols = max(len(r) for r in rows)
 
-          ws = wb["T4-2_Backbone"]
-          ws["B5"] = "BGE-M3 밀집 검색 + BM25 희소 검색"
-          ws["B8"] = "ContextCompressor 문맥 길이 관리 후 재정렬 상위 5개 문맥"
-          ws["B10"] = "HyDE 검색 표현 확장 / CAD·SCD 생성 제어"
-          ws.merge_cells("A11:B11")
-          ws["A11"] = "주: 검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 수 5는 최종 평가 집합과 분리된 5개 튜닝 질의의 검색 폭 비교를 통해 사전에 선정한 값이다. CAD와 SCD의 파라미터는 각 기법의 실험 설정에 따라 별도로 적용하였다."
-          ws["A11"].alignment = Alignment(wrap_text=True, vertical="top")
-          ws.row_dimensions[11].height = 42
+              ws.cell(1,1).value = titles[name]
+              ws.merge_cells(start_row=1,start_column=1,end_row=1,end_column=max_cols)
+              ws.cell(1,1).font = Font(bold=True, size=12)
+              ws.cell(1,1).fill = title_fill
+              ws.cell(1,1).alignment = Alignment(vertical="center")
+              ws.row_dimensions[1].height = 23
 
-          ws = wb["T5-2_Config_Scores"]
-          ws["A1"] = "표 5-2 SCD 평가 프로토콜별 RAG-Cube 조건 평균"
-          for r in (4, 11):
-              headers = ["조건","생성 수","근거 충실도","답변 관련성","문맥 정밀도","문맥 재현율","한국어 문자 비율"]
-              for col, val in enumerate(headers, 1):
-                  ws.cell(r, col).value = val
-          ws["A16"] = "표 5-2 주석: 두 평가 프로토콜 블록은 각 평가 문맥 구성 방식 안에서 조건별 기술통계로 해석한다. SCD의 주 비교는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과를 사용한다."
+              ws.cell(2,1).value = "Source: FINALDOCS/MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt"
+              ws.merge_cells(start_row=2,start_column=1,end_row=2,end_column=max_cols)
+              ws.cell(2,1).font = Font(italic=True, size=9, color="666666")
 
-          ws = wb["T5-3_HyDE"]
-          for col, val in enumerate(["지표","평균 변화 ON−OFF","95% 신뢰구간","증가","감소","동률","n"],1):
-              ws.cell(3,col).value=val
-          for r,val in enumerate(["근거 충실도","답변 관련성","문맥 정밀도","문맥 재현율"],4):
-              ws.cell(r,1).value=val
+              for r_idx, row in enumerate(rows, start=3):
+                  for c_idx, val in enumerate(row, start=1):
+                      cell = ws.cell(r_idx,c_idx,value=val)
+                      cell.alignment = Alignment(vertical="top", wrap_text=True)
+                      cell.border = Border(bottom=thin)
+                  first = str(row[0]) if row else ""
+                  if first.startswith("[") and first.endswith("]"):
+                      ws.merge_cells(start_row=r_idx,start_column=1,end_row=r_idx,end_column=max_cols)
+                      ws.cell(r_idx,1).fill = group_fill
+                      ws.cell(r_idx,1).font = Font(bold=True)
+                  elif first.startswith("[표 ") or first.startswith("[진단값]"):
+                      ws.merge_cells(start_row=r_idx,start_column=1,end_row=r_idx,end_column=max_cols)
+                      ws.cell(r_idx,1).fill = group_fill
+                      ws.cell(r_idx,1).font = Font(italic=True)
+                  elif r_idx == 3 or first in ("조건","지표","비교","대상 문서","질문 유형","문서","요구사항","단계","구분","query ID","연구 흐름","요인","구성"):
+                      for c_idx in range(1,max_cols+1):
+                          ws.cell(r_idx,c_idx).fill = header_fill
+                          ws.cell(r_idx,c_idx).font = Font(bold=True)
 
-          ws = wb["T5-4_CAD"]
-          for col, val in enumerate(["지표","평균 변화 ON−OFF","95% 신뢰구간","증가","감소","동률","n"],1):
-              ws.cell(3,col).value=val
-          ws["A4"], ws["A5"] = "근거 충실도", "답변 관련성"
-          ws["A6"] = "진단값"
-          ws["B6"] = "동일 검색 입력에서 자동 평가 모델 값 차이: 문맥 정밀도 8/60쌍, 문맥 재현율 1/60쌍"
+              for col in range(1,max_cols+1):
+                  values=[str(ws.cell(r,col).value or "") for r in range(1,ws.max_row+1)]
+                  width=min(55,max(10,max((len(v) for v in values), default=10)+2))
+                  ws.column_dimensions[get_column_letter(col)].width=width
+              ws.freeze_panes="A3"
 
-          ws = wb["T5-5_SCD_Config"]
-          ws["E3"], ws["F3"] = "신뢰구간 하한", "신뢰구간 상한"
+          wb.save(out)
 
-          ws = wb["T5-6_SCD_Paired"]
-          ws["C3"], ws["D3"] = "한국어 문자 비율 평균 변화", "95% 신뢰구간"
-
-          metric_map = {
-              "faithfulness": "근거 충실도",
-              "answer_relevancy": "답변 관련성",
-              "context_precision": "문맥 정밀도",
-              "context_recall": "문맥 재현율",
-          }
-          for name in ("Appendix_Paper", "Appendix_QueryType"):
-              ws = wb[name]
-              for row in range(4, ws.max_row + 1):
-                  v = ws.cell(row, 3).value
-                  if v in metric_map:
-                      ws.cell(row, 3).value = metric_map[v]
-
-          wb.save(p)
-
-          # Reopen to prove the XLSX archive is valid and key sheets/cells survived.
-          check = load_workbook(p, read_only=True, data_only=False)
-          assert "T5-2_Config_Scores" in check.sheetnames
-          assert check["T4-1_Environment"]["B5"].value == "각 단계에서 확률이 가장 높은 토큰 선택"
+          # Binary + semantic validation.
+          check = load_workbook(out, read_only=True, data_only=False)
+          assert check.sheetnames == expected
+          assert check["T4-1_Environment"]["B7"].value == "각 단계에서 확률이 가장 높은 토큰 선택"
           assert check["T5-3_HyDE"]["A4"].value == "근거 충실도"
-          assert check["T5-6_SCD_Paired"]["D3"].value == "95% 신뢰구간"
-          print("Workbook reopened successfully:", p.stat().st_size, "bytes")
+          assert check["T5-6_SCD_Paired"]["D5"].value == "95% 신뢰구간"
+          assert check["Appendix_Queries"].max_row == 63
+          print("Workbook rebuilt and reopened:", out.stat().st_size, "bytes")
           PY
 
-      - name: Commit workbook
+      - name: Commit rebuilt workbook
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add FINALDOCS/TABLES/TABLES_60Q.xlsx
-          if git diff --cached --quiet; then
-            echo "No workbook changes."
-            exit 0
-          fi
-          git commit -m "docs(thesis): finalize synchronized workbook"
+          git commit -m "docs(thesis): rebuild synchronized workbook"
           git push origin HEAD:main
