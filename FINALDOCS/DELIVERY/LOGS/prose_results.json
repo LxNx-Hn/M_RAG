@@ -145,5 +145,16 @@
     ],
     "exit_code": 0,
     "log": "prose_diff.log"
+  },
+  {
+    "name": "prose_final_diff",
+    "command": [
+      "git",
+      "diff",
+      "4b4673cc5215f08e00f33ead2f2ec3ab55090049",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "prose_final_diff.log"
   }
 ]

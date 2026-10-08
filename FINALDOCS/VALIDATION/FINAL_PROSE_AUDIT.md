@@ -590,6 +590,7 @@ git diff --check
 - `FINALDOCS/DELIVERY/LOGS/prose_ci_linux_rebuild.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_compile.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_diff.log`
+- `FINALDOCS/DELIVERY/LOGS/prose_final_diff.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_finaldocs.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_hwpx.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_hwpx_corruption.log`
@@ -631,3 +632,5 @@ Linux CI에서 커밋된 원고·HWPX 검사, 문장·출처 시험 19개, HWPX 
 ## 교정 중 검증 이력
 
 1차 교정 원고 검사에서는 기존 문체 규칙이 `확인할 수 있다` 표현을 검출하여 실패하였다. 해당 문장을 실제 자료의 내용을 직접 서술하는 `이 자료들은 집계값과 개별 대응쌍의 입력 동일성 및 답변 차이를 제시한다.`로 수정하였다. 이후 최종 패키지 검사와 전체 회귀 시험이 통과하였다. 완료 로그는 수정 후 실제 최종 상태의 결과이며, 이 과정의 실패를 미실행 또는 최초 통과로 기록하지 않는다.
+
+CI 상세 로그 추가 시 누적 차이 검사에서 줄 끝 공백 3개가 검출되었다. 해당 공백을 정리한 뒤 `git diff 4b4673cc5215f08e00f33ead2f2ec3ab55090049 --check`와 staged 차이 검사를 재실행하여 통과하였다. 실행 결과·시간·본문은 유지하고 원본 로그는 로컬 `tmp/prose_ci_linux_rebuild.raw.log`에 보존하였다. 추가 최종 차이 검사 기록은 `DELIVERY/LOGS/prose_final_diff.log` 및 `prose_results.json`에 있다.

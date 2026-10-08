@@ -147,7 +147,7 @@ validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:30
 validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:30.2777906Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 118.4 MB/s  0:00:00
 validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:30.2970514Z Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
 validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:30.3606328Z Installing collected packages: Pillow, lxml, et-xmlfile, python-hwpx, openpyxl
-validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:31.4053099Z 
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:31.4053099Z
 validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T18:21:31.4063611Z Successfully installed Pillow-12.3.0 et-xmlfile-2.0.0 lxml-6.1.3 openpyxl-3.1.5 python-hwpx-6.8.0
 validate	Validate committed thesis evidence and HWPX	﻿2026-10-08T18:21:31.4694701Z ##[group]Run python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:31.4695320Z ^[[36;1mpython -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py^[[0m
@@ -168,12 +168,12 @@ validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:32.8779090
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:33.3825911Z ...................
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:33.3826626Z ----------------------------------------------------------------------
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:33.3827246Z Ran 19 tests in 0.320s
-validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:33.3827487Z 
+validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:33.3827487Z
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:42.9975491Z OK
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:42.9976175Z .......
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:42.9976817Z ----------------------------------------------------------------------
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:42.9993828Z Ran 7 tests in 9.559s
-validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:43.0094093Z 
+validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:43.0094093Z
 validate	Validate committed thesis evidence and HWPX	2026-10-08T18:21:43.0094407Z OK
 validate	Rebuild from school template and verify again	﻿2026-10-08T18:21:43.0134048Z ##[group]Run python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json
 validate	Rebuild from school template and verify again	2026-10-08T18:21:43.0135209Z ^[[36;1mpython -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json^[[0m
