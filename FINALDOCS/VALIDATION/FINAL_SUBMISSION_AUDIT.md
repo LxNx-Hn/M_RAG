@@ -4,7 +4,7 @@
 
 ## Git 확정 기록
 
-논문 산출물 확정 HEAD 및 GitHub Actions 결과는 아래 확정 기록에 추가한다. 보고서 자체의 커밋 SHA는 파일 내용에 자기 자신의 SHA를 넣을 수 없으므로 `git log -1 --format=%H -- FINALDOCS/VALIDATION/FINAL_SUBMISSION_AUDIT.md`로 식별한다. 마지막 저장소 HEAD는 최종 사용자 보고와 `git rev-parse HEAD`로 확인한다. 보고서 확정 커밋은 논문 산출물 바이트를 변경하지 않는다.
+논문 산출물 확정·전체 CI 검증 HEAD: `150353a7129dc6c62206ded4f085f8f2e5ae7b81`. 아래 실행은 이 SHA를 정확히 대상으로 모두 성공했다. 보고서 자체의 커밋 SHA는 파일 내용에 자기 자신의 SHA를 넣을 수 없으므로 `git log -1 --format=%H -- FINALDOCS/VALIDATION/FINAL_SUBMISSION_AUDIT.md`로 식별한다. 마지막 저장소 HEAD는 최종 사용자 보고와 `git rev-parse HEAD`로 확인한다. 보고서 확정 커밋은 논문 산출물 바이트를 변경하지 않는다.
 
 ## 문헌 그림 6개
 
@@ -93,3 +93,15 @@ HyDE 정의는 질의를 바탕으로 가상 문서를 생성하고 그 임베�
 ## 사용자에게 남은 사항
 
 문헌 출처 정리·문장 교정·양식·데이터 보존·HWPX 생성·실제 54쪽 PDF 검증은 완료했다. 개인 정보와 서명·인준은 실제 값이 제공되지 않아 미입력 상태다. 체크리스트 9개 항목 입력 후 저장·재열기·PDF 내보내기 및 1~2쪽을 확인한다. 편집으로 본문 쪽이 이동하면 목차도 재갱신한다. 현재 파일은 웹한글에서 열어 검토하고 제출 준비를 할 수 있는 본문 확정본이며 개인정보·학교 인준까지 완료된 행정 제출본으로 표시하지 않는다.
+
+## GitHub Actions 확정 기록
+
+검증한 논문 산출물 HEAD: `150353a7129dc6c62206ded4f085f8f2e5ae7b81`. 이후 보고서·CI 기록만 추가하는 확정 커밋의 최종 HEAD는 위 식별 명령 및 완료 응답에서 제공한다. HWPX·PDF·원고·표·그림은 이 검증 HEAD와 바이트가 같다.
+
+| Workflow | 결과 | 실행 |
+|---|---|---|
+| Thesis HWPX validation | success | [#37810805882](https://github.com/LxNx-Hn/M_RAG/actions/runs/37810805882) |
+| Publish Backend Image | success | [#37810805899](https://github.com/LxNx-Hn/M_RAG/actions/runs/37810805899) |
+| CI | success | [#37810805852](https://github.com/LxNx-Hn/M_RAG/actions/runs/37810805852) |
+
+Thesis HWPX validation은 저장된 패키지 검사, 9개 문헌·학술 회귀 시험, 6개 HWPX 훼손 시험, Linux 양식 재생성과 재검사·컴파일까지 통과했다. CI의 frontend 린트·타입 검사·빌드·이미지 빌드, backend Ruff·Black·pytest·이미지 빌드가 모두 성공했다. Publish Backend Image도 성공했다. 실행 HEAD와 결과 원문은 `../DELIVERY/LOGS/submission_ci_artifact.json`에 보존했다. 보고서 확정 커밋에서 새로 발생하는 동일 workflow도 완료 응답 전 확인한다.
