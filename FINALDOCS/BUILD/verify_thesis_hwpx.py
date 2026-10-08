@@ -94,6 +94,8 @@ def main() -> None:
         assert z.infolist()[0].filename == "mimetype"
         assert z.getinfo("mimetype").compress_type == zipfile.ZIP_STORED
         assert z.read("mimetype") == b"application/hwp+zip"
+        preview = z.read("Preview/PrvText.txt").decode("utf-8")
+        assert "졸업자격실험보고서" in preview and "스타일 적용 방법" not in preview
         for name in z.namelist():
             if name.endswith((".xml", ".hpf", ".rdf")):
                 ET.fromstring(z.read(name))

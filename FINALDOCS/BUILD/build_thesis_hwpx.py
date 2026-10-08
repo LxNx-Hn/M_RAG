@@ -344,6 +344,11 @@ def register_version_part(path: Path) -> None:
     """The HWP converter omits the explicit version.xml manifest item."""
     with zipfile.ZipFile(path) as package:
         parts = {name: package.read(name) for name in package.namelist()}
+    # Refresh the file-browser preview; the school's original preview contains
+    # style instructions even after its body is replaced with the manuscript.
+    parts["Preview/PrvText.txt"] = (
+        HwpxDocument.open(path).text.plain()[:4096].encode("utf-8")
+    )
     root = ET.fromstring(parts["Contents/content.hpf"])
     manifest = root.find("{http://www.idpf.org/2007/opf/}manifest")
     if not any(item.get("href") == "version.xml" for item in manifest):
