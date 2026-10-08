@@ -586,6 +586,8 @@ git diff --check
 - `FINALDOCS/DELIVERY/LOGS/prose_backend_black.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_backend_ruff.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_black.log`
+- `FINALDOCS/DELIVERY/LOGS/prose_ci_artifact.json`
+- `FINALDOCS/DELIVERY/LOGS/prose_ci_linux_rebuild.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_compile.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_diff.log`
 - `FINALDOCS/DELIVERY/LOGS/prose_finaldocs.log`
@@ -616,4 +618,16 @@ git diff --check
 
 ## Git 및 CI 확정
 
-산출물 커밋의 SHA와 GitHub Actions 실행 결과를 다음 보고서 확정 커밋에 기록한다. 보고서 자체의 커밋 SHA는 `git log -1 --format=%H -- FINALDOCS/VALIDATION/FINAL_PROSE_AUDIT.md`로 확인한다.
+논문 산출물 확정·전체 CI 검증 HEAD는 `0e864f262ee90fec2772cc708cbb3ec1e727f177`이다. 아래 세 실행은 정확히 이 SHA에서 모두 성공하였다. 보고서 자체의 커밋 SHA는 파일에 자신의 SHA를 넣을 수 없으므로 `git log -1 --format=%H -- FINALDOCS/VALIDATION/FINAL_PROSE_AUDIT.md`로 확인한다. 최종 저장소 HEAD는 사용자 완료 보고와 `git rev-parse HEAD`로 식별한다. 이 보고서 확정 커밋은 원고·HWPX·PDF 바이트를 변경하지 않는다.
+
+| GitHub Actions | 결과 | 실행 |
+|---|---|---|
+| CI | success | [37823626796](https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626796) |
+| Publish Backend Image | success | [37823626827](https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626827) |
+| Thesis HWPX validation | success | [37823626834](https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626834) |
+
+Linux CI에서 커밋된 원고·HWPX 검사, 문장·출처 시험 19개, HWPX 변조 시험 7개, 학교 양식으로 재생성 후 독립 검증 및 compileall이 통과하였다. 재생성 결과는 본문·구조 307개 문단, 논문 표 17개, 그림 22개, 네이티브 수식 10개이며 전체 대응 검사 316개 문단·1,092셀을 통과하였다. 실행 기록은 `DELIVERY/LOGS/prose_ci_artifact.json`, Linux 상세 로그는 `DELIVERY/LOGS/prose_ci_linux_rebuild.log`에 있다. 일반 CI의 frontend lint·type check/build·Docker build 및 backend lint·format·pytest 단계·Docker build도 성공하였다.
+
+## 교정 중 검증 이력
+
+1차 교정 원고 검사에서는 기존 문체 규칙이 `확인할 수 있다` 표현을 검출하여 실패하였다. 해당 문장을 실제 자료의 내용을 직접 서술하는 `이 자료들은 집계값과 개별 대응쌍의 입력 동일성 및 답변 차이를 제시한다.`로 수정하였다. 이후 최종 패키지 검사와 전체 회귀 시험이 통과하였다. 완료 로그는 수정 후 실제 최종 상태의 결과이며, 이 과정의 실패를 미실행 또는 최초 통과로 기록하지 않는다.
