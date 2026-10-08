@@ -1,0 +1,3 @@
+COMMAND: python -m ruff check backend (ruff==0.13.0)
+EXIT: 0
+All checks passed!

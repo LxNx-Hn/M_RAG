@@ -6,8 +6,8 @@ import hashlib
 import json
 import re
 import sys
-import zipfile
 import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 
 FINAL = Path(__file__).resolve().parents[1]
@@ -83,7 +83,9 @@ STALE_PATHS = (
 
 def need(path: Path) -> None:
     if not path.is_file():
-        raise AssertionError(f"missing final-package artifact: {path.relative_to(FINAL)}")
+        raise AssertionError(
+            f"missing final-package artifact: {path.relative_to(FINAL)}"
+        )
 
 
 def main() -> int:
@@ -125,7 +127,9 @@ def main() -> int:
 
     for stale in ("retained final 19", "held-out 41", "legacy_note"):
         if stale.lower() in canonical_config.lower():
-            raise AssertionError(f"research-history term leaked into canonical config: {stale}")
+            raise AssertionError(
+                f"research-history term leaked into canonical config: {stale}"
+            )
 
     query_protocol = QUERY_PROTOCOL.read_text(encoding="utf-8")
     for marker in (
@@ -138,7 +142,9 @@ def main() -> int:
         "answerability",
     ):
         if marker not in query_protocol:
-            raise AssertionError(f"query-construction protocol missing marker: {marker}")
+            raise AssertionError(
+                f"query-construction protocol missing marker: {marker}"
+            )
 
     finaldocs_readme = (FINAL / "README.md").read_text(encoding="utf-8")
     if "experiments/configs/final_thesis_60q.yaml" not in finaldocs_readme:
@@ -150,7 +156,18 @@ def main() -> int:
     for relative_path, expected_hash in evidence_manifest["sources"].items():
         source_path = FINAL.parent / Path(relative_path.replace("\\", "/"))
         need(source_path)
-        actual_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
+        source_bytes = source_path.read_bytes()
+        actual_hash = hashlib.sha256(source_bytes).hexdigest()
+        # Git core.autocrlf may materialize LF text evidence as CRLF on Windows.
+        # Accept only the exact manifest digest after CRLF -> LF conversion;
+        # no JSON rewriting, rounding, missing-value substitution or re-scoring.
+        if actual_hash != expected_hash and b"\r\n" in source_bytes:
+            lf_hash = hashlib.sha256(source_bytes.replace(b"\r\n", b"\n")).hexdigest()
+            if lf_hash == expected_hash:
+                print(
+                    f"INFO: manifest matches LF bytes (CRLF checkout): {relative_path}"
+                )
+                actual_hash = lf_hash
         if actual_hash != expected_hash:
             raise AssertionError(
                 f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"
@@ -159,13 +176,19 @@ def main() -> int:
     text = MANUSCRIPT.read_text(encoding="utf-8")
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
     if len(body) < 30000:
-        raise AssertionError(f"body is too short after substantive edit: {len(body)} chars")
+        raise AssertionError(
+            f"body is too short after substantive edit: {len(body)} chars"
+        )
 
     # Content-regression checks for the current 60-query thesis narrative.
     if "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험" not in text:
-        raise AssertionError("thesis title must match the academic/technical-document study scope")
+        raise AssertionError(
+            "thesis title must match the academic/technical-document study scope"
+        )
 
-    section_54 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split("## 5.5 CAD 결과 및 해석", 1)[0]
+    section_54 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split(
+        "## 5.5 CAD 결과 및 해석", 1
+    )[0]
     for marker in (
         "ext_midm_004",
         "interaction structure",
@@ -177,17 +200,25 @@ def main() -> int:
             raise AssertionError(f"HyDE case marker missing from section 5.4: {marker}")
     stale_e04 = ("GMM", "soft clustering", "BIC")
     if found := [term for term in stale_e04 if term in section_54]:
-        raise AssertionError(f"stale E04 RAPTOR case prose remains in section 5.4: {found}")
+        raise AssertionError(
+            f"stale E04 RAPTOR case prose remains in section 5.4: {found}"
+        )
 
-    section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[0]
+    section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split(
+        "## 5.6 SCD 출력 언어 결과 및 해석", 1
+    )[0]
     for marker in (
         "문맥 정밀도는 8/60쌍, 문맥 재현율은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다",
         "CAD의 생성 단계 결과는 근거 충실도, 답변 관련성과 생성 시간을 중심으로 분석한다",
     ):
         if marker not in section_55:
-            raise AssertionError(f"CAD interpretation contract missing from section 5.5: {marker}")
+            raise AssertionError(
+                f"CAD interpretation contract missing from section 5.5: {marker}"
+            )
 
-    section_56 = text.split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[1].split("## 5.7 대표 입출력 및 요구사항별 실행 결과", 1)[0]
+    section_56 = text.split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[1].split(
+        "## 5.7 대표 입출력 및 요구사항별 실행 결과", 1
+    )[0]
     for marker in (
         "ext_midm_005",
         "H1C0S0과 H1C0S1",
@@ -195,14 +226,20 @@ def main() -> int:
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
     ):
         if marker not in section_56:
-            raise AssertionError(f"SCD current-analysis marker missing from section 5.6: {marker}")
+            raise AssertionError(
+                f"SCD current-analysis marker missing from section 5.6: {marker}"
+            )
     stale_e03 = "이 사례는 HyDE OFF 동일 문맥 120쌍의 평균 +0.2182"
     if stale_e03 in section_56:
-        raise AssertionError("E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset")
+        raise AssertionError(
+            "E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset"
+        )
 
     scd_design_row = "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율"
     if scd_design_row not in text:
-        raise AssertionError("table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis")
+        raise AssertionError(
+            "table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis"
+        )
 
     for marker in (
         "모든 질의는 한국어 질의로 영어 문서에서 근거를 검색하는 동일한 교차언어 조건을 공유한다",
@@ -239,7 +276,9 @@ def main() -> int:
         "section_abstract",
     ):
         if stale_type in appendix_a:
-            raise AssertionError(f"legacy mixed query-type label remains in appendix A: {stale_type}")
+            raise AssertionError(
+                f"legacy mixed query-type label remains in appendix A: {stale_type}"
+            )
 
     appendix_b = text.split("## B.2 문서별·질문 유형별 탐색 분석", 1)[1]
     expected_query_type_rows = (
@@ -252,7 +291,9 @@ def main() -> int:
         if marker not in appendix_b:
             raise AssertionError(f"reclassified B-2 row missing: {marker}")
     if "# 부록 C." in text or "[표 C-1]" in text:
-        raise AssertionError("appendix C internal audit material returned to thesis-facing manuscript")
+        raise AssertionError(
+            "appendix C internal audit material returned to thesis-facing manuscript"
+        )
 
     for marker in (
         "60개",
@@ -288,11 +329,23 @@ def main() -> int:
     if found := [phrase for phrase in DEFENSIVE_PHRASES if phrase in body]:
         raise AssertionError(f"defensive manuscript prose returned: {found}")
 
-    if found := [term for term in ("retrieval-side", "generation-side", "retrieval profile", "retrieval_recall_oriented") if term in body]:
-        raise AssertionError(f"mixed internal terminology returned to thesis body: {found}")
+    if found := [
+        term
+        for term in (
+            "retrieval-side",
+            "generation-side",
+            "retrieval profile",
+            "retrieval_recall_oriented",
+        )
+        if term in body
+    ]:
+        raise AssertionError(
+            f"mixed internal terminology returned to thesis body: {found}"
+        )
     if "faithfulness의 결측값 5개" in body:
-        raise AssertionError("explicit five-missing-value prose returned outside the focused analysis note")
-
+        raise AssertionError(
+            "explicit five-missing-value prose returned outside the focused analysis note"
+        )
 
     toc = text.split("# 그 림 목 차", maxsplit=1)[0]
     detailed_toc = (
@@ -319,19 +372,25 @@ def main() -> int:
     )
     for section in detailed_toc:
         if section not in toc:
-            raise AssertionError(f"missing detailed table-of-contents section: {section}")
+            raise AssertionError(
+                f"missing detailed table-of-contents section: {section}"
+            )
 
     figure_toc = set(
         re.findall(
             r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]",
-            text.split("# 표 목 차", maxsplit=1)[0].split("# 그 림 목 차", maxsplit=1)[-1],
+            text.split("# 표 목 차", maxsplit=1)[0].split("# 그 림 목 차", maxsplit=1)[
+                -1
+            ],
         )
     )
     figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
     if figure_toc != figure_captions:
         raise AssertionError("figure list and manuscript captions do not match")
     if len(figure_captions) != 22:
-        raise AssertionError(f"expected 22 manuscript figures including appendix figure B-1, got {len(figure_captions)}")
+        raise AssertionError(
+            f"expected 22 manuscript figures including appendix figure B-1, got {len(figure_captions)}"
+        )
 
     table_toc = set(
         re.findall(
@@ -343,7 +402,9 @@ def main() -> int:
     if table_toc != table_captions:
         raise AssertionError("table list and manuscript captions do not match")
     if len(table_captions) != 17:
-        raise AssertionError(f"expected 17 manuscript tables, got {len(table_captions)}")
+        raise AssertionError(
+            f"expected 17 manuscript tables, got {len(table_captions)}"
+        )
 
     cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
     references = {
@@ -354,7 +415,9 @@ def main() -> int:
     }
     expected_references = set(range(1, 23))
     if cited != expected_references or references != expected_references:
-        raise AssertionError("citation and reference-number sets must both be [1] through [22]")
+        raise AssertionError(
+            "citation and reference-number sets must both be [1] through [22]"
+        )
 
     equation_file = (FINAL / "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt").read_text(
         encoding="utf-8"
@@ -379,7 +442,9 @@ def main() -> int:
             normalized_equation not in normalized_manuscript
             or normalized_equation not in normalized_equation_file
         ):
-            raise AssertionError(f"missing or mismatched HWP equation source: {equation}")
+            raise AssertionError(
+                f"missing or mismatched HWP equation source: {equation}"
+            )
 
     with zipfile.ZipFile(TABLES) as archive:
         workbook = archive.read("xl/workbook.xml").decode("utf-8")
@@ -396,7 +461,9 @@ def main() -> int:
         workbook_text = shared_strings + "\n" + worksheet_xml
         query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
 
-    sheet_names = re.findall(r'<(?:[A-Za-z_][\w.-]*:)?sheet[^>]+name="([^"]+)"', workbook)
+    sheet_names = re.findall(
+        r'<(?:[A-Za-z_][\w.-]*:)?sheet[^>]+name="([^"]+)"', workbook
+    )
     if tuple(sheet_names) != EXPECTED_SHEETS:
         raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
     if "docs/PAPER/" in workbook_text or "generated/" in workbook_text:
@@ -417,7 +484,9 @@ def main() -> int:
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
     ):
         if marker not in workbook_text:
-            raise AssertionError(f"workbook thesis table content is stale: missing {marker}")
+            raise AssertionError(
+                f"workbook thesis table content is stale: missing {marker}"
+            )
     for stale in (
         "동일 query·HyDE·CAD의 240 ON/OFF쌍",
         "분석 artifact 참조",
@@ -475,31 +544,63 @@ def main() -> int:
         raw_text = (io_dir / "raw" / f"{raw_name}.txt").read_text(encoding="utf-8")
         if f"Query ID          : {query_id}" not in raw_text:
             raise AssertionError(f"{case_id} raw evidence query mismatch")
-    for marker in ("Query ID", "Stored answer", "Retrieved chunk IDs", "Retrieved evidence"):
+    for marker in (
+        "Query ID",
+        "Stored answer",
+        "Retrieved chunk IDs",
+        "Retrieved evidence",
+    ):
         if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
             raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
     if "[입출력 사례 E" in text:
-        raise AssertionError("internal E-case numbering leaked into thesis-facing captions")
+        raise AssertionError(
+            "internal E-case numbering leaked into thesis-facing captions"
+        )
     for raw_path in sorted((io_dir / "raw").glob("E*.txt")):
         raw_text = raw_path.read_text(encoding="utf-8")
         if "Evidence Replay UI" in raw_text or "evidence replay" in raw_text.lower():
-            raise AssertionError(f"UI/replay label remains in raw evidence: {raw_path.name}")
+            raise AssertionError(
+                f"UI/replay label remains in raw evidence: {raw_path.name}"
+            )
     placement_checks = (
         ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[그림 5-3]"),
         ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[그림 5-5]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[그림 5-7]"),
-        ("## 5.6 SCD 출력 언어 결과 및 해석", "## 5.7 대표 입출력 및 요구사항별 실행 결과", "[그림 5-8]"),
-        ("## 5.7 대표 입출력 및 요구사항별 실행 결과", "## 5.8 종합 논의", "[그림 5-10]"),
-        ("# 부록 B. 추가 사례 및 탐색 분석", "## B.2 문서별·질문 유형별 탐색 분석", "[그림 B-1]"),
+        (
+            "## 5.6 SCD 출력 언어 결과 및 해석",
+            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
+            "[그림 5-7]",
+        ),
+        (
+            "## 5.6 SCD 출력 언어 결과 및 해석",
+            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
+            "[그림 5-8]",
+        ),
+        (
+            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
+            "## 5.8 종합 논의",
+            "[그림 5-10]",
+        ),
+        (
+            "# 부록 B. 추가 사례 및 탐색 분석",
+            "## B.2 문서별·질문 유형별 탐색 분석",
+            "[그림 B-1]",
+        ),
     )
     for start, end, evidence_marker in placement_checks:
         section = text.split(start, 1)[1].split(end, 1)[0]
         if evidence_marker not in section:
-            raise AssertionError(f"claim-adjacent figure placement mismatch: {evidence_marker}")
-    for section_name, next_name in (("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"), ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 실험 조건 선택")):
+            raise AssertionError(
+                f"claim-adjacent figure placement mismatch: {evidence_marker}"
+            )
+    for section_name, next_name in (
+        ("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"),
+        ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 실험 조건 선택"),
+    ):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:
-            raise AssertionError(f"substantive section is empty/too short: {section_name}")
+            raise AssertionError(
+                f"substantive section is empty/too short: {section_name}"
+            )
 
     literature_dir = FINAL / "FIGURES/LITERATURE"
     expected_literature = (
@@ -542,10 +643,14 @@ def main() -> int:
     workbook_blocks = re.findall(r"(?m)^\[Workbook Sheet\]\s+(.+)$", table_copy)
     if tuple(workbook_blocks) != EXPECTED_SHEETS:
         raise AssertionError(f"HWP copy workbook blocks mismatch: {workbook_blocks}")
-    experiment_validation = (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(encoding="utf-8")
+    experiment_validation = (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(
+        encoding="utf-8"
+    )
     for relative_path, expected_hash in evidence_manifest["sources"].items():
         if expected_hash not in experiment_validation:
-            raise AssertionError(f"experiment validation missing current source hash for {relative_path}")
+            raise AssertionError(
+                f"experiment validation missing current source hash for {relative_path}"
+            )
     for sheet in EXPECTED_SHEETS:
         if sheet not in table_copy:
             raise AssertionError(f"missing HWP workbook mapping: {sheet}")
@@ -559,11 +664,17 @@ def main() -> int:
         encoding="utf-8"
     )
 
-    hwp_material = "\n".join((guide, table_copy, readme))
-    if found := [term for term in UI_SERVICE_TERMS if term.lower() in hwp_material.lower()]:
-        raise AssertionError(f"UI/service material leaked into HWP-transfer package: {found}")
+    hwp_material = f"{guide}\n{table_copy}\n{readme}"
+    if found := [
+        term for term in UI_SERVICE_TERMS if term.lower() in hwp_material.lower()
+    ]:
+        raise AssertionError(
+            f"UI/service material leaked into HWP-transfer package: {found}"
+        )
     if "증빙 화면" in hwp_material or "실제 응답 증빙 화면" in hwp_material:
-        raise AssertionError("UI screenshot insertion guidance returned to HWP-transfer package")
+        raise AssertionError(
+            "UI screenshot insertion guidance returned to HWP-transfer package"
+        )
 
     thesis_facing_paths = (
         MANUSCRIPT,
@@ -614,11 +725,17 @@ def main() -> int:
         package_text = path.read_text(encoding="utf-8")
         for pattern in legacy_patterns:
             if re.search(pattern, package_text, flags=re.IGNORECASE):
-                raise AssertionError(f"legacy thesis history remains in {path.relative_to(FINAL)}: {pattern}")
+                raise AssertionError(
+                    f"legacy thesis history remains in {path.relative_to(FINAL)}: {pattern}"
+                )
         if found := [term for term in superseded_terms if term in package_text]:
-            raise AssertionError(f"superseded thesis term remains in {path.relative_to(FINAL)}: {found}")
+            raise AssertionError(
+                f"superseded thesis term remains in {path.relative_to(FINAL)}: {found}"
+            )
         if found := [phrase for phrase in audit_phrases if phrase in package_text]:
-            raise AssertionError(f"audit/defensive thesis prose remains in {path.relative_to(FINAL)}: {found}")
+            raise AssertionError(
+                f"audit/defensive thesis prose remains in {path.relative_to(FINAL)}: {found}"
+            )
 
     package_text_paths = (
         FINAL / "README.md",
@@ -637,7 +754,9 @@ def main() -> int:
             )
 
     if "증빙 경로" in validation_report:
-        raise AssertionError("validation report still describes UI/evidence insertion paths")
+        raise AssertionError(
+            "validation report still describes UI/evidence insertion paths"
+        )
     if "22 figure captions" not in cleanup_manifest:
         raise AssertionError("cleanup manifest figure count is stale")
     if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):

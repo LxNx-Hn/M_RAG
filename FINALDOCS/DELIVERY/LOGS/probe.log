@@ -1,0 +1,252 @@
+COMMAND: python -X utf8 FINALDOCS/BUILD/probe_hwpx.py
+EXIT: 0
+{
+  "template": "SCHOOL_TEMPLATE_CONVERTED.hwpx",
+  "schema": "ValidationReport(validated_parts=('Contents/header.xml', 'Contents/section0.xml'), issues=())",
+  "conversion": "None",
+  "page": [
+    {
+      "landscape": "WIDELY",
+      "width": "59528",
+      "height": "84188",
+      "gutterType": "LEFT_ONLY"
+    },
+    {
+      "header": "3401",
+      "footer": "3401",
+      "gutter": "0",
+      "left": "8503",
+      "right": "8503",
+      "top": "5669",
+      "bottom": "5669"
+    },
+    {
+      "id": "",
+      "type": "NEWSPAPER",
+      "layout": "LEFT",
+      "colCount": "1",
+      "sameSz": "1",
+      "sameGap": "0"
+    }
+  ],
+  "styles": [
+    {
+      "id": "0",
+      "type": "PARA",
+      "name": "바탕글",
+      "engName": "Normal",
+      "paraPrIDRef": "3",
+      "charPrIDRef": "0",
+      "nextStyleIDRef": "0",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "1",
+      "type": "PARA",
+      "name": "본문",
+      "engName": "Body",
+      "paraPrIDRef": "15",
+      "charPrIDRef": "0",
+      "nextStyleIDRef": "1",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "2",
+      "type": "PARA",
+      "name": "장(1.)",
+      "engName": "",
+      "paraPrIDRef": "6",
+      "charPrIDRef": "11",
+      "nextStyleIDRef": "2",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "3",
+      "type": "PARA",
+      "name": "절(1.1)",
+      "engName": "",
+      "paraPrIDRef": "14",
+      "charPrIDRef": "20",
+      "nextStyleIDRef": "3",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "4",
+      "type": "PARA",
+      "name": "목차제목",
+      "engName": "",
+      "paraPrIDRef": "21",
+      "charPrIDRef": "11",
+      "nextStyleIDRef": "4",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "5",
+      "type": "PARA",
+      "name": "목차리스트(장)",
+      "engName": "",
+      "paraPrIDRef": "5",
+      "charPrIDRef": "28",
+      "nextStyleIDRef": "5",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "6",
+      "type": "PARA",
+      "name": "목차리스트(절)",
+      "engName": "",
+      "paraPrIDRef": "22",
+      "charPrIDRef": "9",
+      "nextStyleIDRef": "6",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "7",
+      "type": "PARA",
+      "name": "표/그림리스트",
+      "engName": "",
+      "paraPrIDRef": "5",
+      "charPrIDRef": "9",
+      "nextStyleIDRef": "7",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "8",
+      "type": "PARA",
+      "name": "논문제목",
+      "engName": "",
+      "paraPrIDRef": "9",
+      "charPrIDRef": "35",
+      "nextStyleIDRef": "8",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "9",
+      "type": "PARA",
+      "name": "부록제목",
+      "engName": "",
+      "paraPrIDRef": "6",
+      "charPrIDRef": "11",
+      "nextStyleIDRef": "9",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "10",
+      "type": "PARA",
+      "name": "참고문헌제목",
+      "engName": "",
+      "paraPrIDRef": "6",
+      "charPrIDRef": "11",
+      "nextStyleIDRef": "10",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "11",
+      "type": "PARA",
+      "name": "참고문헌리스트",
+      "engName": "reflist",
+      "paraPrIDRef": "20",
+      "charPrIDRef": "34",
+      "nextStyleIDRef": "11",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "12",
+      "type": "PARA",
+      "name": "표제목",
+      "engName": "",
+      "paraPrIDRef": "17",
+      "charPrIDRef": "30",
+      "nextStyleIDRef": "12",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "13",
+      "type": "PARA",
+      "name": "표내용",
+      "engName": "",
+      "paraPrIDRef": "18",
+      "charPrIDRef": "31",
+      "nextStyleIDRef": "13",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "14",
+      "type": "PARA",
+      "name": "그림제목",
+      "engName": "",
+      "paraPrIDRef": "19",
+      "charPrIDRef": "30",
+      "nextStyleIDRef": "14",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "15",
+      "type": "CHAR",
+      "name": "쪽 번호",
+      "engName": "Page Number",
+      "paraPrIDRef": "0",
+      "charPrIDRef": "1",
+      "nextStyleIDRef": "0",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "16",
+      "type": "PARA",
+      "name": "머리말",
+      "engName": "Header",
+      "paraPrIDRef": "2",
+      "charPrIDRef": "2",
+      "nextStyleIDRef": "16",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "17",
+      "type": "PARA",
+      "name": "각주",
+      "engName": "Footnote",
+      "paraPrIDRef": "1",
+      "charPrIDRef": "3",
+      "nextStyleIDRef": "17",
+      "langID": "1042",
+      "lockForm": "0"
+    },
+    {
+      "id": "18",
+      "type": "PARA",
+      "name": "미주",
+      "engName": "Endnote",
+      "paraPrIDRef": "1",
+      "charPrIDRef": "3",
+      "nextStyleIDRef": "18",
+      "langID": "1042",
+      "lockForm": "0"
+    }
+  ],
+  "fonts": [
+    "돋움",
+    "명조",
+    "한양신명조",
+    "함초롬돋움",
+    "함초롬바탕"
+  ],
+  "add_table_api": "(rows: 'int', cols: 'int', *, section: 'HwpxOxmlSection | None' = None, section_index: 'int | None' = None, width: 'int | None' = None, height: 'int | None' = None, border_fill_id_ref: 'str | int | None' = None, para_pr_id_ref: 'str | int | None' = None, style: 'int | str | Style | None' = None, style_id_ref: 'str | int | None' = None, char_pr_id_ref: 'str | int | None' = None, run_attributes: 'dict[str, str] | None' = None, inherit_style: 'bool' = False, **extra_attrs: 'str') -> 'HwpxOxmlTable'",
+  "equation_api": "(script: 'str', *, paragraph: \"'Paragraph | None'\" = None, section: \"'int | Section | None'\" = None, section_index: 'int | None' = None, base_unit: 'int' = 1100, size: 'tuple[int, int] | None' = None, char_pr_id_ref: 'str | int | None' = None) -> \"'InlineObject'\""
+}

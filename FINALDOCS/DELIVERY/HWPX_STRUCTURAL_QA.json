@@ -1,0 +1,26 @@
+{
+  "file": "GRADUATION_REPORT_60Q_FINAL.hwpx",
+  "sha256": "05426912e9ca31240c62de3d6d2f61b83ef66c60628f1ca18ca6438d5cdd15d1",
+  "paragraphs_in_order": 303,
+  "table_cells_verified": 1092,
+  "thesis_tables": 17,
+  "cover_layout_tables": 2,
+  "pictures": 22,
+  "editable_equations": 10,
+  "references": 22,
+  "queries": 60,
+  "configurations": {
+    "hyde_off__no_decoder_control": 60,
+    "hyde_off__cad_only": 60,
+    "hyde_off__scd_only": 60,
+    "hyde_off__cad_scd": 60,
+    "hyde_on__no_decoder_control": 60,
+    "hyde_on__cad_only": 60,
+    "hyde_on__scd_only": 60,
+    "hyde_on__cad_scd": 60
+  },
+  "generation_records": 480,
+  "school_styles_preserved": true,
+  "package_and_xml": "PASS",
+  "web_rendering": "see HWPX_BUILD_QA_REPORT.md"
+}

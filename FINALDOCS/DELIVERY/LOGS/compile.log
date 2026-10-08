@@ -1,0 +1,2 @@
+COMMAND: python -m compileall -q FINALDOCS/BUILD FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+EXIT: 0

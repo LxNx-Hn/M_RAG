@@ -1,0 +1,28 @@
+name: Thesis HWPX validation
+
+on:
+  push:
+    branches: [main]
+    paths: ['FINALDOCS/**', '.github/workflows/thesis-hwpx.yml']
+  pull_request:
+    paths: ['FINALDOCS/**', '.github/workflows/thesis-hwpx.yml']
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: pip install -r FINALDOCS/BUILD/requirements.txt
+      - name: Validate committed thesis evidence and HWPX
+        run: |
+          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+          python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
+          python -X utf8 -m unittest discover -s FINALDOCS/BUILD -p 'test_*.py'
+      - name: Rebuild from school template and verify again
+        run: |
+          python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json
+          python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
+          python -m compileall -q FINALDOCS/BUILD FINALDOCS/VALIDATION/verify_finaldocs_60q.py

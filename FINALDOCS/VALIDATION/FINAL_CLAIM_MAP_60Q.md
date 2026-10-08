@@ -10,7 +10,7 @@
 | SCD 전체 | 같은 query와 HyDE·CAD configuration을 짝지은 240쌍에서 Korean-character ratio +0.2289, 95% CI [+0.2051, +0.2532] | `extended_validation_60_analysis.json` | 240 pairs, query-clustered bootstrap |
 | Configuration 평균 | 표 5-2는 SCD OFF의 영어 검색 문맥 평가와 SCD ON의 한국어 변환 평가 문맥을 두 protocol 블록으로 구분해 8개 configuration 평균을 제시한다. | RAGAS score 결과 | configuration별 generation 60 |
 | 질문 유형 탐색 | 질문이 요구하는 답의 성격을 기준으로 사실·정의 8, 방법·절차 29, 결과·비교 20, 목적·기여 3으로 분류하고 B-2를 재계산한다. | `Appendix_QueryType`, RAGAS per-sample scores | 탐색적 하위집단 분석 |
-| HyDE·CAD 조건별 기술적 대응 차이 | 조건별 paired difference와 검색 문맥 변화를 함께 제시한다. HyDE ON에서는 configuration별 hypothetical document sampling에 따른 검색 문맥 변화가 포함된다. | 그림 5-6 / generation record / 저장 paired difference | 조건별 기술적 비교 |
+| HyDE·CAD 조건별 기술적 대응 차이 | 조건별 대응 차이와 검색 문맥 변화를 함께 제시한다. HyDE ON에서는 조건별 가상 문서 샘플링에 따른 검색 문맥 변화가 포함된다. | 그림 5-11 / 생성 기록 / 저장 대응 차이 | 조건별 기술적 비교 |
 
 ## 분석 연결
 
@@ -19,3 +19,7 @@
 - SCD: Korean-character ratio와 stored answer의 출력 언어 변화.
 - E01~E06: `evidence_manifest_60q.json`, `EVIDENCE/IO_CASES/raw/*.txt`, PNG가 같은 query/config를 가리킨다.
 - Source SHA-256은 내부 검증용 `evidence_manifest_60q.json`과 `EXPERIMENT_60_VALIDATION.md`에서 관리한다.
+
+## 논문 그림 연결
+
+E04는 그림 5-3(HyDE), E05는 5-5(CAD), E02는 5-7(언어 이탈), E03은 5-8(SCD), E01은 5-10(질의응답), E06은 B-1(CAD 감소 사례)로 연결한다. E03의 H1C0S0→H1C0S1 사례는 전체 240쌍에 속하며 HyDE OFF 동일 문맥 120쌍에 속하지 않는다. 그림 5-4는 HyDE·CAD 주 비교의 신뢰구간, 그림 5-9는 SCD 문자 비율, 그림 5-11은 조건별 기술적 대응 차이다. 부록 A는 실제 60개 질문, 부록 B는 추가 사례와 문서별·질문 유형별 탐색 분석이다.

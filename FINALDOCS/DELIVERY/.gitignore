@@ -1,0 +1,5 @@
+versions/
+__pycache__/
+!LOGS/
+!LOGS/*.log
+!LOGS/results.json

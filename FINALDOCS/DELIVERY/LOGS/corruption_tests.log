@@ -1,0 +1,7 @@
+COMMAND: python -X utf8 -m unittest discover -s FINALDOCS/BUILD -p test_*.py
+EXIT: 0
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 9.294s
+
+OK

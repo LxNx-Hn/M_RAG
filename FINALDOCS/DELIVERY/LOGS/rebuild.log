@@ -1,0 +1,7 @@
+COMMAND: python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json --output TEMP
+EXIT: 0
+PASS: GRADUATION_REPORT_60Q_FINAL.hwpx; paragraphs=294, tables=17, pictures=22, equations=10
+
+COMMAND: python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py --file TEMP/GRADUATION_REPORT_60Q_FINAL.hwpx
+EXIT: 0
+PASS: HWPX ZIP/XML, 303 ordered paragraphs, 1092 XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns
