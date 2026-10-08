@@ -1,5 +1,7 @@
 # 웹한글 최종 확인
 
+최신 조판·출처·문체 수정본은 [최종 감사 보고서](../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+
 최신 문체 교정본의 수행·출력·검증 기록은 `../VALIDATION/FINAL_PROSE_AUDIT.md`와 아래 문체 교정본 절에 있다.
 
 2026-10-08에 한컴독스 로그인 계정에서 실제 업로드·열기·문단 편집·표 셀 편집·저장·재열기·다운로드·PDF 내보내기를 수행했다. 구조 검사와 브라우저 검증은 구분한다. 이전 학술 교정 근거는 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`이며, 이전 제작 근거는 `HWPX_BUILD_QA_REPORT.md`, `HWPX_STRUCTURAL_QA.json`, `LOGS/`에 있다.
@@ -38,3 +40,7 @@
 최종 로컬 HWPX와 바이트가 같은 `GRADUATION_REPORT_60Q_PROSE_REVIEWED.hwpx` 복사본을 새 웹한글 문서로 열었다. 문서 편집 영역과 편집 메뉴 활성, 그림 2-1의 새 제작자·개념 출처 문단, 실제 PDF 내보내기를 확인하였다. [최신 문체 교정본 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=vNAWiGaJkYl4gUd8aLzRaIiGbOEXqEgY&lang=ko_KR)를 열어 편집할 수 있다. 검증 화면은 `WEB_PROSE_REVIEW.png`에 보존하였다.
 
 새 PDF는 실제 조판 결과 54쪽이다. 전 페이지를 렌더링하고 표지·초록·본문·표·그림·수식·참고문헌·부록을 검토하였다. 최종 목차 적용 전후에는 5~8쪽만 바뀌며 나머지 50쪽의 픽셀이 동일하다. 5.9절은 38쪽, 6.4절은 40쪽이며 목차 제목과 쪽번호를 함께 갱신하였다. 입력이 필요한 9개 개인·제출 정보와 편집 후 목차 번호 갱신 절차는 위 체크리스트를 따른다. 문단·표 편집·저장·재열기 시험은 2026-10-08의 기존 시험 기록으로 유지한다.
+
+## 2026-10-09 최종 조판 검증
+
+실제 최종본 업로드·열기·웹한글 PDF 재출력·57쪽 렌더 검수·목차 5~8쪽 대조를 수행했다. 표지/초록/본문/개체/출처/참고문헌/부록을 확인했다. 부록 A는 47~53쪽, B는 54~57쪽. 표 17개·수식 10개는 네이티브 개체로 보존했다. 이번 직접 편집 round-trip 시험은 수행하지 않았으며 이전 시험 기록과 구분한다. 증빙: WEB_LAYOUT_REVIEW.jpg, FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md.

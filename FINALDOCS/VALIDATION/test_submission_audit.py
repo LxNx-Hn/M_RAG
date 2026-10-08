@@ -76,6 +76,37 @@ class SubmissionAuditTests(unittest.TestCase):
                 changed,
             )
 
+    def test_usage_source_version_and_changes_cannot_be_omitted(self):
+        for record in self.manifest["figures"]:
+            for value in (record["usage_entry"], record["submission_source_url"]):
+                with self.subTest(
+                    figure=record["figure"], value=value
+                ), self.assertRaises(AssertionError):
+                    validate_submission_assets(
+                        ROOT, self.text.replace(value, "누락", 1), self.manifest
+                    )
+
+    def test_source_reference_and_object_cannot_change_in_both_files(self):
+        for index in (1, 5):
+            changed = copy.deepcopy(self.manifest)
+            old = changed["figures"][index]["caption_source"]
+            new = old.replace("외[12]", "외[11]").replace("표 2", "그림 2")
+            changed["figures"][index]["caption_source"] = new
+            with self.subTest(index=index), self.assertRaisesRegex(
+                AssertionError, "reference/object"
+            ):
+                validate_submission_assets(ROOT, self.text.replace(old, new), changed)
+
+    def test_long_url_below_figure_is_rejected(self):
+        record = self.manifest["figures"][3]
+        changed = copy.deepcopy(self.manifest)
+        new = record["caption_source"] + " 원본: " + record["submission_source_url"]
+        changed["figures"][3]["caption_source"] = new
+        with self.assertRaises(AssertionError):
+            validate_submission_assets(
+                ROOT, self.text.replace(record["caption_source"], new), changed
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

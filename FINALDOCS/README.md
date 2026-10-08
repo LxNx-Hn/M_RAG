@@ -1,5 +1,7 @@
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
+최신 조판·출처·문체 수정본은 [최종 감사 보고서](VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+
 이 디렉터리는 웹한글에서 편집할 HWPX 논문과 제출 전 사실 확인에 필요한 원고·표·그림·검증 자료로 구성한다.
 
 - `MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`: 한글 이전용 단일 원고

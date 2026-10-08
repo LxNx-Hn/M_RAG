@@ -17,6 +17,8 @@ from lxml import etree as ET
 from openpyxl import load_workbook
 from PIL import Image
 
+from layout_checks import validate_layout
+
 ROOT = Path(__file__).resolve().parents[2]
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
 NS = {"hp": HP}
@@ -214,6 +216,7 @@ def main() -> None:
         template = zipfile.ZipFile(delivery / "SCHOOL_TEMPLATE_CONVERTED.hwpx")
         original_header = ET.fromstring(template.read("Contents/header.xml"))
         header = ET.fromstring(z.read("Contents/header.xml"))
+        layout_report = validate_layout(header, section)
         for tag in ("style", "charPr", "paraPr", "font"):
             originals = original_header.xpath(f'.//*[local-name()="{tag}"]')
             current = header.xpath(f'.//*[local-name()="{tag}"]')
@@ -288,7 +291,8 @@ def main() -> None:
         "generation_records": 480,
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
-        "web_rendering": "see ../VALIDATION/FINAL_SUBMISSION_AUDIT.md",
+        "layout": layout_report,
+        "web_rendering": "see ../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

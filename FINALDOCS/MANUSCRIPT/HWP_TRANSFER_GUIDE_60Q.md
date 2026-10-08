@@ -106,10 +106,10 @@ weighted RRF, CAD 점수, SCD 토큰 점수, 한국어 문자 비율을 이
 
 ## 2026-10-09 제출 감사 반영
 
-그림 2-1은 독립 도식이며 발췌 그림으로 표시하지 않는다. 그림 2-2·2-3은 정식 출판본에서 재추출한 위 파일만 사용하고 2-3의 OpenAI 로고 생략을 명시한다. 2-2~2-6의 출처 문단은 저자·참고문헌 번호, 정확한 PDF 버전과 원 객체 번호, CC BY 4.0 링크, 변경 내역을 유지한다. 이전 PNG는 이력 보존용이다. 소속을 포함한 표지 미입력 정보는 `VALIDATION/SUBMISSION_PERSONAL_FIELDS.md`의 체크리스트를 따른다. 최종 페이지 지도는 이번 웹한글 PDF에서 다시 검토한다.
+그림 2-1은 독립 도식이며 발췌 그림으로 표시하지 않는다. 그림 2-2·2-3은 정식 출판본에서 재추출한 위 파일만 사용한다. 2-2~2-6의 출처 문단은 저자·참고문헌 번호와 원 객체 번호를 간결하게 표시한다. 정확한 PDF 버전, CC BY 4.0 링크와 실제 편집 내역은 참고문헌 뒤 「그림 자료 이용 정보」에 유지한다. 2-3의 OpenAI 로고 생략도 이 구역에 명시한다. 이전 PNG는 이력 보존용이다. 소속을 포함한 표지 미입력 정보는 `VALIDATION/SUBMISSION_PERSONAL_FIELDS.md`의 체크리스트를 따른다.
 
-SCD 그림 2-5의 OpenAI·Ollama 로고도 최종 발췌에서 생략하고 출처에 표시하였다. 기존 SCD PNG는 이력 보존용이다.
+SCD 그림 2-5의 OpenAI·Ollama 로고도 최종 발췌에서 생략하고 「그림 자료 이용 정보」에 표시하였다. 기존 SCD PNG는 이력 보존용이다.
 
 ## 2026-10-09 문체 전수 감사 반영
 
-그림 2-1의 별도 출처 문단은 `그림 제작: 본 연구. 개념적 근거: Lewis 외[1].`로 표기한다. 상세 제작·권리 이력은 `FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json`에 보존한다. 5.9절은 `실험 범위와 해석 기준`, 6.4절은 `후속 연구 방향`이며 목차와 본문의 학교 스타일을 유지한다. 실제 수행 범위와 측정 결과는 본문에서 직접 기술하고 추가 평가 제안은 6.4절에 모았다. 문장별 판단 및 변경 기록은 `VALIDATION/FINAL_PROSE_AUDIT.md`, `PROSE_SENTENCE_REVIEW.json`, `PROSE_EDIT_LOG.json`에서 확인한다. 최종 쪽번호는 이번 원고로 웹한글에서 새로 출력한 PDF를 기준으로 확인한다.
+그림 2-1의 별도 출처 문단은 `본 연구 작성. Lewis 외[1]의 RAG 구조 참고.`로 표기한다. 상세 제작·권리 이력은 `FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json`에 보존한다. 5.9절은 `실험 범위와 해석 기준`, 6.4절은 `후속 연구 방향`이며 목차와 본문의 학교 스타일을 유지한다. 최신 교정 기록은 `VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md`, `LAYOUT_EDIT_LOG.json`, `PROSE_SENTENCE_REVIEW.json`에서 확인한다. 최종 쪽번호는 이번 원고로 웹한글에서 새로 출력한 PDF를 기준으로 확인한다.

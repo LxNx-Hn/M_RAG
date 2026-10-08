@@ -20,6 +20,8 @@ from lxml import etree as ET
 from openpyxl import load_workbook
 from PIL import Image
 
+from layout_policy import apply_layout
+
 ROOT = Path(__file__).resolve().parents[2]
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
 HH = "http://www.hancom.co.kr/hwpml/2011/head"
@@ -40,6 +42,7 @@ def parse_manuscript(path: Path) -> list[dict]:
     i = 0
     table_block = False
     pending_page_break = False
+    usage_section = False
     while i < len(lines):
         line = lines[i].strip()
         i += 1
@@ -91,6 +94,8 @@ def parse_manuscript(path: Path) -> list[dict]:
             table_block = False
         style_match = re.search(r"\[스타일=([^\]]+)\]", line)
         style = style_match[1] if style_match else "본문"
+        if line.startswith("# "):
+            usage_section = clean(line) == "그림 자료 이용 정보"
         if re.match(r"^\[\d+\]", line):
             style = "참고문헌리스트"
         events.append(
@@ -99,6 +104,7 @@ def parse_manuscript(path: Path) -> list[dict]:
                 "text": clean(line),
                 "style": style,
                 "page_break": line.startswith("# ") or pending_page_break,
+                "usage_section": usage_section,
             }
         )
         pending_page_break = False
@@ -222,7 +228,7 @@ def insert_school_covers(doc: HwpxDocument, converted: Path, front: list[dict]) 
         doc.sections[0].element.append(cover)
 
 
-def insert_table(doc: HwpxDocument, data: dict, width: int) -> None:
+def insert_table(doc: HwpxDocument, data: dict, width: int):
     rows = data["rows"]
     nr, nc = len(rows), len(rows[0])
     # Wider text columns in appendix keep actual questions and evidence intact.
@@ -268,7 +274,11 @@ def insert_table(doc: HwpxDocument, data: dict, width: int) -> None:
     table.set_column_widths(widths)
     table.element.set("repeatHeader", "1")
     table.element.set("pageBreak", "CELL")
-    table.element.find("hp:pos", NS).set("treatAsChar", "0")
+    # Inline tables participate in the caption's keepWithNext flow. Long
+    # appendix tables retain CELL splitting and repeated headers as floats.
+    table.element.find("hp:pos", NS).set(
+        "treatAsChar", "1" if sum(heights) <= 50000 else "0"
+    )
     for r, row in enumerate(rows):
         for c, value in enumerate(row):
             table.set_cell_text(r, c, value)
@@ -282,13 +292,20 @@ def insert_table(doc: HwpxDocument, data: dict, width: int) -> None:
                 run.set("charPrIDRef", "31")
     for r0, c0, r1, c1 in data["merges"]:
         table.merge_cells(r0, c0, r1, c1)
+    return table.paragraph
 
 
 def emit(
     doc: HwpxDocument, events: list[dict], workbook, width: int, pages: dict
 ) -> dict:
-    mapping = {"paragraphs": [], "tables": [], "pictures": [], "equations": []}
-    for e in events:
+    mapping = {
+        "paragraphs": [],
+        "tables": [],
+        "pictures": [],
+        "equations": [],
+        "layout": [],
+    }
+    for index, e in enumerate(events):
         kind = e["kind"]
         if kind == "paragraph":
             text = e["text"]
@@ -302,12 +319,49 @@ def emit(
                 else:
                     text += "\t"
             p = doc.add_paragraph(text, style=e["style"], inherit_style=False)
+            role = None
+            if e["style"] in ("장(1.)", "부록제목", "참고문헌제목"):
+                role = "chapter"
+            elif e["style"] == "절(1.1)":
+                role = "section"
+            elif e["style"] == "그림제목":
+                following = events[index + 1] if index + 1 < len(events) else {}
+                role = (
+                    "figure_caption_source"
+                    if following.get("text", "").startswith(("출처:", "본 연구 작성."))
+                    else "figure_caption"
+                )
+            elif e["style"] == "표제목":
+                role = "table_caption"
+            elif text.startswith(("출처:", "본 연구 작성.")):
+                role = "figure_source"
+            elif e["style"] == "참고문헌리스트":
+                role = "reference"
+            elif e.get("usage_section"):
+                role = (
+                    "usage_entry"
+                    if text.startswith("그림 2-")
+                    else "usage_url" if "https://" in text else "usage"
+                )
+            elif e["style"] == "본문":
+                role = "table_note" if text.startswith("주:") else "body"
+            if role:
+                mapping["layout"].append(apply_layout(doc, p, role))
+            if role == "usage_url":
+                prefix, url = text.split("https://", 1)
+                url = "https://" + url
+                char_ref = p.element.find("hp:run", NS).get("charPrIDRef")
+                for run in list(p.element.findall("hp:run", NS)):
+                    p.element.remove(run)
+                p.add_run(prefix, char_pr_id_ref=char_ref)
+                doc.refs.add_hyperlink(url, url, paragraph=p, char_pr_id_ref=char_ref)
             if e["page_break"]:
                 p.element.set("pageBreak", "1")
             mapping["paragraphs"].append(e)
         elif kind == "table":
             data = table_data(workbook[e["sheet"]])
-            insert_table(doc, data, width)
+            p = insert_table(doc, data, width)
+            mapping["layout"].append(apply_layout(doc, p, "table"))
             mapping["tables"].append(data)
         elif kind == "picture":
             path = ROOT / e["path"]
@@ -316,10 +370,11 @@ def emit(
             w = int(width * e["fraction"])
             h = round(w * ih / iw)
             # Reserve room for caption; original aspect ratio is preserved.
-            if h > 62000:
-                w = round(w * 62000 / h)
-                h = 62000
-            doc.add_picture(
+            max_height = 44000 if "E06_cad_tradeoff" in e["path"] else 58000
+            if h > max_height:
+                w = round(w * max_height / h)
+                h = max_height
+            picture = doc.add_picture(
                 path.read_bytes(),
                 "png",
                 width=w,
@@ -328,11 +383,16 @@ def emit(
                 style="바탕글",
                 inherit_style=False,
             )
+            mapping["layout"].append(apply_layout(doc, picture.paragraph, "picture"))
             mapping["pictures"].append(
                 {**e, "sha256": sha(path), "pixels": [iw, ih], "size": [w, h]}
             )
         elif kind == "equation":
-            doc.shapes.add_equation(e["text"], base_unit=1000, size=(width, 2600))
+            p = doc.add_paragraph("", style="바탕글", inherit_style=False)
+            doc.shapes.add_equation(
+                e["text"], paragraph=p, base_unit=1000, size=(width, 2600)
+            )
+            mapping["layout"].append(apply_layout(doc, p, "equation"))
             mapping["equations"].append(e["text"])
     doc.page.set_page_number(
         position="BOTTOM_CENTER", format_type="DIGIT", prefix="- ", suffix=" -"
@@ -435,6 +495,14 @@ def main() -> None:
             raise ValueError(
                 "Page map contains unresolved entries requiring visual review"
             )
+        for name in ("build_thesis_hwpx.py", "layout_policy.py"):
+            digest = hashlib.sha256(
+                (Path(__file__).parent / name).read_bytes().replace(b"\r\n", b"\n")
+            ).hexdigest()
+            if page_map.get("layout_code_lf_sha256", {}).get(name) != digest:
+                raise ValueError(
+                    f"Stale layout page map: inspect a new PDF after {name} edits"
+                )
         pages = page_map["pages"]
     if args.smoke_only:
         events = [

@@ -4,1843 +4,2269 @@
       "kind": "paragraph",
       "text": "국문초록",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 문맥으로 제공함으로써 특정 문서에 근거한 질의응답을 가능하게 한다. 한국어로 질문하고 영어 학술·기술 문서에서 근거를 검색한 뒤 한국어로 답하는 환경에서는 질의와 문서의 언어·표현 차이, 검색 근거의 생성 단계 활용, 영어 문맥에 따른 출력 언어 이탈을 함께 고려해야 한다. 본 연구는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 표현 확장, 문맥 기반 생성 제어, 한국어 출력 언어 제어의 실험 요인으로 두고 2×2×2 조합을 RAG-Cube로 구성하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "실험은 BGE-M3 밀집 검색, BM25 희소 검색, weighted Reciprocal Rank Fusion, CrossEncoder 재정렬, K-intelligence/Midm-2.0-Base-Instruct로 구성된 고정 Paper-RAG 백본을 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 문서에 문서별 15개씩 총 60개의 한국어 질의–대상 문서 쌍을 구성하고, 8개 실험 조건을 적용하여 480개의 생성 기록을 저장하였다. HyDE는 CAD·SCD OFF의 60개 대응쌍, CAD는 동일 검색 문맥 대응쌍, SCD는 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 240개 대응쌍과 HyDE OFF 동일 검색 문맥 120개 대응쌍으로 비교하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE 적용 시 답변 관련성 평균 변화는 +0.0805이고 95% 신뢰구간은 [+0.0110, +0.1514]였다. 근거 충실도는 +0.0436, 문맥 정밀도는 -0.0343, 문맥 재현율은 0.0000으로 지표별 방향이 달랐다. CAD의 동일 문맥 비교에서 근거 충실도는 양쪽 평가값이 존재하는 58쌍에서 +0.0288, 95% 신뢰구간은 [-0.0367, +0.0934]였고, 답변 관련성은 60쌍에서 -0.0073이었다. SCD의 주 비교인 HyDE OFF 동일 문맥 120개 대응쌍에서 한국어 문자 비율은 평균 +0.2182, 95% 신뢰구간은 [+0.1880, +0.2487] 증가했으며, 전체 240개 대응쌍에서도 +0.2289의 변화가 나타났다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "이 평가 집합에서 HyDE의 답변 관련성은 증가하였다. CAD의 근거 충실도 평균 차이는 양수였으나 신뢰구간이 0을 포함하였다. SCD는 동일 문맥 비교에서 한국어 문자 비율을 높였다. 세 결과는 각각 답변의 질문 관련성, 동일 근거의 활용, 출력 언어라는 측정 대상에 따라 구분하여 해석하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술·기술 문서, 언어 이탈",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Abstract",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Retrieval-augmented generation (RAG) enables document-grounded question answering by retrieving external evidence and supplying it to a generator. When Korean questions target English academic or technical documents and the expected answer language is Korean, retrieval and generation involve three coupled issues: cross-lingual mismatch between queries and evidence, use of retrieved context during generation, and output-language drift toward English. This study treats Hypothetical Document Embeddings (HyDE), Context-Aware Decoding (CAD), and Soft Constrained Decoding (SCD) as binary factors for retrieval-query expansion, context-aware generation, and Korean-output control, forming an eight-condition 2×2×2 experimental design termed RAG-Cube.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, and K-intelligence/Midm-2.0-Base-Instruct. Sixty Korean query-document pairs were constructed from four English academic or technical documents, and eight configurations were applied to every pair, yielding 480 stored generation records. HyDE was compared on 60 pairs with CAD and SCD disabled, CAD was compared on identical-context pairs, and SCD was evaluated on 240 state-matched on/off pairs together with a 120-pair HyDE-OFF identical-context subset.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE increased answer relevancy by +0.0805 on average, with a 95% bootstrap interval of [+0.0110, +0.1514]. Its changes in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. Under identical contexts, CAD changed faithfulness by +0.0288 on 58 complete pairs, with a 95% bootstrap interval of [-0.0367, +0.0934], while answer relevancy changed by -0.0073 on 60 pairs. In the primary SCD comparison, the Korean-character ratio increased by +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap interval of [+0.1880, +0.2487]. Across all 240 state-matched pairs, the mean change was +0.2289. Within this evaluation set, HyDE increased answer relevancy and SCD increased the Korean-character ratio; the CAD faithfulness interval included zero.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, Korean query, English academic or technical document, language drift",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "목    차",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1. 서론",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.1 연구배경 및 목적",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.2 연구범위",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.3 연구 질문, 분석 관점 및 논문 구성",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2. 이론적 배경",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.1 Retrieval-Augmented Generation",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.2 하이브리드 검색과 재정렬",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.3 HyDE와 가상 문서 기반 검색",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.4 Context-Aware Decoding",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.5 Soft Constrained Decoding과 언어 이탈",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.6 RAG 평가",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.7 관련 연구와 본 연구의 위치",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3. 시스템 설계",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.1 연구 및 실험 요구사항",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.2 아키텍처 설계",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.3 상세설계",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4. 프로그램 구현",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.1 시스템 환경",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.2 시스템 구성",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.3 시스템 구현",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5. 실험",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.1 실험 대상과 구성",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.2 평가 및 분석 방법",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.3 RAG-Cube 조합별 결과",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.4 HyDE 결과 및 해석",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.5 CAD 결과 및 해석",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.6 SCD 출력 언어 결과 및 해석",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.7 대표 입출력 및 요구사항별 실행 결과",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.8 종합 논의",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.9 실험 범위와 해석 기준",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6. 결론",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.1 연구 질문별 최종 답",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.2 비교 설계의 의의",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.3 적용 시 실험 조건 선택",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.4 후속 연구 방향",
       "style": "목차리스트(절)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "참고문헌",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 자료 이용 정보",
+      "style": "목차리스트(장)",
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "부록 A~B",
       "style": "목차리스트(장)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그 림 목 차",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-1] RAG의 검색기–생성기 구조",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-3] HyDE의 가상 문서 기반 검색 구조",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-4] Context-Aware Decoding의 분포 대조 구조",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-5] 다국어 RAG의 출력 언어 이탈 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 4-1] 고정 Paper-RAG 백본 실행 흐름",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 4-2] 생성 기록–평가–대응 분석 흐름",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-1] 60개 질의 평가 및 HyDE·CAD·SCD 대응 비교 설계",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-2] 평가 프로토콜별 RAG-Cube 조건 평균",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-3] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-4] HyDE와 CAD의 주 대응 비교",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-5] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-6] RAG-Cube 조건별 생성 시간",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-7] SCD OFF 조건의 출력 언어 이탈 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-8] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-9] SCD의 한국어 문자 비율 변화",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-10] 질의·검색 근거·생성 답변·평가 결과 예시",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-11] HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "표 목 차",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 2-1] 관련 연구와 본 실험의 연결",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-1] 연구 및 실험 요구사항",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-2] RAG-Cube 8개 조건",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-3] 실험 요인별 적용 위치와 비교 단위",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-1] 실험 실행 환경",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-2] 고정 Paper-RAG backbone",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-3] 조건별 평균 생성 시간",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-4] 생성 기록의 주요 필드",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-1] 4개 문서별 질의 구성",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-2] SCD 평가 프로토콜별 RAG-Cube 조건 평균",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-3] HyDE 주 비교 결과",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-4] CAD 동일 문맥 주 비교 결과",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-5] SCD 조합별 한국어 문자 비율 변화",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-6] SCD 대응쌍 분석 요약",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 A-1] 60개 질의–대상 문서 쌍",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 B-1] 문서별 탐색 분석",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 B-2] 질문 유형별 탐색 분석",
       "style": "표/그림리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1. 서론",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.1 연구배경 및 목적",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "영어 논문에 대해 한국어로 질문할 때는 질문과 근거 문서의 언어 차이, 검색 근거의 답변 반영, 한국어 출력 유지가 함께 문제가 된다. 특정 논문의 방법, 실험 조건, 수치와 결론을 확인하려면 생성 답변을 실제 문서의 근거와 연결해야 한다. 검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 입력으로 제공하는 질의응답 구조이다[1].",
+      "text": "한국어 질의로 영어 학술·기술 문서를 활용할 때는 질의와 문서의 언어 차이, 검색 근거의 활용, 한국어 출력의 일관성을 함께 고려해야 한다. 특정 논문의 방법, 실험 조건, 수치와 결론을 확인하려면 생성 답변을 실제 문서의 근거와 연결해야 한다. 검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 입력으로 제공하는 질의응답 구조이다[1].",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "이 연구에서는 한국어 질의로 영어 학술·기술 문서에서 근거를 찾고 한국어 답변을 생성하는 환경을 다루었다. 분석 대상은 질의와 문서의 표현 차이에 따른 검색 결과, 검색 문맥이 답변에 반영되는 정도, 영어 문맥을 입력했을 때의 출력 언어이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE는 질의에서 가상 문서를 생성해 검색 표현을 확장한다[2]. CAD는 문맥 포함·제외 확률 분포를 대조하여 생성 토큰의 점수를 조절한다[3]. SCD는 목표 언어와 비목표 언어 토큰의 점수를 다르게 조정한다[4]. 이들 기법을 적용한 뒤 검색 결과, 답변 품질, 출력 언어를 각 기법의 개입 위치에 맞춰 비교하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "연구 목적은 선행연구의 HyDE·CAD·SCD[2][3][4]를 고정된 Paper-RAG 백본에 적용하고, 한국어 질의–영어 문서 환경에서 나타나는 변화를 비교하는 것이다. 검색 입력을 바꾸는 HyDE와 생성 단계에 적용하는 CAD·SCD는 비교 조건을 구분하였다. 대응쌍의 구성과 문맥 동일성 확인 기준은 3.3절에서 설명한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.2 연구범위",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "연구 대상은 RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 영어 학술·기술 문서와 문서별 15개씩 구성한 60개 한국어 질의–대상 문서 쌍이다. 각 질의에 8개 RAG-Cube 조건을 모두 적용하여 480개의 생성 기록을 저장하였다. 검색과 생성에는 BGE-M3, BM25, weighted RRF, CrossEncoder, 상위 5개 문맥과 Mi:dm 2.0 Base Instruct를 공통으로 사용하였다. 구체적인 실행 설정은 4.1절에 정리하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE는 CAD·SCD OFF의 60개 대응쌍에서 검색부터 답변 생성까지의 변화를 비교하였다. CAD는 동일 검색 문맥에서 답변 품질과 생성 시간을 비교하였다. SCD는 HyDE OFF 동일 문맥 120개 대응쌍을 주 비교로 삼고, HyDE·CAD 상태를 맞춘 전체 240개 대응쌍을 함께 분석하였다. 답변 품질은 RAGAS 지표로, 출력 언어는 한국어 문자 비율로 측정하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "1.3 연구 질문, 분석 관점 및 논문 구성",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "연구 질문은 다음과 같다. 첫째, CAD·SCD를 OFF로 고정했을 때 HyDE 적용 전후의 답변 관련성과 다른 RAGAS 지표는 어떻게 달라지는가. 둘째, 동일 검색 문맥에서 CAD 적용 전후의 답변 품질과 생성 시간은 어떻게 달라지는가. 셋째, HyDE·CAD 상태를 맞춘 SCD 대응쌍, 특히 HyDE OFF 동일 문맥 대응쌍에서 한국어 문자 비율은 얼마나 달라지는가. 넷째, 조합별 평균과 요인별 대응 결과에 근거하여 적용 목적별로 어떤 조건을 선택할 수 있는가.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "분석은 대응 평균 차이와 부트스트랩 신뢰구간, 검색·재정렬 청크 ID와 문맥 동일성, 실제 질문·검색 근거·생성 답변·평가값을 함께 사용한다. 정량 결과와 개별 입출력 사례를 동일한 질의와 실험 조건 단위에서 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2장에서는 RAG와 세 실험 요인, 평가 및 관련 연구를 정리한다. 3장은 실험 요구사항과 비교 설계를, 4장은 구현과 생성 기록 저장 구조를 설명한다. 5장은 60개 질의 평가 결과와 사례를 제시하고, 6장은 주요 결과와 적용 기준 및 후속 연구를 종합한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2. 이론적 배경",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.1 Retrieval-Augmented Generation",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "RAG는 질의와 관련된 외부 문서를 검색하고, 선택된 문맥을 생성 모델의 입력에 포함하여 답변을 만드는 구조이다[1]. 문서 집합을 D, 질의를 q, 검색 문맥을 C, 답변을 y라고 하면 과정은 Retrieve(q, D)로 C를 얻고, 생성 모델이 q와 C를 조건으로 y를 생성하는 흐름으로 설명할 수 있다. 학술문서 질의응답에서는 검색 단계와 생성 단계를 구분해 보는 것이 중요하다. 필요한 문단의 검색 상태와 검색 문단이 최종 답변에 반영되는 정도는 서로 다른 분석 대상이기 때문이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Lewis 외[1]는 사전학습 검색기(retriever)가 외부 문서 인덱스에서 관련 문서를 찾고, 생성기(generator)가 질의와 검색 문서를 함께 사용해 출력을 생성하는 RAG 구조를 제시하였다. 그림 2-1은 이 개념을 바탕으로 본 연구에서 구성한 독립 도식으로, 외부 문서 검색과 질의·문맥을 이용한 답변 생성의 흐름을 보여준다. 본 연구의 하이브리드 검색과 디코딩 실험은 이 검색–생성 분리를 공통 기반으로 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-1] RAG의 검색기–생성기 구조",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "그림 제작: 본 연구. 개념적 근거: Lewis 외[1].",
+      "text": "본 연구 작성. Lewis 외[1]의 RAG 구조 참고.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 결과와 답변 품질을 구분하기 위해 검색·재정렬 청크 ID, 최종 검색 문맥과 생성 답변을 함께 저장하였다. 문맥 수준 지표와 답변 수준 지표는 각각 계산하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.2 하이브리드 검색과 재정렬",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "고정 백본은 BGE-M3 기반 밀집 검색과 BM25 기반 희소 검색을 결합한다. 밀집 검색은 질의와 문서 구간의 의미적 유사성을 이용해 어휘가 정확히 일치하지 않아도 관련 후보를 찾고, BM25는 모델명·약어·수치처럼 표면 일치가 중요한 표현을 보완한다[5][6]. 두 결과는 순위 기반 weighted Reciprocal Rank Fusion으로 결합하며[7], CrossEncoder가 질의와 각 문서 구간의 관련성을 다시 계산해 순서를 조정한다[8].",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "밀집 검색과 BM25의 가중치는 각각 0.6과 0.4, 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 문맥 수는 5개로 고정하였다. 이 설정을 모든 RAG-Cube 조건에 공통으로 적용하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "한국어 질문의 설명형 표현과 영어 원문의 제목·방법론 용어는 언어와 표면 표현에서 차이가 난다. 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터의 정확한 표기는 검색 단서가 된다. 밀집 검색과 희소 검색을 결합한 이유는 의미적 유사성과 표면 일치를 함께 활용하기 위해서다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "재정렬은 검색 후보의 우선순위를 조정하고, 생성 모델은 선택된 문맥을 입력으로 답변을 만든다. 검색 결과가 바뀌는 경우와 같은 문맥에서 생성 방식만 바뀌는 경우를 구분해야 두 단계의 영향을 해석할 수 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[12]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 원 논문의 해당 결과이다. 본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출처: Liu 외[12], TACL 정식 출판본의 그림 1 중 도표 발췌. 원본: https://aclanthology.org/2024.tacl-1.9.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도표 영역 잘라내기.",
+      "text": "출처: Liu 외[12], 그림 1에서 발췌.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Weighted RRF는 다음과 같이 표현할 수 있으며, 본 실험은 RRF 상수 k=60을 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.3 HyDE와 가상 문서 기반 검색",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE는 질의를 바탕으로 가상 문서를 생성하고, 해당 문서의 임베딩을 검색에 활용하는 방법이다[2]. 가상 문서를 거치면 짧은 질의를 문서 형태의 표현으로 확장할 수 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Gao 외[2]의 HyDE는 언어 모델이 질의를 바탕으로 가상 문서를 생성하고, 인코더가 이를 임베딩으로 변환해 실제 문서 집합에서 유사한 문서를 검색한다. 그림 2-3은 질의와 문서를 직접 비교하는 대신 가상 문서를 거쳐 검색하는 구조를 보여준다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-3] HyDE의 가상 문서 기반 검색 구조",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출처: Gao 외[2], ACL 2023 정식 출판본의 그림 1 중 도식 발췌. 원본: https://aclanthology.org/2023.acl-long.99.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
+      "text": "출처: Gao 외[2], 그림 1에서 발췌·편집.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE ON에서는 한국어 질의를 영어로 변환한 뒤 가상 문서를 생성하여 밀집 검색 입력으로 사용하였다. BM25와 CrossEncoder에는 원질의를 유지하였다. 최종 답변은 검색된 실제 문서 구간을 근거로 생성하였다. 따라서 HyDE 비교에는 번역, 가상 문서 생성, 밀집 검색, 순위 결합, 재정렬과 문맥 선택의 변화가 함께 포함된다. 검색 청크 ID와 최종 문맥의 변화를 답변 관련성의 변화와 함께 분석하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.4 Context-Aware Decoding",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD는 문맥 포함·제외 다음 토큰 확률 분포를 대조하여 문맥에 의해 상대적으로 강화된 토큰의 점수를 높이는 디코딩 방법이다[3]. 본 실험에서는 α=0.5를 고정하였다. 검색 이후의 생성 변화를 비교하기 위해 주 대응쌍의 검색·재정렬 청크 ID와 최종 문맥이 같은지 확인하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "Shi 외[3]는 문맥 포함 분포와 문맥 제외 분포를 대조해 문맥에 의해 강화되는 토큰의 상대적 비중을 높이는 구조를 제시하였다. 그림 2-4의 원 논문 사례는 모델의 기존 지식과 제공된 문맥이 충돌할 때 두 분포가 서로 다른 토큰을 선호하고, CAD가 그 차이를 이용해 문맥 쪽 신호를 강화하는 방식을 보여준다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-4] Context-Aware Decoding의 분포 대조 구조",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출처: Shi 외[3], NAACL 2024 정식 출판본의 그림 1 발췌. 원본: https://aclanthology.org/2024.naacl-short.69.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기.",
+      "text": "출처: Shi 외[3], 그림 1에서 발췌.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "문맥 포함 로짓을 z_ctx, 문맥 제외 로짓을 z_noctx라고 하면 본 연구의 CAD 점수는 다음과 같이 표현한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD는 생성 단계마다 문맥 포함 분포와 문맥 제외 분포를 계산하므로 단일 분포보다 실행 비용이 증가할 수 있다. 결과는 근거 충실도, 답변 관련성, 생성 시간을 함께 분석한다. 동일 입력에서 나타나는 질의별 변화와 평균을 함께 분석해 문맥 기반 로짓 조절의 결과 분포를 확인한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "동일 문맥 대응쌍의 구체적인 구성은 3.3절에 제시한다. 검색 결과를 고정한 비교에서는 답변 품질의 차이를 검색 선택의 차이와 구분할 수 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.5 Soft Constrained Decoding과 언어 이탈",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "다국어 RAG에서는 질의와 문맥 내 예시가 목표 언어로 주어져도 검색 근거가 다른 언어일 때 생성 답변이 검색 문서의 언어 쪽으로 이동하는 출력 언어 이탈(language drift)이 발생할 수 있다. Li 외[4]는 다국어 RAG에서 이러한 현상을 분석하고, 추론 과정에서 목표 언어와 비목표 언어가 혼합된 뒤 최종 출력이 비목표 언어로 이동하는 사례를 제시하였다. 그림 2-5는 원 논문에 제시된 출력 언어 이탈 사례다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-5] 다국어 RAG의 출력 언어 이탈 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출처: Li 외[4], arXiv:2511.09984v1의 그림 1 발췌. 원본: https://arxiv.org/pdf/2511.09984v1. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
+      "text": "출처: Li 외[4], 그림 1에서 발췌·편집.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD는 어휘 집합을 목표 언어, 비목표 언어와 중립 토큰으로 나누고 토큰 점수를 조정하는 디코딩 방법이다[4]. 본 실험에서는 한국어를 목표 언어로 두고 α=1.1, β=0.9, Tstart=5를 사용하였다. 생성 토큰 수가 5 미만일 때는 기존 점수를 유지하고, 5 이상부터 한국어 목표 토큰에는 α, 비목표 언어 토큰에는 β를 곱하며 중립 토큰의 점수는 유지하였다. CAD와 함께 적용할 때는 CAD 점수를 계산한 뒤 SCD 처리를 적용하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출력 언어는 생성 답변의 한글 문자 수를 한글 문자와 ASCII 영문자 수의 합으로 나눈 한국어 문자 비율로 측정하였다. 한국어 문자 비율은 생성 답변의 출력 언어 구성을 나타내는 지표이다. 후속 사람 평가의 측정 항목은 6.4절에 제안하였다.",
+      "text": "출력 언어는 생성 답변의 한글 문자 수를 한글 문자와 ASCII 영문자 수의 합으로 나눈 한국어 문자 비율로 측정하였다. 후속 사람 평가의 측정 항목은 6.4절에 정리하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD의 토큰 그룹별 점수 조정과 한국어 문자 비율은 다음 수식으로 정의한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "논문 제목, 모델명과 데이터셋명 등 영어 표기가 포함된 답변에도 같은 계산 규칙을 적용하였다. 따라서 한국어 문자 비율은 이러한 혼합 표기를 포함한 실제 답변의 언어 구성을 반영한다. SCD 대응쌍의 구성과 변화 판정 기준은 5.2절에 설명한다.",
+      "text": "논문 제목, 모델명과 데이터셋명 등의 영어 표기를 포함하여 실제 답변의 언어 구성을 계산하였다. SCD 대응쌍의 구성과 변화 판정 기준은 5.2절에 설명한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.6 RAG 평가",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[9]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 대응하는 정도를 측정한다. 문맥 정밀도는 관련 근거가 검색 결과의 상위에 배치되는 정도를, 문맥 재현율은 참조 답변에 필요한 근거가 검색 문맥에 포함된 정도를 측정한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "RAGAS 원 연구는 질문–문맥–답변 예시로 평가 차원을 설명한다. 그림 2-6은 WikiEval의 동일 질문과 문맥에 대해 근거가 지지하는 답변과 지지하지 않는 답변을 대비한 원 논문의 표 2이다. 질문에 관련된 답변인지와 문맥이 그 답변을 지지하는지는 별도로 평가해야 함을 보여준다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "출처: Es 외[9], arXiv:2309.15217v2의 표 2 발췌. 원본: https://arxiv.org/pdf/2309.15217v2. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 표 영역 잘라내기.",
+      "text": "출처: Es 외[9], 표 2에서 발췌.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "요인별 대응 차이는 동일 질의의 ON/OFF 차이를 이용한 대응 비교로 분석하고, 질의를 재표집 단위로 하는 부트스트랩 신뢰구간을 함께 제시한다. 자동 평가 분석은 평가값이 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 변화는 RAGAS와 별도로 한국어 문자 비율로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 변화 판정 기준은 5.2절에서 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "2.7 관련 연구와 본 연구의 위치",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 증강 생성 연구는 검색기의 표현력, 여러 문서 구간의 활용, 디코딩 제어와 검색·생성의 자기검증으로 확장되어 왔다. Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[10], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[11]. 긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[12], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13]. RAPTOR는 세부 문서 구간과 상위 요약을 계층적으로 구성하는 검색 구조를 제안했고[14], Self-RAG[15]와 Corrective RAG[16]는 검색 필요성이나 근거 품질을 생성 과정에서 점검하는 방향을 보였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "RAG 시스템 전반을 정리한 조사 연구[17], 한국어·영어 이중언어 생성 모델에 관한 Mi:dm 2.0 연구[18], RAG의 구성과 평가를 체계화한 조사 연구[19]는 본 실험의 시스템·언어 조건을 설정하는 배경이 된다. 검색 모델의 도메인·과제 간 편차는 BEIR[20]과 MTEB[21] 같은 벤치마크의 관점에서 참고하며, 실험 문서 집합 중 하나인 Mi:dm K 2.5 Pro는 해당 기술 보고서[22]를 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "본 연구는 HyDE, CAD, SCD를 각각 검색 표현 확장, 문맥 기반 생성 제어, 출력 언어 제어로 고정 백본 안에 배치하고, 각 기법의 적용 위치에 맞는 대응 비교를 수행하였다. HyDE는 검색 입력 변화까지 포함한 종단 간 변화로, CAD는 동일 문맥에서의 생성 변화로, SCD는 동일 질의에서 HyDE·CAD 상태를 맞춘 출력 언어 변화로 분석한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "표 2-1은 선행연구와 본 실험의 연결을 정리한다. DPR과 BEIR는 검색 표현과 도메인별 평가에, FiD와 긴 문맥 연구는 여러 문맥의 활용에 관련된다. 대조 디코딩은 CAD의 분포 대조와 연결되며, Self-RAG와 CRAG는 검색 필요성과 근거 품질을 점검한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 2-1] 관련 연구와 본 실험의 연결",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3. 시스템 설계",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.1 연구 및 실험 요구사항",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "세 요인의 비교 조건을 60개 질의에 동일하게 적용하였다. 각 질의 ID를 하나의 대상 문서에 연결하고 모든 질의에 8개 조건을 적용하였다. H·C·S 이외의 백본은 공통으로 유지하였다. 생성 기록에는 답변, 검색·재정렬 청크 ID, 검색 문맥, 디코딩 메타데이터와 실행 시간을 저장하였다. 질의 데이터에는 원문 페이지와 정답 근거 구간을 기록하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-1] 연구 및 실험 요구사항",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.2 아키텍처 설계",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "실험 아키텍처는 질의 입력, 검색 표현 구성, 하이브리드 검색, 재정렬, 문맥 선택, 조건별 디코딩, 생성 기록 저장, 평가·분석의 순서로 구성된다. HyDE OFF에서는 원질의를 밀집 검색에 사용하고, HyDE ON에서는 번역된 질의에서 만든 가상 문서를 밀집 검색 입력으로 사용한다. BM25와 CrossEncoder에는 원질의를 유지한다. 검색 후보는 weighted RRF와 CrossEncoder를 거친 뒤 ContextCompressor의 문맥 길이 관리 단계를 통과하고 상위 5개 문맥으로 구성된다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "생성 단계에서는 같은 Mi:dm 2.0 Base Instruct를 사용하되 CAD와 SCD만 선택적으로 적용한다. CAD는 문맥 포함·제외 두 분포를 이용해 토큰 점수를 조절하고, SCD는 한국어 목표 토큰·비목표 언어 토큰·중립 토큰 분할에 따라 언어 점수를 조절한다. 생성이 끝나면 질의, 대상 문서, 실험 조건, 검색 문맥, 생성 답변, 생성 시간과 요인별 메타데이터를 하나의 생성 기록에 저장한다. 이후 평가와 분석은 이 생성 기록을 읽어 수행한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "3.3 상세설계",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "RAG-Cube의 여덟 조건은 H, C, S의 ON/OFF로 구성한다. 실험 조건은 가독성을 위한 H0C0S0 표기와 실제 저장 필드 config_name, use_hyde, use_cad, use_scd를 함께 사용해 확인한다. 실행 상태는 실험 조건 이름과 파라미터 필드를 함께 대조한다. SCD ON 생성 기록에는 mode, alpha=1.1, beta=0.9, Tstart=5가, CAD ON 생성 기록에는 alpha=0.5가 저장된다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-2] RAG-Cube 8개 조건",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 3-3] 실험 요인별 적용 위치와 비교 단위",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "비교 설계는 요인별로 다르다. HyDE 주 대응 비교는 동일 질의의 H1C0S0과 H0C0S0을 연결하며 검색 결과 변화까지 포함한 종단 간 차이를 측정한다. CAD 주 대응 비교는 동일 질의의 H0C1S0과 H0C0S0을 연결하고 검색·재정렬 청크 ID와 최종 검색 문맥이 모두 같은지를 확인한다. SCD 주 대응 비교는 HyDE OFF에서 S 상태만 다른 120개 동일 문맥 대응쌍으로 구성하며 검색·재정렬 청크 ID와 최종 검색 문맥의 동일성을 확인한다. 이 비교에서는 검색 문맥을 동일하게 유지한 상태에서 SCD ON/OFF의 출력 언어 차이를 측정한다. 추가로 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 전체 240개 SCD 대응쌍에서 조건 전반의 출력 언어 변화를 분석한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "평가 결과는 질의 ID와 실험 조건을 기준으로 생성 기록에 연결하였다. 조건별 평균은 해당 조합의 결과를 요약하고, 대응 차이와 부트스트랩 신뢰구간은 같은 질의에서 특정 요인을 바꾼 결과를 요약한다. 두 분석의 표본 수와 비교 조건은 구분하여 기록하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4. 프로그램 구현",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.1 시스템 환경",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하고 최대 생성 토큰 수를 512로 설정하였다. 답변은 각 단계에서 확률이 가장 높은 토큰을 선택하는 방식으로 생성하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "문서 청크는 Python split()의 공백 분리 단위를 기준으로 최대 512개 단어, 64개 단어 중첩, 최소 50개 단어로 구성하였다. BGE-M3 밀집 검색과 BM25 희소 검색은 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬하였다. 동일 CrossEncoder를 모든 조건에 적용하였다. 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "문맥 길이 관리에는 ContextCompressor를 사용하였다. 설정값은 split()으로 계산한 공백 분리 기준 최대 3,072개 단어와 압축 비율 0.5이며, 추출식 압축으로 문맥 길이를 관리하였다. 표 4-1은 생성 기록에 저장된 모델, 검색·생성 설정과 요인별 파라미터를 정리한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 폭 설정은 최종 평가 집합과 분리된 5개 튜닝 질의를 사용하여 사전에 선정하였다. 검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정을 비교하였으며, 문맥 재현율 0.95 이상을 충족한 후보 가운데 평균 근거 충실도가 가장 높은 설정을 선택하였다. 그 결과 검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 수 5를 확정하고 이후 60개 평가 질의의 모든 RAG-Cube 실험 조건에 동일하게 적용하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-1] 실험 실행 환경",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-2] 고정 Paper-RAG backbone",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.2 시스템 구성",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "프로그램은 질의 집합과 원문 청크를 읽는 입력부, HyDE를 포함한 검색 표현 구성부, 밀집·희소 검색과 결합·재정렬·문맥 길이 관리를 수행하는 검색부로 구성된다. 이어서 CAD·SCD를 선택적으로 적용하는 생성부, 생성 기록과 평가 결과 저장부, 분석·재현 모듈을 사용한다. 모든 실험 조건은 동일한 질의 집합과 백본을 사용하고 H·C·S 상태만 바꾼다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색부는 HyDE의 출력 또는 원질의를 입력으로 받아 밀집 검색을 수행하고, 원질의로 BM25 검색과 CrossEncoder 재정렬을 수행하였다. 생성부에는 문맥과 질문을 전달하고 CAD·SCD 처리기를 선택적으로 적용하였다. 저장부가 기록한 검색 청크 ID, 문맥, 파라미터와 생성 시간은 대응쌍 구성 시 입력 동일성과 실제 적용 상태를 확인하는 데 사용하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 4-1] 고정 Paper-RAG 백본 실행 흐름",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "4.3 시스템 구현",
       "style": "절(1.1)",
-      "page_break": true
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "주 실험 실행기는 60개 질의–문서 쌍 각각에 8개 조건을 적용하였다. HyDE가 적용된 기록에는 검색 표현 생성 결과와 사용 상태를, CAD·SCD가 적용된 기록에는 처리기의 활성 상태와 파라미터를 저장하였다. 검색 이력에는 검색·재정렬 청크 ID와 최종 문맥을, 생성 결과에는 답변, 생성 시간과 디코딩 방식을 기록하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-3] 조건별 평균 생성 시간",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 4-4] 생성 기록의 주요 필드",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD는 같은 생성 접두 시퀀스에서 문맥 포함·제외 분포를 계산하도록 구현하였다. 표 4-3은 이 구현에서 측정한 조건별 생성 시간을 요약한다. SCD는 생성 중 토큰 점수를 조정하는 처리기로 적용하였으며, 한국어 문자 비율은 저장된 답변 문자열에서 다시 계산할 수 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 4-2] 생성 기록–평가–대응 분석 흐름",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5. 실험",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.1 실험 대상과 구성",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "최종 평가 집합은 RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 영어 학술·기술 문서를 대상으로 구성한 총 60개의 한국어 질의–대상 문서 쌍으로 이루어진다. 네 문서에 각각 15개의 질의를 배정하며, 모든 질의는 한국어 질의로 영어 문서에서 근거를 검색하는 동일한 교차언어 조건을 공유한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "질의 구성은 네 문서에 동일한 절차를 적용하였다. 연구자는 각 문서의 주요 내용을 바탕으로 질문의 표현 방식과 범위를 정의하는 초기 질문 3개를 작성하였다. 이후 LLM을 사용하여 문서의 주요 내용을 질문 작성에 활용할 수 있는 형태로 요약하고, 요약 결과를 15개의 내용 단위로 구분하였다. 각 내용 단위에서 한국어 평가 질의 1개를 구성하여 문서별 15개, 총 60개의 질의를 완성하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "연구자는 각 질의를 원문 PDF와 대조하여 대상 문서, 원문 페이지, 정답 근거 구간과 답변 가능성을 확인하였다. 정답 근거는 원문에서 직접 확인할 수 있는 연속 구간으로 기록하고, 질문–근거 대응 관계를 검토하였다. 이 절차를 통해 60개 질의 각각에 원문 페이지와 정답 근거 구간을 연결하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "질문 유형은 요구되는 답의 성격을 기준으로 사실·정의, 방법·절차, 결과·비교, 목적·기여의 네 범주로 구분하였다. 사실·정의는 개념·수치·구성 요소, 방법·절차는 모델 구조·처리 과정·데이터셋 구성·평가 방법·실험 설정, 결과·비교는 정량·정성 결과와 방법 간 비교, 목적·기여는 연구 목적·문제 설정·주요 기여를 묻는 질의로 정의하였다. 최종 분포는 사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 설정은 별도의 5개 튜닝 질의로 선정하였다. 이 과정에서 검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5를 확정하였다. 최종 평가는 60개 평가 질의에 고정된 검색 설정과 HyDE·CAD·SCD의 ON/OFF 조합으로 구성한 8개 RAG-Cube 조건을 적용하였다. 이에 따라 60개 질의 × 8개 조건으로 총 480개의 생성 기록을 구성하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-1] 4개 문서별 질의 구성",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.2 평가 및 분석 방법",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "평가는 3.3절에서 정의한 대응 비교 설계에 따라 저장된 생성 기록과 평가 결과를 질의 단위로 연결하여 수행하였다. RAGAS 0.2.15를 사용하고, 평가 모델은 OpenAI gpt-4o, 답변 관련성 계산에 사용하는 임베딩 모델은 BAAI/bge-m3로 설정하였다. 평가 지표는 근거 충실도, 답변 관련성, 문맥 정밀도, 문맥 재현율의 네 항목으로 구성하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD OFF 평가는 저장된 영어 검색 문맥을 평가 문맥으로 사용하였다. SCD ON 평가는 동일하게 저장된 검색 문맥을 gpt-4o로 한국어 변환한 뒤 평가 문맥으로 사용하고 생성 답변은 원문 상태로 유지하였다. 따라서 SCD OFF와 SCD ON의 RAGAS 값은 각각의 평가 프로토콜 내부에서 조건별 기술통계로 해석한다. SCD의 주 비교는 생성 답변에서 직접 계산한 한국어 문자 비율의 대응 차이로 평가하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "근거 충실도 비교는 양쪽 조건에 평가값이 존재하는 대응쌍을 분석 단위로 사용하였다. 이에 따라 CAD 주 비교의 근거 충실도 분석에는 58개 대응쌍을 사용하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE 주 비교는 CAD와 SCD를 OFF로 고정한 60개 질의를 대상으로 수행하였다. CAD 주 비교는 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥이 동일한 대응쌍을 사용하여 검색 결과를 고정한 상태의 생성 차이를 측정하였다. SCD 주 비교는 HyDE OFF 조건에서 검색·재정렬 청크 ID와 최종 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 동일 질의에서 HyDE와 CAD 상태를 각각 맞춘 240개 SCD 대응쌍을 이용하여 8개 실험 조건 전반의 출력 언어 변화를 집계하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "답변 생성 설정은 4.1절과 동일하게 유지하였다. HyDE 가상 문서 생성에는 temperature=0.1, top_p=0.9의 샘플링을 사용하였다. 요인별 차이는 같은 질의에서 ON 점수와 OFF 점수의 차이로 계산하였다. 질의를 재표집 단위로 200,000회의 대응 부트스트랩을 수행하고 seed는 20260713으로 고정하였다. 질의별 방향 분포는 RAGAS 차이 +0.01 초과를 증가, -0.01 미만을 감소, 그 사이를 동률로 집계하고, SCD의 한국어 문자 비율은 ±0.02를 기준으로 집계하였다. 이 신뢰구간은 네 대상 문서를 고정한 연구 설계에서 질의 수준의 변동성을 나타낸다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "대응쌍의 개별 차이와 평균 변화는 다음 식으로 계산한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-1] 60개 질의 평가 및 HyDE·CAD·SCD 대응 비교 설계",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD는 전체 240개 상태 일치 대응쌍과 HyDE OFF 동일 문맥 120개 대응쌍으로 분석하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.3 RAG-Cube 조합별 결과",
       "style": "절(1.1)",
-      "page_break": true
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "표 5-2는 5.2절의 평가 프로토콜에 따라 SCD OFF와 SCD ON을 구분한 조건별 기술통계이다. RAGAS 값은 각 프로토콜 내부에서 비교하였다. SCD의 출력 언어 변화는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과로 평가하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD OFF에서는 H1C1S0의 근거 충실도가 0.8599, H1C0S0의 답변 관련성이 0.7633으로 가장 높았다. 문맥 정밀도는 H0C0S0에서 0.7488이었고, 문맥 재현율은 H0C0S0과 H1C0S0에서 0.9333이었다. 한국어 문자 비율은 전체 8개 조건 가운데 H1C0S1에서 0.8072로 가장 높았다. 각 요인의 대응 비교는 5.4~5.6절에서 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-2] SCD 평가 프로토콜별 RAG-Cube 조건 평균",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD OFF 블록은 저장된 영어 검색 문맥을 평가 문맥으로 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD ON 블록은 한국어로 변환한 검색 문맥을 평가 문맥으로 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "표의 생성 수는 각 실험 조건에서 저장된 생성 기록 수를 의미한다. 근거 충실도 평균의 유효 n은 H0C1S0 58, H0C0S1 57, 나머지 실험 조건 60이다. SCD OFF와 SCD ON의 RAGAS 값은 각각 영어 검색 문맥과 한국어 변환 평가 문맥을 사용하므로 각 평가 프로토콜 블록 안에서 조건별 기술통계로 해석한다. SCD의 주 비교는 표 5-5와 표 5-6의 한국어 문자 비율 대응 결과를 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-2] 평가 프로토콜별 RAG-Cube 조건 평균",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "(a) SCD OFF는 영어 검색 문맥, (b) SCD ON은 한국어 변환 평가 문맥을 사용한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.4 HyDE 결과 및 해석",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE의 답변 관련성 평균 대응 차이는 +0.0805이고 95% 부트스트랩 신뢰구간은 [+0.0110, +0.1514]이다. 질의별 변화는 증가 29개, 감소 15개, 동률 16개로 분포하였다. 근거 충실도 평균 대응 차이는 +0.0436, 95% 신뢰구간은 [-0.0262, +0.1153]이며 증가 24개, 감소 21개, 동률 15개였다. 문맥 정밀도의 평균 대응 차이는 -0.0343이었고, 문맥 재현율의 평균 대응 차이는 0.0000이었다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE 비교에는 검색 입력부터 생성 답변까지의 변화가 포함된다. 답변 관련성의 평균 차이 +0.0805는 95% 신뢰구간이 0보다 높아, 이 평가 집합에서 HyDE ON의 답변 관련성이 더 높았음을 보여준다. 반면 근거 충실도의 신뢰구간은 0을 포함하고 문맥 지표의 변화 방향도 달랐다. 문서별·질문 유형별 결과는 부록 B에서 탐색적으로 비교한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-3은 이러한 검색 문맥 변화를 개별 사례에서 보여준다. ext_midm_004에서 H0C0S0과 H1C0S0은 동일한 질문을 사용하며, HyDE 적용에 따라 검색·재정렬 청크 ID와 최종 검색 문맥이 달라졌다. 답변 관련성은 0.0000에서 0.8531로, 문맥 재현율은 0.0000에서 1.0000으로 변하였다. HyDE ON 답변은 한국어 멀티턴 대화 데이터의 세 설계 차원인 interaction structure, topic and task, persona를 제시하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-3] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-3] HyDE 주 비교 결과",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-4] HyDE와 CAD의 주 대응 비교",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "점은 ON−OFF 평균 차이, 선은 95% 부트스트랩 신뢰구간이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.5 CAD 결과 및 해석",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "CAD의 주 비교는 검색 문맥을 동일하게 유지하고 디코딩만 달리한 대응쌍이다. 근거 충실도는 양쪽 평가값이 존재하는 58쌍에서 평균 +0.0288이었으며, 95% 신뢰구간 [-0.0367, +0.0934]은 0을 포함하였다. 증가·감소·동률은 각각 21쌍, 24쌍, 13쌍이었다. 답변 관련성은 60쌍에서 -0.0073, 신뢰구간 [-0.0855, +0.0719], 증가/감소/동률 19/32/9이다.",
+      "text": "CAD의 주 비교는 검색 문맥을 동일하게 유지하고 디코딩만 달리한 대응쌍이다. 근거 충실도는 양쪽 평가값이 존재하는 58쌍에서 평균 +0.0288이었으며, 95% 신뢰구간 [-0.0367, +0.0934]은 0을 포함하였다. 증가·감소·동률은 각각 21쌍, 24쌍, 13쌍이었다. 답변 관련성은 60쌍에서 -0.0073, 신뢰구간 [-0.0855, +0.0719], 증가 19쌍, 감소 32쌍, 동률 9쌍으로 나타났다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD 적용에 따른 답변 품질의 변화를 동일 검색 문맥에서 근거 충실도와 답변 관련성의 평균 차이 및 질의별 분포로 분석하였다. 동일 검색 입력에 대해 문맥 정밀도는 8/60쌍, 문맥 재현율은 1/60쌍에서 자동 평가 모델의 값 차이가 기록되어 평가 변동을 확인하기 위한 진단값으로 분리하였다. 표 4-3에서 CAD ON 평균 생성 시간은 대응 조건군에서 20.792→63.867초, 18.898→55.159초, 23.440→73.532초, 24.892→64.125초로 증가했다. CAD의 생성 단계 결과는 근거 충실도, 답변 관련성과 생성 시간을 중심으로 분석한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-5는 같은 검색 문맥에서 CAD 적용 전후 근거 충실도가 달라진 실제 사례다. ext_midm_001은 Mi:dm K 2.5 Pro의 학습 데이터 확보 경로 세 가지를 묻고, CAD OFF와 ON의 검색·재정렬 청크 ID와 검색 문맥이 모두 같다. 두 답변은 licensed proprietary datasets, commercial-use public datasets, in-house synthetic data의 세 경로를 제시하며, 저장된 근거 충실도는 0.8333에서 1.0000으로 변했다. 답변 관련성은 0.8261과 0.8124였다. 근거 충실도가 감소한 추가 사례는 부록 B의 그림 B-1에 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-5] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-4] CAD 동일 문맥 주 비교 결과",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-6] RAG-Cube 조건별 생성 시간",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD ON 조건의 실행 시간 증가를 품질 지표와 분리해 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.6 SCD 출력 언어 결과 및 해석",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD의 평가 목표는 영어 근거 문맥에서 한국어 출력 언어를 유지하는 것이다. HyDE OFF에서 검색·재정렬 청크 ID와 검색 문맥이 같은 120쌍의 한국어 문자 비율 평균 변화는 +0.2182이고 95% 신뢰구간은 [+0.1880, +0.2487]이다. 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 전체 240개 SCD 대응쌍에서는 평균 +0.2289, 95% 신뢰구간 [+0.2051, +0.2532]였으며, +0.02를 초과한 증가는 219개, -0.02보다 작은 감소는 10개, 그 사이 동률은 11개다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "네 HyDE·CAD 조건군에서 SCD ON−OFF 평균 변화는 각각 +0.2047, +0.2317, +0.2511, +0.2283이었다. H0 두 조건군은 동일 검색 문맥에서 SCD만 달리한 주 비교이며, H1 두 조건군에는 조건별 HyDE 샘플링에 따른 문맥 변화가 포함된다. 네 조건군 모두 평균 한국어 문자 비율이 증가하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD ON 답변에도 영어 논문 제목, 모델명과 데이터셋명이 남을 수 있다. 표 5-5와 표 5-6의 비율은 2.5절의 정의에 따라 이러한 혼합 표기를 포함한 실제 답변에서 계산한 값이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "선행연구에서 보고된 출력 언어 이탈은 본 실험의 저장된 생성 답변에서도 관찰되었다. 그림 5-7은 SCD OFF 조건에서 한국어 질문과 영어 검색 근거가 주어진 뒤 생성 답변의 한국어 문자 비율이 0.0000으로 기록된 사례다. 같은 생성 기록에는 질문, 검색 근거, 생성 답변과 평가값이 함께 기록되어 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-7] SCD OFF 조건의 출력 언어 이탈 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-8은 SCD의 출력 언어 제어에 따른 답변 언어 변화를 동일 검색 문맥에서 확인하는 사례다. ext_midm_005의 H1C0S0과 H1C0S1은 검색·재정렬 청크 ID와 검색 문맥이 같고 SCD 상태만 다르다. 한국어 문자 비율은 0.0000에서 0.7713으로 증가하며, 같은 입력 근거에서 생성 답변의 언어 구성이 영어 중심에서 한국어 중심으로 변화한 결과를 보여준다. 이 사례가 속한 H1C0S0→H1C0S1 조건군의 평균 변화는 +0.2511이며, 전체 240개 상태 일치 대응쌍의 평균 변화는 +0.2289이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-8] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-5] SCD 조합별 한국어 문자 비율 변화",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 5-6] SCD 대응쌍 분석 요약",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-9] SCD의 한국어 문자 비율 변화",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "H0 조건군은 동일 검색 문맥 주 비교이며, H1 조건군은 조건별 HyDE 샘플링을 포함한다. 오차막대는 95% 부트스트랩 신뢰구간이다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.7 대표 입출력 및 요구사항별 실행 결과",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-3은 HyDE 적용에 따른 검색 문맥과 답변 변화를, 그림 5-5는 동일 검색 문맥에서 CAD 적용 전후의 근거 충실도 변화를 보여준다. 그림 5-7과 그림 5-8은 각각 SCD OFF의 출력 언어 이탈과 SCD 적용 후 출력 언어 변화를 제시한다. 그림 5-10은 질문, 검색 근거, 생성 답변과 평가값을 한 번에 확인할 수 있는 기본 입출력 사례다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-10의 ext_raptor_011 H0C0S0 생성 기록은 근거 충실도 1.0000, 답변 관련성 0.9365, 문맥 정밀도 1.0000, 문맥 재현율 1.0000을 기록한다. 질문은 RAPTOR의 계층적 검색이 DPR보다 주제형·멀티홉 질문에 유리한 이유를 묻는다. 같은 생성 기록에 질의 ID, 실험 조건, 검색·재정렬 청크 ID, 검색 문맥, 생성 답변과 RAGAS 점수가 함께 저장되어 있다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-10] 질의·검색 근거·생성 답변·평가 결과 예시",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "본문의 그림 5-3, 5-5, 5-7, 5-8, 5-10은 정량값과 개별 입출력을 같은 질의·조건 단위로 연결한다. 각 사례에는 저장된 검색 문맥, 답변과 평가값을 제시하였다. 부록 B의 그림 B-1에는 CAD의 근거 충실도가 감소한 사례를 추가하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.8 종합 논의",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "검색 표현을 확장한 HyDE는 답변 관련성에서 양의 평균 차이를 보였지만, 문맥 정밀도는 -0.0343, 문맥 재현율은 0.0000이었다. 그림 5-3에서도 검색·재정렬 청크 ID와 최종 문맥이 바뀌었다. 따라서 답변 관련성의 변화는 번역과 가상 문서 생성을 포함한 검색 경로 전체의 결과로 해석해야 한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "CAD 동일 문맥 비교에서 근거 충실도의 평균 대응 차이는 +0.0288, 답변 관련성은 -0.0073이었다. 두 지표의 95% 부트스트랩 신뢰구간은 모두 0을 포함하였다. CAD ON은 동일한 검색 문맥에서 문맥 제외 분포를 추가로 계산하며, 대응 조건군에서 생성 시간이 증가하였다. 이 결과는 CAD의 적용 판단에서 생성 품질 분포와 계산 비용을 함께 고려할 근거를 제공한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "SCD는 생성 답변의 한국어 문자 비율을 높였다. HyDE OFF 동일 문맥 120개 대응쌍에서 평균 대응 차이는 +0.2182였고, HyDE·CAD 상태를 맞춘 전체 240개 대응쌍에서는 +0.2289였다. 따라서 본 연구에서 SCD의 직접적인 측정 결과는 출력 언어 성향의 변화로 정리된다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "조건별 평균과 요인별 대응 비교는 서로 다른 분석 수준을 제공한다. 표 5-2는 8개 조합의 기술통계를 제시하고, 표 5-3~5-6은 특정 요인의 ON/OFF 차이를 질의 단위 대응 구조에서 제시한다. 실험 조건의 선택 기준은 답변 관련성, 근거 충실도, 생성 시간, 한국어 문자 비율처럼 적용 환경에서 우선하는 목표 지표에 따라 달라진다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "그림 5-11은 HyDE와 CAD의 조건별 기술적 대응 차이를 정리한다. 답변 관련성에서 HyDE의 평균 대응 차이는 C0S0에서 +0.0805, C1S0에서 +0.0290이었고, SCD ON에서는 C0S1 +0.0725, C1S1 +0.0675였다. CAD의 답변 관련성 대응 차이는 H0S0 -0.0073, H1S0 -0.0588이었으며, SCD ON에서는 H0S1 -0.0377, H1S1 -0.0427이었다. 근거 충실도에서도 조건군별 대응 차이가 서로 다른 크기로 나타났다. HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성하였다. 이에 따라 H1 조건의 CAD·SCD 비교에는 디코딩 조건에 따른 생성 변화와 HyDE 샘플링에 따른 검색 문맥 변화가 함께 반영된다. 그림 5-11은 각 조건에서 측정된 대응 차이를 제시하며, 실험 조건 선택은 목표 지표와 검색 문맥 변화를 함께 기준으로 한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "부록 B의 문서별·질문 유형별 분석은 전체 평균에 가려진 하위집단의 차이를 보여준다. 문서별 질의 수는 15개로 같지만 질문 유형별 표본 수는 8, 29, 20, 3개로 다르다. 특히 표본이 적은 유형의 결과는 후속 실험 가설을 위한 탐색 자료로 해석하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 5-11] HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "5.9 실험 범위와 해석 기준",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "평가는 영어 학술·기술 문서 4개의 한국어 질의 60개, K-intelligence/Midm-2.0-Base-Instruct와 CAD α=0.5 설정으로 수행하였다. 평가 집합은 각 문서의 원문 페이지와 정답 근거 구간을 확인한 답변 가능 질의 15개씩으로 구성하였다. 근거 부족 상황의 응답과 문서·모델 조건 확장을 위한 후속 평가를 6.4절에 제안하였다.",
+      "text": "영어 학술·기술 문서 4종에 대해 문서별 15개씩, 총 60개의 한국어 질의를 구성하였다. 각 질의의 원문 페이지와 정답 근거 구간을 확인하고, K-intelligence/Midm-2.0-Base-Instruct와 CAD α=0.5 설정으로 평가하였다. 근거 부족 상황의 응답과 문서·모델 조건 확장을 위한 후속 평가를 6.4절에 제안하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "HyDE 평가는 번역, 가상 문서 생성과 밀집 검색 변경을 포함한 종단 간 비교로 구성하였다. 가상 문서는 temperature=0.1, top_p=0.9로 생성하였으며 저장된 검색·생성 기록을 분석하였다. SCD ON/OFF의 RAGAS 평가는 각각 한국어 변환 평가 문맥과 영어 검색 문맥을 사용하는 프로토콜별 결과로 해석하였다. SCD의 출력 언어 변화는 한국어 문자 비율의 대응 차이로 분석하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6. 결론",
       "style": "장(1.)",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "한국어 질의–영어 문서 RAG에서 HyDE·CAD·SCD를 적용하고, 네 문서의 60개 질의에 대한 480개 생성 기록을 비교하였다. 다음 절에서는 연구 질문에 대한 답, 비교 설계의 의의, 적용 시 고려사항과 후속 연구를 정리한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.1 연구 질문별 최종 답",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "첫 번째 연구 질문에서 HyDE의 답변 관련성 평균 대응 차이는 +0.0805, 95% 부트스트랩 신뢰구간은 [+0.0110, +0.1514]였다. 근거 충실도는 +0.0436, 문맥 정밀도는 -0.0343, 문맥 재현율은 0.0000이었다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "두 번째 연구 질문에서 CAD의 동일 문맥 근거 충실도 평균 대응 차이는 58개 유효쌍에서 +0.0288, 95% 신뢰구간은 [-0.0367, +0.0934]였다. 답변 관련성은 60쌍에서 -0.0073이었고 신뢰구간은 0을 포함하였다. CAD ON 조건의 평균 생성 시간은 대응 조건군에서 모두 증가하였다. 동일 문맥의 답변 품질에서는 증가와 감소가 함께 나타났으며 계산 비용도 늘었다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "세 번째 연구 질문에서 SCD의 한국어 문자 비율 평균 대응 차이는 HyDE OFF 동일 문맥 120개 대응쌍에서 +0.2182, 전체 240개 상태 일치 대응쌍에서 +0.2289였다. 이 결과는 SCD 적용 후 영어 검색 문맥을 사용하는 조건에서 생성 답변의 한국어 문자 비율이 높아졌음을 보여준다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "네 번째 연구 질문에서는 적용 목적별로 목표 지표와 요인별 대응 결과를 함께 검토하였다. HyDE의 답변 관련성 증가, CAD의 질의별 품질 차이와 생성 시간 증가, SCD의 한국어 문자 비율 증가를 분석하였다. 이 결과를 바탕으로 적용 목적별 실험 조건 선택 절차를 6.3절에 제안하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.2 비교 설계의 의의",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "이 비교 설계에서는 각 기법이 개입하는 위치에 따라 대응쌍을 구성하였다. 검색 입력을 바꾸는 HyDE는 검색 결과의 변화까지 포함하였고, CAD는 검색·재정렬 청크 ID와 최종 문맥이 같은 쌍에서 비교하였다. SCD는 HyDE OFF 동일 문맥 120쌍을 주 비교로 삼았으며, 전체 240개 상태 일치 대응쌍으로 조합 전반의 출력 언어 변화를 요약하였다. 이렇게 비교 조건을 구분하여 검색 문맥의 변화와 디코딩의 변화를 함께 해석할 수 있었다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "조합별 평균은 해당 설정의 전체 성능을, 요인별 대응 차이는 기법 적용 전후의 변화를 나타낸다. H1C1S0의 근거 충실도 평균 0.8599는 해당 조합의 결과이고, CAD의 +0.0288은 동일 문맥의 ON/OFF 대응 차이이다. 요인별 대응 결과를 함께 제시하여 두 해석을 구별하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "생성 기록에 질의, 검색·재정렬 청크 ID, 최종 문맥, 답변, 디코딩 메타데이터와 시간을 함께 저장한 점도 비교의 재현에 필요하다. 그림 5-3, 5-5, 5-7, 5-8, 5-10은 같은 기록에서 가져온 입력·출력과 평가값을 연결한다. 부록 B의 그림 B-1은 CAD의 근거 충실도가 감소한 사례이다. 이 자료들은 집계값과 개별 대응쌍의 입력 동일성 및 답변 차이를 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.3 적용 시 실험 조건 선택",
       "style": "절(1.1)",
-      "page_break": true
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "적용 목적에 따라 목표 지표를 정하고 요인별 대응 결과를 함께 검토하는 절차를 제안한다. 답변 관련성이 목표이면 HyDE의 검색 결과 변화와 답변 관련성 대응 결과를 함께 검토한다. 같은 근거에서의 답변 품질이 목표이면 CAD의 질의별 품질 분포와 생성 시간을 함께 검토한다. 한국어 출력 유지가 목표이면 SCD의 동일 문맥 대응 결과를 검토한다. 고유명사·인용·전문용어의 보존은 별도 평가 항목으로 제안한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "6.4 후속 연구 방향",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "후속 연구에서는 답변 불가능 질의, 오문서 지정 질의와 무근거 입력을 추가하여 근거 부족 상황에서의 응답을 분석할 것을 제안한다. 문서 도메인과 생성 모델·토크나이저를 확대한 비교를 통해 현재 결과의 재현 범위를 평가할 것을 제안한다.",
+      "text": "후속 연구는 평가 상황의 확장과 기법별 처리 과정의 분리, 사람 평가를 중심으로 진행할 수 있다. 답변 불가능 질의, 오문서 지정 질의와 무근거 입력을 추가하여 근거 부족 상황에서의 응답을 분석한다. 문서 도메인과 생성 모델·토크나이저를 확대하여 결과의 재현 범위를 평가한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "HyDE의 후속 실험으로는 번역, 가상 문서 생성과 밀집 검색 변경을 분리한 비교와 동일 질의의 반복 샘플링을 제안한다. CAD는 α와 문맥 길이를 달리하여 답변 품질과 생성 시간의 관계를 측정하고, 질문 복잡도와 정보 통합 요구에 따른 질의별 변화 분포를 분석할 것을 제안한다. SCD는 사람 블라인드 평가를 통해 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존을 각각 측정할 것을 제안한다. 다국어 재정렬 모델과 현재 CrossEncoder의 비교도 검색 구성에 따른 차이를 확인할 후속 실험으로 제안한다.",
+      "text": "HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비교하고, 동일 질의를 반복 샘플링하여 결과의 변동을 측정한다. CAD는 α와 문맥 길이를 달리하여 답변 품질과 생성 시간의 관계를 측정하고, 질문 복잡도와 정보 통합 요구에 따른 질의별 변화 분포를 분석한다. SCD는 사람 블라인드 평가로 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존을 각각 측정한다. 다국어 재정렬 모델과 현재 CrossEncoder를 비교하여 검색 구성에 따른 차이를 확인한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "참고문헌",
       "style": "참고문헌제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[1] P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” *Advances in Neural Information Processing Systems*, Vol. 33, 2020.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[2] L. Gao et al., “Precise Zero-Shot Dense Retrieval without Relevance Labels,” *Proceedings of ACL*, pp. 1762–1777, 2023.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[3] W. Shi et al., “Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding,” *Proceedings of NAACL*, pp. 783–791, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[4] B. Li, Z. Xu, and R. Xie, “Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation,” *Proceedings of the AAAI Conference on Artificial Intelligence*, Vol. 40, No. 37, pp. 31519–31526, 2026.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[5] J. Chen et al., “M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,” *Findings of the Association for Computational Linguistics: ACL 2024*, pp. 2318–2335, 2024, doi: 10.18653/v1/2024.findings-acl.137.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[6] S. E. Robertson et al., “Okapi at TREC-3,” *Text REtrieval Conference*, 1994.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[7] G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods,” *Proceedings of SIGIR*, pp. 758–759, 2009.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[8] R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[9] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[10] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[11] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[12] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[13] X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,” *Proceedings of ACL*, pp. 12286–12312, 2023.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[14] P. Sarthi et al., “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,” *Proceedings of ICLR*, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[15] A. Asai et al., “Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection,” *Proceedings of ICLR*, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[16] S.-Q. Yan et al., “Corrective Retrieval Augmented Generation,” arXiv:2401.15884, 2024.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[17] P. Zhao et al., “Retrieval-Augmented Generation for AI-Generated Content: A Survey,” *Data Science and Engineering*, Vol. 11, pp. 1–29, 2026, doi: 10.1007/s41019-025-00335-5.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[18] D. Shin et al., “Mi:dm 2.0 Korea-centric Bilingual Language Models,” arXiv:2601.09066, 2026.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[19] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, 2023.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[20] N. Thakur et al., “BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models,” *Proceedings of NeurIPS Datasets and Benchmarks Track*, 2021.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[21] N. Muennighoff et al., “MTEB: Massive Text Embedding Benchmark,” *Proceedings of EACL*, pp. 2014–2037, 2023.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[22] KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” technical report, arXiv:2603.18788v2, 2026.",
       "style": "참고문헌리스트",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 자료 이용 정보",
+      "style": "참고문헌제목",
+      "page_break": true,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-2~2-6은 CC BY 4.0에 따라 이용하였다. 저자와 논문 서지정보는 아래 참고문헌 번호로 연결하고, 사용한 원본 자료와 편집 내역을 그림별로 정리하였다.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "공통 라이선스: CC BY 4.0.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "라이선스 안내: https://creativecommons.org/licenses/by/4.0/",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-1 — 본 연구 작성. Lewis 외[1]의 RAG 구조를 참고하여 독립 도식을 작성하였다.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-2 — Nelson F. Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://aclanthology.org/2024.tacl-1.9.pdf",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-3 — Luyu Gao 외[2], ACL 2023, 1762–1777; PDF page 2 (printed 1763). 원본 그림 1. 변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://aclanthology.org/2023.acl-long.99.pdf",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-4 — Weijia Shi 외[3], NAACL 2024 short, PDF page 1. 원본 그림 1. 변경: 그림 영역 잘라내기.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://aclanthology.org/2024.naacl-short.69.pdf",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-5 — Bo Li 외[4], arXiv:2511.09984v1, PDF page 1. 원본 그림 1. 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://arxiv.org/pdf/2511.09984v1",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "원본 자료: https://arxiv.org/pdf/2309.15217v2",
+      "style": "본문",
+      "page_break": false,
+      "usage_section": true
     },
     {
       "kind": "paragraph",
       "text": "부록 A. 60개 질의 목록",
       "style": "부록제목",
-      "page_break": true
-    },
-    {
-      "kind": "paragraph",
-      "text": "[표 A-1] 60개 질의–대상 문서 쌍",
-      "style": "표제목",
-      "page_break": false
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "부록 A의 질문 문장은 실제 실험 입력을 그대로 수록하였다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "[표 A-1] 60개 질의–대상 문서 쌍",
+      "style": "표제목",
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "부록 B. 추가 사례 및 탐색 분석",
       "style": "부록제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "B.1 추가 입출력 사례",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "본문에서는 각 요인의 대표 사례를 그림 5-3, 5-5, 5-7, 5-8, 5-10에 제시하였다. 부록에서는 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례를 제시하여 질의별 변화 방향을 함께 확인한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례",
       "style": "그림제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "질의 ID: track1_0012.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "B.2 문서별·질문 유형별 탐색 분석",
       "style": "절(1.1)",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "문서별·질문 유형별 분석과 조건군별 결과는 표본 수를 함께 제시하며 탐색적으로 해석한다. 특히 목적·기여 유형은 n=3의 소규모 하위집단 결과로 제시한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 B-1] 문서별 탐색 분석",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[표 B-2] 질문 유형별 탐색 분석",
       "style": "표제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     }
   ],
   "tables": [
@@ -3724,8 +4150,8 @@
         4474
       ],
       "size": [
-        30487,
-        62000
+        28520,
+        58000
       ]
     },
     {
@@ -3752,8 +4178,8 @@
         3752
       ],
       "size": [
-        36354,
-        62000
+        34008,
+        58000
       ]
     },
     {
@@ -3794,8 +4220,8 @@
         3600
       ],
       "size": [
-        37889,
-        62000
+        35444,
+        58000
       ]
     },
     {
@@ -3850,8 +4276,8 @@
         4018
       ],
       "size": [
-        33947,
-        62000
+        24092,
+        44000
       ]
     }
   ],
@@ -3867,65 +4293,1821 @@
     "Delta_i = s_i^{ON} - s_i^{OFF}",
     "bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i"
   ],
+  "layout": [
+    {
+      "role": "body",
+      "paragraph_id": "985539448",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1920767466",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "542043584",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1183695532",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "291574039",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "574574040",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1011596518",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1633735468",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1245916954",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "1573897433",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1561264110",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "428577554",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1034554435",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "438346262",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1836739989",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "731520740",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "837673475",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1168220993",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "278602136",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "194446349",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "310734320",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "171500603",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "608219363",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "351589265",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "1947497382",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1183421987",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1596195345",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "665451100",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1371706695",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "1554390828",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "1826992287",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1323724442",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "518329080",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "1907691402",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1031681373",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1121925690",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "92383365",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "143740191",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "350012473",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "540205109",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1950195524",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "1591383881",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "1812666845",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "758729139",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "812969981",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1313168306",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "135250025",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2014210846",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1134453863",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "576331298",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "1017540806",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1152394316",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "483234110",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1850916082",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1077838800",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "195557547",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "370404930",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "247503507",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1346677645",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "1390563015",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "921459492",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1742590765",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "2031090389",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "777969561",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "390152353",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "748013198",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "2112263190",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "473737949",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1448693789",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1960298479",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "1902308508",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "48952357",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "278521832",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "79474217",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1889594265",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "146756458",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "988225647",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "581796253",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1127366965",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption_source",
+      "paragraph_id": "1983425197",
+      "paraPrIDRef": "29",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "figure_source",
+      "paragraph_id": "1845361959",
+      "paraPrIDRef": "30",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "706992080",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "280859028",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "498503309",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "293130567",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "926321534",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "515544121",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1507938091",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "648159476",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "110705145",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1143651977",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "205187475",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1821091129",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1303180650",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "785461196",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "353604820",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1285755749",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "2017049831",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "866733013",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "343182025",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1311652834",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "868251590",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1491897217",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "313459228",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "946959312",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "71603876",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2077631401",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "1859581420",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1253086804",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "162787882",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "361934778",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1772331189",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "878139978",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "308845890",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1871165117",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "253301015",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "43503015",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "619962366",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "23127675",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "178978791",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1735654566",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1058483299",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1899832447",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "619611297",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "863839332",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "602956140",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1081102004",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1492070476",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "310024996",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "583907504",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1058384788",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "183350196",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1959446038",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "94041217",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2105398020",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "14918863",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "306848930",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1546580349",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "293116256",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "775641855",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "374175628",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1776396858",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "689423169",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1617782130",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2023218218",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "140641256",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1001075975",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "776711013",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "1668328665",
+      "paraPrIDRef": "31",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "11918745",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "822027697",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "796430074",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "973148370",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "216051057",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "562079704",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1963848961",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1188243957",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1859773074",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "604615217",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1604082770",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1619462249",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "368269504",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1402966230",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1666144925",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "40931015",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "924692719",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "663895712",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "584269468",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "252541521",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "30792333",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1329546928",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "833086468",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1546637518",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1706251497",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "109682865",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "211670740",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1542454680",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "307031510",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "668224118",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "852466944",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "60507653",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "19807217",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "133073646",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "95929940",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1142049659",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "252761031",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1689267861",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "925866313",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "703906330",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1981321207",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1259681947",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1665581481",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1881510254",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "203586084",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "757326363",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "737916774",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "179989810",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1155275244",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1750486882",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "719920312",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1599902623",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "898642961",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1078211475",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1467772829",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2005673886",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "401919910",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "373513186",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "561541590",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1447737287",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "72418176",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1813280825",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "952055304",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2031055787",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1445083478",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "100819882",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "15440352",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "2120525263",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1992019320",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1061890404",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "841174547",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "1835394797",
+      "paraPrIDRef": "24",
+      "styleIDRef": "2"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1803218425",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1310708178",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2090906641",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2043931545",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2027917014",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1532015979",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "779327219",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1528019761",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "569128520",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1138217185",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1243382944",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1084465726",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1234290940",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1317663378",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1079860165",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "999247840",
+      "paraPrIDRef": "24",
+      "styleIDRef": "10"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1294405490",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1758174568",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1832574425",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "51965886",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1038667220",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "459963628",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "431691578",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "2030158485",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1597540439",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1174872174",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "2045413698",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1795204087",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1565936632",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "503479527",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "35230928",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1989802154",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1602232516",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1298482554",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "49323066",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1381599811",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "1644330559",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "reference",
+      "paragraph_id": "873668231",
+      "paraPrIDRef": "34",
+      "styleIDRef": "11"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "79486392",
+      "paraPrIDRef": "24",
+      "styleIDRef": "10"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "1490008490",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage",
+      "paragraph_id": "1972456772",
+      "paraPrIDRef": "36",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "537429716",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "675554617",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "870580806",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "539549612",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "1919073859",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "637481522",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "2115990659",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "1231075896",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "2049596220",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "416016629",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "1007483469",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_entry",
+      "paragraph_id": "1762704396",
+      "paraPrIDRef": "35",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "usage_url",
+      "paragraph_id": "735121123",
+      "paraPrIDRef": "37",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "962583569",
+      "paraPrIDRef": "24",
+      "styleIDRef": "9"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1984366094",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1819811446",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1208074134",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "2124305853",
+      "paraPrIDRef": "24",
+      "styleIDRef": "9"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1100273817",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1960331608",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1499951880",
+      "paraPrIDRef": "27",
+      "styleIDRef": "0"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "155475023",
+      "paraPrIDRef": "28",
+      "styleIDRef": "14"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "983160326",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "247255307",
+      "paraPrIDRef": "25",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "686458024",
+      "paraPrIDRef": "23",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1532944105",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "2071011724",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "406647605",
+      "paraPrIDRef": "32",
+      "styleIDRef": "12"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "683513833",
+      "paraPrIDRef": "33",
+      "styleIDRef": "1"
+    }
+  ],
   "cover_paragraphs": [
     {
       "kind": "paragraph",
       "text": "졸업자격실험보고서",
       "style": "논문제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험",
       "style": "논문제목",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "[학생명 입력] · [학번 입력] · [지도교수 입력] · [제출일 입력]",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "제출 페이지",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "본 보고서는 [소속 대학 입력] [소속 학과 입력] 졸업자격실험보고서로 제출한다.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "제출자: [학생명 입력]  /  학번: [학번 입력]  /  지도교수: [지도교수 입력]  /  제출일: [제출일 입력]",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "인준 페이지",
       "style": "목차제목",
-      "page_break": true
+      "page_break": true,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "위 보고서를 졸업자격실험보고서로 인준함.",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     },
     {
       "kind": "paragraph",
       "text": "지도교수: [지도교수 입력] (인)  /  심사위원: [심사위원 입력] (인)  /  인준일: [인준일 입력]",
       "style": "본문",
-      "page_break": false
+      "page_break": false,
+      "usage_section": false
     }
   ],
   "cover_layout_tables": 2,
   "toc_page_map": {
-    "1.1 연구배경 및 목적": 9,
     "[그림 1-1]": 9,
     "1.2 연구범위": 9,
     "1.3 연구 질문, 분석 관점 및 논문 구성": 10,
@@ -3947,49 +6129,51 @@
     "[그림 3-1]": 19,
     "3.3 상세설계": 19,
     "[표 3-2]": 19,
-    "[표 3-3]": 19,
+    "[표 3-3]": 20,
     "4.1 시스템 환경": 21,
     "[표 4-1]": 21,
-    "[표 4-2]": 21,
-    "[그림 4-1]": 22,
+    "[표 4-2]": 22,
+    "[그림 4-1]": 23,
     "[표 4-3]": 23,
     "[표 4-4]": 23,
-    "[그림 4-2]": 23,
-    "5.1 실험 대상과 구성": 24,
-    "[표 5-1]": 24,
-    "5.2 평가 및 분석 방법": 24,
-    "[그림 5-1]": 25,
-    "5.3 RAG-Cube 조합별 결과": 26,
-    "[표 5-2]": 26,
-    "[그림 5-2]": 27,
-    "5.4 HyDE 결과 및 해석": 27,
-    "[그림 5-3]": 28,
-    "[표 5-3]": 29,
-    "[그림 5-4]": 29,
-    "5.5 CAD 결과 및 해석": 29,
-    "[그림 5-5]": 31,
-    "[표 5-4]": 32,
-    "[그림 5-6]": 32,
-    "[그림 5-7]": 33,
-    "[그림 5-8]": 35,
-    "[표 5-5]": 35,
-    "[표 5-6]": 35,
-    "[그림 5-9]": 35,
-    "5.7 대표 입출력 및 요구사항별 실행 결과": 35,
-    "[그림 5-10]": 36,
-    "5.8 종합 논의": 36,
-    "[그림 5-11]": 38,
-    "6.1 연구 질문별 최종 답": 39,
-    "6.2 비교 설계의 의의": 39,
-    "6.3 적용 시 실험 조건 선택": 40,
-    "6.4 후속 연구 방향": 40,
-    "부록 A. 60개 질의 목록": 43,
-    "[표 A-1]": 43,
-    "B.1 추가 입출력 사례": 50,
-    "[그림 B-1]": 51,
-    "[표 B-1]": 52,
-    "[표 B-2]": 53,
+    "[그림 4-2]": 24,
+    "5.1 실험 대상과 구성": 25,
+    "[표 5-1]": 25,
+    "5.2 평가 및 분석 방법": 26,
+    "[그림 5-1]": 27,
+    "5.3 RAG-Cube 조합별 결과": 27,
+    "[표 5-2]": 28,
+    "[그림 5-2]": 29,
+    "5.4 HyDE 결과 및 해석": 29,
+    "[그림 5-3]": 30,
+    "[표 5-3]": 31,
+    "[그림 5-4]": 31,
+    "5.5 CAD 결과 및 해석": 31,
+    "[그림 5-5]": 33,
+    "[표 5-4]": 34,
+    "[그림 5-6]": 34,
+    "[그림 5-7]": 35,
+    "[그림 5-8]": 37,
+    "[표 5-5]": 38,
+    "[표 5-6]": 38,
+    "[그림 5-9]": 38,
+    "5.7 대표 입출력 및 요구사항별 실행 결과": 38,
+    "[그림 5-10]": 39,
+    "5.8 종합 논의": 40,
+    "[그림 5-11]": 41,
+    "6.1 연구 질문별 최종 답": 42,
+    "6.2 비교 설계의 의의": 42,
+    "6.3 적용 시 실험 조건 선택": 43,
+    "6.4 후속 연구 방향": 43,
+    "참고문헌": 44,
+    "부록 A. 60개 질의 목록": 47,
+    "[표 A-1]": 47,
+    "B.1 추가 입출력 사례": 54,
+    "[그림 B-1]": 54,
+    "[표 B-1]": 55,
+    "[표 B-2]": 56,
     "1. 서론": 9,
+    "1.1 연구배경 및 목적": 9,
     "2. 이론적 배경": 11,
     "2.4 Context-Aware Decoding": 13,
     "2.7 관련 연구와 본 연구의 위치": 16,
@@ -3997,14 +6181,14 @@
     "4. 프로그램 구현": 21,
     "4.2 시스템 구성": 22,
     "4.3 시스템 구현": 23,
-    "5. 실험": 24,
-    "5.6 SCD 출력 언어 결과 및 해석": 32,
-    "5.9 실험 범위와 해석 기준": 38,
-    "6. 결론": 39,
-    "참고문헌": 41,
-    "부록 B. 추가 사례 및 탐색 분석": 50,
-    "B.2 문서별·질문 유형별 탐색 분석": 52,
-    "부록 A~B": "43, 50"
+    "5. 실험": 25,
+    "5.6 SCD 출력 언어 결과 및 해석": 34,
+    "5.9 실험 범위와 해석 기준": 41,
+    "6. 결론": 42,
+    "그림 자료 이용 정보": 46,
+    "부록 B. 추가 사례 및 탐색 분석": 54,
+    "B.2 문서별·질문 유형별 탐색 분석": 55,
+    "부록 A~B": "47, 54"
   },
   "template": {
     "source_name": "SCHOOL_TEMPLATE_CONVERTED.hwpx",
@@ -4036,13 +6220,13 @@
     "width": 42522
   },
   "inputs": {
-    "manuscript_sha256": "57f8dc2aac5edc676286030c7ff9f2b146aca55ceb68fabad1d77d6656ae30bc",
+    "manuscript_sha256": "7ce2b22aca6e2ddceca88f19f0c14c640f26f65f38ee4dae7fd07661286a7f5b",
     "tables_sha256": "b6a26faa06b5988fb919d706002a26fb75aa7112519bae3a848de834f03b0b11"
   },
   "output": {
     "filename": "GRADUATION_REPORT_60Q_FINAL.hwpx",
-    "sha256": "200139c3f46866e46fe1b1d71e642640a4dcca421ca9c5aab0d9a0e8411180e5",
-    "bytes": 5015155
+    "sha256": "3aafae443d756bee59892945be31afb9548198cddce85f6444d5dccf7b74b3cf",
+    "bytes": 5016755
   },
   "xml_validation": "ValidationReport(validated_parts=('Contents/header.xml', 'Contents/section0.xml'), issues=())"
 }

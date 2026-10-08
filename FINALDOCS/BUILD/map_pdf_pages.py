@@ -25,7 +25,11 @@ def main():
     manuscript = ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
     source = manuscript.read_text(encoding="utf-8")
     doc = fitz.open(args.pdf)
-    pages = [normalize(p.get_text(sort=True)) for p in doc]
+    page_texts = [p.get_text(sort=True) for p in doc]
+    pages = [normalize(text) for text in page_texts]
+    page_lines = [
+        {normalize(line) for line in text.splitlines()} for text in page_texts
+    ]
     lines = source.splitlines()
     mapping = {}
     unresolved = []
@@ -37,6 +41,14 @@ def main():
             continue
         if re.match(r"^#{1,2} ", line):
             title = re.sub(r"\s*\[스타일=.*", "", re.sub(r"^#+ ", "", line))
+            heading_matches = [
+                i + 1
+                for i, p in enumerate(page_lines)
+                if i >= 8 and normalize(title) in p
+            ]
+            if len(heading_matches) == 1:
+                mapping[title] = heading_matches[0]
+                continue
             for nextline in lines[index + 1 :]:
                 if nextline.startswith("#"):
                     unresolved.append(title)
@@ -69,6 +81,12 @@ def main():
         "manuscript_lf_sha256": hashlib.sha256(
             manuscript.read_bytes().replace(b"\r\n", b"\n")
         ).hexdigest(),
+        "layout_code_lf_sha256": {
+            name: hashlib.sha256(
+                (Path(__file__).parent / name).read_bytes().replace(b"\r\n", b"\n")
+            ).hexdigest()
+            for name in ("build_thesis_hwpx.py", "layout_policy.py")
+        },
         "pdf_sha256": hashlib.sha256(args.pdf.read_bytes()).hexdigest(),
         "pdf_pages": len(doc),
         "pages": mapping,

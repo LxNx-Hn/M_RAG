@@ -1,0 +1,8 @@
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -m black --check FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/map_pdf_pages.py FINALDOCS/BUILD/layout_policy.py FINALDOCS/BUILD/layout_checks.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/BUILD/test_hwpx_validation.py FINALDOCS/VALIDATION/academic_language_checks.py FINALDOCS/VALIDATION/submission_audit_checks.py FINALDOCS/VALIDATION/test_academic_language_checks.py FINALDOCS/VALIDATION/test_submission_audit.py
+All done! \u2728 \U0001f370 \u2728
+10 files would be left unchanged.
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -m ruff check FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/map_pdf_pages.py FINALDOCS/BUILD/layout_policy.py FINALDOCS/BUILD/layout_checks.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/BUILD/test_hwpx_validation.py FINALDOCS/VALIDATION/academic_language_checks.py FINALDOCS/VALIDATION/submission_audit_checks.py FINALDOCS/VALIDATION/test_academic_language_checks.py FINALDOCS/VALIDATION/test_submission_audit.py
+All checks passed!
+EXIT: 0

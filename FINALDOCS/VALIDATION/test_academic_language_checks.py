@@ -27,7 +27,7 @@ class AcademicRegressionTests(unittest.TestCase):
             ("그림 5-3, 5-5, 5-7, 5-8, 5-10", "그림 5-3~5-10"),
             ("\t증가\t감소\t동률\tn", "\tWin\tLoss\tTie\tn"),
             ("RAGAS 차이 +0.01 초과", "RAGAS 차이 +0.02 초과"),
-            ("arXiv:2309.15217v2의 표 2", "arXiv:2309.15217v2의 그림 2"),
+            ("출처: Es 외[9], 표 2에서", "출처: Es 외[9], 그림 2에서"),
             ("Lewis 외[1]는", "Lewis 외[1]은"),
             ("Shi 외[3]는", "Shi 외[3]은"),
             ("Li 외[4]는", "Li 외[4]은"),

@@ -16,8 +16,12 @@
       "license": "Original artwork by this thesis; no source artwork reused",
       "license_evidence_url": "https://neurips.cc/FAQ",
       "license_url": null,
-      "caption_source": "그림 제작: 본 연구. 개념적 근거: Lewis 외[1].",
-      "comparison": "원본 배치·도형·문구를 복사하지 않은 2행 데이터 흐름 도식"
+      "caption_source": "본 연구 작성. Lewis 외[1]의 RAG 구조 참고.",
+      "comparison": "원본 배치·도형·문구를 복사하지 않은 2행 데이터 흐름 도식",
+      "reference_number": 1,
+      "adaptation": "독립 도식을 작성하였다.",
+      "usage_entry": "그림 2-1 — 본 연구 작성. Lewis 외[1]의 RAG 구조를 참고하여 독립 도식을 작성하였다.",
+      "submission_source_url": "https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf"
     },
     {
       "figure": "2-2",
@@ -33,8 +37,12 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://aclanthology.org/2024.tacl-1.9.pdf",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Liu 외[12], TACL 정식 출판본의 그림 1 중 도표 발췌. 원본: https://aclanthology.org/2024.tacl-1.9.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도표 영역 잘라내기.",
-      "comparison": "도표 영역만 발췌; 제목·축·범례·20개 위치의 곡선·폐쇄형 기준선 일치. 원 캡션은 정식 본문 캡션으로 분리"
+      "caption_source": "출처: Liu 외[12], 그림 1에서 발췌.",
+      "comparison": "도표 영역만 발췌; 제목·축·범례·20개 위치의 곡선·폐쇄형 기준선 일치. 원 캡션은 정식 본문 캡션으로 분리",
+      "reference_number": 12,
+      "adaptation": "도표 영역 잘라내기.",
+      "usage_entry": "그림 2-2 — Nelson F. Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.",
+      "submission_source_url": "https://aclanthology.org/2024.tacl-1.9.pdf"
     },
     {
       "figure": "2-3",
@@ -50,8 +58,12 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://aclanthology.org/faq/copyright/",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Gao 외[2], ACL 2023 정식 출판본의 그림 1 중 도식 발췌. 원본: https://aclanthology.org/2023.acl-long.99.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
-      "comparison": "도식·예시·색상 범례·GPT/Contriever 표기는 일치. 원 캡션은 GPT-3→InstructGPT로 달라짐. 도식 부분만 발췌하고 OpenAI 로고 생략"
+      "caption_source": "출처: Gao 외[2], 그림 1에서 발췌·편집.",
+      "comparison": "도식·예시·색상 범례·GPT/Contriever 표기는 일치. 원 캡션은 GPT-3→InstructGPT로 달라짐. 도식 부분만 발췌하고 OpenAI 로고 생략",
+      "reference_number": 2,
+      "adaptation": "도식 영역 잘라내기, OpenAI 로고 생략.",
+      "usage_entry": "그림 2-3 — Luyu Gao 외[2], ACL 2023, 1762–1777; PDF page 2 (printed 1763). 원본 그림 1. 변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
+      "submission_source_url": "https://aclanthology.org/2023.acl-long.99.pdf"
     },
     {
       "figure": "2-4",
@@ -67,8 +79,12 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://aclanthology.org/faq/copyright/",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Shi 외[3], NAACL 2024 정식 출판본의 그림 1 발췌. 원본: https://aclanthology.org/2024.naacl-short.69.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기.",
-      "comparison": "재추출 PNG가 기존 PNG와 SHA-256 일치; 잘라낸 영역 내 표기 변경 없음"
+      "caption_source": "출처: Shi 외[3], 그림 1에서 발췌.",
+      "comparison": "재추출 PNG가 기존 PNG와 SHA-256 일치; 잘라낸 영역 내 표기 변경 없음",
+      "reference_number": 3,
+      "adaptation": "그림 영역 잘라내기.",
+      "usage_entry": "그림 2-4 — Weijia Shi 외[3], NAACL 2024 short, PDF page 1. 원본 그림 1. 변경: 그림 영역 잘라내기.",
+      "submission_source_url": "https://aclanthology.org/2024.naacl-short.69.pdf"
     },
     {
       "figure": "2-5",
@@ -84,8 +100,12 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://arxiv.org/abs/2511.09984v1",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Li 외[4], arXiv:2511.09984v1의 그림 1 발췌. 원본: https://arxiv.org/pdf/2511.09984v1. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
-      "comparison": "기존 영역 재추출은 기존 PNG와 해시 일치. 최종 사용 이미지에서는 제목 상단을 포함하도록 잘라내기 범위를 보완하고 OpenAI·Ollama 로고만 생략; 질의·문맥·추론 및 언어 이탈 예시 유지."
+      "caption_source": "출처: Li 외[4], 그림 1에서 발췌·편집.",
+      "comparison": "기존 영역 재추출은 기존 PNG와 해시 일치. 최종 사용 이미지에서는 제목 상단을 포함하도록 잘라내기 범위를 보완하고 OpenAI·Ollama 로고만 생략; 질의·문맥·추론 및 언어 이탈 예시 유지.",
+      "reference_number": 4,
+      "adaptation": "그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
+      "usage_entry": "그림 2-5 — Bo Li 외[4], arXiv:2511.09984v1, PDF page 1. 원본 그림 1. 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
+      "submission_source_url": "https://arxiv.org/pdf/2511.09984v1"
     },
     {
       "figure": "2-6",
@@ -101,12 +121,17 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://arxiv.org/abs/2309.15217v2",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Es 외[9], arXiv:2309.15217v2의 표 2 발췌. 원본: https://arxiv.org/pdf/2309.15217v2. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 표 영역 잘라내기.",
-      "comparison": "재추출 PNG가 기존 PNG와 SHA-256 일치; 원본 표를 이미지로 발췌"
+      "caption_source": "출처: Es 외[9], 표 2에서 발췌.",
+      "comparison": "재추출 PNG가 기존 PNG와 SHA-256 일치; 원본 표를 이미지로 발췌",
+      "reference_number": 9,
+      "adaptation": "표 영역 잘라내기.",
+      "usage_entry": "그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.",
+      "submission_source_url": "https://arxiv.org/pdf/2309.15217v2"
     }
   ],
   "scope": "공식 이용 조건과 확인한 PDF 영역의 권리 표기 검토. 별도 법률 판단이나 미확인 제3자 권리 허락을 주장하지 않음.",
-  "third_party_review": "HyDE의 OpenAI 로고 및 SCD의 OpenAI·Ollama 로고를 별도 권리 요소로 확인하여 최종 PNG에서 생략. 모든 생략 내역은 출처 문단에 표시. CAD에는 로봇 이모지가 있으나 특정 업체 로고나 별도 그림 권리 고지를 발견하지 않음. 공식 CC BY 고지와 확인한 그림 영역의 범위에서 판정하며 모든 잠재적 제3자 권리를 일괄 보증하지 않음.",
+  "third_party_review": "HyDE의 OpenAI 로고 및 SCD의 OpenAI·Ollama 로고를 별도 권리 요소로 확인하여 최종 PNG에서 생략. 모든 생략 내역은 논문의 그림 자료 이용 정보 구역에 표시. CAD에는 로봇 이모지가 있으나 특정 업체 로고나 별도 그림 권리 고지를 발견하지 않음. 공식 CC BY 고지와 확인한 그림 영역의 범위에서 판정하며 모든 잠재적 제3자 권리를 일괄 보증하지 않음.",
   "retained_legacy": "기존 arXiv 발췌 PNG 3개는 이력 보존용으로 유지되며 최종 HWPX 삽입 대상에서 제외됨.",
-  "prose_reviewed_head": "4b4673cc5215f08e00f33ead2f2ec3ab55090049"
+  "prose_reviewed_head": "4b4673cc5215f08e00f33ead2f2ec3ab55090049",
+  "layout_reviewed_head": "02d246962d4ec6f6832602654c0621132b87844a"
 }

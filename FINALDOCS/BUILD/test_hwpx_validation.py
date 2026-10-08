@@ -121,20 +121,92 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
 
-    def test_missing_reviewed_page_break(self):
+    def test_missing_heading_keep_with_next(self):
         def change(section, parts):
             paragraph = next(
                 p
                 for p in section
-                if p.get("pageBreak") == "1"
-                and "6.3 적용 시 실험 조건 선택"
+                if "6.3 적용 시 실험 조건 선택"
                 == "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS))
             )
-            paragraph.set("pageBreak", "0")
+            header = ET.fromstring(parts["Contents/header.xml"])
+            namespace = {"hh": "http://www.hancom.co.kr/hwpml/2011/head"}
+            shape = header.find(
+                f".//hh:paraPr[@id='{paragraph.get('paraPrIDRef')}']", namespace
+            )
+            shape.find("hh:breakSetting", namespace).set("keepWithNext", "0")
+            parts["Contents/header.xml"] = ET.tostring(
+                header, encoding="UTF-8", xml_declaration=True, standalone=True
+            )
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("section page break missing", result.stderr)
+        self.assertIn("layout keepWithNext: section", result.stderr)
+
+    def alter_source_shape(self, operation):
+        def change(section, parts):
+            p = next(
+                p
+                for p in section
+                if "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)).startswith(
+                    "출처: Shi"
+                )
+            )
+            header = ET.fromstring(parts["Contents/header.xml"])
+            ns = {
+                **NS,
+                "hh": "http://www.hancom.co.kr/hwpml/2011/head",
+                "hc": "http://www.hancom.co.kr/hwpml/2011/core",
+            }
+            shape = header.find(f".//hh:paraPr[@id='{p.get('paraPrIDRef')}']", ns)
+            operation(p, shape, header, ns)
+            parts["Contents/header.xml"] = ET.tostring(
+                header, encoding="UTF-8", xml_declaration=True, standalone=True
+            )
+
+        return self.run_case(change)
+
+    def test_source_justification_regression(self):
+        result = self.alter_source_shape(
+            lambda p, s, h, ns: s.find("hh:align", ns).set("horizontal", "JUSTIFY")
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("layout alignment: figure_source", result.stderr)
+
+    def test_source_spacing_regression(self):
+        result = self.alter_source_shape(
+            lambda p, s, h, ns: s.find(".//hc:next", ns).set("value", "0")
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("layout spacing: figure_source", result.stderr)
+
+    def test_source_font_regression(self):
+        result = self.alter_source_shape(
+            lambda p, s, h, ns: p.find("hp:run", ns).set("charPrIDRef", "0")
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("layout source font: figure_source", result.stderr)
+
+    def test_usage_hyperlink_regression(self):
+        def change(section, parts):
+            field = section.find(".//hp:fieldBegin", NS)
+            field.set("type", "UNKNOWN")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+
+    def test_small_table_caption_flow_regression(self):
+        def change(section, parts):
+            table = next(
+                t
+                for t in section.findall(".//hp:tbl", NS)[2:]
+                if t.find("hp:pos", NS).get("treatAsChar") == "1"
+            )
+            table.find("hp:pos", NS).set("treatAsChar", "0")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("table caption flow missing", result.stderr)
 
 
 if __name__ == "__main__":
