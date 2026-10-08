@@ -234,7 +234,9 @@ def main() -> None:
     )
     records = []
     for path, expected in manifest["sources"].items():
-        data = (ROOT / path).read_bytes()
+        # The immutable manifest contains Windows separators; resolve the same
+        # artifact on Linux runners without changing the manifest or its hashes.
+        data = (ROOT / path.replace("\\", "/")).read_bytes()
         assert (
             hashlib.sha256(data).hexdigest() == expected
             or hashlib.sha256(data.replace(b"\r\n", b"\n")).hexdigest() == expected
