@@ -13,6 +13,7 @@ from pathlib import Path
 
 from academic_language_checks import validate_academic_text
 from submission_audit_checks import validate_submission_assets
+from print_evidence_checks import validate as validate_print_evidence
 
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
@@ -796,6 +797,7 @@ def main() -> int:
     if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):
         raise AssertionError("cleanup manifest is incomplete or truncated")
 
+    validate_print_evidence()
     print("PASS: FINALDOCS 60-query thesis package")
     return 0
 

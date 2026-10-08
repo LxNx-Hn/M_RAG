@@ -1,0 +1,597 @@
+{
+  "font_px": 48,
+  "width_px": 2000,
+  "cases": [
+    {
+      "case_id": "E01",
+      "query_id": "ext_raptor_011",
+      "panels": [
+        {
+          "config": "hyde_off__no_decoder_control",
+          "record_sha256": "041486e216b9ff73ce72fee53e4550f088ae6abc13d0ab174907eba126fdfcf5",
+          "score_sha256": "071882e105b4d366afac24a91dad46e66828ac22a965baeea54f9c1810938fd2",
+          "query": "Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_nlp_raptor_12d47c916205",
+            "paper_nlp_raptor_4f4f51e0f19a",
+            "paper_nlp_raptor_dd8b323782ef",
+            "paper_nlp_raptor_0f4c6a947b3d",
+            "paper_nlp_raptor_10f0c730ad5d",
+            "paper_nlp_raptor_ed1fa6412150",
+            "paper_nlp_raptor_3208734b2ece",
+            "paper_nlp_raptor_fb3aa9881edd"
+          ],
+          "reranked_chunk_ids": [
+            "paper_nlp_raptor_12d47c916205",
+            "paper_nlp_raptor_ed1fa6412150",
+            "paper_nlp_raptor_0f4c6a947b3d",
+            "paper_nlp_raptor_3208734b2ece",
+            "paper_nlp_raptor_fb3aa9881edd"
+          ],
+          "metrics": {
+            "faithfulness": 1.0,
+            "answer_relevancy": 0.9365,
+            "context_precision": 1.0,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.5274,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 612,
+              "end": 782,
+              "text": "RAPTOR selects nodes from different layers depending on the level of granularity required by the Published as a conference paper at ICLR 2024 Algorithm 2 Collapsed Tree A",
+              "context_index": 0
+            },
+            {
+              "field": "generated_answer",
+              "start": 154,
+              "end": 331,
+              "text": "첫째, RAPTOR는 계층적 구조를 통해 다양한 수준의 추상화(abstraction)를 제공합니다. 논문의 Figure 4에서 확인할 수 있듯이, RAPTOR는 질문의 요구사항에 따라 서로 다른 층위(layer)에서 노드를 선택할 수 있습니다. 반면 DPR은 단일 층위의 leaf 노드만을 선택하여 정보를 제공합니다."
+            }
+          ]
+        }
+      ],
+      "image_size": [
+        2000,
+        1194
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png",
+      "image_sha256": "7672ddc45f1a9a9c1395fff30500818ee57634bf3c658e04d32d66f1f9c2a866"
+    },
+    {
+      "case_id": "E02",
+      "query_id": "ext_cad_007",
+      "panels": [
+        {
+          "config": "hyde_on__cad_only",
+          "record_sha256": "16af0cbb00ecb3295784a433deb09260428b5d4ec99903bcd43f85f71e5f1f35",
+          "score_sha256": "1d49f15fd25974b0ec8c6dfb96b8557a32f9b8f105261961a09fd19426098d0b",
+          "query": "CAD가 실험에서 적용된 사전학습 및 instruction-finetuned 언어 모델 계열은 무엇입니까?",
+          "switches": {
+            "use_hyde": true,
+            "use_cad": true,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_nlp_cad_363806f889e1",
+            "paper_nlp_cad_6d4aeefa6dab",
+            "paper_nlp_cad_a9eb9b7d0844",
+            "paper_nlp_cad_d18b307f5435",
+            "paper_nlp_cad_d5bac5075c72",
+            "paper_nlp_cad_446b96cb2d93",
+            "paper_nlp_cad_c50140c83c8e",
+            "paper_nlp_cad_8c6919d1c4d0"
+          ],
+          "reranked_chunk_ids": [
+            "paper_nlp_cad_363806f889e1",
+            "paper_nlp_cad_446b96cb2d93",
+            "paper_nlp_cad_d18b307f5435",
+            "paper_nlp_cad_8c6919d1c4d0",
+            "paper_nlp_cad_d5bac5075c72"
+          ],
+          "metrics": {
+            "faithfulness": 0.0769,
+            "answer_relevancy": 0.4602,
+            "context_precision": 1.0,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.0,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 10,
+              "end": 104,
+              "text": "CAD can be used with off-the-shelf pretrained language models without any additional training.",
+              "context_index": 0
+            },
+            {
+              "field": "generated_answer",
+              "start": 0,
+              "end": 245,
+              "text": ". Improving transformer generalization through weight normalization. _arXiv preprint arXiv:2204.03296_. Sheng-Hong Huang, Xiaodan Zheng, and Jianfeng Gao. 2018. Factually faithful abstractive summarization. In _Proceedings of the 2018 Conference"
+            }
+          ]
+        }
+      ],
+      "image_size": [
+        2000,
+        1133
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png",
+      "image_sha256": "92fd3333b9ed12a5c21c61b52ecbcd58de5f675b2b773dc5fd79eb1a924e0060"
+    },
+    {
+      "case_id": "E03",
+      "query_id": "ext_midm_005",
+      "panels": [
+        {
+          "config": "hyde_on__no_decoder_control",
+          "record_sha256": "2e58e6933a2a8c8af9813e9a78c877fcd64c94a22cf374ba84e6844291d15dc3",
+          "score_sha256": "64cdc3b2815a7ba85fc62f2244a23b017deb0832e503ae22e8decc6173cb03e7",
+          "query": "Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?",
+          "switches": {
+            "use_hyde": true,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_5fd8fb92ae53",
+            "paper_midm_fe2d192ffc71",
+            "paper_midm_b0df9df28f93",
+            "paper_midm_660712d9ef84",
+            "paper_midm_dad3730b024c",
+            "paper_midm_002ecff9dab3",
+            "paper_midm_78610c2dc51c",
+            "paper_midm_3cf0fd98f64b"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_5fd8fb92ae53",
+            "paper_midm_fe2d192ffc71",
+            "paper_midm_78610c2dc51c",
+            "paper_midm_3cf0fd98f64b",
+            "paper_midm_dad3730b024c"
+          ],
+          "metrics": {
+            "faithfulness": 0.8125,
+            "answer_relevancy": 0.4632,
+            "context_precision": 0.8667,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.0,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 104,
+              "end": 376,
+              "text": "In the Fusion SFT phase, we partition the training data into reasoning and non-reasoning subsets. We deliberately emphasize non-reasoning tasks that are relatively underrepresented in earlier stages, including creative writing, translation, and general question answering.",
+              "context_index": 0
+            },
+            {
+              "field": "generated_answer",
+              "start": 0,
+              "end": 262,
+              "text": "tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, we apply a model merging technique using checkpoints saved at regular intervals [ 25 ]."
+            }
+          ]
+        },
+        {
+          "config": "hyde_on__scd_only",
+          "record_sha256": "ff5afd73260704134989d9a4aa2ade75256fbcc84910f96639c3596740925841",
+          "score_sha256": "8358e79067441fd84fa081eeb3363a1e32c551996068f6583551fcdc68d3a5c1",
+          "query": "Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?",
+          "switches": {
+            "use_hyde": true,
+            "use_cad": false,
+            "use_scd": true
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_5fd8fb92ae53",
+            "paper_midm_fe2d192ffc71",
+            "paper_midm_b0df9df28f93",
+            "paper_midm_660712d9ef84",
+            "paper_midm_dad3730b024c",
+            "paper_midm_002ecff9dab3",
+            "paper_midm_78610c2dc51c",
+            "paper_midm_3cf0fd98f64b"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_5fd8fb92ae53",
+            "paper_midm_fe2d192ffc71",
+            "paper_midm_78610c2dc51c",
+            "paper_midm_3cf0fd98f64b",
+            "paper_midm_dad3730b024c"
+          ],
+          "metrics": {
+            "faithfulness": 0.8889,
+            "answer_relevancy": 0.5231,
+            "context_precision": 0.8667,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.7713,
+          "excerpts": [
+            {
+              "field": "generated_answer",
+              "start": 0,
+              "end": 330,
+              "text": "tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, 우리는 정기적인 간격으로 저장된 체크포인트를 사용한 모델 병합 기법을 적용합니다 [25]. 단계 1의 최종 체크포인트와 비교하여, 병합된 모델은 대부분의 평가 지표에서 향상된 성능을 보여주며, GSM8K [15]를 제외하고는 그렇습니다. CPT 단계 2에서는 이전 단계에 비해 "
+            }
+          ]
+        }
+      ],
+      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "image_size": [
+        2000,
+        1987
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png",
+      "image_sha256": "4e724fc745885414ff7409b345111f7be6fd924c8abd7ee1938f84ea5a2eca6b"
+    },
+    {
+      "case_id": "E04",
+      "query_id": "ext_midm_004",
+      "panels": [
+        {
+          "config": "hyde_off__no_decoder_control",
+          "record_sha256": "0149f90fe802f31f12566c2ca55fc00d65aa1e1c8f8ba06fff8056516d8f6797",
+          "score_sha256": "927b23815a349f9f330b516c415f754201a2129f7528b81215f0b5379ce41dba",
+          "query": "Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_88a1c1d7a494",
+            "paper_midm_6954efe611cf",
+            "paper_midm_88370fe7a52d",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_52ab9d497b88",
+            "paper_midm_2ee381bd3319",
+            "paper_midm_7d1f2569a08d"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_7d1f2569a08d",
+            "paper_midm_2ee381bd3319",
+            "paper_midm_52ab9d497b88",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_88a1c1d7a494"
+          ],
+          "metrics": {
+            "faithfulness": 0.9,
+            "answer_relevancy": 0.0,
+            "context_precision": 0.0,
+            "context_recall": 0.0
+          },
+          "korean_ratio_full_answer": 0.825,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 0,
+              "end": 170,
+              "text": "complex tasks. Furthermore, we have expanded Mi:dm K from a Korean-English bilingual model to a multilingual model supporting four languages, including Japanese and Chine",
+              "context_index": 0
+            },
+            {
+              "field": "generated_answer",
+              "start": 0,
+              "end": 113,
+              "text": "제공된 논문 컨텍스트를 면밀히 검토한 결과, Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터가 어떤 세 가지 차원을 기준으로 고품질 대화를 설계하는지에 관한 구체적인 정보를 확인할 수 없습니다."
+            }
+          ]
+        },
+        {
+          "config": "hyde_on__no_decoder_control",
+          "record_sha256": "5c85651f7af25489771b6f568a1a127beb3595a241cef7c0ee2a3e7fc538e2f8",
+          "score_sha256": "404bfde08ad78e859860656e1daf88b963dead27a7080fb857522636a5732e16",
+          "query": "Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?",
+          "switches": {
+            "use_hyde": true,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_b8ec113edfbf",
+            "paper_midm_94d24ba9b194",
+            "paper_midm_45c14cb66bfb",
+            "paper_midm_52ab9d497b88",
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_6954efe611cf",
+            "paper_midm_88370fe7a52d"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_6954efe611cf",
+            "paper_midm_52ab9d497b88",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_45c14cb66bfb",
+            "paper_midm_b8ec113edfbf"
+          ],
+          "metrics": {
+            "faithfulness": 0.8824,
+            "answer_relevancy": 0.8531,
+            "context_precision": 0.325,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.6773,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 3618,
+              "end": 3741,
+              "text": "We define high quality multi-turn conversations along three dimensions: interaction structure, topic and task, and persona.",
+              "context_index": 3
+            },
+            {
+              "field": "generated_answer",
+              "start": 96,
+              "end": 136,
+              "text": "**1. 상호작용 구조(Interaction Structure) 차원**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 402,
+              "end": 435,
+              "text": "**2. 주제 및 과제(Topic and Task) 차원**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 673,
+              "end": 696,
+              "text": "**3. 페르소나(Persona) 차원**"
+            }
+          ]
+        }
+      ],
+      "context_label": "A/B 문맥·검색·재정렬 ID 변경",
+      "image_size": [
+        2000,
+        1804
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png",
+      "image_sha256": "f59deadea9d86a4b5466ac0edd6bd4759848f0f0efad11f65b03c73a196ad4c5"
+    },
+    {
+      "case_id": "E05",
+      "query_id": "ext_midm_001",
+      "panels": [
+        {
+          "config": "hyde_off__no_decoder_control",
+          "record_sha256": "bdb76d53f3e5f12c256614073f72473d7e6b2f217a1ad79926d45682bae4f1e6",
+          "score_sha256": "335e4ca0f393febd87d706bbd6ca9bc7c35ac5113b48af39f7279e93780ccd9a",
+          "query": "Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_6954efe611cf",
+            "paper_midm_88370fe7a52d",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_9d38979465e7",
+            "paper_midm_37c535d0ba13",
+            "paper_midm_9028100fe782",
+            "paper_midm_81d8d0fa8ce8"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_88370fe7a52d",
+            "paper_midm_6954efe611cf",
+            "paper_midm_81d8d0fa8ce8",
+            "paper_midm_37c535d0ba13"
+          ],
+          "metrics": {
+            "faithfulness": 0.8333,
+            "answer_relevancy": 0.8261,
+            "context_precision": 0.5833,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.7606,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 1514,
+              "end": 1617,
+              "text": "licensed proprietary datasets, public datasets that permit commercial use, and in-house synthetic data.",
+              "context_index": 1
+            },
+            {
+              "field": "generated_answer",
+              "start": 74,
+              "end": 109,
+              "text": "**1. 라이선스 보유 독점(proprietary) 데이터셋**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 236,
+              "end": 270,
+              "text": "**2. 상업적 이용이 허가된 공개(public) 데이터셋**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 388,
+              "end": 425,
+              "text": "**3. 자체(in-house) 합성(synthetic) 데이터**"
+            }
+          ]
+        },
+        {
+          "config": "hyde_off__cad_only",
+          "record_sha256": "24bdaacfc46b72a2ca9ce8265681c1d1f285bbef540b4f4d34bb877ef252acf6",
+          "score_sha256": "e75c9f5e269a48b81263255a00ebb4cb2b33f5c19a814a640503c620af199941",
+          "query": "Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": true,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_midm_6954efe611cf",
+            "paper_midm_88370fe7a52d",
+            "paper_midm_ca70e703fee3",
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_9d38979465e7",
+            "paper_midm_37c535d0ba13",
+            "paper_midm_9028100fe782",
+            "paper_midm_81d8d0fa8ce8"
+          ],
+          "reranked_chunk_ids": [
+            "paper_midm_b59b646d2c0b",
+            "paper_midm_88370fe7a52d",
+            "paper_midm_6954efe611cf",
+            "paper_midm_81d8d0fa8ce8",
+            "paper_midm_37c535d0ba13"
+          ],
+          "metrics": {
+            "faithfulness": 1.0,
+            "answer_relevancy": 0.8124,
+            "context_precision": 0.5833,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.7466,
+          "excerpts": [
+            {
+              "field": "generated_answer",
+              "start": 66,
+              "end": 120,
+              "text": "**1. Licensed Proprietary Datasets (라이선스 취득 전용 데이터셋)**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 227,
+              "end": 297,
+              "text": "**2. Public Datasets Permitting Commercial Use (상업적 이용이 허용된 공개 데이터셋)**"
+            },
+            {
+              "field": "generated_answer",
+              "start": 474,
+              "end": 519,
+              "text": "**3. In-house Synthetic Data (자체 생성 합성 데이터)**"
+            }
+          ]
+        }
+      ],
+      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "image_size": [
+        2000,
+        1682
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png",
+      "image_sha256": "1b7b515e2b0048efe67f13ae6cdc2407c962a07dba68df18050d0a8491aecfe4"
+    },
+    {
+      "case_id": "E06",
+      "query_id": "track1_0012",
+      "panels": [
+        {
+          "config": "hyde_off__no_decoder_control",
+          "record_sha256": "46387926ca7dbf0b5deb761c589b05530107a2379b756696020681e7f36cdf06",
+          "score_sha256": "a030729c8f898ea27e5c0e56421c4c940b8a6554229b498c4d33a8150cb60b6c",
+          "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": false,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_nlp_rag_bf4cd54870dd_2",
+            "paper_nlp_rag_bf4cd54870dd",
+            "paper_nlp_rag_50811b9a6139",
+            "paper_nlp_rag_cd21092daa14",
+            "paper_nlp_rag_53219f9e0699",
+            "paper_nlp_rag_e9a713793233",
+            "paper_nlp_rag_addf6d73de05",
+            "paper_nlp_rag_2fc65db1ecaf"
+          ],
+          "reranked_chunk_ids": [
+            "paper_nlp_rag_addf6d73de05",
+            "paper_nlp_rag_bf4cd54870dd_2",
+            "paper_nlp_rag_bf4cd54870dd",
+            "paper_nlp_rag_2fc65db1ecaf",
+            "paper_nlp_rag_53219f9e0699"
+          ],
+          "metrics": {
+            "faithfulness": 0.9375,
+            "answer_relevancy": 0.9001,
+            "context_precision": 1.0,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.4157,
+          "excerpts": [
+            {
+              "field": "contexts",
+              "start": 1186,
+              "end": 1386,
+              "text": "knowledge-intensive tasks across different topics, [28] revealed that while unsupervised fine-tuning shows some improvement, RAG consistently outperforms it, for both existing knowledge encountered du",
+              "context_index": 0
+            },
+            {
+              "field": "generated_answer",
+              "start": 270,
+              "end": 468,
+              "text": "### 1. 외부 지식 활용의 우수성\n논문에서는 \"RAG excels in dynamic environments by offering realtime knowledge updates and effective utilization of external knowledge sources with high interpretability\"라고 명시하고 있습니다."
+            }
+          ]
+        },
+        {
+          "config": "hyde_off__cad_only",
+          "record_sha256": "b6eac0688b871718109c45ff0d3e7b7962e23b41dbb55365a06ceec116441a7a",
+          "score_sha256": "f580f8024058fa739201caf560aeb7a3ffd9e4c696037041950f008e29df74f0",
+          "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
+          "switches": {
+            "use_hyde": false,
+            "use_cad": true,
+            "use_scd": false
+          },
+          "retrieved_chunk_ids": [
+            "paper_nlp_rag_bf4cd54870dd_2",
+            "paper_nlp_rag_bf4cd54870dd",
+            "paper_nlp_rag_50811b9a6139",
+            "paper_nlp_rag_cd21092daa14",
+            "paper_nlp_rag_53219f9e0699",
+            "paper_nlp_rag_e9a713793233",
+            "paper_nlp_rag_addf6d73de05",
+            "paper_nlp_rag_2fc65db1ecaf"
+          ],
+          "reranked_chunk_ids": [
+            "paper_nlp_rag_addf6d73de05",
+            "paper_nlp_rag_bf4cd54870dd_2",
+            "paper_nlp_rag_bf4cd54870dd",
+            "paper_nlp_rag_2fc65db1ecaf",
+            "paper_nlp_rag_53219f9e0699"
+          ],
+          "metrics": {
+            "faithfulness": 0.5,
+            "answer_relevancy": 0.0,
+            "context_precision": 1.0,
+            "context_recall": 1.0
+          },
+          "korean_ratio_full_answer": 0.8462,
+          "excerpts": [
+            {
+              "field": "generated_answer",
+              "start": 0,
+              "end": 65,
+              "text": "논문]\n\n위 내용 참조\n\n**\n\n답변을 뒷받침하는 구체적인 예시나 연구 결과도 포함해 주세요.\n\n breath\n\n**"
+            }
+          ]
+        }
+      ],
+      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "image_size": [
+        2000,
+        1987
+      ],
+      "image": "FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png",
+      "image_sha256": "50f52c9d0d6134d1e5e551264fcb129da1bedefdc79873f5049bedaaf72c73a6"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
-최신 조판·출처·문체 수정본은 [최종 감사 보고서](VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+최신 인쇄 가독성·부록 행 분할 검토는 [최종 제출본 가독성 보고서](VALIDATION/FINAL_PRINT_READINESS_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 56쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
 
 이 디렉터리는 웹한글에서 편집할 HWPX 논문과 제출 전 사실 확인에 필요한 원고·표·그림·검증 자료로 구성한다.
 
@@ -11,7 +11,7 @@
 - `TABLES/TABLES_60Q.xlsx`: 본문 및 부록용 17개 workbook sheet
 - `FIGURES/*.png`: HWP에 삽입할 10개 구조·통계 그림
 - `FIGURES/LITERATURE/`: 이론적 배경에 삽입할 선행연구 인용 그림 6개
-- `EVIDENCE/IO_CASES/`: 저장된 60-query artifact의 E01~E06 실제 입출력 PNG와 대응 raw TXT
+- `EVIDENCE/IO_CASES/`: 저장된 60-query artifact의 E01~E06 입출력 발췌 PNG, 원래 raw TXT, 정확한 발췌 위치·전체 답변 평가값의 인쇄용 명세
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서

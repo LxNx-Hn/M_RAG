@@ -273,9 +273,11 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     )
     table.set_column_widths(widths)
     table.element.set("repeatHeader", "1")
-    table.element.set("pageBreak", "CELL")
+    table.element.set(
+        "pageBreak", "TABLE" if data["sheet"] == "Appendix_Queries" else "CELL"
+    )
     # Inline tables participate in the caption's keepWithNext flow. Long
-    # appendix tables retain CELL splitting and repeated headers as floats.
+    # appendix rows stay intact across pages, with repeated headers as floats.
     table.element.find("hp:pos", NS).set(
         "treatAsChar", "1" if sum(heights) <= 50000 else "0"
     )

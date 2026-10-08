@@ -61,6 +61,17 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case()
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_appendix_split_cell(self):
+        def change(section, parts):
+            table = next(
+                t for t in section.findall(".//hp:tbl", NS) if t.get("rowCnt") == "61"
+            )
+            table.set("pageBreak", "CELL")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Table row pagination changed", result.stderr)
+
     def test_duplicated_paragraph(self):
         def change(section, parts):
             paragraph = next(

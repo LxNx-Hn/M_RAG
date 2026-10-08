@@ -1,0 +1,179 @@
+{
+  "E01": {
+    "hyde_off__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 612,
+        "end": 782,
+        "text": "RAPTOR selects nodes from different layers depending on the level of granularity required by the Published as a conference paper at ICLR 2024 Algorithm 2 Collapsed Tree A",
+        "context_index": 0
+      },
+      {
+        "field": "generated_answer",
+        "start": 154,
+        "end": 331,
+        "text": "첫째, RAPTOR는 계층적 구조를 통해 다양한 수준의 추상화(abstraction)를 제공합니다. 논문의 Figure 4에서 확인할 수 있듯이, RAPTOR는 질문의 요구사항에 따라 서로 다른 층위(layer)에서 노드를 선택할 수 있습니다. 반면 DPR은 단일 층위의 leaf 노드만을 선택하여 정보를 제공합니다."
+      }
+    ]
+  },
+  "E02": {
+    "hyde_on__cad_only": [
+      {
+        "field": "contexts",
+        "start": 10,
+        "end": 104,
+        "text": "CAD can be used with off-the-shelf pretrained language models without any additional training.",
+        "context_index": 0
+      },
+      {
+        "field": "generated_answer",
+        "start": 0,
+        "end": 245,
+        "text": ". Improving transformer generalization through weight normalization. _arXiv preprint arXiv:2204.03296_. Sheng-Hong Huang, Xiaodan Zheng, and Jianfeng Gao. 2018. Factually faithful abstractive summarization. In _Proceedings of the 2018 Conference"
+      }
+    ]
+  },
+  "E03": {
+    "hyde_on__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 104,
+        "end": 376,
+        "text": "In the Fusion SFT phase, we partition the training data into reasoning and non-reasoning subsets. We deliberately emphasize non-reasoning tasks that are relatively underrepresented in earlier stages, including creative writing, translation, and general question answering.",
+        "context_index": 0
+      },
+      {
+        "field": "generated_answer",
+        "start": 0,
+        "end": 262,
+        "text": "tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, we apply a model merging technique using checkpoints saved at regular intervals [ 25 ]."
+      }
+    ],
+    "hyde_on__scd_only": [
+      {
+        "field": "generated_answer",
+        "start": 0,
+        "end": 330,
+        "text": "tasks such as math problems, code snippets, and general knowledge questions, with a composition of 29% English, 17% Korean, 50% STEM, and 9% multilingual data. After stage 1, 우리는 정기적인 간격으로 저장된 체크포인트를 사용한 모델 병합 기법을 적용합니다 [25]. 단계 1의 최종 체크포인트와 비교하여, 병합된 모델은 대부분의 평가 지표에서 향상된 성능을 보여주며, GSM8K [15]를 제외하고는 그렇습니다. CPT 단계 2에서는 이전 단계에 비해 "
+      }
+    ]
+  },
+  "E04": {
+    "hyde_off__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 0,
+        "end": 170,
+        "text": "complex tasks. Furthermore, we have expanded Mi:dm K from a Korean-English bilingual model to a multilingual model supporting four languages, including Japanese and Chine",
+        "context_index": 0
+      },
+      {
+        "field": "generated_answer",
+        "start": 0,
+        "end": 113,
+        "text": "제공된 논문 컨텍스트를 면밀히 검토한 결과, Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터가 어떤 세 가지 차원을 기준으로 고품질 대화를 설계하는지에 관한 구체적인 정보를 확인할 수 없습니다."
+      }
+    ],
+    "hyde_on__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 3618,
+        "end": 3741,
+        "text": "We define high quality multi-turn conversations along three dimensions: interaction structure, topic and task, and persona.",
+        "context_index": 3
+      },
+      {
+        "field": "generated_answer",
+        "start": 96,
+        "end": 136,
+        "text": "**1. 상호작용 구조(Interaction Structure) 차원**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 402,
+        "end": 435,
+        "text": "**2. 주제 및 과제(Topic and Task) 차원**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 673,
+        "end": 696,
+        "text": "**3. 페르소나(Persona) 차원**"
+      }
+    ]
+  },
+  "E05": {
+    "hyde_off__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 1514,
+        "end": 1617,
+        "text": "licensed proprietary datasets, public datasets that permit commercial use, and in-house synthetic data.",
+        "context_index": 1
+      },
+      {
+        "field": "generated_answer",
+        "start": 74,
+        "end": 109,
+        "text": "**1. 라이선스 보유 독점(proprietary) 데이터셋**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 236,
+        "end": 270,
+        "text": "**2. 상업적 이용이 허가된 공개(public) 데이터셋**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 388,
+        "end": 425,
+        "text": "**3. 자체(in-house) 합성(synthetic) 데이터**"
+      }
+    ],
+    "hyde_off__cad_only": [
+      {
+        "field": "generated_answer",
+        "start": 66,
+        "end": 120,
+        "text": "**1. Licensed Proprietary Datasets (라이선스 취득 전용 데이터셋)**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 227,
+        "end": 297,
+        "text": "**2. Public Datasets Permitting Commercial Use (상업적 이용이 허용된 공개 데이터셋)**"
+      },
+      {
+        "field": "generated_answer",
+        "start": 474,
+        "end": 519,
+        "text": "**3. In-house Synthetic Data (자체 생성 합성 데이터)**"
+      }
+    ]
+  },
+  "E06": {
+    "hyde_off__no_decoder_control": [
+      {
+        "field": "contexts",
+        "start": 1186,
+        "end": 1386,
+        "text": "knowledge-intensive tasks across different topics, [28] revealed that while unsupervised fine-tuning shows some improvement, RAG consistently outperforms it, for both existing knowledge encountered du",
+        "context_index": 0
+      },
+      {
+        "field": "generated_answer",
+        "start": 270,
+        "end": 468,
+        "text": "### 1. 외부 지식 활용의 우수성\n논문에서는 \"RAG excels in dynamic environments by offering realtime knowledge updates and effective utilization of external knowledge sources with high interpretability\"라고 명시하고 있습니다."
+      }
+    ],
+    "hyde_off__cad_only": [
+      {
+        "field": "generated_answer",
+        "start": 0,
+        "end": 65,
+        "text": "논문]\n\n위 내용 참조\n\n**\n\n답변을 뒷받침하는 구체적인 예시나 연구 결과도 포함해 주세요.\n\n breath\n\n**"
+      }
+    ]
+  }
+}

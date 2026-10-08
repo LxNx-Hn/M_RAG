@@ -38,6 +38,10 @@ python -X utf8 FINALDOCS/BUILD/build_submission_literature.py --source-dir tmp/s
 
 전체 제출 검토와 미입력 표지 정보는 `VALIDATION/FINAL_SUBMISSION_AUDIT.md` 및 `VALIDATION/SUBMISSION_PERSONAL_FIELDS.md`를 따른다.
 
-최신 조판·출처 검토는 `VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md`를 따른다. `layout_policy.py`는 역할별 위·아래 간격(pt), 행간(%), 정렬과 문단 보호를 정의하고 학교 문단 모양의 복제본을 적용한다. `layout_checks.py`는 저장된 XML을 별도로 검사한다. 원래 19개 스타일·글꼴·용지·여백은 보존한다. 출처와 이용 정보는 본문 글꼴의 9pt 복제 글자 모양으로 적용한다. 짧은 표는 글자처럼 배치하여 제목과 함께 이동하고 긴 부록 표는 셀 단위 분할·반복 머리글을 유지한다. 그림 자료 이용 정보의 7개 URL은 네이티브 하이퍼링크이다. 페이지 지도는 원고와 조판 코드의 LF 해시를 확인하므로 문단 속성이 바뀌어도 기존 쪽번호를 그대로 재사용할 수 없다.
+조판·출처 검토는 `VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md`, 최신 인쇄 검토는 `VALIDATION/FINAL_PRINT_READINESS_AUDIT.md`를 따른다. `layout_policy.py`는 역할별 위·아래 간격(pt), 행간(%), 정렬과 문단 보호를 정의하고 학교 문단 모양의 복제본을 적용한다. `layout_checks.py`는 저장된 XML을 별도로 검사한다. 원래 19개 스타일·글꼴·용지·여백은 보존한다. 출처와 이용 정보는 본문 글꼴의 9pt 복제 글자 모양으로 적용한다. 짧은 표는 글자처럼 배치하여 제목과 함께 이동한다. 부록 A는 `pageBreak=TABLE`로 셀을 나누지 않고 행을 다음 쪽으로 이동하며 반복 머리글을 유지한다. 그림 자료 이용 정보의 7개 URL은 네이티브 하이퍼링크이다. 페이지 지도는 원고와 조판 코드의 LF 해시를 확인하므로 문단 속성이 바뀌어도 기존 쪽번호를 그대로 재사용할 수 없다.
+
+입출력 그림의 인쇄용 재생성은 Windows 맑은 고딕·Pillow가 있는 환경에서 `python -X utf8 FINALDOCS/BUILD/build_print_evidence.py`로 실행한다. `PRINT_EXCERPT_PLAN.json`의 구간이 저장 생성 기록과 정확히 일치해야 한다. 질문·조건·검색 ID·발췌 원문과 전체 답변 기준 평가값을 표시하며 원래 raw TXT와 실험 자료는 유지한다. `print_evidence_checks.py`는 발췌 위치, 전체 기록·평가 해시, 지표, 조건, 그림 바이트를 독립적으로 대조한다. API·모델 호출은 없다.
+
+실제 웹한글 PDF의 추가 검사는 PyMuPDF·Pillow가 있는 환경에서 `python -X utf8 FINALDOCS/BUILD/verify_print_pdf.py`로 실행한다. PDF에 삽입된 6개 그림의 복원 픽셀·물리 글자 크기(9pt 이상), 부록 A의 60개 행·360개 셀·반복 머리글을 대조한다. 혼합 문자 PDF의 내용 스트림 순서 대신 화면상 문자 좌표 순서로 셀을 비교하며, 오류는 예외로 보고한다. 이 검사는 전수 시각 검토와 함께 수행한다.
 
 `prose_audit_checks.py`는 본문·초록·캡션·설명의 방어형 후보를 검출하고 문장 해시별 검토 사유를 확인한다. 수식·코드·탭 구분 원자료·서지 원문은 분리한다. 기존 방어 문장 재등장과 새로운 미검토 후보는 실패하며, 통계적으로 필요한 부정 표현은 `PROSE_SENTENCE_REVIEW.json`의 F 판정과 사유로 유지한다. 전체 검토 단위의 해시도 확인하므로 새 문장에는 검토 기록을 추가한다. 후보 0건을 전수 독해 완료로 판정하지 않는다. 전체 독해 기록은 `VALIDATION/FINAL_PROSE_AUDIT.md`에 있다.

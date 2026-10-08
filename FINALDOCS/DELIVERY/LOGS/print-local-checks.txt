@@ -1,0 +1,53 @@
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\evaluation\main-hyde-cad-scd-reference-scd-gpt4o-official\merged.ragas_scores.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\evaluation\ext60_gpt4o\merged.ragas_scores.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\data\query_splits\decoder_main_queries.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\data\query_splits\extended_validation_questions.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\analysis\extended_validation_60_analysis.json
+PASS: FINALDOCS 60-query thesis package
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
+PASS: HWPX ZIP/XML, 333 ordered paragraphs, 1092 XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -X utf8 -m unittest discover -s FINALDOCS/VALIDATION -p test_*.py
+...........................
+----------------------------------------------------------------------
+Ran 27 tests in 0.909s
+
+OK
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -X utf8 -m unittest discover -s FINALDOCS/BUILD -p test_*.py
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 22.539s
+
+OK
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -X utf8 -m compileall -q FINALDOCS/BUILD FINALDOCS/VALIDATION
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -m ruff check FINALDOCS/BUILD/build_print_evidence.py FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/BUILD/test_hwpx_validation.py FINALDOCS/VALIDATION/print_evidence_checks.py FINALDOCS/VALIDATION/test_print_evidence.py FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+All checks passed!
+EXIT: 0
+
+COMMAND: C:\Users\KiKi\Desktop\CODE\M_RAG\.venv-hwpx\Scripts\python.exe -m black --check FINALDOCS/BUILD/build_print_evidence.py FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/BUILD/test_hwpx_validation.py FINALDOCS/VALIDATION/print_evidence_checks.py FINALDOCS/VALIDATION/test_print_evidence.py FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+All done! \u2728 \U0001f370 \u2728
+7 files would be left unchanged.
+EXIT: 0
+
+COMMAND: git diff --check
+warning: in the working copy of 'FINALDOCS/BUILD/build_thesis_hwpx.py', LF will be replaced by CRLF the next time Git touches it
+EXIT: 0
+COMMAND: python -X utf8 FINALDOCS/BUILD/verify_print_pdf.py
+PASS: 56 pages, 6 pixel-identical evidence images >=9 pt, 60 intact rows / 360 cells / repeated headers
+EXIT: 0
+COMMAND: .venv-hwpx/Scripts/python.exe -m ruff check FINALDOCS/BUILD/verify_print_pdf.py
+All checks passed!
+EXIT: 0
+COMMAND: .venv-hwpx/Scripts/python.exe -m black --check FINALDOCS/BUILD/verify_print_pdf.py
+1 file would be left unchanged.
+EXIT: 0

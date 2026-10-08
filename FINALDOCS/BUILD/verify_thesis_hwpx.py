@@ -150,7 +150,11 @@ def main() -> None:
             ws = workbook[name.strip()]
             assert int(table.get("rowCnt")) == ws.max_row - 2
             assert int(table.get("colCnt")) == ws.max_column
-            assert table.get("pageBreak") == "CELL" and table.get("repeatHeader") == "1"
+            expected_break = "TABLE" if name.strip() == "Appendix_Queries" else "CELL"
+            assert (
+                table.get("pageBreak") == expected_break
+            ), "Table row pagination changed"
+            assert table.get("repeatHeader") == "1"
             merges = {
                 (m.min_row - 3, m.min_col - 1): (
                     m.max_row - m.min_row + 1,
