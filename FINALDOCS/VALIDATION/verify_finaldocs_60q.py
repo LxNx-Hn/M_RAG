@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
+
+from academic_language_checks import validate_academic_text
 
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
@@ -174,6 +177,7 @@ def main() -> int:
             )
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
+    validate_academic_text(text)
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
     if len(body) < 30000:
         raise AssertionError(
@@ -259,7 +263,7 @@ def main() -> int:
         "ContextCompressor",
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
         "H0S0 -0.0073, H1S0 -0.0588",
-        "HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성한다",
+        "HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성하였다",
         "그림 5-11은 각 조건에서 측정된 대응 차이를 제시",
     ):
         if marker not in text:
@@ -365,7 +369,7 @@ def main() -> int:
         "5.8 종합 논의",
         "5.9 연구의 한계",
         "6.1 연구 질문별 최종 답",
-        "6.2 실험 설계가 제공한 의미",
+        "6.2 비교 설계의 의의",
         "6.3 적용 시 실험 조건 선택",
         "6.4 제한점과 후속 연구",
         "부록 A~B",
@@ -458,7 +462,35 @@ def main() -> int:
             for name in archive.namelist()
             if name.startswith("xl/worksheets/sheet") and name.endswith(".xml")
         )
-        workbook_text = shared_strings + "\n" + worksheet_xml
+        workbook_text = html.unescape(shared_strings + "\n" + worksheet_xml)
+        # Read actual cells rather than depending on an XLSX writer's Unicode
+        # escaping or inline/shared-string serialization choices.
+        namespace = {"s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+        shared = (
+            [
+                "".join(node.itertext())
+                for node in ET.fromstring(shared_strings).findall("s:si", namespace)
+            ]
+            if shared_strings
+            else []
+        )
+        for sheet_number in (11, 12):
+            sheet_root = ET.fromstring(
+                archive.read(f"xl/worksheets/sheet{sheet_number}.xml")
+            )
+            headers = []
+            for address in ("D3", "E3", "F3", "G3"):
+                cell = sheet_root.find(f'.//s:c[@r="{address}"]', namespace)
+                if cell is None:
+                    raise AssertionError(
+                        f"missing direction header cell {sheet_number}:{address}"
+                    )
+                if cell.get("t") == "s":
+                    headers.append(shared[int(cell.find("s:v", namespace).text)])
+                else:
+                    headers.append("".join(cell.find("s:is", namespace).itertext()))
+            if headers != ["증가", "감소", "동률", "n"]:
+                raise AssertionError(f"XLSX direction columns differ: {headers}")
         query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
 
     sheet_names = re.findall(
@@ -594,7 +626,7 @@ def main() -> int:
             )
     for section_name, next_name in (
         ("5.7 대표 입출력 및 요구사항별 실행 결과", "5.8 종합 논의"),
-        ("6.2 실험 설계가 제공한 의미", "6.3 적용 시 실험 조건 선택"),
+        ("6.2 비교 설계의 의의", "6.3 적용 시 실험 조건 선택"),
     ):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
         if len(section.strip()) < 500:

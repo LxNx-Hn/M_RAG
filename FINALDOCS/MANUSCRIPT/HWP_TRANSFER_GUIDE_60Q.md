@@ -54,12 +54,12 @@
 | 본문 위치 | PNG 파일 | 그림 제목 |
 |---|---|---|
 | 1장 | fig1_1_research_setting.png | 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경 |
-| 2.1 | LITERATURE/fig2_1_rag_original.png | RAG의 retriever–generator 구조 — Lewis et al.[1], Fig. 1 |
-| 2.2 | LITERATURE/fig2_2_lost_middle_original.png | 관련 정보 위치에 따른 long-context 성능 변화 — Liu et al.[12], Fig. 1 |
-| 2.3 | LITERATURE/fig2_3_hyde_original.png | HyDE의 hypothetical-document retrieval 구조 — Gao et al.[2], Fig. 1 |
-| 2.4 | LITERATURE/fig2_4_cad_original.png | Context-Aware Decoding의 분포 대조 구조 — Shi et al.[3], Fig. 1 |
-| 2.5 | LITERATURE/fig2_5_scd_language_drift_original.png | 다국어 RAG의 language drift 사례 — Li et al.[4], Fig. 1 |
-| 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS 근거 충실도 높음/낮음 예시 — Es et al.[9], Table 2 |
+| 2.1 | LITERATURE/fig2_1_rag_original.png | RAG의 retriever–generator 구조 — Lewis 외[1], 그림 1에서 발췌 |
+| 2.2 | LITERATURE/fig2_2_lost_middle_original.png | 관련 정보 위치에 따른 긴 문맥 성능 변화 — Liu 외[12], 그림 1에서 발췌 |
+| 2.3 | LITERATURE/fig2_3_hyde_original.png | HyDE의 가상 문서 기반 검색 구조 — Gao 외[2], 그림 1에서 발췌 |
+| 2.4 | LITERATURE/fig2_4_cad_original.png | Context-Aware Decoding의 분포 대조 구조 — Shi 외[3], 그림 1에서 발췌 |
+| 2.5 | LITERATURE/fig2_5_scd_language_drift_original.png | 다국어 RAG의 출력 언어 이탈 사례 — Li 외[4], 그림 1에서 발췌 |
+| 2.6 | LITERATURE/fig2_6_ragas_faithfulness_original.png | RAGAS 근거 충실도 높음/낮음 예시 — Es 외[9], 표 2에서 발췌 |
 | 3장 | fig3_1_rag_cube.png | HyDE·CAD·SCD RAG-Cube 8개 조건 |
 | 4장 | fig4_1_pipeline.png | 고정 Paper-RAG backbone 실행 흐름 |
 | 4장 | fig4_2_artifact_flow.png | 생성 기록 → 평가 → 대응 분석 → 표·그림 흐름 |
@@ -98,3 +98,7 @@ weighted RRF, CAD 점수, SCD 토큰 점수, 한국어 문자 비율을 이
 - 표가 쪽을 넘을 때 제목과 첫 행을 같은 쪽에 두고, 부록 A의 60행 표는 이어지는 표로 처리한다.
 - 수식은 HWP 수식 입력기의 렌더링 결과로 배치한다.
 - 5장 수치는 `EXPERIMENT_60_VALIDATION.md` 및 workbook의 값과 동일하게 유지한다.
+
+## 2026-10-08 학술 교정 반영
+
+그림목차와 본문에는 정식 제목을 동일하게 사용한다. 문헌 그림 2-1~2-6의 출처는 제목 다음 별도 문단에 배치하고 원본 영역을 잘라낸 발췌임을 표시한다. 라이선스 확인은 `FINALDOCS/FIGURES/LITERATURE/README.md`를 참조한다. 표 5-3/5-4의 세 열은 증가·감소·동률이며 기존 수치와 n은 유지하였다. 최종 쪽번호는 새 웹한글 PDF를 검토한 `PAGE_MAP_60Q.json`을 기준으로 한다.

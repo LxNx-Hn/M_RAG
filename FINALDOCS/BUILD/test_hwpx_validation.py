@@ -98,6 +98,21 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
 
+    def test_missing_reviewed_page_break(self):
+        def change(section, parts):
+            paragraph = next(
+                p
+                for p in section
+                if p.get("pageBreak") == "1"
+                and "6.3 적용 시 실험 조건 선택"
+                == "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS))
+            )
+            paragraph.set("pageBreak", "0")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("section page break missing", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

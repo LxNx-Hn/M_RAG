@@ -39,11 +39,19 @@ def parse_manuscript(path: Path) -> list[dict]:
     events = []
     i = 0
     table_block = False
+    pending_page_break = False
     while i < len(lines):
         line = lines[i].strip()
         i += 1
         if not line:
             continue
+        if line == "[쪽나눔]":
+            if pending_page_break:
+                raise ValueError("Repeated page-break directive")
+            pending_page_break = True
+            continue
+        if pending_page_break and not line.startswith("## "):
+            raise ValueError("Manual page break must precede a section heading")
         if line.startswith("```"):
             block = []
             while i < len(lines) and not lines[i].startswith("```"):
@@ -90,9 +98,12 @@ def parse_manuscript(path: Path) -> list[dict]:
                 "kind": "paragraph",
                 "text": clean(line),
                 "style": style,
-                "page_break": line.startswith("# "),
+                "page_break": line.startswith("# ") or pending_page_break,
             }
         )
+        pending_page_break = False
+    if pending_page_break:
+        raise ValueError("Dangling page-break directive")
     if sum(e["kind"] == "table" for e in events) != 17:
         raise ValueError("Expected exactly 17 table insertion events")
     if sum(e["kind"] == "picture" for e in events) != 22:

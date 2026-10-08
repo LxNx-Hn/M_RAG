@@ -34,7 +34,7 @@ def canonical_paragraphs(source: str) -> list[str]:
     for line in source.splitlines():
         line = line.strip()
         if not line or re.match(
-            r"^\[(?:한글 |그림삽입:|입출력증빙삽입:|표삽입:)", line
+            r"^\[(?:한글 |그림삽입:|입출력증빙삽입:|표삽입:|쪽나눔\])", line
         ):
             continue
         line = re.sub(r"\s*\[스타일=[^\]]+\]", "", line)
@@ -77,6 +77,7 @@ def main() -> None:
         "[표삽입:",
         "복붙용",
         "쪽번호 자동갱신",
+        "[쪽나눔]",
     ):
         assert marker not in extracted, f"Unresolved staging metadata: {marker}"
     paragraphs = canonical_paragraphs(source)
@@ -100,6 +101,16 @@ def main() -> None:
             if name.endswith((".xml", ".hpf", ".rdf")):
                 ET.fromstring(z.read(name))
         section = ET.fromstring(z.read("Contents/section0.xml"))
+        for heading in re.findall(r"\[쪽나눔\]\s*\n## (.*?) \[스타일=", source):
+            matches = [
+                p
+                for p in section.findall("./hp:p", NS)
+                if norm("".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)))
+                == norm(heading)
+            ]
+            assert (
+                sum(p.get("pageBreak") == "1" for p in matches) == 1
+            ), f"Reviewed section page break missing: {heading}"
         # Exact occurrences catch duplicated prose missed by an order check.
         actual_counts = Counter(
             norm(
@@ -270,7 +281,7 @@ def main() -> None:
         "generation_records": 480,
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
-        "web_rendering": "see HWPX_BUILD_QA_REPORT.md",
+        "web_rendering": "see ../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

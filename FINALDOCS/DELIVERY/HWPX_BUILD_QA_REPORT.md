@@ -1,4 +1,6 @@
-# 60개 질의 졸업논문 HWPX 제작·검증 보고서
+# 60개 질의 졸업논문 HWPX 초기 제작·검증 보고서
+
+이 문서는 학술 교정 전 57쪽 제작본의 기록이다. 현재 55쪽 교정본의 검토·수치 보존·PDF 재출력 결과는 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`와 `LOGS/academic_*`를 참조한다.
 
 검토일: 2026-10-08. 주 산출물은 `GRADUATION_REPORT_60Q_FINAL.hwpx`, 시각 검토본은 실제 한컴독스 웹한글이 내보낸 `GRADUATION_REPORT_60Q_FINAL.pdf`이다. 원고·표·실험 원자료·웹한글 출력으로 검증했다.
 
