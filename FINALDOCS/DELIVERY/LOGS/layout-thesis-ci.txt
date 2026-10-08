@@ -1,0 +1,208 @@
+validate	Set up job	﻿2026-10-08T19:12:18.4191087Z Current runner version: '2.337.0'
+validate	Set up job	2026-10-08T19:12:18.4229651Z ##[group]Runner Image Provisioner
+validate	Set up job	2026-10-08T19:12:18.4231107Z Hosted Compute Agent
+validate	Set up job	2026-10-08T19:12:18.4232274Z Version: 20261002.596
+validate	Set up job	2026-10-08T19:12:18.4233369Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+validate	Set up job	2026-10-08T19:12:18.4235111Z Build Date: 2026-10-02T22:28:27Z
+validate	Set up job	2026-10-08T19:12:18.4236526Z Worker ID: {676f2989-092c-4200-94d8-65c39f0fd21e}
+validate	Set up job	2026-10-08T19:12:18.4237946Z Region: eastus2
+validate	Set up job	2026-10-08T19:12:18.4238995Z Cloud: Azure
+validate	Set up job	2026-10-08T19:12:18.4239988Z ##[endgroup]
+validate	Set up job	2026-10-08T19:12:18.4242326Z ##[group]Operating System
+validate	Set up job	2026-10-08T19:12:18.4243535Z Ubuntu
+validate	Set up job	2026-10-08T19:12:18.4244730Z 24.04.5
+validate	Set up job	2026-10-08T19:12:18.4245957Z LTS
+validate	Set up job	2026-10-08T19:12:18.4246894Z ##[endgroup]
+validate	Set up job	2026-10-08T19:12:18.4248015Z ##[group]Runner Image
+validate	Set up job	2026-10-08T19:12:18.4249146Z Image: ubuntu-24.04
+validate	Set up job	2026-10-08T19:12:18.4250123Z Version: 20261004.327.1
+validate	Set up job	2026-10-08T19:12:18.4252159Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+validate	Set up job	2026-10-08T19:12:18.4255460Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+validate	Set up job	2026-10-08T19:12:18.4257158Z ##[endgroup]
+validate	Set up job	2026-10-08T19:12:18.4259205Z ##[group]GITHUB_TOKEN Permissions
+validate	Set up job	2026-10-08T19:12:18.4262140Z Contents: read
+validate	Set up job	2026-10-08T19:12:18.4263582Z Metadata: read
+validate	Set up job	2026-10-08T19:12:18.4264985Z Packages: read
+validate	Set up job	2026-10-08T19:12:18.4266080Z ##[endgroup]
+validate	Set up job	2026-10-08T19:12:18.4269323Z Secret source: Actions
+validate	Set up job	2026-10-08T19:12:18.4271049Z Cache mode: write
+validate	Set up job	2026-10-08T19:12:18.4272716Z Prepare workflow directory
+validate	Set up job	2026-10-08T19:12:18.4758981Z Prepare all required actions
+validate	Set up job	2026-10-08T19:12:18.4816270Z Getting action download info
+validate	Set up job	2026-10-08T19:12:18.6815322Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+validate	Set up job	2026-10-08T19:12:18.7704414Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+validate	Set up job	2026-10-08T19:12:18.9533239Z Complete job name: validate
+validate	Run actions/checkout@v5	﻿2026-10-08T19:12:19.0330591Z ##[group]Run actions/checkout@v5
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0331510Z with:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0331960Z   repository: LxNx-Hn/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0335896Z   token: ***
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0336342Z   ssh-strict: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0336779Z   ssh-user: git
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0337232Z   persist-credentials: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0337722Z   clean: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0338172Z   sparse-checkout-cone-mode: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0338693Z   fetch-depth: 1
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0339116Z   fetch-tags: false
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0339555Z   show-progress: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0339987Z   lfs: false
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0340388Z   submodules: false
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0340824Z   set-safe-directory: true
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0341322Z   allow-unsafe-pr-checkout: false
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.0342092Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1369780Z Syncing repository: LxNx-Hn/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1372707Z ##[group]Getting Git version info
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1373467Z Working directory is '/home/runner/work/M_RAG/M_RAG'
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1374969Z [command]/usr/bin/git version
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1465589Z git version 2.55.0
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1493605Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1511747Z Temporarily overriding HOME='/home/runner/work/_temp/3819291e-e30e-45f7-bf67-ec327f847f7a' before making global git config changes
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1514846Z Adding repository directory to the temporary git global config as a safe directory
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1518552Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/M_RAG/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1574699Z Deleting the contents of '/home/runner/work/M_RAG/M_RAG'
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1585905Z ##[group]Initializing the repository
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1593250Z [command]/usr/bin/git init /home/runner/work/M_RAG/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1706806Z hint: Using 'master' as the name for the initial branch. This default branch name
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1708619Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1710554Z hint: to use in all of your new repositories, which will suppress this warning,
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1711720Z hint: call:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1712297Z hint:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1712847Z hint: 	git config --global init.defaultBranch <name>
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1714016Z hint:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1715067Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1716173Z hint: 'development'. The just-created branch can be renamed via this command:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1716907Z hint:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1717322Z hint: 	git branch -m <name>
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1717790Z hint:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1718418Z hint: Disable this message with "git config set advice.defaultBranchName false"
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1719425Z Initialized empty Git repository in /home/runner/work/M_RAG/M_RAG/.git/
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1722750Z [command]/usr/bin/git remote add origin https://github.com/LxNx-Hn/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1777017Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1778279Z ##[group]Disabling automatic garbage collection
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1782181Z [command]/usr/bin/git config --local gc.auto 0
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1815242Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1815999Z ##[group]Setting up auth
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1823903Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.1857727Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2270032Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2311380Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2538464Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2578059Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2808052Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2851153Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2852653Z ##[group]Fetching the repository
+validate	Run actions/checkout@v5	2026-10-08T19:12:19.2862796Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5cc480633ae1541f44b6ee4d212e20ddeea001a4:refs/remotes/origin/main
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4340434Z From https://github.com/LxNx-Hn/M_RAG
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4342483Z  * [new ref]         5cc480633ae1541f44b6ee4d212e20ddeea001a4 -> origin/main
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4346784Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4348495Z ##[group]Determining the checkout info
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4350405Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4356358Z [command]/usr/bin/git sparse-checkout disable
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4430658Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4463520Z ##[group]Checking out the ref
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.4469220Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.7836334Z Switched to a new branch 'main'
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.7841649Z branch 'main' set up to track 'origin/main'.
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.7868320Z ##[endgroup]
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.7916375Z [command]/usr/bin/git log -1 --format=%H
+validate	Run actions/checkout@v5	2026-10-08T19:12:21.7942836Z 5cc480633ae1541f44b6ee4d212e20ddeea001a4
+validate	Run actions/setup-python@v6	﻿2026-10-08T19:12:21.8346392Z ##[group]Run actions/setup-python@v6
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8347791Z with:
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8348764Z   python-version: 3.11
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8349911Z   check-latest: false
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8360063Z   token: ***
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8361139Z   update-environment: true
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8362343Z   allow-prereleases: false
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8363509Z   freethreaded: false
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.8364676Z ##[endgroup]
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.9698611Z ##[group]Installed versions
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.9816597Z Successfully set up CPython (3.11.17)
+validate	Run actions/setup-python@v6	2026-10-08T19:12:21.9817793Z ##[endgroup]
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	﻿2026-10-08T19:12:22.0010515Z ##[group]Run pip install -r FINALDOCS/BUILD/requirements.txt
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0011571Z ^[[36;1mpip install -r FINALDOCS/BUILD/requirements.txt^[[0m
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0333508Z shell: /usr/bin/bash -e {0}
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0334246Z env:
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0334704Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0335317Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0335912Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0336455Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0336991Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0337538Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.0409630Z ##[endgroup]
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.9006234Z Collecting python-hwpx==6.8.0 (from -r FINALDOCS/BUILD/requirements.txt (line 1))
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:22.9795161Z   Downloading python_hwpx-6.8.0-py3-none-any.whl.metadata (14 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.0032734Z Collecting openpyxl==3.1.5 (from -r FINALDOCS/BUILD/requirements.txt (line 2))
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.0165858Z   Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.2000236Z Collecting Pillow==12.3.0 (from -r FINALDOCS/BUILD/requirements.txt (line 3))
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.2135121Z   Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.4382582Z Collecting lxml<7,>=4.9 (from python-hwpx==6.8.0->-r FINALDOCS/BUILD/requirements.txt (line 1))
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.4515001Z   Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.4668776Z Collecting et-xmlfile (from openpyxl==3.1.5->-r FINALDOCS/BUILD/requirements.txt (line 2))
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.4796353Z   Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.4972987Z Downloading python_hwpx-6.8.0-py3-none-any.whl (1.0 MB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.5635950Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 26.6 MB/s  0:00:00
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.5769627Z Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.5934002Z Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.6630875Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 99.8 MB/s  0:00:00
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.6764744Z Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.6975721Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 266.7 MB/s  0:00:00
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.7107359Z Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:23.7801736Z Installing collected packages: Pillow, lxml, et-xmlfile, python-hwpx, openpyxl
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:25.0467912Z 
+validate	Run pip install -r FINALDOCS/BUILD/requirements.txt	2026-10-08T19:12:25.0479678Z Successfully installed Pillow-12.3.0 et-xmlfile-2.0.0 lxml-6.1.3 openpyxl-3.1.5 python-hwpx-6.8.0
+validate	Validate committed thesis evidence and HWPX	﻿2026-10-08T19:12:25.1180757Z ##[group]Run python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1181345Z ^[[36;1mpython -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py^[[0m
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1181802Z ^[[36;1mpython -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py^[[0m
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1182286Z ^[[36;1mpython -X utf8 -m unittest discover -s FINALDOCS/VALIDATION -p 'test_*.py'^[[0m
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1182842Z ^[[36;1mpython -X utf8 -m unittest discover -s FINALDOCS/BUILD -p 'test_*.py'^[[0m
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1248932Z shell: /usr/bin/bash -e {0}
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1249193Z env:
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1249469Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1249912Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1250341Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1250974Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1251363Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1251817Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.1252143Z ##[endgroup]
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:25.3878776Z PASS: FINALDOCS 60-query thesis package
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:26.8901425Z PASS: HWPX ZIP/XML, 333 ordered paragraphs, 1092 XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:27.5639647Z ......................
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:27.5640583Z ----------------------------------------------------------------------
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:27.5641378Z Ran 22 tests in 0.380s
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:27.5641670Z 
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:27.5641835Z OK
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:45.3695773Z ............
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:45.3696498Z ----------------------------------------------------------------------
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:45.3697139Z Ran 12 tests in 17.737s
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:45.3697417Z 
+validate	Validate committed thesis evidence and HWPX	2026-10-08T19:12:45.3697542Z OK
+validate	Rebuild from school template and verify again	﻿2026-10-08T19:12:45.3856060Z ##[group]Run python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3857346Z ^[[36;1mpython -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json^[[0m
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3858166Z ^[[36;1mpython -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py^[[0m
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3858690Z ^[[36;1mpython -m compileall -q FINALDOCS/BUILD FINALDOCS/VALIDATION/verify_finaldocs_60q.py^[[0m
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3924438Z shell: /usr/bin/bash -e {0}
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3924729Z env:
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3924996Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3925448Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3925892Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3926326Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3926781Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3927190Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+validate	Rebuild from school template and verify again	2026-10-08T19:12:45.3927522Z ##[endgroup]
+validate	Rebuild from school template and verify again	2026-10-08T19:12:53.6640895Z PASS: GRADUATION_REPORT_60Q_FINAL.hwpx; paragraphs=324, tables=17, pictures=22, equations=10
+validate	Rebuild from school template and verify again	2026-10-08T19:12:55.0486734Z PASS: HWPX ZIP/XML, 333 ordered paragraphs, 1092 XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns
+validate	Post Run actions/setup-python@v6	﻿2026-10-08T19:12:55.1753247Z Post job cleanup.
+validate	Post Run actions/checkout@v5	﻿2026-10-08T19:12:55.3217738Z Post job cleanup.
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4142966Z [command]/usr/bin/git version
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4191565Z git version 2.55.0
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4232831Z Temporarily overriding HOME='/home/runner/work/_temp/9ecdde58-1388-411a-af5b-4977d14de34d' before making global git config changes
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4234487Z Adding repository directory to the temporary git global config as a safe directory
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4238713Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/M_RAG/M_RAG
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4282728Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4320898Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4594746Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4628604Z http.https://github.com/.extraheader
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4641867Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4692069Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.4993507Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate	Post Run actions/checkout@v5	2026-10-08T19:12:55.5038541Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate	Complete job	﻿2026-10-08T19:12:55.5557345Z Cleaning up orphan processes

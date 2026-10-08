@@ -340,7 +340,15 @@ git diff --check  PASS
 
 ## GitHub 반영 및 CI
 
-산출물 반영 커밋과 세 워크플로(CI, Thesis HWPX validation, Publish Backend Image)의 정확한 headSha 및 결과는 커밋/푸시 후 확인하여 기록한다. 현재 이 절은 미확정이며 완료를 주장하지 않는다.
+최종 제출 산출물·조판 코드 반영 HEAD: `5cc480633ae1541f44b6ee4d212e20ddeea001a4`. `origin/main`으로 푸시한 뒤 이 정확한 SHA의 세 워크플로가 모두 성공했다. 기록 전용 후속 커밋은 제출 파일을 변경하지 않으며, 마지막 저장소 HEAD는 `git rev-parse HEAD`, 본 보고서의 최신 기록 SHA는 `git log -1 --format=%H -- FINALDOCS/VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md`로 확인한다.
+
+| 워크플로 | 결과 | 근거 |
+|---|---|---|
+| Thesis HWPX validation | success | [실제 run](https://github.com/LxNx-Hn/M_RAG/actions/runs/37830172564) |
+| Publish Backend Image | success | [실제 run](https://github.com/LxNx-Hn/M_RAG/actions/runs/37830172718) |
+| CI | success | [실제 run](https://github.com/LxNx-Hn/M_RAG/actions/runs/37830172586) |
+
+논문 CI는 커밋된 산출물 검사·회귀 테스트 34개·학교 양식에서 재빌드·재검증까지 성공했다. 일반 CI는 프런트엔드 lint/TypeScript build/image와 백엔드 Ruff/Black/pytest/image를 성공했다. 이미지 게시도 성공했다. 원문 CI 상태는 `../DELIVERY/LOGS/layout-ci-artifacts.json`에 보존했다.
 
 ## 제출 전 남은 입력과 변경 시 주의
 
