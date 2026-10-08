@@ -1,5 +1,7 @@
 # 웹한글 최종 확인
 
+최신 문체 교정본의 수행·출력·검증 기록은 `../VALIDATION/FINAL_PROSE_AUDIT.md`와 아래 문체 교정본 절에 있다.
+
 2026-10-08에 한컴독스 로그인 계정에서 실제 업로드·열기·문단 편집·표 셀 편집·저장·재열기·다운로드·PDF 내보내기를 수행했다. 구조 검사와 브라우저 검증은 구분한다. 이전 학술 교정 근거는 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`이며, 이전 제작 근거는 `HWPX_BUILD_QA_REPORT.md`, `HWPX_STRUCTURAL_QA.json`, `LOGS/`에 있다.
 
 | 대상 | 실제 확인 결과 |
@@ -23,10 +25,16 @@
 
 한컴독스 계정 외의 사용자에게 공유 권한을 추가하거나 공개 링크를 생성하지 않았다. 아래 문서는 로그인한 소유자 계정에서 접근한다.
 
-[검증한 최종 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=cXDPsWoYzSd7vTcYnQt2rRaJuHd3d7rO&lang=ko_KR)
+[이전 제출 감사본 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=cXDPsWoYzSd7vTcYnQt2rRaJuHd3d7rO&lang=ko_KR)
 
 ## 2026-10-09 제출 감사본
 
 최신 근거는 `../VALIDATION/FINAL_SUBMISSION_AUDIT.md`이다. 최종 로컬 HWPX와 바이트가 같은 `GRADUATION_REPORT_60Q_FINAL_AUDITED.hwpx` 복사본을 새 웹한글 문서로 열어 실제 PDF를 출력하였다. 기존 문서와의 파일 잠금 충돌을 피하기 위한 업로드 파일명이며 논문 내용은 같다. 문단·표 셀 편집과 저장·재열기는 위 2026-10-08 시험본에서 검증한 결과다. 이번 최종본에서는 열림·편집 메뉴 활성·그림과 수식 표시·목차·PDF 내보내기를 확인하였다. 추가로 모든 편집 동작을 재시험했다고 주장하지 않는다.
 
 이번 출처 수정으로 PDF가 55→54쪽으로 재배치되었다. 장 시작은 9, 11, 18, 21, 24, 39쪽, 참고문헌은 41쪽, 부록 A는 43쪽, 부록 B는 50쪽이다. 목차 5~8쪽은 새 쪽번호와 일치한다. 목차 적용 전후 PDF의 나머지 50쪽은 1.5배 렌더링 픽셀이 동일하다. 입력이 필요한 9개 항목은 `../VALIDATION/SUBMISSION_PERSONAL_FIELDS.md` 한 체크리스트로 관리한다.
+
+## 2026-10-09 문체 교정본
+
+최종 로컬 HWPX와 바이트가 같은 `GRADUATION_REPORT_60Q_PROSE_REVIEWED.hwpx` 복사본을 새 웹한글 문서로 열었다. 문서 편집 영역과 편집 메뉴 활성, 그림 2-1의 새 제작자·개념 출처 문단, 실제 PDF 내보내기를 확인하였다. [최신 문체 교정본 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=vNAWiGaJkYl4gUd8aLzRaIiGbOEXqEgY&lang=ko_KR)를 열어 편집할 수 있다. 검증 화면은 `WEB_PROSE_REVIEW.png`에 보존하였다.
+
+새 PDF는 실제 조판 결과 54쪽이다. 전 페이지를 렌더링하고 표지·초록·본문·표·그림·수식·참고문헌·부록을 검토하였다. 최종 목차 적용 전후에는 5~8쪽만 바뀌며 나머지 50쪽의 픽셀이 동일하다. 5.9절은 38쪽, 6.4절은 40쪽이며 목차 제목과 쪽번호를 함께 갱신하였다. 입력이 필요한 9개 개인·제출 정보와 편집 후 목차 번호 갱신 절차는 위 체크리스트를 따른다. 문단·표 편집·저장·재열기 시험은 2026-10-08의 기존 시험 기록으로 유지한다.

@@ -58,6 +58,24 @@ class SubmissionAuditTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             validate_submission_assets(ROOT, self.text, changed)
 
+    def test_caption_manifest_must_match(self):
+        source = self.manifest["figures"][0]["caption_source"]
+        with self.assertRaisesRegex(AssertionError, "attribution"):
+            validate_submission_assets(
+                ROOT, self.text.replace(source, "누락"), self.manifest
+            )
+
+    def test_independent_caption_role_cannot_change_in_both_files(self):
+        changed = copy.deepcopy(self.manifest)
+        source = changed["figures"][0]["caption_source"]
+        changed["figures"][0]["caption_source"] = "출처: Lewis 외[1]의 그림 발췌."
+        with self.assertRaisesRegex(AssertionError, "creator and concept"):
+            validate_submission_assets(
+                ROOT,
+                self.text.replace(source, changed["figures"][0]["caption_source"]),
+                changed,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

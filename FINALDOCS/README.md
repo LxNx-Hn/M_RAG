@@ -13,6 +13,7 @@
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
+- `VALIDATION/FINAL_PROSE_AUDIT.md`: 최신 문체 전수 감사·수정·웹한글 출력·CI 기록
 - `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: 최종 주장-근거 연결표
 - `VALIDATION/verify_finaldocs_60q.py`: 네트워크·모델 호출 없이 실행하는 제출 패키지 점검기
 

@@ -1,6 +1,7 @@
 """Regression checks that realistic content corruption is rejected."""
 
 import copy
+import json
 import shutil
 import subprocess
 import sys
@@ -74,6 +75,28 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("occurrence mismatch", result.stderr)
+
+    def test_retired_defensive_prose_only_in_hwpx(self):
+        review = json.loads(
+            (ROOT / "FINALDOCS/VALIDATION/PROSE_SENTENCE_REVIEW.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        def change(section, parts):
+            paragraph = next(
+                p for p in section if p.find("./hp:run/hp:t", NS) is not None
+            )
+            duplicate = copy.deepcopy(paragraph)
+            duplicate.set("id", "2147483646")
+            duplicate.find("./hp:run/hp:t", NS).text = review[
+                "retired_defensive_sentences"
+            ][0]
+            section.append(duplicate)
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Retired defensive sentence", result.stderr)
 
     def test_changed_table_cell(self):
         def change(section, parts):

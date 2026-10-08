@@ -3,6 +3,8 @@
 import re
 from collections import Counter
 
+from prose_audit_checks import validate_prose
+
 
 def validate_academic_text(text: str) -> None:
     for error in ("문맥가", "신뢰구간는", "HyDE와 CAD의 통제 비교", "그림 5-3~5-10"):
@@ -26,13 +28,18 @@ def validate_academic_text(text: str) -> None:
         if Counter(listed) != Counter(captions):
             raise AssertionError(f"{kind} full titles differ between list and body")
     expected_sources = (
-        ("2-1", "Lewis", 1, "의 RAG 개념을 바탕으로 본 연구에서 구성."),
         ("2-2", "Liu", 12, ", TACL 정식 출판본의 그림 1 중 도표 발췌."),
         ("2-3", "Gao", 2, ", ACL 2023 정식 출판본의 그림 1 중 도식 발췌."),
         ("2-4", "Shi", 3, ", NAACL 2024 정식 출판본의 그림 1 발췌."),
         ("2-5", "Li", 4, ", arXiv:2511.09984v1의 그림 1 발췌."),
         ("2-6", "Es", 9, ", arXiv:2309.15217v2의 표 2 발췌."),
     )
+    if not re.search(
+        r"\[그림 2-1\] [^\n]+ \[스타일=그림제목\]\n\n"
+        + re.escape("그림 제작: 본 연구. 개념적 근거: Lewis 외[1]."),
+        text,
+    ):
+        raise AssertionError("separate source paragraph missing: figure 2-1")
     for number, author, ref, source in expected_sources:
         pattern = rf"\[그림 {number}\] [^\n]+ \[스타일=그림제목\]\n\n" + re.escape(
             f"출처: {author} 외[{ref}]{source}"
@@ -68,3 +75,4 @@ def validate_academic_text(text: str) -> None:
     ):
         if marker not in text:
             raise AssertionError(f"reviewed analysis contract missing: {marker}")
+    validate_prose(text)

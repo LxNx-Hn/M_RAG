@@ -70,6 +70,13 @@ def main() -> None:
     assert not document.validate().issues
     extracted = document.text.plain()
     assert "\ufffd" not in extracted, "Unicode replacement character detected"
+    prose_review = json.loads(
+        (ROOT / "FINALDOCS/VALIDATION/PROSE_SENTENCE_REVIEW.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for sentence in prose_review["retired_defensive_sentences"]:
+        assert sentence not in extracted, "Retired defensive sentence remains in HWPX"
     for marker in (
         "FINALDOCS/",
         "[스타일=",

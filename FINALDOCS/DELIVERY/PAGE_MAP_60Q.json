@@ -1,7 +1,7 @@
 {
-  "manuscript_sha256": "f13f4b8440d0ff76186bdc1f2ce44418e2f5201b78357aa5595423cbf6b5610d",
-  "manuscript_lf_sha256": "6a3ac62b2310c69fecd7a5baf8e3e20bd19fc102853b961c105e1f57f7354ce5",
-  "pdf_sha256": "ca668b614916317ca9735f7840b678dd5be5db9fde4d355aab2b3b05781c722f",
+  "manuscript_sha256": "57f8dc2aac5edc676286030c7ff9f2b146aca55ceb68fabad1d77d6656ae30bc",
+  "manuscript_lf_sha256": "a47130c1d314222a137e8d38bccdf48a99e59b623bf4c8d9790c8f838c96f9c4",
+  "pdf_sha256": "ecd17b77770373872277065ffb6bbbebe22231c9b548b46ee9f5d9dc7d1547e5",
   "pdf_pages": 54,
   "pages": {
     "1.1 연구배경 및 목적": 9,
@@ -60,7 +60,8 @@
     "[그림 5-11]": 38,
     "6.1 연구 질문별 최종 답": 39,
     "6.2 비교 설계의 의의": 39,
-    "6.4 제한점과 후속 연구": 40,
+    "6.3 적용 시 실험 조건 선택": 40,
+    "6.4 후속 연구 방향": 40,
     "부록 A. 60개 질의 목록": 43,
     "[표 A-1]": 43,
     "B.1 추가 입출력 사례": 50,
@@ -77,16 +78,15 @@
     "4.3 시스템 구현": 23,
     "5. 실험": 24,
     "5.6 SCD 출력 언어 결과 및 해석": 32,
-    "5.9 연구의 한계": 38,
+    "5.9 실험 범위와 해석 기준": 38,
     "6. 결론": 39,
-    "6.3 적용 시 실험 조건 선택": 40,
     "참고문헌": 41,
     "부록 B. 추가 사례 및 탐색 분석": 50,
     "B.2 문서별·질문 유형별 탐색 분석": 52,
     "부록 A~B": "43, 50"
   },
   "unresolved": [],
-  "method": "Unique body anchors; visual review of 54 pages and 17 explicit overrides on current PDF",
+  "method": "Latest Hancom prose PDF: all 54 pages rendered; whole-document contact review and revised paragraphs enlarged; final CAD clarification changes only page 29, reviewed enlarged; other 53 pages pixel-identical; 15 unresolved headings visually resolved and combined appendix entry added.",
   "visual_overrides": {
     "1. 서론": 9,
     "2. 이론적 배경": 11,
@@ -98,20 +98,14 @@
     "4.3 시스템 구현": 23,
     "5. 실험": 24,
     "5.6 SCD 출력 언어 결과 및 해석": 32,
-    "5.9 연구의 한계": 38,
+    "5.9 실험 범위와 해석 기준": 38,
     "6. 결론": 39,
-    "6.3 적용 시 실험 조건 선택": 40,
     "참고문헌": 41,
     "부록 B. 추가 사례 및 탐색 분석": 50,
     "B.2 문서별·질문 유형별 탐색 분석": 52,
     "부록 A~B": "43, 50"
   },
-  "particle_revision_changed_pages": [
-    11,
-    13,
-    14
-  ],
-  "final_pdf_sha256": "09d43099d3bcb7deb1ea5346b2a181b46579d0824ba7e246e6948167c2a75005",
-  "final_hwpx_sha256": "474e60b787b354c8a6be75106d371035e671201dd7d18da1912fbf86e7fb54d4",
-  "final_verification": "54 pages; only TOC pages 5–8 changed; all other page pixels identical"
+  "final_pdf_sha256": "88d231145f6a3a44dbc1d6edf1e3198930b616888e53eed07f1e72045bd5474d",
+  "final_hwpx_sha256": "200139c3f46866e46fe1b1d71e642640a4dcca421ca9c5aab0d9a0e8411180e5",
+  "final_verification": "54 actual Hancom pages; only TOC pages 5–8 changed after applying page map; remaining 50 pages pixel-identical at 1.5x; corrected figure 2-1 attribution and revised sections visually reviewed."
 }

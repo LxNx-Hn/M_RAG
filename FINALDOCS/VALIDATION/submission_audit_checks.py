@@ -36,6 +36,12 @@ def validate_submission_assets(root: Path, text: str, manifest=None) -> None:
         if text.count(record["caption_source"]) != 1:
             raise AssertionError(f"reviewed attribution missing or repeated: {number}")
         if number == "2-1":
+            if record["caption_source"] != (
+                "그림 제작: 본 연구. 개념적 근거: Lewis 외[1]."
+            ):
+                raise AssertionError(
+                    "independent RAG caption must state creator and concept"
+                )
             if record["status"] != "INDEPENDENT_DIAGRAM" or record["license_url"]:
                 raise AssertionError(
                     "RAG independent diagram must not claim source-art license"

@@ -37,3 +37,5 @@ python -X utf8 FINALDOCS/BUILD/build_submission_literature.py --source-dir tmp/s
 ```
 
 전체 제출 검토와 미입력 표지 정보는 `VALIDATION/FINAL_SUBMISSION_AUDIT.md` 및 `VALIDATION/SUBMISSION_PERSONAL_FIELDS.md`를 따른다.
+
+`prose_audit_checks.py`는 본문·초록·캡션·설명의 방어형 후보를 검출하고 문장 해시별 검토 사유를 확인한다. 수식·코드·탭 구분 원자료·서지 원문은 분리한다. 기존 방어 문장 재등장과 새로운 미검토 후보는 실패하며, 통계적으로 필요한 부정 표현은 `PROSE_SENTENCE_REVIEW.json`의 F 판정과 사유로 유지한다. 전체 검토 단위의 해시도 확인하므로 새 문장에는 검토 기록을 추가한다. 후보 0건을 전수 독해 완료로 판정하지 않는다. 전체 독해 기록은 `VALIDATION/FINAL_PROSE_AUDIT.md`에 있다.

@@ -1,5 +1,7 @@
 # 졸업논문 최종 제출 감사
 
+이 문서는 문체 전수 교정 이전의 제출 감사 이력이다. 최신 원고·HWPX·PDF·쪽번호·해시·CI는 [FINAL_PROSE_AUDIT.md](FINAL_PROSE_AUDIT.md)에서 확인한다. 아래 출처·권리 검토와 실행 이력은 보존한다.
+
 검토일: 2026-10-09 (KST). 시작 HEAD: `edde589b8434b3ecea919ba1143600326a10a4a6`. `git fetch origin` 후 main과 origin/main이 이 SHA에서 일치함을 확인했다. 논문 본문·실험 결과를 보존하고 문헌 그림의 출처·재사용 근거, 명확한 문장 오류, 실제 웹한글 조판을 검토하였다.
 
 ## Git 확정 기록
