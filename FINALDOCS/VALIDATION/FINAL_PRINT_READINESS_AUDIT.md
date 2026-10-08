@@ -95,6 +95,8 @@ git diff --check
 
 추가 PDF 검사에서 처음에는 내용 스트림 순서의 혼합 문자 추출을 사용해 캡션/셀 비교가 실패했다. 실제 글자 좌표 순서로 비교하도록 수정하고 원본 360개 셀 및 최종 그림 6개 픽셀의 일치를 확인했다. 실패를 무시하거나 0으로 대체하지 않았다. 이 검사 도구에는 PyMuPDF·Pillow가 필요하며 웹한글 렌더 자체를 대체하지 않는다.
 
+첫 커밋 시 로컬 훅은 전역 Python의 Ruff 0.16.0을 사용하여 백엔드 검사에서 실패했다. CI가 지정한 Ruff 0.13.0을 포함한 `.venv-hwpx` 환경에서 백엔드 Ruff·Black을 실행하여 모두 통과했고, 동일 환경으로 커밋 훅도 통과했다. 백엔드 코드나 훅 설정은 변경하지 않았다.
+
 ## 실제 변경 파일
 
 - `BUILD/build_thesis_hwpx.py`, `verify_thesis_hwpx.py`, `test_hwpx_validation.py`: 부록 A 행 분할·검증·훼손 회귀 시험.
@@ -108,7 +110,13 @@ git diff --check
 
 ## GitHub 검증 기록
 
-산출물 커밋·push 후 해당 SHA의 `CI`, `Thesis HWPX validation`, `Publish Backend Image` 실행 결과와 링크를 여기에 확정한다. 현재 기록 단계에서는 원격 결과를 아직 완료로 표시하지 않는다.
+최종 산출물 HEAD는 `4e142cde877d3209c50d1abf6667733c40f03ebd`이며 origin/main에 push했다. 해당 전체 SHA와 일치하는 다음 세 실행이 모두 **completed / success**이다.
+
+- [CI: 백엔드·프런트엔드 검사, 시험 및 Docker 빌드](https://github.com/LxNx-Hn/M_RAG/actions/runs/37837007866)
+- [Thesis HWPX validation: 논문 원자료·HWPX 검증](https://github.com/LxNx-Hn/M_RAG/actions/runs/37837007899)
+- [Publish Backend Image: 백엔드 이미지 빌드·게시](https://github.com/LxNx-Hn/M_RAG/actions/runs/37837007939)
+
+실행 ID·전체 HEAD·상태·결론은 `DELIVERY/LOGS/print-ci-artifacts.json`에 보존했다. 이 보고서와 실행 기록을 반영하는 후속 커밋은 논문 파일을 변경하지 않는다. 후속 커밋의 CI도 완료 후 최종 사용자 보고에 전체 결과를 제시한다.
 
 ## 제출 판단
 

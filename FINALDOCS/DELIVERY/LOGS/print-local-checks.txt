@@ -51,3 +51,12 @@ EXIT: 0
 COMMAND: .venv-hwpx/Scripts/python.exe -m black --check FINALDOCS/BUILD/verify_print_pdf.py
 1 file would be left unchanged.
 EXIT: 0
+COMMIT HOOK: initial global Python Ruff 0.16.0 backend check failed (178 findings).
+RECHECK: CI-pinned Ruff 0.13.0 via .venv-hwpx, working directory backend.
+COMMAND: ../.venv-hwpx/Scripts/python.exe -m ruff check .
+All checks passed!
+EXIT: 0
+COMMAND: ../.venv-hwpx/Scripts/python.exe -m black --check .
+49 files would be left unchanged.
+EXIT: 0
+COMMIT HOOK: .venv-hwpx on PATH; Ruff and Black passed; commit 4e142cde877d3209c50d1abf6667733c40f03ebd created.
