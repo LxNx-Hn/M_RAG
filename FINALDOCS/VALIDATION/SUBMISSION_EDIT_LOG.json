@@ -1,0 +1,97 @@
+[
+  {
+    "before": "본 보고서는 동국대학교 컴퓨터공학과 졸업자격실험보고서로 제출한다.",
+    "after": "본 보고서는 [소속 대학 입력] [소속 학과 입력] 졸업자격실험보고서로 제출한다.",
+    "reason": "확인되지 않은 학교 양식 예시를 개인 소속으로 확정하지 않음"
+  },
+  {
+    "before": "그림 2-1은 원 논문의 그림 1로, 파라미터 기반 생성기와 비파라미터 검색기가 결합되는 기본 구조를 보여준다.",
+    "after": "그림 2-1은 이 개념을 바탕으로 본 연구에서 구성한 독립 도식으로, 외부 문서 검색과 질의·문맥을 이용한 답변 생성의 흐름을 보여준다.",
+    "reason": "원 그림 대신 독립 도식 사용 사실 명시"
+  },
+  {
+    "before": "fig2_1_rag_original.png",
+    "after": "fig2_1_rag_independent.png",
+    "reason": "출처 권리 미확정 원 그림을 독립 도식으로 교체"
+  },
+  {
+    "before": "fig2_2_lost_middle_original.png",
+    "after": "fig2_2_lost_middle_tacl.png",
+    "reason": "CC BY 4.0 정식 TACL 출판본에서 재추출"
+  },
+  {
+    "before": "fig2_3_hyde_original.png",
+    "after": "fig2_3_hyde_acl_no_logo.png",
+    "reason": "정식 ACL 출판본 도식 사용, 제3자 로고 생략"
+  },
+  {
+    "before": "HyDE는 질의로부터 가상 답변 문서를 생성하고, 그 문서의 임베딩을 검색에 사용하는 방법이다[2].",
+    "after": "HyDE는 질의를 바탕으로 가상 문서를 생성하고, 해당 문서의 임베딩을 검색에 활용하는 방법이다[2].",
+    "reason": "검색용 가상 문서를 실제 답변과 구별하며 자연스러운 정의 사용"
+  },
+  {
+    "before": "CAD의 문맥 기반 로짓 조절은 동일 검색 문맥에서 근거 충실도와 답변 관련성의 평균 변화와 질의별 분포로 제시한다.",
+    "after": "CAD 적용에 따른 답변 품질의 변화를 동일 검색 문맥에서 근거 충실도와 답변 관련성의 평균 차이 및 질의별 분포로 분석하였다.",
+    "reason": "주어·서술어 호응과 완료된 분석 시제 교정"
+  },
+  {
+    "before": "SCD는 전체 240개 상태 일치 대응쌍과 HyDE OFF 동일 문맥 120개 대응쌍으로 분석함.",
+    "after": "SCD는 전체 240개 상태 일치 대응쌍과 HyDE OFF 동일 문맥 120개 대응쌍으로 분석하였다.",
+    "reason": "완결된 학술 문장과 시제 일관성"
+  },
+  {
+    "before": "출처: Lewis 외[1], 그림 1에서 발췌(원본 영역 잘라내기).",
+    "after": "출처: Lewis 외[1]의 RAG 개념을 바탕으로 본 연구에서 구성. 원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "출처: Liu 외[12], 그림 1에서 발췌(원본 영역 잘라내기).",
+    "after": "출처: Liu 외[12], TACL 정식 출판본의 그림 1 중 도표 발췌. 원본: https://aclanthology.org/2024.tacl-1.9.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도표 영역 잘라내기.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "출처: Gao 외[2], 그림 1에서 발췌(원본 영역 잘라내기).",
+    "after": "출처: Gao 외[2], ACL 2023 정식 출판본의 그림 1 중 도식 발췌. 원본: https://aclanthology.org/2023.acl-long.99.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "출처: Shi 외[3], 그림 1에서 발췌(원본 영역 잘라내기). 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).",
+    "after": "출처: Shi 외[3], NAACL 2024 정식 출판본의 그림 1 발췌. 원본: https://aclanthology.org/2024.naacl-short.69.pdf. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "출처: Li 외[4], 그림 1에서 발췌(원본 영역 잘라내기). 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).",
+    "after": "출처: Li 외[4], arXiv:2511.09984v1의 그림 1 발췌. 원본: https://arxiv.org/pdf/2511.09984v1. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "출처: Es 외[9], 표 2에서 발췌(원본 영역 잘라내기). 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).",
+    "after": "출처: Es 외[9], arXiv:2309.15217v2의 표 2 발췌. 원본: https://arxiv.org/pdf/2309.15217v2. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 표 영역 잘라내기.",
+    "reason": "정확한 버전·발췌 범위·변경·라이선스 표기"
+  },
+  {
+    "before": "fig2_5_scd_language_drift_original.png",
+    "after": "fig2_5_scd_no_logos.png",
+    "reason": "제3자 로고 생략 및 발췌 제목 상단 보존"
+  },
+  {
+    "before": "출처: Li 외[4], arXiv:2511.09984v1의 그림 1 발췌. 원본: https://arxiv.org/pdf/2511.09984v1. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기.",
+    "after": "출처: Li 외[4], arXiv:2511.09984v1의 그림 1 발췌. 원본: https://arxiv.org/pdf/2511.09984v1. 라이선스: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.",
+    "reason": "SCD 로고 생략을 출처에 명시"
+  },
+  {
+    "before": "Lewis 외[1]은",
+    "after": "Lewis 외[1]는",
+    "reason": "모음으로 끝나는 외 뒤 주제 조사 교정; 인용번호는 조사 선택의 대상이 아님"
+  },
+  {
+    "before": "Shi 외[3]은",
+    "after": "Shi 외[3]는",
+    "reason": "모음으로 끝나는 외 뒤 주제 조사 교정; 인용번호는 조사 선택의 대상이 아님"
+  },
+  {
+    "before": "Li 외[4]은",
+    "after": "Li 외[4]는",
+    "reason": "모음으로 끝나는 외 뒤 주제 조사 교정; 인용번호는 조사 선택의 대상이 아님"
+  }
+]

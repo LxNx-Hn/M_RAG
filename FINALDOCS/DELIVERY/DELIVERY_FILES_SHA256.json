@@ -1,11 +1,11 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "0e1f762b3bc2542572385e4d797954c1f7b582842cfc8938d1623676a33c2161",
-    "bytes": 5215679
+    "sha256": "474e60b787b354c8a6be75106d371035e671201dd7d18da1912fbf86e7fb54d4",
+    "bytes": 5015719
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "a4178631f7531d4cfaa00e63166eb36044fc26cfab1300f4ac1ff91e6b92a61d",
-    "bytes": 5780411
+    "sha256": "09d43099d3bcb7deb1ea5346b2a181b46579d0824ba7e246e6948167c2a75005",
+    "bytes": 5578069
   },
   "HWPX_COMPATIBILITY_SMOKE.hwpx": {
     "sha256": "60fffc1572b9b868a0f8cb9be02ae0a7357cc95d0da3a04aaf3df9749d206943",
@@ -30,5 +30,9 @@
   "WEB_ACADEMIC_REVIEW.png": {
     "sha256": "1c1ce79167485ef6e0aebca97abb90fbef5f66b437b2c72a8bd21a80ac0b6f7a",
     "bytes": 134899
+  },
+  "WEB_SUBMISSION_AUDIT.png": {
+    "sha256": "9dde5415aa8bc5333289b0bcde2e6d3f10cab4d2e0964f6f28cff204700ce254",
+    "bytes": 134167
   }
 }

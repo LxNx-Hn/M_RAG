@@ -281,7 +281,7 @@ def main() -> None:
         "generation_records": 480,
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
-        "web_rendering": "see ../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md",
+        "web_rendering": "see ../VALIDATION/FINAL_SUBMISSION_AUDIT.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

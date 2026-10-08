@@ -1,6 +1,6 @@
 # 웹한글 최종 확인
 
-2026-10-08에 한컴독스 로그인 계정에서 실제 업로드·열기·문단 편집·표 셀 편집·저장·재열기·다운로드·PDF 내보내기를 수행했다. 구조 검사와 브라우저 검증은 구분한다. 이번 학술 교정 근거는 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`이며, 이전 제작 근거는 `HWPX_BUILD_QA_REPORT.md`, `HWPX_STRUCTURAL_QA.json`, `LOGS/`에 있다.
+2026-10-08에 한컴독스 로그인 계정에서 실제 업로드·열기·문단 편집·표 셀 편집·저장·재열기·다운로드·PDF 내보내기를 수행했다. 구조 검사와 브라우저 검증은 구분한다. 이전 학술 교정 근거는 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`이며, 이전 제작 근거는 `HWPX_BUILD_QA_REPORT.md`, `HWPX_STRUCTURAL_QA.json`, `LOGS/`에 있다.
 
 | 대상 | 실제 확인 결과 |
 |---|---|
@@ -8,9 +8,9 @@
 | 문단 및 표 셀 수정 | 시험본에서 입력 확인; 표 수정은 실행 취소, 문단 수정은 저장·재열기·다운로드로 확인 |
 | 그림·수식 표시 | 시험본과 최종 PDF에서 확인; 22개 그림·10개 수식의 원본 대조 완료 |
 | 편집 후 저장 및 재열기 | 시험본 `HWPX_SMOKE_WEB_ROUNDTRIP.hwpx`에 수정 문자열 보존, XML 유효 |
-| 최종 PDF 내보내기 | 학술 교정본 한컴독스 웹한글 출력 55쪽, 모든 쪽 검토 |
+| 최종 PDF 내보내기 | 2026-10-09 제출 감사본 실제 웹한글 출력 54쪽, 전 페이지 검토 |
 | 목차·그림목차·표목차 | 실제 출력 쪽번호 반영, 최종 5~8쪽 육안 확인 |
-| 부록 A | 44~50쪽, 60개 질의 보존, 머리글 반복, 셀 단위로 쪽 연결 |
+| 부록 A | 43~49쪽, 60개 질의 보존, 머리글 반복, 셀 단위로 쪽 연결 |
 
 사용자의 최종 입력과 편집 절차:
 
@@ -23,4 +23,10 @@
 
 한컴독스 계정 외의 사용자에게 공유 권한을 추가하거나 공개 링크를 생성하지 않았다. 아래 문서는 로그인한 소유자 계정에서 접근한다.
 
-[검증한 최종 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=jOnNl5CIuIEZbReFw0fOmHbNfPcUvRaJ&lang=ko_KR)
+[검증한 최종 웹한글 문서](https://webhwp.hancomdocs.com/webhwp/?mode=HWP_EDITOR&docId=cXDPsWoYzSd7vTcYnQt2rRaJuHd3d7rO&lang=ko_KR)
+
+## 2026-10-09 제출 감사본
+
+최신 근거는 `../VALIDATION/FINAL_SUBMISSION_AUDIT.md`이다. 최종 로컬 HWPX와 바이트가 같은 `GRADUATION_REPORT_60Q_FINAL_AUDITED.hwpx` 복사본을 새 웹한글 문서로 열어 실제 PDF를 출력하였다. 기존 문서와의 파일 잠금 충돌을 피하기 위한 업로드 파일명이며 논문 내용은 같다. 문단·표 셀 편집과 저장·재열기는 위 2026-10-08 시험본에서 검증한 결과다. 이번 최종본에서는 열림·편집 메뉴 활성·그림과 수식 표시·목차·PDF 내보내기를 확인하였다. 추가로 모든 편집 동작을 재시험했다고 주장하지 않는다.
+
+이번 출처 수정으로 PDF가 55→54쪽으로 재배치되었다. 장 시작은 9, 11, 18, 21, 24, 39쪽, 참고문헌은 41쪽, 부록 A는 43쪽, 부록 B는 50쪽이다. 목차 5~8쪽은 새 쪽번호와 일치한다. 목차 적용 전후 PDF의 나머지 50쪽은 1.5배 렌더링 픽셀이 동일하다. 입력이 필요한 9개 항목은 `../VALIDATION/SUBMISSION_PERSONAL_FIELDS.md` 한 체크리스트로 관리한다.

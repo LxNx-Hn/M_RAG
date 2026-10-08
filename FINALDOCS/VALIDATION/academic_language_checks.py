@@ -8,6 +8,8 @@ def validate_academic_text(text: str) -> None:
     for error in ("문맥가", "신뢰구간는", "HyDE와 CAD의 통제 비교", "그림 5-3~5-10"):
         if error in text:
             raise AssertionError(f"academic regression: {error}")
+    if re.search(r"(?:Lewis|Shi|Li) 외\[\d+\]은", text):
+        raise AssertionError("reviewed author particle error returned")
     for kind, count in (("그림", 22), ("표", 17)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",
@@ -24,19 +26,23 @@ def validate_academic_text(text: str) -> None:
         if Counter(listed) != Counter(captions):
             raise AssertionError(f"{kind} full titles differ between list and body")
     expected_sources = (
-        ("2-1", "Lewis", 1, "그림 1"),
-        ("2-2", "Liu", 12, "그림 1"),
-        ("2-3", "Gao", 2, "그림 1"),
-        ("2-4", "Shi", 3, "그림 1"),
-        ("2-5", "Li", 4, "그림 1"),
-        ("2-6", "Es", 9, "표 2"),
+        ("2-1", "Lewis", 1, "의 RAG 개념을 바탕으로 본 연구에서 구성."),
+        ("2-2", "Liu", 12, ", TACL 정식 출판본의 그림 1 중 도표 발췌."),
+        ("2-3", "Gao", 2, ", ACL 2023 정식 출판본의 그림 1 중 도식 발췌."),
+        ("2-4", "Shi", 3, ", NAACL 2024 정식 출판본의 그림 1 발췌."),
+        ("2-5", "Li", 4, ", arXiv:2511.09984v1의 그림 1 발췌."),
+        ("2-6", "Es", 9, ", arXiv:2309.15217v2의 표 2 발췌."),
     )
     for number, author, ref, source in expected_sources:
         pattern = rf"\[그림 {number}\] [^\n]+ \[스타일=그림제목\]\n\n" + re.escape(
-            f"출처: {author} 외[{ref}], {source}에서 발췌(원본 영역 잘라내기)."
+            f"출처: {author} 외[{ref}]{source}"
         )
         if not re.search(pattern, text):
             raise AssertionError(f"separate source paragraph missing: figure {number}")
+    if "CAD의 문맥 기반 로짓 조절은 동일 검색 문맥에서" in text:
+        raise AssertionError("CAD subject-predicate error returned")
+    if "변경: 도식 영역 잘라내기, OpenAI 로고 생략." not in text:
+        raise AssertionError("HyDE source adaptation must disclose omitted logo")
     if text.count("지표\t평균 변화 ON−OFF\t95% 신뢰구간\t증가\t감소\t동률\tn") != 2:
         raise AssertionError("HyDE/CAD direction columns must be 증가/감소/동률/n")
     if "\tWin\tLoss\tTie\t" in text:

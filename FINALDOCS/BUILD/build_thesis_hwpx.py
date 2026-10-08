@@ -186,7 +186,7 @@ def insert_school_covers(doc: HwpxDocument, converted: Path, front: list[dict]) 
         0: front[0]["text"],
         2: front[1]["text"],
         5: "지도교수: [지도교수 입력]",
-        7: "컴퓨터공학과\n동국대학교 WISE캠퍼스",
+        7: "[소속 학과 입력]\n[소속 대학·캠퍼스 입력]",
         9: front[2]["text"],
         11: "[제출연도 입력]",
     }
@@ -198,7 +198,7 @@ def insert_school_covers(doc: HwpxDocument, converted: Path, front: list[dict]) 
             6: front[6]["text"],
             8: front[7]["text"],
             10: front[8]["text"],
-            18: "동국대학교 컴퓨터공학과",
+            18: "[소속 대학·학과 입력]",
         }
         if len(front) == 9
         else {}

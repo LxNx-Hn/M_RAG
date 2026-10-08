@@ -12,6 +12,7 @@ import zipfile
 from pathlib import Path
 
 from academic_language_checks import validate_academic_text
+from submission_audit_checks import validate_submission_assets
 
 FINAL = Path(__file__).resolve().parents[1]
 MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
@@ -178,6 +179,7 @@ def main() -> int:
 
     text = MANUSCRIPT.read_text(encoding="utf-8")
     validate_academic_text(text)
+    validate_submission_assets(FINAL.parent, text)
     body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
     if len(body) < 30000:
         raise AssertionError(
@@ -636,11 +638,11 @@ def main() -> int:
 
     literature_dir = FINAL / "FIGURES/LITERATURE"
     expected_literature = (
-        "fig2_1_rag_original.png",
-        "fig2_2_lost_middle_original.png",
-        "fig2_3_hyde_original.png",
+        "fig2_1_rag_independent.png",
+        "fig2_2_lost_middle_tacl.png",
+        "fig2_3_hyde_acl_no_logo.png",
         "fig2_4_cad_original.png",
-        "fig2_5_scd_language_drift_original.png",
+        "fig2_5_scd_no_logos.png",
         "fig2_6_ragas_faithfulness_original.png",
     )
     for filename in expected_literature:
