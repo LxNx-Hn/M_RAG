@@ -41,6 +41,8 @@ def canonical_paragraphs(source: str) -> list[str]:
             continue
         line = re.sub(r"\s*\[스타일=[^\]]+\]", "", line)
         line = re.sub(r"^#{1,6}\s+", "", line)
+        if re.match(r"^\[\d+\] ", line):
+            line = re.sub(r"\*([^*]+)\*", r"\1", line)
         line = (
             line.replace(" ···· [쪽번호 자동갱신]", "")
             .replace("`", "")

@@ -1,6 +1,6 @@
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
-최신 학교 양식 적용·출력 검토는 [2026 양식 최종 검증 보고서](VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md)에 기록했다. 현재 웹한글 PDF는 54쪽이며, 서론은 표시 쪽번호 1로 시작한다. 이전 감사 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+최신 문장 교정·출력 검토는 [문장 교정 최종 검토 보고서](VALIDATION/FINAL_NATURAL_PROSE_AUDIT.md)에 기록했다. 현재 웹한글 PDF는 55쪽이며, 서론부터 표시 쪽번호 1~47로 이어진다. 학교 스타일 적용 근거는 [2026 양식 검증 보고서](VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md)에서 확인한다. 이전 감사 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
 
 이 디렉터리는 웹한글에서 편집할 HWPX 논문과 제출 전 사실 확인에 필요한 원고·표·그림·검증 자료로 구성한다.
 
@@ -15,7 +15,8 @@
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
-- `VALIDATION/FINAL_PROSE_AUDIT.md`: 최신 문체 전수 감사·수정·웹한글 출력·CI 기록
+- `VALIDATION/FINAL_NATURAL_PROSE_AUDIT.md`: 최신 문장 교정·수치 보존·55쪽 웹한글 출력 검토
+- `VALIDATION/FINAL_PROSE_AUDIT.md`: 이전 문체 전수 감사·수정·웹한글 출력·CI 기록
 - `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: 최종 주장-근거 연결표
 - `VALIDATION/verify_finaldocs_60q.py`: 네트워크·모델 호출 없이 실행하는 제출 패키지 점검기
 

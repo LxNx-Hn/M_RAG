@@ -32,6 +32,10 @@ def clean(text: str) -> str:
     text = re.sub(r"\s*\[스타일=[^\]]+\]", "", text)
     text = re.sub(r"^#{1,6}\s+", "", text)
     text = text.replace(" ···· [쪽번호 자동갱신]", "\t")
+    if re.match(r"^\[\d+\] ", text):
+        # Journal-title emphasis in the Markdown source is presentation markup.
+        # Render references with the school's reference style, without stars.
+        text = re.sub(r"\*([^*]+)\*", r"\1", text)
     return text.replace("`", "").replace("**", "").strip()
 
 
@@ -439,6 +443,8 @@ def emit(
                 and text.startswith(
                     (
                         "[표 3-3]",
+                        "[표 4-2]",
+                        "[표 B-1]",
                         "5.9 실험 범위와 해석 기준",
                         "6.3 적용 시 실험 조건 선택",
                     )
