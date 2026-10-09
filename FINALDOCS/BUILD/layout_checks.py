@@ -2,8 +2,6 @@
 
 import re
 
-from layout_policy import POLICY
-
 HH = "http://www.hancom.co.kr/hwpml/2011/head"
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
 HC = "http://www.hancom.co.kr/hwpml/2011/core"
@@ -13,7 +11,8 @@ NS = {"hh": HH, "hp": HP, "hc": HC}
 def validate_layout(header, section):
     para = {p.get("id"): p for p in header.findall(".//hh:paraPr", NS)}
     chars = {p.get("id"): p for p in header.findall(".//hh:charPr", NS)}
-    styles = {p.get("id"): p.get("name") for p in header.findall(".//hh:style", NS)}
+    definitions = {p.get("id"): p for p in header.findall(".//hh:style", NS)}
+    styles = {key: p.get("name") for key, p in definitions.items()}
     paragraphs = section.findall("./hp:p", NS)
     usage = False
     checked = []
@@ -71,38 +70,15 @@ def validate_layout(header, section):
         if role is None:
             continue
         shape = para[p.get("paraPrIDRef")]
-        before, after, line, align, next_, lines = POLICY[role]
-        for margin in shape.findall(".//hh:margin", NS):
-            scale = 2 if margin.getparent().tag == f"{{{HP}}}default" else 1
-            for name, value in (("prev", before), ("next", after)):
-                node = margin.find(f"hc:{name}", NS)
-                assert node is not None and node.get("unit") == "HWPUNIT"
-                assert (
-                    int(node.get("value")) == value * 100 * scale
-                ), f"layout spacing: {role} {name}"
-        assert shape.findall(".//hh:margin", NS), f"layout margin missing: {role}"
-        if line is not None:
-            spacing = shape.findall(".//hh:lineSpacing", NS)
-            assert spacing and all(
-                s.get("type") == "PERCENT" and int(s.get("value")) == line
-                for s in spacing
-            ), f"layout line spacing: {role}"
-        if align is not None:
-            assert (
-                shape.find("hh:align", NS).get("horizontal") == align
-            ), f"layout alignment: {role}"
-        break_ = shape.find("hh:breakSetting", NS)
-        for attr, expected in (
-            ("keepWithNext", next_),
-            ("keepLines", lines),
-            ("widowOrphan", True),
-        ):
-            assert break_.get(attr) == str(int(expected)), f"layout {attr}: {role}"
-        if role in ("figure_source", "usage", "usage_entry", "usage_url", "table_note"):
-            for run in p.findall("hp:run", NS):
-                assert (
-                    chars[run.get("charPrIDRef")].get("height") == "900"
-                ), f"layout source font: {role}"
+        original = definitions[p.get("styleIDRef")]
+        assert p.get("paraPrIDRef") == original.get(
+            "paraPrIDRef"
+        ), f"School paragraph style overridden: {role}"
+        for run in p.findall("hp:run", NS):
+            assert run.get("charPrIDRef") == original.get(
+                "charPrIDRef"
+            ), f"School character style overridden: {role}"
+            assert run.get("charPrIDRef") in chars
         if role == "usage_url":
             fields = p.findall(".//hp:fieldBegin", NS)
             assert (

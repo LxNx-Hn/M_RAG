@@ -189,13 +189,13 @@ y = LM(q,C_q)
 
 재정렬은 검색 후보의 우선순위를 조정하고, 생성 모델은 선택된 문맥을 입력으로 답변을 만든다. 검색 결과가 바뀌는 경우와 같은 문맥에서 생성 방식만 바뀌는 경우를 구분해야 두 단계의 영향을 해석할 수 있다.
 
-관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[12]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 원 논문의 해당 결과이다. 본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.
+관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[9]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 원 논문의 해당 결과이다. 본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.
 
 [그림삽입: FINALDOCS/FIGURES/LITERATURE/fig2_2_lost_middle_tacl.png | 권장폭=본문폭 75% | 정렬=가운데]
 
 [그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화 [스타일=그림제목]
 
-출처: Liu 외[12], 그림 1에서 발췌.
+출처: Liu 외[9], 그림 1에서 발췌.
 
 Weighted RRF는 다음과 같이 표현할 수 있으며, 본 실험은 RRF 상수 k=60을 사용한다.
 
@@ -287,7 +287,7 @@ KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}
 
 ## 2.6 RAG 평가 [스타일=절(1.1)]
 
-HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[9]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 대응하는 정도를 측정한다. 문맥 정밀도는 관련 근거가 검색 결과의 상위에 배치되는 정도를, 문맥 재현율은 참조 답변에 필요한 근거가 검색 문맥에 포함된 정도를 측정한다.
+HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[10]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 대응하는 정도를 측정한다. 문맥 정밀도는 관련 근거가 검색 결과의 상위에 배치되는 정도를, 문맥 재현율은 참조 답변에 필요한 근거가 검색 문맥에 포함된 정도를 측정한다.
 
 RAGAS 원 연구는 질문–문맥–답변 예시로 평가 차원을 설명한다. 그림 2-6은 WikiEval의 동일 질문과 문맥에 대해 근거가 지지하는 답변과 지지하지 않는 답변을 대비한 원 논문의 표 2이다. 질문에 관련된 답변인지와 문맥이 그 답변을 지지하는지는 별도로 평가해야 함을 보여준다.
 
@@ -295,13 +295,13 @@ RAGAS 원 연구는 질문–문맥–답변 예시로 평가 차원을 설명�
 
 [그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시 [스타일=그림제목]
 
-출처: Es 외[9], 표 2에서 발췌.
+출처: Es 외[10], 표 2에서 발췌.
 
 요인별 대응 차이는 동일 질의의 ON/OFF 차이를 이용한 대응 비교로 분석하고, 질의를 재표집 단위로 하는 부트스트랩 신뢰구간을 함께 제시한다. 자동 평가 분석은 평가값이 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 변화는 RAGAS와 별도로 한국어 문자 비율로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 변화 판정 기준은 5.2절에서 제시한다.
 
 ## 2.7 관련 연구와 본 연구의 위치 [스타일=절(1.1)]
 
-검색 증강 생성 연구는 검색기의 표현력, 여러 문서 구간의 활용, 디코딩 제어와 검색·생성의 자기검증으로 확장되어 왔다. Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[10], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[11]. 긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[12], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13]. RAPTOR는 세부 문서 구간과 상위 요약을 계층적으로 구성하는 검색 구조를 제안했고[14], Self-RAG[15]와 Corrective RAG[16]는 검색 필요성이나 근거 품질을 생성 과정에서 점검하는 방향을 보였다.
+검색 증강 생성 연구는 검색기의 표현력, 여러 문서 구간의 활용, 디코딩 제어와 검색·생성의 자기검증으로 확장되어 왔다. Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[11], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[12]. 긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[9], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13]. RAPTOR는 세부 문서 구간과 상위 요약을 계층적으로 구성하는 검색 구조를 제안했고[14], Self-RAG[15]와 Corrective RAG[16]는 검색 필요성이나 근거 품질을 생성 과정에서 점검하는 방향을 보였다.
 
 RAG 시스템 전반을 정리한 조사 연구[17], 한국어·영어 이중언어 생성 모델에 관한 Mi:dm 2.0 연구[18], RAG의 구성과 평가를 체계화한 조사 연구[19]는 본 실험의 시스템·언어 조건을 설정하는 배경이 된다. 검색 모델의 도메인·과제 간 편차는 BEIR[20]과 MTEB[21] 같은 벤치마크의 관점에서 참고하며, 실험 문서 집합 중 하나인 Mi:dm K 2.5 Pro는 해당 기술 보고서[22]를 사용한다.
 
@@ -317,12 +317,12 @@ RAG 시스템 전반을 정리한 조사 연구[17], 한국어·영어 이중언
 
 ```text
 연구 흐름	대표 연구	본 연구에서의 적용 범위	해석 범위
-밀집 검색	DPR[10], BEIR[20]	한국어 질의와 영어 문장 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 연구의 고정 백본 적용 범위
-다중 문맥 생성	FiD[11], 긴 문맥 분석[12]	재정렬된 상위 5개 문맥을 고정해 답변/문맥 지표를 분리	문맥 길이와 순서 정책은 고정
+밀집 검색	DPR[11], BEIR[20]	한국어 질의와 영어 문장 사이의 검색 표현 간극을 HyDE 조건으로 관찰	본 연구의 고정 백본 적용 범위
+다중 문맥 생성	FiD[12], 긴 문맥 분석[9]	재정렬된 상위 5개 문맥을 고정해 답변/문맥 지표를 분리	문맥 길이와 순서 정책은 고정
 가상 문서 검색	HyDE[2]	H1/H0 종단 간 대응 비교와 검색 청크 ID 확인	가상 문서는 검색 표현으로 사용
 대조 디코딩	CAD[3], Contrastive Decoding[13]	같은 입력에서 C1/C0 대응 비교	CAD alpha=0.5 고정 조건
 교정·자기검증 RAG	Self-RAG[15], CRAG[16]	검색·생성·출력 문제를 별도 층위로 해석하는 관점	관련 연구의 비교 관점으로 참조
-RAG 평가	RAGAS[9], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
+RAG 평가	RAGAS[10], RAG survey[19]	근거 충실도·답변 관련성·문맥 정밀도·문맥 재현율 평가	자동 평가 지표와 대응 비교에 사용
 ```
 
 # 3. 시스템 설계 [스타일=장(1.)]
@@ -798,13 +798,13 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 
 [8] R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019. [스타일=참고문헌리스트]
 
-[9] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024. [스타일=참고문헌리스트]
+[9] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024. [스타일=참고문헌리스트]
 
-[10] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020. [스타일=참고문헌리스트]
+[10] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024. [스타일=참고문헌리스트]
 
-[11] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021. [스타일=참고문헌리스트]
+[11] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020. [스타일=참고문헌리스트]
 
-[12] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024. [스타일=참고문헌리스트]
+[12] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021. [스타일=참고문헌리스트]
 
 [13] X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,” *Proceedings of ACL*, pp. 12286–12312, 2023. [스타일=참고문헌리스트]
 
@@ -838,7 +838,7 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 
 원본 자료: https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf
 
-그림 2-2 — Nelson F. Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.
+그림 2-2 — Nelson F. Liu 외[9], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.
 
 원본 자료: https://aclanthology.org/2024.tacl-1.9.pdf
 
@@ -854,7 +854,7 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 
 원본 자료: https://arxiv.org/pdf/2511.09984v1
 
-그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.
+그림 2-6 — Shahul Es 외[10], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.
 
 원본 자료: https://arxiv.org/pdf/2309.15217v2
 # 부록 A. 60개 질의 목록 [스타일=부록제목]

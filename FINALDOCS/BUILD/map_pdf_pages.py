@@ -8,6 +8,8 @@ from pathlib import Path
 
 import fitz
 
+from verify_print_pdf import spatial_text
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -25,11 +27,42 @@ def main():
     manuscript = ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
     source = manuscript.read_text(encoding="utf-8")
     doc = fitz.open(args.pdf)
-    page_texts = [p.get_text(sort=True) for p in doc]
+    page_texts = [spatial_text(p, p.rect) for p in doc]
+    printed = {}
+    for index, page in enumerate(doc, 1):
+        footer = normalize(
+            spatial_text(
+                page,
+                fitz.Rect(0, page.rect.height - 75, page.rect.width, page.rect.height),
+            )
+        )
+        match = re.fullmatch(r"-(\d+)-", footer)
+        if not match:
+            raise ValueError(f"Unresolved printed footer at physical page {index}")
+        printed[index] = int(match[1])
+    restarts = [i for i in printed if i > 1 and printed[i] == 1]
+    if len(restarts) != 1:
+        raise ValueError(f"Expected one body page restart: {restarts}")
+    body_first = restarts[0]
     pages = [normalize(text) for text in page_texts]
-    page_lines = [
-        {normalize(line) for line in text.splitlines()} for text in page_texts
-    ]
+    page_lines = []
+    for page in doc:
+        baselines = {}
+        for block in page.get_text("rawdict")["blocks"]:
+            for line in block.get("lines", []):
+                for span in line["spans"]:
+                    for char in span["chars"]:
+                        baselines.setdefault(round(char["origin"][1], 1), []).append(
+                            char
+                        )
+        page_lines.append(
+            {
+                normalize(
+                    "".join(c["c"] for c in sorted(chars, key=lambda c: c["origin"][0]))
+                )
+                for chars in baselines.values()
+            }
+        )
     lines = source.splitlines()
     mapping = {}
     unresolved = []
@@ -44,7 +77,7 @@ def main():
             heading_matches = [
                 i + 1
                 for i, p in enumerate(page_lines)
-                if i >= 8 and normalize(title) in p
+                if i + 1 >= body_first and normalize(title) in p
             ]
             if len(heading_matches) == 1:
                 mapping[title] = heading_matches[0]
@@ -53,7 +86,7 @@ def main():
                 if nextline.startswith("#"):
                     unresolved.append(title)
                     break
-                if not nextline.strip() or nextline.startswith("["):
+                if not nextline.strip() or nextline.startswith("[스타일"):
                     continue
                 if nextline.startswith("```"):
                     continue
@@ -89,9 +122,12 @@ def main():
         },
         "pdf_sha256": hashlib.sha256(args.pdf.read_bytes()).hexdigest(),
         "pdf_pages": len(doc),
-        "pages": mapping,
+        "physical_pages": mapping,
+        "pages": {key: printed[value] for key, value in mapping.items()},
+        "printed_footers": printed,
+        "body_first_physical_page": body_first,
         "unresolved": unresolved,
-        "method": "Unique body-text anchors; visually review headings/captions before release",
+        "method": "Spatial glyph anchors and extracted printed footers; visually review headings/captions before release",
     }
     args.output.write_text(
         json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"

@@ -89,7 +89,9 @@ def main() -> None:
         "[쪽나눔]",
     ):
         assert marker not in extracted, f"Unresolved staging metadata: {marker}"
-    paragraphs = canonical_paragraphs(source)
+    # The nine front staging entries are mapped into the original school covers.
+    # They are metadata, not generic prose to print in the submission form.
+    paragraphs = canonical_paragraphs(source)[9:]
     actual_normal = norm(extracted)
     position = 0
     for paragraph in paragraphs:
@@ -234,6 +236,35 @@ def main() -> None:
             assert ET.tostring(
                 section.find(f".//hp:{tag}", NS), method="c14n"
             ) == ET.tostring(original_section.find(f".//hp:{tag}", NS), method="c14n")
+        introduction = next(
+            p
+            for p in section.findall("./hp:p", NS)
+            if p.get("styleIDRef")
+            == header.find(
+                ".//{http://www.hancom.co.kr/hwpml/2011/head}style[@name='장(1.)']"
+            ).get("id")
+            if norm("".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)))
+            == norm("1. 서론")
+        )
+        restart = introduction.find(".//hp:newNum", NS)
+        assert (
+            restart is not None
+            and restart.get("numType") == "PAGE"
+            and restart.get("num") == "1"
+        ), "Introduction must restart printed page numbering at 1"
+        seen = []
+        body = source.split("# 1. 서론", 1)[1].split("# 참고문헌", 1)[0]
+        for group in re.findall(r"\[(\d+(?:\s*,\s*\d+)*)\]", body):
+            for number in map(int, group.split(",")):
+                if number not in seen:
+                    seen.append(number)
+        assert seen == list(range(1, 23)), "References must follow first citation order"
+        cover_text = "".join(tables[0].itertext()) + "".join(tables[1].itertext())
+        assert "제출 페이지" not in cover_text and "인준 페이지" not in cover_text
+        assert (
+            "English Academic and Technical Documents with Korean Queries" in cover_text
+        )
+        assert "주심" in cover_text and "부심" in cover_text
         template.close()
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
@@ -296,12 +327,15 @@ def main() -> None:
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
         "layout": layout_report,
-        "web_rendering": "see ../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md",
+        "web_rendering": "see ../VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    (delivery / "HWPX_EXTRACTED_TEXT.txt").write_text(extracted, encoding="utf-8")
+    (delivery / "HWPX_EXTRACTED_TEXT.txt").write_text(
+        "\n".join(line.rstrip() for line in extracted.splitlines()) + "\n",
+        encoding="utf-8",
+    )
     print(
         f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )

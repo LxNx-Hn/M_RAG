@@ -3,33 +3,34 @@
 한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험
 
 
-지도교수: [지도교수 입력]
+지도교수  [지도교수 입력]
 
 [소속 학과 입력]
 [소속 대학·캠퍼스 입력]
 
-[학생명 입력] · [학번 입력] · [지도교수 입력] · [제출일 입력]
+[학생명 입력] · [학번 입력]
 
 [제출연도 입력]
-제출 페이지
+졸업자격실험보고서
 
-본 보고서는 [소속 대학 입력] [소속 학과 입력] 졸업자격실험보고서로 제출한다.
+한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험
 
-제출자: [학생명 입력]  /  학번: [학번 입력]  /  지도교수: [지도교수 입력]  /  제출일: [제출일 입력]
+Combination Experiments of HyDE, CAD, and SCD for RAG over English Academic and Technical Documents with Korean Queries
 
-인준 페이지
+[학생명 입력] · [학번 입력]
 
-위 보고서를 졸업자격실험보고서로 인준함.
+지도교수  [지도교수 입력]
 
-지도교수: [지도교수 입력] (인)  /  심사위원: [심사위원 입력] (인)  /  인준일: [인준일 입력]
+본 보고서를 졸업자격 실험보고서로 제출함.
+[제출일 입력]
 
+[학생명 입력]의 졸업자격 실험보고 통과를 인준함.
+[인준일 입력]
 
+주심  [주심 입력] (인)
+부심  [부심 입력] (인)
 
-
-
-
-
-[소속 대학·학과 입력]
+[소속 대학·캠퍼스 입력] [소속 학과 입력]
 국문초록
 검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 문맥으로 제공함으로써 특정 문서에 근거한 질의응답을 가능하게 한다. 한국어로 질문하고 영어 학술·기술 문서에서 근거를 검색한 뒤 한국어로 답하는 환경에서는 질의와 문서의 언어·표현 차이, 검색 근거의 생성 단계 활용, 영어 문맥에 따른 출력 언어 이탈을 함께 고려해야 한다. 본 연구는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 표현 확장, 문맥 기반 생성 제어, 한국어 출력 언어 제어의 실험 요인으로 두고 2×2×2 조합을 RAG-Cube로 구성하였다.
 실험은 BGE-M3 밀집 검색, BM25 희소 검색, weighted Reciprocal Rank Fusion, CrossEncoder 재정렬, K-intelligence/Midm-2.0-Base-Instruct로 구성된 고정 Paper-RAG 백본을 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 문서에 문서별 15개씩 총 60개의 한국어 질의–대상 문서 쌍을 구성하고, 8개 실험 조건을 적용하여 480개의 생성 기록을 저장하였다. HyDE는 CAD·SCD OFF의 60개 대응쌍, CAD는 동일 검색 문맥 대응쌍, SCD는 동일 질의에서 HyDE·CAD의 ON/OFF 상태를 맞춘 240개 대응쌍과 HyDE OFF 동일 검색 문맥 120개 대응쌍으로 비교하였다.
@@ -42,85 +43,85 @@ The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrie
 HyDE increased answer relevancy by +0.0805 on average, with a 95% bootstrap interval of [+0.0110, +0.1514]. Its changes in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. Under identical contexts, CAD changed faithfulness by +0.0288 on 58 complete pairs, with a 95% bootstrap interval of [-0.0367, +0.0934], while answer relevancy changed by -0.0073 on 60 pairs. In the primary SCD comparison, the Korean-character ratio increased by +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap interval of [+0.1880, +0.2487]. Across all 240 state-matched pairs, the mean change was +0.2289. Within this evaluation set, HyDE increased answer relevancy and SCD increased the Korean-character ratio; the CAD faithfulness interval included zero.
 Keywords: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, Korean query, English academic or technical document, language drift
 목    차
-1. 서론	9
-1.1 연구배경 및 목적	9
-1.2 연구범위	9
-1.3 연구 질문, 분석 관점 및 논문 구성	10
-2. 이론적 배경	11
-2.1 Retrieval-Augmented Generation	11
-2.2 하이브리드 검색과 재정렬	11
-2.3 HyDE와 가상 문서 기반 검색	13
-2.4 Context-Aware Decoding	13
-2.5 Soft Constrained Decoding과 언어 이탈	14
-2.6 RAG 평가	15
-2.7 관련 연구와 본 연구의 위치	16
-3. 시스템 설계	18
-3.1 연구 및 실험 요구사항	18
-3.2 아키텍처 설계	18
-3.3 상세설계	19
-4. 프로그램 구현	21
-4.1 시스템 환경	21
-4.2 시스템 구성	22
-4.3 시스템 구현	23
-5. 실험	25
-5.1 실험 대상과 구성	25
-5.2 평가 및 분석 방법	26
-5.3 RAG-Cube 조합별 결과	27
-5.4 HyDE 결과 및 해석	29
-5.5 CAD 결과 및 해석	31
-5.6 SCD 출력 언어 결과 및 해석	33
-5.7 대표 입출력 및 요구사항별 실행 결과	36
-5.8 종합 논의	37
-5.9 실험 범위와 해석 기준	38
-6. 결론	40
-6.1 연구 질문별 최종 답	40
-6.2 비교 설계의 의의	40
-6.3 적용 시 실험 조건 선택	41
-6.4 후속 연구 방향	41
-참고문헌	42
-그림 자료 이용 정보	44
-부록 A~B	45, 53
+1. 서론	1
+1.1 연구배경 및 목적	1
+1.2 연구범위	1
+1.3 연구 질문, 분석 관점 및 논문 구성	2
+2. 이론적 배경	3
+2.1 Retrieval-Augmented Generation	3
+2.2 하이브리드 검색과 재정렬	3
+2.3 HyDE와 가상 문서 기반 검색	5
+2.4 Context-Aware Decoding	5
+2.5 Soft Constrained Decoding과 언어 이탈	6
+2.6 RAG 평가	7
+2.7 관련 연구와 본 연구의 위치	8
+3. 시스템 설계	10
+3.1 연구 및 실험 요구사항	10
+3.2 아키텍처 설계	10
+3.3 상세설계	11
+4. 프로그램 구현	13
+4.1 시스템 환경	13
+4.2 시스템 구성	14
+4.3 시스템 구현	15
+5. 실험	16
+5.1 실험 대상과 구성	16
+5.2 평가 및 분석 방법	16
+5.3 RAG-Cube 조합별 결과	18
+5.4 HyDE 결과 및 해석	19
+5.5 CAD 결과 및 해석	21
+5.6 SCD 출력 언어 결과 및 해석	23
+5.7 대표 입출력 및 요구사항별 실행 결과	26
+5.8 종합 논의	27
+5.9 실험 범위와 해석 기준	29
+6. 결론	30
+6.1 연구 질문별 최종 답	30
+6.2 비교 설계의 의의	30
+6.3 적용 시 실험 조건 선택	31
+6.4 후속 연구 방향	31
+참고문헌	32
+그림 자료 이용 정보	34
+부록 A~B	35, 43
 그 림 목 차
-[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경	9
-[그림 2-1] RAG의 검색기–생성기 구조	11
-[그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화	12
-[그림 2-3] HyDE의 가상 문서 기반 검색 구조	13
-[그림 2-4] Context-Aware Decoding의 분포 대조 구조	14
-[그림 2-5] 다국어 RAG의 출력 언어 이탈 사례	15
-[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시	16
-[그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건	19
-[그림 4-1] 고정 Paper-RAG 백본 실행 흐름	23
-[그림 4-2] 생성 기록–평가–대응 분석 흐름	24
-[그림 5-1] 60개 질의 평가 및 HyDE·CAD·SCD 대응 비교 설계	27
-[그림 5-2] 평가 프로토콜별 RAG-Cube 조건 평균	29
-[그림 5-3] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례	30
-[그림 5-4] HyDE와 CAD의 주 대응 비교	31
-[그림 5-5] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례	32
-[그림 5-6] RAG-Cube 조건별 생성 시간	33
-[그림 5-7] SCD OFF 조건의 출력 언어 이탈 사례	34
-[그림 5-8] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례	35
-[그림 5-9] SCD의 한국어 문자 비율 변화	36
-[그림 5-10] 질의·검색 근거·생성 답변·평가 결과 예시	37
-[그림 5-11] HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이	38
-[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례	53
+[그림 1-1] 한국어 질의 기반 영어 학술·기술 문서 RAG 연구 환경	1
+[그림 2-1] RAG의 검색기–생성기 구조	3
+[그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화	4
+[그림 2-3] HyDE의 가상 문서 기반 검색 구조	5
+[그림 2-4] Context-Aware Decoding의 분포 대조 구조	6
+[그림 2-5] 다국어 RAG의 출력 언어 이탈 사례	7
+[그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시	8
+[그림 3-1] HyDE·CAD·SCD RAG-Cube 8개 조건	11
+[그림 4-1] 고정 Paper-RAG 백본 실행 흐름	14
+[그림 4-2] 생성 기록–평가–대응 분석 흐름	15
+[그림 5-1] 60개 질의 평가 및 HyDE·CAD·SCD 대응 비교 설계	17
+[그림 5-2] 평가 프로토콜별 RAG-Cube 조건 평균	19
+[그림 5-3] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례	20
+[그림 5-4] HyDE와 CAD의 주 대응 비교	21
+[그림 5-5] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례	22
+[그림 5-6] RAG-Cube 조건별 생성 시간	23
+[그림 5-7] SCD OFF 조건의 출력 언어 이탈 사례	24
+[그림 5-8] 동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례	25
+[그림 5-9] SCD의 한국어 문자 비율 변화	26
+[그림 5-10] 질의·검색 근거·생성 답변·평가 결과 예시	27
+[그림 5-11] HyDE·CAD 조건별 근거 충실도·답변 관련성 대응 차이	28
+[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례	43
 표 목 차
-[표 2-1] 관련 연구와 본 실험의 연결	17
-[표 3-1] 연구 및 실험 요구사항	18
-[표 3-2] RAG-Cube 8개 조건	19
-[표 3-3] 실험 요인별 적용 위치와 비교 단위	20
-[표 4-1] 실험 실행 환경	21
-[표 4-2] 고정 Paper-RAG backbone	22
-[표 4-3] 조건별 평균 생성 시간	23
-[표 4-4] 생성 기록의 주요 필드	23
-[표 5-1] 4개 문서별 질의 구성	25
-[표 5-2] SCD 평가 프로토콜별 RAG-Cube 조건 평균	28
-[표 5-3] HyDE 주 비교 결과	30
-[표 5-4] CAD 동일 문맥 주 비교 결과	32
-[표 5-5] SCD 조합별 한국어 문자 비율 변화	35
-[표 5-6] SCD 대응쌍 분석 요약	36
-[표 A-1] 60개 질의–대상 문서 쌍	45
-[표 B-1] 문서별 탐색 분석	54
-[표 B-2] 질문 유형별 탐색 분석	55
+[표 2-1] 관련 연구와 본 실험의 연결	9
+[표 3-1] 연구 및 실험 요구사항	10
+[표 3-2] RAG-Cube 8개 조건	11
+[표 3-3] 실험 요인별 적용 위치와 비교 단위	12
+[표 4-1] 실험 실행 환경	13
+[표 4-2] 고정 Paper-RAG backbone	13
+[표 4-3] 조건별 평균 생성 시간	15
+[표 4-4] 생성 기록의 주요 필드	15
+[표 5-1] 4개 문서별 질의 구성	16
+[표 5-2] SCD 평가 프로토콜별 RAG-Cube 조건 평균	18
+[표 5-3] HyDE 주 비교 결과	20
+[표 5-4] CAD 동일 문맥 주 비교 결과	22
+[표 5-5] SCD 조합별 한국어 문자 비율 변화	25
+[표 5-6] SCD 대응쌍 분석 요약	25
+[표 A-1] 60개 질의–대상 문서 쌍	35
+[표 B-1] 문서별 탐색 분석	44
+[표 B-2] 질문 유형별 탐색 분석	45
 1. 서론
 1.1 연구배경 및 목적
 한국어 질의로 영어 학술·기술 문서를 활용할 때는 질의와 문서의 언어 차이, 검색 근거의 활용, 한국어 출력의 일관성을 함께 고려해야 한다. 특정 논문의 방법, 실험 조건, 수치와 결론을 확인하려면 생성 답변을 실제 문서의 근거와 연결해야 한다. 검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서를 검색해 생성 모델의 입력으로 제공하는 질의응답 구조이다[1].
@@ -147,9 +148,9 @@ Lewis 외[1]는 사전학습 검색기(retriever)가 외부 문서 인덱스에�
 밀집 검색과 BM25의 가중치는 각각 0.6과 0.4, 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 문맥 수는 5개로 고정하였다. 이 설정을 모든 RAG-Cube 조건에 공통으로 적용하였다.
 한국어 질문의 설명형 표현과 영어 원문의 제목·방법론 용어는 언어와 표면 표현에서 차이가 난다. 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터의 정확한 표기는 검색 단서가 된다. 밀집 검색과 희소 검색을 결합한 이유는 의미적 유사성과 표면 일치를 함께 활용하기 위해서다.
 재정렬은 검색 후보의 우선순위를 조정하고, 생성 모델은 선택된 문맥을 입력으로 답변을 만든다. 검색 결과가 바뀌는 경우와 같은 문맥에서 생성 방식만 바뀌는 경우를 구분해야 두 단계의 영향을 해석할 수 있다.
-관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[12]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 원 논문의 해당 결과이다. 본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.
+관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[9]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 원 논문의 해당 결과이다. 본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.
 [그림 2-2] 긴 문맥에서 관련 정보 위치에 따른 성능 변화
-출처: Liu 외[12], 그림 1에서 발췌.
+출처: Liu 외[9], 그림 1에서 발췌.
 Weighted RRF는 다음과 같이 표현할 수 있으며, 본 실험은 RRF 상수 k=60을 사용한다.
 2.3 HyDE와 가상 문서 기반 검색
 HyDE는 질의를 바탕으로 가상 문서를 생성하고, 해당 문서의 임베딩을 검색에 활용하는 방법이다[2]. 가상 문서를 거치면 짧은 질의를 문서 형태의 표현으로 확장할 수 있다.
@@ -174,13 +175,13 @@ SCD는 어휘 집합을 목표 언어, 비목표 언어와 중립 토큰으로 �
 SCD의 토큰 그룹별 점수 조정과 한국어 문자 비율은 다음 수식으로 정의한다.
 논문 제목, 모델명과 데이터셋명 등의 영어 표기를 포함하여 실제 답변의 언어 구성을 계산하였다. SCD 대응쌍의 구성과 변화 판정 기준은 5.2절에 설명한다.
 2.6 RAG 평가
-HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[9]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 대응하는 정도를 측정한다. 문맥 정밀도는 관련 근거가 검색 결과의 상위에 배치되는 정도를, 문맥 재현율은 참조 답변에 필요한 근거가 검색 문맥에 포함된 정도를 측정한다.
+HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[10]. 근거 충실도는 답변의 주장이 제공된 문맥에 의해 지지되는 정도를, 답변 관련성은 답변이 질문에 대응하는 정도를 측정한다. 문맥 정밀도는 관련 근거가 검색 결과의 상위에 배치되는 정도를, 문맥 재현율은 참조 답변에 필요한 근거가 검색 문맥에 포함된 정도를 측정한다.
 RAGAS 원 연구는 질문–문맥–답변 예시로 평가 차원을 설명한다. 그림 2-6은 WikiEval의 동일 질문과 문맥에 대해 근거가 지지하는 답변과 지지하지 않는 답변을 대비한 원 논문의 표 2이다. 질문에 관련된 답변인지와 문맥이 그 답변을 지지하는지는 별도로 평가해야 함을 보여준다.
 [그림 2-6] RAGAS의 근거 충실도 높음/낮음 예시
-출처: Es 외[9], 표 2에서 발췌.
+출처: Es 외[10], 표 2에서 발췌.
 요인별 대응 차이는 동일 질의의 ON/OFF 차이를 이용한 대응 비교로 분석하고, 질의를 재표집 단위로 하는 부트스트랩 신뢰구간을 함께 제시한다. 자동 평가 분석은 평가값이 존재하는 유효 대응쌍을 사용한다. SCD의 출력 언어 변화는 RAGAS와 별도로 한국어 문자 비율로 측정한다. 실제 대응쌍 구성, 유효 표본 수와 변화 판정 기준은 5.2절에서 제시한다.
 2.7 관련 연구와 본 연구의 위치
-검색 증강 생성 연구는 검색기의 표현력, 여러 문서 구간의 활용, 디코딩 제어와 검색·생성의 자기검증으로 확장되어 왔다. Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[10], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[11]. 긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[12], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13]. RAPTOR는 세부 문서 구간과 상위 요약을 계층적으로 구성하는 검색 구조를 제안했고[14], Self-RAG[15]와 Corrective RAG[16]는 검색 필요성이나 근거 품질을 생성 과정에서 점검하는 방향을 보였다.
+검색 증강 생성 연구는 검색기의 표현력, 여러 문서 구간의 활용, 디코딩 제어와 검색·생성의 자기검증으로 확장되어 왔다. Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[11], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[12]. 긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[9], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13]. RAPTOR는 세부 문서 구간과 상위 요약을 계층적으로 구성하는 검색 구조를 제안했고[14], Self-RAG[15]와 Corrective RAG[16]는 검색 필요성이나 근거 품질을 생성 과정에서 점검하는 방향을 보였다.
 RAG 시스템 전반을 정리한 조사 연구[17], 한국어·영어 이중언어 생성 모델에 관한 Mi:dm 2.0 연구[18], RAG의 구성과 평가를 체계화한 조사 연구[19]는 본 실험의 시스템·언어 조건을 설정하는 배경이 된다. 검색 모델의 도메인·과제 간 편차는 BEIR[20]과 MTEB[21] 같은 벤치마크의 관점에서 참고하며, 실험 문서 집합 중 하나인 Mi:dm K 2.5 Pro는 해당 기술 보고서[22]를 사용한다.
 본 연구는 HyDE, CAD, SCD를 각각 검색 표현 확장, 문맥 기반 생성 제어, 출력 언어 제어로 고정 백본 안에 배치하고, 각 기법의 적용 위치에 맞는 대응 비교를 수행하였다. HyDE는 검색 입력 변화까지 포함한 종단 간 변화로, CAD는 동일 문맥에서의 생성 변화로, SCD는 동일 질의에서 HyDE·CAD 상태를 맞춘 출력 언어 변화로 분석한다.
 표 2-1은 선행연구와 본 실험의 연결을 정리한다. DPR과 BEIR는 검색 표현과 도메인별 평가에, FiD와 긴 문맥 연구는 여러 문맥의 활용에 관련된다. 대조 디코딩은 CAD의 분포 대조와 연결되며, Self-RAG와 CRAG는 검색 필요성과 근거 품질을 점검한다.
@@ -409,10 +410,10 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 [6] S. E. Robertson et al., “Okapi at TREC-3,” *Text REtrieval Conference*, 1994.
 [7] G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods,” *Proceedings of SIGIR*, pp. 758–759, 2009.
 [8] R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019.
-[9] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024.
-[10] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020.
-[11] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021.
-[12] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024.
+[9] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024.
+[10] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024.
+[11] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020.
+[12] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021.
 [13] X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,” *Proceedings of ACL*, pp. 12286–12312, 2023.
 [14] P. Sarthi et al., “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,” *Proceedings of ICLR*, 2024.
 [15] A. Asai et al., “Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection,” *Proceedings of ICLR*, 2024.
@@ -429,7 +430,7 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 라이선스 안내: https://creativecommons.org/licenses/by/4.0/
 그림 2-1 — 본 연구 작성. Lewis 외[1]의 RAG 구조를 참고하여 독립 도식을 작성하였다.
 원본 자료: https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf
-그림 2-2 — Nelson F. Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.
+그림 2-2 — Nelson F. Liu 외[9], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.
 원본 자료: https://aclanthology.org/2024.tacl-1.9.pdf
 그림 2-3 — Luyu Gao 외[2], ACL 2023, 1762–1777; PDF page 2 (printed 1763). 원본 그림 1. 변경: 도식 영역 잘라내기, OpenAI 로고 생략.
 원본 자료: https://aclanthology.org/2023.acl-long.99.pdf
@@ -437,7 +438,7 @@ HyDE는 번역, 가상 문서 생성과 밀집 검색 변경을 분리하여 비
 원본 자료: https://aclanthology.org/2024.naacl-short.69.pdf
 그림 2-5 — Bo Li 외[4], arXiv:2511.09984v1, PDF page 1. 원본 그림 1. 변경: 그림 영역 잘라내기, OpenAI·Ollama 로고 생략.
 원본 자료: https://arxiv.org/pdf/2511.09984v1
-그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.
+그림 2-6 — Shahul Es 외[10], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.
 원본 자료: https://arxiv.org/pdf/2309.15217v2
 부록 A. 60개 질의 목록
 부록 A의 질문 문장은 실제 실험 입력을 그대로 수록하였다.

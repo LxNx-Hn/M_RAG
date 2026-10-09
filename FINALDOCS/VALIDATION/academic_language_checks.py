@@ -28,11 +28,11 @@ def validate_academic_text(text: str) -> None:
         if Counter(listed) != Counter(captions):
             raise AssertionError(f"{kind} full titles differ between list and body")
     expected_sources = (
-        ("2-2", "Liu", 12, ", 그림 1에서 발췌."),
+        ("2-2", "Liu", 9, ", 그림 1에서 발췌."),
         ("2-3", "Gao", 2, ", 그림 1에서 발췌·편집."),
         ("2-4", "Shi", 3, ", 그림 1에서 발췌."),
         ("2-5", "Li", 4, ", 그림 1에서 발췌·편집."),
-        ("2-6", "Es", 9, ", 표 2에서 발췌."),
+        ("2-6", "Es", 10, ", 표 2에서 발췌."),
     )
     if not re.search(
         r"\[그림 2-1\] [^\n]+ \[스타일=그림제목\]\n\n"

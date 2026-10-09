@@ -1,5 +1,7 @@
 # 60개 질의 졸업논문 HWPX 초기 제작·검증 보고서
 
+현재 학교 양식·출력 판정은 [2026 최종 검증](../VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md)을 우선한다. 아래 기록은 기존 제작·호환 검토 이력이다.
+
 최신 조판·출처·문체 수정본은 [최종 감사 보고서](../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
 
 이 문서는 학술 교정 전 57쪽 제작본의 기록이다. 이전 55쪽 교정본은 `../VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`와 `LOGS/academic_*`, 문체 교정 이전 제출 감사본은 `../VALIDATION/FINAL_SUBMISSION_AUDIT.md`와 `LOGS/submission_*`에 기록하였다. 최신 문체 교정본의 원고·검증·웹한글 PDF·해시·CI는 `../VALIDATION/FINAL_PROSE_AUDIT.md`와 `LOGS/prose_*`에서 확인한다.

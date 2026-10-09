@@ -61,6 +61,17 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case()
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_introduction_page_restart_regression(self):
+        def change(section, parts):
+            restart = section.find(".//hp:newNum", NS)
+            restart.set("num", "9")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(
+            "Introduction must restart printed page numbering at 1", result.stderr
+        )
+
     def test_appendix_split_cell(self):
         def change(section, parts):
             table = next(
@@ -145,14 +156,14 @@ class ContentCorruptionTests(unittest.TestCase):
             shape = header.find(
                 f".//hh:paraPr[@id='{paragraph.get('paraPrIDRef')}']", namespace
             )
-            shape.find("hh:breakSetting", namespace).set("keepWithNext", "0")
+            shape.find("hh:breakSetting", namespace).set("keepWithNext", "1")
             parts["Contents/header.xml"] = ET.tostring(
                 header, encoding="UTF-8", xml_declaration=True, standalone=True
             )
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("layout keepWithNext: section", result.stderr)
+        self.assertIn("School paraPr modified", result.stderr)
 
     def alter_source_shape(self, operation):
         def change(section, parts):
@@ -179,24 +190,24 @@ class ContentCorruptionTests(unittest.TestCase):
 
     def test_source_justification_regression(self):
         result = self.alter_source_shape(
-            lambda p, s, h, ns: s.find("hh:align", ns).set("horizontal", "JUSTIFY")
+            lambda p, s, h, ns: s.find("hh:align", ns).set("horizontal", "LEFT")
         )
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("layout alignment: figure_source", result.stderr)
+        self.assertIn("School paraPr modified", result.stderr)
 
     def test_source_spacing_regression(self):
         result = self.alter_source_shape(
             lambda p, s, h, ns: s.find(".//hc:next", ns).set("value", "0")
         )
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("layout spacing: figure_source", result.stderr)
+        self.assertIn("School paraPr modified", result.stderr)
 
     def test_source_font_regression(self):
         result = self.alter_source_shape(
-            lambda p, s, h, ns: p.find("hp:run", ns).set("charPrIDRef", "0")
+            lambda p, s, h, ns: p.find("hp:run", ns).set("charPrIDRef", "31")
         )
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("layout source font: figure_source", result.stderr)
+        self.assertIn("School character style overridden", result.stderr)
 
     def test_usage_hyperlink_regression(self):
         def change(section, parts):

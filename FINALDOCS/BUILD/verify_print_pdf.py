@@ -51,7 +51,8 @@ def spatial_text(page, rect):
 def inspect(pdf: Path, output: Path):
     page_map = json.loads(
         (ROOT / "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json").read_text(encoding="utf-8")
-    )["pages"]
+    )
+    page_map = page_map.get("physical_pages", page_map["pages"])
     manifest = json.loads(
         (ROOT / "FINALDOCS/EVIDENCE/IO_CASES/PRINT_EVIDENCE_MANIFEST.json").read_text(
             encoding="utf-8"

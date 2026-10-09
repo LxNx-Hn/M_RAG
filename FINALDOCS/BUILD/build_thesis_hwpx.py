@@ -183,28 +183,90 @@ def empty_template(doc: HwpxDocument) -> None:
         run.insert(1, ctrl)
 
 
-def insert_school_covers(doc: HwpxDocument, converted: Path, front: list[dict]) -> None:
+ENGLISH_TITLE = (
+    "Combination Experiments of HyDE, CAD, and SCD for RAG over "
+    "English Academic and Technical Documents with Korean Queries"
+)
+
+
+def insert_school_covers(
+    doc: HwpxDocument, converted: Path, front: list[dict], fields: dict | None = None
+) -> None:
     """Reuse the two original cover layout tables, including sizes and gaps."""
     template = HwpxDocument.open(converted)
     source_paragraphs = list(template.sections[0].element)
-    covers = [copy.deepcopy(source_paragraphs[i]) for i in (12, 13)]
+    covers = [
+        copy.deepcopy(p)
+        for p in source_paragraphs
+        if p.find(".//hp:tbl", NS) is not None
+        and "지도교수 이름 입력" in "".join(p.itertext())
+        and (
+            "졸업자격실험보고서" in "".join(p.itertext())
+            or "논문 영문 제목" in "".join(p.itertext())
+        )
+    ]
+    if len(covers) != 2:
+        raise ValueError("Expected two original school cover layout tables")
+    fields = fields if fields is not None else {}
+    allowed = {
+        "name",
+        "student_id",
+        "department",
+        "university",
+        "advisor",
+        "submission_date",
+        "submission_year",
+        "approval_date",
+        "chair",
+        "reviewer",
+    }
+    if set(fields) - allowed or any(
+        not isinstance(v, str) or not v.strip() for v in fields.values()
+    ):
+        raise ValueError("Unknown or empty personal field")
+    placeholders = dict(
+        zip(sorted(allowed), ["[" + k + " 입력]" for k in sorted(allowed)])
+    )
+    placeholders.update(
+        {
+            "name": "[학생명 입력]",
+            "student_id": "[학번 입력]",
+            "department": "[소속 학과 입력]",
+            "university": "[소속 대학·캠퍼스 입력]",
+            "advisor": "[지도교수 입력]",
+            "submission_date": "[제출일 입력]",
+            "submission_year": "[제출연도 입력]",
+            "approval_date": "[인준일 입력]",
+            "chair": "[주심 입력]",
+            "reviewer": "[부심 입력]",
+        }
+    )
+    values = {**placeholders, **fields}
     first = {
         0: front[0]["text"],
         2: front[1]["text"],
-        5: "지도교수: [지도교수 입력]",
-        7: "[소속 학과 입력]\n[소속 대학·캠퍼스 입력]",
-        9: front[2]["text"],
-        11: "[제출연도 입력]",
+        5: "지도교수  " + values["advisor"],
+        7: values["department"] + "\n" + values["university"],
+        9: values["name"] + " · " + values["student_id"],
+        11: values["submission_year"],
     }
     second = (
         {
-            0: front[3]["text"],
-            2: front[4]["text"],
-            4: front[5]["text"],
-            6: front[6]["text"],
-            8: front[7]["text"],
-            10: front[8]["text"],
-            18: "[소속 대학·학과 입력]",
+            0: front[0]["text"],
+            2: front[1]["text"],
+            4: ENGLISH_TITLE,
+            6: values["name"] + " · " + values["student_id"],
+            8: "지도교수  " + values["advisor"],
+            10: "본 보고서를 졸업자격 실험보고서로 제출함.",
+            11: values["submission_date"],
+            13: values["name"] + "의 졸업자격 실험보고 통과를 인준함.",
+            14: values["approval_date"],
+            16: "주심  "
+            + values["chair"]
+            + " (인)\n부심  "
+            + values["reviewer"]
+            + " (인)",
+            18: values["university"] + " " + values["department"],
         }
         if len(front) == 9
         else {}
@@ -219,6 +281,20 @@ def insert_school_covers(doc: HwpxDocument, converted: Path, front: list[dict]) 
             oldp = sub.find("hp:p", NS)
             run = oldp.find("hp:run", NS)
             char_ref = run.get("charPrIDRef") if run is not None else "0"
+            if fields and row in ({9} if number == 0 else {6}):
+                # Use the cover cell's original black run, after its red example.
+                properties = template.parts.headers[0].element
+                black_runs = [
+                    r
+                    for r in oldp.findall("hp:run", NS)
+                    if properties.find(
+                        f".//hh:charPr[@id='{r.get('charPrIDRef')}']", NS
+                    ).get("textColor")
+                    == "#000000"
+                ]
+                if not black_runs:
+                    raise ValueError("Original cover cell has no black input run")
+                char_ref = black_runs[0].get("charPrIDRef")
             attrs = dict(oldp.attrib)
             for child in list(sub):
                 sub.remove(child)
@@ -262,13 +338,14 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 ),
             )
         )
+    cell_style = doc.parts.headers[0].element.find(".//hh:style[@name='표내용']", NS)
     table = doc.add_table(
         nr,
         nc,
         width=width,
         height=sum(heights),
-        style="본문",
-        char_pr_id_ref="31",
+        style="표위치",
+        char_pr_id_ref=cell_style.get("charPrIDRef"),
         inherit_style=False,
     )
     table.set_column_widths(widths)
@@ -288,10 +365,10 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             cell.set("header", "1" if r == 0 else "0")
             cell.find("hp:cellSz", NS).set("height", str(heights[r]))
             for p in cell.findall(".//hp:p", NS):
-                p.set("styleIDRef", "13")
-                p.set("paraPrIDRef", "18")
+                p.set("styleIDRef", cell_style.get("id"))
+                p.set("paraPrIDRef", cell_style.get("paraPrIDRef"))
             for run in cell.findall(".//hp:run", NS):
-                run.set("charPrIDRef", "31")
+                run.set("charPrIDRef", cell_style.get("charPrIDRef"))
     for r0, c0, r1, c1 in data["merges"]:
         table.merge_cells(r0, c0, r1, c1)
     return table.paragraph
@@ -357,8 +434,20 @@ def emit(
                     p.element.remove(run)
                 p.add_run(prefix, char_pr_id_ref=char_ref)
                 doc.refs.add_hyperlink(url, url, paragraph=p, char_pr_id_ref=char_ref)
-            if e["page_break"]:
+            if e["page_break"] or (
+                role in ("section", "table_caption")
+                and text.startswith(
+                    (
+                        "[표 3-3]",
+                        "5.9 실험 범위와 해석 기준",
+                        "6.3 적용 시 실험 조건 선택",
+                    )
+                )
+            ):
+                # Reviewed Web PDF: keep short table and section openings intact.
                 p.element.set("pageBreak", "1")
+            if text == "1. 서론":
+                doc.page.restart_page_number(p, number=1)
             mapping["paragraphs"].append(e)
         elif kind == "table":
             data = table_data(workbook[e["sheet"]])
@@ -460,6 +549,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=ROOT / "FINALDOCS/DELIVERY")
     parser.add_argument("--smoke-only", action="store_true")
     parser.add_argument(
+        "--personal-fields",
+        type=Path,
+        help="Local confirmed personal fields; do not publish the resulting files",
+    )
+    parser.add_argument(
         "--page-map",
         type=Path,
         help="Visually reviewed Hancom PDF page map; fails on stale manuscript hash",
@@ -553,7 +647,12 @@ def main() -> None:
             raise ValueError(
                 "Review school-cover mapping: expected nine canonical front paragraphs"
             )
-        insert_school_covers(doc, template_copy, front)
+        fields = (
+            json.loads(args.personal_fields.read_text(encoding="utf-8"))
+            if args.personal_fields
+            else None
+        )
+        insert_school_covers(doc, template_copy, front, fields)
         body_events = events[abstract_index:]
     mapping = emit(doc, body_events, workbook, audit["width"], pages)
     mapping["cover_paragraphs"] = front

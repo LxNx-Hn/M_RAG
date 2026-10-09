@@ -90,7 +90,7 @@ class SubmissionAuditTests(unittest.TestCase):
         for index in (1, 5):
             changed = copy.deepcopy(self.manifest)
             old = changed["figures"][index]["caption_source"]
-            new = old.replace("외[12]", "외[11]").replace("표 2", "그림 2")
+            new = old.replace("외[9]", "외[11]").replace("표 2", "그림 2")
             changed["figures"][index]["caption_source"] = new
             with self.subTest(index=index), self.assertRaisesRegex(
                 AssertionError, "reference/object"

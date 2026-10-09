@@ -37,11 +37,11 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://aclanthology.org/2024.tacl-1.9.pdf",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Liu 외[12], 그림 1에서 발췌.",
+      "caption_source": "출처: Liu 외[9], 그림 1에서 발췌.",
       "comparison": "도표 영역만 발췌; 제목·축·범례·20개 위치의 곡선·폐쇄형 기준선 일치. 원 캡션은 정식 본문 캡션으로 분리",
-      "reference_number": 12,
+      "reference_number": 9,
       "adaptation": "도표 영역 잘라내기.",
-      "usage_entry": "그림 2-2 — Nelson F. Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.",
+      "usage_entry": "그림 2-2 — Nelson F. Liu 외[9], TACL 2024, 12:157–173; PDF page 2 (printed 158). 원본 그림 1. 변경: 도표 영역 잘라내기.",
       "submission_source_url": "https://aclanthology.org/2024.tacl-1.9.pdf"
     },
     {
@@ -121,11 +121,11 @@
       "license": "CC BY 4.0",
       "license_evidence_url": "https://arxiv.org/abs/2309.15217v2",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "caption_source": "출처: Es 외[9], 표 2에서 발췌.",
+      "caption_source": "출처: Es 외[10], 표 2에서 발췌.",
       "comparison": "재추출 PNG가 기존 PNG와 SHA-256 일치; 원본 표를 이미지로 발췌",
-      "reference_number": 9,
+      "reference_number": 10,
       "adaptation": "표 영역 잘라내기.",
-      "usage_entry": "그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.",
+      "usage_entry": "그림 2-6 — Shahul Es 외[10], arXiv:2309.15217v2, PDF page 8. 원본 표 2. 변경: 표 영역 잘라내기.",
       "submission_source_url": "https://arxiv.org/pdf/2309.15217v2"
     }
   ],

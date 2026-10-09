@@ -1,7 +1,7 @@
 {
   "reviewed_head": "4b4673cc5215f08e00f33ead2f2ec3ab55090049",
   "source_sha256_before": "6a3ac62b2310c69fecd7a5baf8e3e20bd19fc102853b961c105e1f57f7354ce5",
-  "source_sha256_after": "d96f5870ca702404c442f08c8df912d3c59fd97ac6e79866686f870df59e4a50",
+  "source_sha256_after": "77d7843a90a6fefd626ada0bba83e28448b07b853ddd1c12ed0920811fb46c58",
   "method": "본문 전체 순서대로 독해. 코드·수식·탭 구분 원자료·참고문헌 서지 원문은 문체 판정에서 분리하고 구조 검증으로 보존 확인. 제목·목차·캡션은 별도 단위로 검토.",
   "original_review": [
     {
@@ -7299,8 +7299,8 @@
     {
       "line": 192,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "Liu 외[12]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다.",
-      "sha256": "f3b07b09ad971e7c75f3876edfff8a892b24fa0a5e6b5349151129c4385809d8",
+      "text": "Liu 외[9]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다.",
+      "sha256": "335876fe3d4efbd3859edf875a80675de57831cbc2281a7b31c8462da247aac6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -7339,8 +7339,8 @@
     {
       "line": 198,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "출처: Liu 외[12], 그림 1에서 발췌.",
-      "sha256": "618968105af42d7668003d1c1067719aa31e4cc2e49a008a1734a18ff45b0d1c",
+      "text": "출처: Liu 외[9], 그림 1에서 발췌.",
+      "sha256": "b3f5aedd6968a2e1e06faa1c7906975051872faf61ad6ef3c8a4c18b96d1cdb4",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -7779,8 +7779,8 @@
     {
       "line": 290,
       "section": "2.6 RAG 평가",
-      "text": "HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[9].",
-      "sha256": "ce5ceb7818793139870b9165d0f5d8b6bae7a4edca0f94244be8b09d820c7e86",
+      "text": "HyDE와 CAD의 품질 비교에는 RAGAS의 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 사용하였다[10].",
+      "sha256": "9e7f74935663425ea88817699c668622242b58f8480aa08641a54c3ac209db27",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -7849,8 +7849,8 @@
     {
       "line": 298,
       "section": "2.6 RAG 평가",
-      "text": "출처: Es 외[9], 표 2에서 발췌.",
-      "sha256": "89020943b8f010f57aa3b501f289d714fc904ad5e4b1f9f3c991ed936710d817",
+      "text": "출처: Es 외[10], 표 2에서 발췌.",
+      "sha256": "0c2915ddfbf91de18b3f98bfab6923296b8875a1233de14db7e30c99a0221daf",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -7919,8 +7919,8 @@
     {
       "line": 304,
       "section": "2.7 관련 연구와 본 연구의 위치",
-      "text": "Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[10], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[11].",
-      "sha256": "e7c83fde316b45b7496637b44cdf6846d2c9d5eb3093dd845de2a715ed991761",
+      "text": "Dense Passage Retrieval은 밀집 검색의 대표 구조를 정립했고[11], Fusion-in-Decoder는 여러 검색 문서 구간을 생성 단계에서 함께 이용하는 방식을 제안했다[12].",
+      "sha256": "b8f99cb196c68f5e8cd53e187001a200c1ee9fb929b68c377b37a8ea7dca4738",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -7929,8 +7929,8 @@
     {
       "line": 304,
       "section": "2.7 관련 연구와 본 연구의 위치",
-      "text": "긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[12], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13].",
-      "sha256": "5aa361ff3ab5dd97da3dceffe612bf8e763be4bbac285c38263440e24d3e211c",
+      "text": "긴 문맥에서는 관련 정보의 위치에 따라 모델의 활용 정도가 달라질 수 있다는 분석이 보고되었으며[9], contrastive decoding은 서로 다른 조건의 생성 분포를 대조하는 관점을 제시했다[13].",
+      "sha256": "f26d6b0dd767a4f0531eb01fdd1b51e489081eb993ade970a123b658f1e30221",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -10799,8 +10799,8 @@
     {
       "line": 841,
       "section": "그림 자료 이용 정보",
-      "text": "Liu 외[12], TACL 2024, 12:157–173; PDF page 2 (printed 158).",
-      "sha256": "732668b0df085ec7539a8e39e1f18b3fe33a8b1deaab460a965595328f4f5f8f",
+      "text": "Liu 외[9], TACL 2024, 12:157–173; PDF page 2 (printed 158).",
+      "sha256": "f50a791902dd2e4104c0449cef158451d0540b81e7cb4700d9da7ae1b2e59f72",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -10959,8 +10959,8 @@
     {
       "line": 857,
       "section": "그림 자료 이용 정보",
-      "text": "그림 2-6 — Shahul Es 외[9], arXiv:2309.15217v2, PDF page 8.",
-      "sha256": "7ed156a164b8c9b1bd15a6bda1ca62c26564256fb8a2d990299ac5cb3c2556c0",
+      "text": "그림 2-6 — Shahul Es 외[10], arXiv:2309.15217v2, PDF page 8.",
+      "sha256": "849d0f4194206cc0e5edfe4296a0f9c4efdbbc0d00e795f4b92831e834236e8d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -11176,5 +11176,14 @@
     "after_units": 561,
     "candidates": 18,
     "new_units_reviewed": 45
+  },
+  "reference_renumbering_2026": {
+    "mapping": {
+      "9": 10,
+      "10": 11,
+      "11": 12,
+      "12": 9
+    },
+    "method": "Only citation numbers and bibliography order changed; reviewed prose retained."
   }
 }
