@@ -2,7 +2,7 @@
 
 시작 HEAD: `2c3e58e3262d94608b4853846271a5a37a898491` (`main` 및 `origin/main` 일치 확인). 이전 `726266c` 이후 커밋은 포스터 추가이며 논문 원고 변경은 없다. 기존 미커밋 교정 변경을 보존하고, 사용자 지정 43개 항목을 현재 원고와 다시 대조하였다.
 
-원고·산출물 수정 완료 HEAD: 커밋 검증 후 이 항목에 기록한다. 미커밋 상태를 완료 SHA로 보고하지 않는다.
+원고·산출물 수정 완료 HEAD: `21373d230590986d10033b7405ccfc16a9bc2d26`. 이 SHA에는 교정 원고와 검증한 HWPX/PDF가 포함되어 있다. 후속 보고서 기록 커밋은 산출물 내용을 변경하지 않는다.
 
 기준 원고: `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md`. 공개 파일: `FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx` 및 같은 이름의 PDF. 개인정보를 넣은 제출 HWPX/PDF는 로컬 다운로드 폴더 `M_RAG_AB_APPLIED_20261010/`에만 보관한다. `FINALDOCS/POSTER/`는 변경하지 않았다.
 
