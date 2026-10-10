@@ -203,10 +203,7 @@ def main() -> int:
                 )
 
     # Content-regression checks for the current 60-query thesis narrative.
-    if (
-        "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교"
-        not in text
-    ):
+    if "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험" not in text:
         raise AssertionError(
             "thesis title must match the academic/technical-document study scope"
         )

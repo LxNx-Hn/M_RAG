@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "16d01e3a5bb998baad93c79985f374ea1a8944602d9bf5b0eb8e07e5420c7a21",
-  "manuscript_lf_sha256": "f3d00721df14aa1f093b5ec2c51eaf440e77f60200f6011d8aad8a9c14e3d82a",
+  "manuscript_sha256": "ac728d76b1adfac46d18ba5d4784ba5c26179bfeccf594198e34de48ba527f9d",
+  "manuscript_lf_sha256": "63cd3efd71de00f9b9edb367cbbdcef08ad7d22f897139a57cf6dd9958a29185",
   "layout_code_lf_sha256": {
-    "build_thesis_hwpx.py": "172a7d38b515d92d23e84f1fd68316e02707c4313b665d618ea64e8f540a789b",
+    "build_thesis_hwpx.py": "41921144e7983dc16bb5f7ec58f882ee62459447231226fadee71a1f590d16f0",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "a1c6d20cdf2c2a628ea8ae4a7448bff89897187ea680574d86153eb8a6f1790d",
+  "pdf_sha256": "0c83d718a27e18e9f208d54f777ed34aeebfb597509ecd5eaf7405cfb2f50415",
   "pdf_pages": 55,
   "physical_pages": {
     "[그림 1-1]": 9,
@@ -244,7 +244,7 @@
     "참고문헌": 41,
     "부록 B. 추가 사례 및 탐색 분석": 52
   },
-  "pdf_filename": "ACADEMIC_BASIS.pdf",
-  "stage": "Personal basis export before TOC pagination",
-  "visual_review": "2026-10-10: all 55 actual Web Hancom pages inspected in five contact sheets; covers, abstracts and body pages enlarged. Outline headings resolved from rendered page images. Final TOC requires subsequent export verification."
+  "pdf_filename": "GRADUATION_REPORT_60Q_FINAL.pdf",
+  "stage": "Final public Web Hancom export after approved title synchronization",
+  "visual_review": "Actual public and personal PDFs: 55 pages. Covers 1 and 2 changed; pages 3-55 pixel-identical to approved prior exports. All 77 contents anchors and dot leaders preserved."
 }

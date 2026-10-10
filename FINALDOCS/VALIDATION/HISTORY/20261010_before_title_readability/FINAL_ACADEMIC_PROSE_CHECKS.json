@@ -1,0 +1,1956 @@
+{
+  "PUBLIC": {
+    "pdf_filename": "GRADUATION_REPORT_60Q_FINAL.pdf",
+    "stage": "Final export with current page map",
+    "pdf_sha256": "0153ec5ead159fc1f03b8474318a4b367600e21729bc83d78869ac57884ee809",
+    "hwpx_sha256": "14cf1538c8c0e5340f420ef70e463494277bd2229ccd9fe7f41eec731ba97d13",
+    "pdf_pages": 55,
+    "checks43": [
+      {
+        "id": 1,
+        "location": "논문 제목",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교 [스타일=논문제목]",
+            "pdf_pages": [
+              1,
+              2
+            ],
+            "verification": "Full-size rendered cover review; title outlined in PDF"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "location": "국문초록의 평가 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "location": "국문초록의 실험 구성",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "location": "국문초록의 백본 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 단계에서는 BGE-M3 밀집 검색과 BM25 희소 검색을 사용하고, 두 검색 결과를 weighted Reciprocal Rank Fusion으로 결합한 뒤 CrossEncoder로 재정렬하였다. 답변 생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report를 대상으로 각 문서에 대한 한국어 평가 질의를 15개씩 작성하여 총 60개를 구성하였다. 각 질의에 8개 조건을 적용하고 480개의 생성 기록을 저장하였다. HyDE는 CAD와 SCD를 모두 OFF로 고정한 60개 대응쌍에서 비교하였다. CAD는 HyDE와 SCD를 모두 OFF로 고정하고 검색 문맥이 동일한 대응쌍에서 평가하였다. SCD는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 주 비교로 사용하였으며, HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "location": "국문초록의 평가 질의 구성",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 단계에서는 BGE-M3 밀집 검색과 BM25 희소 검색을 사용하고, 두 검색 결과를 weighted Reciprocal Rank Fusion으로 결합한 뒤 CrossEncoder로 재정렬하였다. 답변 생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report를 대상으로 각 문서에 대한 한국어 평가 질의를 15개씩 작성하여 총 60개를 구성하였다. 각 질의에 8개 조건을 적용하고 480개의 생성 기록을 저장하였다. HyDE는 CAD와 SCD를 모두 OFF로 고정한 60개 대응쌍에서 비교하였다. CAD는 HyDE와 SCD를 모두 OFF로 고정하고 검색 문맥이 동일한 대응쌍에서 평가하였다. SCD는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 주 비교로 사용하였으며, HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "location": "Abstract의 평가 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Retrieval-augmented generation (RAG) retrieves information relevant to a question from external documents and supplies it to a generative model to produce an answer. When Korean questions are used to search English academic and technical documents, differences between the question and the source text can affect retrieval. We separately evaluated the faithfulness of generated answers to the retrieved evidence and the proportion of Korean characters in those answers. We used Hypothetical Document Embeddings (HyDE) to modify dense-retrieval inputs, Context-Aware Decoding (CAD) to adjust token scores using retrieved context, and Soft Constrained Decoding (SCD) to control Korean output. We evaluated eight combinations of these methods in a RAG-Cube experiment.",
+            "pdf_pages": [
+              4
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "location": "Abstract의 기법 소개",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Retrieval-augmented generation (RAG) retrieves information relevant to a question from external documents and supplies it to a generative model to produce an answer. When Korean questions are used to search English academic and technical documents, differences between the question and the source text can affect retrieval. We separately evaluated the faithfulness of generated answers to the retrieved evidence and the proportion of Korean characters in those answers. We used Hypothetical Document Embeddings (HyDE) to modify dense-retrieval inputs, Context-Aware Decoding (CAD) to adjust token scores using retrieved context, and Soft Constrained Decoding (SCD) to control Korean output. We evaluated eight combinations of these methods in a RAG-Cube experiment.",
+            "pdf_pages": [
+              4
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "location": "1.1절 연구 환경",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "location": "1.1절 검색 결과 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "location": "1.1절 평가 지표",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "location": "1.1절 CAD 소개",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE는 입력 질의를 바탕으로 가상 문서를 생성하고, 이를 벡터로 변환하여 관련 문서를 검색한다[2]. CAD는 검색 문맥을 포함한 입력과 제외한 입력에서 다음 토큰의 로짓을 각각 계산한다. 두 로짓을 가중 결합하여 토큰 선택에 반영한다[3]. SCD는 토큰을 목표 언어, 다른 언어와 중립 토큰으로 구분한다. 본 구현에서는 목표 언어와 다른 언어 토큰의 로짓에 각각 정해진 계수를 곱하고, 중립 토큰의 로짓은 유지한다[4].",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "location": "1.1절 기법 적용 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE, CAD, SCD를 같은 Paper-RAG 백본에 적용하고 각 기법의 ON/OFF 결과를 비교하였다[2][3][4]. HyDE는 적용 전후 검색 문맥과 생성 답변의 변화를 함께 비교하였다. CAD는 검색 문맥을 동일하게 유지한 상태에서 답변 품질과 조건 실행 시간을 비교하였다. SCD는 HyDE OFF 조건에서 검색 문맥이 동일한 대응쌍을 사용해 한국어 문자 비율의 변화를 분석하였다. 대응쌍의 구성과 문맥 동일성 확인 기준은 3.3절에 제시한다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "location": "그림 1-1 제목",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경 [스타일=그림제목]",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "location": "1.2절 연구 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "연구 대상으로 RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 영어 문서 4개를 선정하였다. 네 문서에 대해 각각 한국어 평가 질의 15개를 작성하였다. 총 60개 질의에는 각각 검색 대상 문서를 지정하였다. 각 질의에 8개 RAG-Cube 조건을 적용하여 480개의 생성 기록을 저장하였다. 검색 범위는 각 질의에 지정한 문서의 청크로 정하였다. BGE-M3와 BM25의 검색 결과를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 상위 5개 청크에 문맥 길이 관리 절차를 적용한 뒤 Mi:dm 2.0 Base Instruct에 입력하였다. 실행 설정은 4.1절에 정리하였다.",
+            "pdf_pages": [
+              9,
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "location": "1.3절 연구 질문 도입",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "location": "1.3절 SCD 연구 질문의 비교 범위",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "location": "1.3절 대응쌍 확인",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "location": "2.2절 BM25 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "고정 백본은 BGE-M3 밀집 검색과 BM25 희소 검색을 결합한다. 밀집 검색은 질의와 문서 구간의 의미적 유사성을 기준으로 관련 문서 구간을 검색한다. BM25는 모델명, 약어, 수치처럼 질의와 원문에 동일하게 등장하는 표현을 검색 단서로 활용하였다[5][6]. 두 검색 결과의 순위를 weighted Reciprocal Rank Fusion으로 결합한다[7]. 이어 CrossEncoder가 원질의와 각 후보 구간의 관련성을 계산하여 순서를 다시 정한다[8].",
+            "pdf_pages": [
+              11
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "location": "2.2절 한국어와 영어 표현 차이",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+            "pdf_pages": [
+              12
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "location": "2.2절 문맥 구성",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[9]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 관련 정보의 입력 위치에 따른 성능 차이를 보여준다. 본 실험에서는 최종 입력 문맥을 상위 5개 청크로 구성하고, 재정렬 순서대로 배치하였다. 검색 성능과 답변 품질은 별도 지표로 평가하였다.",
+            "pdf_pages": [
+              12
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "location": "2.3절 HyDE 그림 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "그림 2-3은 입력 질의로 가상 문서를 생성하고, 이를 임베딩한 뒤 실제 문서 집합을 검색하는 HyDE의 처리 과정을 나타낸다.",
+            "pdf_pages": [
+              13
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "location": "2.3절 HyDE 비교 범위",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+            "pdf_pages": [
+              13
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "location": "2.4절 CAD 연산",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "CAD는 토큰을 생성할 때 검색 문맥을 포함한 입력과 제외한 입력에 대해 각각 다음 토큰의 로짓을 계산한다. 5.5절에서는 답변 품질의 대응 차이, 질의별 변화 분포와 조건 실행 시간의 증가를 분석하였다.",
+            "pdf_pages": [
+              14
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "location": "2.4절 중복 안내",
+        "status": "문장 삭제",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": []
+      },
+      {
+        "id": 25,
+        "location": "2.5절 한국어 문자 비율",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어 문자 비율은 생성 답변의 한글 문자 수를 한글 문자 수와 ASCII 영문자 수의 합으로 나누어 계산하였다.",
+            "pdf_pages": [
+              15
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "location": "2.6절 RAGAS 원 논문 사례",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Es 외[10]는 WikiEval에서 동일한 질문과 검색 문맥에 대한 서로 다른 답변을 비교하여 근거 충실도를 설명하였다. 그림 2-6은 원 논문의 표 2에서 발췌한 사례이며, 같은 검색 문맥으로 뒷받침되는 답변과 그렇지 않은 답변을 보여준다.",
+            "pdf_pages": [
+              15
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "location": "3.2절 처리 흐름",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "실험에서는 질의를 입력받아 조건에 맞는 검색 입력을 구성하였다. HyDE OFF 조건에서는 원래의 한국어 질의를 밀집 검색에 사용하였다. HyDE ON 조건에서는 한국어 질의를 영어로 번역한 뒤 가상 문서를 생성하고, 이를 벡터로 변환하여 밀집 검색에 사용하였다. HyDE ON과 OFF 조건 모두 BGE-M3를 사용해 밀집 검색용 벡터를 생성하였다. BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다. 밀집 검색과 BM25의 후보를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 순위에 따라 상위 5개 청크를 선택한 뒤 ContextCompressor로 입력 문맥의 길이를 관리하였다. 이 문맥을 생성 모델에 제공하여 답변을 생성하고, 생성 결과를 저장한 뒤 평가하였다.",
+            "pdf_pages": [
+              18
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "location": "3.2절 밀집 검색 모델",
+        "status": "B 적용 / 27번 문단 통합",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "실험에서는 질의를 입력받아 조건에 맞는 검색 입력을 구성하였다. HyDE OFF 조건에서는 원래의 한국어 질의를 밀집 검색에 사용하였다. HyDE ON 조건에서는 한국어 질의를 영어로 번역한 뒤 가상 문서를 생성하고, 이를 벡터로 변환하여 밀집 검색에 사용하였다. HyDE ON과 OFF 조건 모두 BGE-M3를 사용해 밀집 검색용 벡터를 생성하였다. BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다. 밀집 검색과 BM25의 후보를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 순위에 따라 상위 5개 청크를 선택한 뒤 ContextCompressor로 입력 문맥의 길이를 관리하였다. 이 문맥을 생성 모델에 제공하여 답변을 생성하고, 생성 결과를 저장한 뒤 평가하였다.",
+            "pdf_pages": [
+              18
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "location": "4.1절 청크 분할",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "일반 텍스트는 Python `split()`의 공백 분리 단위를 기준으로 청크로 나누었다. 청크의 최대 크기는 512단어, 최소 크기는 50단어로 설정하였으며, 같은 텍스트 구간에서 연속으로 나눈 청크는 64단어가 겹치도록 하였다. section 분할 전략에서는 수식, 표와 코드 블록을 나누지 않고 각각 독립된 구조 청크로 보존하였다. BGE-M3 밀집 검색과 BM25 희소 검색은 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬하였다. 같은 CrossEncoder를 모든 조건에 적용하였다. 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다.",
+            "pdf_pages": [
+              21
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "location": "4.1절 구조 청크",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "일반 텍스트는 Python `split()`의 공백 분리 단위를 기준으로 청크로 나누었다. 청크의 최대 크기는 512단어, 최소 크기는 50단어로 설정하였으며, 같은 텍스트 구간에서 연속으로 나눈 청크는 64단어가 겹치도록 하였다. section 분할 전략에서는 수식, 표와 코드 블록을 나누지 않고 각각 독립된 구조 청크로 보존하였다. BGE-M3 밀집 검색과 BM25 희소 검색은 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬하였다. 같은 CrossEncoder를 모든 조건에 적용하였다. 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다.",
+            "pdf_pages": [
+              21
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "location": "5.1절 질문 생성",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 문서의 평가 질의는 같은 절차로 작성하였다. 연구자는 각 문서의 질문 형식과 범위를 정하기 위해 초기 질문 3개를 작성하였다. 이후 초기 질문의 표현 방식과 범위를 기준으로 LLM이 각 문서의 주요 내용을 요약하도록 하였다. 요약을 15개의 내용 단위로 나누고, 각 단위에서 한국어 평가 질의 1개를 작성하여 문서별 15개, 총 60개를 구성하였다.",
+            "pdf_pages": [
+              25
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "location": "5.1절 검색 설정",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 설정을 정할 때는 최종 평가 집합과 분리한 튜닝 질의 5개를 사용하였다. 이 과정에서 검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5를 확정하였다. 최종 평가에서는 검색 설정을 고정하고, 60개 질의 각각에 8개 RAG-Cube 조건을 적용하여 총 480개의 생성 기록을 저장하였다.",
+            "pdf_pages": [
+              25
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "location": "5.2절 부트스트랩",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "최종 답변 생성 설정은 4.1절과 동일하게 유지하였다. HyDE 가상 문서 생성에는 temperature=0.1, top_p=0.9의 샘플링을 사용하였다. 요인별 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 빼서 계산하였다. 대응 차이의 신뢰구간을 계산하기 위해 질의 단위로 200,000회 부트스트랩 재표집을 수행하였다. 난수 시드는 20260713으로 고정하였다. SCD 분석에서는 같은 질의에 속한 2개 또는 4개의 대응쌍을 함께 재표집하였다. RAGAS 지표의 대응 차이가 +0.01을 초과하면 증가, -0.01 미만이면 감소, -0.01 이상 +0.01 이하이면 동률로 집계하였다. 한국어 문자 비율의 대응 차이는 +0.02 초과를 증가, -0.02 미만을 감소, -0.02 이상 +0.02 이하를 동률로 집계하였다. 신뢰구간은 네 대상 문서를 고정했을 때 질의 수준의 변동성을 나타낸다.",
+            "pdf_pages": [
+              26
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "location": "5.6절 SCD 평가 방법",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD를 적용한 답변과 적용하지 않은 답변의 한국어 문자 비율을 비교하였다. 두 조건 모두 생성 모델에는 영어 검색 문맥을 입력하였다. HyDE OFF에서 검색 청크 ID, 재정렬 청크 ID와 검색 문맥이 같은 120쌍의 평균 대응 차이는 +0.2182였고, 95% 신뢰구간은 [+0.1880, +0.2487]이었다. 동일 질의에서 HyDE와 CAD의 ON/OFF 상태를 맞춘 전체 240개 SCD 대응쌍의 평균 대응 차이는 +0.2289였고, 95% 신뢰구간은 [+0.2051, +0.2532]이었다. 전체 240쌍에서 +0.02를 초과한 증가는 219개, -0.02 미만의 감소는 10개, -0.02 이상 +0.02 이하의 동률은 11개였다.",
+            "pdf_pages": [
+              32
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "location": "5.6절 H0 대응 조건",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD 적용에 따른 한국어 문자 비율의 평균 변화는 H0C0 조건에서 +0.2047, H0C1 조건에서 +0.2317, H1C0 조건에서 +0.2511, H1C1 조건에서 +0.2283이었다. HyDE OFF의 H0C0과 H0C1 조건군에서는 SCD 적용 전후에 동일한 검색 문맥을 사용하였다. H1의 두 조건군에는 조건마다 독립 생성한 HyDE 가상 문서에 따른 검색 문맥 변화가 포함된다.",
+            "pdf_pages": [
+              32
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "location": "5.6절 반복된 결과",
+        "status": "문장 삭제",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": []
+      },
+      {
+        "id": 37,
+        "location": "5.8절 그림 5-11 설명",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "그림 5-11에는 HyDE와 CAD의 근거 충실도 및 답변 관련성 평균 대응 차이를 제시하였다. HyDE의 결과는 CAD와 SCD의 설정별로, CAD의 결과는 HyDE와 SCD의 설정별로 구분하였다. 답변 관련성에서 HyDE의 평균 대응 차이는 C0S0에서 +0.0805, C1S0에서 +0.0290, C0S1에서 +0.0725, C1S1에서 +0.0675였다. CAD의 답변 관련성 평균 대응 차이는 H0S0에서 -0.0073, H1S0에서 -0.0588, H0S1에서 -0.0377, H1S1에서 -0.0427이었다. HyDE ON에서는 각 실험 조건마다 temperature=0.1, top_p=0.9로 가상 문서를 독립 생성하였다. 따라서 H1 조건의 CAD 비교와 SCD 비교에는 디코딩 설정에 따른 답변 변화와 HyDE 샘플링에 따른 검색 문맥 변화가 함께 포함된다.",
+            "pdf_pages": [
+              36,
+              37
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "location": "6.1절 네 번째 연구 질문",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 번째 연구 질문에서는 적용 목적에 따른 실험 조건의 선택 기준을 검토하였다. 답변 관련성, 근거 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 해당 지표의 요인별 대응 결과를 확인한다. 목적별 비교 방법은 6.3절에 제시한다.",
+            "pdf_pages": [
+              39
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "location": "6.1절 적용 기준",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 번째 연구 질문에서는 적용 목적에 따른 실험 조건의 선택 기준을 검토하였다. 답변 관련성, 근거 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 해당 지표의 요인별 대응 결과를 확인한다. 목적별 비교 방법은 6.3절에 제시한다.",
+            "pdf_pages": [
+              39
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "location": "6.4절 후속 연구 도입",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "후속 연구에서는 평가 질의, 문서 도메인과 생성 모델의 범위를 확대하는 방향을 제안한다. 답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하여 근거가 부족한 상황의 생성 결과를 평가하는 과제가 있다. 문서 도메인, 생성 모델과 토크나이저를 달리한 반복 실험에서는 조건별 답변 품질과 한국어 문자 비율의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "location": "6.4절 HyDE 반복 실험",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 42,
+        "location": "6.4절 두 문단 전체 검토",
+        "status": "C 적용 / 두 문단 재구성",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "후속 연구에서는 평가 질의, 문서 도메인과 생성 모델의 범위를 확대하는 방향을 제안한다. 답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하여 근거가 부족한 상황의 생성 결과를 평가하는 과제가 있다. 문서 도메인, 생성 모델과 토크나이저를 달리한 반복 실험에서는 조건별 답변 품질과 한국어 문자 비율의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "SCD의 후속 평가 항목은 답변의 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존이다. 평가자에게 기법의 적용 여부를 알리지 않는 사람 평가로 이 항목들을 확인하는 절차를 제안한다. 재정렬 단계의 비교에서는 현재 CrossEncoder와 다국어 재정렬 모델에 같은 검색 후보를 제공하고, 최종 검색 문맥과 답변 품질의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 43,
+        "location": "부록 B의 표본 수 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "표 B-1에는 문서별 평균 대응 차이와 유효쌍 수를, 표 B-2에는 질문 유형별 평균 대응 차이와 유효쌍 수를 정리하였다. 목적 및 기여 유형에는 질의가 3개 포함되었다. 질문 유형별 분석 결과는 각 유형의 질의 수를 고려하여 탐색적으로 해석하였다.",
+            "pdf_pages": [
+              52
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      }
+    ],
+    "additional": [
+      {
+        "A": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 입력 변경, 문맥을 활용한 디코딩, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "B": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "reason": "영문초록의 수정된 기법 역할과 국문초록을 일치시켰다.",
+        "final_C": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, and K-intelligence/Midm-2.0-Base-Instruct. Sixty Korean query–target-document pairs were constructed from four English academic or technical documents, and eight configurations were applied to each pair, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "B": "The Paper-RAG backbone used BGE-M3 for dense retrieval and BM25 for sparse retrieval. We combined their results using weighted Reciprocal Rank Fusion, reranked the candidates with a CrossEncoder, and generated answers with K-intelligence/Midm-2.0-Base-Instruct. We constructed 15 Korean evaluation queries for each of four English academic or technical documents, for a total of 60 queries. Each query was assigned a target document and evaluated under eight configurations, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다.",
+        "final_C": "The Paper-RAG backbone used BGE-M3 for dense retrieval and BM25 for sparse retrieval. We combined their results using weighted Reciprocal Rank Fusion, reranked the candidates with a CrossEncoder, and generated answers with K-intelligence/Midm-2.0-Base-Instruct. We constructed 15 Korean evaluation queries for each of four English academic or technical documents, for a total of 60 queries. Each query was assigned a target document and evaluated under eight configurations, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934]. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "B": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "reason": "CAD 근거 충실도의 신뢰구간 설명 직후에 해석을 배치하였다.",
+        "final_C": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "B": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "reason": "영문초록 끝에서 반복되던 CAD 해석을 앞 신뢰구간 문장에 통합하였다.",
+        "final_C": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성과 나머지 RAGAS 지표가 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "B": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "reason": "나머지 지표라는 지시어 대신 네 연구 평가 지표를 제시하였다.",
+        "final_C": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "B": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?\n\nSCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+        "reason": "네 연구 질문 사이에 삽입되던 방법 설명을 질문 목록 다음의 분석 방법 문단으로 옮겼다. 16번의 수치와 비교 범위는 유지하였다.",
+        "final_C": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?\n\nSCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터도 BM25의 어휘 일치 검색에 사용할 수 있다.",
+        "B": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+        "reason": "실제로 활용한 검색 단서를 직접 설명하여 사용할 수 있다는 형식적인 서술을 줄였다.",
+        "final_C": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "본 실험에서 사용한 weighted RRF의 계산식은 다음과 같으며, RRF 상수 k는 60으로 설정하였다.",
+        "B": "본 실험에서는 RRF 상수 k를 60으로 설정하였다. 두 검색 순위를 결합한 점수는 다음 식으로 계산하였다.",
+        "reason": "상수 설정과 점수 계산 동작을 분리하였다.",
+        "final_C": "본 실험에서는 RRF 상수 k를 60으로 설정하였다. 두 검색 순위를 결합한 점수는 다음 식으로 계산하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 본 실험에서는 이에 따른 최종 검색 문맥과 생성 답변의 변화를 함께 평가하였다. 검색 청크 ID와 최종 문맥을 대조하고, 답변 관련성의 변화와 함께 분석하였다.",
+        "B": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+        "reason": "22번 수정 이후 평가 설명이 반복되어 검색 기록 대조와 답변 지표 분석으로 통합하였다.",
+        "final_C": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode, alpha=1.1, beta=0.9, Tstart=5가 저장되며, CAD ON 기록에는 alpha=0.5가 저장된다.",
+        "B": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode=reference_scd, alpha=1.1, beta=0.9, Tstart=5를, CAD ON 기록에는 alpha=0.5를 저장하였다.",
+        "reason": "모드의 실제 값을 명시하고 저장 동작의 시제를 통일하였다.",
+        "final_C": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode=reference_scd, alpha=1.1, beta=0.9, Tstart=5를, CAD ON 기록에는 alpha=0.5를 저장하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 한 조건에서 평가값이 있는 기록의 평균이다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "B": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 각 지표의 평가값이 있는 기록으로 계산하였다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "reason": "모든 지표를 합산하는 평균으로 오해하지 않도록 평균의 단위를 지표별로 명시하였다.",
+        "final_C": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 각 지표의 평가값이 있는 기록으로 계산하였다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 각 블록의 조건별 평균은 앞서 설명한 영어 평가 문맥과 한국어 번역 평가 문맥의 프로토콜에 따른 기술통계이다.",
+        "B": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 조건별 평균은 SCD OFF에서 영어 문맥으로, SCD ON에서 한국어 번역 문맥으로 평가한 값이다.",
+        "reason": "긴 명사구와 앞서 설명한이라는 지시어를 실제 두 평가 문맥의 언어로 바꾸었다.",
+        "final_C": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 조건별 평균은 SCD OFF에서 영어 문맥으로, SCD ON에서 한국어 번역 문맥으로 평가한 값이다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 증가 21쌍, 감소 24쌍, 동률 13쌍으로 집계되었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "reason": "이전 문장의 근거 충실도를 주어로 이어 주고 유효 표본 수와 분류 수의 관계를 명시하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "reason": "생략된 지표를 복원하여 두 지표의 분류 수가 서로 혼동되지 않도록 하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "한국어 문자 비율에는 답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 표기도 함께 반영하였다.",
+        "B": "답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 ASCII 영문자도 한국어 문자 비율의 분모에 포함하였다.",
+        "reason": "반영하였다라는 모호한 표현 대신 실제 계산 대상과 위치를 적었다.",
+        "final_C": "답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 ASCII 영문자도 한국어 문자 비율의 분모에 포함하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "생성 기록에는 질의, 검색 청크 ID, 재정렬 청크 ID, 최종 문맥, 생성 답변, 디코딩 설정과 조건 실행 시간을 저장하였다. 그림 5-3, 5-5, 5-7, 5-8, 5-10에는 이 기록에서 가져온 입력과 출력에 해당 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1은 CAD 적용 후 근거 충실도가 감소한 사례이다.",
+        "B": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 저장된 질문, 검색 문맥과 생성 답변에 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1에는 CAD 적용 후 근거 충실도가 감소한 사례를 수록하였다.",
+        "reason": "4.3절의 저장 필드 목록과 반복되는 설명을 줄이고 6.2절에서는 기록을 이용한 비교 사례에 집중하였다.",
+        "final_C": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 저장된 질문, 검색 문맥과 생성 답변에 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1에는 CAD 적용 후 근거 충실도가 감소한 사례를 수록하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 문서와 기술 문서, 언어 이탈",
+        "B": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 및 기술 문서, 언어 이탈",
+        "reason": "국문 제목과 초록의 문서 범위 용어를 통일하였다.",
+        "final_C": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 및 기술 문서, 언어 이탈",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하고, 검색 결과가 실행마다 얼마나 달라지는지도 측정할 필요가 있다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "B": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "reason": "미래 연구를 제안한 문단 안에서 당위형을 반복하지 않고 후속 실험의 절차를 제시하였다.",
+        "final_C": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      }
+    ],
+    "full_paragraphs_in_pdf": 176,
+    "fenced_blocks_preserved": true,
+    "toc_dot_leaders": 77,
+    "source_sha256": "16d01e3a5bb998baad93c79985f374ea1a8944602d9bf5b0eb8e07e5420c7a21"
+  },
+  "SUBMISSION": {
+    "pdf_filename": "GRADUATION_REPORT_60Q_FINAL.pdf",
+    "stage": "Final export with current page map",
+    "pdf_sha256": "299299fd5dc17875bfae21cc08dcd96314113b1da24016767e641f3678c73dea",
+    "hwpx_sha256": "269b9c6cbb9d6aaa7d7cb043919fea306f51c75a1e6221233b1d17ced059c0cf",
+    "pdf_pages": 55,
+    "checks43": [
+      {
+        "id": 1,
+        "location": "논문 제목",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교 [스타일=논문제목]",
+            "pdf_pages": [
+              1,
+              2
+            ],
+            "verification": "Full-size rendered cover review; title outlined in PDF"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "location": "국문초록의 평가 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "location": "국문초록의 실험 구성",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "location": "국문초록의 백본 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 단계에서는 BGE-M3 밀집 검색과 BM25 희소 검색을 사용하고, 두 검색 결과를 weighted Reciprocal Rank Fusion으로 결합한 뒤 CrossEncoder로 재정렬하였다. 답변 생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report를 대상으로 각 문서에 대한 한국어 평가 질의를 15개씩 작성하여 총 60개를 구성하였다. 각 질의에 8개 조건을 적용하고 480개의 생성 기록을 저장하였다. HyDE는 CAD와 SCD를 모두 OFF로 고정한 60개 대응쌍에서 비교하였다. CAD는 HyDE와 SCD를 모두 OFF로 고정하고 검색 문맥이 동일한 대응쌍에서 평가하였다. SCD는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 주 비교로 사용하였으며, HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "location": "국문초록의 평가 질의 구성",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 단계에서는 BGE-M3 밀집 검색과 BM25 희소 검색을 사용하고, 두 검색 결과를 weighted Reciprocal Rank Fusion으로 결합한 뒤 CrossEncoder로 재정렬하였다. 답변 생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하였다. RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report를 대상으로 각 문서에 대한 한국어 평가 질의를 15개씩 작성하여 총 60개를 구성하였다. 각 질의에 8개 조건을 적용하고 480개의 생성 기록을 저장하였다. HyDE는 CAD와 SCD를 모두 OFF로 고정한 60개 대응쌍에서 비교하였다. CAD는 HyDE와 SCD를 모두 OFF로 고정하고 검색 문맥이 동일한 대응쌍에서 평가하였다. SCD는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 주 비교로 사용하였으며, HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다.",
+            "pdf_pages": [
+              3
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "location": "Abstract의 평가 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Retrieval-augmented generation (RAG) retrieves information relevant to a question from external documents and supplies it to a generative model to produce an answer. When Korean questions are used to search English academic and technical documents, differences between the question and the source text can affect retrieval. We separately evaluated the faithfulness of generated answers to the retrieved evidence and the proportion of Korean characters in those answers. We used Hypothetical Document Embeddings (HyDE) to modify dense-retrieval inputs, Context-Aware Decoding (CAD) to adjust token scores using retrieved context, and Soft Constrained Decoding (SCD) to control Korean output. We evaluated eight combinations of these methods in a RAG-Cube experiment.",
+            "pdf_pages": [
+              4
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "location": "Abstract의 기법 소개",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Retrieval-augmented generation (RAG) retrieves information relevant to a question from external documents and supplies it to a generative model to produce an answer. When Korean questions are used to search English academic and technical documents, differences between the question and the source text can affect retrieval. We separately evaluated the faithfulness of generated answers to the retrieved evidence and the proportion of Korean characters in those answers. We used Hypothetical Document Embeddings (HyDE) to modify dense-retrieval inputs, Context-Aware Decoding (CAD) to adjust token scores using retrieved context, and Soft Constrained Decoding (SCD) to control Korean output. We evaluated eight combinations of these methods in a RAG-Cube experiment.",
+            "pdf_pages": [
+              4
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "location": "1.1절 연구 환경",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "location": "1.1절 검색 결과 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "location": "1.1절 평가 지표",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 검색된 문맥을 생성 모델에 제공하여 답변을 생성하는 방법이다[1]. 본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다. 한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다. 생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "location": "1.1절 CAD 소개",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE는 입력 질의를 바탕으로 가상 문서를 생성하고, 이를 벡터로 변환하여 관련 문서를 검색한다[2]. CAD는 검색 문맥을 포함한 입력과 제외한 입력에서 다음 토큰의 로짓을 각각 계산한다. 두 로짓을 가중 결합하여 토큰 선택에 반영한다[3]. SCD는 토큰을 목표 언어, 다른 언어와 중립 토큰으로 구분한다. 본 구현에서는 목표 언어와 다른 언어 토큰의 로짓에 각각 정해진 계수를 곱하고, 중립 토큰의 로짓은 유지한다[4].",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "location": "1.1절 기법 적용 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE, CAD, SCD를 같은 Paper-RAG 백본에 적용하고 각 기법의 ON/OFF 결과를 비교하였다[2][3][4]. HyDE는 적용 전후 검색 문맥과 생성 답변의 변화를 함께 비교하였다. CAD는 검색 문맥을 동일하게 유지한 상태에서 답변 품질과 조건 실행 시간을 비교하였다. SCD는 HyDE OFF 조건에서 검색 문맥이 동일한 대응쌍을 사용해 한국어 문자 비율의 변화를 분석하였다. 대응쌍의 구성과 문맥 동일성 확인 기준은 3.3절에 제시한다.",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "location": "그림 1-1 제목",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경 ···· [쪽번호 자동갱신] [스타일=표/그림리스트]",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경 [스타일=그림제목]",
+            "pdf_pages": [
+              9
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "location": "1.2절 연구 대상",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "연구 대상으로 RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 영어 문서 4개를 선정하였다. 네 문서에 대해 각각 한국어 평가 질의 15개를 작성하였다. 총 60개 질의에는 각각 검색 대상 문서를 지정하였다. 각 질의에 8개 RAG-Cube 조건을 적용하여 480개의 생성 기록을 저장하였다. 검색 범위는 각 질의에 지정한 문서의 청크로 정하였다. BGE-M3와 BM25의 검색 결과를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 상위 5개 청크에 문맥 길이 관리 절차를 적용한 뒤 Mi:dm 2.0 Base Instruct에 입력하였다. 실행 설정은 4.1절에 정리하였다.",
+            "pdf_pages": [
+              9,
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "location": "1.3절 연구 질문 도입",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "location": "1.3절 SCD 연구 질문의 비교 범위",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "location": "1.3절 대응쌍 확인",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+            "pdf_pages": [
+              10
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "location": "2.2절 BM25 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "고정 백본은 BGE-M3 밀집 검색과 BM25 희소 검색을 결합한다. 밀집 검색은 질의와 문서 구간의 의미적 유사성을 기준으로 관련 문서 구간을 검색한다. BM25는 모델명, 약어, 수치처럼 질의와 원문에 동일하게 등장하는 표현을 검색 단서로 활용하였다[5][6]. 두 검색 결과의 순위를 weighted Reciprocal Rank Fusion으로 결합한다[7]. 이어 CrossEncoder가 원질의와 각 후보 구간의 관련성을 계산하여 순서를 다시 정한다[8].",
+            "pdf_pages": [
+              11
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "location": "2.2절 한국어와 영어 표현 차이",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+            "pdf_pages": [
+              12
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "location": "2.2절 문맥 구성",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "관련 문서 구간을 검색하더라도 생성 모델이 이를 활용하는 정도는 입력 내 위치에 따라 달라질 수 있다. Liu 외[9]는 다중 문서 질의응답에서 정답 문서가 입력의 처음이나 끝에 있을 때보다 중간에 있을 때 성능이 낮아지는 U자형 패턴을 보고하였다. 그림 2-2는 관련 정보의 입력 위치에 따른 성능 차이를 보여준다. 본 실험에서는 최종 입력 문맥을 상위 5개 청크로 구성하고, 재정렬 순서대로 배치하였다. 검색 성능과 답변 품질은 별도 지표로 평가하였다.",
+            "pdf_pages": [
+              12
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "location": "2.3절 HyDE 그림 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "그림 2-3은 입력 질의로 가상 문서를 생성하고, 이를 임베딩한 뒤 실제 문서 집합을 검색하는 HyDE의 처리 과정을 나타낸다.",
+            "pdf_pages": [
+              13
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "location": "2.3절 HyDE 비교 범위",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+            "pdf_pages": [
+              13
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "location": "2.4절 CAD 연산",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "CAD는 토큰을 생성할 때 검색 문맥을 포함한 입력과 제외한 입력에 대해 각각 다음 토큰의 로짓을 계산한다. 5.5절에서는 답변 품질의 대응 차이, 질의별 변화 분포와 조건 실행 시간의 증가를 분석하였다.",
+            "pdf_pages": [
+              14
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "location": "2.4절 중복 안내",
+        "status": "문장 삭제",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": []
+      },
+      {
+        "id": 25,
+        "location": "2.5절 한국어 문자 비율",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "한국어 문자 비율은 생성 답변의 한글 문자 수를 한글 문자 수와 ASCII 영문자 수의 합으로 나누어 계산하였다.",
+            "pdf_pages": [
+              15
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "location": "2.6절 RAGAS 원 논문 사례",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "Es 외[10]는 WikiEval에서 동일한 질문과 검색 문맥에 대한 서로 다른 답변을 비교하여 근거 충실도를 설명하였다. 그림 2-6은 원 논문의 표 2에서 발췌한 사례이며, 같은 검색 문맥으로 뒷받침되는 답변과 그렇지 않은 답변을 보여준다.",
+            "pdf_pages": [
+              15
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "location": "3.2절 처리 흐름",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "실험에서는 질의를 입력받아 조건에 맞는 검색 입력을 구성하였다. HyDE OFF 조건에서는 원래의 한국어 질의를 밀집 검색에 사용하였다. HyDE ON 조건에서는 한국어 질의를 영어로 번역한 뒤 가상 문서를 생성하고, 이를 벡터로 변환하여 밀집 검색에 사용하였다. HyDE ON과 OFF 조건 모두 BGE-M3를 사용해 밀집 검색용 벡터를 생성하였다. BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다. 밀집 검색과 BM25의 후보를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 순위에 따라 상위 5개 청크를 선택한 뒤 ContextCompressor로 입력 문맥의 길이를 관리하였다. 이 문맥을 생성 모델에 제공하여 답변을 생성하고, 생성 결과를 저장한 뒤 평가하였다.",
+            "pdf_pages": [
+              18
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "location": "3.2절 밀집 검색 모델",
+        "status": "B 적용 / 27번 문단 통합",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "실험에서는 질의를 입력받아 조건에 맞는 검색 입력을 구성하였다. HyDE OFF 조건에서는 원래의 한국어 질의를 밀집 검색에 사용하였다. HyDE ON 조건에서는 한국어 질의를 영어로 번역한 뒤 가상 문서를 생성하고, 이를 벡터로 변환하여 밀집 검색에 사용하였다. HyDE ON과 OFF 조건 모두 BGE-M3를 사용해 밀집 검색용 벡터를 생성하였다. BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다. 밀집 검색과 BM25의 후보를 weighted RRF로 결합하고 CrossEncoder로 재정렬하였다. 재정렬 순위에 따라 상위 5개 청크를 선택한 뒤 ContextCompressor로 입력 문맥의 길이를 관리하였다. 이 문맥을 생성 모델에 제공하여 답변을 생성하고, 생성 결과를 저장한 뒤 평가하였다.",
+            "pdf_pages": [
+              18
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "location": "4.1절 청크 분할",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "일반 텍스트는 Python `split()`의 공백 분리 단위를 기준으로 청크로 나누었다. 청크의 최대 크기는 512단어, 최소 크기는 50단어로 설정하였으며, 같은 텍스트 구간에서 연속으로 나눈 청크는 64단어가 겹치도록 하였다. section 분할 전략에서는 수식, 표와 코드 블록을 나누지 않고 각각 독립된 구조 청크로 보존하였다. BGE-M3 밀집 검색과 BM25 희소 검색은 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬하였다. 같은 CrossEncoder를 모든 조건에 적용하였다. 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다.",
+            "pdf_pages": [
+              21
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "location": "4.1절 구조 청크",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "일반 텍스트는 Python `split()`의 공백 분리 단위를 기준으로 청크로 나누었다. 청크의 최대 크기는 512단어, 최소 크기는 50단어로 설정하였으며, 같은 텍스트 구간에서 연속으로 나눈 청크는 64단어가 겹치도록 하였다. section 분할 전략에서는 수식, 표와 코드 블록을 나누지 않고 각각 독립된 구조 청크로 보존하였다. BGE-M3 밀집 검색과 BM25 희소 검색은 dense 0.6, BM25 0.4의 weighted RRF(k=60)로 결합하고 cross-encoder/ms-marco-MiniLM-L-6-v2로 재정렬하였다. 같은 CrossEncoder를 모든 조건에 적용하였다. 검색 후보 수와 재정렬 후보 수는 각각 8개, 최종 생성 문맥은 5개로 설정하였다.",
+            "pdf_pages": [
+              21
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "location": "5.1절 질문 생성",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 문서의 평가 질의는 같은 절차로 작성하였다. 연구자는 각 문서의 질문 형식과 범위를 정하기 위해 초기 질문 3개를 작성하였다. 이후 초기 질문의 표현 방식과 범위를 기준으로 LLM이 각 문서의 주요 내용을 요약하도록 하였다. 요약을 15개의 내용 단위로 나누고, 각 단위에서 한국어 평가 질의 1개를 작성하여 문서별 15개, 총 60개를 구성하였다.",
+            "pdf_pages": [
+              25
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "location": "5.1절 검색 설정",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "검색 설정을 정할 때는 최종 평가 집합과 분리한 튜닝 질의 5개를 사용하였다. 이 과정에서 검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5를 확정하였다. 최종 평가에서는 검색 설정을 고정하고, 60개 질의 각각에 8개 RAG-Cube 조건을 적용하여 총 480개의 생성 기록을 저장하였다.",
+            "pdf_pages": [
+              25
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "location": "5.2절 부트스트랩",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "최종 답변 생성 설정은 4.1절과 동일하게 유지하였다. HyDE 가상 문서 생성에는 temperature=0.1, top_p=0.9의 샘플링을 사용하였다. 요인별 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 빼서 계산하였다. 대응 차이의 신뢰구간을 계산하기 위해 질의 단위로 200,000회 부트스트랩 재표집을 수행하였다. 난수 시드는 20260713으로 고정하였다. SCD 분석에서는 같은 질의에 속한 2개 또는 4개의 대응쌍을 함께 재표집하였다. RAGAS 지표의 대응 차이가 +0.01을 초과하면 증가, -0.01 미만이면 감소, -0.01 이상 +0.01 이하이면 동률로 집계하였다. 한국어 문자 비율의 대응 차이는 +0.02 초과를 증가, -0.02 미만을 감소, -0.02 이상 +0.02 이하를 동률로 집계하였다. 신뢰구간은 네 대상 문서를 고정했을 때 질의 수준의 변동성을 나타낸다.",
+            "pdf_pages": [
+              26
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "location": "5.6절 SCD 평가 방법",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD를 적용한 답변과 적용하지 않은 답변의 한국어 문자 비율을 비교하였다. 두 조건 모두 생성 모델에는 영어 검색 문맥을 입력하였다. HyDE OFF에서 검색 청크 ID, 재정렬 청크 ID와 검색 문맥이 같은 120쌍의 평균 대응 차이는 +0.2182였고, 95% 신뢰구간은 [+0.1880, +0.2487]이었다. 동일 질의에서 HyDE와 CAD의 ON/OFF 상태를 맞춘 전체 240개 SCD 대응쌍의 평균 대응 차이는 +0.2289였고, 95% 신뢰구간은 [+0.2051, +0.2532]이었다. 전체 240쌍에서 +0.02를 초과한 증가는 219개, -0.02 미만의 감소는 10개, -0.02 이상 +0.02 이하의 동률은 11개였다.",
+            "pdf_pages": [
+              32
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "location": "5.6절 H0 대응 조건",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "SCD 적용에 따른 한국어 문자 비율의 평균 변화는 H0C0 조건에서 +0.2047, H0C1 조건에서 +0.2317, H1C0 조건에서 +0.2511, H1C1 조건에서 +0.2283이었다. HyDE OFF의 H0C0과 H0C1 조건군에서는 SCD 적용 전후에 동일한 검색 문맥을 사용하였다. H1의 두 조건군에는 조건마다 독립 생성한 HyDE 가상 문서에 따른 검색 문맥 변화가 포함된다.",
+            "pdf_pages": [
+              32
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "location": "5.6절 반복된 결과",
+        "status": "문장 삭제",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": []
+      },
+      {
+        "id": 37,
+        "location": "5.8절 그림 5-11 설명",
+        "status": "C 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "그림 5-11에는 HyDE와 CAD의 근거 충실도 및 답변 관련성 평균 대응 차이를 제시하였다. HyDE의 결과는 CAD와 SCD의 설정별로, CAD의 결과는 HyDE와 SCD의 설정별로 구분하였다. 답변 관련성에서 HyDE의 평균 대응 차이는 C0S0에서 +0.0805, C1S0에서 +0.0290, C0S1에서 +0.0725, C1S1에서 +0.0675였다. CAD의 답변 관련성 평균 대응 차이는 H0S0에서 -0.0073, H1S0에서 -0.0588, H0S1에서 -0.0377, H1S1에서 -0.0427이었다. HyDE ON에서는 각 실험 조건마다 temperature=0.1, top_p=0.9로 가상 문서를 독립 생성하였다. 따라서 H1 조건의 CAD 비교와 SCD 비교에는 디코딩 설정에 따른 답변 변화와 HyDE 샘플링에 따른 검색 문맥 변화가 함께 포함된다.",
+            "pdf_pages": [
+              36,
+              37
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "location": "6.1절 네 번째 연구 질문",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 번째 연구 질문에서는 적용 목적에 따른 실험 조건의 선택 기준을 검토하였다. 답변 관련성, 근거 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 해당 지표의 요인별 대응 결과를 확인한다. 목적별 비교 방법은 6.3절에 제시한다.",
+            "pdf_pages": [
+              39
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "location": "6.1절 적용 기준",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "네 번째 연구 질문에서는 적용 목적에 따른 실험 조건의 선택 기준을 검토하였다. 답변 관련성, 근거 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 해당 지표의 요인별 대응 결과를 확인한다. 목적별 비교 방법은 6.3절에 제시한다.",
+            "pdf_pages": [
+              39
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "location": "6.4절 후속 연구 도입",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "후속 연구에서는 평가 질의, 문서 도메인과 생성 모델의 범위를 확대하는 방향을 제안한다. 답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하여 근거가 부족한 상황의 생성 결과를 평가하는 과제가 있다. 문서 도메인, 생성 모델과 토크나이저를 달리한 반복 실험에서는 조건별 답변 품질과 한국어 문자 비율의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "location": "6.4절 HyDE 반복 실험",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 42,
+        "location": "6.4절 두 문단 전체 검토",
+        "status": "C 적용 / 두 문단 재구성",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "후속 연구에서는 평가 질의, 문서 도메인과 생성 모델의 범위를 확대하는 방향을 제안한다. 답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하여 근거가 부족한 상황의 생성 결과를 평가하는 과제가 있다. 문서 도메인, 생성 모델과 토크나이저를 달리한 반복 실험에서는 조건별 답변 품질과 한국어 문자 비율의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          },
+          {
+            "paragraph": "SCD의 후속 평가 항목은 답변의 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존이다. 평가자에게 기법의 적용 여부를 알리지 않는 사람 평가로 이 항목들을 확인하는 절차를 제안한다. 재정렬 단계의 비교에서는 현재 CrossEncoder와 다국어 재정렬 모델에 같은 검색 후보를 제공하고, 최종 검색 문맥과 답변 품질의 차이를 분석할 수 있다.",
+            "pdf_pages": [
+              40
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      },
+      {
+        "id": 43,
+        "location": "부록 B의 표본 수 설명",
+        "status": "B 적용",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true,
+        "old_actual_paragraph_absent": true,
+        "matches": [
+          {
+            "paragraph": "표 B-1에는 문서별 평균 대응 차이와 유효쌍 수를, 표 B-2에는 질문 유형별 평균 대응 차이와 유효쌍 수를 정리하였다. 목적 및 기여 유형에는 질의가 3개 포함되었다. 질문 유형별 분석 결과는 각 유형의 질의 수를 고려하여 탐색적으로 해석하였다.",
+            "pdf_pages": [
+              52
+            ],
+            "verification": "Full paragraph in spatial PDF text"
+          }
+        ]
+      }
+    ],
+    "additional": [
+      {
+        "A": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 입력 변경, 문맥을 활용한 디코딩, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "B": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "reason": "영문초록의 수정된 기법 역할과 국문초록을 일치시켰다.",
+        "final_C": "검색 증강 생성(Retrieval-Augmented Generation, RAG)은 외부 문서에서 질문과 관련된 내용을 검색하고, 이를 생성 모델에 제공하여 답변을 생성하는 방법이다. 한국어 질문으로 영어 학술 및 기술 문서를 검색하는 과정에서는 질문과 원문의 표현 차이가 검색 결과에 영향을 줄 수 있다. 생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다. 본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다. 세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, and K-intelligence/Midm-2.0-Base-Instruct. Sixty Korean query–target-document pairs were constructed from four English academic or technical documents, and eight configurations were applied to each pair, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "B": "The Paper-RAG backbone used BGE-M3 for dense retrieval and BM25 for sparse retrieval. We combined their results using weighted Reciprocal Rank Fusion, reranked the candidates with a CrossEncoder, and generated answers with K-intelligence/Midm-2.0-Base-Instruct. We constructed 15 Korean evaluation queries for each of four English academic or technical documents, for a total of 60 queries. Each query was assigned a target document and evaluated under eight configurations, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다.",
+        "final_C": "The Paper-RAG backbone used BGE-M3 for dense retrieval and BM25 for sparse retrieval. We combined their results using weighted Reciprocal Rank Fusion, reranked the candidates with a CrossEncoder, and generated answers with K-intelligence/Midm-2.0-Base-Instruct. We constructed 15 Korean evaluation queries for each of four English academic or technical documents, for a total of 60 queries. Each query was assigned a target document and evaluated under eight configurations, yielding 480 stored generation records. HyDE was compared on 60 matched pairs with CAD and SCD disabled. CAD was compared with HyDE and SCD disabled and the retrieval contexts held identical. The primary SCD comparison used 120 HyDE-OFF pairs with identical retrieval contexts. We also analyzed all 240 ON/OFF pairs matched by query and by HyDE and CAD settings.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934]. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "B": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "reason": "CAD 근거 충실도의 신뢰구간 설명 직후에 해석을 배치하였다.",
+        "final_C": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289. The 95% confidence interval for CAD faithfulness included zero.",
+        "B": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "reason": "영문초록 끝에서 반복되던 CAD 해석을 앞 신뢰구간 문장에 통합하였다.",
+        "final_C": "The mean paired difference in answer relevancy between HyDE ON and OFF was +0.0805, with a 95% bootstrap confidence interval of [+0.0110, +0.1514]. The corresponding differences in faithfulness, context precision, and context recall were +0.0436, -0.0343, and 0.0000, respectively. In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero. The mean paired difference in answer relevancy was -0.0073 on 60 pairs. In the primary SCD comparison, the mean paired difference in the Korean-character ratio was +0.2182 on 120 HyDE-OFF identical-context pairs, with a 95% bootstrap confidence interval of [+0.1880, +0.2487]. The mean paired difference across all 240 state-matched pairs was +0.2289.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성과 나머지 RAGAS 지표가 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "B": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "reason": "나머지 지표라는 지시어 대신 네 연구 평가 지표를 제시하였다.",
+        "final_C": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
+        "B": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?\n\nSCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+        "reason": "네 연구 질문 사이에 삽입되던 방법 설명을 질문 목록 다음의 분석 방법 문단으로 옮겼다. 16번의 수치와 비교 범위는 유지하였다.",
+        "final_C": "연구 질문은 다음 네 가지로 설정하였다. 첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가? 둘째, 동일한 검색 문맥에서 CAD 적용 여부에 따라 답변 품질과 조건 실행 시간은 어떻게 달라지는가? 셋째, SCD 적용 여부에 따라 한국어 문자 비율은 어떻게 달라지는가? 넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?\n\nSCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다. 추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다. 동일 질의의 ON 평가값에서 OFF 평가값을 뺀 대응 차이와 부트스트랩 신뢰구간을 계산하였다. 각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다. 개별 사례에서는 질문, 검색 근거, 생성 답변과 평가값을 함께 제시하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터도 BM25의 어휘 일치 검색에 사용할 수 있다.",
+        "B": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+        "reason": "실제로 활용한 검색 단서를 직접 설명하여 사용할 수 있다는 형식적인 서술을 줄였다.",
+        "final_C": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다. BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "본 실험에서 사용한 weighted RRF의 계산식은 다음과 같으며, RRF 상수 k는 60으로 설정하였다.",
+        "B": "본 실험에서는 RRF 상수 k를 60으로 설정하였다. 두 검색 순위를 결합한 점수는 다음 식으로 계산하였다.",
+        "reason": "상수 설정과 점수 계산 동작을 분리하였다.",
+        "final_C": "본 실험에서는 RRF 상수 k를 60으로 설정하였다. 두 검색 순위를 결합한 점수는 다음 식으로 계산하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 본 실험에서는 이에 따른 최종 검색 문맥과 생성 답변의 변화를 함께 평가하였다. 검색 청크 ID와 최종 문맥을 대조하고, 답변 관련성의 변화와 함께 분석하였다.",
+        "B": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+        "reason": "22번 수정 이후 평가 설명이 반복되어 검색 기록 대조와 답변 지표 분석으로 통합하였다.",
+        "final_C": "HyDE ON 조건에서는 한국어 질의를 영어로 번역하고 가상 문서를 생성하였다. 생성된 가상 문서를 BGE-M3로 임베딩하여 밀집 검색에 사용하였다. BM25 검색과 CrossEncoder 재정렬에는 원래의 한국어 질의를 사용하였다. 검색 범위는 질의에 지정한 문서의 청크로 정하였으며, 최종 답변은 검색한 실제 문서 구간으로 생성하였다. HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다. 검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode, alpha=1.1, beta=0.9, Tstart=5가 저장되며, CAD ON 기록에는 alpha=0.5가 저장된다.",
+        "B": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode=reference_scd, alpha=1.1, beta=0.9, Tstart=5를, CAD ON 기록에는 alpha=0.5를 저장하였다.",
+        "reason": "모드의 실제 값을 명시하고 저장 동작의 시제를 통일하였다.",
+        "final_C": "RAG-Cube의 여덟 조건은 HyDE(H), CAD(C), SCD(S)의 ON/OFF 조합으로 구성하였다. 0은 OFF, 1은 ON을 뜻하며, 각 조건을 H0C0S0과 같은 형식으로 표기하였다. 실제 적용 상태는 생성 기록의 `config_name`, `use_hyde`, `use_cad`, `use_scd` 필드로 확인하였다. SCD ON 기록에는 mode=reference_scd, alpha=1.1, beta=0.9, Tstart=5를, CAD ON 기록에는 alpha=0.5를 저장하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 한 조건에서 평가값이 있는 기록의 평균이다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "B": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 각 지표의 평가값이 있는 기록으로 계산하였다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "reason": "모든 지표를 합산하는 평균으로 오해하지 않도록 평균의 단위를 지표별로 명시하였다.",
+        "final_C": "평가값은 질의 ID와 실험 조건으로 생성 기록에 연결하였다. 조건별 평균은 각 지표의 평가값이 있는 기록으로 계산하였다. 평균 대응 차이는 같은 질의의 ON 평가값에서 OFF 평가값을 뺀 차이의 평균이다. 질의 단위 부트스트랩으로 대응 차이의 95% 신뢰구간을 추정하였다. 조건별 평균과 대응 비교에는 각각의 유효 표본 수와 비교 조건을 기록하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 각 블록의 조건별 평균은 앞서 설명한 영어 평가 문맥과 한국어 번역 평가 문맥의 프로토콜에 따른 기술통계이다.",
+        "B": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 조건별 평균은 SCD OFF에서 영어 문맥으로, SCD ON에서 한국어 번역 문맥으로 평가한 값이다.",
+        "reason": "긴 명사구와 앞서 설명한이라는 지시어를 실제 두 평가 문맥의 언어로 바꾸었다.",
+        "final_C": "표의 생성 수는 각 조건에 저장된 생성 기록의 수이다. 근거 충실도 평균에 사용한 유효 평가값은 H0C1S0에서 58개, H0C0S1에서 57개이며 나머지 조건에서는 각각 60개다. 조건별 평균은 SCD OFF에서 영어 문맥으로, SCD ON에서 한국어 번역 문맥으로 평가한 값이다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 증가 21쌍, 감소 24쌍, 동률 13쌍으로 집계되었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "reason": "이전 문장의 근거 충실도를 주어로 이어 주고 유효 표본 수와 분류 수의 관계를 명시하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "reason": "생략된 지표를 복원하여 두 지표의 분류 수가 서로 혼동되지 않도록 하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "한국어 문자 비율에는 답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 표기도 함께 반영하였다.",
+        "B": "답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 ASCII 영문자도 한국어 문자 비율의 분모에 포함하였다.",
+        "reason": "반영하였다라는 모호한 표현 대신 실제 계산 대상과 위치를 적었다.",
+        "final_C": "답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 ASCII 영문자도 한국어 문자 비율의 분모에 포함하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "생성 기록에는 질의, 검색 청크 ID, 재정렬 청크 ID, 최종 문맥, 생성 답변, 디코딩 설정과 조건 실행 시간을 저장하였다. 그림 5-3, 5-5, 5-7, 5-8, 5-10에는 이 기록에서 가져온 입력과 출력에 해당 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1은 CAD 적용 후 근거 충실도가 감소한 사례이다.",
+        "B": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 저장된 질문, 검색 문맥과 생성 답변에 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1에는 CAD 적용 후 근거 충실도가 감소한 사례를 수록하였다.",
+        "reason": "4.3절의 저장 필드 목록과 반복되는 설명을 줄이고 6.2절에서는 기록을 이용한 비교 사례에 집중하였다.",
+        "final_C": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 저장된 질문, 검색 문맥과 생성 답변에 평가값을 연결하여 제시하였다. 부록 B의 그림 B-1에는 CAD 적용 후 근거 충실도가 감소한 사례를 수록하였다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 문서와 기술 문서, 언어 이탈",
+        "B": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 및 기술 문서, 언어 이탈",
+        "reason": "국문 제목과 초록의 문서 범위 용어를 통일하였다.",
+        "final_C": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 및 기술 문서, 언어 이탈",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하고, 검색 결과가 실행마다 얼마나 달라지는지도 측정할 필요가 있다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "B": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "reason": "미래 연구를 제안한 문단 안에서 당위형을 반복하지 않고 후속 실험의 절차를 제시하였다.",
+        "final_C": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다. 같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다. CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 58쌍 중 근거 충실도가 증가한 쌍은 21개, 감소한 쌍은 24개, 동률인 쌍은 13개였다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      },
+      {
+        "A": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 60쌍 중 답변 관련성이 증가한 쌍은 19개, 감소한 쌍은 32개, 동률인 쌍은 9개였다.",
+        "B": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다.",
+        "final_C": "CAD는 같은 질의와 검색 문맥에서 OFF와 ON의 답변을 비교하였다. 근거 충실도의 평균 대응 차이는 양쪽 평가값이 있는 58쌍에서 +0.0288이었고, 95% 신뢰구간은 [-0.0367, +0.0934]로 0을 포함하였다. 근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다. 답변 관련성의 평균 대응 차이는 60쌍에서 -0.0073이었고, 신뢰구간은 [-0.0855, +0.0719]였다. 답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+        "markdown": true,
+        "hwpx": true,
+        "pdf": true
+      }
+    ],
+    "full_paragraphs_in_pdf": 176,
+    "fenced_blocks_preserved": true,
+    "toc_dot_leaders": 77,
+    "source_sha256": "16d01e3a5bb998baad93c79985f374ea1a8944602d9bf5b0eb8e07e5420c7a21"
+  }
+}

@@ -1,17 +1,22 @@
 {
-  "pages": 55,
-  "basis_to_final_changed_pages": [
-    5,
-    6,
-    7,
-    8
-  ],
-  "personal_to_public_changed_pages": [
-    1,
-    2
-  ],
-  "all_53_noncover_pages_pixel_identical": true,
-  "final_toc_native_entries_match_actual_page_map": 77,
-  "toc_note": "Hancom PDF exports TOC text as vector outlines; numbers must also be reviewed in rendered pages 5-8. Native XML and actual page anchors compared separately.",
-  "public_pdf_sha256": "0153ec5ead159fc1f03b8474318a4b367600e21729bc83d78869ac57884ee809"
+  "stage": "approved title final public and personal Web Hancom PDFs",
+  "PUBLIC": {
+    "pages": 55,
+    "changed_pages": [
+      1,
+      2
+    ],
+    "body_pages_pixel_identical": 53,
+    "toc_entries_preserved": 77,
+    "title_only_source_change": true
+  },
+  "SUBMISSION": {
+    "pages": 55,
+    "changed_pages": [
+      1,
+      2
+    ],
+    "sha256": "2769c93508a8974d5b23108466a6ccce5e78832e61f60649dc3ce2b44ad0eafa"
+  },
+  "past_receipt": "HISTORY/20261010_before_title_readability/FINAL_ACADEMIC_PDF_COMPARISON.json"
 }

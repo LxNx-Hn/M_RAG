@@ -1,212 +1,534 @@
 {
-  "version": "A1_POSTER_ACADEMIC_POLISH_20261010",
-  "scope": "Body text only; title preserved verbatim; diagram coordinates, numerical results, citations untouched.",
-  "based_on_sha": "72bd348",
   "title": "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험",
+  "stage": "2026-10-10 title synchronization and readability",
   "corrections": [
     {
-      "old": "영어 논문에 한국어로 질문할 때 생기는 문제",
-      "new": "한국어 질문으로 영어 문서를 검색할 때의 쟁점"
+      "old": "문종건 · [학번] · 동국대학교 WISE 캠퍼스 컴퓨터공학과 · 지도교수 김진석 · 2026.10.15",
+      "new": "문종건 · 동국대학교 WISE 캠퍼스 컴퓨터공학과 · 지도교수 김진석 · 2026.10.15"
     },
     {
-      "old": "한국어 질문과 영어 원문의 표현 차이가 검색에 미치는 영향 확인",
-      "new": "한국어 질문과 영어 원문의 표현 차이에 따른 검색 결과 비교"
+      "old": "01 연구 배경과 선행연구: 한국어 질의–영어 문서",
+      "new": "01 연구 배경과 선행연구"
     },
     {
-      "old": "검색한 근거를 답변에 얼마나 반영하는지, 한국어 출력을 유지하는지 확인",
-      "new": "근거 충실도와 한국어 문자 비율을 각각 측정"
+      "old": "03 RAG-Cube 실험 설계: 같은 질의에 8조건 적용",
+      "new": "03 RAG-Cube 실험 설계"
     },
     {
-      "old": "검색, 답변 생성과 출력 언어에서 세 기법의 적용 전후 비교",
-      "new": "HyDE의 검색 결과, CAD의 답변 품질, SCD의 출력 언어 비교"
+      "old": "04 평가 방법: 답변 품질과 출력 언어의 대응 비교",
+      "new": "04 평가 방법"
     },
     {
-      "old": "관련성, 충실도, 한국어 비율과 실행 시간에 따라 어떤 조건을 고르는가",
-      "new": "답변 품질, 한국어 문자 비율과 실행 시간으로 어떤 조건을 선택하는가"
+      "old": "05 실험 결과: 세 기법의 적용 전후 변화",
+      "new": "05 실험 결과"
     },
     {
-      "old": "같은 문맥에서 CAD 적용 전후 품질과 시간은 어떻게 달라지는가",
-      "new": "같은 문맥에서 CAD 적용 전후 답변 품질과 실행 시간은 어떻게 달라지는가"
+      "old": "06 실제 출력: 질의별 적용 전후 비교",
+      "new": "06 실제 출력"
     },
     {
-      "old": "검색 증강 생성: 관련 문서를 검색해 답변 생성에 활용",
-      "new": "관련 문맥을 검색하고 생성 모델에 입력하여 답변 생성"
+      "old": "07 결론: 기법별 결과와 조건 선택",
+      "new": "07 결론"
     },
     {
-      "old": "한국어 질문을 영어로 바꾸고 가상 문서를 생성해 벡터로 변환",
-      "new": "한국어 질의를 영어로 번역해 가상 문서를 생성하고 벡터화"
+      "old": "한국어 질문으로 영어 문서를 검색할 때의 쟁점",
+      "new": "한국어 질의로 영어 문서를 검색하는 RAG"
     },
     {
-      "old": "벡터는 밀집 검색에 사용, BM25와 재정렬은 원래 질문 사용",
-      "new": "가상 문서 벡터로 밀집 검색, BM25와 재정렬은 한국어 질의 사용"
+      "old": "한국어 질문과 영어 원문의 표현 차이에 따른 검색 결과 비교",
+      "new": "한국어 질의로 영어 문서를 검색했을 때의 검색 결과 분석"
     },
     {
-      "old": "CAD 후 한국어1.1, 비목표0.9 적용; 중립과 초기5생성단계 유지",
-      "new": "한국어 로짓×1.1, 다른 언어×0.9. 중립 토큰과 첫 5토큰 유지"
+      "old": "근거 충실도와 한국어 문자 비율을 각각 측정",
+      "new": "답변 품질과 한국어 문자 비율을 각각 측정"
     },
     {
-      "old": "관련 연구: DPR[11], FiD[12], 긴 문맥[9], 자기검증[15,16]",
-      "new": "관련 연구: DPR[11], FiD[12], 긴 문맥[9], Self-RAG와 CRAG[15,16]"
+      "old": "HyDE의 검색 결과, CAD의 답변 품질, SCD의 출력 언어 비교",
+      "new": "HyDE의 검색, CAD의 생성, SCD의 출력 언어 비교"
     },
     {
-      "old": "ON: 영어 질문으로 변환",
-      "new": "ON: 질의를 영어로 번역"
+      "old": "관련 연구: DPR[11], FiD[12], 긴 문맥[9], Self-RAG와 CRAG[15,16]",
+      "new": ""
     },
     {
-      "old": "문맥 포함/제외 대조",
-      "new": "두 로짓 가중 결합"
+      "old": "같은 문맥에서 CAD 적용 전후 답변 품질과 실행 시간은 어떻게 달라지는가",
+      "new": "같은 문맥에서 CAD 적용 전후 답변 품질과\n실행 시간은 어떻게 달라지는가"
     },
     {
-      "old": "HyDE는 밀집 검색 전에 적용하며, CAD와 SCD는 생성 중 매 토큰의 점수를 조절",
-      "new": "최종 평가와 분리한 튜닝 질의 5개로 검색 폭 선정"
+      "old": "답변 품질, 한국어 문자 비율과 실행 시간으로 어떤 조건을 선택하는가",
+      "new": "평가 목적에 따라 답변 품질, 한국어 문자 비율과\n실행 시간을 어떻게 비교할 것인가"
     },
     {
-      "old": "함께 쓰면 CAD(α=0.5) 다음 SCD 적용; 백본을 고정한 8조건의 답변을 같은 질의끼리 비교",
-      "new": "두 기법을 함께 적용하면 CAD(α=0.5) 계산 후 SCD 적용"
+      "old": "관련 문맥을 검색하고 생성 모델에 입력하여 답변 생성",
+      "new": "검색 문맥을 생성 모델에 입력하여 답변 생성\n검색 및 생성 모델은 모든 조건에서 고정"
     },
     {
-      "old": "연구자가 초기 질문 3개로 표현과 범위 설정 → LLM 문서 요약을 15개 내용 단위로 구분",
-      "new": "초기 질문 3개로 표현과 범위 설정 → LLM으로 각 문서 주요 내용 요약"
+      "old": "Paper-RAG의 검색과 생성 모델은 모든 조건에서 고정",
+      "new": ""
     },
     {
-      "old": "단위별 한국어 질의 1개 작성 → 문서별 15질의의 원문 페이지와 근거 확인",
-      "new": "요약 15개 단위에서 질의 작성 → 문서별 15개, 총 60개 근거 확인"
+      "old": "한국어 질의를 영어로 번역해 가상 문서를 생성하고 벡터화",
+      "new": "영어 번역 질의로 가상 문서 생성 후 밀집 검색\nBM25와 재정렬은 원래 한국어 질의 사용"
     },
     {
-      "old": "검색8 → 재정렬8 → 문맥5 / 청크 최대512단어, 중첩64, 최소50",
-      "new": "검색 8개, 재정렬 8개, 문맥 5개; 청크 최대 512, 중첩 64, 최소 50단어"
+      "old": "가상 문서 벡터로 밀집 검색, BM25와 재정렬은 한국어 질의 사용",
+      "new": ""
     },
     {
-      "old": "문맥 한도3072단어, 초과 시 압축(비율0.5); argmax, 최대512토큰",
-      "new": "문맥 3,072단어 초과 시 압축(0.5); 탐욕적 디코딩, 최대 512토큰"
+      "old": "같은 모델에서 문맥을 포함한 입력과 제외한 입력의 로짓 계산",
+      "new": "문맥 포함·제외 입력의 로짓을 가중 결합\n(1+α)z_ctx - αz_noctx, α=0.5"
     },
     {
-      "old": "질문 유형: 사실/정의8, 방법/절차29, 결과/비교20, 목적/기여3",
-      "new": "질의 유형: 사실 및 정의 8, 방법 및 절차 29, 결과 및 비교 20, 목적 및 기여 3"
+      "old": "로짓을 (1+α)z_ctx - αz_noctx로 가중 결합",
+      "new": ""
     },
     {
-      "old": "질의, 답변, 문맥과 정답으로 품질 평가; 한국어 문자 비율로 출력 언어 측정",
-      "new": "질의, 답변, 검색 문맥과 참조 답변으로 품질 평가. 한국어 문자 비율 별도 측정"
+      "old": "한국어와 다른 언어 토큰의 로짓에 각각 계수를 곱함",
+      "new": "한국어 로짓×1.1, 다른 언어×0.9\n중립 토큰과 첫 5토큰 유지"
     },
     {
-      "old": "SCD ON/OFF 품질 평균은 서로 다른 평가 문맥의 기술통계로 해석",
-      "new": "SCD ON/OFF의 RAGAS 평균은 평가 문맥 언어가 달라 각각 제시"
+      "old": "한국어 로짓×1.1, 다른 언어×0.9. 중립 토큰과 첫 5토큰 유지",
+      "new": ""
     },
     {
-      "old": "검색/재정렬 ID와 최종 문맥이 동일",
-      "new": "검색과 재정렬 청크 ID, 최종 문맥 동일"
+      "old": "초기 질문 3개로 표현과 범위 설정 → LLM으로 각 문서 주요 내용 요약",
+      "new": "초기 질문 3개로 범위 설정, 문서별 주요 내용 요약\n요약 내용을 15개 단위로 나누어 질의 작성\n→ 총 60개 질의의 원문 근거 확인"
     },
     {
-      "old": "60 / 충실도58",
-      "new": "60쌍, 충실도 58쌍"
+      "old": "요약 15개 단위에서 질의 작성 → 문서별 15개, 총 60개 근거 확인",
+      "new": ""
     },
     {
-      "old": "HyDE OFF 동일 문맥 / HyDE와 CAD 상태 일치",
-      "new": "주 비교 HyDE OFF 동일 문맥 / 전체 H/C 상태 일치"
+      "old": "BGE-M3 + BM25 / RRF 가중치 0.6/0.4, k=60",
+      "new": "BGE-M3 + BM25, RRF 가중치 0.6/0.4, k=60"
     },
     {
-      "old": "숫자와 기호는 제외하며, 논문 제목과 모델명의 혼합 표기는 포함",
-      "new": "한글과 ASCII 영문자 수로 계산. 논문명과 모델명의 영어 표기도 포함"
+      "old": "cross-encoder/ms-marco-MiniLM-L-6-v2 / K-intelligence/Midm-2.0-Base-Instruct",
+      "new": "MiniLM-L-6-v2 / Midm-2.0-Base-Instruct"
     },
     {
-      "old": "평가값 1,920개 중 1,915개 유효, 충실도 결측5개는 결측 유지",
-      "new": "RAGAS 평가값 1,920개 중 1,915개 유효. 근거 충실도 5개 결측"
+      "old": "검색 8개, 재정렬 8개, 문맥 5개; 청크 최대 512, 중첩 64, 최소 50단어",
+      "new": "검색 8개, 재정렬 8개, 문맥 5개 / 512단어, 중첩 64"
     },
     {
-      "old": "문서4종 고정, seed=20260713; 질의 수준의 95% 신뢰구간",
-      "new": "문서 4종 고정, seed=20260713. 질의 단위 95% 신뢰구간"
+      "old": "문맥 3,072단어 초과 시 압축(0.5); 탐욕적 디코딩, 최대 512토큰",
+      "new": "문맥 3,072단어 초과 시 압축 / 탐욕적 디코딩, 512토큰"
     },
     {
-      "old": "CAD 충실도와 관련성 구간은 0 포함; 관련성 -0.0073 [-0.0855, +0.0719]",
-      "new": "CAD 두 지표의 95% 구간은 0 포함. 관련성 -0.0073 [-0.0855, +0.0719]"
+      "old": "생성 답변이 질문의 요구에 대응하는 정도",
+      "new": "답변이 질문의 요구에 대응하는 정도"
     },
     {
-      "old": "한국어 멀티턴 대화의 설계 기준 3가지",
-      "new": "한국어 멀티턴 대화 데이터의 설계 차원 3가지"
+      "old": "정답에 필요한 근거가 검색 문맥에 포함된 정도",
+      "new": "정답의 근거가 검색 문맥에 포함된 정도"
     },
     {
-      "old": "독점, 공개와 자체 합성의 세 경로 제시",
-      "new": "라이선스 자료, 상업 이용 가능 공개 자료, 자체 합성 자료"
+      "old": "영어 문맥을 gpt-4o로 한국어 번역한 뒤 RAGAS 평가",
+      "new": "영어 문맥을 gpt-4o로 한국어 번역하여 평가"
     },
     {
-      "old": "RAG의 지식 집약적 작업 관련 장점",
-      "new": "RAG가 지식 집약적 작업에 유리한 이유"
+      "old": "비교 조건과 목적",
+      "new": "비교 조건"
     },
     {
-      "old": "Fusion SFT의 non-reasoning 목적",
-      "new": "Fusion SFT의 비추론(non-reasoning) 학습 목적"
+      "old": "검색과 재정렬 청크 ID, 최종 문맥 동일",
+      "new": "검색 청크와 최종 문맥 동일"
     },
     {
-      "old": "CAD는 동일 문맥 비교; SCD의 언어 비율 증가와 내용 정확성은 구분",
-      "new": "CAD 사례는 동일 문맥 비교. SCD 사례는 답변 언어의 변화 비교"
+      "old": "60쌍, 충실도 58쌍",
+      "new": "60쌍\n충실도 58쌍"
     },
     {
-      "old": "SCD 사례는 HyDE ON으로 전체240쌍에만 포함, OFF 주 비교120쌍에는 미포함",
-      "new": "HyDE ON의 SCD 사례는 전체 240쌍에 포함. 주 비교는 HyDE OFF 120쌍"
+      "old": "주 비교 HyDE OFF 동일 문맥 / 전체 H/C 상태 일치",
+      "new": "HyDE OFF 동일 문맥 / H·C 상태 일치"
     },
     {
-      "old": "CAD 충실도는 평균 +0.0288 변화했으며 95% 구간에 0 포함",
-      "new": "CAD 근거 충실도 평균 대응 차이 +0.0288. 95% 신뢰구간은 0 포함"
+      "old": "120 / 240쌍",
+      "new": "주 120쌍\n전체 240쌍"
     },
     {
-      "old": "CAD 주 비교의 조건 실행 시간은 20.792초에서 63.867초로 증가",
-      "new": "H0S0에서 CAD 조건 실행 시간은 20.792초에서 63.867초로 증가"
+      "old": "비교 조건(쌍수)",
+      "new": "비교 조건"
     },
     {
-      "old": "관련성, 충실도, 한국어 문자 비율과 실행 시간을 기준으로 조건 선택",
-      "new": "답변 관련성, 근거 충실도, 한국어 문자 비율과 실행 시간으로 조건 선택"
+      "old": "HyDE 답변 관련성",
+      "new": "HyDE\n답변 관련성"
     },
     {
-      "old": "평가 범위: 영어 문서4종, 한국어 질의60개, 단일 생성 모델과 자동 평가",
-      "new": "평가 범위: 영어 문서 4종, 한국어 질의 60개, 생성 모델 1종과 자동 평가"
+      "old": "CAD와 SCD OFF, 60쌍",
+      "new": "CAD·SCD OFF\n60쌍"
     },
     {
-      "old": "HyDE 적용 전후 답변 관련성은 어떻게 달라지는가",
-      "new": "HyDE 적용 전후 검색 결과와 답변 품질은 어떻게 달라지는가"
+      "old": "CAD 근거 충실도",
+      "new": "CAD\n근거 충실도"
     },
     {
-      "old": "같은 모델의 문맥 포함 분포와 문맥 제외 분포를 비교",
-      "new": "같은 모델에서 문맥을 포함한 입력과 제외한 입력의 로짓 계산"
+      "old": "HyDE와 SCD OFF, 58쌍",
+      "new": "HyDE·SCD OFF\n58쌍"
     },
     {
-      "old": "토큰 점수를 (1+α)z_ctx - αz_noctx로 조절",
-      "new": "로짓을 (1+α)z_ctx - αz_noctx로 가중 결합"
+      "old": "SCD 한국어 비율",
+      "new": "SCD\n한국어 비율"
     },
     {
-      "old": "토큰의 언어에 따라 생성 점수를 조절해 한국어 출력을 유도",
-      "new": "한국어와 다른 언어 토큰의 로짓에 각각 계수를 곱함"
+      "old": "HyDE OFF 동일 문맥, 120쌍",
+      "new": "HyDE OFF 동일 문맥\n주 비교 120쌍"
     },
     {
-      "old": "3072단어 초과 시 압축",
-      "new": "3,072단어 초과 시 압축"
+      "old": "SCD 한국어 비율",
+      "new": "SCD\n한국어 비율"
     },
     {
-      "old": "생성: CAD로 문맥 기반 토큰 점수 조절 → SCD로 출력 언어 조절",
-      "new": "생성: CAD ON에서 로짓 가중 결합 → SCD ON에서 언어별 로짓 조정"
+      "old": "HyDE와 CAD 상태 일치, 240쌍",
+      "new": "H·C 상태 일치\n전체 240쌍"
     },
     {
-      "old": "최종 5개",
-      "new": "선택 청크 5개"
+      "old": "HyDE의 다른 지표: 충실도 +0.0436, 정밀도 -0.0343, 재현율 0",
+      "new": ""
     },
     {
-      "old": "언어별 토큰 점수 조절",
-      "new": "언어별 로짓 조정"
+      "old": "CAD 두 지표의 95% 구간은 0 포함. 관련성 -0.0073 [-0.0855, +0.0719]",
+      "new": "CAD 신뢰구간은 0 포함"
     },
     {
-      "old": "답변의 주장이 검색 문맥으로 지지되는 정도",
-      "new": "검색 문맥이 답변의 주장을 뒷받침하는 정도"
+      "old": "질의, 답변, 검색 문맥과 참조 답변으로 품질 평가. 한국어 문자 비율 별도 측정",
+      "new": "RAGAS[10] 0.2.15: gpt-4o / 관련성 임베딩 BGE-M3"
     },
     {
-      "old": "gpt-4o로 한국어 변환한 문맥으로 RAGAS 평가",
-      "new": "영어 문맥을 gpt-4o로 한국어 번역한 뒤 RAGAS 평가"
+      "old": "RAGAS[10] 0.2.15: 평가 gpt-4o, 답변 관련성 임베딩 BGE-M3",
+      "new": ""
     },
     {
-      "old": "HyDE ON은 가상 문서 재생성으로 문맥이 달라질 수 있어, OFF 120쌍을 주 비교로 사용",
-      "new": "HyDE OFF의 동일 문맥 120쌍을 주 비교로 사용. 전체 240쌍도 집계"
+      "old": "답변 생성에는 영어 문맥을 사용하며, 저장된 답변은 그대로 평가",
+      "new": "생성에는 영어 문맥 사용. 저장 답변을 그대로 평가."
     },
     {
-      "old": "SCD 한국어 문자 비율은 동일 문맥120쌍에서 평균 +0.2182 증가",
-      "new": "SCD 한국어 문자 비율은 HyDE OFF 동일 문맥 120쌍에서 평균 +0.2182 증가"
+      "old": "SCD ON/OFF의 RAGAS 평균은 평가 문맥 언어가 달라 각각 제시",
+      "new": "SCD의 RAGAS 평균은 평가 문맥 언어별로 제시."
+    },
+    {
+      "old": "HyDE OFF의 동일 문맥 120쌍을 주 비교로 사용. 전체 240쌍도 집계",
+      "new": ""
+    },
+    {
+      "old": "한글과 ASCII 영문자 수로 계산. 논문명과 모델명의 영어 표기도 포함",
+      "new": ""
+    },
+    {
+      "old": "RAGAS 평가값 1,920개 중 1,915개 유효. 근거 충실도 5개 결측",
+      "new": "평가값 1,920개 중 1,915개 유효, 충실도 5개 결측"
+    },
+    {
+      "old": "평균 변화는 ON - OFF, 질의 단위 대응 부트스트랩 200,000회",
+      "new": "ON − OFF / 95% CI: 대응 부트스트랩 200,000회"
+    },
+    {
+      "old": "문서 4종 고정, seed=20260713. 질의 단위 95% 신뢰구간",
+      "new": ""
+    },
+    {
+      "old": "06 실제 출력: 질의별 적용 전후 비교",
+      "new": "06 실제 출력: 개선과 감소 사례"
+    },
+    {
+      "old": "HyDE ext_midm_004 (문맥 변경)",
+      "new": "CAD track1_0012 (동일 문맥)"
+    },
+    {
+      "old": "한국어 멀티턴 대화 데이터의 설계 차원 3가지",
+      "new": "H0C0S0 → H0C1S0: 충실도 0.9375→0.5"
+    },
+    {
+      "old": "H0C0S0 → H1C0S0",
+      "new": "OFF “외부 지식 활용의 우수성” / ON “위 내용 참조”"
+    },
+    {
+      "old": "관련성 0→0.8531, 재현율 0→1",
+      "new": "SCD ext_midm_005 (동일 문맥)"
+    },
+    {
+      "old": "OFF “구체적인 정보를 확인할 수 없습니다”",
+      "new": "H1C0S0 → H1C0S1: 한국어 문자 비율 0→0.7713"
+    },
+    {
+      "old": "ON “상호작용 구조” 등 세 기준 제시",
+      "new": "S0 “tasks such as math problems”"
+    },
+    {
+      "old": "CAD ext_midm_001 (동일 문맥)",
+      "new": "S1 “우리는 정기적인 간격으로”"
+    },
+    {
+      "old": "Mi:dm K 2.5 Pro 데이터 확보 경로",
+      "new": "이 SCD 사례는 전체 240쌍에 포함. 주 비교는 H0 120쌍."
+    },
+    {
+      "old": "H0C0S0 → H0C1S0",
+      "new": ""
+    },
+    {
+      "old": "충실도 0.8333→1, 관련성 0.8261→0.8124",
+      "new": ""
+    },
+    {
+      "old": "라이선스 자료, 상업 이용 가능 공개 자료, 자체 합성 자료",
+      "new": ""
+    },
+    {
+      "old": "ON “라이선스 취득 전용 데이터셋”",
+      "new": ""
+    },
+    {
+      "old": "CAD track1_0012 (동일 문맥)",
+      "new": ""
+    },
+    {
+      "old": "RAG가 지식 집약적 작업에 유리한 이유",
+      "new": ""
+    },
+    {
+      "old": "H0C0S0 → H0C1S0",
+      "new": ""
+    },
+    {
+      "old": "충실도 0.9375→0.5, 관련성 0.9001→0",
+      "new": ""
+    },
+    {
+      "old": "OFF “외부 지식 활용의 우수성”",
+      "new": ""
+    },
+    {
+      "old": "ON “위 내용 참조”",
+      "new": ""
+    },
+    {
+      "old": "SCD ext_midm_005 (동일 문맥)",
+      "new": ""
+    },
+    {
+      "old": "Fusion SFT의 비추론(non-reasoning) 학습 목적",
+      "new": ""
+    },
+    {
+      "old": "H1C0S0 → H1C0S1",
+      "new": ""
+    },
+    {
+      "old": "한국어 문자 비율 0→0.7713",
+      "new": ""
+    },
+    {
+      "old": "S0 “tasks such as math problems”",
+      "new": ""
+    },
+    {
+      "old": "S1 “우리는 정기적인 간격으로”",
+      "new": ""
+    },
+    {
+      "old": "CAD 사례는 동일 문맥 비교. SCD 사례는 답변 언어의 변화 비교",
+      "new": ""
+    },
+    {
+      "old": "HyDE ON의 SCD 사례는 전체 240쌍에 포함. 주 비교는 HyDE OFF 120쌍",
+      "new": ""
+    },
+    {
+      "old": "08 참고문헌",
+      "new": "08 주요 참고문헌"
+    },
+    {
+      "old": "[1] P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” Advances",
+      "new": "[1] Lewis et al. RAG. NeurIPS, 2020."
+    },
+    {
+      "old": "in Neural Information Processing Systems, Vol. 33, 2020.",
+      "new": "[2] Gao et al. HyDE. ACL, 2023."
+    },
+    {
+      "old": "[2] L. Gao et al., “Precise Zero-Shot Dense Retrieval without Relevance Labels,” Proceedings of ACL,",
+      "new": "[3] Shi et al. Context-Aware Decoding. NAACL, 2024."
+    },
+    {
+      "old": "pp. 1762–1777, 2023.",
+      "new": "[4] Li et al. Language Drift and SCD. AAAI, 2026."
+    },
+    {
+      "old": "[3] W. Shi et al., “Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding,”",
+      "new": "[5] Chen et al. M3-Embedding. ACL Findings, 2024."
+    },
+    {
+      "old": "Proceedings of NAACL, pp. 783–791, 2024.",
+      "new": "[10] Es et al. RAGAs. EACL Demonstrations, 2024."
+    },
+    {
+      "old": "[4] B. Li, Z. Xu, and R. Xie, “Language Drift in Multilingual Retrieval-Augmented Generation:",
+      "new": "전체 22편과 모델 출처: 동봉 참고문헌 파일 및 졸업논문"
+    },
+    {
+      "old": "Characterization and Decoding-Time Mitigation,” Proceedings of the AAAI Conference on Artificial",
+      "new": ""
+    },
+    {
+      "old": "Intelligence, Vol. 40, No. 37, pp. 31519–31526, 2026.",
+      "new": ""
+    },
+    {
+      "old": "[5] J. Chen et al., “M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text",
+      "new": ""
+    },
+    {
+      "old": "Embeddings Through Self-Knowledge Distillation,” Findings of the Association for Computational",
+      "new": ""
+    },
+    {
+      "old": "Linguistics: ACL 2024, pp. 2318–2335, 2024, doi: 10.18653/v1/2024.findings-acl.137.",
+      "new": ""
+    },
+    {
+      "old": "[6] S. E. Robertson et al., “Okapi at TREC-3,” Text REtrieval Conference, 1994.",
+      "new": ""
+    },
+    {
+      "old": "[7] G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet",
+      "new": ""
+    },
+    {
+      "old": "and Individual Rank Learning Methods,” Proceedings of SIGIR, pp. 758–759, 2009.",
+      "new": ""
+    },
+    {
+      "old": "[8] R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019.",
+      "new": ""
+    },
+    {
+      "old": "[9] N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” Transactions of",
+      "new": ""
+    },
+    {
+      "old": "the Association for Computational Linguistics, Vol. 12, pp. 157–173, 2024.",
+      "new": ""
+    },
+    {
+      "old": "[10] S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” Proceedings",
+      "new": ""
+    },
+    {
+      "old": "of EACL System Demonstrations, pp. 150–158, 2024.",
+      "new": ""
+    },
+    {
+      "old": "[11] V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,”",
+      "new": ""
+    },
+    {
+      "old": "Proceedings of EMNLP, pp. 6769–6781, 2020.",
+      "new": ""
+    },
+    {
+      "old": "[12] G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open",
+      "new": ""
+    },
+    {
+      "old": "Domain Question Answering,” Proceedings of EACL, pp. 874–880, 2021.",
+      "new": ""
+    },
+    {
+      "old": "[13] X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,”",
+      "new": ""
+    },
+    {
+      "old": "Proceedings of ACL, pp. 12286–12312, 2023.",
+      "new": ""
+    },
+    {
+      "old": "[14] P. Sarthi et al., “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,”",
+      "new": ""
+    },
+    {
+      "old": "Proceedings of ICLR, 2024.",
+      "new": ""
+    },
+    {
+      "old": "[15] A. Asai et al., “Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection,”",
+      "new": ""
+    },
+    {
+      "old": "Proceedings of ICLR, 2024.",
+      "new": ""
+    },
+    {
+      "old": "[16] S.-Q. Yan et al., “Corrective Retrieval Augmented Generation,” arXiv:2401.15884, 2024.",
+      "new": ""
+    },
+    {
+      "old": "[17] P. Zhao et al., “Retrieval-Augmented Generation for AI-Generated Content: A Survey,” Data",
+      "new": ""
+    },
+    {
+      "old": "Science and Engineering, Vol. 11, pp. 1–29, 2026, doi: 10.1007/s41019-025-00335-5.",
+      "new": ""
+    },
+    {
+      "old": "[18] D. Shin et al., “Mi:dm 2.0 Korea-centric Bilingual Language Models,” arXiv:2601.09066, 2026.",
+      "new": ""
+    },
+    {
+      "old": "[19] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,”",
+      "new": ""
+    },
+    {
+      "old": "arXiv:2312.10997, 2023.",
+      "new": ""
+    },
+    {
+      "old": "[20] N. Thakur et al., “BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information",
+      "new": ""
+    },
+    {
+      "old": "Retrieval Models,” Proceedings of NeurIPS Datasets and Benchmarks Track, 2021.",
+      "new": ""
+    },
+    {
+      "old": "[21] N. Muennighoff et al., “MTEB: Massive Text Embedding Benchmark,” Proceedings of EACL, pp.",
+      "new": ""
+    },
+    {
+      "old": "2014–2037, 2023.",
+      "new": ""
+    },
+    {
+      "old": "[22] KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” technical report, arXiv:2603.18788v2, 2026.",
+      "new": ""
+    },
+    {
+      "old": "HyDE 적용 후 답변 관련성이 평균 +0.0805 증가",
+      "new": "HyDE 적용 후 답변 관련성 평균 +0.0805"
+    },
+    {
+      "old": "CAD 근거 충실도 평균 대응 차이 +0.0288. 95% 신뢰구간은 0 포함",
+      "new": "CAD 근거 충실도 평균 +0.0288, 신뢰구간은 0 포함"
+    },
+    {
+      "old": "H0S0에서 CAD 조건 실행 시간은 20.792초에서 63.867초로 증가",
+      "new": "H0S0의 CAD 실행 시간: 20.792초 → 63.867초"
+    },
+    {
+      "old": "SCD 한국어 문자 비율은 HyDE OFF 동일 문맥 120쌍에서 평균 +0.2182 증가",
+      "new": "SCD: H0 동일 문맥 120쌍에서 한국어 비율 +0.2182"
+    },
+    {
+      "old": "답변 관련성, 근거 충실도, 한국어 문자 비율과 실행 시간으로 조건 선택",
+      "new": "평가 목적에 따라 답변 품질, 한국어 비율과 시간 비교"
+    },
+    {
+      "old": "평가 범위: 영어 문서 4종, 한국어 질의 60개, 생성 모델 1종과 자동 평가",
+      "new": "영어 문서 4종, 한국어 질의 60개, 생성 모델 1종"
+    },
+    {
+      "old": "질의 유형: 사실 및 정의 8, 방법 및 절차 29, 결과 및 비교 20, 목적 및 기여 3",
+      "new": ""
     }
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "stage": "approved title and poster readability synchronization",
+  "title": "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험",
+  "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG with Korean Queries over English Academic and Technical Documents",
+  "source_sha256": "ac728d76b1adfac46d18ba5d4784ba5c26179bfeccf594198e34de48ba527f9d",
+  "thesis": {
+    "public_hwpx_sha256": "297b00b3f83b6e90324f411682cd8d1a700cfaf505129cdde9a635b659464ecf",
+    "public_pdf_sha256": "0c83d718a27e18e9f208d54f777ed34aeebfb597509ecd5eaf7405cfb2f50415",
+    "pages": 55,
+    "tables": 17,
+    "figures": 22,
+    "equations": 10,
+    "references": 22,
+    "prose_units": 593,
+    "toc_entries": 77,
+    "dot_leaders_preserved": true,
+    "body_53_pages_pixel_identical": true,
+    "public_name_and_id_omitted": true,
+    "personal_fields_verified": true,
+    "unknown_approval_fields_preserved": true
+  },
+  "poster": {
+    "a1_mm": [
+      593.9895833333334,
+      840.9781388888889
+    ],
+    "title_pt": 52,
+    "headings_pt": 24,
+    "body_pt": 18,
+    "diagram_pt": 16,
+    "references_pt": 16,
+    "native_tables": 7,
+    "native_charts": 2,
+    "chart_value_formula_counts": {
+      "ppt/slides/charts/chart1.xml": 31,
+      "ppt/slides/charts/chart2.xml": 31
+    },
+    "embedded_workbooks": {
+      "ppt/embeddings/chart-data-snapshot-001.xlsx": "dad0af4ff90b036ae2443d8d8356d609a202884a746381df71e104c2ff823e88",
+      "ppt/embeddings/chart-data-snapshot-002.xlsx": "3a36325f897ded2513b70c931bcd52fdb22c8bbb7e64c24e31769a86cc4d2d10"
+    },
+    "public_student_id_omitted": true,
+    "personal_student_id_retained": true,
+    "privacy_basis": "No optional-question reply received; recommended public-ID omission applied after stated assumption. Existing Git history was not rewritten."
+  },
+  "local_checks": {
+    "build_unittest": 14,
+    "validation_unittest": 29,
+    "ruff": "pass",
+    "black": "pass",
+    "public_hwpx": "pass",
+    "personal_hwpx": "pass",
+    "finaldocs_60q": "pass",
+    "native_presentation_import_geometry_workbooks": "pass"
+  },
+  "remaining": [
+    "인준일과 주심·부심 미정",
+    "실물 인쇄 색상·재단 및 발표 거리 가독성은 화면 검증과 별도",
+    "PowerPoint 데스크톱 실행은 하지 않았으며 구조·편집 가능성·렌더링 검증 수행"
+  ],
+  "prior_43_copyedit_receipt": "HISTORY/20261010_before_title_readability/FINAL_ACADEMIC_PROSE_CHECKS.json"
+}

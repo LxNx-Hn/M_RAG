@@ -1,6 +1,6 @@
 {
-  "local_recycled_count": 91,
-  "cloud_trashed_count": 38,
+  "local_recycled_count": 96,
+  "cloud_trashed_count": 40,
   "local_recycle_bin_emptied": false,
   "cloud_trash_emptied": false,
   "preserved": "Final public and personal thesis, original school forms, canonical Markdown, data, figures and audit history",
@@ -389,5 +389,11 @@
   "cloud_final_names": [
     "ACADEMIC_SUBMISSION_FINAL.hwpx",
     "ACADEMIC_PUBLIC_FINAL.hwpx"
-  ]
+  ],
+  "current_stage_local_recycled": 5,
+  "current_stage_cloud_trashed": [
+    "ACADEMIC_PUBLIC_FINAL.hwpx",
+    "ACADEMIC_SUBMISSION_FINAL.hwpx"
+  ],
+  "current_stage_remaining_temporary_manuscripts": 0
 }

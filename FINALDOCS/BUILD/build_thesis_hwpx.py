@@ -188,7 +188,7 @@ def empty_template(doc: HwpxDocument) -> None:
 
 
 ENGLISH_TITLE = (
-    "Performance Comparison of HyDE, CAD, and SCD Combinations in RAG "
+    "Combination Experiments of HyDE, CAD, and SCD in RAG "
     "with Korean Queries over English Academic and Technical Documents"
 )
 

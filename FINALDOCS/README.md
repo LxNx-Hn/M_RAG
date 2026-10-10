@@ -1,3 +1,5 @@
+> 최신 단계: 승인된 포스터 제목으로 논문 제목을 통일하고 포스터를 재조판했다. [현재 검토 기록](VALIDATION/FINAL_TITLE_READABILITY_AUDIT.md). 아래 과거 교정 기록의 제목 및 해시는 해당 단계 당시의 값이다.
+
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
 최신 원고 교정과 실제 출력 검증은 [확정 A→B 적용 감사](VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md)에 기록했다. 공개 파일은 [표지 입력 칸을 유지한 HWPX](DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx)와 [실제 웹한글 출력 PDF](DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf)다. 개인정보를 반영한 제출 파일은 로컬 다운로드 폴더에만 보관한다. PDF는 실제 조판 결과 55쪽이며, 서론부터 표시 쪽번호 1~47이다. 목차 점선과 학교 스타일을 유지하였다. 이전 감사 문서의 문장·해시·쪽수·편집 로그는 당시 버전의 기록이다.

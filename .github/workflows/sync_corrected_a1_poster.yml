@@ -4,6 +4,9 @@ on:
     paths:
       - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg'
       - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/A1_COPYEDIT_MAP.json'
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx'
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/POSTER_REFERENCES_FULL.md'
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/POSTER_CASES_FULL.md'
       - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py'
       - '.github/workflows/sync_corrected_a1_poster.yml'
   workflow_dispatch:
@@ -22,7 +25,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
           python -m pip install --quiet lxml pillow pymupdf fonttools
-      - name: Render updated poster and edit PPTX
+      - name: Render updated poster and verify editable PPTX
         run: python FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py
       - name: Commit synchronized poster deliverables
         shell: bash

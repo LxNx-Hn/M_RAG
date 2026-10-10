@@ -66,17 +66,17 @@ def tsv_table_html(lines: list[str]) -> str:
 def cover_html() -> str:
     return """<div class="cover">
 <h1>졸업자격실험보고서</h1>
-<h2>한국어 질의 기반 영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험</h2>
+<h2>한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험</h2>
 <p>지도교수 김진석</p><p>컴퓨터공학과</p><p>동국대학교 WISE캠퍼스</p><p>문종건</p><p>2026</p>
 </div>
 <div class="approval">
 <h1>졸업자격실험보고서</h1>
-<p>논문제목</p>
-<h2>Performance Comparison of HyDE, CAD, and SCD Combinations in RAG with Korean Queries over English Academic and Technical Documents</h2>
+<p>한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험</p>
+<h2>Combination Experiments of HyDE, CAD, and SCD in RAG with Korean Queries over English Academic and Technical Documents</h2>
 <p>문종건</p><p>지도교수 김진석</p>
-<p>본 보고서를 졸업자격 실험보고서로 제출함.</p><p>2026년 10월 00일</p>
-<p>문종건의 졸업자격 실험보고 통과를 인준함.</p><p>2026년 00월 00일</p>
-<p>주 심 (인)</p><p>부 심 (인)</p><p>동국대학교 컴퓨터공학과</p>
+<p>본 보고서를 졸업자격 실험보고서로 제출함.</p><p>2026년 10월 15일</p>
+<p>문종건의 졸업자격 실험보고 통과를 인준함.</p><p>[인준일 입력]</p>
+<p>주심 [주심 입력] (인)</p><p>부심 [부심 입력] (인)</p><p>동국대학교 WISE캠퍼스 컴퓨터공학과</p>
 </div>"""
 
 

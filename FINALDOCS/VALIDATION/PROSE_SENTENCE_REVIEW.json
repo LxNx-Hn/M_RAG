@@ -1,7 +1,7 @@
 {
   "reviewed_head": "9df29ea6df6e281b783db89486880055d8c1dafa",
   "source_sha256_before": "afed3556a6a79453d72af29769df63d866ae1f7578e16e9d51aafee26b79ed00",
-  "source_sha256_after": "f3d00721df14aa1f093b5ec2c51eaf440e77f60200f6011d8aad8a9c14e3d82a",
+  "source_sha256_after": "63cd3efd71de00f9b9edb367cbbdcef08ad7d22f897139a57cf6dd9958a29185",
   "method": "2026-10-10 사용자 재지적 후 초록부터 본문과 부록까지 순서대로 읽고 실제 문단의 주어, 동작, 수식 관계, 반복 및 연결을 재교정. 검증 통과는 문장 품질의 완성을 뜻하지 않는다.",
   "original_review": [
     {
@@ -5539,12 +5539,12 @@
     {
       "line": 3,
       "section": "졸업자격실험보고서",
-      "text": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교",
-      "sha256": "398c6f14aaaf1c1dfcf60721251fddcc16c248ceec58ccb4d7c463beb436b0dc",
+      "text": "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험",
+      "sha256": "e55e34c3dd418e6bea235584ce32ea19f4d0fd19fcb0712dec3dd70f4a58c7a2",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "검색 대상 문서와 세 기법의 조합별 비교 범위를 구분하였다. 국문 표지와 영문 제목을 함께 동기화한다."
+      "reason": "사용자가 승인한 기존 포스터 제목으로 통일한다. 제목의 가운데점과 연결 부호는 승인된 원문을 유지한다."
     },
     {
       "line": 7,

@@ -1,3 +1,5 @@
+> 최신 단계: 승인된 포스터 제목으로 논문 제목을 통일하고 포스터를 재조판했다. [현재 검토 기록](../VALIDATION/FINAL_TITLE_READABILITY_AUDIT.md). 아래 과거 교정 기록의 제목 및 해시는 해당 단계 당시의 값이다.
+
 # M-RAG 졸업논문 학술 포스터
 
 현재 교정 완료본: [A1 원제목 유지, 최신 본문 30곳을 추가 교정한 최종 포스터](A1_FINAL_TITLE_CONFIRMED_20261010/README.md)
