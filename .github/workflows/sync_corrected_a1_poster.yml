@@ -1,0 +1,39 @@
+name: Sync corrected A1 poster exports
+on:
+  push:
+    paths:
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg'
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/A1_COPYEDIT_MAP.json'
+      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py'
+      - '.github/workflows/sync_corrected_a1_poster.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install rendering tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
+          python -m pip install --quiet lxml pillow pymupdf fonttools
+      - name: Render updated poster and edit PPTX
+        run: python FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py
+      - name: Commit synchronized poster deliverables
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/
+          if git diff --cached --quiet; then
+            echo 'No binary exports changed'
+          else
+            git commit -m 'Synchronize corrected A1 poster PDF PPTX and previews'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
