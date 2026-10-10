@@ -204,7 +204,7 @@ def main() -> int:
 
     # Content-regression checks for the current 60-query thesis narrative.
     if (
-        "한국어 질의를 이용한 영어 학술 문서와 기술 문서 RAG에서의 HyDE, CAD, SCD 조합 실험"
+        "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교"
         not in text
     ):
         raise AssertionError(
@@ -273,13 +273,13 @@ def main() -> int:
         "모든 질의는 한국어로 작성하고, 지정된 영어 문서에서 근거를 검색하였다",
         "사실 및 정의 8개, 방법 및 절차 29개, 결과 및 비교 20개, 목적 및 기여 3개",
         "연구자는 각 문서의 질문 형식과 범위를 정하기 위해 초기 질문 3개를 작성하였다",
-        "LLM을 사용하여 문서의 주요 내용을 요약",
+        "초기 질문의 표현 방식과 범위를 기준으로 LLM이 각 문서의 주요 내용을 요약하도록 하였다",
         "요약을 15개의 내용 단위로 나누고",
         "원문 페이지, 정답 근거와 답변 가능성을 확인하였다",
         "5개 튜닝 질의",
         "검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정",
         "검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5",
-        "검색 설정은 별도의 5개 튜닝 질의로 선정하였다",
+        "검색 설정을 정할 때는 최종 평가 집합과 분리한 튜닝 질의 5개를 사용하였다",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
         "공백 분리 기준 최대 크기 512개 단어",
@@ -288,7 +288,7 @@ def main() -> int:
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
         "H0S0에서 -0.0073, H1S0에서 -0.0588",
         "HyDE ON에서는 각 실험 조건마다 temperature=0.1, top_p=0.9로 가상 문서를 독립 생성하였다",
-        "그림 5-11은 HyDE 적용 전후의 변화를 CAD와 SCD의 설정별로 비교",
+        "그림 5-11에는 HyDE와 CAD의 근거 충실도 및 답변 관련성 평균 대응 차이를 제시하였다",
     ):
         if marker not in text:
             raise AssertionError(f"current thesis-method marker missing: {marker}")

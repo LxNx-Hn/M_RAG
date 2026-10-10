@@ -72,7 +72,7 @@ def cover_html() -> str:
 <div class="approval">
 <h1>졸업자격실험보고서</h1>
 <p>논문제목</p>
-<h2>Combination Experiments of HyDE, CAD, and SCD in RAG over English Academic Documents with Korean Queries</h2>
+<h2>Performance Comparison of HyDE, CAD, and SCD Combinations in RAG with Korean Queries over English Academic and Technical Documents</h2>
 <p>문종건</p><p>지도교수 김진석</p>
 <p>본 보고서를 졸업자격 실험보고서로 제출함.</p><p>2026년 10월 00일</p>
 <p>문종건의 졸업자격 실험보고 통과를 인준함.</p><p>2026년 00월 00일</p>
@@ -139,15 +139,15 @@ def build_html() -> str:
         if cleaned.startswith("# "):
             body.append(f'<h1 class="chapter">{esc(cleaned[2:])}</h1>')
         elif cleaned.startswith("## "):
-            body.append(f'<h2>{esc(cleaned[3:])}</h2>')
+            body.append(f"<h2>{esc(cleaned[3:])}</h2>")
         elif cleaned.startswith("### "):
-            body.append(f'<h3>{esc(cleaned[4:])}</h3>')
+            body.append(f"<h3>{esc(cleaned[4:])}</h3>")
         elif cleaned.startswith("[한글 수식 입력기"):
             body.append(f'<p class="equation-note">{esc(cleaned)}</p>')
         elif in_code:
             body.append(f'<p class="equation">{esc(cleaned)}</p>')
         else:
-            body.append(f'<p>{esc(cleaned)}</p>')
+            body.append(f"<p>{esc(cleaned)}</p>")
         if cleaned:
             inserted_table_marker = False
     return """<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>

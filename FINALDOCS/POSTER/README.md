@@ -1,6 +1,6 @@
 # M-RAG 졸업논문 학술 포스터
 
-현재 교정 완료본: [A1 원제목 유지, 본문 39곳 수정한 최종 포스터](A1_FINAL_TITLE_CONFIRMED_20261010/README.md)
+현재 교정 완료본: [A1 원제목 유지, 최신 본문 30곳을 추가 교정한 최종 포스터](A1_FINAL_TITLE_CONFIRMED_20261010/README.md)
 
 - [A1 인쇄용 PDF](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_PRINT.pdf)
 - [A1 편집용 PPTX](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx)
@@ -9,6 +9,6 @@
 - [전체 패키지 ZIP](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_DELIVERY.zip)
 - [교정 A→B 기록](A1_FINAL_TITLE_CONFIRMED_20261010/A1_FINAL_REVIEW_KO.md)
 
-원제목: **한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험**. 제목과 그래프 수치는 유지하고 포스터의 본문 표현 39곳을 교정하였다.
+원제목: **한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험**. 제목과 그래프 수치는 유지하고 포스터의 본문을 재검토하여 이번에 30곳을 교정하였다. 누적 교정 매핑은 51개다. 실제 A→C와 출력 검증은 최종 폴더의 ACADEMIC_POLISH_CHANGES.json과 ACADEMIC_POLISH_VALIDATION.json에 기록했다.
 
 이전 교정 이력은 [A1_PURPLE_PROOFREAD](A1_PURPLE_PROOFREAD/README.md)에서 확인할 수 있다.

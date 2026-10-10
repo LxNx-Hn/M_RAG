@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "16d01e3a5bb998baad93c79985f374ea1a8944602d9bf5b0eb8e07e5420c7a21",
-  "manuscript_lf_sha256": "f3d00721df14aa1f093b5ec2c51eaf440e77f60200f6011d8aad8a9c14e3d82a",
+  "manuscript_sha256": "afed3556a6a79453d72af29769df63d866ae1f7578e16e9d51aafee26b79ed00",
+  "manuscript_lf_sha256": "fff8b7765adf3df420c46010aaa1526c1e0993815e915c04b280797a3100977f",
   "layout_code_lf_sha256": {
-    "build_thesis_hwpx.py": "172a7d38b515d92d23e84f1fd68316e02707c4313b665d618ea64e8f540a789b",
+    "build_thesis_hwpx.py": "3152ef6027c3aec5084c9cfcc5891291eedc5c6a020f5acc00dcf9a57a5a242d",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "a1c6d20cdf2c2a628ea8ae4a7448bff89897187ea680574d86153eb8a6f1790d",
+  "pdf_sha256": "e47597df019d2641d24423be2f7a664d3379fd4944a4a4afb47d98fd6905c994",
   "pdf_pages": 55,
   "physical_pages": {
     "[그림 1-1]": 9,
@@ -20,7 +20,7 @@
     "2.4 Context-Aware Decoding": 13,
     "[그림 2-4]": 14,
     "2.5 Soft Constrained Decoding과 언어 이탈": 14,
-    "[그림 2-5]": 14,
+    "[그림 2-5]": 15,
     "2.6 RAG 평가": 15,
     "[그림 2-6]": 16,
     "2.7 관련 연구와 본 연구의 위치": 16,
@@ -42,7 +42,7 @@
     "[그림 4-2]": 24,
     "[표 5-1]": 25,
     "5.2 평가 및 분석 방법": 25,
-    "[그림 5-1]": 27,
+    "[그림 5-1]": 26,
     "5.3 RAG-Cube 조합별 결과": 27,
     "[표 5-2]": 27,
     "[그림 5-2]": 28,
@@ -102,7 +102,7 @@
     "2.4 Context-Aware Decoding": 5,
     "[그림 2-4]": 6,
     "2.5 Soft Constrained Decoding과 언어 이탈": 6,
-    "[그림 2-5]": 6,
+    "[그림 2-5]": 7,
     "2.6 RAG 평가": 7,
     "[그림 2-6]": 8,
     "2.7 관련 연구와 본 연구의 위치": 8,
@@ -124,7 +124,7 @@
     "[그림 4-2]": 16,
     "[표 5-1]": 17,
     "5.2 평가 및 분석 방법": 17,
-    "[그림 5-1]": 19,
+    "[그림 5-1]": 18,
     "5.3 RAG-Cube 조합별 결과": 19,
     "[표 5-2]": 19,
     "[그림 5-2]": 20,
@@ -244,7 +244,5 @@
     "참고문헌": 41,
     "부록 B. 추가 사례 및 탐색 분석": 52
   },
-  "pdf_filename": "ACADEMIC_BASIS.pdf",
-  "stage": "Personal basis export before TOC pagination",
-  "visual_review": "2026-10-10: all 55 actual Web Hancom pages inspected in five contact sheets; covers, abstracts and body pages enlarged. Outline headings resolved from rendered page images. Final TOC requires subsequent export verification."
+  "visual_review": "2026-10-10: all 55 actual AB43_BASIS Web PDF pages inspected in five contact sheets. Pages 3, 9, 21, 25 and 40 inspected full-size. Chapter and appendix headings resolved from those actual rendered pages; 43 requested judgments independently compared against MD/HWPX/PDF. No page count forced."
 }

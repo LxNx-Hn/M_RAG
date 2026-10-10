@@ -2,7 +2,7 @@
 
 **확정 제목:** 한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험
 
-제목을 바꾸지 않고 연구 배경, 기술 설명, 평가 조건, 실제 사례와 결론의 본문 39곳을 교정하였다. 결과 수치와 레이아웃 좌표는 유지하였다.
+제목을 유지하고 연구 배경, 기술 설명, 평가 조건, 실제 사례와 결론의 표현을 교정하였다. 최신 교정 내역은 ACADEMIC_POLISH_CHANGES.json에 기록하였다. 결과 수치와 레이아웃 좌표는 유지하였다.
 
 - [A1 인쇄 PDF](M_RAG_A1_FINAL_PRINT.pdf)
 - [편집용 PPTX](M_RAG_A1_FINAL_EDITABLE.pptx)
@@ -13,5 +13,8 @@
 - [전체 ZIP](M_RAG_A1_FINAL_DELIVERY.zip)
 - [교정 기록](A1_FINAL_REVIEW_KO.md)
 - [정확한 A→B 매핑](A1_COPYEDIT_MAP.json)
+- [최신 A→C 교정](ACADEMIC_POLISH_CHANGES.json)
+- [실물 및 구조 검증](ACADEMIC_POLISH_VALIDATION.json)
+- [추가 수정용 프롬프트](POSTER_REVISION_PROMPT_KO.md)
 
 A1 크기는 약 594 × 841mm이다.

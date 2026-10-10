@@ -264,7 +264,9 @@ def main() -> None:
         cover_text = "".join(tables[0].itertext()) + "".join(tables[1].itertext())
         assert "제출 페이지" not in cover_text and "인준 페이지" not in cover_text
         assert (
-            "English Academic and Technical Documents with Korean Queries" in cover_text
+            "Performance Comparison of HyDE, CAD, and SCD Combinations in RAG "
+            "with Korean Queries over English Academic and Technical Documents"
+            in cover_text
         )
         assert "주심" in cover_text and "부심" in cover_text
         template.close()

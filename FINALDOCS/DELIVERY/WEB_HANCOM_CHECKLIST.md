@@ -1,6 +1,12 @@
+# 현재 최종 제출본 검증
+
+현재 판정은 [최종 문장 교정 및 실물 감사](../VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md)를 따른다. 최종 실제 웹한글 PDF는 55쪽이며 본문 표시 쪽번호는 1~47이다. 77개 목차 항목을 실제 출력 위치와 대조했고 점선 리더를 유지하였다. 이전 시험용 HWPX는 사용자 요청에 따라 정리했으며 아래 내용은 당시 파일에 대한 과거 기록이다.
+
+---
+
 # 웹한글 최종 확인
 
-최신 조판·출처·문체 수정본은 [최종 감사 보고서](../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 최종 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+이전 조판·출처·문체 수정본은 [최종 감사 보고서](../VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md)에 기록했다. 당시 웹한글 PDF는 57쪽이며, 이전 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
 
 최신 문체 교정본의 수행·출력·검증 기록은 `../VALIDATION/FINAL_PROSE_AUDIT.md`와 아래 문체 교정본 절에 있다.
 

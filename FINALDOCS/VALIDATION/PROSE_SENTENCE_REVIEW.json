@@ -1,7 +1,7 @@
 {
-  "reviewed_head": "2c3e58e3262d94608b4853846271a5a37a898491",
-  "source_sha256_before": "53eb9d4ede4a1b24acf11dbccd355dfad3c3cf0f14943a641785043283673745",
-  "source_sha256_after": "fff8b7765adf3df420c46010aaa1526c1e0993815e915c04b280797a3100977f",
+  "reviewed_head": "9df29ea6df6e281b783db89486880055d8c1dafa",
+  "source_sha256_before": "afed3556a6a79453d72af29769df63d866ae1f7578e16e9d51aafee26b79ed00",
+  "source_sha256_after": "f3d00721df14aa1f093b5ec2c51eaf440e77f60200f6011d8aad8a9c14e3d82a",
   "method": "2026-10-10 사용자 재지적 후 초록부터 본문과 부록까지 순서대로 읽고 실제 문단의 주어, 동작, 수식 관계, 반복 및 연결을 재교정. 검증 통과는 문장 품질의 완성을 뜻하지 않는다.",
   "original_review": [
     {
@@ -5539,12 +5539,12 @@
     {
       "line": 3,
       "section": "졸업자격실험보고서",
-      "text": "한국어 질의를 이용한 영어 학술 문서와 기술 문서 RAG에서의 HyDE, CAD, SCD 조합 실험",
-      "sha256": "23f567b3227582bc035d36b09d2d5e114307273ad64aacdcef09fb614462da10",
+      "text": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서 HyDE, CAD, SCD의 조합별 성능 비교",
+      "sha256": "398c6f14aaaf1c1dfcf60721251fddcc16c248ceec58ccb4d7c463beb436b0dc",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "졸업자격실험보고서의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "검색 대상 문서와 세 기법의 조합별 비교 범위를 구분하였다. 국문 표지와 영문 제목을 함께 동기화한다."
     },
     {
       "line": 7,
@@ -5639,52 +5639,62 @@
     {
       "line": 21,
       "section": "국문초록",
-      "text": "또한 생성된 답변이 검색 근거에 의해 뒷받침되는 정도와 답변의 한국어 문자 비율을 구분하여 평가할 필요가 있다.",
-      "sha256": "b3d93c7f8d01c9d9ce59c7169bd72cf0d11aa2d09fc9b1b7e1ba7bb740e35697",
+      "text": "생성된 답변의 근거 충실도와 한국어 문자 비율은 각각 별도로 측정하였다.",
+      "sha256": "9782378c05c2944d7d32ade8ea3bd59b9daec059d641377cc7f3d88c4c2973eb",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "실제 출력 언어 지표가 문자 비율임을 명시하였다."
+      "reason": "평가의 당위성 대신 실제로 각각 측정한 지표를 제시하였다."
     },
     {
       "line": 21,
       "section": "국문초록",
-      "text": "본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 검색 입력 변경, 문맥을 활용한 디코딩, 한국어 출력 제어에 적용하였다.",
-      "sha256": "051f41819e7d10347c7e9b46893d51a605e256af1ff1544023c8e6d44dbabdac",
+      "text": "본 연구에서는 Hypothetical Document Embeddings(HyDE), Context-Aware Decoding(CAD), Soft Constrained Decoding(SCD)을 각각 밀집 검색 입력 변경, 검색 문맥을 활용한 로짓 조정, 한국어 출력 제어에 적용하였다.",
+      "sha256": "c58b4ddda234c47390d136d63d01479dfc04bd4e589c50f4b4c828d9820696c4",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "실제 출력 언어 지표가 문자 비율임을 명시하였다."
+      "reason": "평가의 당위성 대신 실제로 각각 측정한 지표를 제시하였다."
     },
     {
       "line": 21,
       "section": "국문초록",
-      "text": "세 기법의 적용 여부를 조합하여 총 8개 조건으로 구성된 RAG-Cube 실험을 수행하였다.",
-      "sha256": "3c4b71e15b32544fa9caab4392ec7306085035e9bf1d72ddd12d18bb0d77b224",
+      "text": "세 기법의 ON/OFF를 조합하여 RAG-Cube의 8개 실험 조건을 구성하였다.",
+      "sha256": "7abc6cb63f4cff2f8e5fa7de8bcb1f9467150be9a21ffcf0de71caa739b61d84",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "실제 출력 언어 지표가 문자 비율임을 명시하였다."
+      "reason": "평가의 당위성 대신 실제로 각각 측정한 지표를 제시하였다."
     },
     {
       "line": 23,
       "section": "국문초록",
-      "text": "검색과 생성에는 BGE-M3 밀집 검색, BM25 희소 검색, weighted Reciprocal Rank Fusion, CrossEncoder 재정렬과 K-intelligence/Midm-2.0-Base-Instruct로 구성한 Paper-RAG 백본을 사용하였다.",
-      "sha256": "8544bacb948ab2b2eec2f0e69892d9037fe636a047569d6356146d38d10983ff",
+      "text": "검색 단계에서는 BGE-M3 밀집 검색과 BM25 희소 검색을 사용하고, 두 검색 결과를 weighted Reciprocal Rank Fusion으로 결합한 뒤 CrossEncoder로 재정렬하였다.",
+      "sha256": "7edf49d38742e5dc2892699b8f58560986aae3f79d11c2dc63f78c55fef9723e",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "B의 120쌍 주 비교 순서를 적용하고 CAD의 H0S0 고정 조건을 보존하였다."
+      "reason": "검색, 순위 결합, 재정렬과 생성 모델의 역할을 문장으로 나누었다."
     },
     {
       "line": 23,
       "section": "국문초록",
-      "text": "RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report의 네 문서를 대상으로 문서별 15개씩 총 60개의 한국어 질의를 구성하였다.",
-      "sha256": "854cf37fae0c88be087cf138af08f44a85cd3a4ef04f5d1a2d8a3e9963edd989",
+      "text": "답변 생성에는 K-intelligence/Midm-2.0-Base-Instruct를 사용하였다.",
+      "sha256": "c8fa31f3067e34123574d6efb32b6a549dfc41e5994f460aa4a08c8bc5460700",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "B의 120쌍 주 비교 순서를 적용하고 CAD의 H0S0 고정 조건을 보존하였다."
+      "reason": "검색, 순위 결합, 재정렬과 생성 모델의 역할을 문장으로 나누었다."
+    },
+    {
+      "line": 23,
+      "section": "국문초록",
+      "text": "RAG Survey, CAD, RAPTOR, Mi:dm K 2.5 Pro Technical Report를 대상으로 각 문서에 대한 한국어 평가 질의를 15개씩 작성하여 총 60개를 구성하였다.",
+      "sha256": "450c2c1598da97d8dca635d7932842766f3d2e5d7acbc51cd48070fbf6358607",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "검색, 순위 결합, 재정렬과 생성 모델의 역할을 문장으로 나누었다."
     },
     {
       "line": 23,
@@ -5789,12 +5799,12 @@
     {
       "line": 29,
       "section": "국문초록",
-      "text": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 문서와 기술 문서, 언어 이탈",
-      "sha256": "c9315330b4f5816333af22697c5b7598f6e03cfec623a0cec6bff99b96ebb390",
+      "text": "주요어: Retrieval-Augmented Generation, HyDE, Context-Aware Decoding, Soft Constrained Decoding, 한국어 질의, 영어 학술 및 기술 문서, 언어 이탈",
+      "sha256": "8e7c2a7663b928fb1560af3ba182429cee0031bdc37048468f649decc31d2800",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "국문초록의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "국문 제목과 초록의 문서 범위 용어를 통일하였다."
     },
     {
       "line": 31,
@@ -5829,22 +5839,22 @@
     {
       "line": 33,
       "section": "Abstract",
-      "text": "The extent to which retrieved evidence supports the answer and the proportion of Korean characters in the answer require separate evaluation.",
-      "sha256": "e8e16673326893df8fa6e112f50925e07b4e99f64827df0d8682319f2b816bd9",
+      "text": "We separately evaluated the faithfulness of generated answers to the retrieved evidence and the proportion of Korean characters in those answers.",
+      "sha256": "44c0d8570b4f9163b3fdcd926e34f2c0c6cedcce3469cd220b0e576dd803fa60",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "国文 초록과 동일한 연구 환경 및 비교 범위로 영문초록을 동기화하였다."
+      "reason": "국문초록과 같은 두 지표를 수행 시제로 제시하였다."
     },
     {
       "line": 33,
       "section": "Abstract",
-      "text": "We applied Hypothetical Document Embeddings (HyDE), Context-Aware Decoding (CAD), and Soft Constrained Decoding (SCD) to modify the retrieval input, incorporate context in decoding, and control Korean output, respectively.",
-      "sha256": "266545b550328426cbdd5570642351bb2677bcb629bef87d6a6d8c69086dcd1a",
+      "text": "We used Hypothetical Document Embeddings (HyDE) to modify dense-retrieval inputs, Context-Aware Decoding (CAD) to adjust token scores using retrieved context, and Soft Constrained Decoding (SCD) to control Korean output.",
+      "sha256": "c365e5a07617cdbc97531f8dab4995b786e0e07306b0435207ea9e1cfe8b806d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "国文 초록과 동일한 연구 환경 및 비교 범위로 영문초록을 동기화하였다."
+      "reason": "국문초록과 같은 두 지표를 수행 시제로 제시하였다."
     },
     {
       "line": 33,
@@ -5859,22 +5869,42 @@
     {
       "line": 35,
       "section": "Abstract",
-      "text": "The fixed Paper-RAG backbone combines BGE-M3 dense retrieval, BM25 sparse retrieval, weighted Reciprocal Rank Fusion, CrossEncoder reranking, and K-intelligence/Midm-2.0-Base-Instruct.",
-      "sha256": "15a549000c527eef10e97cdc5ba2ba043133b0f990e2448e033641e3f8fbabf4",
+      "text": "The Paper-RAG backbone used BGE-M3 for dense retrieval and BM25 for sparse retrieval.",
+      "sha256": "44c05afc6e02c3027789ec2dfbd350bcfb9447689dffb5bf9d192cdbffe28d6f",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "国文 초록과 동일한 연구 환경 및 비교 범위로 영문초록을 동기화하였다."
+      "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다."
     },
     {
       "line": 35,
       "section": "Abstract",
-      "text": "Sixty Korean query–target-document pairs were constructed from four English academic or technical documents, and eight configurations were applied to each pair, yielding 480 stored generation records.",
-      "sha256": "6fa7b93693d12d79e1e194b7f66b53b928aeba779bc94b665f35d594573440e9",
+      "text": "We combined their results using weighted Reciprocal Rank Fusion, reranked the candidates with a CrossEncoder, and generated answers with K-intelligence/Midm-2.0-Base-Instruct.",
+      "sha256": "7758382478467921339d3845a047d58a0a488e485b305b1340327bf998bbc518",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "国文 초록과 동일한 연구 환경 및 비교 범위로 영문초록을 동기화하였다."
+      "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다."
+    },
+    {
+      "line": 35,
+      "section": "Abstract",
+      "text": "We constructed 15 Korean evaluation queries for each of four English academic or technical documents, for a total of 60 queries.",
+      "sha256": "33844586e7877515ecd726a696c40cdc742284db38f50d188b93547944997810",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다."
+    },
+    {
+      "line": 35,
+      "section": "Abstract",
+      "text": "Each query was assigned a target document and evaluated under eight configurations, yielding 480 stored generation records.",
+      "sha256": "6d06fbd1268e4cd507f4a5c698a22818678851bb4fcd397d2115c736ff61ef1c",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "국문초록의 검색/재정렬/생성 역할 분리와 문서별 질의 구성 설명을 영문초록에도 반영하였다."
     },
     {
       "line": 35,
@@ -5939,12 +5969,12 @@
     {
       "line": 37,
       "section": "Abstract",
-      "text": "In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934].",
-      "sha256": "a1de616fb7077eebfc6f4816379f96dd51ebc9fd84cbbda8709d4045613c8b97",
+      "text": "In the identical-context CAD comparison, the mean paired difference in faithfulness was +0.0288 on 58 pairs with both scores available, with a 95% bootstrap confidence interval of [-0.0367, +0.0934], which included zero.",
+      "sha256": "1722e5e0885328efeae3dbb8451891a12022588cd6e4bdf5b9c9344da87915b6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "영문 초록의 58 유효쌍, CAD 신뢰구간의 0 포함 및 SCD 120/240쌍은 국문 초록과 일치한다."
+      "reason": "CAD 근거 충실도의 신뢰구간 설명 직후에 해석을 배치하였다."
     },
     {
       "line": 37,
@@ -5971,16 +6001,6 @@
       "section": "Abstract",
       "text": "The mean paired difference across all 240 state-matched pairs was +0.2289.",
       "sha256": "1ae83f239f421f9ac2af445f35a3568971945160cecc0dc42ead0fe7a89e93ea",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "영문 초록의 58 유효쌍, CAD 신뢰구간의 0 포함 및 SCD 120/240쌍은 국문 초록과 일치한다."
-    },
-    {
-      "line": 37,
-      "section": "Abstract",
-      "text": "The 95% confidence interval for CAD faithfulness included zero.",
-      "sha256": "50a2bc830b89c35b2e317fa912db0d55f95d3ce2db7eb02640a7e301d09c1f96",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -6399,12 +6419,12 @@
     {
       "line": 83,
       "section": "그 림 목 차",
-      "text": "[그림 1-1] 한국어 질의를 이용한 영어 학술 문서와 기술 문서 RAG 연구 환경 ···· [쪽번호 자동갱신]",
-      "sha256": "3396e7bb872d4bf5d3b79ffed060ad4719d9111565b931ac7faa7b156b8252f3",
+      "text": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경 ···· [쪽번호 자동갱신]",
+      "sha256": "095355aa3bffc8578c1be6b165108f1ccef70cb58a2fa3f375f48730ae909016",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "그 림 목 차의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "실제 그림의 한국어 질문, 영어 근거와 한국어 답변 흐름에 맞춰 제목을 고쳤다. 그림 목차와 본문 캡션 두 곳을 함께 변경하였다."
     },
     {
       "line": 84,
@@ -6829,32 +6849,32 @@
     {
       "line": 130,
       "section": "1.1 연구배경 및 목적",
-      "text": "본 연구는 한국어 질문으로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 바탕으로 한국어 답변을 생성하는 환경을 다룬다.",
-      "sha256": "7a39c025964d55330d29e1c841003fd0340a17f645103e4121ba06674aeabf13",
+      "text": "본 연구에서는 한국어 질의로 영어 학술 및 기술 문서에서 근거를 검색하고, 이를 이용해 한국어 답변을 생성하는 과정을 분석하였다.",
+      "sha256": "6341ddfb8ddbe4f9aacc41281d2637c69406006f2468ead7b7a9dba8a1eea667",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "RAG 정의에서 연구 환경과 평가 대상으로 이어지는 문단으로 교체하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 130,
       "section": "1.1 연구배경 및 목적",
-      "text": "이 환경에서는 질문과 원문의 언어 및 표현 차이에 따른 검색 결과를 확인해야 한다.",
-      "sha256": "e5d4b2cd947de32bc18745ef2494c13ea186a7c64882d91601f70ec8ba8d04f6",
+      "text": "한국어 질문과 영어 원문의 표현 차이는 검색 결과에 영향을 줄 수 있다.",
+      "sha256": "9588db404234a68c8473b2555f2a15b7efb792c53f6a806f07f80baef6ae85b4",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "RAG 정의에서 연구 환경과 평가 대상으로 이어지는 문단으로 교체하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 130,
       "section": "1.1 연구배경 및 목적",
-      "text": "또한 생성된 답변이 검색 근거에 의해 뒷받침되는 정도와 답변의 한국어 문자 비율을 각각 평가한다.",
-      "sha256": "17763847578283a1d31153769dc2077c7cc29d36777a8de5c83823c31e4cc43e",
+      "text": "생성된 답변에 대해서는 검색 근거에 대한 충실도와 한국어 문자 비율을 각각 측정하였다.",
+      "sha256": "888d71eb9c46dd91e04026533997f9241b40e63fe1cc5c82914817f26807ebd5",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "RAG 정의에서 연구 환경과 평가 대상으로 이어지는 문단으로 교체하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 132,
@@ -6869,12 +6889,22 @@
     {
       "line": 132,
       "section": "1.1 연구배경 및 목적",
-      "text": "CAD는 문맥을 포함했을 때와 제외했을 때 계산한 다음 토큰의 점수를 비교하고, 그 차이를 이용해 생성 점수를 조정한다[3].",
-      "sha256": "73a33a32f8ed482b6fc7ed0d7f543cc86f7dd6e36aefc183ae157478bdbb9ed7",
+      "text": "CAD는 검색 문맥을 포함한 입력과 제외한 입력에서 다음 토큰의 로짓을 각각 계산한다.",
+      "sha256": "b3dfee365ad52d2790a694dde78a4f0bcc01f983bcf5233e335e3533d7d17d39",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "SCD의 중립 토큰에는 점수 변경을 적용하지 않으므로 B의 각 그룹 조정 표현을 바로잡았다."
+      "reason": "문맥 포함/제외 입력, 각각 계산한 로짓과 가중 결합의 순서를 명시하였다. 원 논문 및 cad_decoder.py의 식과 대조하였다."
+    },
+    {
+      "line": 132,
+      "section": "1.1 연구배경 및 목적",
+      "text": "두 로짓을 가중 결합하여 토큰 선택에 반영한다[3].",
+      "sha256": "3e5530f5665802782de6dff737a3935632d6d188ceec7f892bece3d6e97f9a56",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "문맥 포함/제외 입력, 각각 계산한 로짓과 가중 결합의 순서를 명시하였다. 원 논문 및 cad_decoder.py의 식과 대조하였다."
     },
     {
       "line": 132,
@@ -6899,12 +6929,12 @@
     {
       "line": 134,
       "section": "1.1 연구배경 및 목적",
-      "text": "세 기법을 동일한 Paper-RAG 백본에 적용하여 적용 전후의 결과를 비교하였다[2][3][4].",
-      "sha256": "124cef5ee7a1f1d194ce5682995886eb89eab9fe512c16b3566e17abe5553164",
+      "text": "HyDE, CAD, SCD를 같은 Paper-RAG 백본에 적용하고 각 기법의 ON/OFF 결과를 비교하였다[2][3][4].",
+      "sha256": "b7bec25e7e578fa649938f8e8b2825516107a396fdf5faa2e489e46d50e97b7a",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "측정 시간은 검색부터 생성까지의 조건 실행 시간이므로 생성 시간이라는 B 표현을 수정하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 134,
@@ -6949,12 +6979,12 @@
     {
       "line": 138,
       "section": "1.1 연구배경 및 목적",
-      "text": "[그림 1-1] 한국어 질의를 이용한 영어 학술 문서와 기술 문서 RAG 연구 환경",
-      "sha256": "51c2d26fcb5b6cfdf47a12366d72d087b0f9fe829e60f80fc225a8a295568ec1",
+      "text": "[그림 1-1] 한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경",
+      "sha256": "85b5d8c1b28c88abf03ce8b350542dcfa805239c5d9bab116d8686a74031ba1f",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "1.1 연구배경 및 목적의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "실제 그림의 한국어 질문, 영어 근거와 한국어 답변 흐름에 맞춰 제목을 고쳤다. 그림 목차와 본문 캡션 두 곳을 함께 변경하였다."
     },
     {
       "line": 140,
@@ -6979,12 +7009,22 @@
     {
       "line": 142,
       "section": "1.2 연구범위",
-      "text": "문서별로 한국어 평가 질의 15개씩 작성하고, 각 질의를 대상 문서와 연결하여 60개 쌍을 구성하였다.",
-      "sha256": "108c7854fab0d47eb307108480b770b5db28a246f10e530252c2ffd389456540",
+      "text": "네 문서에 대해 각각 한국어 평가 질의 15개를 작성하였다.",
+      "sha256": "f195d1e299a073e9dc163c38b797b6743b084c839e690f108dbd592a44b3fd73",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "질의와 문서라는 목록으로 읽히지 않도록 질의 작성과 문서 연결을 분리하였다."
+      "reason": "질의 작성과 각 질의의 검색 대상 지정 동작을 분리하였다."
+    },
+    {
+      "line": 142,
+      "section": "1.2 연구범위",
+      "text": "총 60개 질의에는 각각 검색 대상 문서를 지정하였다.",
+      "sha256": "ec32ae5533359263390971372915f576464b74a402728c96a53b5a754e31a7c9",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "질의 작성과 각 질의의 검색 대상 지정 동작을 분리하였다."
     },
     {
       "line": 142,
@@ -7089,22 +7129,22 @@
     {
       "line": 148,
       "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
-      "text": "본 연구의 연구 질문은 네 가지이다.",
-      "sha256": "b1db1d95a2859d776a09ecdbcf9c53b72611fa8df9f6186f4465cfbcd3cf5135",
+      "text": "연구 질문은 다음 네 가지로 설정하였다.",
+      "sha256": "4955ddabfa9b916115e30dbac45fa2e1cfbcd9795359cd2cf3084cd365d4376b",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "질문에 물음표를 적용하고 기록된 시간의 측정 범위를 정확히 적었다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 148,
       "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
-      "text": "첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성과 나머지 RAGAS 지표가 어떻게 달라지는가?",
-      "sha256": "2112e96fd4d2797da93fcfd527b6cbf449ec5963620ec5838a0249ee0165c47a",
+      "text": "첫째, CAD와 SCD를 OFF로 고정한 상태에서 HyDE를 적용하면 답변 관련성, 근거 충실도, 문맥 정밀도와 문맥 재현율은 어떻게 달라지는가?",
+      "sha256": "b8b9ae2e579271e145d5e29e34525de4ab6854d685adb18f7249525e209c5fd8",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "질문에 물음표를 적용하고 기록된 시간의 측정 범위를 정확히 적었다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 148,
@@ -7129,22 +7169,32 @@
     {
       "line": 148,
       "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
-      "text": "이때 HyDE OFF의 동일 문맥 대응쌍을 주 비교로 사용하고, HyDE와 CAD의 적용 상태를 맞춘 전체 대응쌍도 분석한다.",
-      "sha256": "700ba0f7652f45bb62f8f4b83e0d3c096b52adab813f670cacb842b4cc04b02b",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "질문에 물음표를 적용하고 기록된 시간의 측정 범위를 정확히 적었다."
-    },
-    {
-      "line": 148,
-      "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
       "text": "넷째, 기법별 평가 결과와 조건 실행 시간을 기준으로 실험 조건을 어떻게 선택할 수 있는가?",
       "sha256": "4158f7b541f1aef87c6c02b96fd5a9eb7eb294962c9a48d39043574edb3b0183",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
       "reason": "질문에 물음표를 적용하고 기록된 시간의 측정 범위를 정확히 적었다."
+    },
+    {
+      "line": 150,
+      "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
+      "text": "SCD의 주 비교에는 HyDE를 OFF로 고정하고 검색 문맥이 동일한 120개 대응쌍을 사용하였다.",
+      "sha256": "43e61d0cf540b61dbbea84a3568e3455fdfcbe3ba11769319104927a9fdb15f0",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "120쌍의 동일 문맥 주 비교와 240쌍의 상태 일치 비교를 명시한다. 네 연구 질문을 모두 제시한 다음 문단에 방법 설명을 배치한다."
+    },
+    {
+      "line": 150,
+      "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
+      "text": "추가로 HyDE와 CAD의 적용 상태를 각각 맞춘 전체 240개 대응쌍도 분석하였다.",
+      "sha256": "a48166fa9a128d3ec73526361c6d5d236a97776e1aaf0eecbf2744621791ba7e",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "120쌍의 동일 문맥 주 비교와 240쌍의 상태 일치 비교를 명시한다. 네 연구 질문을 모두 제시한 다음 문단에 방법 설명을 배치한다."
     },
     {
       "line": 150,
@@ -7159,12 +7209,12 @@
     {
       "line": 150,
       "section": "1.3 연구 질문, 분석 관점 및 논문 구성",
-      "text": "검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조해 문맥이 동일한 대응쌍을 확인하였다.",
-      "sha256": "6496c2282d3b6fb9c442d8f746feb76ee11c8fdfe694b7f83cb805ebe3485bda",
+      "text": "각 대응쌍의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥을 대조하여 입력 문맥의 동일성을 확인하였다.",
+      "sha256": "0ecdb7d4113dfb800596d9aaf41f378bd413084fe18f271239622580afba46b6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "1.3 연구 질문, 분석 관점 및 논문 구성의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "120쌍의 동일 문맥 주 비교와 240쌍의 상태 일치 비교를 명시한다. 네 연구 질문을 모두 제시한 다음 문단에 방법 설명을 배치한다."
     },
     {
       "line": 150,
@@ -7359,12 +7409,12 @@
     {
       "line": 182,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "BM25는 질의에 포함된 모델명, 약어와 수치처럼 정확한 어휘 일치가 중요한 정보를 검색하는 데 활용하였다[5][6].",
-      "sha256": "86fd6f5421fd54be6ccb39cb3cc3b88d59efb847aa8d28c1cd5e993b76894adf",
+      "text": "BM25는 모델명, 약어, 수치처럼 질의와 원문에 동일하게 등장하는 표현을 검색 단서로 활용하였다[5][6].",
+      "sha256": "3f001f0092f86f518978d4ce632b7cd18bfe54264c06dce0efa91923c414030a",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "B의 의미적 유사성과 어휘 일치 설명을 적용하고 실제 검색 단위가 문서 구간임을 명시하였다."
+      "reason": "어휘가 일치하는 대상이 질의와 원문임을 명시하였다."
     },
     {
       "line": 182,
@@ -7409,22 +7459,22 @@
     {
       "line": 186,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "한국어 질의의 서술형 표현은 영어 원문의 제목이나 방법론 용어와 다를 수 있다.",
-      "sha256": "dd2c57a9c7d5bd831f1ce43c1935523ec96c2bf765bcbe7d54e94c71ff3f27af",
+      "text": "한국어로 작성한 질문은 영어 문서에 사용된 제목이나 방법론 용어와 어휘 및 표현 방식에서 차이가 날 수 있다.",
+      "sha256": "c0344dc3acaab106e6a11ed8e94c75fdf1e6a0226c19a6703fb23d6a650a62c6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "지시어와 추상적인 단서 적용 표현을 실제 검색 동작으로 바꾸었다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 186,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "논문명, 데이터셋명, 모델 크기와 하이퍼파라미터도 BM25의 어휘 일치 검색에 사용할 수 있다.",
-      "sha256": "f534b165c7c810ef79f85cc8d62b409edacec87416d2b4566d54495a69c726c3",
+      "text": "BM25의 어휘 일치 검색에는 논문명, 데이터셋명, 모델 크기와 하이퍼파라미터 표기를 검색 단서로 사용하였다.",
+      "sha256": "27e4eef5cd07220fcbb98acc8d3e991b526b94faa3952f74085133433ff26d1a",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "지시어와 추상적인 단서 적용 표현을 실제 검색 동작으로 바꾸었다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 188,
@@ -7479,12 +7529,22 @@
     {
       "line": 190,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "본 실험에서는 문맥 수와 순서 정책을 고정하고, 검색 결과와 생성 결과를 별도 지표로 기록하였다.",
-      "sha256": "e345e2fad28f21148192ae0b88a37fd27676142080a942822eb4364867080f61",
+      "text": "본 실험에서는 최종 입력 문맥을 상위 5개 청크로 구성하고, 재정렬 순서대로 배치하였다.",
+      "sha256": "2b7f4a11640b8c385b3ea9b7a60e8a559f0a546564df362f0d085df3b3767ec0",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "입력 위치에 대한 선행연구의 관찰과 본 실험의 문맥 수·순서 정책을 구분한다. ‘달라질 수 있다’는 원 논문이 다룬 현상의 설명이다."
+      "reason": "고정한 것은 검색 결과 자체가 아니라 청크 수와 재정렬 순서에 따르는 배치 규칙이다. 실제 실행기의 reranked[:ctx_n], 압축 및 길이 상한 처리 순서를 대조하였다."
+    },
+    {
+      "line": 190,
+      "section": "2.2 하이브리드 검색과 재정렬",
+      "text": "검색 성능과 답변 품질은 별도 지표로 평가하였다.",
+      "sha256": "37064fe9482ab300319076a06b576b4e491f0160d34f4f283421078463232154",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "고정한 것은 검색 결과 자체가 아니라 청크 수와 재정렬 순서에 따르는 배치 규칙이다. 실제 실행기의 reranked[:ctx_n], 압축 및 길이 상한 처리 순서를 대조하였다."
     },
     {
       "line": 194,
@@ -7509,12 +7569,22 @@
     {
       "line": 198,
       "section": "2.2 하이브리드 검색과 재정렬",
-      "text": "본 실험에서 사용한 weighted RRF의 계산식은 다음과 같으며, RRF 상수 k는 60으로 설정하였다.",
-      "sha256": "c4c16f0c2168a11c56e7263b9072c5c3d6b95b8005a9ba72aeb010740005849f",
+      "text": "본 실험에서는 RRF 상수 k를 60으로 설정하였다.",
+      "sha256": "e739b5d861a9c37cd4361e9529547ea4a5b77139acf26ca562c2cb019bdc08b0",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "k=60을 RRF 상수로 명시하여 60개 평가 질의와 구별한다."
+      "reason": "상수 설정과 점수 계산 동작을 분리하였다."
+    },
+    {
+      "line": 198,
+      "section": "2.2 하이브리드 검색과 재정렬",
+      "text": "두 검색 순위를 결합한 점수는 다음 식으로 계산하였다.",
+      "sha256": "fc25b3530ac89e833af753f02d62bd30eb01ebf5eee314059a714860010b5389",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "상수 설정과 점수 계산 동작을 분리하였다."
     },
     {
       "line": 206,
@@ -7549,12 +7619,12 @@
     {
       "line": 210,
       "section": "2.3 HyDE와 가상 문서 기반 검색",
-      "text": "그림 2-3은 질의 입력부터 가상 문서 생성, 임베딩 변환과 실제 문서 검색까지의 처리 과정을 보여준다.",
-      "sha256": "12ef5099eb5dc4762dd775083097bd2a6a185390bfdd317c26164ca6a8b242f2",
+      "text": "그림 2-3은 입력 질의로 가상 문서를 생성하고, 이를 임베딩한 뒤 실제 문서 집합을 검색하는 HyDE의 처리 과정을 나타낸다.",
+      "sha256": "77bbc68f1df0d3ee28ebb3f108bc865e8c103d54f640ec2394ad326eda03e358",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "앞 문단에서 정의한 처리 원리를 반복하지 않고 그림의 처리 순서만 설명하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 214,
@@ -7619,22 +7689,22 @@
     {
       "line": 218,
       "section": "2.3 HyDE와 가상 문서 기반 검색",
-      "text": "따라서 HyDE ON/OFF 비교에는 질의 번역, 가상 문서 생성, 밀집 검색 입력과 최종 검색 문맥의 변화가 포함된다.",
-      "sha256": "965fc2936ad5193cbe754a5f58efb99f4e4edf5085455a196b71e3afcd796122",
+      "text": "HyDE ON/OFF 비교에서는 질의 번역과 가상 문서 생성에 따라 밀집 검색 입력이 달라진다.",
+      "sha256": "99694dea3d93334381ee3b1cfab04f117315050a92fa059db7edc0ddabf9b308",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일한 임베딩 동작을 두 번 설명한 부분을 통합하였다."
+      "reason": "번역과 가상 문서 생성으로 달라지는 밀집 검색 입력에서 최종 문맥과 답변의 변화로 설명을 연결하였다."
     },
     {
       "line": 218,
       "section": "2.3 HyDE와 가상 문서 기반 검색",
-      "text": "검색 청크 ID와 최종 문맥을 대조하고, 답변 관련성의 변화와 함께 분석하였다.",
-      "sha256": "00657cb5c6d6ccdbdc25181ac5a6c6f1aab8a1bbdd76df24a77d96d221634020",
+      "text": "검색 청크 ID와 최종 검색 문맥을 대조하여 검색 결과의 변화를 확인하고, 생성 답변의 답변 관련성도 함께 분석하였다.",
+      "sha256": "ea87dea507b306be8cd3e126faec781a9802ade8335499578c6f1bf9c94a9289",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일한 임베딩 동작을 두 번 설명한 부분을 통합하였다."
+      "reason": "번역과 가상 문서 생성으로 달라지는 밀집 검색 입력에서 최종 문맥과 답변의 변화로 설명을 연결하였다."
     },
     {
       "line": 220,
@@ -7739,12 +7809,12 @@
     {
       "line": 240,
       "section": "2.4 Context-Aware Decoding",
-      "text": "CAD는 토큰을 생성할 때마다 검색 문맥을 포함한 계산과 제외한 계산을 수행한다.",
-      "sha256": "a6473e4a62fbfa7fd5dfefa2b1039ddfe5400a5eeece8fe2c6cd9a0de1589dbe",
+      "text": "CAD는 토큰을 생성할 때 검색 문맥을 포함한 입력과 제외한 입력에 대해 각각 다음 토큰의 로짓을 계산한다.",
+      "sha256": "8bc4aa0ba848da33f4bd89be2ee1bbb9f243a3f568578fb8476c445173d3c594",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "시간의 측정 범위를 조건 실행 시간으로 고치고 5.5절의 분석 내용을 명시하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 240,
@@ -7755,16 +7825,6 @@
       "decision": "retain",
       "type": "direct",
       "reason": "시간의 측정 범위를 조건 실행 시간으로 고치고 5.5절의 분석 내용을 명시하였다."
-    },
-    {
-      "line": 242,
-      "section": "2.4 Context-Aware Decoding",
-      "text": "동일 문맥 대응쌍의 구성은 3.3절에 제시한다.",
-      "sha256": "7be53cfd86df11333068d57cd2c7ac07ce79878f0c12165c7655af9a4c91dddc",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "3.3절에서 같은 문맥 쌍의 조건 코드와 ID 대조를 설명하므로 절 참조가 정확하다."
     },
     {
       "line": 244,
@@ -7879,12 +7939,12 @@
     {
       "line": 256,
       "section": "2.5 Soft Constrained Decoding과 언어 이탈",
-      "text": "출력 언어는 생성 답변의 한글 문자 수를 한글 문자와 ASCII 영문자 수의 합으로 나눈 한국어 문자 비율로 측정하였다.",
-      "sha256": "a89a3b6bcc2609291e9d354477f52982e492a8af7a3a1572b816af0cfa5d03e6",
+      "text": "한국어 문자 비율은 생성 답변의 한글 문자 수를 한글 문자 수와 ASCII 영문자 수의 합으로 나누어 계산하였다.",
+      "sha256": "55ecd594588a3ea84e55d2932b09fb3edb5371218375554b7e05016b3d3438fa",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "분자는 한글 문자, 분모는 한글과 ASCII 영문자로 정해진다. 품질 지표와 다른 출력 언어 지표이다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 258,
@@ -7979,32 +8039,22 @@
     {
       "line": 290,
       "section": "2.6 RAG 평가",
-      "text": "Es 외[10]는 동일한 질문과 검색 문맥에 대해 생성된 답변을 비교하여 RAGAS 평가 지표를 설명하였다.",
-      "sha256": "d46b9b5e3efe9a752c9f270c2af75af08dcd3df204aa21508d23823e58c5b352",
+      "text": "Es 외[10]는 WikiEval에서 동일한 질문과 검색 문맥에 대한 서로 다른 답변을 비교하여 근거 충실도를 설명하였다.",
+      "sha256": "980633b96042021f4d8637766ff63a7fd19ef764e1265438c4fe96b8d21ae420",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일 질문과 문맥에 대한 답변 비교임을 명시하고 실제 인용 사례 설명을 보존하였다."
+      "reason": "원 논문 표 2는 근거 충실도 사례다. 답변 관련성까지 이 표에서 설명한 것처럼 읽히던 문장을 고치고 동일 질문과 문맥이라는 반복을 통합하였다."
     },
     {
       "line": 290,
       "section": "2.6 RAG 평가",
-      "text": "그림 2-6은 원 논문의 표 2에서 발췌한 WikiEval 사례다.",
-      "sha256": "c67532c66ccca5ced274543cf7b65fb002f44746efdf8c451738b3804461554f",
+      "text": "그림 2-6은 원 논문의 표 2에서 발췌한 사례이며, 같은 검색 문맥으로 뒷받침되는 답변과 그렇지 않은 답변을 보여준다.",
+      "sha256": "3d6f38e43ead4a83afcea5fc300eaaa16de7780926127c98b2d5b155f8b4d71d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일 질문과 문맥에 대한 답변 비교임을 명시하고 실제 인용 사례 설명을 보존하였다."
-    },
-    {
-      "line": 290,
-      "section": "2.6 RAG 평가",
-      "text": "같은 질문과 문맥에 대해 근거 충실도가 높은 답변과 낮은 답변을 비교하여, 질문과의 관련성과 문맥이 주장을 뒷받침하는 정도를 구분한다.",
-      "sha256": "a8efac99db1f0a0b9f56470dd16393e987b0439cc8e72d1f723992e319653eb5",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "동일 질문과 문맥에 대한 답변 비교임을 명시하고 실제 인용 사례 설명을 보존하였다."
+      "reason": "원 논문 표 2는 근거 충실도 사례다. 답변 관련성까지 이 표에서 설명한 것처럼 읽히던 문장을 고치고 동일 질문과 문맥이라는 반복을 통합하였다."
     },
     {
       "line": 294,
@@ -8329,12 +8379,12 @@
     {
       "line": 349,
       "section": "3.2 아키텍처 설계",
-      "text": "실험은 질의 입력, 검색 입력 구성, 하이브리드 검색, 재정렬, 상위 청크 선택, 문맥 길이 관리, 답변 생성, 기록 저장과 평가 순서로 수행하였다.",
-      "sha256": "c817288c99dfd396e6894aa07a0e3db7d948b870524a56e89050b62ab2c2bae9",
+      "text": "실험에서는 질의를 입력받아 조건에 맞는 검색 입력을 구성하였다.",
+      "sha256": "b0555d47bf1366f8b77e5f7ebfbc40a0a2f2f9414b7f71001c7c2685acd267eb",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "조건별 검색 입력과 두 조건에 공통인 BM25 및 재정렬 입력을 분리하였다."
+      "reason": "검색 입력 구성부터 평가까지 실제 처리 순서대로 기술하였다. ContextCompressor는 상한 초과 시에만 압축하므로 모든 입력의 길이를 조정했다는 B 표현을 수정하였다. 조건별 검색 입력 설명과 공통 임베딩 문장을 이 문단에 함께 반영하였다."
     },
     {
       "line": 349,
@@ -8359,18 +8409,18 @@
     {
       "line": 349,
       "section": "3.2 아키텍처 설계",
-      "text": "BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다.",
-      "sha256": "08d22ab5a3c08abdd1d40853565fdd8a58662d7f77a82755bdd09f90078e258d",
+      "text": "HyDE ON과 OFF 조건 모두 BGE-M3를 사용해 밀집 검색용 벡터를 생성하였다.",
+      "sha256": "33ff70fa12e116c9f80f4794bad3c2e39f5bdcc8e19a57019cb92c4dd8556916",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "조건별 검색 입력과 두 조건에 공통인 BM25 및 재정렬 입력을 분리하였다."
+      "reason": "검색 입력 구성부터 평가까지 실제 처리 순서대로 기술하였다. ContextCompressor는 상한 초과 시에만 압축하므로 모든 입력의 길이를 조정했다는 B 표현을 수정하였다. 조건별 검색 입력 설명과 공통 임베딩 문장을 이 문단에 함께 반영하였다."
     },
     {
       "line": 349,
       "section": "3.2 아키텍처 설계",
-      "text": "두 밀집 검색 조건의 임베딩에는 BGE-M3를 사용하였다.",
-      "sha256": "e4d0b6ecd73a90462813b40261e67e44dbd450259cbaf141610f6d1e10059a34",
+      "text": "BM25 검색과 CrossEncoder 재정렬에는 두 조건 모두 원래의 한국어 질의를 사용하였다.",
+      "sha256": "08d22ab5a3c08abdd1d40853565fdd8a58662d7f77a82755bdd09f90078e258d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
@@ -8389,12 +8439,22 @@
     {
       "line": 349,
       "section": "3.2 아키텍처 설계",
-      "text": "상위 5개 청크에 ContextCompressor의 문맥 길이 관리 절차를 적용하여 생성 모델의 입력을 구성하였다.",
-      "sha256": "1b115efc14fccd36460cf41b5f623916e7cbf62d40561975b81ba4d641956c4f",
+      "text": "재정렬 순위에 따라 상위 5개 청크를 선택한 뒤 ContextCompressor로 입력 문맥의 길이를 관리하였다.",
+      "sha256": "1011cad7e171308ac399f157059ef33bdd3064d6d936039dd78c10b8b374aa3f",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "조건별 검색 입력과 두 조건에 공통인 BM25 및 재정렬 입력을 분리하였다."
+      "reason": "검색 입력 구성부터 평가까지 실제 처리 순서대로 기술하였다. ContextCompressor는 상한 초과 시에만 압축하므로 모든 입력의 길이를 조정했다는 B 표현을 수정하였다. 조건별 검색 입력 설명과 공통 임베딩 문장을 이 문단에 함께 반영하였다."
+    },
+    {
+      "line": 349,
+      "section": "3.2 아키텍처 설계",
+      "text": "이 문맥을 생성 모델에 제공하여 답변을 생성하고, 생성 결과를 저장한 뒤 평가하였다.",
+      "sha256": "39c1bfb106dd2f383fa46384306545bb6f679357a9459b8b37c2e4d6b9516a6d",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "검색 입력 구성부터 평가까지 실제 처리 순서대로 기술하였다. ContextCompressor는 상한 초과 시에만 압축하므로 모든 입력의 길이를 조정했다는 B 표현을 수정하였다. 조건별 검색 입력 설명과 공통 임베딩 문장을 이 문단에 함께 반영하였다."
     },
     {
       "line": 351,
@@ -8509,12 +8569,12 @@
     {
       "line": 359,
       "section": "3.3 상세설계",
-      "text": "SCD ON 기록에는 mode, alpha=1.1, beta=0.9, Tstart=5가 저장되며, CAD ON 기록에는 alpha=0.5가 저장된다.",
-      "sha256": "6c8e49009c4cb5cc50f04d6ff1e1cde3dcbae0484fe9e29279508ae5bdb12a94",
+      "text": "SCD ON 기록에는 mode=reference_scd, alpha=1.1, beta=0.9, Tstart=5를, CAD ON 기록에는 alpha=0.5를 저장하였다.",
+      "sha256": "25e705f22d105964c0c303a0744f1a9d600d9fcb31c821a6ed30b9b6141fe604",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "3.3 상세설계의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
+      "reason": "모드의 실제 값을 명시하고 저장 동작의 시제를 통일하였다."
     },
     {
       "line": 361,
@@ -8619,12 +8679,12 @@
     {
       "line": 394,
       "section": "3.3 상세설계",
-      "text": "조건별 평균은 한 조건에서 평가값이 있는 기록의 평균이다.",
-      "sha256": "554626d4d5c63b8adb4681933761963626c0bc6b12cef75dbb54779faaf7de94",
+      "text": "조건별 평균은 각 지표의 평가값이 있는 기록으로 계산하였다.",
+      "sha256": "a36985448e4d4e946ab4b0393eb248a15f6c3b7e42462bac74e9e0b7b69a06df",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "명사구 두 개를 병렬 정의하던 긴 문장을 나누었다. 결측값을 포함한 평균으로 해석되지 않도록 유효 기록 기준을 유지하였다."
+      "reason": "모든 지표를 합산하는 평균으로 오해하지 않도록 평균의 단위를 지표별로 명시하였다."
     },
     {
       "line": 394,
@@ -8699,22 +8759,22 @@
     {
       "line": 402,
       "section": "4.1 시스템 환경",
-      "text": "일반 텍스트 청크는 Python `split()`의 공백 분리 단위를 기준으로 최대 크기 512개 단어, 중첩 크기 64개 단어, 최소 크기 50개 단어로 설정하였다.",
-      "sha256": "5a2959d60f40faf3b620018831e4565e638288cdc96946b82dc8256f7fe8f15c",
+      "text": "일반 텍스트는 Python `split()`의 공백 분리 단위를 기준으로 청크로 나누었다.",
+      "sha256": "f37c23d9494c333dce1189b1f18b512c58011b431c6a4bc44ac6ba2346de49b6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "일반 텍스트의 크기 설정과 구조 블록 보존을 분리하였다. chunker의 section 구현을 설명하며 역사적 청크 분포를 단정하지 않는다."
+      "reason": "split()의 계산 단위와 세 설정을 보존하였다. 서로 다른 절과 구조 청크의 경계까지 항상 겹치는 것으로 읽히지 않도록 중첩 범위를 같은 텍스트 구간으로 명시하였다."
     },
     {
       "line": 402,
       "section": "4.1 시스템 환경",
-      "text": "청크 분할기의 기본 section 전략은 수식, 표와 코드 블록을 분할하지 않고 구조 청크로 보존한다.",
-      "sha256": "65db2e768bfb1c85bc3f8af5daba4c542ac4d537c706f87381688640d7994c26",
-      "candidate": true,
+      "text": "청크의 최대 크기는 512단어, 최소 크기는 50단어로 설정하였으며, 같은 텍스트 구간에서 연속으로 나눈 청크는 64단어가 겹치도록 하였다. section 분할 전략에서는 수식, 표와 코드 블록을 나누지 않고 각각 독립된 구조 청크로 보존하였다.",
+      "sha256": "cfa99c91438b7d1678f03ece5e36063c2d32fdc177467f7ba2e37d7634abc3df",
+      "candidate": false,
       "decision": "retain",
-      "type": "F",
-      "reason": "일반 텍스트의 크기 설정과 구조 블록 보존을 분리하였다. chunker의 section 구현을 설명하며 역사적 청크 분포를 단정하지 않는다."
+      "type": "direct",
+      "reason": "split()의 계산 단위와 세 설정을 보존하였다. 서로 다른 절과 구조 청크의 경계까지 항상 겹치는 것으로 읽히지 않도록 중첩 범위를 같은 텍스트 구간으로 명시하였다."
     },
     {
       "line": 402,
@@ -9099,12 +9159,12 @@
     {
       "line": 504,
       "section": "5.1 실험 대상과 구성",
-      "text": "이후 초기 질문의 형식과 범위를 기준으로 LLM을 사용하여 문서의 주요 내용을 요약하였다.",
-      "sha256": "028ed2dfab50d1f7db77159f2e0558ab07106a0b5b95068998045947776525e4",
+      "text": "이후 초기 질문의 표현 방식과 범위를 기준으로 LLM이 각 문서의 주요 내용을 요약하도록 하였다.",
+      "sha256": "b0ab07c7885b2590daf8fe15f2e60d37441aa314c6460bad74abbd9024ca0c3c",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "기준으로와 LLM으로가 연달아 등장하는 부자연스러운 도구 수식을 고쳤다."
+      "reason": "질의 구성 절차 기록은 초기 질문의 표현 방식과 범위를 모두 사용한다. B에서 생략된 표현 방식도 보존하였다."
     },
     {
       "line": 504,
@@ -9199,12 +9259,12 @@
     {
       "line": 510,
       "section": "5.1 실험 대상과 구성",
-      "text": "검색 설정은 별도의 5개 튜닝 질의로 선정하였다.",
-      "sha256": "d3268dfa9f65991c00162069690af323d0ddf470e143b3f4fc0c4c6683c54008",
+      "text": "검색 설정을 정할 때는 최종 평가 집합과 분리한 튜닝 질의 5개를 사용하였다.",
+      "sha256": "1b039bce0ad951745b4ff8f12f032e1eb4845b640d3fa378a8aff3f94907dfe8",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "사전 튜닝의 설정 선정과 최종 60×8 생성 과정을 순서대로 설명한다. 실제 총 480개와 일치한다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 510,
@@ -9439,12 +9499,22 @@
     {
       "line": 537,
       "section": "5.2 평가 및 분석 방법",
-      "text": "질의를 재표집 단위로 200,000회의 대응 부트스트랩을 수행하고 seed를 20260713으로 고정하였다.",
-      "sha256": "c5c4732c30d3ff1dad15c3b2385c389faf468094994a065d3507d7459123b991",
+      "text": "대응 차이의 신뢰구간을 계산하기 위해 질의 단위로 200,000회 부트스트랩 재표집을 수행하였다.",
+      "sha256": "695ce4aed5b73739186da727fdddc7dd7baf9e10eab732c699fb650a40072ee4",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "실제 감소 임계값과 신뢰구간의 표집 범위를 보존한다. 네 문서를 고정한 질의 단위의 부트스트랩이다."
+      "reason": "대응 차이 신뢰구간의 계산 목적, 질의 단위 재표집, 횟수와 시드를 나누어 기술하였다. 다음 문장의 SCD 질의별 묶음 재표집은 유지하였다."
+    },
+    {
+      "line": 537,
+      "section": "5.2 평가 및 분석 방법",
+      "text": "난수 시드는 20260713으로 고정하였다.",
+      "sha256": "e6f930cbd1e1d84d2664ae0b17f2dbf3a2489fdce296c989f8452d8f4a1d7003",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "대응 차이 신뢰구간의 계산 목적, 질의 단위 재표집, 횟수와 시드를 나누어 기술하였다. 다음 문장의 SCD 질의별 묶음 재표집은 유지하였다."
     },
     {
       "line": 537,
@@ -9609,12 +9679,12 @@
     {
       "line": 589,
       "section": "5.3 RAG-Cube 조합별 결과",
-      "text": "각 블록의 조건별 평균은 앞서 설명한 영어 평가 문맥과 한국어 번역 평가 문맥의 프로토콜에 따른 기술통계이다.",
-      "sha256": "b77b290722414768f06131427b758c7724ae886f9ab4df787ce268446ec75d2c",
+      "text": "조건별 평균은 SCD OFF에서 영어 문맥으로, SCD ON에서 한국어 번역 문맥으로 평가한 값이다.",
+      "sha256": "eeb5d6d921f1eb56dea192804c25ebfb1b782f8f5b983966e85040785302aec5",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "두 블록 바로 위에 적은 문맥 언어를 같은 말로 반복하는 대신 연결 문구로 정리하였다. 모든 유효 표본 수를 보존하였다."
+      "reason": "긴 명사구와 앞서 설명한이라는 지시어를 실제 두 평가 문맥의 언어로 바꾸었다."
     },
     {
       "line": 593,
@@ -9819,12 +9889,12 @@
     {
       "line": 631,
       "section": "5.5 CAD 결과 및 해석",
-      "text": "증가 21쌍, 감소 24쌍, 동률 13쌍으로 집계되었다.",
-      "sha256": "ca51ce2ee4272e2a0ee2fe40cb05d5b78a7f7cc93ea2071d2ce6483fce490eb8",
+      "text": "근거 충실도는 58개 유효 대응쌍 중 21쌍에서 증가하고 24쌍에서 감소하였으며, 13쌍은 동률이었다.",
+      "sha256": "fc34dd216c5cbf6f9e86d50c8da6c0ccd4ebf5bf8507b855a8fdf820642cfa3b",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "증가, 감소와 동률은 각각이라는 반복 병렬 문구를 집계 결과로 직접 작성하였다. 모든 수치와 문맥 고정 조건은 유지하였다."
+      "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다."
     },
     {
       "line": 631,
@@ -9839,12 +9909,12 @@
     {
       "line": 631,
       "section": "5.5 CAD 결과 및 해석",
-      "text": "증가 19쌍, 감소 32쌍, 동률 9쌍이었다.",
-      "sha256": "92bc7777813b8958938730fcf66e297efa684f7eb797f349214e69ecdaaa7566",
-      "candidate": false,
+      "text": "답변 관련성은 60개 대응쌍 중 19쌍에서 증가하고 32쌍에서 감소하였으며, 9쌍은 동률이었다.",
+      "sha256": "e9240a069afc2643712669ff06f6e6a79ff068ad4dc15d860382bbcd06fcaae4",
+      "candidate": true,
       "decision": "retain",
-      "type": "direct",
-      "reason": "증가, 감소와 동률은 각각이라는 반복 병렬 문구를 집계 결과로 직접 작성하였다. 모든 수치와 문맥 고정 조건은 유지하였다."
+      "type": "F",
+      "reason": "유효 대응쌍의 수와 증가·감소·동률을 같은 단위인 쌍으로 통일하였다. 과거 19개 실험 집합 표기와 구분하였다."
     },
     {
       "line": 633,
@@ -9979,12 +10049,22 @@
     {
       "line": 659,
       "section": "5.6 SCD 출력 언어 결과 및 해석",
-      "text": "SCD 적용 전후의 출력 언어는 영어 검색 문맥을 입력하여 생성한 답변의 한국어 문자 비율로 평가하였다.",
-      "sha256": "c6a195365abdb47a9aab4c35b45b78f4c75d990f5c9eb5412ad4cfade03239ef",
+      "text": "SCD를 적용한 답변과 적용하지 않은 답변의 한국어 문자 비율을 비교하였다.",
+      "sha256": "d3252d2edaf081ed8c686874e4b3eac3361ed7b50c5fd4320a67dc9790cf3ff4",
+      "candidate": true,
+      "decision": "retain",
+      "type": "F",
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
+    },
+    {
+      "line": 659,
+      "section": "5.6 SCD 출력 언어 결과 및 해석",
+      "text": "두 조건 모두 생성 모델에는 영어 검색 문맥을 입력하였다.",
+      "sha256": "128a8318556239750f312dd892c2d1ce7798449f882b5bcdfd9c737890c5339e",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "SCD 120쌍은 동일 문맥, 240쌍은 H/C 상태 일치이다. 219/10/11의 증가/감소/동률을 보존한다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 659,
@@ -10029,12 +10109,12 @@
     {
       "line": 661,
       "section": "5.6 SCD 출력 언어 결과 및 해석",
-      "text": "H0의 두 조건군은 검색 문맥을 고정한 주 비교이다.",
-      "sha256": "b3139fc7ee7da5208e73dbb10d608870662d13e961c282faa232d1935adb1fa6",
+      "text": "HyDE OFF의 H0C0과 H0C1 조건군에서는 SCD 적용 전후에 동일한 검색 문맥을 사용하였다.",
+      "sha256": "68f8e721dc65643592c5422740e8b7fe4af8bde25f6572bacd4f825d33293373",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "변화량 각각에 H/C 조건 이름을 붙였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 661,
@@ -10047,24 +10127,14 @@
       "reason": "변화량 각각에 H/C 조건 이름을 붙였다."
     },
     {
-      "line": 661,
-      "section": "5.6 SCD 출력 언어 결과 및 해석",
-      "text": "네 조건군 모두 평균 대응 차이가 양수였다.",
-      "sha256": "4d95bacffad0669537153b89cd92d6736e1c81e1b9509ceb3ffc260dcb874610",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "변화량 각각에 H/C 조건 이름을 붙였다."
-    },
-    {
       "line": 663,
       "section": "5.6 SCD 출력 언어 결과 및 해석",
-      "text": "한국어 문자 비율에는 답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 표기도 함께 반영하였다.",
-      "sha256": "b6c00ff59305f96cf7eaf30d6d3393004ec118c9ff2718b171f848eabda22c9f",
+      "text": "답변에 포함된 영어 논문 제목, 모델명과 데이터셋명의 ASCII 영문자도 한국어 문자 비율의 분모에 포함하였다.",
+      "sha256": "4692021671527cd720e43c90814e9171eb4d329311758b364afd77cf4326bc77",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "영어 제목·모델명·데이터셋명도 답변 문자열에서 그대로 문자 비율에 반영됨을 설명한다. 평가에서 임의로 제외했다고 쓰지 않는다."
+      "reason": "반영하였다라는 모호한 표현 대신 실제 계산 대상과 위치를 적었다."
     },
     {
       "line": 665,
@@ -10359,12 +10429,22 @@
     {
       "line": 731,
       "section": "5.8 종합 논의",
-      "text": "그림 5-11은 HyDE 적용 전후의 변화를 CAD와 SCD의 설정별로 비교하고, CAD 적용 전후의 변화는 HyDE와 SCD의 설정별로 비교한 결과다.",
-      "sha256": "3bbf104ebffc5d173136b2e02b0aef41b62dbee25a56662b87c7dc45a2558012",
+      "text": "그림 5-11에는 HyDE와 CAD의 근거 충실도 및 답변 관련성 평균 대응 차이를 제시하였다.",
+      "sha256": "22b8a659dcf5d3f4c48cc28a4206f86287eb0a107d45bc9438eba40767fd5448",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "비교 요인별로 고정한 나머지 설정을 명시하고 수치 및 H1 독립 샘플링 설명을 보존하였다."
+      "reason": "두 그림 패널의 실제 지표명을 추가하고 그림과 결과의 주어 전환 및 비교하고/결과다의 호응 오류를 해소하였다."
+    },
+    {
+      "line": 731,
+      "section": "5.8 종합 논의",
+      "text": "HyDE의 결과는 CAD와 SCD의 설정별로, CAD의 결과는 HyDE와 SCD의 설정별로 구분하였다.",
+      "sha256": "f6df3faef1d70cce50f4970ae34cc683f7a9c940349771ca0ffa51394152d79b",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "두 그림 패널의 실제 지표명을 추가하고 그림과 결과의 주어 전환 및 비교하고/결과다의 호응 오류를 해소하였다."
     },
     {
       "line": 731,
@@ -10649,22 +10729,22 @@
     {
       "line": 757,
       "section": "6.1 연구 질문별 최종 답",
-      "text": "네 번째 연구 질문에 대한 조건 선택 기준은 적용 목적에 따라 정하였다.",
-      "sha256": "98d61e02295efca771e50c6b094aa99036abd80b727ed4cf0439a20db6f6f1a9",
+      "text": "네 번째 연구 질문에서는 적용 목적에 따른 실험 조건의 선택 기준을 검토하였다.",
+      "sha256": "cc1a13836ad7f841d953ea811ac395f98843c5bdb511813810fb2f71635f7acc",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일한 지표 목록을 두 문장에서 반복하고 무엇을 우선하는지 명확하지 않던 부분을 선택 절차로 작성하였다. 실험으로 최적 조합을 확정했다고 주장하지 않는다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 757,
       "section": "6.1 연구 질문별 최종 답",
-      "text": "답변 관련성, 검색 근거에 대한 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 그 지표의 대응 비교를 선택한다.",
-      "sha256": "2a61e094e868390227e1331c9a147f2f7edd7a6523263d3f4ba6c53b19a7d0ef",
+      "text": "답변 관련성, 근거 충실도, 조건 실행 시간과 한국어 문자 비율 중 우선할 지표를 정하고, 해당 지표의 요인별 대응 결과를 확인한다.",
+      "sha256": "d9c42a7afcb283c259fa612386117a28ed4a0a2660be4567ed3c2e25ef5ccdb9",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "동일한 지표 목록을 두 문장에서 반복하고 무엇을 우선하는지 명확하지 않던 부분을 선택 절차로 작성하였다. 실험으로 최적 조합을 확정했다고 주장하지 않는다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 757,
@@ -10759,32 +10839,22 @@
     {
       "line": 765,
       "section": "6.2 비교 설계의 의의",
-      "text": "생성 기록에는 질의, 검색 청크 ID, 재정렬 청크 ID, 최종 문맥, 생성 답변, 디코딩 설정과 조건 실행 시간을 저장하였다.",
-      "sha256": "fe8e56b183df3f5a944a27e87d5027fab036a1d32850a11cdeaa4142ee057caa",
+      "text": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 저장된 질문, 검색 문맥과 생성 답변에 평가값을 연결하여 제시하였다.",
+      "sha256": "90042778f1f33b3c8f8c3fb8480d9ab1db0bd4f64683a953c22ab1498664bc2d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "부록 B-1은 실제 감소 사례이며 본문 긍정 사례와 함께 기록을 추적한다."
+      "reason": "4.3절의 저장 필드 목록과 반복되는 설명을 줄이고 6.2절에서는 기록을 이용한 비교 사례에 집중하였다."
     },
     {
       "line": 765,
       "section": "6.2 비교 설계의 의의",
-      "text": "그림 5-3, 5-5, 5-7, 5-8, 5-10에는 이 기록에서 가져온 입력과 출력에 해당 평가값을 연결하여 제시하였다.",
-      "sha256": "6c39bbeff7b5d803690a62d572653f5a5ee34ec693a26ac756f8923e9989ca39",
+      "text": "부록 B의 그림 B-1에는 CAD 적용 후 근거 충실도가 감소한 사례를 수록하였다.",
+      "sha256": "054814cf8afe8cb43f25cf0722f7f9f09ad709c50aa3ae75930b31ae880f4dd6",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "부록 B-1은 실제 감소 사례이며 본문 긍정 사례와 함께 기록을 추적한다."
-    },
-    {
-      "line": 765,
-      "section": "6.2 비교 설계의 의의",
-      "text": "부록 B의 그림 B-1은 CAD 적용 후 근거 충실도가 감소한 사례이다.",
-      "sha256": "c0c0c54455f283fefb94fc65a19aec24c8158b9793f43d13584ca99557504e19",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "부록 B-1은 실제 감소 사례이며 본문 긍정 사례와 함께 기록을 추적한다."
+      "reason": "4.3절의 저장 필드 목록과 반복되는 설명을 줄이고 6.2절에서는 기록을 이용한 비교 사례에 집중하였다."
     },
     {
       "line": 767,
@@ -10859,85 +10929,95 @@
     {
       "line": 773,
       "section": "6.4 후속 연구 방향",
-      "text": "후속 연구에서는 평가 질의와 모델 조건을 확대할 수 있다.",
-      "sha256": "3811069afacf5b31e875f89ba58c63e1209f352ee281ac013d05a3a4f82ced2a",
+      "text": "후속 연구에서는 평가 질의, 문서 도메인과 생성 모델의 범위를 확대하는 방향을 제안한다.",
+      "sha256": "f9eecc0f176799c938751eb66b90518069f6dc756e81b4fd8f5df22053ca312c",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "잘못된 문서의 뜻을 문서 지정 오류로 명확히 하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 773,
       "section": "6.4 후속 연구 방향",
-      "text": "답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하면 근거가 부족한 상황에서의 생성 결과를 평가할 수 있다.",
-      "sha256": "6e4fa831ed2b77533ab85435bc1f1c386d7b72334e198d70a7b6c2fbb8ce8b21",
+      "text": "답변 불가능 질의, 대상 문서를 잘못 지정한 질의와 검색 근거가 제공되지 않은 입력을 추가하여 근거가 부족한 상황의 생성 결과를 평가하는 과제가 있다.",
+      "sha256": "b7f7ac9ef2723c23397e2d9c26a5d825e0ffbb2fe435fc7f3d0ef6809c7242e9",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "잘못된 문서의 뜻을 문서 지정 오류로 명확히 하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 773,
       "section": "6.4 후속 연구 방향",
-      "text": "문서 도메인, 생성 모델과 토크나이저를 변경한 반복 실험도 후속 연구 과제로 제안한다.",
-      "sha256": "3662d51f64b479e6b69b53d2c0b137caedd13f1a62a70ba54d80a23a08fecf96",
+      "text": "문서 도메인, 생성 모델과 토크나이저를 달리한 반복 실험에서는 조건별 답변 품질과 한국어 문자 비율의 차이를 분석할 수 있다.",
+      "sha256": "81f0a6cb2abd7ad9268af1cb259efd974cde935f70d6168c6aa7e094381323cb",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "잘못된 문서의 뜻을 문서 지정 오류로 명확히 하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 775,
       "section": "6.4 후속 연구 방향",
-      "text": "HyDE 후속 실험에서는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 별도의 실험 요인으로 구분할 수 있다.",
-      "sha256": "cc5485df282b92a88baad3f36f8ebcff2c8e6f0a2c1ee25541c87930ca8b52ee",
+      "text": "HyDE에는 질의 번역, 가상 문서 생성과 밀집 검색 입력 변경을 분리한 실험을 제안한다.",
+      "sha256": "98385f93cef4a367ae74463f135299591bb50f4a332a010d5a70673419def286",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "후속 연구를 현재 수행한 결과와 구분하고 동일 후보 재정렬 비교를 명시하였다. 생성 시간을 조건 실행 시간으로 고쳤다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 775,
       "section": "6.4 후속 연구 방향",
-      "text": "동일 질의를 반복 실행하면 가상 문서 생성에 따른 검색 결과의 변동을 분석할 수 있다.",
-      "sha256": "266f1dbd6f8b97794ad76cf96feb965ccaad26d65b753017d18b966e0e78c2ae",
+      "text": "같은 질의로 가상 문서를 반복 생성하여 검색 결과의 실행 간 변동을 측정하는 절차도 포함한다.",
+      "sha256": "37cdff28d9614112db2ea46e397f70d0be17cec3d6348ccf6c8afef8d3754b40",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "후속 연구를 현재 수행한 결과와 구분하고 동일 후보 재정렬 비교를 명시하였다. 생성 시간을 조건 실행 시간으로 고쳤다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 775,
       "section": "6.4 후속 연구 방향",
-      "text": "CAD 후속 실험에서는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간을 비교할 수 있다.",
-      "sha256": "d10051aaa4d8b8b5d7d50b79c3c064df1754a0b131d2b8da60f2138ec902bab3",
+      "text": "CAD는 α와 검색 문맥의 길이를 달리하여 근거 충실도, 답변 관련성과 조건 실행 시간의 변화를 비교하는 것이 후속 과제다.",
+      "sha256": "f63238e3d188fd77715315be650ec6ad94acafb2c8d6670ddfb9c9165eed924d",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "후속 연구를 현재 수행한 결과와 구분하고 동일 후보 재정렬 비교를 명시하였다. 생성 시간을 조건 실행 시간으로 고쳤다."
-    },
-    {
-      "line": 775,
-      "section": "6.4 후속 연구 방향",
-      "text": "SCD에는 답변의 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존에 대한 사람 블라인드 평가를 제안한다.",
-      "sha256": "a0fed5585f90deade73460649fb39c8944684d679a2f49579eda5287c09080ff",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "후속 연구를 현재 수행한 결과와 구분하고 동일 후보 재정렬 비교를 명시하였다. 생성 시간을 조건 실행 시간으로 고쳤다."
-    },
-    {
-      "line": 775,
-      "section": "6.4 후속 연구 방향",
-      "text": "재정렬 단계에서는 현재 사용한 CrossEncoder와 다국어 재정렬 모델을 동일한 검색 후보에 적용하여 결과를 비교할 수 있다.",
-      "sha256": "aced8a206dff71067811e4a79b764459019e5879ae70cc79d0f3c351b7793817",
-      "candidate": false,
-      "decision": "retain",
-      "type": "direct",
-      "reason": "후속 연구를 현재 수행한 결과와 구분하고 동일 후보 재정렬 비교를 명시하였다. 생성 시간을 조건 실행 시간으로 고쳤다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 777,
+      "section": "6.4 후속 연구 방향",
+      "text": "SCD의 후속 평가 항목은 답변의 자연스러움, 번역 충실도, 내용 정확성과 전문용어 보존이다.",
+      "sha256": "2bc526a12f74d25604b424afc4e9a23b2439522ab43ad4b908d90bef27d8bb7e",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "평가 범위 확대, HyDE 요인 분리와 반복 생성, CAD 파라미터 비교, SCD 사람 평가, 다국어 재정렬 비교를 세 문단으로 구성하였다. 미래 제안의 시제를 보존하고 변경 요인과 측정 항목을 연결하였다."
+    },
+    {
+      "line": 777,
+      "section": "6.4 후속 연구 방향",
+      "text": "평가자에게 기법의 적용 여부를 알리지 않는 사람 평가로 이 항목들을 확인하는 절차를 제안한다.",
+      "sha256": "c4f097260e2f502714585205792a4d09659392f2e6262e7c0f139bfce7e1f72f",
+      "candidate": true,
+      "decision": "retain",
+      "type": "F",
+      "reason": "평가 범위 확대, HyDE 요인 분리와 반복 생성, CAD 파라미터 비교, SCD 사람 평가, 다국어 재정렬 비교를 세 문단으로 구성하였다. 미래 제안의 시제를 보존하고 변경 요인과 측정 항목을 연결하였다."
+    },
+    {
+      "line": 777,
+      "section": "6.4 후속 연구 방향",
+      "text": "재정렬 단계의 비교에서는 현재 CrossEncoder와 다국어 재정렬 모델에 같은 검색 후보를 제공하고, 최종 검색 문맥과 답변 품질의 차이를 분석할 수 있다.",
+      "sha256": "c81cb6ba4293106a396ac29733753288c76e2e66d2c4c37f7ddb366fc1849560",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "평가 범위 확대, HyDE 요인 분리와 반복 생성, CAD 파라미터 비교, SCD 사람 평가, 다국어 재정렬 비교를 세 문단으로 구성하였다. 미래 제안의 시제를 보존하고 변경 요인과 측정 항목을 연결하였다."
+    },
+    {
+      "line": 779,
       "section": "참고문헌",
       "text": "# 참고문헌",
       "sha256": "6f5962b9446e7a699d9e95593af31ce57b9ed25098291c5996a76df23e7ac560",
@@ -10947,7 +11027,7 @@
       "reason": "참고문헌의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 823,
+      "line": 825,
       "section": "그림 자료 이용 정보",
       "text": "# 그림 자료 이용 정보",
       "sha256": "12807300c6ed33d089855f173718fd0cde484237db6730804e19306c7b274e18",
@@ -10957,7 +11037,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 825,
+      "line": 827,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-2~2-6은 CC BY 4.0에 따라 이용하였다.",
       "sha256": "a2ae0ca85e15a393dc15b8d2d69efcb8eefbcb979766bb2f3d0a4986a4fdc6e4",
@@ -10967,7 +11047,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 825,
+      "line": 827,
       "section": "그림 자료 이용 정보",
       "text": "각 그림의 저자와 서지정보는 참고문헌 번호로 표시하였다.",
       "sha256": "379a129bcf7b4b2b66141e19c6b060494f1a39700d70d010f32b1718134b3f6e",
@@ -10977,7 +11057,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 825,
+      "line": 827,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료의 주소와 편집 내역은 아래와 같다.",
       "sha256": "d4bd8765b3e310ccdf8ad19713cbed6ef48c51c2ce36269536ec33b3a0379d9b",
@@ -10987,7 +11067,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 827,
+      "line": 829,
       "section": "그림 자료 이용 정보",
       "text": "공통 라이선스: CC BY 4.0.",
       "sha256": "6b57c1cf9a7a09ef934f06d7078b52e35cc02839cec74e8916c5cccd4174cb93",
@@ -10997,7 +11077,7 @@
       "reason": "개별 그림에 적용되는 공통 라이선스 명칭이다. CC BY 4.0의 숫자는 소수 구분점이며 가운데점 치환 대상이 아니다."
     },
     {
-      "line": 829,
+      "line": 831,
       "section": "그림 자료 이용 정보",
       "text": "라이선스 안내: https://creativecommons.org/licenses/by/4.0/",
       "sha256": "a80d5d61ca5d07ffb82239b97454f88c0904254a8192076cac1215bcbca9060d",
@@ -11007,7 +11087,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 831,
+      "line": 833,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-1 — 본 연구 작성.",
       "sha256": "ba31b6758081eeb3cac635666368d6906b021ae2ab23c85affcd5dec0ac84398",
@@ -11017,7 +11097,7 @@
       "reason": "그림 2-1은 독립 도식이고 원본 RAG는 개념 참고임을 명시한다. 발췌 그림과 다른 이용 형태다."
     },
     {
-      "line": 831,
+      "line": 833,
       "section": "그림 자료 이용 정보",
       "text": "Lewis 외[1]의 RAG 구조를 참고하여 독립 도식을 작성하였다.",
       "sha256": "4fbeae780d7c0c407483dc4f7d68777f181edbc077c0171e88e3003356ae2e80",
@@ -11027,7 +11107,7 @@
       "reason": "그림 2-1은 독립 도식이고 원본 RAG는 개념 참고임을 명시한다. 발췌 그림과 다른 이용 형태다."
     },
     {
-      "line": 833,
+      "line": 835,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
       "sha256": "331c36b0c93d4b7d4cc801892e30e3c33d5c65ad1c2663401295cd917ffb9495",
@@ -11037,7 +11117,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 835,
+      "line": 837,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-2 — Nelson F. Liu 외[9], TACL 2024, 12:157–173; PDF page 2 (printed 158).",
       "sha256": "9b68f213d2fe7f1e2e727098ddb3c448d40e189255abd98f75b6fe486e518003",
@@ -11047,7 +11127,7 @@
       "reason": "저자 이니셜 F., TACL 권·쪽수, 원본 PDF와 인쇄 쪽수 및 자르기 내역을 구분한다. 이니셜을 문장 경계로 세지 않는다."
     },
     {
-      "line": 835,
+      "line": 837,
       "section": "그림 자료 이용 정보",
       "text": "원본 그림 1.",
       "sha256": "881c9a81cc5d415f70abdb5d4e46000f6f5005a24f6022cb3d26782fdb4ad605",
@@ -11057,7 +11137,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 835,
+      "line": 837,
       "section": "그림 자료 이용 정보",
       "text": "변경: 도표 영역 잘라내기.",
       "sha256": "cf8f60f8c1d27e33c58a4bebc762b0e03d8f71d9b7f05828bfe7d9f230bf39d9",
@@ -11067,7 +11147,7 @@
       "reason": "저자 이니셜 F., TACL 권·쪽수, 원본 PDF와 인쇄 쪽수 및 자르기 내역을 구분한다. 이니셜을 문장 경계로 세지 않는다."
     },
     {
-      "line": 837,
+      "line": 839,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://aclanthology.org/2024.tacl-1.9.pdf",
       "sha256": "6e5fa6236c7b8244489edfebee621b288d4f7d97a22377aabbd4bda81aba3191",
@@ -11077,7 +11157,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 839,
+      "line": 841,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-3 — Luyu Gao 외[2], ACL 2023, 1762–1777; PDF page 2 (printed 1763).",
       "sha256": "a19ea27efb808757d02da99028684c8fa364fbdc43639e1317b598d137896dcb",
@@ -11087,7 +11167,7 @@
       "reason": "HyDE 정식 ACL 출판본의 쪽수와 원본 그림 1, 로고 생략을 명시한다."
     },
     {
-      "line": 839,
+      "line": 841,
       "section": "그림 자료 이용 정보",
       "text": "원본 그림 1.",
       "sha256": "881c9a81cc5d415f70abdb5d4e46000f6f5005a24f6022cb3d26782fdb4ad605",
@@ -11097,7 +11177,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 839,
+      "line": 841,
       "section": "그림 자료 이용 정보",
       "text": "변경: 도식 영역 잘라내기, OpenAI 로고 생략.",
       "sha256": "7f4fda03a201d5dab2a7216de052c6fc850e2b6e332c0396a0ce9d8c91164f0d",
@@ -11107,7 +11187,7 @@
       "reason": "HyDE 정식 ACL 출판본의 쪽수와 원본 그림 1, 로고 생략을 명시한다."
     },
     {
-      "line": 841,
+      "line": 843,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://aclanthology.org/2023.acl-long.99.pdf",
       "sha256": "bcaf8c52a5d31f5c3bb0627b4d3cd7e7c20a964e72dab5143e62ce072eefb998",
@@ -11117,7 +11197,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 843,
+      "line": 845,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-4 — Weijia Shi 외[3], NAACL 2024 short, PDF page 1.",
       "sha256": "fca7d0da38b91b2998cf4a27051b76b5f7d21d3419eb8c0fb1f3749c062b7381",
@@ -11127,7 +11207,7 @@
       "reason": "CAD 출판본의 원본 그림 1과 자르기 내역을 지정한다."
     },
     {
-      "line": 843,
+      "line": 845,
       "section": "그림 자료 이용 정보",
       "text": "원본 그림 1.",
       "sha256": "881c9a81cc5d415f70abdb5d4e46000f6f5005a24f6022cb3d26782fdb4ad605",
@@ -11137,7 +11217,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 843,
+      "line": 845,
       "section": "그림 자료 이용 정보",
       "text": "변경: 그림 영역 잘라내기.",
       "sha256": "0e73150872d19b02aeea1700c41daec0ddf9c478e672dae988a5915f9244a63b",
@@ -11147,7 +11227,7 @@
       "reason": "CAD 출판본의 원본 그림 1과 자르기 내역을 지정한다."
     },
     {
-      "line": 845,
+      "line": 847,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://aclanthology.org/2024.naacl-short.69.pdf",
       "sha256": "db76d6a2294f54b4f083b779c9dab47618ed76d11311d68ff30ebcb5ee244d7f",
@@ -11157,7 +11237,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 847,
+      "line": 849,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-5 — Bo Li 외[4], arXiv:2511.09984v1, PDF page 1.",
       "sha256": "9104f2b020354a0e87165b1cf950a1f006da88a7a1c068b509c91279668d1892",
@@ -11167,7 +11247,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 847,
+      "line": 849,
       "section": "그림 자료 이용 정보",
       "text": "원본 그림 1.",
       "sha256": "881c9a81cc5d415f70abdb5d4e46000f6f5005a24f6022cb3d26782fdb4ad605",
@@ -11177,7 +11257,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 847,
+      "line": 849,
       "section": "그림 자료 이용 정보",
       "text": "변경: 그림 영역 잘라내기, OpenAI와 Ollama 로고 생략.",
       "sha256": "0f3016396924b70a2ca8760222594c00dd0509cc5b9a701efeb699a4d146b9e7",
@@ -11187,7 +11267,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 849,
+      "line": 851,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://arxiv.org/pdf/2511.09984v1",
       "sha256": "b1d0d037bf4c4dce2f8adbb0b57cb81660bf4223955ba248d4390877c4e51141",
@@ -11197,7 +11277,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 851,
+      "line": 853,
       "section": "그림 자료 이용 정보",
       "text": "그림 2-6 — Shahul Es 외[10], arXiv:2309.15217v2, PDF page 8.",
       "sha256": "849d0f4194206cc0e5edfe4296a0f9c4efdbbc0d00e795f4b92831e834236e8d",
@@ -11207,7 +11287,7 @@
       "reason": "발췌 이미지는 arXiv v2의 표 2이며 참고문헌의 정식 출판 서지와 원본 버전을 별도로 명시한다."
     },
     {
-      "line": 851,
+      "line": 853,
       "section": "그림 자료 이용 정보",
       "text": "원본 표 2.",
       "sha256": "ad265816579adce1651b3a1d66007a8d094baf84d9b4a9ad3c8b5aa44013e06a",
@@ -11217,7 +11297,7 @@
       "reason": "발췌 이미지는 arXiv v2의 표 2이며 참고문헌의 정식 출판 서지와 원본 버전을 별도로 명시한다."
     },
     {
-      "line": 851,
+      "line": 853,
       "section": "그림 자료 이용 정보",
       "text": "변경: 표 영역 잘라내기.",
       "sha256": "bdd017241248784c7b42eef0e6755f85c80303ccb488ae16fe5f6b6797d57a9a",
@@ -11227,7 +11307,7 @@
       "reason": "발췌 이미지는 arXiv v2의 표 2이며 참고문헌의 정식 출판 서지와 원본 버전을 별도로 명시한다."
     },
     {
-      "line": 853,
+      "line": 855,
       "section": "그림 자료 이용 정보",
       "text": "원본 자료: https://arxiv.org/pdf/2309.15217v2",
       "sha256": "83f37a1399dc2f7167aac5dfeb8cdf12553deef0186a7afcb0bf25d42d176a22",
@@ -11237,7 +11317,7 @@
       "reason": "그림 자료 이용 정보의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 854,
+      "line": 856,
       "section": "부록 A. 60개 질의 목록",
       "text": "# 부록 A. 60개 질의 목록",
       "sha256": "ff6f0f90f6c0caa2d82fe96e64f09d503f2e15ce8419d3e60829724c11ba084a",
@@ -11247,7 +11327,7 @@
       "reason": "부록 A. 60개 질의 목록의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 856,
+      "line": 858,
       "section": "부록 A. 60개 질의 목록",
       "text": "부록 A의 질문 문장은 실제 실험 입력을 그대로 수록하였다.",
       "sha256": "cda5818b238271b59dbdd8305b4f3f35786835cc4a440aca5e87298868c34148",
@@ -11257,7 +11337,7 @@
       "reason": "부록 A가 실제 실험 입력을 수록한다는 안내이며 질문 문장을 문체 교정 대상에서 제외하는 근거다."
     },
     {
-      "line": 858,
+      "line": 860,
       "section": "부록 A. 60개 질의 목록",
       "text": "[표 A-1] 60개 질의–대상 문서 쌍",
       "sha256": "9f7c4674f2a74df896c769c84d4d986907e955126c781c3f52cb83dd8182bba8",
@@ -11267,7 +11347,7 @@
       "reason": "부록 A. 60개 질의 목록의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 928,
+      "line": 930,
       "section": "부록 B. 추가 사례 및 탐색 분석",
       "text": "# 부록 B. 추가 사례 및 탐색 분석",
       "sha256": "3b98da025482418af9760437dc78d1cd02bf1def4f56c11bc5e87210164c2bbe",
@@ -11277,7 +11357,7 @@
       "reason": "부록 B. 추가 사례 및 탐색 분석의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 930,
+      "line": 932,
       "section": "B.1 추가 입출력 사례",
       "text": "## B.1 추가 입출력 사례",
       "sha256": "7f9add25a4a626ebe06c16c378d6843fd1ff3132893186ef39c6fa025e9143c0",
@@ -11287,7 +11367,7 @@
       "reason": "B.1 추가 입출력 사례의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 932,
+      "line": 934,
       "section": "B.1 추가 입출력 사례",
       "text": "그림 B-1은 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 사례다.",
       "sha256": "32b281a4db23227058011937df8eed272c996ec24f8ebdf5a8967e03dbee7ea5",
@@ -11297,7 +11377,7 @@
       "reason": "같은 문맥의 CAD 감소 사례를 사실대로 소개한다. ‘감소’는 불리한 결과를 정확히 보고하는 서술이다."
     },
     {
-      "line": 935,
+      "line": 937,
       "section": "B.1 추가 입출력 사례",
       "text": "[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례",
       "sha256": "7a3ebf6e9ac5f02c446cf724f2d83789731d1e49c44b9cf9278453e5b3468666",
@@ -11307,7 +11387,7 @@
       "reason": "B.1 추가 입출력 사례의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 937,
+      "line": 939,
       "section": "B.1 추가 입출력 사례",
       "text": "질의 ID: track1_0012.",
       "sha256": "87a83c1c44d667efdf08e2663555340e7aba769956fbdccd5ae9a7ef8bb6b40a",
@@ -11317,7 +11397,7 @@
       "reason": "그림 B-1이 실제 질의 track1_0012에 대응함을 명시한다."
     },
     {
-      "line": 939,
+      "line": 941,
       "section": "B.2 문서별 및 질문 유형별 탐색 분석",
       "text": "## B.2 문서별 및 질문 유형별 탐색 분석",
       "sha256": "f349fab986915957f401ee20cc633e9425b2680f4b6901e6f937a28c21092d5a",
@@ -11327,7 +11407,7 @@
       "reason": "B.2 문서별 및 질문 유형별 탐색 분석의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 941,
+      "line": 943,
       "section": "B.2 문서별 및 질문 유형별 탐색 분석",
       "text": "표 B-1에는 문서별 평균 대응 차이와 유효쌍 수를, 표 B-2에는 질문 유형별 평균 대응 차이와 유효쌍 수를 정리하였다.",
       "sha256": "be77b3dc5ebb63c717b38edc3d1122e124a5374a70f70b299c15e3ca0423ae80",
@@ -11337,17 +11417,27 @@
       "reason": "목적 및 기여 유형의 질의는이라는 긴 소유격 연결을 줄였다. 표의 수록 대상과 탐색적 해석은 유지하였다."
     },
     {
-      "line": 941,
+      "line": 943,
       "section": "B.2 문서별 및 질문 유형별 탐색 분석",
-      "text": "목적 및 기여 유형은 질의가 3개이며, 유형별 결과는 각 표본 수를 기준으로 탐색적으로 해석하였다.",
-      "sha256": "aa1e7e9d66186ef9f0e9d586365fcdd6737e96d239287d5669d24d36c7af9558",
+      "text": "목적 및 기여 유형에는 질의가 3개 포함되었다.",
+      "sha256": "831fddc5060cf1c04158a5b1931d57881966e4ff137968878d2695d9d73b297a",
       "candidate": false,
       "decision": "retain",
       "type": "direct",
-      "reason": "목적 및 기여 유형의 질의는이라는 긴 소유격 연결을 줄였다. 표의 수록 대상과 탐색적 해석은 유지하였다."
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
     },
     {
       "line": 943,
+      "section": "B.2 문서별 및 질문 유형별 탐색 분석",
+      "text": "질문 유형별 분석 결과는 각 유형의 질의 수를 고려하여 탐색적으로 해석하였다.",
+      "sha256": "f3d03e1ef646e432299d2e4c428bc819d09ae558f0300351d74407e0d6639c33",
+      "candidate": false,
+      "decision": "retain",
+      "type": "direct",
+      "reason": "주체와 대상, 조사 및 앞뒤 문장 연결을 대조한 뒤 제시된 B를 적용하였다."
+    },
+    {
+      "line": 945,
       "section": "B.2 문서별 및 질문 유형별 탐색 분석",
       "text": "[표 B-1] 문서별 탐색 분석",
       "sha256": "949f06daebd48d8f00abb9091ba81aa230b791f4efe80d72342e61496e73e6c1",
@@ -11357,7 +11447,7 @@
       "reason": "B.2 문서별 및 질문 유형별 탐색 분석의 설명으로 읽고 주체, 입력과 출력, 앞뒤 문장의 지시 대상을 대조하였다. 제목 및 캡션은 연결된 본문과 일치한다."
     },
     {
-      "line": 985,
+      "line": 987,
       "section": "B.2 문서별 및 질문 유형별 탐색 분석",
       "text": "[표 B-2] 질문 유형별 탐색 분석",
       "sha256": "3d1a84f2c96c1261271eea565a7dd3b89e01d65ad3dfeecd3d4189f45615316e",
@@ -17776,5 +17866,6 @@
     "preserved": "수치 표·수식·실험 질문·인용 원문·참고문헌·그림 자산; 부정 결과와 LLM 질의 작성 방법 공개"
   },
   "previous_reviewed_head": "4b4673cc5215f08e00f33ead2f2ec3ab55090049",
-  "additional_review_report": "FINAL_USER_PROSE_RECHECK.md"
+  "additional_review_report": "FINAL_PROSE_AB_APPLIED_AUDIT.md",
+  "latest_review": "2026-10-10: 43 actual academic-polish decisions, 16 latest-request comparisons, whole-manuscript rereading and MD/HWPX/actual Web Hancom PDF checks; 593 current units."
 }

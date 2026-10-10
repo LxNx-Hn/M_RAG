@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-10",
+  "baseline": "72bd348d41e2f5769f6769892c370e336ac4e382",
+  "checks": [
+    {
+      "command": "python -X utf8 -m unittest discover -s FINALDOCS/BUILD -p 'test_*.py'",
+      "exit_code": 0,
+      "tests": 14
+    },
+    {
+      "command": "python -X utf8 -m unittest discover -s FINALDOCS/VALIDATION -p 'test_*.py'",
+      "exit_code": 0,
+      "tests": 29
+    },
+    {
+      "command": "python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "exit_code": 0,
+      "result": "60-query thesis package PASS; source manifests unchanged, CRLF/LF distinguished"
+    },
+    {
+      "command": "python -X utf8 FINALDOCS/VALIDATION/prose_audit_checks.py",
+      "exit_code": 0,
+      "review_units": 593
+    },
+    {
+      "command": "python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py",
+      "exit_code": 0,
+      "result": "320 ordered paragraphs; 1092 cells; 17 tables; 22 pictures; 10 equations; 22 references; 480 records"
+    },
+    {
+      "command": "python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py --file <local personal final>",
+      "exit_code": 0,
+      "result": "Same structural checks PASS; personal file stays local"
+    },
+    {
+      "command": "python -m ruff check FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py FINALDOCS/VALIDATION/build_hwp_web_transfer_html.py FINALDOCS/VALIDATION/test_prose_audit.py FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m black --check FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py FINALDOCS/VALIDATION/build_hwp_web_transfer_html.py FINALDOCS/VALIDATION/test_prose_audit.py FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -X utf8 -m py_compile FINALDOCS/BUILD/build_thesis_hwpx.py FINALDOCS/BUILD/verify_thesis_hwpx.py FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py FINALDOCS/VALIDATION/build_hwp_web_transfer_html.py FINALDOCS/VALIDATION/test_prose_audit.py FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -X utf8 FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py",
+      "exit_code": 0,
+      "result": "51 corrected strings; repeat run changed zero PPTX strings; one-page A1 PDF; 7016x9933 PNG; ZIP integrity PASS"
+    },
+    {
+      "command": "Artifact Tool PPTX import, finalizer package/layout/table/chart validation and before/after rendering",
+      "exit_code": 0,
+      "result": "1 slide; 7 native tables; 2 charts; no layout issues"
+    },
+    {
+      "command": "Actual Web Hancom export, full sentence/spatial-text/pixel/table/evidence-image checks",
+      "exit_code": 0,
+      "result": "Both 55-page PDFs, 43+16 decisions, 20 additional records, 77 TOC entries, all 53 noncover pages identical"
+    },
+    {
+      "command": "Exact-path cleanup inventory and preserved SHA checks",
+      "exit_code": 0,
+      "result": "91 local recycled manuscripts, 38 cloud trashed manuscripts, zero old local candidates remaining"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "raw_fences_and_references_identical": true,
+  "personal_identity_in_public_thesis": false,
+  "source_whitespace_normalization": {
+    "trailing_spaces_removed": 1,
+    "parsed_layout_events_identical": true,
+    "prior_raw_sha256": "71c67c78ef41282c9d909f5033a645cdadd79f47e0844a9b975c9736f961fb7c",
+    "current_raw_sha256": "16d01e3a5bb998baad93c79985f374ea1a8944602d9bf5b0eb8e07e5420c7a21",
+    "current_lf_sha256": "f3d00721df14aa1f093b5ec2c51eaf440e77f60200f6011d8aad8a9c14e3d82a"
+  }
+}

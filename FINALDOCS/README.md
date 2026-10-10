@@ -15,7 +15,7 @@
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
-- `VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md`: 사용자 확정 43개 적용, 추가 문장 교정, 문맥 및 기술 대조와 실제 최종 출력 검증
+- `VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md`: 사용자 43개 적용 및 최신 16개 재대조, 추가 문장 교정, 문맥 및 기술 대조와 실제 최종 출력 검증
 - `VALIDATION/FINAL_INDEPENDENT_PROSE_REVIEW.md`: 기존 A→B/C 재검증, 독립 재독, 수치 보존과 55쪽 웹한글 출력 검토
 - `VALIDATION/FINAL_INDEPENDENT_PROSE_CHECKS.json`: 원고·제출 파일 해시, 원자료 보존과 목차 검사 결과
 - `VALIDATION/FINAL_PDF_PRINT_CHECKS.json`, `FINAL_PDF_COMPARISON.json`: 사례 이미지·부록 행 보존 검사 및 최종 PDF 쪽별 비교
@@ -48,3 +48,5 @@ python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
 ```
 
 학교 HWP 원본도 `--template`으로 지정할 수 있다. 재생성 시 기존 HWPX는 `DELIVERY/versions/`에 보존한다. 부록 A는 60개 질의 목록, 부록 B는 추가 사례와 탐색 분석이다. 그림은 구조·통계 10개, 선행연구 인용 6개, 입출력 사례 6개로 총 22개이다. 원고의 실제 장·절 명칭을 그대로 적용한다.
+
+최신 포스터도 [A1 최종 포스터](POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/README.md)에 직접 교정하였다. [교정·실물 검증](VALIDATION/FINAL_ACADEMIC_PROSE_POLISH_AUDIT.md)과 [이전 한글 원고 정리 기록](VALIDATION/FINAL_MANUSCRIPT_CLEANUP.json)을 함께 확인한다.

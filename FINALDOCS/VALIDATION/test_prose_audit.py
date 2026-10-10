@@ -62,7 +62,7 @@ class ProseReviewTests(unittest.TestCase):
         for phrase in (
             "0을 포함",
             "-0.0343",
-            "근거 충실도가 높은 답변과 낮은 답변",
+            "같은 검색 문맥으로 뒷받침되는 답변과 그렇지 않은 답변",
             "ON/OFF",
         ):
             self.assertIn(phrase, self.text)

@@ -1,0 +1,68 @@
+{
+  "baseline_head": "72bd348",
+  "latest_text_changes": 30,
+  "svg_text_nodes": 243,
+  "svg_geometry_and_style_preserved": true,
+  "pptx_all_non_text_parts_preserved": true,
+  "latest_C_in_svg_pptx_pdf": 30,
+  "pdf_pages": 1,
+  "pdf_size_mm": [
+    593.99,
+    840.98
+  ],
+  "packageIntegrity": {
+    "chart_count": 2,
+    "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
+    "finding_count": 0,
+    "findings": [],
+    "notes_parts_skipped": 1,
+    "relationship_part_count": 14,
+    "slide_count": 1,
+    "status": "pass",
+    "exitCode": 0,
+    "findingCount": 0,
+    "warnings": []
+  },
+  "presentationLayout": {
+    "finding_count": 0,
+    "findings": [],
+    "font_policy": {
+      "checked_text_script_count": 363,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Malgun Gothic"
+      ],
+      "observed_font_use_counts": {
+        "Malgun Gothic": 363
+      },
+      "passed": true,
+      "performed": true
+    },
+    "slide_count": 1,
+    "slide_size_in": [
+      23.3854,
+      33.1094
+    ],
+    "warning_count": 0,
+    "warnings": [],
+    "exitCode": 0,
+    "findingCount": 0,
+    "fontPolicy": {
+      "checked_text_script_count": 363,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Malgun Gothic"
+      ],
+      "observed_font_use_counts": {
+        "Malgun Gothic": 363
+      },
+      "passed": true,
+      "performed": true
+    }
+  },
+  "visual_review": "Before and after native PPTX renders and final SVG-derived PDF preview reviewed. Desktop PowerPoint rendering was not used.",
+  "native_tables": 7,
+  "native_charts": 2,
+  "pptx_sha256": "691a3ece2037776417f3dd7929a0f26aa2dfc203b51574d636f7d76b69ff9144",
+  "pdf_sha256": "23529a4a30989a7417d7f8d987a762493f78323bfcbd29256e2ff009609ef0f7"
+}
