@@ -1,6 +1,14 @@
-# 졸업논문 학술 포스터
+# M-RAG 졸업논문 학술 포스터
 
-현재 검수 완료본: [A1 보라색 포스터 문구 교정본](A1_PURPLE_PROOFREAD/README.md)
+현재 교정 완료본: [A1 원제목 유지, 본문 39곳 수정한 최종 포스터](A1_FINAL_TITLE_CONFIRMED_20261010/README.md)
 
-인쇄용 PDF, 편집용 PPTX와 SVG, 미리보기,300dpi 이미지, 디지털 목업, 전체 제작 자료 ZIP 및 검수 보고서 포함
-최종60질의 졸업논문에 근거한 HyDE/CAD/SCD 조합 실험 요약
+- [A1 인쇄용 PDF](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_PRINT.pdf)
+- [A1 편집용 PPTX](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx)
+- [SVG 벡터 원본](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg)
+- [300dpi PNG](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_300DPI.png)
+- [전체 패키지 ZIP](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_DELIVERY.zip)
+- [교정 A→B 기록](A1_FINAL_TITLE_CONFIRMED_20261010/A1_FINAL_REVIEW_KO.md)
+
+원제목: **한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험**. 제목과 그래프 수치는 유지하고 포스터의 본문 표현 39곳을 교정하였다.
+
+이전 교정 이력은 [A1_PURPLE_PROOFREAD](A1_PURPLE_PROOFREAD/README.md)에서 확인할 수 있다.
