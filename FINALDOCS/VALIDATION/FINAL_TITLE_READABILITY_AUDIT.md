@@ -25,3 +25,13 @@
 - 포스터 출력 재생성, PPTX 패키지·배치·차트 내장 통합문서 검증
 
 인준일과 주심·부심은 미정 입력 칸을 유지한다. 실물 인쇄의 색상·재단과 1~2m 거리 가독성은 실제 인쇄 확인이 필요하다. PowerPoint 데스크톱을 열었다고 주장하지 않으며, 네이티브 구조와 렌더링 결과를 검증했다. 최종 Git SHA와 CI 결과는 커밋 후 별도 기록한다.
+
+최종 출력 검증: 자동 출력 커밋 b4849a129635bbb364527e8d4b609c0a47ad63f3의 A1 PDF 전체와 확대된 평가·결과·사례·참고문헌을 다시 확인했다. 공개본과 제출본 PPTX의 차이는 상단 학번 표기 한 군데이며 나머지 패키지 구성은 같다. 실험 데이터·질의·XLSX 표·논문 그림에는 변경이 없다.
+
+수정 커밋 `4b47ed612ad8801478394f8dc7fa2f23650e9ec7`의 CI 네 가지가 모두 성공했다.
+- [Sync corrected A1 poster exports](https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221474): success
+- [Thesis HWPX validation](https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221473): success
+- [Publish Backend Image](https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221487): success
+- [CI](https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221514): success
+
+이 검증 기록을 담은 마지막 커밋의 CI도 푸시 후 확인하고 다운로드 폴더의 GitHub 검증 기록에 SHA와 실행 링크를 남긴다.

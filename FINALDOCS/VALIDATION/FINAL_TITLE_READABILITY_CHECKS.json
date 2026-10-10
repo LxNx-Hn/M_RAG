@@ -41,7 +41,11 @@
     },
     "public_student_id_omitted": true,
     "personal_student_id_retained": true,
-    "privacy_basis": "No optional-question reply received; recommended public-ID omission applied after stated assumption. Existing Git history was not rewritten."
+    "privacy_basis": "No optional-question reply received; recommended public-ID omission applied after stated assumption. Existing Git history was not rewritten.",
+    "public_pdf_sha256": "114d1557f159bcbf96fc7fe9b53882818a1ee83e55f0e307212de1f4e59d6b04",
+    "public_pptx_sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+    "ci_export_visual_review": "Ubuntu Inkscape PDF and preview inspected after automatic export; all current phrases and companion bundle verified",
+    "personal_vs_public_pptx_only_header_diff": true
   },
   "local_checks": {
     "build_unittest": 14,
@@ -58,5 +62,9 @@
     "실물 인쇄 색상·재단 및 발표 거리 가독성은 화면 검증과 별도",
     "PowerPoint 데스크톱 실행은 하지 않았으며 구조·편집 가능성·렌더링 검증 수행"
   ],
-  "prior_43_copyedit_receipt": "HISTORY/20261010_before_title_readability/FINAL_ACADEMIC_PROSE_CHECKS.json"
+  "prior_43_copyedit_receipt": "HISTORY/20261010_before_title_readability/FINAL_ACADEMIC_PROSE_CHECKS.json",
+  "content_ci": {
+    "sha": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+    "all_four_success": true
+  }
 }

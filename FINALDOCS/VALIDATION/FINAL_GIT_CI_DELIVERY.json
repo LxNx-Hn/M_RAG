@@ -1,5 +1,51 @@
 {
-  "stage": "Title/readability changes validated locally; current CI recorded after push",
-  "previous_verified_delivery": "HISTORY/20261010_before_title_readability/FINAL_GIT_CI_DELIVERY.json",
-  "current_checks": "FINAL_TITLE_READABILITY_CHECKS.json"
+  "verified_content_commit": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+  "poster_export_commit": "b4849a129635bbb364527e8d4b609c0a47ad63f3",
+  "content_ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 38061221474,
+      "headSha": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221474",
+      "workflowName": "Sync corrected A1 poster exports"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38061221473,
+      "headSha": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221473",
+      "workflowName": "Thesis HWPX validation"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38061221487,
+      "headSha": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221487",
+      "workflowName": "Publish Backend Image"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38061221514,
+      "headSha": "4b47ed612ad8801478394f8dc7fa2f23650e9ec7",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38061221514",
+      "workflowName": "CI"
+    }
+  ],
+  "poster_export_postcheck": {
+    "pages": 1,
+    "all_current_corrections_match": true,
+    "public_student_id_omitted": true,
+    "pptx_sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+    "pdf_sha256": "114d1557f159bcbf96fc7fe9b53882818a1ee83e55f0e307212de1f4e59d6b04",
+    "native_tables": 7,
+    "native_charts": 2,
+    "embedded_workbooks_preserved": true,
+    "companion_references_and_cases_in_zip": true
+  },
+  "delivery_receipt_commit": "Commit containing this file; final HEAD CI is checked after push and written to the local submission receipt.",
+  "local_remote_parity_before_receipt": true
 }
