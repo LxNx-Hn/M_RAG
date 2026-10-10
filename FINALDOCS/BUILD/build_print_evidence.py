@@ -168,9 +168,9 @@ def main() -> None:
                 for k in ("contexts", "retrieved_chunk_ids", "reranked_chunk_ids")
             )
             view["context_label"] = (
-                "A/B 문맥·검색·재정렬 ID 동일"
+                "A/B 검색 문맥, 검색 및 재정렬 ID 동일"
                 if same
-                else "A/B 문맥·검색·재정렬 ID 변경"
+                else "A/B 검색 문맥, 검색 및 재정렬 ID 변경"
             )
         path = OUT / CASE_FILENAMES[case["case_id"]]
         view["image_size"] = render(view, path)

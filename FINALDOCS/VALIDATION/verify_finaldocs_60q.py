@@ -203,7 +203,10 @@ def main() -> int:
                 )
 
     # Content-regression checks for the current 60-query thesis narrative.
-    if "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험" not in text:
+    if (
+        "한국어 질의를 이용한 영어 학술 문서와 기술 문서 RAG에서의 HyDE, CAD, SCD 조합 실험"
+        not in text
+    ):
         raise AssertionError(
             "thesis title must match the academic/technical-document study scope"
         )
@@ -230,11 +233,11 @@ def main() -> int:
         "## 5.6 SCD 출력 언어 결과 및 해석", 1
     )[0]
     for marker in (
-        "문맥 정밀도는 8/60쌍, 문맥 재현율은 1/60쌍",
-        "평가 변동을 확인하기 위한 진단값",
+        "문맥 정밀도는 60쌍 중 8쌍, 문맥 재현율은 60쌍 중 1쌍",
+        "평가의 변동을 확인하기 위한 진단값",
         "근거 충실도",
         "답변 관련성",
-        "생성 시간",
+        "조건 실행 시간",
     ):
         if marker not in section_55:
             raise AssertionError(
@@ -260,7 +263,7 @@ def main() -> int:
             "E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset"
         )
 
-    scd_design_row = "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율"
+    scd_design_row = "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍\t한국어 문자 비율"
     if scd_design_row not in text:
         raise AssertionError(
             "table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis"
@@ -268,24 +271,24 @@ def main() -> int:
 
     for marker in (
         "모든 질의는 한국어로 작성하고, 지정된 영어 문서에서 근거를 검색하였다",
-        "사실·정의 8개, 방법·절차 29개, 결과·비교 20개, 목적·기여 3개",
-        "연구자는 각 문서의 주요 내용을 바탕으로 질문의 표현 방식과 범위를 정의하는 초기 질문 3개를 작성하였다",
-        "LLM을 사용하여 문서의 주요 내용을 질문 작성에 활용할 수 있는 형태로 요약",
-        "요약 결과를 15개의 내용 단위로 구분하였다",
-        "원문 페이지, 정답 근거 구간과 답변 가능성을 확인하였다",
+        "사실 및 정의 8개, 방법 및 절차 29개, 결과 및 비교 20개, 목적 및 기여 3개",
+        "연구자는 각 문서의 질문 형식과 범위를 정하기 위해 초기 질문 3개를 작성하였다",
+        "LLM을 사용하여 문서의 주요 내용을 요약",
+        "요약을 15개의 내용 단위로 나누고",
+        "원문 페이지, 정답 근거와 답변 가능성을 확인하였다",
         "5개 튜닝 질의",
         "검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정",
         "검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5",
         "검색 설정은 별도의 5개 튜닝 질의로 선정하였다",
         "weighted RRF(k=60)",
         "cross-encoder/ms-marco-MiniLM-L-6-v2",
-        "공백 분리 기준 최대 512개 단어",
-        "Python `split()` 기준 최대 3,072개 단어",
+        "공백 분리 기준 최대 크기 512개 단어",
+        "Python `split()` 기준 3,072개 단어",
         "ContextCompressor",
         "C0S0에서 +0.0805, C1S0에서 +0.0290",
-        "H0S0 -0.0073, H1S0 -0.0588",
-        "HyDE ON 조건은 각 실험 조건에서 temperature=0.1, top_p=0.9 샘플링으로 가상 문서를 독립 생성하였다",
-        "그림 5-11은 HyDE와 CAD의 ON/OFF 대응 차이",
+        "H0S0에서 -0.0073, H1S0에서 -0.0588",
+        "HyDE ON에서는 각 실험 조건마다 temperature=0.1, top_p=0.9로 가상 문서를 독립 생성하였다",
+        "그림 5-11은 HyDE 적용 전후의 변화를 CAD와 SCD의 설정별로 비교",
     ):
         if marker not in text:
             raise AssertionError(f"current thesis-method marker missing: {marker}")
@@ -305,12 +308,12 @@ def main() -> int:
                 f"legacy mixed query-type label remains in appendix A: {stale_type}"
             )
 
-    appendix_b = text.split("## B.2 문서별·질문 유형별 탐색 분석", 1)[1]
+    appendix_b = text.split("## B.2 문서별 및 질문 유형별 탐색 분석", 1)[1]
     expected_query_type_rows = (
-        "사실·정의\tHyDE\t답변 관련성\t8\t0.0455",
-        "방법·절차\tHyDE\t답변 관련성\t29\t0.1719",
-        "결과·비교\tCAD\t답변 관련성\t20\t-0.0683",
-        "목적·기여\tCAD\t근거 충실도\t3\t-0.1597",
+        "사실 및 정의\tHyDE\t답변 관련성\t8\t0.0455",
+        "방법 및 절차\tHyDE\t답변 관련성\t29\t0.1719",
+        "결과 및 비교\tCAD\t답변 관련성\t20\t-0.0683",
+        "목적 및 기여\tCAD\t근거 충실도\t3\t-0.1597",
     )
     for marker in expected_query_type_rows:
         if marker not in appendix_b:
@@ -522,14 +525,14 @@ def main() -> int:
     if "docs/PAPER/" in workbook_text or "generated/" in workbook_text:
         raise AssertionError("workbook contains stale source metadata")
     for marker in (
-        "HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍",
+        "HyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍",
         "105 / 6 / 9",
-        "사실·정의",
-        "방법·절차",
-        "결과·비교",
-        "목적·기여",
+        "사실 및 정의",
+        "방법 및 절차",
+        "결과 및 비교",
+        "목적 및 기여",
         "0.1719",
-        "공백 분리 기준 최대 512개 단어",
+        "공백 분리 기준 최대 크기 512개 단어",
         "SCD OFF — 영어 검색 문맥 평가",
         "SCD ON — 한국어 변환 평가 문맥",
         "한국어 문자 비율",
@@ -635,7 +638,7 @@ def main() -> int:
         ),
         (
             "# 부록 B. 추가 사례 및 탐색 분석",
-            "## B.2 문서별·질문 유형별 탐색 분석",
+            "## B.2 문서별 및 질문 유형별 탐색 분석",
             "[그림 B-1]",
         ),
     )
@@ -654,7 +657,7 @@ def main() -> int:
         (
             "6.2 비교 설계의 의의",
             "6.3 적용 시 실험 조건 선택",
-            ("0.8599", "+0.0288", "120", "240", "검색·재정렬 청크 ID"),
+            ("0.8599", "+0.0288", "120", "240", "검색 청크 ID, 재정렬 청크 ID"),
         ),
     ):
         section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
@@ -685,15 +688,15 @@ def main() -> int:
         encoding="utf-8"
     )
     for marker in (
-        "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍\t한국어 문자 비율",
+        "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍\t한국어 문자 비율",
         "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
-        "방법·절차\tHyDE\t답변 관련성\t29\t0.1719",
-        "사실·정의\tCAD\t근거 충실도\t8\t0.0005",
-        "공백 분리 기준 최대 512개 단어",
+        "방법 및 절차\tHyDE\t답변 관련성\t29\t0.1719",
+        "사실 및 정의\tCAD\t근거 충실도\t8\t0.0005",
+        "공백 분리 기준 최대 크기 512개 단어",
         "SCD OFF — 영어 검색 문맥 평가",
         "SCD ON — 한국어 변환 평가 문맥",
-        "한국어 문자 비율 평균 변화",
-        "각 단계에서 확률이 가장 높은 토큰 선택",
+        "한국어 문자 비율 평균 대응 차이",
+        "각 단계에서 최종 로짓이 가장 높은 토큰 선택",
     ):
         if marker not in table_copy:
             raise AssertionError(f"HWP copy table content is stale: missing {marker}")

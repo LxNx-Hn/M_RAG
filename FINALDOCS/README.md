@@ -1,6 +1,6 @@
 # 60-query RAG-Cube 졸업논문 최종 작성 패키지
 
-최신 문장 교정·출력 검토는 [문장 교정 최종 검토 보고서](VALIDATION/FINAL_NATURAL_PROSE_AUDIT.md)에 기록했다. 현재 웹한글 PDF는 55쪽이며, 서론부터 표시 쪽번호 1~47로 이어진다. 학교 스타일 적용 근거는 [2026 양식 검증 보고서](VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md)에서 확인한다. 이전 감사 문서의 쪽수·편집 로그는 당시 산출물 기록이다.
+최신 원고 교정과 실제 출력 검증은 [확정 A→B 적용 감사](VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md)에 기록했다. 공개 파일은 [표지 입력 칸을 유지한 HWPX](DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx)와 [실제 웹한글 출력 PDF](DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf)다. 개인정보를 반영한 제출 파일은 로컬 다운로드 폴더에만 보관한다. PDF는 실제 조판 결과 55쪽이며, 서론부터 표시 쪽번호 1~47이다. 목차 점선과 학교 스타일을 유지하였다. 이전 감사 문서의 문장·해시·쪽수·편집 로그는 당시 버전의 기록이다.
 
 이 디렉터리는 웹한글에서 편집할 HWPX 논문과 제출 전 사실 확인에 필요한 원고·표·그림·검증 자료로 구성한다.
 
@@ -15,7 +15,12 @@
 - `APPENDIX/QUERY_60_AUDIT.md`: 60개 질의 목록
 - `DATA/EXPERIMENT_60_VALIDATION.md`, `DATA/evidence_manifest_60q.json`: 수치·원자료 출처 검토용
 - `VALIDATION/FINAL_VALIDATION_REPORT_60Q.md`: 최종 패키지 검증 보고서
-- `VALIDATION/FINAL_NATURAL_PROSE_AUDIT.md`: 최신 문장 교정·수치 보존·55쪽 웹한글 출력 검토
+- `VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md`: 사용자 확정 43개 적용, 추가 문장 교정, 문맥 및 기술 대조와 실제 최종 출력 검증
+- `VALIDATION/FINAL_INDEPENDENT_PROSE_REVIEW.md`: 기존 A→B/C 재검증, 독립 재독, 수치 보존과 55쪽 웹한글 출력 검토
+- `VALIDATION/FINAL_INDEPENDENT_PROSE_CHECKS.json`: 원고·제출 파일 해시, 원자료 보존과 목차 검사 결과
+- `VALIDATION/FINAL_PDF_PRINT_CHECKS.json`, `FINAL_PDF_COMPARISON.json`: 사례 이미지·부록 행 보존 검사 및 최종 PDF 쪽별 비교
+- `VALIDATION/COMPLETE_SENTENCE_AB_AUDIT.md`: 최종 교정에 사용한 이전 A→B 제안 목록
+- `VALIDATION/FINAL_NATURAL_PROSE_AUDIT.md`: 이전 문장 교정과 출력 검토
 - `VALIDATION/FINAL_PROSE_AUDIT.md`: 이전 문체 전수 감사·수정·웹한글 출력·CI 기록
 - `VALIDATION/FINAL_CLAIM_MAP_60Q.md`: 최종 주장-근거 연결표
 - `VALIDATION/verify_finaldocs_60q.py`: 네트워크·모델 호출 없이 실행하는 제출 패키지 점검기
@@ -30,7 +35,7 @@
 
 ## 웹한글 문서와 재생성
 
-- `DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx`: 편집 가능한 표 17개·그림 22개·수식 10개를 담은 논문. 원본 양식의 표지 배치용 표 2개는 논문 표 번호에 포함하지 않는다.
+- `DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx`: 재생성 검사에 사용하는 표지 입력 칸을 유지한 논문. 제출본과 본문·표·그림·수식이 같다. 편집 가능한 표 17개·그림 22개·수식 10개를 담으며 원본 양식의 표지 배치용 표 2개는 논문 표 번호에 포함하지 않는다.
 - `DELIVERY/HWPX_BUILD_QA_REPORT.md`: 실제 구조·내용·웹한글 검증과 남은 입력 항목.
 - `DELIVERY/WEB_HANCOM_CHECKLIST.md`: 웹한글 최종 확인 절차.
 - `BUILD/`: 고정 버전 의존성, 자동 생성기와 독립 검사기.

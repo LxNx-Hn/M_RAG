@@ -42,7 +42,7 @@ def units(text: str) -> list[dict]:
         sentences = (
             [clean]
             if line.startswith(("#", "[")) or "····" in line
-            else re.split(r"(?<=[.!?])\s+(?=[가-힣A-Z])", clean)
+            else re.split(r"(?<!\b[A-Z]\.)(?<=[.!?])\s+(?=[가-힣A-Z0-9])", clean)
         )
         for sentence in sentences:
             result.append(

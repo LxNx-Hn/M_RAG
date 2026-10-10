@@ -15,11 +15,11 @@ EXPECTED_FILES = {
 }
 
 EXPECTED_CAPTIONS = {
-    "2-1": "본 연구 작성. Lewis 외[1]의 RAG 구조 참고.",
+    "2-1": "본 연구에서 작성한 도식이며, Lewis 외[1]의 RAG 구조를 참고하였다.",
     "2-2": "출처: Liu 외[9], 그림 1에서 발췌.",
-    "2-3": "출처: Gao 외[2], 그림 1에서 발췌·편집.",
+    "2-3": "출처: Gao 외[2]의 그림 1을 발췌하여 편집하였다.",
     "2-4": "출처: Shi 외[3], 그림 1에서 발췌.",
-    "2-5": "출처: Li 외[4], 그림 1에서 발췌·편집.",
+    "2-5": "출처: Li 외[4]의 그림 1을 발췌하여 편집하였다.",
     "2-6": "출처: Es 외[10], 표 2에서 발췌.",
 }
 
@@ -92,7 +92,7 @@ def validate_submission_assets(root: Path, text: str, manifest=None) -> None:
                 raise AssertionError(f"source author missing: {number}")
     if "변경: 도식 영역 잘라내기, OpenAI 로고 생략." not in text:
         raise AssertionError("HyDE logo omission must be disclosed")
-    if "OpenAI·Ollama 로고 생략" not in text:
+    if "OpenAI와 Ollama 로고 생략" not in text:
         raise AssertionError("SCD logo omissions must be disclosed")
     for old in (
         "fig2_1_rag_original.png",

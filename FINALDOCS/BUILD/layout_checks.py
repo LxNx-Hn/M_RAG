@@ -47,12 +47,16 @@ def validate_layout(header, section):
             )
             role = (
                 "figure_caption_source"
-                if following.startswith(("출처:", "본 연구 작성."))
+                if following.startswith(
+                    ("출처:", "본 연구 작성.", "본 연구에서 작성한 도식이며,")
+                )
                 else "figure_caption"
             )
         elif style == "표제목":
             role = "table_caption"
-        elif text.startswith(("출처:", "본 연구 작성.")):
+        elif text.startswith(
+            ("출처:", "본 연구 작성.", "본 연구에서 작성한 도식이며,")
+        ):
             role = "figure_source"
             assert (
                 "https://" not in text and "라이선스:" not in text

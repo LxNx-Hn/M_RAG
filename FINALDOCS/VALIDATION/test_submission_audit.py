@@ -29,7 +29,7 @@ class SubmissionAuditTests(unittest.TestCase):
         for value in (
             "https://creativecommons.org/licenses/by/4.0/",
             "OpenAI 로고 생략",
-            "OpenAI·Ollama 로고 생략",
+            "OpenAI와 Ollama 로고 생략",
         ):
             with self.subTest(value=value), self.assertRaises(AssertionError):
                 validate_submission_assets(

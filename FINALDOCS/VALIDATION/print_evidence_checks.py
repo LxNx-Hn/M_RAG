@@ -38,9 +38,9 @@ def validate(manifest: dict | None = None, plan: dict | None = None) -> None:
                 for k in ("contexts", "retrieved_chunk_ids", "reranked_chunk_ids")
             )
             expected["context_label"] = (
-                "A/B 문맥·검색·재정렬 ID 동일"
+                "A/B 검색 문맥, 검색 및 재정렬 ID 동일"
                 if same
-                else "A/B 문맥·검색·재정렬 ID 변경"
+                else "A/B 검색 문맥, 검색 및 재정렬 ID 변경"
             )
         assert all(
             actual[key] == value for key, value in expected.items()

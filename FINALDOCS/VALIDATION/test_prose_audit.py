@@ -50,12 +50,21 @@ class ProseReviewTests(unittest.TestCase):
     def test_reason_required_for_scientific_negative(self):
         review = copy.deepcopy(self.review)
         entry = next(e for e in review["final_review"] if e["candidate"])
-        entry["reason"] = ""
+        # A conclusion may repeat the same factual sentence from the abstract.
+        # Clear every occurrence of the selected exact sentence.
+        for occurrence in review["final_review"]:
+            if occurrence["sha256"] == entry["sha256"]:
+                occurrence["reason"] = ""
         with self.assertRaisesRegex(AssertionError, "unreviewed"):
             validate_prose(self.text, review)
 
     def test_scientific_negatives_are_retained(self):
-        for phrase in ("0을 포함", "-0.0343", "지지하지 않는", "ON/OFF"):
+        for phrase in (
+            "0을 포함",
+            "-0.0343",
+            "근거 충실도가 높은 답변과 낮은 답변",
+            "ON/OFF",
+        ):
             self.assertIn(phrase, self.text)
         validate_prose(self.text)
 
@@ -71,6 +80,13 @@ class ProseReviewTests(unittest.TestCase):
             "[99] Original title: What is not implemented.\n"
         )
         validate_prose(self.text + addition)
+
+    def test_initials_and_numeric_section_sentence_boundary(self):
+        text = "Nelson F. Liu의 연구를 참고하였다. 5.5절에서 설명한다."
+        self.assertEqual(
+            [unit["text"] for unit in units(text)],
+            ["Nelson F. Liu의 연구를 참고하였다.", "5.5절에서 설명한다."],
+        )
 
     def test_approval_is_for_exact_sentence(self):
         entry = next(e for e in self.review["final_review"] if e["candidate"])

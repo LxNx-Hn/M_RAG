@@ -251,7 +251,7 @@ def insert_school_covers(
         2: front[1]["text"],
         5: "지도교수  " + values["advisor"],
         7: values["department"] + "\n" + values["university"],
-        9: values["name"] + " · " + values["student_id"],
+        9: values["name"] + ", " + values["student_id"],
         11: values["submission_year"],
     }
     second = (
@@ -259,7 +259,7 @@ def insert_school_covers(
             0: front[0]["text"],
             2: front[1]["text"],
             4: ENGLISH_TITLE,
-            6: values["name"] + " · " + values["student_id"],
+            6: values["name"] + ", " + values["student_id"],
             8: "지도교수  " + values["advisor"],
             10: "본 보고서를 졸업자격 실험보고서로 제출함.",
             11: values["submission_date"],
@@ -326,7 +326,11 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     widths[-1] += width - sum(widths)
     # Native cell height based on conservative 9 pt CJK width, without cropping.
     heights = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        effective_widths = list(widths)
+        for r0, c0, r1, c1 in data["merges"]:
+            if r0 == r1 == row_index:
+                effective_widths[c0] = sum(widths[c0 : c1 + 1])
         heights.append(
             max(
                 1700,
@@ -338,7 +342,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                     )
                     * 1200
                     + 400
-                    for value, w in zip(row, widths)
+                    for value, w in zip(row, effective_widths)
                 ),
             )
         )
@@ -411,12 +415,16 @@ def emit(
                 following = events[index + 1] if index + 1 < len(events) else {}
                 role = (
                     "figure_caption_source"
-                    if following.get("text", "").startswith(("출처:", "본 연구 작성."))
+                    if following.get("text", "").startswith(
+                        ("출처:", "본 연구 작성.", "본 연구에서 작성한 도식이며,")
+                    )
                     else "figure_caption"
                 )
             elif e["style"] == "표제목":
                 role = "table_caption"
-            elif text.startswith(("출처:", "본 연구 작성.")):
+            elif text.startswith(
+                ("출처:", "본 연구 작성.", "본 연구에서 작성한 도식이며,")
+            ):
                 role = "figure_source"
             elif e["style"] == "참고문헌리스트":
                 role = "reference"

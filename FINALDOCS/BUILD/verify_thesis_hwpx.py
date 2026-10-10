@@ -329,7 +329,7 @@ def main() -> None:
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
         "layout": layout_report,
-        "web_rendering": "see ../VALIDATION/FINAL_SCHOOL_TEMPLATE_2026_AUDIT.md",
+        "web_rendering": "see ../VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

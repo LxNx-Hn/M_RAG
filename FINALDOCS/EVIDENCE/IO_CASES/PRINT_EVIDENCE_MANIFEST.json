@@ -62,7 +62,7 @@
         1194
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png",
-      "image_sha256": "7672ddc45f1a9a9c1395fff30500818ee57634bf3c658e04d32d66f1f9c2a866"
+      "image_sha256": "8d03a2d0ca4828b8dff499829e8c77e9e5d7fc47462fab3d6581e4fd96f9eaa6"
     },
     {
       "case_id": "E02",
@@ -124,7 +124,7 @@
         1133
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png",
-      "image_sha256": "92fd3333b9ed12a5c21c61b52ecbcd58de5f675b2b773dc5fd79eb1a924e0060"
+      "image_sha256": "5fc9a59dfb4b618b7673764e30aac591fc1c29d738d083f8da3d3208763d46b0"
     },
     {
       "case_id": "E03",
@@ -224,13 +224,13 @@
           ]
         }
       ],
-      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png",
-      "image_sha256": "4e724fc745885414ff7409b345111f7be6fd924c8abd7ee1938f84ea5a2eca6b"
+      "image_sha256": "7b7633f833f8c1896aa8b4a30313156d61149c840894d01cf3eebd94a500f59f"
     },
     {
       "case_id": "E04",
@@ -349,13 +349,13 @@
           ]
         }
       ],
-      "context_label": "A/B 문맥·검색·재정렬 ID 변경",
+      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 변경",
       "image_size": [
         2000,
         1804
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png",
-      "image_sha256": "f59deadea9d86a4b5466ac0edd6bd4759848f0f0efad11f65b03c73a196ad4c5"
+      "image_sha256": "344b8780a999efc66f57406a187fb3181b4c8f2e72d1fc2968def80979e64019"
     },
     {
       "case_id": "E05",
@@ -479,13 +479,13 @@
           ]
         }
       ],
-      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1682
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png",
-      "image_sha256": "1b7b515e2b0048efe67f13ae6cdc2407c962a07dba68df18050d0a8491aecfe4"
+      "image_sha256": "ae3b489b9c17614ac96df4ae774e9468f7e135b0b3a3dd35f8a55d5451c5b9b4"
     },
     {
       "case_id": "E06",
@@ -585,13 +585,13 @@
           ]
         }
       ],
-      "context_label": "A/B 문맥·검색·재정렬 ID 동일",
+      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png",
-      "image_sha256": "50f52c9d0d6134d1e5e551264fcb129da1bedefdc79873f5049bedaaf72c73a6"
+      "image_sha256": "b28c7fa9c28f039c3ff03007f83c4ec7c2c5b33fec0bfe6841a58e7e12989174"
     }
   ]
 }

@@ -21,21 +21,30 @@ class AcademicRegressionTests(unittest.TestCase):
 
     def test_reintroduced_errors(self):
         for correct, error in (
-            ("최종 검색 문맥이 달라졌다", "최종 검색 문맥가 달라졌다"),
+            ("최종 검색 문맥은 서로 달랐다", "최종 검색 문맥가 달라졌다"),
             ("95% 신뢰구간은 [+0.1880", "95% 신뢰구간는 [+0.1880"),
             ("HyDE와 CAD의 주 대응 비교", "HyDE와 CAD의 통제 비교"),
             ("그림 5-3, 5-5, 5-7, 5-8, 5-10", "그림 5-3~5-10"),
             ("\t증가\t감소\t동률\tn", "\tWin\tLoss\tTie\tn"),
-            ("RAGAS 차이 +0.01 초과", "RAGAS 차이 +0.02 초과"),
+            (
+                "RAGAS 지표의 대응 차이가 +0.01을 초과",
+                "RAGAS 지표의 대응 차이가 +0.02를 초과",
+            ),
             ("출처: Es 외[10], 표 2에서", "출처: Es 외[10], 그림 2에서"),
             ("Lewis 외[1]는", "Lewis 외[1]은"),
-            ("Shi 외[3]는", "Shi 외[3]은"),
             ("Li 외[4]는", "Li 외[4]은"),
         ):
             with self.subTest(error=error):
                 self.assertIn(correct, self.text)
                 with self.assertRaises(AssertionError):
                     validate_academic_text(self.text.replace(correct, error, 1))
+
+    def test_shi_particle_regression(self):
+        # The revised figure paragraph describes the actual example directly.
+        # Keep this particle regression without forcing old prose into it.
+        invalid = self.text + "\nShi 외[3]은 제시한 사례이다.\n"
+        with self.assertRaisesRegex(AssertionError, "reviewed author particle error"):
+            validate_academic_text(invalid)
 
     def test_caption_title_mismatch(self):
         correct = "[그림 5-4] HyDE와 CAD의 주 대응 비교 ····"
