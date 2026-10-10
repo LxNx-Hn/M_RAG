@@ -11,8 +11,7 @@
       "hwpx": true,
       "pdf": true,
       "pdf_pages": [
-        3,
-        9
+        3
       ],
       "old_actual_absent": true,
       "pdf_old_absent": true,
@@ -51,7 +50,6 @@
       "hwpx": true,
       "pdf": true,
       "pdf_pages": [
-        3,
         9
       ],
       "old_actual_absent": true,
@@ -91,7 +89,8 @@
       "hwpx": true,
       "pdf": true,
       "pdf_pages": [
-        9
+        9,
+        10
       ],
       "old_actual_absent": true,
       "pdf_old_absent": true,
@@ -337,7 +336,10 @@
       "markdown": true,
       "hwpx": true,
       "pdf": true,
-      "pdf_pages": [],
+      "pdf_pages": [
+        25,
+        26
+      ],
       "old_actual_absent": true,
       "pdf_old_absent": true,
       "proposed_A_absent": true
@@ -466,7 +468,8 @@
       "hwpx": true,
       "pdf": true,
       "pdf_pages": [
-        36
+        36,
+        37
       ],
       "old_actual_absent": true,
       "pdf_old_absent": true,
@@ -1279,5 +1282,6 @@
   },
   "web_document": "AB43_PUBLIC_FINAL.hwpx; AB43_SUBMISSION_FINAL.hwpx",
   "web_open_and_export": "2026-10-10: both files opened in Web Hancom and exported through File > PDF download. Personal final abstract searched and visually verified.",
-  "visual_review": "All 55 basis pages inspected; final personal differs only on four TOC pages, all inspected; public differs only on two cover pages, both inspected. All 53 noncover pages identical between personal/public."
+  "visual_review": "All 55 basis pages inspected; final personal differs only on four TOC pages, all inspected; public differs only on two cover pages, both inspected. All 53 noncover pages identical between personal/public.",
+  "paragraph_page_method": "Locate each full final paragraph in the spatially ordered PDF text; derive all physical pages from the start/end character offsets, including paragraphs continued on the next page."
 }
