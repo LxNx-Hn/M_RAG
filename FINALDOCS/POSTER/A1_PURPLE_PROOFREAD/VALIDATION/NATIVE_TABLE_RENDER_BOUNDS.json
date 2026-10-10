@@ -1,0 +1,47 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "id": "01_011",
+      "expected_bottom_mm": 186.0,
+      "render_bottom_mm": 185.7375,
+      "drift_mm": -0.26250000000000046
+    },
+    {
+      "id": "01_012",
+      "expected_bottom_mm": 183,
+      "render_bottom_mm": 182.82708333333335,
+      "drift_mm": -0.17291666666665742
+    },
+    {
+      "id": "03_157",
+      "expected_bottom_mm": 423.0,
+      "render_bottom_mm": 422.8041666666667,
+      "drift_mm": -0.19583333333334896
+    },
+    {
+      "id": "04_163",
+      "expected_bottom_mm": 514,
+      "render_bottom_mm": 513.8208333333333,
+      "drift_mm": -0.1791666666666861
+    },
+    {
+      "id": "04_164",
+      "expected_bottom_mm": 540,
+      "render_bottom_mm": 539.75,
+      "drift_mm": -0.25000000000000333
+    },
+    {
+      "id": "04_167",
+      "expected_bottom_mm": 590,
+      "render_bottom_mm": 589.75625,
+      "drift_mm": -0.24375000000000474
+    },
+    {
+      "id": "05_176",
+      "expected_bottom_mm": 500,
+      "render_bottom_mm": 499.79791666666665,
+      "drift_mm": -0.20208333333334755
+    }
+  ]
+}

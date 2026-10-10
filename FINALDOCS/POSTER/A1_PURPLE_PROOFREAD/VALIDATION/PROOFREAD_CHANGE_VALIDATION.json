@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "previous_wording_versions_preserved": true,
+  "diagram_cube_shape_line_geometry_preserved": true,
+  "chart_geometry_and_numeric_values_preserved": true,
+  "raw_cases_and_22_references_preserved": true,
+  "case_body_font_pt": 14,
+  "reference_font_pt": 11,
+  "query_procedure_row_mm": 16,
+  "regions_extended_mm": {
+    "03": 2,
+    "06": 5,
+    "08": 7
+  },
+  "source_correction": "condition execution time, not generation-only latency",
+  "claim_boundary": "Digital render and source checks; no physical print or native PowerPoint execution"
+}

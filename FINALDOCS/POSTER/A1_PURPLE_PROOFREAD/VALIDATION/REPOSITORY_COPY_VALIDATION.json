@@ -1,0 +1,55 @@
+{
+  "status": "pass",
+  "source_folder": "C:\\Users\\KiKi\\.codex\\.chatgpt-projects\\g-p-69f64b102f448191b2c79c0aaa50ff71\\output\\A1_PURPLE_PROOFREAD",
+  "destination_folder": "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\FINALDOCS\\POSTER\\A1_PURPLE_PROOFREAD",
+  "copied_files": [
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_PRINT.pdf",
+      "bytes": 134031,
+      "sha256": "da19bda976a1e27e560560fcd870f0ac5ed146d420ec20e71cc98fcc5176a7d5"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_EDITABLE.pptx",
+      "bytes": 49901,
+      "sha256": "af7d5ca1056d02c7d2506201c80b8cb4ff97b3a7e7b984270dc008a6a101d961"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_EDITABLE.svg",
+      "bytes": 329888,
+      "sha256": "0571a62a85943938c8fea7f17f2f2187357cedb9d72e631a26062ae849dcf146"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_PREVIEW.png",
+      "bytes": 982379,
+      "sha256": "c7c6b614bda9a70d748266426a64a11dfee52df5a5c46b94e37ac6e01f7eb1c0"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_300DPI.png",
+      "bytes": 3054298,
+      "sha256": "c04cf44686f2e30739b2fa9b5630da3b2640e5747f0de0c76f74db8dcfe4eb99"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_MOCKUP.jpg",
+      "bytes": 378631,
+      "sha256": "c38cd8921bd2c41a2599d9930c1d57330662017b81681750bc2cb300ad28c75e"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/M_RAG_A1_PURPLE_PROOFREAD_DELIVERY.zip",
+      "bytes": 9328323,
+      "sha256": "e0ccd73a00e841deac45ea6752636b719491f3a5805044ed449553194e433a2e"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/A1_PURPLE_PROOFREAD_REVIEW_KO.md",
+      "bytes": 8548,
+      "sha256": "cebedaf195f51fa403e20364a7ee87682a11f5039e6d6a7a9c191d521d7dbc73"
+    },
+    {
+      "path": "FINALDOCS/POSTER/A1_PURPLE_PROOFREAD/A1_PURPLE_PROOFREAD_MANIFEST.json",
+      "bytes": 10987,
+      "sha256": "a20945f9cde3b3f673f2cfc9dbcd7d087f8691eec1785dd7d83b3c15ea7fdfee"
+    }
+  ],
+  "zip_entries_verified": 63,
+  "original_output_hashes_preserved": true,
+  "scope": "Only FINALDOCS/POSTER additions; pre-existing thesis modifications not included by this task"
+}

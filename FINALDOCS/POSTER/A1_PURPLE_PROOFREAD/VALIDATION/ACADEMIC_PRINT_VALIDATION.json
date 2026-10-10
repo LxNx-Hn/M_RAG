@@ -1,0 +1,62 @@
+{
+  "status": "pass",
+  "verified_at_utc": "2026-10-10T08:02:34.253862+00:00",
+  "head": "726266cdf2baed0735f6b762dbf475cc0943580e",
+  "manuscript_sha256": "1e467fdbad0a61ffaa78e7513dc6b3d6b26bd356a65bb160abf492496ca81d68",
+  "official_size_emu": [
+    21383625,
+    30275213
+  ],
+  "physical_size_mm": [
+    593.9895833333334,
+    840.9781388888889
+  ],
+  "pdf_pages": 1,
+  "pptx_slides": 1,
+  "fonts_embedded": [
+    {
+      "name": "AAAAAA+MalgunGothic",
+      "type": "TrueType",
+      "embedded_bytes": 69712
+    },
+    {
+      "name": "AAAAAB+MalgunGothic",
+      "type": "TrueType",
+      "embedded_bytes": 32800
+    },
+    {
+      "name": "AAAAAA+MalgunGothicBold",
+      "type": "TrueType",
+      "embedded_bytes": 69144
+    }
+  ],
+  "references_exact_in_pdf_and_pptx": 22,
+  "native_editable_shapes": 257,
+  "native_tables": 7,
+  "table_row_heights_mm": [
+    34.0,
+    64.0,
+    59.0,
+    36.0,
+    18.0,
+    36.0,
+    40.0
+  ],
+  "native_charts": 2,
+  "embedded_data_workbooks": 2,
+  "raster_pictures_in_pptx": 0,
+  "chart_endpoints_and_means_match_source_csv": true,
+  "text_font_cmap_coverage": "pass",
+  "all_section_text_bounds_inside_region": "pass",
+  "b1_original_hashes_unchanged": true,
+  "repository_read_only_by_poster_task": true,
+  "external_status_change": false,
+  "git_status_at_validation": "M FINALDOCS/BUILD/README.md\n M FINALDOCS/BUILD/build_print_evidence.py\n M FINALDOCS/BUILD/build_submission_literature.py\n M FINALDOCS/BUILD/build_thesis_hwpx.py\n M FINALDOCS/BUILD/layout_checks.py\n M FINALDOCS/BUILD/verify_thesis_hwpx.py\n M FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.build.json\n M FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx\n M FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf\n M FINALDOCS/DELIVERY/HWPX_EXTRACTED_TEXT.txt\n M FINALDOCS/DELIVERY/HWPX_STRUCTURAL_QA.json\n M FINALDOCS/DELIVERY/PAGE_MAP_60Q.json\n M FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png\n M FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png\n M FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png\n M FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png\n M FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png\n M FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png\n M FINALDOCS/EVIDENCE/IO_CASES/PRINT_EVIDENCE_MANIFEST.json\n M FINALDOCS/FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json\n M FINALDOCS/FIGURES/LITERATURE/fig2_1_rag_independent.png\n M FINALDOCS/FIGURES/fig1_1_research_setting.png\n M FINALDOCS/FIGURES/fig4_1_pipeline.png\n M FINALDOCS/FIGURES/fig4_2_artifact_flow.png\n M FINALDOCS/FIGURES/fig5_0_evaluation_design.png\n M FINALDOCS/FIGURES/fig5_10_runtime.png\n M FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md\n M FINALDOCS/MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt\n M FINALDOCS/TABLES/TABLES_60Q.xlsx\n M FINALDOCS/VALIDATION/PROSE_SENTENCE_REVIEW.json\n M FINALDOCS/VALIDATION/academic_language_checks.py\n M FINALDOCS/VALIDATION/print_evidence_checks.py\n M FINALDOCS/VALIDATION/prose_audit_checks.py\n M FINALDOCS/VALIDATION/submission_audit_checks.py\n M FINALDOCS/VALIDATION/test_academic_language_checks.py\n M FINALDOCS/VALIDATION/test_prose_audit.py\n M FINALDOCS/VALIDATION/test_submission_audit.py\n M FINALDOCS/VALIDATION/verify_finaldocs_60q.py\n M cli/finalize_thesis_figures.py\n?? FINALDOCS/BUILD/build_reviewed_figure_labels.py\n?? FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.docx\n?? FINALDOCS/VALIDATION/COMPLETE_SENTENCE_AB_AUDIT.md\n?? FINALDOCS/VALIDATION/FINAL_INDEPENDENT_PROSE_REVIEW.md\n?? FINALDOCS/VALIDATION/build_hwp_transfer_docx.py\n?? tmp/",
+  "source_snapshot_sha256": "1e467fdbad0a61ffaa78e7513dc6b3d6b26bd356a65bb160abf492496ca81d68",
+  "current_manuscript_sha256": "1e467fdbad0a61ffaa78e7513dc6b3d6b26bd356a65bb160abf492496ca81d68",
+  "source_tabular_rows_and_references_match_current": true,
+  "original_source_files_checked": 13,
+  "powerpoint_native_application_execution": false,
+  "rendering": "PDF opened/rendered by PyMuPDF; PPTX exported, re-imported, and rendered by artifact-tool",
+  "claim_boundary": "Programmatic checks plus inspected renders; no physical print or native PowerPoint execution"
+}
