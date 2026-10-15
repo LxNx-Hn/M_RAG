@@ -1,12 +1,12 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "1dbdf4ab853198d0afa0555d55c5a7ee03c6ae85f1be881173918d02343d2fc5",
-    "bytes": 2672783,
+    "sha256": "6d1b92f7ad60282d4b78feb1f48e482af659905cebd497e5803d11c626f8d9c6",
+    "bytes": 2673229,
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "82f81cb7c994631cdb878907e8f331a996b5ad84ff29cea735a61cfc124cd837",
-    "bytes": 3480617,
+    "sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126",
+    "bytes": 3482990,
     "hash_method": "raw bytes"
   },
   "SCHOOL_TEMPLATE_CONVERTED.hwpx": {
@@ -15,23 +15,23 @@
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.build.json": {
-    "sha256": "0862d7477e31876e2f464d2a70c994ecc6db7c1bd92b92af1b3f224e215c7f4d",
-    "bytes": 187528,
+    "sha256": "8615d6d8785c3c6d601aeb3b5968c4b9347e66a7927a6f858951e5a6202feb5a",
+    "bytes": 188382,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_STRUCTURAL_QA.json": {
-    "sha256": "2567b06fb1a29a31464c62341df11c56258f3c4a66afba6a181bd6f09ac99562",
-    "bytes": 29496,
+    "sha256": "fb99b73ebf79adb682f5ab542c71eb6537d6701afd6f02aea94189a8dfbb6f6a",
+    "bytes": 29503,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_EXTRACTED_TEXT.txt": {
-    "sha256": "dba8f09332d7aec7971b3aa5b208ea487e7b1fd8159784a2eb4a55566efbf9d1",
-    "bytes": 80513,
+    "sha256": "46f5e4d834510584e50c7c6e6d5fc7efd652102fc5a1815f7327be5e3bb4d00b",
+    "bytes": 81360,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "PAGE_MAP_60Q.json": {
-    "sha256": "9c1b0bc9dcf2395f5c35a14bf9a7268b95633bc084c510eeeeb95eeda0c84b4a",
-    "bytes": 6969,
+    "sha256": "fc306f6e7ea87a1c1763970c2fb1b3dfe123ab044214dcd79dc3c9d0b25a1510",
+    "bytes": 7014,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "WEB_PROFESSOR_FINAL_20261016.jpg": {
@@ -42,6 +42,11 @@
   "WEB_POSITIVE_FINAL_20261016.jpg": {
     "sha256": "06cd9df5a526228e11445a8638e1b29e3149b3a21104eb22534349dd185e85b8",
     "bytes": 125009,
+    "hash_method": "raw bytes"
+  },
+  "WEB_AC63_FINAL_20261016.png": {
+    "sha256": "64377b44d4088cab2fabb47b91a901a06b5fcfc92fdafde42c06fc6eafe6fc7b",
+    "bytes": 102645,
     "hash_method": "raw bytes"
   }
 }

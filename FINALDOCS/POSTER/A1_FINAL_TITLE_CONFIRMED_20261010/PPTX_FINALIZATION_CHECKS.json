@@ -1,7 +1,7 @@
 {
   "schemaVersion": "presentation-finalization.v1",
-  "finalSha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
-  "byteCount": 31162,
+  "finalSha256": "9694bad8565b402128a2087c6c925e3170726538e945e8017c87842a04032763",
+  "byteCount": 31632,
   "packageIntegrity": {
     "chart_count": 0,
     "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
@@ -19,13 +19,13 @@
     "finding_count": 0,
     "findings": [],
     "font_policy": {
-      "checked_text_script_count": 389,
+      "checked_text_script_count": 397,
       "native_font_rendering_verified": false,
       "observed_font_families": [
         "Malgun Gothic"
       ],
       "observed_font_use_counts": {
-        "Malgun Gothic": 389
+        "Malgun Gothic": 397
       },
       "passed": true,
       "performed": true
@@ -40,13 +40,13 @@
     "exitCode": 0,
     "findingCount": 0,
     "fontPolicy": {
-      "checked_text_script_count": 389,
+      "checked_text_script_count": 397,
       "native_font_rendering_verified": false,
       "observed_font_families": [
         "Malgun Gothic"
       ],
       "observed_font_use_counts": {
-        "Malgun Gothic": 389
+        "Malgun Gothic": 397
       },
       "passed": true,
       "performed": true
@@ -58,15 +58,15 @@
       "Malgun Gothic"
     ],
     "scriptFonts": {},
-    "referenceSha256": "5aa8cd9ba065b2ce4eeb818465767b2cbda5d58e44a7297642f9489e7e3b8f0f",
+    "referenceSha256": "6d038a3486d39dfab1b67d32f989eed49b9ac120fe66dd10de2bab84c0e7d903",
     "referenceFontsVerifiedInEncodedText": true,
-    "checked_text_script_count": 389,
+    "checked_text_script_count": 397,
     "native_font_rendering_verified": false,
     "observed_font_families": [
       "Malgun Gothic"
     ],
     "observed_font_use_counts": {
-      "Malgun Gothic": 389
+      "Malgun Gothic": 397
     },
     "passed": true,
     "performed": true
@@ -75,7 +75,7 @@
     "performed": true,
     "passed": true,
     "slideCount": 1,
-    "sha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
+    "sha256": "9694bad8565b402128a2087c6c925e3170726538e945e8017c87842a04032763",
     "runtimeNodeModules": "C:/Users/KiKi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules",
     "nodeExecutable": "C:\\Users\\KiKi\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
   },
@@ -124,7 +124,7 @@
     "native_chart_count": 0,
     "native_powerpoint_verified": false,
     "passed": true,
-    "presentation_sha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
+    "presentation_sha256": "9694bad8565b402128a2087c6c925e3170726538e945e8017c87842a04032763",
     "schema_version": "presentation-native-chart-titles.v1",
     "slide_count": 1,
     "source_text_emitted": false,

@@ -41,7 +41,11 @@ def main(build_dir):
     sys.path.insert(0, str(build_dir))
     from poster_alignment import validate_alignment
 
+    sys.path.insert(0, str(build_dir.parent / "VALIDATION"))
+    from professor_acceptance_checks import poster_headings, validate_poster
+
     alignment = validate_alignment(pptx, svg)
+    acceptance = validate_poster(pptx, svg)
     required = json.loads((ROOT / "A1_COPYEDIT_MAP.json").read_text("utf-8"))[
         "required_text"
     ]
@@ -89,6 +93,7 @@ def main(build_dir):
         mm = [doc[0].rect.width * 25.4 / 72, doc[0].rect.height * 25.4 / 72]
         assert abs(mm[0] - 594) < 0.02 and abs(mm[1] - 841) < 0.02
         text = compact(doc[0].get_text())
+        poster_headings(doc[0].get_text().splitlines())
         for value in required:
             assert compact(value) in text, "PDF mismatch: " + value
         fonts = doc[0].get_fonts(full=True)
@@ -99,6 +104,7 @@ def main(build_dir):
     report = {
         "date": "2026-10-16",
         "table_alignment": alignment,
+        "professor_acceptance": acceptance,
         "required_text_units": len(required),
         "pdf_pages": 1,
         "size_mm": mm,

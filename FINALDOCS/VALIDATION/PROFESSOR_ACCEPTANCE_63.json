@@ -1,0 +1,510 @@
+{
+  "baseline": "2ef613d67167aee4bf435d43b29178b01d0c547d",
+  "criteria": [
+    {
+      "id": "AC-01",
+      "criterion": "제목은 연구 대상, 실험 요인 및 평가 목적을 명확하게 전달한다.",
+      "status": "완료",
+      "evidence": "확정 제목·표지·Abstract 영문 제목·포스터·REVISION_CONTRACT 일치. 기존 제목 우선 결정 및 후보 비교는 A절.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-02",
+      "criterion": "논문 국문초록과 영문초록의 연구 대상·방법·통계 결과를 일치시킨다.",
+      "status": "완료",
+      "evidence": "국문/영문초록: 60×8, 480, S별 품질 프로토콜, HyDE .080/.117, CAD .029/.393, SCD 21.8%p/Holm<.001 상호 대조.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-03",
+      "criterion": "포스터 초록 영역 삭제 상태를 유지한다.",
+      "status": "완료",
+      "evidence": "포스터 01–08의 독립 초록 부재. professor_acceptance_checks.validate_poster 및 PDF 제목 검사.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-04",
+      "criterion": "RAG 최초 등장에 정식 명칭과 작동 원리를 설명한다.",
+      "status": "완료",
+      "evidence": "원고 국문초록·1.1, 포스터01: RAG 정식 명칭과 검색 구간 텍스트→답변 생성.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-05",
+      "criterion": "“검색 문맥”은 생성 모델에 제공하는 실제 검색 결과 텍스트를 가리키도록 정의한다.",
+      "status": "완료",
+      "evidence": "1.1: 생성 모델에 제공하는 검색 결과 텍스트를 검색 문맥으로 정의. 4.3 최종 문맥 저장.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-06",
+      "criterion": "서론은 RAG → 선행기법 → 교차언어 문제 → 연구 필요성 → 연구 목적 순서를 따른다.",
+      "status": "완료",
+      "evidence": "1.1 네 문단의 정의→기법→교차언어 과제→고정 파이프라인 비교 목적 순서.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-07",
+      "criterion": "HyDE·CAD·SCD의 최초 등장에 정식 명칭과 기능을 설명한다.",
+      "status": "완료",
+      "evidence": "국문·영문초록/1.1 및 포스터01: HyDE/CAD/SCD 정식 명칭과 기능.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-08",
+      "criterion": "Paper-RAG 최초 등장에 자체 검색·생성 파이프라인의 정의를 제시한다.",
+      "status": "완료",
+      "evidence": "1.1 및 포스터02: Paper-RAG는 본 연구의 고정 검색·생성 파이프라인.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-09",
+      "criterion": "영어 문서를 이용한 RAG의 선행연구 결과와 한국어 질의–영어 문서 환경의 연구 필요성을 연결한다. 선행연구의 실제 평가 언어와 결과는 원 논문을 기준으로 기술한다.",
+      "status": "수정 완료",
+      "evidence": "1.1·2.3~2.5 및 원 논문 확인. HyDE의 ko 평가를 명시. CAD 요약/지식충돌, SCD 다국어 평가 범위 유지.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-10",
+      "criterion": "서론에서 연구 질문, 연구 필요성 및 연구 의의를 전달한다.",
+      "status": "완료",
+      "evidence": "1.1 필요성, 1.3 RQ1–4와 분석 대응, 6.2 같은 질의·파이프라인 비교의 의의.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-11",
+      "criterion": "세부 수식과 구현 파라미터는 이론적 배경 및 방법 절에 배치한다.",
+      "status": "완료",
+      "evidence": "수식 11개는 2장과5.4에 배치. 표4-1에 모델/파라미터. 서론에는 목적·설계 수준 설명.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-12",
+      "criterion": "연구 질문별 측정 지표와 통계 검정의 대응을 명시한다.",
+      "status": "완료",
+      "evidence": "1.3·3.3·5.4: RQ1/2 고정조건 대응 t, RQ3 질의별 평균 SCD 차이, RQ4 요인 ANOVA.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-13",
+      "criterion": "모든 문장의 주어와 측정 대상을 구체적으로 작성한다.",
+      "status": "수정 완료",
+      "evidence": "PROSE_SENTENCE_REVIEW.json의 현행 540개 단위, 줄번호·주어/대상/교차참조 재검토. AC63_PROSE_AB.json.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-14",
+      "criterion": "표의 긴 텍스트는 좌측 정렬한다.",
+      "status": "완료",
+      "evidence": "verify_thesis_hwpx.py 1,229셀 설명 LEFT, poster_alignment.py 설명 LEFT.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-15",
+      "criterion": "표의 설명 열은 좌측 정렬한다.",
+      "status": "완료",
+      "evidence": "표2-1/4-1/부록 설명 열 LEFT, 포스터 대응비교 설명 열 LEFT. 실제 PDF 확대 확인.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-16",
+      "criterion": "모든 수치와 통계량은 우측 정렬한다.",
+      "status": "수정 완료",
+      "evidence": "HWPX/XLSX df를 RIGHT로 수정. 본문 수치·통계량 RIGHT, 포스터 수치 88셀 RIGHT.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-17",
+      "criterion": "짧은 조건 코드와 0/1 요인 부호는 중앙 정렬한다.",
+      "status": "완료",
+      "evidence": "표3-1·포스터03 H/C/S 0/1, 조건 코드 CENTER. 머리글 CENTER.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-18",
+      "criterion": "텍스트의 양에 따라 열 너비를 비대칭으로 구성한다.",
+      "status": "수정 완료",
+      "evidence": "표2-1 19/35/46%, 표3-1 46/18/18/18%, 표4-1 20/42/38%; 부록 질문·근거 열 우선 배치.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-19",
+      "criterion": "표의 가로·세로 배치 및 비교축을 데이터 유형에 맞게 결정한다.",
+      "status": "완료",
+      "evidence": "품질 조건은 행/지표는 열, 요인 검정은 효과 행. 14표 개별 객체 감사.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-20",
+      "criterion": "표 제목에는 평가 대상, 비교 조건, 제시된 통계량을 포함한다.",
+      "status": "수정 완료",
+      "evidence": "모든 표 제목을 본문/목록과 대조. 표5-1 평가 문맥·평균(SD), 포스터05 8조합·품질/언어/시간 평균(SD).",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-21",
+      "criterion": "반복되는 생성 횟수 열을 정리한다.",
+      "status": "완료",
+      "evidence": "조건별 반복 생성 횟수 열 부재. 60질의×8조건=480은 3.3·포스터03에서 설명.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-22",
+      "criterion": "문장으로 충분히 설명되는 단순 목록표를 정리한다.",
+      "status": "완료",
+      "evidence": "이전 표3-1/3-3/4-4/5-1을 목적별 문장으로 정리. 17→14 개별 대응표 참조.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-23",
+      "criterion": "큐브 그림을 0/1 완전요인설계표로 대체한다.",
+      "status": "완료",
+      "evidence": "이전 그림3-1 큐브를 현행 표3-1 0/1 요인 배치로 대체. 포스터03 동일.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-24",
+      "criterion": "중복되는 결과 그래프와 히트맵을 정리한다.",
+      "status": "완료",
+      "evidence": "중복 평균 그래프·히트맵·CI 시각화는 본문 대신 평균(SD)·검정표. 이전22→13 대응표.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-25",
+      "criterion": "다이어그램 내부 글자 크기를 실제 인쇄 크기에 맞춰 확대한다.",
+      "status": "완료",
+      "evidence": "본문폭 도식·실제 PDF 확대 점검. 입출력6그림은 verify_print_pdf에서 실제 배치 글자>=9pt. 실물은 별도.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-26",
+      "criterion": "박스 안에서 글자의 크기와 여백이 조화를 이루도록 조정한다.",
+      "status": "완료",
+      "evidence": "그림2-1~2-4와4-1 박스/글자/화살표 확대, 포스터02 18pt. 객체별 디지털 판독·물리 인쇄 구분.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-27",
+      "criterion": "그림의 폭과 높이를 본문 편집 영역에 맞게 조정한다.",
+      "status": "완료",
+      "evidence": "HWPX 그림13개 본문폭425.22pt, 원본 비율 유지; 전체48쪽 렌더.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-28",
+      "criterion": "불필요한 큰 여백과 박스 사이의 빈 공간을 정리한다.",
+      "status": "수정 완료",
+      "evidence": "표5-1 제목 분리를 발견해5.5부터 다음쪽 시작. 장/절 종료 여백은 표·다음 결과 묶음을 유지. 목차6 계속쪽 정상.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-29",
+      "criterion": "화살표, 연결선, 글꼴 및 수식의 렌더링을 확인한다.",
+      "status": "완료",
+      "evidence": "48쪽 PDF 수식11·화살표13그림, A1 PDF02 흐름·글꼴 포함 확인. 원본 이미지 픽셀 비교.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-30",
+      "criterion": "표·그림·캡션·절 제목 사이의 간격을 확인한다.",
+      "status": "수정 완료",
+      "evidence": "표5-1 제목/표/주석 같은쪽. 표5-4·B-2 시작 보호, 부록머리글 반복. 객체별 캡션·간격 검토.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-31",
+      "criterion": "60개 질의의 작성 방법과 원문 근거 확인 절차를 설명한다.",
+      "status": "완료",
+      "evidence": "5.1 작성 절차·문서별15·원문검증, QUERY_CONSTRUCTION_PROTOCOL 및 APPENDIX/QUERY_60_AUDIT.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-32",
+      "criterion": "질의의 실제 내용과 대표적인 질문 사례를 제시한다.",
+      "status": "완료",
+      "evidence": "5.3 그림5-2 ext_raptor_011 실제 질문, 부록A60개 및 포스터04 전체 질문.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-33",
+      "criterion": "질의 구성의 최종 증빙 자료와 연구자 작성 절차 설명을 구분한다.",
+      "status": "완료",
+      "evidence": "5.1 연구자 절차와 최종 검증 자료를 별도 문단으로 구분. DATA_AVAILABILITY에 보존 상태 기록.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-34",
+      "criterion": "다섯 핵심 평가 지표의 정의를 제시한다.",
+      "status": "완료",
+      "evidence": "2.6/5.2·포스터04: 네 RAGAS+한글/(한글+ASCII) 문자 비율.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-35",
+      "criterion": "각 지표에서 높은 점수가 의미하는 측정 특성을 설명한다.",
+      "status": "완료",
+      "evidence": "5.2 및 포스터04: 지표별 정의·값 방향. 문자 비율은 문자 구성 측정.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-36",
+      "criterion": "`0.700`, `+0.080`, `+0.218` 등 실제 수치의 의미와 단위를 설명한다.",
+      "status": "수정 완료",
+      "evidence": "5.2와 포스터04 0.700=70.0%, +0.218=+21.8%p, 관련성+0.080 대응 점수 차이. 관측범위0~1, 이론상 코사인−1~1 구분.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-37",
+      "criterion": "평가 지표와 실험 환경을 명확한 순서로 제시한다.",
+      "status": "완료",
+      "evidence": "5.2 지표→5.3 평가입력·모델→5.4 검정, 포스터04 동일 읽기 순서.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-38",
+      "criterion": "대표적인 질문·검색 근거·생성 답변·평가 결과를 실험 방법에서 제시한다.",
+      "status": "수정 완료",
+      "evidence": "5.3 그림5-2 및 포스터04 ext_raptor_011 저장 질문→영어검색근거→생성주장→충실도1/관련성.937. 원문 발췌 대조.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-39",
+      "criterion": "8조건 전체 결과표를 제시한다.",
+      "status": "수정 완료",
+      "evidence": "표5-1/포스터05 8조건 평균(SD), S0 네 행 뒤 S1 네 행·굵은 구분선.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-40",
+      "criterion": "조건별 결과는 평균(표본표준편차)로 표시한다.",
+      "status": "완료",
+      "evidence": "원정밀도통계→표본 SD(n−1). 1,229셀 원고/JSON/XLSX/HWPX 대조 및 포스터 전 지표 대조.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-41",
+      "criterion": "소수점은 세 자리로 통일한다.",
+      "status": "완료",
+      "evidence": "표 표시 세 자리, p<.001 표기·정수 n/df 예외. 원자료 정밀도 보존.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-42",
+      "criterion": "신뢰구간 중심의 설명을 표준편차와 통계 검정 중심의 설명으로 정리한다.",
+      "status": "수정 완료",
+      "evidence": "5.4 bootstrap 본문 문장 삭제. 보조 통계JSON·HISTORY 부트스트랩 자료 보존.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-43",
+      "criterion": "“평균 변화량” 등 해석이 모호한 표현을 “평균 대응 점수 차이”처럼 정확하게 수정한다.",
+      "status": "완료",
+      "evidence": "5.7 및 포스터04/05: 적용−미적용의 평균 대응 점수 차이, 차이SD와 단위.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-44",
+      "criterion": "ON/OFF 비교에는 질의별 대응 검정값과 유효 표본 수를 제시한다.",
+      "status": "완료",
+      "evidence": "표5-7/5-8 n58/60 및 질의 단위, 포스터05 n=58/57/60·df59/57·주비교60 주석.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-45",
+      "criterion": "대응 t-검정의 t값, 자유도, p값 및 필요 시 효과크기를 제시한다.",
+      "status": "완료",
+      "evidence": "표5-7/5-8 t(df), raw p, Holm p,dz. 대응 t에 차이 SD 사용. 원자료 재계산 통과.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-46",
+      "criterion": "3요인 2수준 완전요인설계의 주효과 및 상호작용을 분석한다.",
+      "status": "완료",
+      "evidence": "표5-3~5-6 38검정: 품질S별H×C24, 문자/시간H×C×S각7. 질의 반복측정.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-47",
+      "criterion": "실험 조건표는 H·C·S의 0/1 부호를 사용한다.",
+      "status": "완료",
+      "evidence": "표3-1·포스터03 모두 H/C/S 0/1, 0미적용/1적용 범례.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-48",
+      "criterion": "단일 기법 비교와 전체 조합 분석을 구분한다.",
+      "status": "완료",
+      "evidence": "3.3/5.4/5.6/5.7: 단순비교의 고정조건과 전체요인 평균·상호작용 구분.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-49",
+      "criterion": "ANOVA와 대응 t-검정이 검증하는 가설을 구분한다.",
+      "status": "완료",
+      "evidence": "3.3의 단순/주/상호작용 정의, 5.4 대응평균가설과 직교대비 ANOVA.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-50",
+      "criterion": "결과표를 먼저 제시하고, 이후 통계 결과와 해석을 연결한다.",
+      "status": "완료",
+      "evidence": "5.5 전체평균→5.6 요인검정→5.7 대응검정→5.8 해석→6.1 RQ결론. 포스터05→06.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-51",
+      "criterion": "실험 방법의 설명이 실제 구현 및 평가 기록과 일치하도록 한다.",
+      "status": "완료",
+      "evidence": "run config·main_generation_executor·저장 generation/evaluation 입력 대조. 샘플링/영문생성/평가번역/시간범위 일치.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-52",
+      "criterion": "결측, 평가 문맥 언어, 샘플링, 실행 시간의 측정 범위를 명시한다.",
+      "status": "완료",
+      "evidence": "4.3 시간시작/끝,4.1 HyDE샘플링,5.3 S별평가문맥,5.4 결측5와분모0답변1/n59민감도.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-53",
+      "criterion": "포스터의 독립 초록 영역 삭제 상태를 유지한다.",
+      "status": "완료",
+      "evidence": "추가메모 요구로 독립 초록 부재 유지. 녹취 해당 직접 발언은 별도 확인 항목이므로 메모 출처로 기록.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-54",
+      "criterion": "포스터 01에서 문제 배경과 연구 필요성을 구체적으로 제시한다.",
+      "status": "수정 완료",
+      "evidence": "포스터01 RAG→기법 역할→한국어 질문·영어 근거·한국어 답변의 평가 필요→동일 파이프라인 조합 비교.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-55",
+      "criterion": "포스터 02에서 데이터 흐름과 기법의 적용 위치를 크게 표시한다.",
+      "status": "완료",
+      "evidence": "포스터02 한국어 원질의/BM25,HyDE ON번역·가상문서/BGE-M3→RRF→CrossEncoder상위5→CAD후SCD→답변.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-56",
+      "criterion": "포스터 03은 0/1 실험 설계표 중심으로 구성한다.",
+      "status": "완료",
+      "evidence": "포스터03 8행0/1표·범례·60×8·512토큰·문서별15 질의근거확인.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "교수 녹취 및 추가 메모"
+    },
+    {
+      "id": "AC-57",
+      "criterion": "포스터 04는 지표 정의 → 점수 의미 → 실제 평가 사례 → 실험 환경 → 통계 방법 순서로 구성한다.",
+      "status": "수정 완료",
+      "evidence": "포스터04 정의→단위/방향→실제주장·근거→RAGAS환경→반복측정ANOVA/t/Holm. 205문구 및 확대렌더.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-58",
+      "criterion": "포스터 05는 전체 결과표 → ANOVA → 대응 t-검정 순서로 구성한다.",
+      "status": "완료",
+      "evidence": "포스터05 평균(SD)8조건→언어/시간7효과ANOVA→주요3대응t. S별품질24검정 설명.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-59",
+      "criterion": "포스터 06은 05의 통계 결과를 해석하는 역할에 집중한다.",
+      "status": "수정 완료",
+      "evidence": "포스터06 수치재나열을 해석으로 교체. CAD변동 원인을 인과적으로 단정하는 문장 부재. SCD문자비중·C×S시간 의미.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-60",
+      "criterion": "포스터 07은 연구 질문의 결과와 실제 적용상 의미를 제시한다.",
+      "status": "수정 완료",
+      "evidence": "포스터07 품질판단·SCD한국어비중·CAD추가시간·HyDE검색입력·조합선택 기준. 숫자 반복 제거.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-61",
+      "criterion": "포스터 08은 핵심 참고문헌만 간결하게 제시한다.",
+      "status": "완료",
+      "evidence": "포스터08 핵심6편, 본문번호1/2/3/4/5/10 및22편동봉. 출판정보·저자 대조.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-62",
+      "criterion": "포스터 표의 숫자·SD·t·F·p값과 작은 주석의 가독성을 확인한다.",
+      "status": "완료",
+      "evidence": "A1 PDF01–08 확대, 표18pt·참고16pt·하단14pt·규격10.5pt. 수치88셀 정렬/단위/주석 디지털 판독.",
+      "method": "디지털 자동 검사 + 원고/PDF 수동 검토",
+      "feedback_source": "추가 메모"
+    },
+    {
+      "id": "AC-63",
+      "criterion": "A1 실물 출력 크기에서 내부 글자와 표 내용을 확인한다.",
+      "status": "추가 확인 필요",
+      "evidence": "A1 594×841mm·7016×9933px·모든문구경계 검사 및 확대렌더 완료. 실물 인쇄와 1–2m 발표거리 판독은 사용자 확인 필요.",
+      "method": "디지털 확인 완료; 물리 출력 미수행",
+      "feedback_source": "추가 메모"
+    }
+  ],
+  "manual_status_is_not_automated_proof": true
+}

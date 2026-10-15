@@ -5,7 +5,15 @@
     "numeric_cells_right_aligned": 88,
     "native_and_svg_alignment_match": true
   },
-  "required_text_units": 204,
+  "professor_acceptance": {
+    "protocol_groups": [
+      4,
+      4
+    ],
+    "independent_abstract": false,
+    "case_claim_evidence": true
+  },
+  "required_text_units": 205,
   "pdf_pages": 1,
   "size_mm": [
     594.0000047471788,
@@ -18,15 +26,15 @@
     7016,
     9933
   ],
-  "pdf_sha256": "6814ec3469c0aead825444e2f9d363578f25af4ad64e9371d00a9c47ec7eec06",
-  "pptx_sha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
-  "svg_sha256": "26bd56d8cbc549d091749adce9290bd12046ebed621246922c92252b0112b8b6",
+  "pdf_sha256": "9340821ad0f4dce63f4ac3e3221c77040a9d633a5213368ad9ffc21480676f52",
+  "pptx_sha256": "9694bad8565b402128a2087c6c925e3170726538e945e8017c87842a04032763",
+  "svg_sha256": "fbdd75116883359c113680c5179504ce3aac1a61f5bec7bd3b292ad614f53c8e",
   "pdf_fonts": [
     [
       7,
       "ttf",
       "Type0",
-      "DRVMCX+MalgunGothic",
+      "ZXBAOF+MalgunGothic",
       "f-0-1",
       "Identity-H",
       0
@@ -35,7 +43,7 @@
       8,
       "ttf",
       "TrueType",
-      "FNRDOF+MalgunGothic",
+      "YSHHOI+MalgunGothic",
       "f-0-0",
       "WinAnsiEncoding",
       0
@@ -44,7 +52,7 @@
       9,
       "ttf",
       "Type0",
-      "CJFZVM+MalgunGothicBold",
+      "GBEYNC+MalgunGothicBold",
       "f-1-1",
       "Identity-H",
       0
@@ -53,9 +61,18 @@
       10,
       "ttf",
       "TrueType",
-      "LTQDVU+MalgunGothicBold",
+      "EAVUIP+MalgunGothicBold",
       "f-1-0",
       "WinAnsiEncoding",
+      0
+    ],
+    [
+      11,
+      "ttf",
+      "Type0",
+      "ZAPSNM+Verdana",
+      "f-2-1",
+      "Identity-H",
       0
     ]
   ],

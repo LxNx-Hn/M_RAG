@@ -184,16 +184,28 @@ def main() -> None:
                 assert norm(text) == norm(
                     value
                 ), f"{name} cell {original.coordinate}: {text!r} != {value!r}"
+                if name.strip() == "T5-1_Mean_SD" and r == 5:
+                    fill_id = cell.get("borderFillIDRef")
+                    fill = next(
+                        item
+                        for item in header.iter()
+                        if item.tag.endswith("}borderFill")
+                        and item.get("id") == fill_id
+                    )
+                    top = next(item for item in fill if item.tag.endswith("}topBorder"))
+                    assert (
+                        top.get("type") == "SOLID" and top.get("width") == "0.4 mm"
+                    ), "Missing S0/S1 table group border"
                 label = str(ws.cell(3, c + 1).value)
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|df|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
                         label,
                     )
                 )
                 expected_alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "df")
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과")
                     else "RIGHT" if numeric else "LEFT"
                 )
                 for paragraph in cell.findall(".//hp:p", NS):

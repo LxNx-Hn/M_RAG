@@ -1,101 +1,45 @@
 {
   "date": "2026-10-16",
-  "baseline_commit": "10578fb2b31df3001bdf7b6dd1d9027cde41334f",
-  "public_pdf_sha256": "82f81cb7c994631cdb878907e8f331a996b5ad84ff29cea735a61cfc124cd837",
-  "pages": 47,
-  "draft_vs_numbered_changed_pages": [
+  "baseline_commit": "2ef613d67167aee4bf435d43b29178b01d0c547d",
+  "public_pdf_sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126",
+  "private_pdf_sha256": "09c8f11fbe1c8f95f96a2bb3e97b3dc32de06c48d09155eaa1d648c706d74ff0",
+  "pages": 48,
+  "draft_final_changed_pages": [
     5,
     6,
     7,
     8
   ],
-  "public_vs_private_changed_pages": [
+  "public_private_changed_pages": [
     1,
     2
   ],
-  "new_prose_blocks_verified": [
-    {
-      "section": "2.3 가상 문서 임베딩과 검색",
-      "line": 204,
-      "after_sha256": "02371951d2ab32e3f8e575b96a3d3b29b6bd5c1aafd22e7a60f5df0358dd067f"
-    },
-    {
-      "section": "2.4 Context-Aware Decoding",
-      "line": 234,
-      "after_sha256": "deacf8b873b620d74f03272eb8fafcc6172941d0affcd030d275d1bb3490f3e1"
-    },
-    {
-      "section": "2.5 Soft Constrained Decoding과 언어 이탈",
-      "line": 278,
-      "after_sha256": "b49b8b90ae10440d9017410f04707c77d741cff342d5a631eba95960707d96a0"
-    },
-    {
-      "section": "2.6 RAG 평가",
-      "line": 286,
-      "after_sha256": "618a5608b5f339e29581945aea9aceff43626e98ece9d73023516d86d1db223f"
-    },
-    {
-      "section": "4.3 시스템 구현과 실행 기록",
-      "line": 384,
-      "after_sha256": "4aa40109ef6a134341ca9f5e7f35a9edf3be0aaa8640b529eab78756f4782859"
-    },
-    {
-      "section": "5.1 평가 대상 및 질의 구성",
-      "line": 396,
-      "after_sha256": "32bb23af662c2bcf90b76d701b352155792f4a3b6d8bf0b36d10cab9c93690f8"
-    },
-    {
-      "section": "5.4 통계 분석 방법",
-      "line": 450,
-      "after_sha256": "10edb345078c2b8b246a03f302ceb5f6a05e6ced004e26a6387e8ae3302359f5"
-    },
-    {
-      "section": "5.4 통계 분석 방법",
-      "line": 452,
-      "after_sha256": "cc312ff5ec69340c9323188fc50e1ff437f8e8c07d2dd789c1db5caf89d018f4"
-    },
-    {
-      "section": "5.4 통계 분석 방법",
-      "line": 454,
-      "after_sha256": "cd4f4a29faefef5ecc27b7a51b8b2dbc99d2dad026f93e464282a1aad8e1644d"
-    },
-    {
-      "section": "5.7 연구 질문별 대응 비교",
-      "line": 608,
-      "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    },
-    {
-      "section": "5.8 종합 논의",
-      "line": 612,
-      "after_sha256": "e6644597a643226dba0129c8189eef290ffca451e767127a5ae65f8f7da2d902"
-    },
-    {
-      "section": "5.8 종합 논의",
-      "line": 614,
-      "after_sha256": "ff02ce288753ef0832bc99b33db72a9b3df494ed2d09769853ccd6efe76dcbd7"
-    },
-    {
-      "section": "5.9 평가 범위와 후속 검증",
-      "line": 624,
-      "after_sha256": "758005de273863efee4752f16cfb88bedbcda37f7163225762a6e5c751eaa3cc"
-    },
-    {
-      "section": "5.9 평가 범위와 후속 검증",
-      "line": 626,
-      "after_sha256": "91098eca9d2972b7a6031cd17dc0231e7dcb38bd0807cb439c6dbcb335099fce"
-    },
-    {
-      "section": "6.1 연구 질문별 결과",
-      "line": 636,
-      "after_sha256": "41bf05d19bebc8dfecae8008dedaa89835caa551c9df6b6f4093d8ac1ad483db"
-    },
-    {
-      "section": "6.1 연구 질문별 결과",
-      "line": 640,
-      "after_sha256": "46cc092254b1da81fc8019ad09907ea0cbc6ef38dd761ce6163a508e98e6a7c4"
-    }
+  "new_prose_fragments_verified": 21,
+  "after_sha256": [
+    "b460abe3cea3579d9515fc3250382ad5c7de7fe69974031282f87504fede90aa",
+    "75d51452ed17bc0d5e535c682bbaddc3c2c3c06eb15794657a98c41486a27d96",
+    "d761a2b1bd94a003a6933a907ab28993dc49042158c0b97549da755683d24ef8",
+    "0c35e96adb00eca2016fdc4ba6916129f9f9aa596eb61c29b15068081d6244b4",
+    "dc9a7d0095d7f36d69a7212e31da7d7a4123034b99134186f3aa63aae876b01a",
+    "d8897c4d98974fd1c32429aec38338e851ed95a80b974b9eb676e17200be5356",
+    "1da51823d0f46a5618459114e512b78b974dc81c50db6f37f250b8f156626061",
+    "b4539774360dc5c7ec99a1d292e1d8cc08160bab396d315c204e1004ad3a294f",
+    "d2c67e5baf580e61c9691b239dd1a8a2cef3e8f7c096fe2a7a2d87106a1bc822",
+    "be5a5e894df0b5e4daec9d2decff04c19a107ed04c3ab803cb77a500c403c40e",
+    "adbedf37838a40e076f809ef9013fb4c7ee9675a67f7b06dc39465dd0fcc7680",
+    "d512fcaf31e4b289e5d84e284ce645ed0a27aa53c1b4a5957f535b4ad1cffd33",
+    "6788722d5229fef0efe9d9bf7134ef230f48d4475442aa2889af43122df1689a",
+    "c38d13f3dee84250d560c03c7f85d6191161e5e936d253a82372fdf1e7f7113f",
+    "4694119c0f6cd5bd30c4c66e50e2905937860be5cf24a6af9f1053e6f7ea8806",
+    "9700760bab59dc1394b41fe2de8619dc922bc0a2025cba950453e2487eb481cb",
+    "53f765d163d85356e423f9a3f61524ed68a17e0c8faa32a89ef037b910304f40",
+    "aa15665189543018f5558aaa7d4de658a8718110405cdacc1379501f1ccad1a6",
+    "d5485505da6c02dcddcb1b351146c76a0a1c1d6ebe2a9559b344048bf5130102",
+    "19f59ecdfbdaf3a7ce3698ef0c2b7e5415199b9f671e8742555ba41c94fe8be8",
+    "8bea25429bbc3ef9ee703f4b7c824591f56b4e3e71bbab16de6ce9210c4a605b"
   ],
-  "contents_page_6": "12 entries and dot leaders; normal continuation, lower whitespace retained",
-  "chapter_5_spill_page": "removed after duplicate and ambiguous prose correction; conclusion begins physical page 29",
-  "visual_evidence": "tmp/positive20261016/pdf_final_review; all pages rendered; contents, changed prose, tables, references and appendices visually inspected"
+  "deleted_bootstrap_sentence_verified": true,
+  "body_pixel_comparison_dpi": 96,
+  "contents_page_6": "12 entries, dot leaders and normal lower whitespace",
+  "visual_evidence": "AC63_PDF_QA/contact-*.jpg and AC63_OBJECT_LAYOUT_AUDIT.json; every page rendered; physical print additional check"
 }
