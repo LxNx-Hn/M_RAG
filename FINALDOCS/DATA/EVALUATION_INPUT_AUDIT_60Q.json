@@ -1,0 +1,803 @@
+{
+  "scope": "Initial full-pass evaluation inputs matched to query/condition by initial per_sample order, final scores from merged outputs",
+  "query_count": 60,
+  "input_records": 480,
+  "source_sha256": {
+    "experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/merged.ragas_scores.json": "700a2932a03bf615aab849297d6114968aafeff9bd49c0dfa0659050e8a4ef08",
+    "experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/pass1/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.context_ko_translated.ragas_scores.json": "f589ff3ca1250d48a8301a49d0d761b460903261779c95f6d09af100472edcb1",
+    "experiments/results/evaluation/main-hyde-cad-scd-reference-scd-gpt4o-official/pass1/main-hyde-cad-scd-reference-scd__decoder_main_queries__main_generation.context_ko_translated.ragas_input.jsonl": "4337b4e07281440dc893efd0ec556a85904c7c5cc03a11b53357b87b3209efb8",
+    "experiments/results/evaluation/ext60_gpt4o/merged.ragas_scores.json": "fc705e3d3580246d53f17ff179027c2b43f3584f785fea3f047934ff2178476b",
+    "experiments/results/evaluation/ext60_gpt4o/pass1/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.context_ko_translated.ragas_scores.json": "8f377330138996d1c99d452ff7379663b8b9b3f5db72a9d4740c9cdf3385aeab",
+    "experiments/results/evaluation/ext60_gpt4o/pass1/extended-hyde-cad-scd-reference-scd__extended_validation_questions__extended_validation_generation.context_ko_translated.ragas_input.jsonl": "8f7a44c56df13b1fe583b0758c934bb0289d1c418369f3a0ac687466905d842b"
+  },
+  "cad_reference_metric_input_identity": true,
+  "changed_score_pairs": {
+    "context_precision": 8,
+    "context_recall": 1
+  },
+  "cases": [
+    {
+      "query_id": "ext_cad_001",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": -0.41669999999999996,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_002",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_003",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_004",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_005",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_006",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_007",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_008",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": -0.09030000000000005,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_009",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_010",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_cad_011",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_001",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_002",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_003",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_004",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_005",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_006",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_007",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_008",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_midm_009",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_001",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_002",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_003",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.08340000000000003,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_004",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_005",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_006",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_007",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_008",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_009",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": -0.13890000000000002,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_rag_010",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_001",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_002",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_003",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_004",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_005",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_006",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_007",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_008",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_009",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_010",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.050000000000000044,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "ext_raptor_011",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0009",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0010",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0012",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0015",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.16670000000000007,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0016",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0019",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": -1.0
+      }
+    },
+    {
+      "query_id": "track1_0021",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0023",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": -0.3208,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0024",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0025",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0026",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0027",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.11250000000000004,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0032",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0033",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0034",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0035",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0036",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0037",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "query_id": "track1_0040",
+      "judge_fields_identical": {
+        "question": true,
+        "reference": true,
+        "retrieved_contexts": true
+      },
+      "response_identical": false,
+      "score_difference": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    }
+  ],
+  "interpretation": "Question, reference and evaluation contexts agree for all 60 baseline CAD pairs. ContextPrecision/ContextRecall use these fields. Stored judgment differences diagnose variation in evaluation results; repeated-judge variance magnitude is not measured here.",
+  "library_source": "https://github.com/explodinggradients/ragas/blob/v0.2.15/src/ragas/metrics/_context_precision.py",
+  "additional_api_calls": 0
+}
