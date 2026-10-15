@@ -1297,6 +1297,62 @@
       "sign_flip_p_holm": 1.999980000199998e-05
     }
   ],
+  "runtime_followups": [
+    {
+      "metric": "duration_seconds",
+      "comparison": "CAD_simple_effect_S0_averaged_over_H",
+      "n": 60,
+      "mean": 46.58316666666667,
+      "sd": 18.937362389423757,
+      "df": 59,
+      "zero_differences": 0,
+      "difference_quantiles": [
+        -5.238499999999995,
+        31.858375000000002,
+        48.69975,
+        61.555375,
+        80.204
+      ],
+      "status": "estimated",
+      "t": 19.053955350652643,
+      "p": 6.886907824595335e-27,
+      "dz": 2.4598550584152465,
+      "wilcoxon_p": 1.8030386309636688e-11,
+      "sign_flip_p": 9.99990000099999e-06,
+      "sign_flip_draws": 100000,
+      "shapiro_difference_p": 0.061754884860160515,
+      "p_holm": 1.377381564919067e-26,
+      "wilcoxon_p_holm": 3.6060772619273376e-11,
+      "sign_flip_p_holm": 1.999980000199998e-05
+    },
+    {
+      "metric": "duration_seconds",
+      "comparison": "CAD_simple_effect_S1_averaged_over_H",
+      "n": 60,
+      "mean": 37.74690833333333,
+      "sd": 18.40484670795032,
+      "df": 59,
+      "zero_differences": 0,
+      "difference_quantiles": [
+        -14.889500000000002,
+        27.98975,
+        38.29425,
+        50.315875,
+        68.5235
+      ],
+      "status": "estimated",
+      "t": 15.88637489522443,
+      "p": 5.582497085957244e-23,
+      "dz": 2.0509221800270603,
+      "wilcoxon_p": 2.980572902364543e-11,
+      "sign_flip_p": 9.99990000099999e-06,
+      "sign_flip_draws": 100000,
+      "shapiro_difference_p": 0.014867989153701725,
+      "p_holm": 5.582497085957244e-23,
+      "wilcoxon_p_holm": 3.6060772619273376e-11,
+      "sign_flip_p_holm": 1.999980000199998e-05
+    }
+  ],
   "leave_one_document_out": [
     {
       "omitted_paper": "paper_midm",

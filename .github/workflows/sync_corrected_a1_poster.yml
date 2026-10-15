@@ -1,4 +1,4 @@
-name: Sync corrected A1 poster exports
+name: Validate A1 poster exports
 on:
   push:
     paths:
@@ -11,7 +11,7 @@ on:
       - '.github/workflows/sync_corrected_a1_poster.yml'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   rebuild:
     runs-on: ubuntu-latest
@@ -25,18 +25,21 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
           python -m pip install --quiet lxml pillow pymupdf fonttools
-      - name: Render updated poster and verify editable PPTX
-        run: python FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py
-      - name: Commit synchronized poster deliverables
+      - name: Verify committed poster manifest
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path('FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010')
+          for name, expected in json.loads((root / 'SHA256_MANIFEST.json').read_text()).items():
+              data = (root / name).read_bytes()
+              if Path(name).suffix.lower() in {'.md', '.json', '.svg'}:
+                  data = data.replace(b'\r\n', b'\n')
+              actual = hashlib.sha256(data).hexdigest()
+              assert actual == expected, name
+          PY
+      - name: Render temporary exports and verify editable PPTX
         shell: bash
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/
-          if git diff --cached --quiet; then
-            echo 'No binary exports changed'
-          else
-            git commit -m 'Synchronize corrected A1 poster PDF PPTX and previews'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+          cp -r FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010 "$RUNNER_TEMP/poster-check"
+          python "$RUNNER_TEMP/poster-check/rebuild_exports.py"

@@ -5,6 +5,7 @@ No inference/API calls. Undefined tests remain explicitly undefined, never zero.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import itertools
 import json
@@ -151,6 +152,10 @@ def factorial(frame, metric, factors, label):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=OUT)
+    out = parser.parse_args().output
+    out.parent.mkdir(parents=True, exist_ok=True)
     records, score_map, hashes = [], {}, {}
     for gp, sp, expected in zip(GEN, SCORES, [19, 41]):
         group = read_jsonl(gp)
@@ -204,7 +209,7 @@ def main():
         )
     frame = pd.DataFrame(rows)
     frame.sort_values(["query_id", "condition"]).to_csv(
-        OUT.with_name("FACTORIAL_OBSERVATIONS_60Q.csv"),
+        out.with_name("FACTORIAL_OBSERVATIONS_60Q.csv"),
         index=False,
         encoding="utf-8",
         lineterminator="\n",
@@ -263,6 +268,22 @@ def main():
     holm(paired[-2:])
     holm(paired[-2:], "wilcoxon_p", "wilcoxon_p_holm")
     holm(paired[-2:], "sign_flip_p", "sign_flip_p_holm")
+    runtime_followups = []
+    for state in [0, 1]:
+        wide = frame[frame.S == state].pivot(
+            index="query_id", columns=["H", "D"], values="duration_seconds"
+        )
+        difference = ((wide[(0, 1)] - wide[(0, 0)]) + (wide[(1, 1)] - wide[(1, 0)])) / 2
+        runtime_followups.append(
+            {
+                "metric": "duration_seconds",
+                "comparison": f"CAD_simple_effect_S{state}_averaged_over_H",
+                **test_difference(difference),
+            }
+        )
+    holm(runtime_followups)
+    holm(runtime_followups, "wilcoxon_p", "wilcoxon_p_holm")
+    holm(runtime_followups, "sign_flip_p", "sign_flip_p_holm")
     sensitivity = []
     for p in sorted(frame.paper.unique()):
         keep = set(frame[frame.paper != p].query_id)
@@ -318,6 +339,7 @@ def main():
         "descriptives": descriptives,
         "anova": anovas,
         "paired": paired,
+        "runtime_followups": runtime_followups,
         "leave_one_document_out": sensitivity,
         "boundary_counts": {
             m: {
@@ -340,7 +362,7 @@ def main():
         "exclude_zero_denominator_query",
     )
     holm(report["zero_denominator_sensitivity"])
-    OUT.write_text(
+    out.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
     )

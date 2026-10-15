@@ -2,6 +2,7 @@
 
 import copy
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -13,7 +14,9 @@ from pathlib import Path
 from lxml import etree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
-DELIVERY = ROOT / "FINALDOCS/DELIVERY"
+DELIVERY = Path(
+    os.environ.get("MRAG_TEST_DELIVERY_FOLDER", ROOT / "FINALDOCS/DELIVERY")
+)
 NS = {"hp": "http://www.hancom.co.kr/hwpml/2011/paragraph"}
 
 
@@ -135,6 +138,29 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
 
+    def test_numeric_cell_alignment_regression(self):
+        def change(section, parts):
+            table = next(
+                t
+                for t in section.findall(".//hp:tbl", NS)[2:]
+                if t.get("rowCnt") == "9" and t.get("colCnt") == "6"
+            )
+            header_para = (
+                table.findall("hp:tr", NS)[0]
+                .findall("hp:tc", NS)[1]
+                .find(".//hp:p", NS)
+            )
+            value_para = (
+                table.findall("hp:tr", NS)[1]
+                .findall("hp:tc", NS)[1]
+                .find(".//hp:p", NS)
+            )
+            value_para.set("paraPrIDRef", header_para.get("paraPrIDRef"))
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Table cell alignment changed", result.stderr)
+
     def test_missing_picture(self):
         def change(section, parts):
             picture = section.find(".//hp:pic", NS)
@@ -148,7 +174,7 @@ class ContentCorruptionTests(unittest.TestCase):
             paragraph = next(
                 p
                 for p in section
-                if "6.3 적용 시 실험 조건 선택"
+                if "6.3 적용 조건과 후속 연구"
                 == "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS))
             )
             header = ET.fromstring(parts["Contents/header.xml"])
@@ -171,7 +197,7 @@ class ContentCorruptionTests(unittest.TestCase):
                 p
                 for p in section
                 if "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)).startswith(
-                    "출처: Shi"
+                    "본 연구에서 작성한 도식이며, Shi"
                 )
             )
             header = ET.fromstring(parts["Contents/header.xml"])

@@ -7,7 +7,6 @@ import re
 from pathlib import Path
 
 import fitz
-
 from verify_print_pdf import spatial_text
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -104,7 +103,11 @@ def main():
         )
         if match:
             label = f"[{match[1]} {match[2]}]"
-            matches = [i + 1 for i, p in enumerate(pages) if normalize(label) in p]
+            matches = [
+                i + 1
+                for i, p in enumerate(pages)
+                if i + 1 >= body_first and normalize(label) in p
+            ]
             if len(matches) == 1:
                 mapping[label] = matches[0]
             else:

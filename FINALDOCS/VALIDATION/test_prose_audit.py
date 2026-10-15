@@ -60,9 +60,9 @@ class ProseReviewTests(unittest.TestCase):
 
     def test_scientific_negatives_are_retained(self):
         for phrase in (
-            "0을 포함",
-            "-0.0343",
-            "같은 검색 문맥으로 뒷받침되는 답변과 그렇지 않은 답변",
+            "유의수준 0.05보다 높았다",
+            "p=0.393",
+            "계산 대상 문자 수가 0인 답변",
             "ON/OFF",
         ):
             self.assertIn(phrase, self.text)

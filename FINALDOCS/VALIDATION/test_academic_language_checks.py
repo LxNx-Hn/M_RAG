@@ -21,16 +21,11 @@ class AcademicRegressionTests(unittest.TestCase):
 
     def test_reintroduced_errors(self):
         for correct, error in (
-            ("최종 검색 문맥은 서로 달랐다", "최종 검색 문맥가 달라졌다"),
-            ("95% 신뢰구간은 [+0.1880", "95% 신뢰구간는 [+0.1880"),
-            ("HyDE와 CAD의 주 대응 비교", "HyDE와 CAD의 통제 비교"),
-            ("그림 5-3, 5-5, 5-7, 5-8, 5-10", "그림 5-3~5-10"),
-            ("\t증가\t감소\t동률\tn", "\tWin\tLoss\tTie\tn"),
-            (
-                "RAGAS 지표의 대응 차이가 +0.01을 초과",
-                "RAGAS 지표의 대응 차이가 +0.02를 초과",
-            ),
-            ("출처: Es 외[10], 표 2에서", "출처: Es 외[10], 그림 2에서"),
+            ("검색 문맥으로 지칭한다", "검색 문맥가 달라졌다"),
+            ("보정 후 p=0.117", "신뢰구간는 [+0.1880"),
+            ("Holm 보정을 적용하였다", "HyDE와 CAD의 통제 비교"),
+            ("100,000회", "200,000회"),
+            ("Shi 외[3]의 CAD 로짓 결합을", "Shi 외[3]의 CAD 점수 합산을"),
             ("Lewis 외[1]는", "Lewis 외[1]은"),
             ("Li 외[4]는", "Li 외[4]은"),
         ):
@@ -47,15 +42,15 @@ class AcademicRegressionTests(unittest.TestCase):
             validate_academic_text(invalid)
 
     def test_caption_title_mismatch(self):
-        correct = "[그림 5-4] HyDE와 CAD의 주 대응 비교 ····"
+        correct = "[그림 5-2] RAPTOR 질의의 검색 근거, 생성 답변 및 평가 예시 ····"
         self.assertIn(correct, self.text)
         with self.assertRaisesRegex(AssertionError, "full titles differ"):
             validate_academic_text(
-                self.text.replace(correct, "[그림 5-4] 다른 제목 ····", 1)
+                self.text.replace(correct, "[그림 5-2] 다른 제목 ····", 1)
             )
 
     def test_duplicate_caption(self):
-        caption = "[그림 5-4] HyDE와 CAD의 주 대응 비교 [스타일=그림제목]"
+        caption = "[그림 5-2] RAPTOR 질의의 검색 근거, 생성 답변 및 평가 예시 [스타일=그림제목]"
         with self.assertRaises(AssertionError):
             validate_academic_text(self.text + "\n" + caption)
 

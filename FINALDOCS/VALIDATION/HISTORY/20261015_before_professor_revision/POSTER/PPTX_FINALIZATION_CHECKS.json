@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "presentation-finalization.v1",
+  "finalSha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+  "byteCount": 45779,
+  "packageIntegrity": {
+    "chart_count": 2,
+    "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
+    "finding_count": 0,
+    "findings": [],
+    "notes_parts_skipped": 1,
+    "relationship_part_count": 14,
+    "slide_count": 1,
+    "status": "pass",
+    "exitCode": 0,
+    "findingCount": 0,
+    "warnings": []
+  },
+  "presentationLayout": {
+    "finding_count": 0,
+    "findings": [],
+    "font_policy": {
+      "checked_text_script_count": 296,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Malgun Gothic"
+      ],
+      "observed_font_use_counts": {
+        "Malgun Gothic": 296
+      },
+      "passed": true,
+      "performed": true
+    },
+    "slide_count": 1,
+    "slide_size_in": [
+      23.3854,
+      33.1094
+    ],
+    "warning_count": 0,
+    "warnings": [],
+    "exitCode": 0,
+    "findingCount": 0,
+    "fontPolicy": {
+      "checked_text_script_count": 296,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Malgun Gothic"
+      ],
+      "observed_font_use_counts": {
+        "Malgun Gothic": 296
+      },
+      "passed": true,
+      "performed": true
+    }
+  },
+  "fontSelection": {
+    "basis": "reference",
+    "approvedFamilies": [
+      "Malgun Gothic"
+    ],
+    "scriptFonts": {},
+    "referenceSha256": "691a3ece2037776417f3dd7929a0f26aa2dfc203b51574d636f7d76b69ff9144",
+    "referenceFontsVerifiedInEncodedText": true,
+    "checked_text_script_count": 296,
+    "native_font_rendering_verified": false,
+    "observed_font_families": [
+      "Malgun Gothic"
+    ],
+    "observed_font_use_counts": {
+      "Malgun Gothic": 296
+    },
+    "passed": true,
+    "performed": true
+  },
+  "firstPartyImport": {
+    "performed": true,
+    "passed": true,
+    "slideCount": 1,
+    "sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+    "runtimeNodeModules": "C:/Users/KiKi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules",
+    "nodeExecutable": "C:\\Users\\KiKi\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
+  },
+  "nativeTableArithmetic": {
+    "performed": true,
+    "checked_column_count": 0,
+    "checks": [],
+    "claim_boundary": "Displayed-value arithmetic with rounding tolerance; not source-data verification.",
+    "eligible_table_count": 0,
+    "finding_count": 0,
+    "findings": [],
+    "native_table_count": 7,
+    "passed": true,
+    "schema_version": "presentation-native-table-arithmetic.v1",
+    "skipped_tables": [
+      {
+        "reason": "no_numeric_amounts",
+        "slide": 1,
+        "table": 1
+      },
+      {
+        "reason": "no_numeric_amounts",
+        "slide": 1,
+        "table": 2
+      },
+      {
+        "reason": "no_numeric_amounts",
+        "slide": 1,
+        "table": 3
+      },
+      {
+        "reason": "no_numeric_amounts",
+        "slide": 1,
+        "table": 4
+      },
+      {
+        "reason": "insufficient_rows",
+        "slide": 1,
+        "table": 5
+      },
+      {
+        "reason": "no_numeric_amounts",
+        "slide": 1,
+        "table": 6
+      },
+      {
+        "reason": "no_unambiguous_bottom_total",
+        "slide": 1,
+        "table": 7
+      }
+    ],
+    "slide_count": 1,
+    "warning_count": 0,
+    "warnings": []
+  },
+  "nativeChartTitles": {
+    "performed": true,
+    "checks": [
+      {
+        "chart": 1,
+        "slide": 1,
+        "status": "present"
+      },
+      {
+        "chart": 2,
+        "slide": 1,
+        "status": "present"
+      }
+    ],
+    "finding_count": 0,
+    "findings": [],
+    "native_chart_count": 2,
+    "native_powerpoint_verified": false,
+    "passed": true,
+    "presentation_sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+    "schema_version": "presentation-native-chart-titles.v1",
+    "slide_count": 1,
+    "source_text_emitted": false,
+    "unresolved_linked_title_count": 0
+  },
+  "sourceDerivedPolicyFlags": [
+    "--expected-slide-size-emu",
+    "21383625,30275213",
+    "--validate-bullet-geometry",
+    "--validate-heading-fit",
+    "--require-native-table-slide",
+    "1",
+    "--cover-role",
+    "none",
+    "--expected-slide-count",
+    "1",
+    "--approved-font-family",
+    "Malgun Gothic"
+  ],
+  "nativeChartValidation": {
+    "detectedOwnerSlides": [
+      1
+    ],
+    "detectedChartCount": 2,
+    "targetApplication": "powerpoint",
+    "sourceChartOwnersExplicitlyDeclared": true,
+    "validatorRan": true,
+    "passed": true
+  },
+  "nativeQuantitativeCharts": {
+    "report": {
+      "claim_boundary": "OOXML/workbook structural validation only; source provenance and native PowerPoint opening remain separate checks.",
+      "expected_quantitative_chart_slides": [
+        1
+      ],
+      "failed_slide_count": 0,
+      "failed_slides": [],
+      "formal_human_reviewed": false,
+      "native_application_open_verified": false,
+      "package_sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
+      "passed": true,
+      "required_embedded_workbook_slides": [
+        1
+      ],
+      "results": [
+        {
+          "approved_source_figure_exception": false,
+          "charts": [
+            {
+              "cache_reference_ranges_verified": true,
+              "editability_evidence": "embedded_workbook",
+              "embedded_workbook_count": 1,
+              "embedded_workbook_sheet_count": 1,
+              "literal_numeric_point_count": 0,
+              "native_chart_types": [
+                "scatterChart"
+              ],
+              "numeric_cache_point_count": 16,
+              "series_formula_count": 10,
+              "workbook_numeric_cell_count": 16
+            },
+            {
+              "cache_reference_ranges_verified": true,
+              "editability_evidence": "embedded_workbook",
+              "embedded_workbook_count": 1,
+              "embedded_workbook_sheet_count": 1,
+              "literal_numeric_point_count": 0,
+              "native_chart_types": [
+                "scatterChart"
+              ],
+              "numeric_cache_point_count": 16,
+              "series_formula_count": 10,
+              "workbook_numeric_cell_count": 16
+            }
+          ],
+          "failure_codes": [],
+          "native_chart_count": 2,
+          "raster_picture_count": 0,
+          "required_native_chart_count": 1,
+          "slide_number": 1,
+          "status": "passed"
+        }
+      ],
+      "schema_version": "owner-private.quantitative-chart-native-gate.v1",
+      "slide_count": 1,
+      "source_attachments_accessed": false,
+      "target_application": "powerpoint",
+      "validated_slide_count": 1
+    },
+    "exitCode": 0,
+    "validatedSlideCount": 1,
+    "requiredOwnerSlides": [
+      1
+    ],
+    "approvedSourceFigureExceptionSlides": [],
+    "targetApplication": "powerpoint",
+    "requiredEmbeddedWorkbookChartOwnerSlides": [
+      1
+    ]
+  }
+}

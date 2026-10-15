@@ -13,11 +13,10 @@ from pathlib import Path
 
 from hwpx import HwpxDocument
 from hwpx.tools.package_validator import validate_package
+from layout_checks import validate_layout
 from lxml import etree as ET
 from openpyxl import load_workbook
 from PIL import Image
-
-from layout_checks import validate_layout
 
 ROOT = Path(__file__).resolve().parents[2]
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
@@ -114,6 +113,7 @@ def main() -> None:
             if name.endswith((".xml", ".hpf", ".rdf")):
                 ET.fromstring(z.read(name))
         section = ET.fromstring(z.read("Contents/section0.xml"))
+        header = ET.fromstring(z.read("Contents/header.xml"))
         for heading in re.findall(r"\[쪽나눔\]\s*\n## (.*?) \[스타일=", source):
             matches = [
                 p
@@ -143,12 +143,12 @@ def main() -> None:
                 actual_counts[paragraph] == count
             ), f"Manuscript paragraph occurrence mismatch: {paragraph[:100]}"
         tables = section.findall(".//hp:tbl", NS)
-        assert len(tables) == 19, "17 thesis tables + 2 school cover layout tables"
+        assert len(tables) == 16, "14 thesis tables + 2 school cover layout tables"
         workbook = load_workbook(
             ROOT / "FINALDOCS/TABLES/TABLES_60Q.xlsx", data_only=False
         )
         sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", source)
-        assert len(sheets) == 17
+        assert len(sheets) == 14
         cell_count = 0
         for table, name in zip(tables[2:], sheets):
             ws = workbook[name.strip()]
@@ -184,6 +184,29 @@ def main() -> None:
                 assert norm(text) == norm(
                     value
                 ), f"{name} cell {original.coordinate}: {text!r} != {value!r}"
+                label = str(ws.cell(3, c + 1).value)
+                numeric = bool(
+                    re.match(
+                        r"^(?:n|유효 n|평균|SD|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        label,
+                    )
+                )
+                expected_alignment = (
+                    "CENTER"
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "df")
+                    else "RIGHT" if numeric else "LEFT"
+                )
+                for paragraph in cell.findall(".//hp:p", NS):
+                    reference = paragraph.get("paraPrIDRef")
+                    shape = next(
+                        p
+                        for p in header.iter()
+                        if p.tag.endswith("}paraPr") and p.get("id") == reference
+                    )
+                    alignment = next(p for p in shape if p.tag.endswith("}align"))
+                    assert (
+                        alignment.get("horizontal") == expected_alignment
+                    ), f"Table cell alignment changed: {name} {original.coordinate}"
                 span = cell.find("hp:cellSpan", NS)
                 rs, cs = merges.get((r, c), (1, 1))
                 assert (int(span.get("rowSpan")), int(span.get("colSpan"))) == (rs, cs)
@@ -191,7 +214,7 @@ def main() -> None:
         assert workbook["Appendix_Queries"].max_row - 3 == 60
         pictures = section.findall(".//hp:pic", NS)
         image_paths = re.findall(r"\[(?:그림|입출력증빙)삽입:\s*([^|]+)\|", source)
-        assert len(pictures) == len(image_paths) == 22
+        assert len(pictures) == len(image_paths) == 13
         hpf = ET.fromstring(z.read("Contents/content.hpf"))
         assets = {
             x.get("id"): x.get("href") for x in hpf.iter() if x.tag.endswith("}item")
@@ -215,7 +238,7 @@ def main() -> None:
             for block in re.findall(r"```text\n(.*?)```", source, re.DOTALL)
             if "\t" not in block
         ]
-        assert scripts == equation_blocks and len(scripts) == 10
+        assert scripts == equation_blocks and len(scripts) == 11
         eq_input = (
             ROOT / "FINALDOCS/MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt"
         ).read_text(encoding="utf-8")
@@ -223,7 +246,6 @@ def main() -> None:
             assert norm(script) in norm(eq_input), script
         template = zipfile.ZipFile(delivery / "SCHOOL_TEMPLATE_CONVERTED.hwpx")
         original_header = ET.fromstring(template.read("Contents/header.xml"))
-        header = ET.fromstring(z.read("Contents/header.xml"))
         layout_report = validate_layout(header, section)
         for tag in ("style", "charPr", "paraPr", "font"):
             originals = original_header.xpath(f'.//*[local-name()="{tag}"]')
@@ -264,15 +286,14 @@ def main() -> None:
         cover_text = "".join(tables[0].itertext()) + "".join(tables[1].itertext())
         assert "제출 페이지" not in cover_text and "인준 페이지" not in cover_text
         assert (
-            "Combination Experiments of HyDE, CAD, and SCD in RAG "
-            "with Korean Queries over English Academic and Technical Documents"
+            "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries"
             in cover_text
         )
         assert "주심" in cover_text and "부심" in cover_text
         template.close()
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 22), ("표", 17)):
+        for kind, count in (("그림", 13), ("표", 14)):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
@@ -280,16 +301,17 @@ def main() -> None:
             )
             assert len(captions) == len(set(captions)) == count
         expected = {
-            "E04": "5-3",
-            "E05": "5-5",
-            "E02": "5-7",
-            "E03": "5-8",
-            "E01": "5-10",
+            "E04": "B-2",
+            "E05": "B-3",
+            "E02": "B-4",
+            "E03": "B-5",
+            "E01": "5-2",
             "E06": "B-1",
         }
         for case, number in expected.items():
             assert re.search(
-                rf"\[입출력증빙삽입:[^\n]*{case}[^\n]*\]\s*\[그림 {number}\]", source
+                rf"\[(?:입출력증빙|그림)삽입:[^\n]*{case}[^\n]*\]\s*\[그림 {number}\]",
+                source,
             )
     manifest = json.loads(
         (ROOT / "FINALDOCS/DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
@@ -320,10 +342,10 @@ def main() -> None:
         "sha256": hashlib.sha256(args.file.read_bytes()).hexdigest(),
         "paragraphs_in_order": len(paragraphs),
         "table_cells_verified": cell_count,
-        "thesis_tables": 17,
+        "thesis_tables": 14,
         "cover_layout_tables": 2,
-        "pictures": 22,
-        "editable_equations": 10,
+        "pictures": 13,
+        "editable_equations": 11,
         "references": 22,
         "queries": len(queries),
         "configurations": dict(configs),
@@ -331,7 +353,7 @@ def main() -> None:
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
         "layout": layout_report,
-        "web_rendering": "see ../VALIDATION/FINAL_PROSE_AB_APPLIED_AUDIT.md",
+        "web_rendering": "see ../VALIDATION/PROFESSOR_FINAL_AUDIT_20261016.md",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -341,7 +363,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 17 tables, 22 pictures, 10 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 14 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

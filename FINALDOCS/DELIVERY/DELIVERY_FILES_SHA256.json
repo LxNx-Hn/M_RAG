@@ -1,42 +1,42 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "297b00b3f83b6e90324f411682cd8d1a700cfaf505129cdde9a635b659464ecf",
-    "bytes": 3752588
+    "sha256": "c3a43167d28ac4410d92a9eccf64e395a3bcbbd46244c720e138857cffdf9ff2",
+    "bytes": 2673090,
+    "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "0c83d718a27e18e9f208d54f777ed34aeebfb597509ecd5eaf7405cfb2f50415",
-    "bytes": 5022278
+    "sha256": "92656de27bb9c430c6e0fe75a114f03a57447c53e7860439eb79c78bb94a8905",
+    "bytes": 3482499,
+    "hash_method": "raw bytes"
   },
   "SCHOOL_TEMPLATE_CONVERTED.hwpx": {
     "sha256": "bc87380f539faa98c7d4ca66e76cf0cbb37c3d3a3dc511317f86dc3fb2663f10",
-    "bytes": 4344052
+    "bytes": 4344052,
+    "hash_method": "raw bytes"
   },
-  "WEB_FINAL_OPEN.jpg": {
-    "sha256": "4d419d6843892bf7158b135b3647fc86546d3bee6b8cdcd3b6e12456bf0cbe37",
-    "bytes": 137996
+  "GRADUATION_REPORT_60Q_FINAL.build.json": {
+    "sha256": "a4ccc5231fa8acdbbd97d346ee27e94a0bf862aa31505dfb4a27b25964b2b3aa",
+    "bytes": 188112,
+    "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
-  "WEB_SMOKE_EDIT.jpg": {
-    "sha256": "bfc67c7a3b7c29925601ff49b315a31490b3451782480635216c0fba8f987045",
-    "bytes": 112072
+  "HWPX_STRUCTURAL_QA.json": {
+    "sha256": "b9d4986ae30fd3495d938a7c829e079f1db591ffb1334139a99dcf2f40a086b7",
+    "bytes": 29498,
+    "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
-  "WEB_ACADEMIC_REVIEW.png": {
-    "sha256": "1c1ce79167485ef6e0aebca97abb90fbef5f66b437b2c72a8bd21a80ac0b6f7a",
-    "bytes": 134899
+  "HWPX_EXTRACTED_TEXT.txt": {
+    "sha256": "8759ed09a22da7b2dc52070e77b71e6eba29253f538ea61aace184ac3f786f42",
+    "bytes": 81095,
+    "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
-  "WEB_SUBMISSION_AUDIT.png": {
-    "sha256": "9dde5415aa8bc5333289b0bcde2e6d3f10cab4d2e0964f6f28cff204700ce254",
-    "bytes": 134167
+  "PAGE_MAP_60Q.json": {
+    "sha256": "0a03342027fd83e4aed30d2292c50e9842110f70a248bf6ae92a7fefda06e867",
+    "bytes": 6972,
+    "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
-  "WEB_PROSE_REVIEW.png": {
-    "sha256": "7cb0bf238362e9f87dcc83106cc172925bfffccd5db43b4fb017e9bfe468c27c",
-    "bytes": 185446
-  },
-  "WEB_LAYOUT_REVIEW.jpg": {
-    "sha256": "39f504d01ead99762c5e81a6dc9bbaff242ebb92601e1670044e6164ada593d8",
-    "bytes": 148720
-  },
-  "WEB_PRINT_REVIEW.png": {
-    "sha256": "e823296aebf1d8bf0bed5eed6f70febb9f5cd574371a39bfe3f701da4ae9ec94",
-    "bytes": 162357
+  "WEB_PROFESSOR_FINAL_20261016.jpg": {
+    "sha256": "b09cec8d39b457b0e1129059226cb04e1756a549b28ed44da050060640e0bca6",
+    "bytes": 119369,
+    "hash_method": "raw bytes"
   }
 }

@@ -12,6 +12,7 @@ import io
 import json
 import re
 import unicodedata
+from itertools import pairwise
 from pathlib import Path
 
 import fitz
@@ -20,11 +21,11 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 CAPTIONS = {
-    "E01": "[그림 5-10]",
-    "E02": "[그림 5-7]",
-    "E03": "[그림 5-8]",
-    "E04": "[그림 5-3]",
-    "E05": "[그림 5-5]",
+    "E01": "[그림 5-2]",
+    "E02": "[그림 B-4]",
+    "E03": "[그림 B-5]",
+    "E04": "[그림 B-2]",
+    "E05": "[그림 B-3]",
     "E06": "[그림 B-1]",
 }
 
@@ -66,15 +67,22 @@ def inspect(pdf: Path, output: Path):
         number = page_map[CAPTIONS[cid]]
         page = doc[number - 1]
         assert normalize(CAPTIONS[cid]) in normalize(spatial_text(page, page.rect))
-        candidates = [
+        source = Image.open(ROOT / case["image"]).convert("RGB")
+        page_images = [
             (image, rect)
             for image in page.get_images()
             if image[2] == 2000
             for rect in page.get_image_rects(image[0])
         ]
+        candidates = []
+        for candidate, bounds in page_images:
+            pixels = Image.open(
+                io.BytesIO(doc.extract_image(candidate[0])["image"])
+            ).convert("RGB")
+            if pixels.size == source.size and pixels.tobytes() == source.tobytes():
+                candidates.append((candidate, bounds))
         assert len(candidates) == 1, f"Missing or duplicate evidence image {cid}"
         image, rect = candidates[0]
-        source = Image.open(ROOT / case["image"]).convert("RGB")
         embedded = Image.open(io.BytesIO(doc.extract_image(image[0])["image"])).convert(
             "RGB"
         )
@@ -129,7 +137,7 @@ def inspect(pdf: Path, output: Path):
             }
         )
         assert len(xs) == 7, f"Appendix columns missing on page {index + 1}"
-        for row_index, (top, bottom) in enumerate(zip(ys, ys[1:])):
+        for row_index, (top, bottom) in enumerate(pairwise(ys)):
             cells = [
                 normalize(
                     spatial_text(
@@ -137,7 +145,7 @@ def inspect(pdf: Path, output: Path):
                         fitz.Rect(left + 0.1, top + 0.1, right - 0.1, bottom - 0.1),
                     )
                 )
-                for left, right in zip(xs, xs[1:])
+                for left, right in pairwise(xs)
             ]
             if row_index == 0:
                 assert cells == [

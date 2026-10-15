@@ -1,17 +1,62 @@
 {
-  "stage": "Final rendered SVG/PPTX reviewed",
-  "unchanged_layout": false,
-  "native_tables": 7,
-  "native_charts": 2,
-  "embedded_workbooks_unchanged": true,
-  "main_title_pt": 52,
-  "body_pt": 18,
-  "diagram_pt": 16,
-  "references_pt": 16,
-  "public_student_id": "omitted; personal submission retained",
-  "pdf_sha256": "114d1557f159bcbf96fc7fe9b53882818a1ee83e55f0e307212de1f4e59d6b04",
-  "pptx_sha256": "cd737a92a47348e61c73d15c79894364c66ff95c0ecfc6839ebb4baeba212e88",
-  "visual_review": "Whole poster and 04/05/06/08 inspected; no text overlap after reflow",
-  "chart_data_and_formula_preserved": true,
-  "native_application_open_verified": false
+  "date": "2026-10-15",
+  "required_text_units": 204,
+  "pdf_pages": 1,
+  "size_mm": [
+    594.0000047471788,
+    841.0000013563367
+  ],
+  "native_tables": 4,
+  "native_charts": 0,
+  "all_svg_pptx_pdf_text_equal": true,
+  "print_image_px": [
+    7016,
+    9933
+  ],
+  "pdf_sha256": "7b80eabd1e545e599aa84023a4ef7c67b170962ad0887e4d667c15df51e6837d",
+  "pptx_sha256": "5aa8cd9ba065b2ce4eeb818465767b2cbda5d58e44a7297642f9489e7e3b8f0f",
+  "svg_sha256": "edfec2818f0313d89c25261f52d6c4cf87c19934778f49d8a5f7c199725a44f8",
+  "pdf_fonts": [
+    [
+      7,
+      "ttf",
+      "Type0",
+      "GPIYLM+MalgunGothic",
+      "f-0-1",
+      "Identity-H",
+      0
+    ],
+    [
+      8,
+      "ttf",
+      "TrueType",
+      "LBNFKR+MalgunGothic",
+      "f-0-0",
+      "WinAnsiEncoding",
+      0
+    ],
+    [
+      9,
+      "ttf",
+      "Type0",
+      "XIQYKO+MalgunGothicBold",
+      "f-1-1",
+      "Identity-H",
+      0
+    ],
+    [
+      10,
+      "ttf",
+      "TrueType",
+      "KGIGIU+MalgunGothicBold",
+      "f-1-0",
+      "WinAnsiEncoding",
+      0
+    ]
+  ],
+  "limitations": [
+    "Native PowerPoint application execution not verified",
+    "Physical print and viewing distance not tested",
+    "Rendering uses installed fonts; cross-platform glyph metrics may differ"
+  ]
 }

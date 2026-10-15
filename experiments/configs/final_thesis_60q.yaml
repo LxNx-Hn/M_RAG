@@ -67,6 +67,16 @@ evaluation:
 
 statistics:
   independent_unit: query
+  alpha_two_sided: 0.05
+  analysis_status: exploratory_post_observation
+  factorial_quality: separate_H_by_CAD_within_each_S_protocol
+  factorial_generation: H_by_CAD_by_S
+  holm_families: {quality_factorial: 24, language_factorial: 7, runtime_factorial: 7, hyde_contrasts: 4, cad_contrasts: 4, scd_contrasts: 2}
+  scd_inferential_query_count: 60
+  sign_flip_iterations: 100000
+  sign_flip_seed: 20261015
+  factorial_report: FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json
+  bootstrap_role: supplementary
   paired_bootstrap_iterations: 200000
   seed: 20260713
   hyde_primary_pairs: 60

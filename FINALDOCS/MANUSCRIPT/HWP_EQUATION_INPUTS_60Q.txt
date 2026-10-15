@@ -1,26 +1,21 @@
-RAG 기본 흐름
-C_q = Retrieve(q, D)
-y = LM(q, C_q)
+C_q = Retrieve(q,D)
 
-Weighted Reciprocal Rank Fusion (k = 60)
+y = LM(q,C_q)
+
 RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}
 
-CAD decoding
 z_CAD = (1 + alpha) z_ctx - alpha z_noctx
 
-SCD token score (generated token count < 5: original score 유지; count >= 5부터 아래 규칙 적용)
-SCD target-language token score
 tilde z_i = alpha z_i
 
-SCD non-target-language token score
 tilde z_i = beta z_i
 
-SCD neutral token score
 tilde z_i = z_i
 
-Korean-character ratio
 KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}
 
-Paired contrast
 Delta_i = s_i^{ON} - s_i^{OFF}
+
 bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i
+
+t = {bar Delta} over {s_Delta / sqrt n}

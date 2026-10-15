@@ -1,834 +1,271 @@
-"""Read-only validation for the self-contained 60-query thesis package."""
+"""Check the professor-revised thesis against source records and typed objects."""
 
 from __future__ import annotations
 
 import hashlib
-import html
 import json
 import re
-import sys
-import xml.etree.ElementTree as ET
-import zipfile
+from collections import Counter
 from pathlib import Path
 
 from academic_language_checks import validate_academic_text
-from submission_audit_checks import validate_submission_assets
+from openpyxl import load_workbook
 from print_evidence_checks import validate as validate_print_evidence
+from submission_audit_checks import validate_submission_assets
 
 FINAL = Path(__file__).resolve().parents[1]
-MANUSCRIPT = FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
-TABLES = FINAL / "TABLES/TABLES_60Q.xlsx"
-CANONICAL_CONFIG = FINAL.parent / "experiments/configs/final_thesis_60q.yaml"
-QUERY_PROTOCOL = FINAL / "VALIDATION/QUERY_CONSTRUCTION_PROTOCOL_60Q.md"
-
-EXPECTED_SHEETS = (
-    "T2-1_Related_Work",
-    "T3-1_Requirements",
-    "T3-2_RAG-Cube",
-    "T3-3_Factor_Position",
-    "T4-1_Environment",
-    "T4-2_Backbone",
-    "T4-3_Runtime",
-    "T4-4_Record_Fields",
-    "T5-1_Dataset",
-    "T5-2_Config_Scores",
-    "T5-3_HyDE",
-    "T5-4_CAD",
-    "T5-5_SCD_Config",
-    "T5-6_SCD_Paired",
-    "Appendix_Queries",
-    "Appendix_Paper",
-    "Appendix_QueryType",
-)
-
-UI_SERVICE_TERMS = (
-    "evidence replay",
-    "UI_REPLAY",
-    "서비스 화면",
-    "서비스 UI",
-    "API route",
-    "배포 상태",
-    "사용자 경험",
-    "FastAPI",
-    "React",
-    "cli/evidence_replay.py",
-)
-
-DEFENSIVE_PHRASES = (
-    "일반화하지 않는다",
-    "한 사례만으로 전체 효과를 주장하지 않는다",
-    "일반화하는 증거가 아니라",
-    "일반 법칙으로 확대하지 않는다",
-    "모든 retrieval·answer metric이 함께 개선되었다고 말할 수는 없다",
-    "인과적 증거는 아니다",
-    "CAD를 기본값으로 둘 수는 없다",
-    "새 방법으로 제안했다는 데 있지 않다",
-    "고정된 권장값으로 복사하지 않는다",
-    "무효화하는 사후 조건이 아니라",
-    "서비스 화면이 아니라",
-    "근거나 정답으로 사용하지",
-    "직접 보장하지",
-    "외적 대표성을 보장하는 표본추출로 해석하지",
-    "뜻하지 않는다",
-    "대표하지는 않는다",
-    "후속 검증의 필요성을 없애지 않는다",
-)
-
-STALE_PATHS = (
-    "docs/PAPER/",
-    "generated/",
-    "tables_60q_csv/",
-    "evidence_60q_raw/",
-    "build_query_60_audit.py",
-    "build_60q_derived_data.py",
-    "build_tables_60q.mjs",
-    "build_figures_60q.py",
-)
+ROOT = FINAL.parent
 
 
-def need(path: Path) -> None:
-    if not path.is_file():
-        raise AssertionError(
-            f"missing final-package artifact: {path.relative_to(FINAL)}"
-        )
+def require(condition, message):
+    if not condition:
+        raise AssertionError(message)
 
 
-def main() -> int:
-    required = (
-        MANUSCRIPT,
-        TABLES,
-        FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
-        FINAL / "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt",
-        FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
-        FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
-        FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
-        FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
-        FINAL / "DATA/evidence_manifest_60q.json",
-        CANONICAL_CONFIG,
-        QUERY_PROTOCOL,
+def main():
+    text = (FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md").read_text(
+        encoding="utf-8"
     )
-    for path in required:
-        need(path)
-
-    canonical_config = CANONICAL_CONFIG.read_text(encoding="utf-8")
-    for marker in (
-        "status: canonical",
-        "query_count: 60",
-        "configuration_count: 8",
-        "generation_count: 480",
-        "retrieval_pool_top_k: 8",
-        "rerank_top_n: 8",
-        "context_chunk_count: 5",
-        "mode: reference_scd",
-        "alpha: 1.1",
-        "beta: 0.9",
-        "t_start: 5",
-        "judge_model: gpt-4o",
-        "paired_bootstrap_iterations: 200000",
-        "seed: 20260713",
-    ):
-        if marker not in canonical_config:
-            raise AssertionError(f"canonical 60Q config mismatch: missing {marker}")
-
-    for stale in ("retained final 19", "held-out 41", "legacy_note"):
-        if stale.lower() in canonical_config.lower():
-            raise AssertionError(
-                f"research-history term leaked into canonical config: {stale}"
+    contract = json.loads(
+        (FINAL / "DATA/REVISION_CONTRACT_20261015.json").read_text(encoding="utf-8")
+    )
+    statistics = json.loads(
+        (FINAL / "DATA/FACTORIAL_STATISTICS_60Q.json").read_text(encoding="utf-8")
+    )
+    table_source = json.loads(
+        (FINAL / "DATA/THESIS_TABLES_60Q.json").read_text(encoding="utf-8")
+    )
+    validate_academic_text(text)
+    validate_submission_assets(ROOT, text)
+    validate_print_evidence()
+    require(contract["title"] + " [스타일=논문제목]" in text, "Approved title differs")
+    require("\ufffd" not in text, "Broken UTF-8 in manuscript")
+    sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", text)
+    require(
+        [s.strip() for s in sheets] == contract["sheets"],
+        "Active table placement/order differs",
+    )
+    wb = load_workbook(FINAL / "TABLES/TABLES_60Q.xlsx", data_only=False)
+    require(wb.sheetnames == contract["sheets"], "Unexpected workbook sheet/order")
+    tab_blocks = re.findall(r"\[표삽입:[^\n]+\]\s*```text\n(.*?)```", text, re.DOTALL)
+    require(len(tab_blocks) == contract["tables"], "Missing manuscript table text")
+    cells = 0
+    for spec, block in zip(table_source, tab_blocks):
+        ws = wb[spec["sheet"]]
+        actual = [
+            ["" if c.value is None else str(c.value) for c in row]
+            for row in ws.iter_rows(min_row=3)
+        ]
+        expected = [[str(c) for c in row] for row in spec["rows"]]
+        require(actual == expected, "Workbook data changed: " + spec["sheet"])
+        require(
+            block.strip().splitlines() == ["\t".join(r) for r in expected],
+            "Copy/paste data differs: " + spec["sheet"],
+        )
+        require(
+            all(c.data_type != "f" for row in ws for c in row),
+            "Formula without checked cache",
+        )
+        cells += sum(len(r) for r in expected)
+    # Independently tie every descriptive cell to the recomputed source report.
+    means = next(t for t in table_source if t["sheet"] == "T5-1_Mean_SD")["rows"][1:]
+    metrics = [
+        "faithfulness",
+        "answer_relevancy",
+        "context_precision",
+        "context_recall",
+        "korean_ratio",
+    ]
+    for row in means:
+        for value, metric in zip(row[1:], metrics):
+            s = statistics["descriptives"][row[0]][metric]
+            require(
+                value == f"{s['mean']:.3f} ({s['sd']:.3f})", "Mean/SD source mismatch"
             )
-
-    query_protocol = QUERY_PROTOCOL.read_text(encoding="utf-8")
-    for marker in (
-        "초기 질문 3개",
-        "LLM",
-        "15개의 내용 단위",
-        "4 documents × 15 queries = 60 queries",
-        "source page",
-        "reference evidence",
-        "answerability",
-    ):
-        if marker not in query_protocol:
-            raise AssertionError(
-                f"query-construction protocol missing marker: {marker}"
+    anova_tables = [
+        t
+        for t in table_source
+        if t["sheet"]
+        in ["T5-3_Quality_S0", "T5-4_Quality_S1", "T5-5_Factorial", "T5-6_Factorial"]
+    ]
+    require(
+        sum(len(t["rows"]) - 1 for t in anova_tables) == 38,
+        "Factorial test coverage differs",
+    )
+    require(
+        len(statistics["anova"]) == 38 and len(statistics["paired"]) == 10,
+        "Missing statistical tests",
+    )
+    format_p = lambda value: "<0.001" if value < 0.001 else f"{value:.3f}"
+    metric_labels = {
+        "faithfulness": "근거 충실도",
+        "answer_relevancy": "답변 관련성",
+        "context_precision": "문맥 정밀도",
+        "context_recall": "문맥 재현율",
+    }
+    for spec in anova_tables:
+        if spec["sheet"].startswith("T5-3"):
+            results = [r for r in statistics["anova"] if r["protocol"].startswith("S0")]
+        elif spec["sheet"].startswith("T5-4"):
+            results = [r for r in statistics["anova"] if r["protocol"].startswith("S1")]
+        else:
+            endpoint = (
+                "korean_ratio"
+                if spec["sheet"].startswith("T5-5")
+                else "duration_seconds"
             )
-
-    finaldocs_readme = (FINAL / "README.md").read_text(encoding="utf-8")
-    if "experiments/configs/final_thesis_60q.yaml" not in finaldocs_readme:
-        raise AssertionError("FINALDOCS README must identify the canonical 60Q config")
-
-    evidence_manifest = json.loads(
+            results = [r for r in statistics["anova"] if r["metric"] == endpoint]
+        expected_rows = []
+        for r in results:
+            effect = r["effect"].replace("D", "C").replace(":", "×")
+            prefix = (
+                [metric_labels[r["metric"]], effect]
+                if r["metric"] in metric_labels
+                else [effect]
+            )
+            expected_rows.append(
+                prefix
+                + [
+                    f"1, {r['df2']}",
+                    f"{r['F']:.3f}",
+                    format_p(r["p"]),
+                    format_p(r["p_holm"]),
+                    f"{r['partial_eta_squared']:.3f}",
+                ]
+            )
+        require(
+            spec["rows"][1:] == expected_rows,
+            "Factorial table statistic/p/effect mismatch: " + spec["sheet"],
+        )
+    for sheet, results in [
+        ("T5-7_Paired_Quality", statistics["paired"][:8]),
+        ("T5-8_Paired_Language", statistics["paired"][8:]),
+    ]:
+        rows = next(t for t in table_source if t["sheet"] == sheet)["rows"][1:]
+        for row, r in zip(rows, results):
+            scale = 100 if sheet.endswith("Language") else 1
+            expected = [
+                r["n"],
+                f"{r['mean']*scale:.3f} ({r['sd']*scale:.3f})",
+                f"{r['t']:.3f} ({r['df']})",
+                format_p(r["p"]),
+                format_p(r["p_holm"]),
+                f"{r['dz']:.3f}",
+            ]
+            require(
+                row[1:] == expected,
+                "Paired table statistic/p/effect mismatch: " + sheet,
+            )
+    time_rows = next(t for t in table_source if t["sheet"] == "T5-2_Runtime_SD")[
+        "rows"
+    ][1:]
+    for row in time_rows:
+        r = statistics["descriptives"][row[0]]["duration_seconds"]
+        require(
+            row[1:] == [f"{r['mean']:.3f}", f"{r['sd']:.3f}"],
+            "Runtime mean/SD source mismatch",
+        )
+    for rel, digest in statistics["source_sha256"].items():
+        b = (ROOT / rel).read_bytes()
+        require(
+            digest
+            in [
+                hashlib.sha256(b).hexdigest(),
+                hashlib.sha256(b.replace(b"\r\n", b"\n")).hexdigest(),
+            ],
+            "Immutable statistical source changed: " + rel,
+        )
+    manifest = json.loads(
         (FINAL / "DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
     )
-    for relative_path, expected_hash in evidence_manifest["sources"].items():
-        source_path = FINAL.parent / Path(relative_path.replace("\\", "/"))
-        need(source_path)
-        source_bytes = source_path.read_bytes()
-        actual_hash = hashlib.sha256(source_bytes).hexdigest()
-        # Git core.autocrlf may materialize LF text evidence as CRLF on Windows.
-        # Accept only the exact manifest digest after CRLF -> LF conversion;
-        # no JSON rewriting, rounding, missing-value substitution or re-scoring.
-        if actual_hash != expected_hash and b"\r\n" in source_bytes:
-            lf_hash = hashlib.sha256(source_bytes.replace(b"\r\n", b"\n")).hexdigest()
-            if lf_hash == expected_hash:
-                print(
-                    f"INFO: manifest matches LF bytes (CRLF checkout): {relative_path}"
-                )
-                actual_hash = lf_hash
-        if actual_hash != expected_hash:
-            raise AssertionError(
-                f"evidence-manifest hash mismatch: {source_path.relative_to(FINAL.parent)}"
-            )
-
-    text = MANUSCRIPT.read_text(encoding="utf-8")
-    validate_academic_text(text)
-    validate_submission_assets(FINAL.parent, text)
-    body = text.split("# 참고문헌", maxsplit=1)[0].split("# 1. 서론", maxsplit=1)[-1]
-    # Editing redundant prose can shorten a complete manuscript. Check the
-    # actual chapter/section coverage rather than require character padding.
-    chapter_sections = {1: 3, 2: 7, 3: 3, 4: 3, 5: 9, 6: 4}
-    for chapter, count in chapter_sections.items():
-        if not re.search(rf"^# {chapter}\. ", text, re.M):
-            raise AssertionError(f"required chapter missing: {chapter}")
-        for section_number in range(1, count + 1):
-            heading = rf"^## {chapter}\.{section_number} [^\n]+\n"
-            match = re.search(heading, body, re.M)
-            if not match:
-                raise AssertionError(
-                    f"required section missing: {chapter}.{section_number}"
-                )
-            section = body[match.end() :].split("\n#", 1)[0]
-            prose = re.sub(r"```.*?```", "", section, flags=re.S)
-            if not re.search(r"^[가-힣A-Za-z][^\n]+[.!?]", prose, re.M):
-                raise AssertionError(
-                    f"explanatory prose missing: {chapter}.{section_number}"
-                )
-
-    # Content-regression checks for the current 60-query thesis narrative.
-    if "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험" not in text:
-        raise AssertionError(
-            "thesis title must match the academic/technical-document study scope"
-        )
-
-    section_54 = text.split("## 5.4 HyDE 결과 및 해석", 1)[1].split(
-        "## 5.5 CAD 결과 및 해석", 1
-    )[0]
-    for marker in (
-        "ext_midm_004",
-        "interaction structure",
-        "topic and task",
-        "persona",
-        "0.0000에서 0.8531",
-    ):
-        if marker not in section_54:
-            raise AssertionError(f"HyDE case marker missing from section 5.4: {marker}")
-    stale_e04 = ("GMM", "soft clustering", "BIC")
-    if found := [term for term in stale_e04 if term in section_54]:
-        raise AssertionError(
-            f"stale E04 RAPTOR case prose remains in section 5.4: {found}"
-        )
-
-    section_55 = text.split("## 5.5 CAD 결과 및 해석", 1)[1].split(
-        "## 5.6 SCD 출력 언어 결과 및 해석", 1
-    )[0]
-    for marker in (
-        "문맥 정밀도는 60쌍 중 8쌍, 문맥 재현율은 60쌍 중 1쌍",
-        "평가의 변동을 확인하기 위한 진단값",
-        "근거 충실도",
-        "답변 관련성",
-        "조건 실행 시간",
-    ):
-        if marker not in section_55:
-            raise AssertionError(
-                f"CAD interpretation contract missing from section 5.5: {marker}"
-            )
-
-    section_56 = text.split("## 5.6 SCD 출력 언어 결과 및 해석", 1)[1].split(
-        "## 5.7 대표 입출력 및 요구사항별 실행 결과", 1
-    )[0]
-    for marker in (
-        "ext_midm_005",
-        "H1C0S0과 H1C0S1",
-        "H1C0S0\tH1C0S1\t60\t+0.2511",
-        "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
-    ):
-        if marker not in section_56:
-            raise AssertionError(
-                f"SCD current-analysis marker missing from section 5.6: {marker}"
-            )
-    stale_e03 = "이 사례는 HyDE OFF 동일 문맥 120쌍의 평균 +0.2182"
-    if stale_e03 in section_56:
-        raise AssertionError(
-            "E03 H1C0S0→H1C0S1 case is incorrectly linked to the HyDE-OFF 120-pair subset"
-        )
-
-    scd_design_row = "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍\t한국어 문자 비율"
-    if scd_design_row not in text:
-        raise AssertionError(
-            "table 3-3 must define the SCD primary 120-pair contrast before the 240-pair analysis"
-        )
-
-    for marker in (
-        "모든 질의는 한국어로 작성하고, 지정된 영어 문서에서 근거를 검색하였다",
-        "사실 및 정의 8개, 방법 및 절차 29개, 결과 및 비교 20개, 목적 및 기여 3개",
-        "연구자는 각 문서의 질문 형식과 범위를 정하기 위해 초기 질문 3개를 작성하였다",
-        "초기 질문의 표현 방식과 범위를 기준으로 LLM이 각 문서의 주요 내용을 요약하도록 하였다",
-        "요약을 15개의 내용 단위로 나누고",
-        "원문 페이지, 정답 근거와 답변 가능성을 확인하였다",
-        "5개 튜닝 질의",
-        "검색 후보 수, 재정렬 후보 수와 최종 문맥 수를 달리한 세 가지 설정",
-        "검색 후보 수 8, 재정렬 후보 수 8, 최종 생성 문맥 5",
-        "검색 설정을 정할 때는 최종 평가 집합과 분리한 튜닝 질의 5개를 사용하였다",
-        "weighted RRF(k=60)",
-        "cross-encoder/ms-marco-MiniLM-L-6-v2",
-        "공백 분리 기준 최대 크기 512개 단어",
-        "Python `split()` 기준 3,072개 단어",
-        "ContextCompressor",
-        "C0S0에서 +0.0805, C1S0에서 +0.0290",
-        "H0S0에서 -0.0073, H1S0에서 -0.0588",
-        "HyDE ON에서는 각 실험 조건마다 temperature=0.1, top_p=0.9로 가상 문서를 독립 생성하였다",
-        "그림 5-11에는 HyDE와 CAD의 근거 충실도 및 답변 관련성 평균 대응 차이를 제시하였다",
-    ):
-        if marker not in text:
-            raise AssertionError(f"current thesis-method marker missing: {marker}")
-
-    appendix_a = text.split("# 부록 A. 60개 질의 목록", 1)[1].split("# 부록 B.", 1)[0]
-    for stale_type in (
-        "crosslingual_ko",
-        "decoder_ablation",
-        "numeric_or_factual_hallucination",
-        "simple_qa",
-        "section_method",
-        "section_result",
-        "section_abstract",
-    ):
-        if stale_type in appendix_a:
-            raise AssertionError(
-                f"legacy mixed query-type label remains in appendix A: {stale_type}"
-            )
-
-    appendix_b = text.split("## B.2 문서별 및 질문 유형별 탐색 분석", 1)[1]
-    expected_query_type_rows = (
-        "사실 및 정의\tHyDE\t답변 관련성\t8\t0.0455",
-        "방법 및 절차\tHyDE\t답변 관련성\t29\t0.1719",
-        "결과 및 비교\tCAD\t답변 관련성\t20\t-0.0683",
-        "목적 및 기여\tCAD\t근거 충실도\t3\t-0.1597",
-    )
-    for marker in expected_query_type_rows:
-        if marker not in appendix_b:
-            raise AssertionError(f"reclassified B-2 row missing: {marker}")
-    if "# 부록 C." in text or "[표 C-1]" in text:
-        raise AssertionError(
-            "appendix C internal audit material returned to thesis-facing manuscript"
-        )
-
-    for marker in (
-        "60개",
-        "480개",
-        "240",
-        "120",
-        "58쌍",
-        "+0.0805",
-        "+0.0288",
-        "+0.2289",
-        "+0.2182",
-    ):
-        if marker not in text:
-            raise AssertionError(f"missing result marker: {marker}")
-
-    stale_terms = (
-        "19개의 한국어 질의",
-        "152개의 답변",
-        "76개 on/off",
-        "38개 대응쌍",
-        "symmetric evaluation",
-        "cross-judge",
-    )
-    if found := [term for term in stale_terms if term.lower() in text.lower()]:
-        raise AssertionError(f"stale manuscript terms: {found}")
-
-    if found := [term for term in UI_SERVICE_TERMS if term.lower() in body.lower()]:
-        raise AssertionError(f"UI/service material leaked into thesis body: {found}")
-
-    if "[그림 B-" in body or "그림 1-2" in body:
-        raise AssertionError("UI screenshot numbering returned to thesis body")
-
-    if found := [phrase for phrase in DEFENSIVE_PHRASES if phrase in body]:
-        raise AssertionError(f"defensive manuscript prose returned: {found}")
-
-    if found := [
-        term
-        for term in (
-            "retrieval-side",
-            "generation-side",
-            "retrieval profile",
-            "retrieval_recall_oriented",
-        )
-        if term in body
-    ]:
-        raise AssertionError(
-            f"mixed internal terminology returned to thesis body: {found}"
-        )
-    if "faithfulness의 결측값 5개" in body:
-        raise AssertionError(
-            "explicit five-missing-value prose returned outside the focused analysis note"
-        )
-
-    toc = text.split("# 그 림 목 차", maxsplit=1)[0]
-    detailed_toc = (
-        "3.1 연구 및 실험 요구사항",
-        "3.2 아키텍처 설계",
-        "3.3 상세설계",
-        "4.1 시스템 환경",
-        "4.2 시스템 구성",
-        "4.3 시스템 구현",
-        "5.1 실험 대상과 구성",
-        "5.2 평가 및 분석 방법",
-        "5.3 RAG-Cube 조합별 결과",
-        "5.4 HyDE 결과 및 해석",
-        "5.5 CAD 결과 및 해석",
-        "5.6 SCD 출력 언어 결과 및 해석",
-        "5.7 대표 입출력 및 요구사항별 실행 결과",
-        "5.8 종합 논의",
-        "5.9 실험 범위와 해석 기준",
-        "6.1 연구 질문별 최종 답",
-        "6.2 비교 설계의 의의",
-        "6.3 적용 시 실험 조건 선택",
-        "6.4 후속 연구 방향",
-        "부록 A~B",
-    )
-    for section in detailed_toc:
-        if section not in toc:
-            raise AssertionError(
-                f"missing detailed table-of-contents section: {section}"
-            )
-
-    figure_toc = set(
-        re.findall(
-            r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]",
-            text.split("# 표 목 차", maxsplit=1)[0].split("# 그 림 목 차", maxsplit=1)[
-                -1
+    records = []
+    for rel, digest in manifest["sources"].items():
+        p = ROOT / rel.replace("\\", "/")
+        b = p.read_bytes()
+        require(
+            digest
+            in [
+                hashlib.sha256(b).hexdigest(),
+                hashlib.sha256(b.replace(b"\r\n", b"\n")).hexdigest(),
             ],
+            "Immutable evidence changed: " + rel,
         )
-    )
-    figure_captions = set(re.findall(r"(?m)^\[그림\s+([0-9A-Z]+-[0-9]+)\]", text))
-    if figure_toc != figure_captions:
-        raise AssertionError("figure list and manuscript captions do not match")
-    if len(figure_captions) != 22:
-        raise AssertionError(
-            f"expected 22 manuscript figures including appendix figure B-1, got {len(figure_captions)}"
-        )
-
-    table_toc = set(
-        re.findall(
-            r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]",
-            text.split("# 참고문헌", maxsplit=1)[0].split("# 표 목 차", maxsplit=1)[-1],
-        )
-    )
-    table_captions = set(re.findall(r"(?m)^\[표\s+([0-9A-Z]+-[0-9]+)\]", text))
-    if table_toc != table_captions:
-        raise AssertionError("table list and manuscript captions do not match")
-    if len(table_captions) != 17:
-        raise AssertionError(
-            f"expected 17 manuscript tables, got {len(table_captions)}"
-        )
-
-    cited = {int(number) for number in re.findall(r"\[([0-9]{1,2})\]", body)}
-    references = {
-        int(number)
-        for number in re.findall(
-            r"(?m)^\[([0-9]{1,2})\]", text.split("# 참고문헌", maxsplit=1)[1]
-        )
-    }
-    expected_references = set(range(1, 23))
-    if cited != expected_references or references != expected_references:
-        raise AssertionError(
-            "citation and reference-number sets must both be [1] through [22]"
-        )
-
-    equation_file = (FINAL / "MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt").read_text(
-        encoding="utf-8"
-    )
-    equations = (
-        "C_q = Retrieve(q, D)",
-        "y = LM(q, C_q)",
-        "RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}",
-        "z_CAD = (1 + alpha) z_ctx - alpha z_noctx",
-        "tilde z_i = alpha z_i",
-        "tilde z_i = beta z_i",
-        "tilde z_i = z_i",
-        "KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}",
-        "Delta_i = s_i^{ON} - s_i^{OFF}",
-        "bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i",
-    )
-    normalized_manuscript = re.sub(r"\s+", "", text)
-    normalized_equation_file = re.sub(r"\s+", "", equation_file)
-    for equation in equations:
-        normalized_equation = re.sub(r"\s+", "", equation)
-        if (
-            normalized_equation not in normalized_manuscript
-            or normalized_equation not in normalized_equation_file
-        ):
-            raise AssertionError(
-                f"missing or mismatched HWP equation source: {equation}"
-            )
-
-    with zipfile.ZipFile(TABLES) as archive:
-        workbook = archive.read("xl/workbook.xml").decode("utf-8")
-        shared_strings = (
-            archive.read("xl/sharedStrings.xml").decode("utf-8")
-            if "xl/sharedStrings.xml" in archive.namelist()
-            else ""
-        )
-        worksheet_xml = "\n".join(
-            archive.read(name).decode("utf-8")
-            for name in archive.namelist()
-            if name.startswith("xl/worksheets/sheet") and name.endswith(".xml")
-        )
-        workbook_text = html.unescape(shared_strings + "\n" + worksheet_xml)
-        # Read actual cells rather than depending on an XLSX writer's Unicode
-        # escaping or inline/shared-string serialization choices.
-        namespace = {"s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
-        shared = (
-            [
-                "".join(node.itertext())
-                for node in ET.fromstring(shared_strings).findall("s:si", namespace)
+        if rel.endswith(".jsonl"):
+            records += [
+                json.loads(line)
+                for line in b.decode("utf-8").splitlines()
+                if line.strip()
             ]
-            if shared_strings
-            else []
+    require(len(records) == 480, "Generation record count differs")
+    bykey = {(r["query_id"], r["config_name"]): r for r in records}
+    require(len(bykey) == 480, "Duplicate generation key")
+    require(len({r["query_id"] for r in records}) == 60, "Query count differs")
+    require(
+        set(Counter(r["config_name"] for r in records).values()) == {60},
+        "Unbalanced generation design",
+    )
+    for path in re.findall(r"\[(?:그림|입출력증빙)삽입:\s*([^|]+)\|", text):
+        require((ROOT / path.strip()).is_file(), "Missing active figure: " + path)
+    for case, number in contract["case_figures"].items():
+        require(
+            re.search(
+                rf"\[(?:그림|입출력증빙)삽입:[^\n]*{case}[^\n]*\]\s*\[그림 {number}\]",
+                text,
+            ),
+            "Case figure placement differs: " + case,
         )
-        for sheet_number in (11, 12):
-            sheet_root = ET.fromstring(
-                archive.read(f"xl/worksheets/sheet{sheet_number}.xml")
-            )
-            headers = []
-            for address in ("D3", "E3", "F3", "G3"):
-                cell = sheet_root.find(f'.//s:c[@r="{address}"]', namespace)
-                if cell is None:
-                    raise AssertionError(
-                        f"missing direction header cell {sheet_number}:{address}"
-                    )
-                if cell.get("t") == "s":
-                    headers.append(shared[int(cell.find("s:v", namespace).text)])
-                else:
-                    headers.append("".join(cell.find("s:is", namespace).itertext()))
-            if headers != ["증가", "감소", "동률", "n"]:
-                raise AssertionError(f"XLSX direction columns differ: {headers}")
-        query_rows = archive.read("xl/worksheets/sheet15.xml").decode("utf-8")
-
-    sheet_names = re.findall(
-        r'<(?:[A-Za-z_][\w.-]*:)?sheet[^>]+name="([^"]+)"', workbook
+    require(
+        text.index("[그림 5-2]", text.index("# 5. 실험"))
+        < text.index("## 5.4 통계 분석 방법"),
+        "Evaluation example must precede results",
     )
-    if tuple(sheet_names) != EXPECTED_SHEETS:
-        raise AssertionError(f"workbook sheet order/count mismatch: {sheet_names}")
-    if "docs/PAPER/" in workbook_text or "generated/" in workbook_text:
-        raise AssertionError("workbook contains stale source metadata")
-    for marker in (
-        "HyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍",
-        "105 / 6 / 9",
-        "사실 및 정의",
-        "방법 및 절차",
-        "결과 및 비교",
-        "목적 및 기여",
-        "0.1719",
-        "공백 분리 기준 최대 크기 512개 단어",
-        "SCD OFF — 영어 검색 문맥 평가",
-        "SCD ON — 한국어 변환 평가 문맥",
-        "한국어 문자 비율",
-        "생성 기록 기준 값",
-        "cross-encoder/ms-marco-MiniLM-L-6-v2",
-    ):
-        if marker not in workbook_text:
-            raise AssertionError(
-                f"workbook thesis table content is stale: missing {marker}"
-            )
-    for stale in (
-        "동일 query·HyDE·CAD의 240 ON/OFF쌍",
-        "분석 artifact 참조",
-        "crosslingual_ko",
-        "decoder_ablation",
-        "numeric_or_factual_hallucination",
-        "simple_qa",
-        "section_method",
-        "section_result",
-        "section_abstract",
-        "512 tokens / overlap 64 / minimum 50",
-        "max 3072 tokens",
-    ):
-        if stale in workbook_text:
-            raise AssertionError(f"workbook thesis table content is stale: {stale}")
-    query_root = ET.fromstring(query_rows)
-    nonempty_query_rows = [
-        row
-        for row in query_root.iter()
-        if row.tag.rsplit("}", 1)[-1] == "row"
-        and any(child.tag.rsplit("}", 1)[-1] == "c" for child in row)
-    ]
-    if len(nonempty_query_rows) != 63:
-        raise AssertionError(
-            "Appendix_Queries must contain its title, source, header, and 60 query rows"
-        )
-
-    io_dir = FINAL / "EVIDENCE/IO_CASES"
-    expected_io = (
-        "E01_normal_qa",
-        "E02_language_drift",
-        "E03_scd_rescue",
-        "E04_hyde_retrieval_change",
-        "E05_cad_positive_same_context",
-        "E06_cad_tradeoff_same_context",
+    require(
+        "fig3_1_rag_cube.png |" not in text
+        and "fig5_2_primary_forest.png |" not in text
+        and "fig5_3_scd_language.png |" not in text,
+        "Retired redundant figure returned",
     )
-    for stem in expected_io:
-        need(io_dir / f"{stem}.png")
-        need(io_dir / "raw" / f"{stem}.txt")
-    manifest_cases = {case["case_id"]: case for case in evidence_manifest["cases"]}
-    expected_case_queries = {
-        "E01": "ext_raptor_011",
-        "E02": "ext_cad_007",
-        "E03": "ext_midm_005",
-        "E04": "ext_midm_004",
-        "E05": "ext_midm_001",
-        "E06": "track1_0012",
-    }
-    if set(manifest_cases) != set(expected_case_queries):
-        raise AssertionError("evidence manifest must contain E01 through E06 exactly")
-    for case_id, query_id in expected_case_queries.items():
-        if manifest_cases[case_id]["query_id"] != query_id:
-            raise AssertionError(f"{case_id} manifest query mismatch")
-        raw_name = next(name for name in expected_io if name.startswith(case_id))
-        raw_text = (io_dir / "raw" / f"{raw_name}.txt").read_text(encoding="utf-8")
-        if f"Query ID          : {query_id}" not in raw_text:
-            raise AssertionError(f"{case_id} raw evidence query mismatch")
-    for marker in (
-        "Query ID",
-        "Stored answer",
-        "Retrieved chunk IDs",
-        "Retrieved evidence",
-    ):
-        if marker not in (io_dir / "raw/E01_normal_qa.txt").read_text(encoding="utf-8"):
-            raise AssertionError(f"E01 raw IO evidence missing marker: {marker}")
-    if "[입출력 사례 E" in text:
-        raise AssertionError(
-            "internal E-case numbering leaked into thesis-facing captions"
-        )
-    for raw_path in sorted((io_dir / "raw").glob("E*.txt")):
-        raw_text = raw_path.read_text(encoding="utf-8")
-        if "Evidence Replay UI" in raw_text or "evidence replay" in raw_text.lower():
-            raise AssertionError(
-                f"UI/replay label remains in raw evidence: {raw_path.name}"
-            )
-    placement_checks = (
-        ("## 5.4 HyDE 결과 및 해석", "## 5.5 CAD 결과 및 해석", "[그림 5-3]"),
-        ("## 5.5 CAD 결과 및 해석", "## 5.6 SCD 출력 언어 결과 및 해석", "[그림 5-5]"),
-        (
-            "## 5.6 SCD 출력 언어 결과 및 해석",
-            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
-            "[그림 5-7]",
-        ),
-        (
-            "## 5.6 SCD 출력 언어 결과 및 해석",
-            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
-            "[그림 5-8]",
-        ),
-        (
-            "## 5.7 대표 입출력 및 요구사항별 실행 결과",
-            "## 5.8 종합 논의",
-            "[그림 5-10]",
-        ),
-        (
-            "# 부록 B. 추가 사례 및 탐색 분석",
-            "## B.2 문서별 및 질문 유형별 탐색 분석",
-            "[그림 B-1]",
-        ),
-    )
-    for start, end, evidence_marker in placement_checks:
-        section = text.split(start, 1)[1].split(end, 1)[0]
-        if evidence_marker not in section:
-            raise AssertionError(
-                f"claim-adjacent figure placement mismatch: {evidence_marker}"
-            )
-    for section_name, next_name, required in (
-        (
-            "5.7 대표 입출력 및 요구사항별 실행 결과",
-            "5.8 종합 논의",
-            ("ext_raptor_011", "0.9365", "[그림 5-10]"),
-        ),
-        (
-            "6.2 비교 설계의 의의",
-            "6.3 적용 시 실험 조건 선택",
-            ("0.8599", "+0.0288", "120", "240", "검색 청크 ID, 재정렬 청크 ID"),
-        ),
-    ):
-        section = text.split(f"## {section_name}", 1)[1].split(f"## {next_name}", 1)[0]
-        if any(marker not in section for marker in required):
-            raise AssertionError(f"substantive evidence missing: {section_name}")
-
-    literature_dir = FINAL / "FIGURES/LITERATURE"
-    expected_literature = (
-        "fig2_1_rag_independent.png",
-        "fig2_2_lost_middle_tacl.png",
-        "fig2_3_hyde_acl_no_logo.png",
-        "fig2_4_cad_original.png",
-        "fig2_5_scd_no_logos.png",
-        "fig2_6_ragas_faithfulness_original.png",
-    )
-    for filename in expected_literature:
-        need(literature_dir / filename)
-    need(literature_dir / "README.md")
-
-    figures = sorted((FINAL / "FIGURES").glob("*.png"))
-    if len(figures) != 10:
-        raise AssertionError(f"expected 10 structural figures, got {len(figures)}")
-    hashes = [hashlib.sha256(path.read_bytes()).hexdigest() for path in figures]
-    if len(set(hashes)) != len(hashes):
-        raise AssertionError("duplicate structural figure content")
-
-    table_copy = (FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt").read_text(
-        encoding="utf-8"
-    )
-    for marker in (
-        "SCD\t출력 토큰 로짓 제어\tHyDE OFF 동일 문맥 120쌍; 동일 질의의 HyDE와 CAD 상태를 맞춘 전체 240쌍\t한국어 문자 비율",
-        "HyDE OFF 동일 문맥\t120\t+0.2182\t[+0.1880, +0.2487]\t105 / 6 / 9",
-        "방법 및 절차\tHyDE\t답변 관련성\t29\t0.1719",
-        "사실 및 정의\tCAD\t근거 충실도\t8\t0.0005",
-        "공백 분리 기준 최대 크기 512개 단어",
-        "SCD OFF — 영어 검색 문맥 평가",
-        "SCD ON — 한국어 변환 평가 문맥",
-        "한국어 문자 비율 평균 대응 차이",
-        "각 단계에서 최종 로짓이 가장 높은 토큰 선택",
-    ):
-        if marker not in table_copy:
-            raise AssertionError(f"HWP copy table content is stale: missing {marker}")
-    if re.search(r"(?m)^\[표\s+C-[0-9]+\]", table_copy):
-        raise AssertionError("appendix C audit table returned to the HWP copy package")
-    workbook_blocks = re.findall(r"(?m)^\[Workbook Sheet\]\s+(.+)$", table_copy)
-    if tuple(workbook_blocks) != EXPECTED_SHEETS:
-        raise AssertionError(f"HWP copy workbook blocks mismatch: {workbook_blocks}")
-    experiment_validation = (FINAL / "DATA/EXPERIMENT_60_VALIDATION.md").read_text(
-        encoding="utf-8"
-    )
-    for relative_path, expected_hash in evidence_manifest["sources"].items():
-        if expected_hash not in experiment_validation:
-            raise AssertionError(
-                f"experiment validation missing current source hash for {relative_path}"
-            )
-    for sheet in EXPECTED_SHEETS:
-        if sheet not in table_copy:
-            raise AssertionError(f"missing HWP workbook mapping: {sheet}")
-
-    guide = (FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md").read_text(encoding="utf-8")
-    readme = (FINAL / "README.md").read_text(encoding="utf-8")
-    validation_report = (FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md").read_text(
-        encoding="utf-8"
-    )
-    cleanup_manifest = (FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md").read_text(
-        encoding="utf-8"
-    )
-
-    hwp_material = f"{guide}\n{table_copy}\n{readme}"
-    if found := [
-        term for term in UI_SERVICE_TERMS if term.lower() in hwp_material.lower()
+    for marker in [
+        "0.117",
+        "p=0.393",
+        "질의별",
+        "Holm",
+        "부분 η²",
+        "영어 검색 문맥",
+        "한국어 번역",
+        "512단어",
+        "512개",
+        "3,072",
+        "track1_0035",
+        "100,000회",
     ]:
-        raise AssertionError(
-            f"UI/service material leaked into HWP-transfer package: {found}"
-        )
-    if "증빙 화면" in hwp_material or "실제 응답 증빙 화면" in hwp_material:
-        raise AssertionError(
-            "UI screenshot insertion guidance returned to HWP-transfer package"
-        )
-
-    thesis_facing_paths = (
-        MANUSCRIPT,
-        FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
-        FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
+        require(marker in text, "Missing scientific contract: " + marker)
+    refs = text.split("# 참고문헌", 1)[1].split("# 그림 자료 이용 정보", 1)[0]
+    require(
+        [int(n) for n in re.findall(r"^\[(\d+)\]", refs, re.MULTILINE)]
+        == list(range(1, 23)),
+        "References changed",
     )
-    legacy_patterns = (
-        r"(?<!\d)19개(?!\d)",
-        r"(?<!\d)41개(?!\d)",
-        r"retained",
-        r"held-out",
-        r"extension\s*단계",
-        r"parameter를\s*고정한\s*뒤",
-        r"기존\s*19",
-        r"추가한\s*41",
+    body = text.split("# 1. 서론", 1)[1].split("# 참고문헌", 1)[0]
+    seen = list(dict.fromkeys(int(n) for n in re.findall(r"\[(\d+)\]", body)))
+    require(seen == list(range(1, 23)), "Citation first-appearance order differs")
+    queries = wb["Appendix_Queries"]
+    require(
+        queries.max_row == 63 and queries.max_column == 6,
+        "Query evidence coverage differs",
     )
-    superseded_terms = (
-        "simple_qa",
-        "section_method",
-        "section_result",
-        "section_abstract",
-        "512-token chunk",
-        "64-token overlap",
-        "최소 50-token",
-        "3,072-token",
-        "상호작용 패턴",
-        "source page",
-        "answer span",
+    require(
+        len({queries.cell(r, 1).value for r in range(4, 64)}) == 60, "Duplicate query"
     )
-    audit_phrases = (
-        "provenance",
-        "추적성",
-        "원자료 역할",
-        "정상적으로 연결된 기준 사례",
-        "검토할 수 있다",
-        "가장 명확한 결과",
-        "가장 명확한 HyDE",
-        "확인할 수 있다",
-        "확인 가능하다",
-        "검증 보고서",
-        "저장 artifact",
-        "질의 감사",
-        "정상 QA",
-        "source artifact",
-        "generation/evaluation artifact",
+    require(
+        set(Counter(queries.cell(r, 3).value for r in range(4, 64)).values()) == {15},
+        "Document balance differs",
     )
-    for path in thesis_facing_paths:
-        package_text = path.read_text(encoding="utf-8")
-        for pattern in legacy_patterns:
-            if re.search(pattern, package_text, flags=re.IGNORECASE):
-                raise AssertionError(
-                    f"legacy thesis history remains in {path.relative_to(FINAL)}: {pattern}"
-                )
-        if found := [term for term in superseded_terms if term in package_text]:
-            raise AssertionError(
-                f"superseded thesis term remains in {path.relative_to(FINAL)}: {found}"
-            )
-        if found := [phrase for phrase in audit_phrases if phrase in package_text]:
-            raise AssertionError(
-                f"audit/defensive thesis prose remains in {path.relative_to(FINAL)}: {found}"
-            )
-
-    package_text_paths = (
-        FINAL / "README.md",
-        MANUSCRIPT,
-        FINAL / "MANUSCRIPT/HWP_TRANSFER_GUIDE_60Q.md",
-        FINAL / "MANUSCRIPT/HWP_COPYPASTE_TABLES_60Q.txt",
-        FINAL / "VALIDATION/FINAL_CLAIM_MAP_60Q.md",
-        FINAL / "VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
-        FINAL / "VALIDATION/DOCS_CLEANUP_MANIFEST.md",
+    print(
+        f"PASS: professor revision, 60x8 raw evidence, {cells} cells / 14 tables / 13 figures / 11 equations / 22 references; 38 factorial tests and 10 contrasts"
     )
-    for path in package_text_paths:
-        package_text = path.read_text(encoding="utf-8")
-        if found := [stale for stale in STALE_PATHS if stale in package_text]:
-            raise AssertionError(
-                f"stale final-package path in {path.relative_to(FINAL)}: {found}"
-            )
-
-    if "증빙 경로" in validation_report:
-        raise AssertionError(
-            "validation report still describes UI/evidence insertion paths"
-        )
-    if "22 figure captions" not in cleanup_manifest:
-        raise AssertionError("cleanup manifest figure count is stale")
-    if not cleanup_manifest.rstrip().endswith("현재 제출 구조를 기준으로 유지한다."):
-        raise AssertionError("cleanup manifest is incomplete or truncated")
-
-    validate_print_evidence()
-    print("PASS: FINALDOCS 60-query thesis package")
     return 0
 
 
 if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except (AssertionError, OSError, KeyError, IndexError, zipfile.BadZipFile) as exc:
-        print(f"FAIL: {exc}", file=sys.stderr)
-        raise SystemExit(1)
+    raise SystemExit(main())

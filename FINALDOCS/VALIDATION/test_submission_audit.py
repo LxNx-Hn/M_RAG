@@ -25,11 +25,11 @@ class SubmissionAuditTests(unittest.TestCase):
     def test_current_assets(self):
         validate_submission_assets(ROOT, self.text, self.manifest)
 
-    def test_missing_license_or_logo_disclosure(self):
+    def test_missing_source_or_authorship_disclosure(self):
         for value in (
-            "https://creativecommons.org/licenses/by/4.0/",
-            "OpenAI 로고 생략",
-            "OpenAI와 Ollama 로고 생략",
+            self.manifest["figures"][0]["submission_source_url"],
+            self.manifest["figures"][1]["usage_entry"],
+            self.manifest["figures"][2]["caption_source"],
         ):
             with self.subTest(value=value), self.assertRaises(AssertionError):
                 validate_submission_assets(
@@ -47,7 +47,7 @@ class SubmissionAuditTests(unittest.TestCase):
             validate_submission_assets(
                 ROOT,
                 self.text.replace(
-                    "fig2_2_lost_middle_tacl.png", "fig2_2_lost_middle_original.png"
+                    "fig2_2_hyde_independent.png", "fig2_3_hyde_original.png"
                 ),
                 self.manifest,
             )
@@ -87,10 +87,10 @@ class SubmissionAuditTests(unittest.TestCase):
                     )
 
     def test_source_reference_and_object_cannot_change_in_both_files(self):
-        for index in (1, 5):
+        for index in (1, 2):
             changed = copy.deepcopy(self.manifest)
             old = changed["figures"][index]["caption_source"]
-            new = old.replace("외[9]", "외[11]").replace("표 2", "그림 2")
+            new = old.replace("외[2]", "외[11]").replace("외[3]", "외[11]")
             changed["figures"][index]["caption_source"] = new
             with self.subTest(index=index), self.assertRaisesRegex(
                 AssertionError, "reference/object"

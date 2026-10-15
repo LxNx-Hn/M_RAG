@@ -96,11 +96,11 @@ def validate_layout(header, section):
         checked.append(
             {"role": role, "paragraph_id": p.get("id"), "paraPrIDRef": shape.get("id")}
         )
-    assert sum(r["role"] == "figure_source" for r in checked) == 6
-    assert sum(r["role"] == "picture" for r in checked) == 22
-    assert sum(r["role"] == "table" for r in checked) == 17
-    assert sum(r["role"] == "equation" for r in checked) == 10
-    assert len(links) == 7
+    assert sum(r["role"] == "figure_source" for r in checked) == 4
+    assert sum(r["role"] == "picture" for r in checked) == 13
+    assert sum(r["role"] == "table" for r in checked) == 14
+    assert sum(r["role"] == "equation" for r in checked) == 11
+    assert len(links) == 4
     return {
         "paragraphs": checked,
         "native_hyperlinks": links,

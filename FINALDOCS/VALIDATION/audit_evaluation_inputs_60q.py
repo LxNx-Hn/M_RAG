@@ -58,7 +58,7 @@ def main():
         merged.update({(s["query_id"], s["group"]): s for s in scores})
         for p in [score_path, first_scores, first_inputs]:
             sources[p.relative_to(ROOT).as_posix()] = hashlib.sha256(
-                p.read_bytes()
+                p.read_bytes().replace(b"\r\n", b"\n")
             ).hexdigest()
     qids = sorted({q for q, c in inputs})
     if len(qids) != 60 or len(inputs) != 480:

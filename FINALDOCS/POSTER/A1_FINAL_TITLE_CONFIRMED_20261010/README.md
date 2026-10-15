@@ -1,20 +1,22 @@
-# M-RAG A1 연구 포스터 — 제목 유지 및 본문 교정
+# M-RAG A1 연구 포스터 — 교수 피드백 반영
 
-**확정 제목:** 한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험
+확정 제목: **한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험**
 
-제목을 유지하고 연구 배경, 기술 설명, 평가 조건, 실제 사례와 결론의 표현을 교정하였다. 최신 교정 내역은 ACADEMIC_POLISH_CHANGES.json에 기록하였다. 결과 수치를 유지하고 글자 크기와 배치를 조정하였다. 본문은 18pt, 주요 참고문헌은 16pt로 확대하였다. 전체 참고문헌 22편과 출력 사례는 동봉 파일에 보존하였다. 공개본의 학번은 생략하고 개인정보가 있는 제출본은 로컬에 별도로 보관한다.
+60개 질의와 480개 생성 기록을 기준으로 평균(SD), 반복측정 ANOVA, 대응 비교와 Holm 보정을 반영했다. 공개본은 문종건·지도교수 김진석을 표기하고 학번을 생략한다. 학번을 포함한 제출본은 로컬에 별도로 보관한다.
 
-- [A1 인쇄 PDF](M_RAG_A1_FINAL_PRINT.pdf)
-- [편집용 PPTX](M_RAG_A1_FINAL_EDITABLE.pptx)
-- [SVG 원본](M_RAG_A1_FINAL_EDITABLE.svg)
-- [PNG 미리보기](M_RAG_A1_FINAL_PREVIEW.png)
-- [300dpi 인쇄 이미지](M_RAG_A1_FINAL_300DPI.png)
-- [목업](M_RAG_A1_FINAL_MOCKUP.jpg)
-- [전체 ZIP](M_RAG_A1_FINAL_DELIVERY.zip)
-- [교정 기록](A1_FINAL_REVIEW_KO.md)
-- [정확한 A→B 매핑](A1_COPYEDIT_MAP.json)
-- [최신 A→C 교정](ACADEMIC_POLISH_CHANGES.json)
-- [실물 및 구조 검증](ACADEMIC_POLISH_VALIDATION.json)
-- [추가 수정용 프롬프트](POSTER_REVISION_PROMPT_KO.md)
+- `M_RAG_A1_FINAL_PRINT.pdf`: 594×841mm A1 세로 1쪽
+- `M_RAG_A1_FINAL_EDITABLE.pptx`: 편집 가능한 도형·텍스트·표 4개
+- `M_RAG_A1_FINAL_EDITABLE.svg`: 벡터 원본
+- `M_RAG_A1_FINAL_PREVIEW.png`: 전체 미리보기
+- `M_RAG_A1_FINAL_300DPI.png`: 7016×9933 픽셀 인쇄 이미지
+- `M_RAG_A1_FINAL_MOCKUP.jpg`: 평면 미리보기
+- `M_RAG_A1_FINAL_DELIVERY.zip`: 전체 묶음
+- `POSTER_REVISION_PROMPT_KO.md`: 추가 수정용 프롬프트
+- `POSTER_STATISTICS_FULL.md`: 전체 통계·결측·민감도 분석
+- `POSTER_REFERENCES_FULL.md`: 전체 참고문헌
+- `POSTER_CASES_FULL.md`: 보존 사례 안내
+- `ACADEMIC_POLISH_VALIDATION.json`, `SHA256_MANIFEST.json`: 출력 검사와 해시
 
-A1 크기는 약 594 × 841mm이다.
+제목 52pt, 구획 제목 24pt, 본문·표 18pt, 주요 참고문헌 16pt다. 실제 인쇄물의 1–2m 가독성과 인쇄 색상은 현장에서 확인해야 한다. PowerPoint 설치 프로그램에서의 실행은 검증 범위에 포함하지 않았다.
+
+해시 목록은 바이너리 파일의 원본 바이트를 사용하며, MD·JSON·SVG는 CRLF를 LF로 정규화한다.

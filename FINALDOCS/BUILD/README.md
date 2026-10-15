@@ -1,9 +1,11 @@
-# 학교 양식 기반 HWPX 재생성
+# 학교 양식 HWPX 재생성과 검증
 
-Python 3.11에서 `python -m pip install -r FINALDOCS/BUILD/requirements.txt`를 실행한다. 설치형 한컴오피스·COM·실험 API는 사용하지 않는다. 빌드 입력은 원고 MD, 17개 워크시트 XLSX, 삽입 지시의 PNG, 수식 원문이다.
+입력은 원고 MD, 14개 워크시트 XLSX, 삽입 그림 13개, 편집 가능한 수식 11개다. 참고문헌은 22편이다. 학교 양식의 글꼴·문단·명명 스타일·용지·단 정의를 보존한다. 표 셀은 머리글·짧은 조건을 가운데, 숫자를 오른쪽, 긴 설명을 왼쪽에 정렬한다. 목차 점선을 유지한다.
 
 ```powershell
-python -X utf8 FINALDOCS/BUILD/probe_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx
+python -m pip install -r FINALDOCS/BUILD/requirements.txt
+python -m pip install -r FINALDOCS/VALIDATION/requirements-statistics.txt
+python -X utf8 FINALDOCS/VALIDATION/verify_statistics_reproduction.py
 python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json
 python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
 python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
@@ -11,39 +13,23 @@ python -X utf8 -m unittest discover -s FINALDOCS/BUILD -p 'test_*.py'
 python -X utf8 -m unittest discover -s FINALDOCS/VALIDATION -p 'test_*.py'
 ```
 
-`--template`은 HWP/HWPX를 받는다. `--manuscript`, `--tables`, `--output`으로 입력과 출력 위치를 지정한다. 그림과 수식은 원고의 삽입 지시를 읽는다. 원본 HWP를 사용하면 변환 보고서에 누락이 있는 경우 중단한다. 이미 변환한 학교 양식을 저장소에 보존하므로 원본 Downloads 경로가 없는 환경에서도 재생성할 수 있다. 작은 시험본은 `--smoke-only`로 생성한다.
+`--output`으로 출력 폴더를 지정한다. 개인 제출본은 저장소 밖의 JSON을 `--personal-fields`로 전달한다. 이름·학번·소속·지도교수·제출일은 확인된 값만 사용하고 미정인 인준·심사위원 항목은 입력 칸으로 유지한다. 공개본은 개인 필드를 비운다. 기존 출력은 `versions/`에 보관한다.
 
-기존 출력 HWPX는 `versions/<UTC시각>/`에 보관한다. 학교 양식의 글꼴·문단·스타일 정의와 용지·단 설정을 보존하고, 생성 복사본의 예시 내용을 논문으로 교체한다. 내용이 잘못되면 예외를 발생시키며, 결측값을 0으로 채우지 않는다.
+## 웹한글 출력과 목차
 
-목차 번호는 실제 웹한글 PDF를 검토한 `PAGE_MAP_60Q.json`을 사용한다. 원고 해시가 바뀌거나 미확정 항목이 있으면 이 파일을 적용할 수 없다. Windows CRLF와 Git LF의 동일 텍스트는 별도 LF 해시로 확인한다. 문서 내용이나 배치를 변경하면 다음 순서로 새 페이지 지도를 만든다.
+1. `--page-map` 없이 초안을 만들고 웹한글에서 열어 PDF로 내려받는다.
+2. `python -X utf8 FINALDOCS/BUILD/map_pdf_pages.py <PDF> --output <지도 JSON>`으로 쪽 지도를 만든다.
+3. 모든 쪽을 렌더링해 검토하고, 텍스트 추출이 불가능한 윤곽선 제목은 실제 페이지에서 읽어 `visual_overrides`에 기록한다.
+4. 그 지도를 `--page-map`으로 적용하고 PDF를 다시 내려받아 목차 번호·본문 번호·표와 그림 배치를 대조한다.
 
-1. `--page-map`을 생략하여 초안을 생성하고 웹한글에서 PDF로 내려받는다.
-2. `python -X utf8 FINALDOCS/BUILD/map_pdf_pages.py <PDF경로> --output <새 지도 경로>`를 실행한다. 이 보조 도구에는 PyMuPDF가 필요하다.
-3. PDF의 모든 쪽과 제목·캡션 위치를 직접 검토한다. `unresolved` 항목은 근거를 확인하여 수동으로 해결하고 `visual_overrides`에 기록한다.
-4. 새 지도를 `--page-map`으로 적용한 뒤 다시 PDF를 출력하여 목차 및 배치가 일치하는지 확인한다.
+원고와 배치 코드의 해시가 달라지거나 미확정 항목이 있으면 페이지 지도를 적용할 수 없다. Windows CRLF와 Git LF 차이는 LF 정규화 해시로 확인한다. 과거 출력본의 수동 쪽번호를 새 문서에 복사하지 않는다. 표 5-2·5-4, 표 B-2, 절 1.2와 B.2 앞 쪽나눔은 실제 웹 출력에서 발견한 제목 분리를 교정한 배치다.
 
-`finalize_page_map.py`의 수동 값은 2026-10-08 초기 출력본의 SHA-256에만 적용한다. 다른 PDF에는 실행을 거부한다. 새로운 출력본에 이 숫자를 복사하지 않는다. `render_pdf_qa.py`는 PyMuPDF와 Pillow로 모든 쪽과 접촉 시트를 보존한다. PDF 보조 도구는 빌드/구조 검증의 필수 의존성이 아니다.
+## 자료와 도식
 
-`build_reviewed_figure_labels.py`는 설명 문구를 수정한 자체 도식과 실행 시간 그래프만 다시 만든다. Windows의 `C:/Windows/Fonts/malgun.ttf`와 Matplotlib 3.11.2가 필요하며, `python -m pip install matplotlib==3.11.2`로 별도 설치한다. 원 논문의 발췌 그림, 품질 그래프와 실험 데이터는 유지한다. 실행 시간의 막대 값은 480개 원자료의 H/C/S 상태로 다시 계산하고 기존 값과 일치하는지 검사한다. 폰트나 수치가 맞지 않으면 예외를 발생시킨다.
+60개 질의·480개 생성의 통계 권위 파일은 `DATA/FACTORIAL_STATISTICS_60Q.json`이다. 반복측정 단위·완전 대응 결측 처리·Holm 가설군·탐색적 분석 지위를 함께 기록한다. 원자료는 변경하지 않는다.
 
-독립 검사기는 ZIP/XML/패키지, 모든 원고 문단의 순서와 출현 횟수, 모든 표 셀과 병합, 원본 이미지 바이트·비율, 수식, 참고문헌, 학교 스타일, 60×8 생성 기록과 원자료 해시를 검사한다. 훼손 시험은 문단 중복·표 값 변경·수식 변경·그림 누락을 실제 ZIP 복사본에 주입한다. CI는 커밋된 파일과 재생성 파일을 각각 검사한다. 웹한글 편집과 PDF 조판은 브라우저에서 별도로 검증해야 한다.
+`build_professor_diagrams.py`는 RAG·HyDE·CAD·SCD의 독립 개념도와 연구 설정·평가 흐름·파이프라인을 SVG와 PNG로 만든다. 문헌 그림의 개념 출처·작성 주체·이미지 해시는 `FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json`에 기록한다. 이전 원문 그림은 이력에 유지한다.
 
-절 제목 앞의 `[쪽나눔]`은 명시적인 배치 지시로 지원한다. 제목 없이 끝나거나 중복되거나 일반 문단 앞에 놓이면 빌드가 실패한다. 2026-10-09 최종 조판에서는 4.3·5.3·6.3의 이전 수동 지시를 제거하고 모든 절 제목에 `keepWithNext`·`keepLines`·`widowOrphan`을 적용하였다. 새 간격과 기존 강제 쪽나눔이 겹쳐 생긴 한 줄 페이지를 실제 PDF에서 확인한 수정이다. 학교 스타일 정의는 변경하지 않는다.
+`build_statistics_tables.mjs`와 `build_academic_poster.mjs`는 Artifact Tool을 사용한다. 후자는 `--output <폴더>`가 필수이고 공개본을 기본으로 만든다. 제출본은 `--personal-fields <로컬 JSON>`을 추가한다. 통계 표 입력은 `DATA/THESIS_TABLES_60Q.json`이다.
 
-`academic_language_checks.py`는 발견된 조사 오류, 잘못된 사례 범위, 정식 제목과 목차의 불일치, 문헌 그림의 별도 출처 문단, 지표 최초 영문 정의와 분석 판정 기준을 검사한다. 전체 문법이나 학술적 타당성을 자동으로 판정하는 도구는 아니다. 전수 독해와 수정 판단은 `VALIDATION/FINAL_ACADEMIC_LANGUAGE_REVIEW.md`에 기록한다.
-
-2026-10-09 제출 감사의 문헌 그림은 `FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json`의 정확한 버전·PNG 해시·출처 문단으로 검증한다. RAG는 독립 도식, Lost in the Middle과 HyDE는 정식 출판본이며 HyDE·SCD의 제3자 로고는 생략했다. 이전 PNG는 보존한다. 선택적 오프라인 그림 재생성에는 PyMuPDF, Pillow, Windows 맑은 고딕과 해시가 일치하는 원본 PDF가 필요하다.
-
-```powershell
-python -X utf8 FINALDOCS/BUILD/build_submission_literature.py --source-dir tmp/submission_sources --font C:/Windows/Fonts/malgun.ttf
-```
-
-전체 제출 검토와 미입력 표지 정보는 `VALIDATION/FINAL_SUBMISSION_AUDIT.md` 및 `VALIDATION/SUBMISSION_PERSONAL_FIELDS.md`를 따른다.
-
-조판·출처 검토는 `VALIDATION/FINAL_LAYOUT_AND_ATTRIBUTION_AUDIT.md`, 최신 인쇄 검토는 `VALIDATION/FINAL_PRINT_READINESS_AUDIT.md`를 따른다. `layout_policy.py`는 역할별 위·아래 간격(pt), 행간(%), 정렬과 문단 보호를 정의하고 학교 문단 모양의 복제본을 적용한다. `layout_checks.py`는 저장된 XML을 별도로 검사한다. 원래 19개 스타일·글꼴·용지·여백은 보존한다. 출처와 이용 정보는 본문 글꼴의 9pt 복제 글자 모양으로 적용한다. 짧은 표는 글자처럼 배치하여 제목과 함께 이동한다. 부록 A는 `pageBreak=TABLE`로 셀을 나누지 않고 행을 다음 쪽으로 이동하며 반복 머리글을 유지한다. 그림 자료 이용 정보의 7개 URL은 네이티브 하이퍼링크이다. 페이지 지도는 원고와 조판 코드의 LF 해시를 확인하므로 문단 속성이 바뀌어도 기존 쪽번호를 그대로 재사용할 수 없다.
-
-입출력 그림의 인쇄용 재생성은 Windows 맑은 고딕·Pillow가 있는 환경에서 `python -X utf8 FINALDOCS/BUILD/build_print_evidence.py`로 실행한다. `PRINT_EXCERPT_PLAN.json`의 구간이 저장 생성 기록과 정확히 일치해야 한다. 질문·조건·검색 ID·발췌 원문과 전체 답변 기준 평가값을 표시하며 원래 raw TXT와 실험 자료는 유지한다. `print_evidence_checks.py`는 발췌 위치, 전체 기록·평가 해시, 지표, 조건, 그림 바이트를 독립적으로 대조한다. API·모델 호출은 없다.
-
-실제 웹한글 PDF의 추가 검사는 PyMuPDF·Pillow가 있는 환경에서 `python -X utf8 FINALDOCS/BUILD/verify_print_pdf.py`로 실행한다. PDF에 삽입된 6개 그림의 복원 픽셀·물리 글자 크기(9pt 이상), 부록 A의 60개 행·360개 셀·반복 머리글을 대조한다. 혼합 문자 PDF의 내용 스트림 순서 대신 화면상 문자 좌표 순서로 셀을 비교하며, 오류는 예외로 보고한다. 이 검사는 전수 시각 검토와 함께 수행한다.
-
-`prose_audit_checks.py`는 본문·초록·캡션·설명의 방어형 후보를 검출하고 문장 해시별 검토 사유를 확인한다. 수식·코드·탭 구분 원자료·서지 원문은 분리한다. 기존 방어 문장 재등장과 새로운 미검토 후보는 실패하며, 통계적으로 필요한 부정 표현은 `PROSE_SENTENCE_REVIEW.json`의 F 판정과 사유로 유지한다. 전체 검토 단위의 해시도 확인하므로 새 문장에는 검토 기록을 추가한다. 후보 0건을 전수 독해 완료로 판정하지 않는다. 전체 독해 기록은 `VALIDATION/FINAL_PROSE_AUDIT.md`에 있다.
+독립 검사기는 패키지·XML, 원고 전체 문단 순서·출현 횟수, 1,229개 표 셀과 병합·정렬, 원본 이미지 바이트·비율, 수식, 인용·참고문헌, 학교 양식 정의를 검사한다. 훼손 시험은 실제 문서 사본에 값 변경·누락·중복·정렬 오류를 주입한다. 구조 검사와 웹한글의 실제 조판 검증을 구분한다.

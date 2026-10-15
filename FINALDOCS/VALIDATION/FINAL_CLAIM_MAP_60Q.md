@@ -1,25 +1,26 @@
-# 60-query 최종 주장 맵
+# 60개 질의 최종 주장 맵 · 2026-10-15
 
-| 주장 범주 | 원고에 사용할 결과 | 근거 | 표본·분석 단위 |
-|---|---|---|---|
-| 실험 범위 | 네 영어 학술·기술 문서에 한국어 질의 15개씩 총 60개를 구성하고 8개 실험 조건을 적용해 480개 생성 기록을 분석한다. 60개 질의 전체는 한국어 질의–영어 문서 검색의 cross-lingual 조건을 공유한다. | `EXPERIMENT_60_VALIDATION.md`, `TABLES_60Q.xlsx` | 문서별 15개, 조건별 60 record |
-| HyDE | CAD·SCD OFF 비교에서 answer relevancy +0.0805, 95% CI [+0.0110, +0.1514] | `extended_validation_60_analysis.json` | 60 paired queries |
-| HyDE 보조 지표 | faithfulness +0.0436, context precision -0.0343, context recall 0.0000 | `extended_validation_60_analysis.json` | 60 paired queries |
-| CAD | 동일 검색 문맥에서 faithfulness +0.0288, 95% CI [-0.0367, +0.0934], answer relevancy -0.0073 | `extended_validation_60_analysis.json` | faithfulness 58 complete pairs, answer relevancy 60 pairs |
-| SCD 동일 문맥 | HyDE OFF 동일 문맥에서 Korean-character ratio +0.2182, 95% CI [+0.1880, +0.2487] | `extended_validation_60_analysis.json` | 120 pairs |
-| SCD 전체 | 같은 query와 HyDE·CAD configuration을 짝지은 240쌍에서 Korean-character ratio +0.2289, 95% CI [+0.2051, +0.2532] | `extended_validation_60_analysis.json` | 240 pairs, query-clustered bootstrap |
-| Configuration 평균 | 표 5-2는 SCD OFF의 영어 검색 문맥 평가와 SCD ON의 한국어 변환 평가 문맥을 두 protocol 블록으로 구분해 8개 configuration 평균을 제시한다. | RAGAS score 결과 | configuration별 generation 60 |
-| 질문 유형 탐색 | 질문이 요구하는 답의 성격을 기준으로 사실·정의 8, 방법·절차 29, 결과·비교 20, 목적·기여 3으로 분류하고 B-2를 재계산한다. | `Appendix_QueryType`, RAGAS per-sample scores | 탐색적 하위집단 분석 |
-| HyDE·CAD 조건별 기술적 대응 차이 | 조건별 대응 차이와 검색 문맥 변화를 함께 제시한다. HyDE ON에서는 조건별 가상 문서 샘플링에 따른 검색 문맥 변화가 포함된다. | 그림 5-11 / 생성 기록 / 저장 대응 차이 | 조건별 기술적 비교 |
+수치 근거는 `FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json`, 평가 입력 대조는 `EVALUATION_INPUT_AUDIT_60Q.json`이다. 생성 원자료 480건과 평가 점수는 수정하지 않았다.
 
-## 분석 연결
+| 항목 | 보고 결과 | 분석 단위와 해석 |
+|---|---|---|
+| 평가 범위 | 영어 문서 4종×문서별 한국어 질의 15개×8조건=480건 | 고정 문서 4종, 질의 60개 |
+| HyDE 답변 관련성 | 평균 차이 +0.080495, SD 0.278810, t(59)=2.236, p=0.029, Holm p=0.117 | C0S0 단순 비교, 네 품질 지표 보정; 검색 입력·가상 문서 샘플링 변화 포함 |
+| CAD 근거 충실도 | 평균 차이 +0.028838, t(57)=0.862, p=0.393, Holm p=1.000 | H0S0, 결측 제외 58개 대응 질의; 저장된 검색 문맥 동일 |
+| SCD 주 비교 | 한국어 문자 비율 차이 +0.218224, t(59)=13.951, Holm p<0.001 | H0 동일 문맥 120쌍을 질의별 평균해 n=60으로 검정 |
+| SCD 전체 비교 | 한국어 문자 비율 차이 +0.228941, t(59)=18.474, Holm p<0.001 | 240쌍을 질의별 평균해 n=60으로 검정 |
+| 품질 요인 검정 | H×CAD 검정 24개의 Holm p 모두 0.05 이상 | S0 영어 평가 문맥·S1 한국어 번역 평가 문맥을 분리 |
+| 문자 비율 요인 검정 | S 주효과 F(1,59)=341.302, Holm p<0.001 | H×C×S 7개 효과 보정 |
+| 실행 시간 | H·C 주효과, C×S 상호작용의 Holm p<0.05 | 측정 구간은 구현 4.3절; 시간 7개 효과 보정 |
+| 질문 구성 | 초기 질문·요약 절차는 연구자 설명; 해당 원본 미보관 | 최종 60개 질문·원문 페이지·정답 근거는 저장 자료로 추적 |
+| 하위집단 | 사실·정의 8, 방법·절차 29, 결과·비교 20, 목적·기여 3 | 부록의 탐색적 평균 차이(SD) |
 
-- HyDE: 검색 경로와 answer relevancy 대응 변화.
-- CAD: identical retrieved/reranked/context 조건의 generation-side 변화와 duration.
-- SCD: Korean-character ratio와 stored answer의 출력 언어 변화.
-- E01~E06: `evidence_manifest_60q.json`, `EVIDENCE/IO_CASES/raw/*.txt`, PNG가 같은 query/config를 가리킨다.
-- Source SHA-256은 내부 검증용 `evidence_manifest_60q.json`과 `EXPERIMENT_60_VALIDATION.md`에서 관리한다.
+## 사례와 그림 연결
 
-## 논문 그림 연결
+E01→그림 5-2, E06→B-1, E04→B-2, E05→B-3, E02→B-4, E03→B-5. E03은 H1 조건의 전체 SCD 비교 사례다. 원본 생성 답변·검색 근거·점수와 이미지의 대응 관계를 유지한다.
 
-E04는 그림 5-3(HyDE), E05는 5-5(CAD), E02는 5-7(언어 이탈), E03은 5-8(SCD), E01은 5-10(질의응답), E06은 B-1(CAD 감소 사례)로 연결한다. E03의 H1C0S0→H1C0S1 사례는 전체 240쌍에 속하며 HyDE OFF 동일 문맥 120쌍에 속하지 않는다. 그림 5-4는 HyDE·CAD 주 비교의 신뢰구간, 그림 5-9는 SCD 문자 비율, 그림 5-11은 조건별 기술적 대응 차이다. 부록 A는 실제 60개 질문, 부록 B는 추가 사례와 문서별·질문 유형별 탐색 분석이다.
+## 검정과 재현
+
+관측 결과에 기초한 탐색적 분석이다. 평균 차이 검정과 순위 검정을 구분하며, 유의확률을 기준에 맞추기 위한 원자료 변경이나 표본 선택은 수행하지 않는다. 분석 단위는 질의이고, 결측은 검정 조건의 완전 대응 질의로 처리한다. 부트스트랩 기록은 보조 근거로 유지한다.
+
+`python -X utf8 FINALDOCS/VALIDATION/verify_statistics_reproduction.py`로 별도 출력 폴더에서 재계산하여 저장 결과와 대조한다.

@@ -16,6 +16,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r FINALDOCS/BUILD/requirements.txt
+      - name: Reproduce statistics from immutable 480 records
+        run: |
+          pip install -r FINALDOCS/VALIDATION/requirements-statistics.txt
+          python -X utf8 FINALDOCS/VALIDATION/verify_statistics_reproduction.py
       - name: Validate committed thesis evidence and HWPX
         run: |
           python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py

@@ -16,11 +16,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from hwpx import HwpxDocument
+from layout_policy import apply_layout
 from lxml import etree as ET
 from openpyxl import load_workbook
 from PIL import Image
-
-from layout_policy import apply_layout
 
 ROOT = Path(__file__).resolve().parents[2]
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
@@ -114,10 +113,10 @@ def parse_manuscript(path: Path) -> list[dict]:
         pending_page_break = False
     if pending_page_break:
         raise ValueError("Dangling page-break directive")
-    if sum(e["kind"] == "table" for e in events) != 17:
-        raise ValueError("Expected exactly 17 table insertion events")
-    if sum(e["kind"] == "picture" for e in events) != 22:
-        raise ValueError("Expected exactly 22 picture insertion events")
+    if sum(e["kind"] == "table" for e in events) != 14:
+        raise ValueError("Expected exactly 14 reviewed table insertion events")
+    if sum(e["kind"] == "picture" for e in events) != 13:
+        raise ValueError("Expected exactly 13 reviewed picture insertion events")
     return events
 
 
@@ -187,10 +186,7 @@ def empty_template(doc: HwpxDocument) -> None:
         run.insert(1, ctrl)
 
 
-ENGLISH_TITLE = (
-    "Combination Experiments of HyDE, CAD, and SCD in RAG "
-    "with Korean Queries over English Academic and Technical Documents"
-)
+ENGLISH_TITLE = "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries"
 
 
 def insert_school_covers(
@@ -316,8 +312,10 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
         fractions = [0.11, 0.29, 0.12, 0.10, 0.05, 0.33]
     elif nc == 2:
         fractions = [0.28, 0.72]
+    elif data["sheet"] in ("T5-7_Paired_Quality", "T5-8_Paired_Language"):
+        fractions = [0.23, 0.055, 0.21, 0.16, 0.10, 0.12, 0.125]
     elif nc == 7:
-        fractions = [0.20, 0.11, 0.11, 0.11, 0.22, 0.125, 0.125]
+        fractions = [0.22, 0.12, 0.12, 0.13, 0.13, 0.14, 0.14]
     elif nc == 9:
         fractions = [0.16, 0.11, 0.11, 0.11, 0.11, 0.11, 0.10, 0.10, 0.09]
     else:
@@ -347,6 +345,21 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             )
         )
     cell_style = doc.parts.headers[0].element.find(".//hh:style[@name='표내용']", NS)
+    header = doc.parts.headers[0].element
+    original_para = header.find(
+        f".//hh:paraPr[@id='{cell_style.get('paraPrIDRef')}']", NS
+    )
+    align_refs = {}
+    for alignment in ("LEFT", "CENTER", "RIGHT"):
+        shape = copy.deepcopy(original_para)
+        next_id = str(
+            max(int(p.get("id")) for p in header.findall(".//hh:paraPr", NS)) + 1
+        )
+        shape.set("id", next_id)
+        shape.find("hh:align", NS).set("horizontal", alignment)
+        original_para.getparent().append(shape)
+        original_para.getparent().set("itemCnt", str(len(original_para.getparent())))
+        align_refs[alignment] = next_id
     table = doc.add_table(
         nr,
         nc,
@@ -374,7 +387,19 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             cell.find("hp:cellSz", NS).set("height", str(heights[r]))
             for p in cell.findall(".//hp:p", NS):
                 p.set("styleIDRef", cell_style.get("id"))
-                p.set("paraPrIDRef", cell_style.get("paraPrIDRef"))
+                label = str(rows[0][c])
+                numeric = bool(
+                    re.match(
+                        r"^(?:n|유효 n|평균|SD|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        label,
+                    )
+                )
+                alignment = (
+                    "CENTER"
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "df")
+                    else "RIGHT" if numeric else "LEFT"
+                )
+                p.set("paraPrIDRef", align_refs[alignment])
             for run in cell.findall(".//hp:run", NS):
                 run.set("charPrIDRef", cell_style.get("charPrIDRef"))
     for r0, c0, r1, c1 in data["merges"]:
@@ -452,7 +477,11 @@ def emit(
                     (
                         "[표 3-3]",
                         "[표 4-2]",
-                        "[표 B-1]",
+                        "[표 5-2]",
+                        "[표 5-4]",
+                        "[표 B-2]",
+                        "1.2 연구범위",
+                        "B.2 문서별 및 질문 유형별 탐색 분석",
                         "5.9 실험 범위와 해석 기준",
                         "6.3 적용 시 실험 조건 선택",
                     )
@@ -643,7 +672,7 @@ def main() -> None:
                 "style": "본문",
                 "page_break": False,
             },
-            {"kind": "table", "sheet": "T3-3_Factor_Position"},
+            {"kind": "table", "sheet": "T3-1_Factorial_Design"},
             next(e for e in events if e["kind"] == "picture"),
             {"kind": "equation", "text": "z_CAD = (1 + alpha) z_ctx - alpha z_noctx"},
         ]
