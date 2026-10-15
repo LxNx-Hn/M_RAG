@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 import os
 import re
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
 
@@ -33,9 +35,13 @@ def sha(path):
     return hashlib.sha256(data).hexdigest()
 
 
-def main():
+def main(build_dir):
     svg = ROOT / (NAME + "_EDITABLE.svg")
     pptx = ROOT / (NAME + "_EDITABLE.pptx")
+    sys.path.insert(0, str(build_dir))
+    from poster_alignment import validate_alignment
+
+    alignment = validate_alignment(pptx, svg)
     required = json.loads((ROOT / "A1_COPYEDIT_MAP.json").read_text("utf-8"))[
         "required_text"
     ]
@@ -91,7 +97,8 @@ def main():
     with Image.open(preview) as image:
         image.convert("RGB").save(ROOT / (NAME + "_MOCKUP.jpg"), quality=92)
     report = {
-        "date": "2026-10-15",
+        "date": "2026-10-16",
+        "table_alignment": alignment,
         "required_text_units": len(required),
         "pdf_pages": 1,
         "size_mm": mm,
@@ -141,4 +148,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--build-dir", type=Path, default=ROOT.parents[1] / "BUILD")
+    main(parser.parse_args().build_dir)

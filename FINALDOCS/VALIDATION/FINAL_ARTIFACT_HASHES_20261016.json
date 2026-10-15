@@ -1,0 +1,34 @@
+{
+  "method": "raw bytes on delivery host; text manifest in poster package separately normalizes CRLF",
+  "baseline": "10578fb2b31df3001bdf7b6dd1d9027cde41334f",
+  "files": {
+    "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
+      "sha256": "1dbdf4ab853198d0afa0555d55c5a7ee03c6ae85f1be881173918d02343d2fc5",
+      "bytes": 2672783
+    },
+    "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
+      "sha256": "82f81cb7c994631cdb878907e8f331a996b5ad84ff29cea735a61cfc124cd837",
+      "bytes": 3480617
+    },
+    "FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx": {
+      "sha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
+      "bytes": 31162
+    },
+    "FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg": {
+      "sha256": "26bd56d8cbc549d091749adce9290bd12046ebed621246922c92252b0112b8b6",
+      "bytes": 85319
+    },
+    "FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_PRINT.pdf": {
+      "sha256": "6814ec3469c0aead825444e2f9d363578f25af4ad64e9371d00a9c47ec7eec06",
+      "bytes": 102147
+    },
+    "FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_300DPI.png": {
+      "sha256": "b40330fdb9a595411241e6ce49b58c220ad2cfd18f13e1e03f4c4d44457c9d9d",
+      "bytes": 4133489
+    },
+    "FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_DELIVERY.zip": {
+      "sha256": "342b475e921fabeb6575492502ae7b67e142501e501bf744ba915d51e49b95fa",
+      "bytes": 5446122
+    }
+  }
+}

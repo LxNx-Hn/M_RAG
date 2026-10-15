@@ -1,6 +1,27 @@
 {
-  "date": "2026-10-15",
-  "current_contract": "A1_COPYEDIT_MAP.json",
-  "previous_revision": "../../VALIDATION/HISTORY/20261015_before_professor_revision/POSTER/ACADEMIC_POLISH_CHANGES.json",
-  "raw_experiment_changes": false
+  "baseline": "10578fb2b31df3001bdf7b6dd1d9027cde41334f",
+  "date": "2026-10-16",
+  "changes": [
+    {
+      "before": "한국어 질문으로 영어 문서를 이용할 때 검색 근거,\n답변의 근거 충실도와 출력 언어를 함께 살펴본다.\n동일 파이프라인에서 세 기법의 8개 조합을 비교한다.",
+      "after": "본 연구는 한국어 질의로 영어 문서를 검색하는 RAG에서\n검색 결과, 답변의 근거 충실도 및 출력 언어를 평가한다.\n같은 파이프라인에서 세 기법의 8개 조합을 비교한다.",
+      "reason": "주어와 측정 대상 명시·구체적 지표 해석·자연스러운 학술 문장"
+    },
+    {
+      "before": "품질 지표는 높을수록 해당 평가 항목의 점수가 높다.\n한국어 비율 0.700은 계산 대상 문자 중 한글이 70.0%다.",
+      "after": "높은 품질 점수는 근거 지지·질문 관련성·근거 활용을 뜻한다.\n한국어 비율 0.700은 계산 대상 문자 중 한글이 70.0%다.",
+      "reason": "주어와 측정 대상 명시·구체적 지표 해석·자연스러운 학술 문장"
+    },
+    {
+      "before": "HyDE 관련성은 양의 평균 차이, 보정 후 p=0.117.\nCAD 충실도는 질의별 증가와 감소가 함께 관찰됨.\nSCD 한글 비중은 주·전체 비교 모두 보정 p<0.001.\nHyDE ON: T=0.1, top_p=0.9, 검색 문맥 차이 포함",
+      "after": "HyDE 관련성 차이는 +0.080점, Holm 보정 p=0.117이다.\nCAD 충실도 차이는 +0.029점(SD 0.255), p=0.393이다.\nSCD 문자 비율의 주·전체 비교는 모두 보정 p<0.001이다.\nHyDE 비교에는 번역·가상 문서 샘플링의 차이가 포함된다.",
+      "reason": "주어와 측정 대상 명시·구체적 지표 해석·자연스러운 학술 문장"
+    },
+    {
+      "before": "세 기법의 작동 단계에 따라 품질·언어·비용을 구분했다.\nSCD는 한국어 문자 비율을 높였고, 실행 시간에서는\nHyDE·CAD 주효과와 CAD×SCD 상호작용을 확인했다.\n적용 조건은 목표 언어, 품질 결과와 허용 시간으로 비교한다.",
+      "after": "본 연구는 HyDE·CAD·SCD 조합별 답변 품질,\n한국어 문자 비율 및 실행 시간을 평가하였다.\nSCD는 한국어 문자 비율을 높였다(보정 p<0.001).\n실행 시간의 H·C 주효과와 C×S 상호작용도 유의하였다.\n적용 조건은 목표 언어, 품질 결과와 허용 시간으로 비교한다.",
+      "reason": "주어와 측정 대상 명시·구체적 지표 해석·자연스러운 학술 문장"
+    }
+  ],
+  "alignment": "4 native tables: 88 numeric body cells right; codes centered; descriptions left; headers centered"
 }

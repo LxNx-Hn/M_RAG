@@ -6,6 +6,13 @@ import re
 from pathlib import Path
 
 REVIEW = Path(__file__).with_name("PROSE_SENTENCE_REVIEW.json")
+# Editorial history and defensive claims cannot be approved by a review manifest.
+FORBIDDEN = re.compile(
+    r"미보관|보관(?:하지|되어\s*있지)|기존\s*코드가|과거\s*원고|"
+    r"(?:기존에는|과거에는)|원본을\s*재현한\s*것이\s*아니|"
+    r"(?:보장|측정|평가|구현)하지\s*않|할\s*수\s*없|하지\s*못|"
+    r"단순히.+(?:아니라|아니다)"
+)
 CANDIDATE = re.compile(
     r"하지(?:는)?\s*않|하지\s*못|아니(?:다|라|며)|없(?:다|는|이|으|었)|"
     r"않(?:는|아도|을)|판단.*(?:어렵|불가)|(?:한계|제한점|한정|보완)|"
@@ -64,6 +71,10 @@ def validate_prose(text: str, review: dict | None = None) -> None:
     for unit in units(text):
         if unit["text"] in retired:
             raise AssertionError(f"retired defensive sentence returned: {unit['line']}")
+        if FORBIDDEN.search(unit["text"]):
+            raise AssertionError(
+                f"unreviewed forbidden editorial/defensive prose: {unit['line']}"
+            )
         if unit["candidate"]:
             entry = approved.get(unit["sha256"])
             if not entry or not entry.get("reason", "").strip():

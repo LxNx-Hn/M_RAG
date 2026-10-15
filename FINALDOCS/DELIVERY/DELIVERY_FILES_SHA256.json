@@ -1,12 +1,12 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "c3a43167d28ac4410d92a9eccf64e395a3bcbbd46244c720e138857cffdf9ff2",
-    "bytes": 2673090,
+    "sha256": "1dbdf4ab853198d0afa0555d55c5a7ee03c6ae85f1be881173918d02343d2fc5",
+    "bytes": 2672783,
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "92656de27bb9c430c6e0fe75a114f03a57447c53e7860439eb79c78bb94a8905",
-    "bytes": 3482499,
+    "sha256": "82f81cb7c994631cdb878907e8f331a996b5ad84ff29cea735a61cfc124cd837",
+    "bytes": 3480617,
     "hash_method": "raw bytes"
   },
   "SCHOOL_TEMPLATE_CONVERTED.hwpx": {
@@ -15,28 +15,33 @@
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.build.json": {
-    "sha256": "a4ccc5231fa8acdbbd97d346ee27e94a0bf862aa31505dfb4a27b25964b2b3aa",
-    "bytes": 188112,
+    "sha256": "0862d7477e31876e2f464d2a70c994ecc6db7c1bd92b92af1b3f224e215c7f4d",
+    "bytes": 187528,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_STRUCTURAL_QA.json": {
-    "sha256": "b9d4986ae30fd3495d938a7c829e079f1db591ffb1334139a99dcf2f40a086b7",
-    "bytes": 29498,
+    "sha256": "2567b06fb1a29a31464c62341df11c56258f3c4a66afba6a181bd6f09ac99562",
+    "bytes": 29496,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_EXTRACTED_TEXT.txt": {
-    "sha256": "8759ed09a22da7b2dc52070e77b71e6eba29253f538ea61aace184ac3f786f42",
-    "bytes": 81095,
+    "sha256": "dba8f09332d7aec7971b3aa5b208ea487e7b1fd8159784a2eb4a55566efbf9d1",
+    "bytes": 80513,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "PAGE_MAP_60Q.json": {
-    "sha256": "0a03342027fd83e4aed30d2292c50e9842110f70a248bf6ae92a7fefda06e867",
-    "bytes": 6972,
+    "sha256": "9c1b0bc9dcf2395f5c35a14bf9a7268b95633bc084c510eeeeb95eeda0c84b4a",
+    "bytes": 6969,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "WEB_PROFESSOR_FINAL_20261016.jpg": {
     "sha256": "b09cec8d39b457b0e1129059226cb04e1756a549b28ed44da050060640e0bca6",
     "bytes": 119369,
+    "hash_method": "raw bytes"
+  },
+  "WEB_POSITIVE_FINAL_20261016.jpg": {
+    "sha256": "06cd9df5a526228e11445a8638e1b29e3149b3a21104eb22534349dd185e85b8",
+    "bytes": 125009,
     "hash_method": "raw bytes"
   }
 }

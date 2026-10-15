@@ -1,5 +1,10 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
+  "table_alignment": {
+    "cells_checked": 159,
+    "numeric_cells_right_aligned": 88,
+    "native_and_svg_alignment_match": true
+  },
   "required_text_units": 204,
   "pdf_pages": 1,
   "size_mm": [
@@ -13,15 +18,15 @@
     7016,
     9933
   ],
-  "pdf_sha256": "7b80eabd1e545e599aa84023a4ef7c67b170962ad0887e4d667c15df51e6837d",
-  "pptx_sha256": "5aa8cd9ba065b2ce4eeb818465767b2cbda5d58e44a7297642f9489e7e3b8f0f",
-  "svg_sha256": "edfec2818f0313d89c25261f52d6c4cf87c19934778f49d8a5f7c199725a44f8",
+  "pdf_sha256": "6814ec3469c0aead825444e2f9d363578f25af4ad64e9371d00a9c47ec7eec06",
+  "pptx_sha256": "5a35fdd47be5a05401a590ca3b1391754be5aa419e8b8e94ebd4bb3a008062f8",
+  "svg_sha256": "26bd56d8cbc549d091749adce9290bd12046ebed621246922c92252b0112b8b6",
   "pdf_fonts": [
     [
       7,
       "ttf",
       "Type0",
-      "GPIYLM+MalgunGothic",
+      "DRVMCX+MalgunGothic",
       "f-0-1",
       "Identity-H",
       0
@@ -30,7 +35,7 @@
       8,
       "ttf",
       "TrueType",
-      "LBNFKR+MalgunGothic",
+      "FNRDOF+MalgunGothic",
       "f-0-0",
       "WinAnsiEncoding",
       0
@@ -39,7 +44,7 @@
       9,
       "ttf",
       "Type0",
-      "XIQYKO+MalgunGothicBold",
+      "CJFZVM+MalgunGothicBold",
       "f-1-1",
       "Identity-H",
       0
@@ -48,7 +53,7 @@
       10,
       "ttf",
       "TrueType",
-      "KGIGIU+MalgunGothicBold",
+      "LTQDVU+MalgunGothicBold",
       "f-1-0",
       "WinAnsiEncoding",
       0
