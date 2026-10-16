@@ -178,7 +178,7 @@ def main():
 
     poster = re.sub(
         r'width="594mm" height="841mm" viewBox="[^"]+"',
-        'width="159mm" height="82.2mm" viewBox="74 837 1021.52 520"',
+        'width="159mm" height="81.847mm" viewBox="68 831 1033.52 532"',
         poster,
         count=1,
     )

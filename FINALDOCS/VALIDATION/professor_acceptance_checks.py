@@ -23,11 +23,25 @@ def poster_headings(labels):
             raise AssertionError("Independent poster abstract heading returned")
 
 
+def poster_reference_coverage(labels):
+    joined = "\n".join(labels)
+    body, bibliography = joined.split("08 주요 참고문헌", 1)
+    cited = set(re.findall(r"\[(\d+)\]", body))
+    listed = set(re.findall(r"\[(\d+)\]", bibliography))
+    missing = cited - listed
+    if missing:
+        raise AssertionError(
+            "Unlisted poster references: " + ", ".join(sorted(missing))
+        )
+    return {"cited": sorted(cited, key=int), "listed": sorted(listed, key=int)}
+
+
 def validate_poster(pptx: Path, svg: Path):
     with zipfile.ZipFile(pptx) as package:
         slide = ET.fromstring(package.read("ppt/slides/slide1.xml"))
     labels = slide.xpath(".//a:t/text()", namespaces=A)
     poster_headings(labels)
+    references = poster_reference_coverage(labels)
     document = ET.fromstring(svg.read_bytes())
     poster_headings(list(document.itertext()))
     table = slide.findall(".//a:tbl", A)[1]
@@ -65,6 +79,7 @@ def validate_poster(pptx: Path, svg: Path):
         "protocol_groups": [4, 4],
         "independent_abstract": False,
         "case_claim_evidence": True,
+        "references": references,
     }
 
 

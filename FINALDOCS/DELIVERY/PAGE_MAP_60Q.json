@@ -5,7 +5,7 @@
     "build_thesis_hwpx.py": "c55e6c5e5d8758202a7a7a9ec8df9791c98adc5847fc4d819f997c9b91ddbed7",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126",
+  "pdf_sha256": "040aae64ad881e9c512cd92757e5faef0e9bcdf70b8ddffda7a855c48ae5072c",
   "pdf_pages": 48,
   "physical_pages": {
     "1.1 연구배경 및 목적": 9,
@@ -214,7 +214,8 @@
     "B.1 저장된 생성·검색 사례": 42,
     "B.2 문서별 및 질문 유형별 탐색 분석": 46
   },
-  "stage": "Final Web Hancom AC63_PUBLIC_READY.pdf, 2026-10-16",
-  "visual_review": "48 pages rendered. Contents pages5-8 alone changed after page-number mapping. Public/private pages3-48 pixel identical; covers1-2 differ. Table5-1 caption, grouping border, table and note stay together. Dot leaders retained.",
-  "pagination_source_pdf_sha256": "7ef3f597a4dd60210b9924ef9648d8aafb33ce8323c72f4d31cf0537b9db195f"
+  "stage": "Final Web Hancom FINAL72_PUBLIC.pdf, 2026-10-17",
+  "visual_review": "48 pages rendered; text and contents unchanged; only physical page20 pixels changed after SVG border padding. Public/private pages3-48 pixel identical. Contents dot leaders retained.",
+  "pagination_source_pdf_sha256": "7ef3f597a4dd60210b9924ef9648d8aafb33ce8323c72f4d31cf0537b9db195f",
+  "previous_export_pdf_sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126"
 }

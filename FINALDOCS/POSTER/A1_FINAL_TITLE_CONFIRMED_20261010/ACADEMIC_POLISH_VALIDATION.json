@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-17",
   "table_alignment": {
     "cells_checked": 159,
     "numeric_cells_right_aligned": 88,
@@ -11,9 +11,35 @@
       4
     ],
     "independent_abstract": false,
-    "case_claim_evidence": true
+    "case_claim_evidence": true,
+    "references": {
+      "cited": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "18"
+      ],
+      "listed": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "18"
+      ]
+    }
   },
-  "required_text_units": 205,
+  "required_text_units": 208,
   "pdf_pages": 1,
   "size_mm": [
     594.0000047471788,
@@ -26,15 +52,15 @@
     7016,
     9933
   ],
-  "pdf_sha256": "9340821ad0f4dce63f4ac3e3221c77040a9d633a5213368ad9ffc21480676f52",
-  "pptx_sha256": "9694bad8565b402128a2087c6c925e3170726538e945e8017c87842a04032763",
-  "svg_sha256": "fbdd75116883359c113680c5179504ce3aac1a61f5bec7bd3b292ad614f53c8e",
+  "pdf_sha256": "266b8e11c7b0c53814285062a7974f58a3afd7610b60b5837d9ed11e85a5167b",
+  "pptx_sha256": "a88a7ef90a820a256e2c4cabeb17a0595e49b4f5ed9b9ad5c2b593a74cddbc80",
+  "svg_sha256": "d7f32ff6a009e827ba7f842d9751efbce8e1bac11b4c74df31afece2b9fd80a4",
   "pdf_fonts": [
     [
       7,
       "ttf",
       "Type0",
-      "ZXBAOF+MalgunGothic",
+      "EIUBHK+MalgunGothic",
       "f-0-1",
       "Identity-H",
       0
@@ -43,7 +69,7 @@
       8,
       "ttf",
       "TrueType",
-      "YSHHOI+MalgunGothic",
+      "VTIDIR+MalgunGothic",
       "f-0-0",
       "WinAnsiEncoding",
       0
@@ -52,7 +78,7 @@
       9,
       "ttf",
       "Type0",
-      "GBEYNC+MalgunGothicBold",
+      "BXAORM+MalgunGothicBold",
       "f-1-1",
       "Identity-H",
       0
@@ -61,7 +87,7 @@
       10,
       "ttf",
       "TrueType",
-      "EAVUIP+MalgunGothicBold",
+      "VYFEYT+MalgunGothicBold",
       "f-1-0",
       "WinAnsiEncoding",
       0

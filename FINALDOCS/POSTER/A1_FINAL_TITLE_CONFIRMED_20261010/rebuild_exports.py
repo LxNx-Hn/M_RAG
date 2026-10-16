@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import zipfile
+from datetime import date
 from pathlib import Path
 
 import fitz
@@ -102,7 +103,7 @@ def main(build_dir):
     with Image.open(preview) as image:
         image.convert("RGB").save(ROOT / (NAME + "_MOCKUP.jpg"), quality=92)
     report = {
-        "date": "2026-10-16",
+        "date": date.today().isoformat(),
         "table_alignment": alignment,
         "professor_acceptance": acceptance,
         "required_text_units": len(required),

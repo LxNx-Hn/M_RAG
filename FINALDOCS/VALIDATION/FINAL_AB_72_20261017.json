@@ -1,0 +1,728 @@
+{
+  "review_date": "2026-10-17",
+  "historical_baseline": "d4931ec76f591016b2601561d17fbd37ac2a833a",
+  "working_baseline": "f7f3c2389602e7965280ef09619ff6d55f3ec593",
+  "manual_status_is_not_automated_proof": true,
+  "requirements": [
+    {
+      "id": "A-01",
+      "title": "RAG 정의",
+      "before_requested_baseline": "검색된 문맥이라는 추상적인 표현 중심의 정의",
+      "after_actual": "선행기법을 먼저 소개하고 언어별 세 단계와 고정 파이프라인 비교 목적을 연결한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:120",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-02",
+      "title": "서론의 순서",
+      "before_requested_baseline": "RAG 정의 직후 본 연구의 수행 방법 제시",
+      "after_actual": "HyDE는 한국어를 포함한 비영어 검색 평가, CAD는 외부 근거 활용, SCD는 다국어 언어 제어로 구분한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:124",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-03",
+      "title": "주요 약어",
+      "before_requested_baseline": "HyDE·CAD·SCD를 정식 명칭과 역할 설명에 앞서 사용",
+      "after_actual": "검색 문맥을 생성 모델에 제공하는 검색 결과 텍스트로 정의한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:122",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-04",
+      "title": "Paper-RAG",
+      "before_requested_baseline": "별도 정의가 부족한 백본 명칭",
+      "after_actual": "검색 입력·근거 활용·출력 언어를 구분하고 같은 파이프라인 조합 비교 목적을 제시한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:126",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-05",
+      "title": "연구 필요성",
+      "before_requested_baseline": "구현과 비교 방법 중심의 서론",
+      "after_actual": "원문 페이지·정답 근거·답변 가능성 검증 및 초기 기록 보관 범위를 구분한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:396",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-06",
+      "title": "실험 설계",
+      "before_requested_baseline": "세 기법의 ON/OFF 조합",
+      "after_actual": "문헌 개념을 참고한 독립 도식 4개와 그림별 출처·작성 주체를 보존한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:698",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-07",
+      "title": "실험 조건표",
+      "before_requested_baseline": "조합명과 생성 수를 함께 나열",
+      "after_actual": "설명 LEFT·수치 RIGHT·짧은 코드 CENTER를 HWPX/XLSX/PPTX 구조와 실제 PDF에서 대조한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:106",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-08",
+      "title": "질의 구성",
+      "before_requested_baseline": "문서별 질의 수 중심 설명",
+      "after_actual": "표 2-1과 4-1 등 설명표에 내용별 비대칭 열 너비, 동종 수치표에는 동일 폭을 적용한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:105",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-09",
+      "title": "평가 지표",
+      "before_requested_baseline": "지표 이름과 간략한 설명",
+      "after_actual": "그림 4-1의 SVG 잘림을 발견하여 사방 여백 6좌표를 추가하고 웹한글 재출력을 수행한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:92",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-10",
+      "title": "대표 입출력",
+      "before_requested_baseline": "결과 장 후반의 실제 답변 사례",
+      "after_actual": "실제 ext_raptor_011의 질문·검색 근거·답변·평가값을 방법절 그림 5-2에 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:422",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-11",
+      "title": "평균과 표준편차",
+      "before_requested_baseline": "조건별 평균 중심 결과표",
+      "after_actual": "8조건 품질·문자 비율 평균(SD), 시간 평균/SD, 대응 차이 SD를 원정밀도로 대조한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:430",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-12",
+      "title": "통계적 검정",
+      "before_requested_baseline": "평균 대응 차이와 부트스트랩 신뢰구간 중심",
+      "after_actual": "S별 품질 H×C와 문자·시간 H×C×S 반복측정 ANOVA, 대응 t·Holm·효과크기를 보존한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:432",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-13",
+      "title": "평균 변화량 표현",
+      "before_requested_baseline": "평균 변화·평균 변화량 등의 혼합 표기",
+      "after_actual": "조건 평균과 같은 질의의 ON−OFF 평균 대응 차이 및 두 SD를 구분한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:430",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-14",
+      "title": "결과 제시 순서",
+      "before_requested_baseline": "기법별 평균·그림·사례가 여러 절에 분산",
+      "after_actual": "5.5 전체표→5.6 요인 검정→5.7 대응 비교→5.8 종합 논의 순서를 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:456",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-15",
+      "title": "실행 시간",
+      "before_requested_baseline": "구현 장에 조건별 평균 실행 시간표 배치",
+      "after_actual": "시간은 표 5-2와 요인 검정 표 5-6에서 제시하고 측정 시작·종료는 4.3에 둔다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:384",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-16",
+      "title": "큐브 그림",
+      "before_requested_baseline": "실험 조합을 표현하는 큐브 도식",
+      "after_actual": "장식 큐브 대신 표 3-1 H/C/S 0·1의 8조건 실험 배치를 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:104",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-17",
+      "title": "히트맵과 신뢰구간 그래프",
+      "before_requested_baseline": "전체 평균 결과를 반복해서 보여주는 그래프",
+      "after_actual": "주결과는 평균(SD) 및 검정표로 제시하고 기존 보조 그림·데이터는 Git 이력에서 보존한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:574",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-18",
+      "title": "단순 설명표",
+      "before_requested_baseline": "요구사항·문서별 질의 수·생성 필드를 각각 표로 제시",
+      "after_actual": "문서별 15질의·기록 필드 등은 본문에 통합하고 표는 설계·설정·결과·질의 증빙을 담당한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:404",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-19",
+      "title": "논문 문체",
+      "before_requested_baseline": "일부 방어형 설명, 주어 생략, 연구 과정 해명",
+      "after_actual": "본문 전체의 실제 조건·관측값·보정 결과를 직접 기술하며 원자료 인용을 보존한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:634",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "A-20",
+      "title": "포스터",
+      "before_requested_baseline": "기법·실험 설정·평균 차이·신뢰구간 그림이 분산된 구성",
+      "after_actual": "포스터 01~08 및 초록 없는 구조, 평균(SD)·ANOVA·대응 t 중심 구성을 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:496",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-01",
+      "title": "논문 제목",
+      "before_requested_baseline": "“한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험”",
+      "after_actual": "확정 제목을 유지한다. 더 긴 후보는 기존 비교 기록의 권장안이며 표지·목차·포스터 제목을 동기화한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:3",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-02",
+      "title": "서론의 교차언어 문제",
+      "before_requested_baseline": "한국어 질문과 영어 문서의 차이를 일반적으로 설명",
+      "after_actual": "한국어 질문에 맞는 영어 구간 검색, 근거에 기반한 주장 생성, 한글 비중 측정을 분리한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:126",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-03",
+      "title": "연구 필요성과 의의",
+      "before_requested_baseline": "세 기법의 역할과 연구 목적 소개",
+      "after_actual": "각 기법의 개입 단계가 달라 개별·조합 효과를 동일 환경에서 비교할 목적을 제시한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:124",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-04",
+      "title": "Paper-RAG 및 RAG-Cube",
+      "before_requested_baseline": "본문에서 각 용어 정의",
+      "after_actual": "Paper-RAG는 고정 파이프라인, RAG-Cube는 8조건 배치로 정의한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:128",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-05",
+      "title": "60개 질의 구성",
+      "before_requested_baseline": "연구자 설명에 따른 초기 질의·요약 과정과 최종 60개 검증 자료",
+      "after_actual": "초기 질문·요약 과정은 연구자 설명으로 가용성 기록에 두고 최종 60질의 검증 근거를 본문·부록 A와 연결한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:396",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-06",
+      "title": "질의의 대표 사례",
+      "before_requested_baseline": "질의 60개와 부록의 근거 중심 설명",
+      "after_actual": "ext_raptor_011 질문·p.19 정답 근거·생성 답변·점수를 그림 5-2 및 포스터 04와 연결한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:422",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-07",
+      "title": "표 5-1의 조건 배열",
+      "before_requested_baseline": "S0와 S1이 교차하는 8조건 배열",
+      "after_actual": "S0 네 행과 S1 네 행을 묶고 구분선 및 평가 문맥 언어 주석을 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:458",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-08",
+      "title": "표 5-2의 실행 시간",
+      "before_requested_baseline": "평균과 표준편차를 별도로 제시하는 형식",
+      "after_actual": "표 5-2는 평균(초)·SD(초) 별도 열을 유지한다. 단위가 명확하며 두 통계량의 비교가 쉬워 형식을 바꿀 필요가 없었다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:483",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-09",
+      "title": "평균(SD)의 정의",
+      "before_requested_baseline": "조건별 SD와 대응 차이 SD 사용",
+      "after_actual": "조건별 점수의 SD와 질의별 대응 차이의 SD 및 t에 쓰는 SD를 정의한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:430",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-10",
+      "title": "5.4절 신뢰구간",
+      "before_requested_baseline": "“질의 단위 부트스트랩 신뢰구간은 보조자료에 제시하였다.”",
+      "after_actual": "5.4 주분석은 평균(SD)·ANOVA·대응 t·Holm·민감도이며 부트스트랩 신뢰구간 문장 부재를 확인했다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:428",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-11",
+      "title": "연구 가설과 통계 검정",
+      "before_requested_baseline": "단순 대응 비교와 완전요인설계 결과를 각각 제시",
+      "after_actual": "다른 요인을 고정한 단순 비교, 평균 주효과, 차이의 차이인 상호작용을 구분한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:346",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-12",
+      "title": "다중비교 보정",
+      "before_requested_baseline": "보정 전 p와 Holm 보정 p를 결과표에 제시",
+      "after_actual": "품질 요인24, 문자·시간 각7, HyDE/CAD 각4, SCD2, 시간 후속2의 보정 범위를 명시한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:450",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-13",
+      "title": "SCD 평가 프로토콜",
+      "before_requested_baseline": "S0 영어 평가 문맥과 S1 한국어 번역 평가 문맥 설명",
+      "after_actual": "S별 평가 문맥 언어가 달라 품질은 S별 H×C, 문자·시간은 전체 H×C×S로 분석한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:346",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-14",
+      "title": "HyDE 효과의 범위",
+      "before_requested_baseline": "HyDE 적용에 따른 검색·답변 결과 비교",
+      "after_actual": "HyDE 효과에는 영어 번역·가상 문서 샘플링·밀집 검색 입력 변화가 포함됨을 명시한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:212",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-15",
+      "title": "실행 시간",
+      "before_requested_baseline": "조건별 실행 시간 및 요인 검정 결과",
+      "after_actual": "초기화 뒤 조건 처리 시작~메타데이터 구성 종료를 시간으로 정의하고 실행 순서·초기 처리 영향을 해석 범위에 둔다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:384",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-16",
+      "title": "5.7~6.1 결과 서술",
+      "before_requested_baseline": "주요 숫자가 결과·논의·결론에 반복",
+      "after_actual": "5.7은 수치·검정, 5.8은 해석·민감도, 6.1은 연구 질문별 답으로 역할을 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:634",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-17",
+      "title": "선행연구 그림 출처",
+      "before_requested_baseline": "그림별 유사한 제작·참고 설명 반복",
+      "after_actual": "학교 양식의 하단 캡션과 각 그림의 개념 출처·작성 주체를 보존한다. 같은 출처 문장은 정확한 귀속을 위해 유지한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:702",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-18",
+      "title": "논문 표 전체",
+      "before_requested_baseline": "현재 14개 표의 생성 코드 및 구조 검증",
+      "after_actual": "14개 표의 물리 페이지·열폭·정렬·글자·캡션은 객체별 기록과 실제 PDF 대조로 확인한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:106",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-19",
+      "title": "논문 그림 전체",
+      "before_requested_baseline": "현재 13개 그림의 이미지 및 구조 검증",
+      "after_actual": "13개 그림을 확인했고 그림 4-1의 잘린 테두리를 수정했다. 원본과 웹한글 삽입 결과를 다시 확인한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:92",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "B-20",
+      "title": "문체",
+      "before_requested_baseline": "현재 부정형·방어형 문장 자동 검사 통과",
+      "after_actual": "원고 전체 장·초록·참고문헌을 재독하고 본문은 유지했다. 새 문체 수정은 포스터 블록별 A→B에 기록한다.",
+      "target": "FINALDOCS\\MANUSCRIPT\\GRADUATION_REPORT_TRANSFER_KO_60Q.md:610",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL72_QA; FINAL_PDF_PRINT_CHECKS.json; AC63_OBJECT_LAYOUT_AUDIT.json"
+    },
+    {
+      "id": "C-01",
+      "title": "초록",
+      "before_requested_baseline": "현재 포스터에는 독립 초록 영역이 정리되어 있음",
+      "after_actual": "01~08의 독립 초록 부재를 PPTX·SVG·PDF 제목 검사로 확인한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:77",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-02",
+      "title": "포스터 제목",
+      "before_requested_baseline": "“한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험”",
+      "after_actual": "확정 논문 제목과 두 줄 포스터 제목의 내용이 일치한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:71",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-03",
+      "title": "RAG 최초 등장",
+      "before_requested_baseline": "“RAG는 질문과 관련된 문서 구간을 검색하고...”",
+      "after_actual": "최초 문장에서 검색 증강 생성(Retrieval-Augmented Generation, RAG)을 정의한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:78",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-04",
+      "title": "HyDE·CAD·SCD",
+      "before_requested_baseline": "영어 정식 명칭만 표기",
+      "after_actual": "세 기법의 한국어 명칭·영어 정식 명칭·적용 역할을 각각 두 줄로 보완했다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:79",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-05",
+      "title": "포스터 01 연구 배경",
+      "before_requested_baseline": "RAG·기법 설명 뒤 곧바로 연구 목적",
+      "after_actual": "RAG→선행기법→언어·표현/근거 반영/출력 언어→연구 필요→개별·조합 비교 순으로 보완했다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:80",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-06",
+      "title": "포스터 02 파이프라인",
+      "before_requested_baseline": "현재 Paper-RAG 처리 단계 및 적용 위치 도식",
+      "after_actual": "HyDE ON 밀집 검색 입력, 원질의 BM25·재정렬, RRF, 상위5, Mi:dm, CAD 후 SCD 순서를 실제 코드와 대조한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:81",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-07",
+      "title": "포스터 02 참고문헌",
+      "before_requested_baseline": "구조도에 [6], [7], [8], [18] 표기, 포스터 참고문헌에는 [1], [2], [3], [4], [5], [10] 수록",
+      "after_actual": "08에 구현 출처 4편 [6][7][8][18]을 추가했다. 본문 인용10개 모두 포스터 자체 목록으로 추적된다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:133",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-08",
+      "title": "포스터 03 요인설계",
+      "before_requested_baseline": "0/1 코드의 8조건표",
+      "after_actual": "8조건0/1표와 원자료 use_hyde/use_cad/use_scd를 대조했고 설계를 보존했다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:93",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-09",
+      "title": "포스터 04 평가 지표",
+      "before_requested_baseline": "다섯 지표의 정의와 점수 의미를 분산 설명",
+      "after_actual": "다섯 지표 각각에 높은 수치가 뜻하는 특성을 직접 설명하도록 수정했다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:101",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-10",
+      "title": "포스터 04 수치 의미",
+      "before_requested_baseline": "한국어 비율 0.700만 구체적으로 설명",
+      "after_actual": "관측 범위·+0.080점·0.700=70.0%·+0.218=21.8%p를 결과표 앞에 설명한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:102",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-11",
+      "title": "포스터 04 평가 예시",
+      "before_requested_baseline": "“within higher-layer summaries”, “The text retrieved by RAPTOR”, “RAPTOR는 계층적 구조를 통해” 등의 짧은 발췌",
+      "after_actual": "질문과 검색 근거·생성 답변 발췌에 실제 p.19 참조 답변 요지를 추가하고 충실도1.000·관련성0.937을 해석한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:105",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-12",
+      "title": "포스터 04 정보 순서",
+      "before_requested_baseline": "지표 정의·평가 예시·환경·통계가 현재 구획에 배치",
+      "after_actual": "지표 정의→수치 의미→질문/참조/검색/생성/평가값→평가 환경→통계 순서를 유지한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:100",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-13",
+      "title": "ANOVA",
+      "before_requested_baseline": "“3요인 반복측정 ANOVA”",
+      "after_actual": "최초 통계 설명에 반복측정 분산분석(ANOVA)을 표기한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:109",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-14",
+      "title": "포스터 05 전체 결과표",
+      "before_requested_baseline": "S0와 S1이 교차하는 8조건표",
+      "after_actual": "8조건 전체표는 S0 네 행/S1 네 행으로 구분하고 여섯 지표의 평균(SD)을 보존한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:113",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-15",
+      "title": "포스터 05 통계표",
+      "before_requested_baseline": "ANOVA 및 대응 t-검정의 주요 수치 제시",
+      "after_actual": "효과별df(1,59), F·보정p, 대응t(df)·보정전후p·단위를 제시한다. 전체 원정밀도 표는 동봉한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:117",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-16",
+      "title": "포스터 05 표 제목",
+      "before_requested_baseline": "“8조건 평균(SD)”",
+      "after_actual": "8조합의 품질·한국어 비율·시간 평균(SD)라는 상세 제목을 유지한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:111",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-17",
+      "title": "포스터 05 표 정렬",
+      "before_requested_baseline": "현재 숫자 88셀 우측 정렬 검증",
+      "after_actual": "159셀 중 숫자88셀 RIGHT, 설명LEFT, 코드CENTER를 양 형식과 PDF에서 확인한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:42",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-18",
+      "title": "포스터 06 결과 해석",
+      "before_requested_baseline": "05의 평균 차이와 p값을 반복해서 기술",
+      "after_actual": "HyDE 양의 차이와 보정, CAD 변동·추가시간, SCD 문자비중, 시간 C×S를 해석한다. 수치를 반복하지 않는다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:126",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-19",
+      "title": "포스터 07 결론",
+      "before_requested_baseline": "“적용 조건은 목표 언어, 품질 결과와 허용 시간으로 비교한다.”",
+      "after_actual": "품질은 평균과 보정검정, 한국어 비중은 SCD, CAD는 추가시간, HyDE는 검색변화를 기준으로 선택한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:128",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-20",
+      "title": "포스터 08 참고문헌",
+      "before_requested_baseline": "핵심 문헌 6편의 간결한 목록",
+      "after_actual": "핵심6편+구현4편을 16pt로 구분했다. 본문 인용10편의 번호는 전체22편과 동일하다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:130",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "실제 수정",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-21",
+      "title": "포스터 글자 크기",
+      "before_requested_baseline": "현재 디지털 출력에서 기본 본문 18pt 수준의 크기",
+      "after_actual": "디지털 A1 04/05/08 확대와 글자 크기는 확인했다. 실물1:1 인쇄 및 1~2m 판독은 현장 확인 대상이다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:100",
+      "status": "외부 확인 필요",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "C-22",
+      "title": "포스터 전체 레이아웃",
+      "before_requested_baseline": "현재 보라색 제목 띠와 01~08의 2열 구획",
+      "after_actual": "보라색 띠·2열01~08을 유지하고 변경 전후 전체/구획 이미지를 대조한다.",
+      "target": "FINALDOCS\\BUILD\\build_academic_poster.mjs:77",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json; FINAL72_QA/poster-section-*.png"
+    },
+    {
+      "id": "D-01",
+      "title": "PDF 인쇄 검사",
+      "before_requested_baseline": "`FINAL_PDF_PRINT_CHECKS.json`에 이전 48쪽 PDF 해시 기록",
+      "after_actual": "최종 웹한글 출력48쪽과 실제 PDF SHA를 기준으로 인쇄 검사 기록을 갱신한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_PDF_PRINT_CHECKS.json",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-02",
+      "title": "PDF 비교 기록",
+      "before_requested_baseline": "`FINAL_PDF_COMPARISON.json`이 이전 48쪽 파일을 기준으로 작성됨",
+      "after_actual": "최종 공개/개인 PDF를 전페이지 비교하고 차이 페이지를 실제 계산해 기록한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_PDF_COMPARISON.json",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-03",
+      "title": "HWPX 검증 보고서",
+      "before_requested_baseline": "`HWPX_BUILD_QA_REPORT.md`에 이전 48쪽 기록",
+      "after_actual": "281문단·14표·13그림·11수식·22문헌 HWPX를 재생성·구조검사하고 웹한글 PDF와 연결한다.",
+      "target": "FINALDOCS/VALIDATION/../DELIVERY/HWPX_BUILD_QA_REPORT.md",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-04",
+      "title": "종합 검증 기록",
+      "before_requested_baseline": "`FINAL_VALIDATION_REPORT_60Q.md`에 과거 17개 표·22개 그림 기록",
+      "after_actual": "현재 객체 수 및 포스터208문구·4표·88숫자셀을 최종검증 기준 문서로 안내한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_VALIDATION_REPORT_60Q.md",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-05",
+      "title": "CI 기록",
+      "before_requested_baseline": "일부 검증 문서가 과거 커밋의 GitHub Actions 결과를 참조",
+      "after_actual": "최종 변경 커밋의 Actions와 원격 SHA를 확인한다. 검증 대상 커밋과 검증기록 커밋을 구분한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_GIT_CI_DELIVERY.json",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-06",
+      "title": "검증 문서 구조",
+      "before_requested_baseline": "현재 산출물의 검증 문서와 이전 산출물의 검증 기록이 최상위 폴더에 혼재",
+      "after_actual": "최종 판단 기준은 FINAL_SUBMISSION_AUDIT_20261017.md다. 이전 수정본·검증은 HISTORY 및 역사기록으로 분류한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_SUBMISSION_AUDIT_20261017.md",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-07",
+      "title": "공개 저장소 경로",
+      "before_requested_baseline": "일부 보고서에 개인 컴퓨터의 절대경로 포함",
+      "after_actual": "새 공개 감사 문서는 상대경로·줄번호·해시만 사용한다. 개인 파일 및 절대경로는 로컬 수신 기록에 둔다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_SUBMISSION_AUDIT_20261017.md",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-08",
+      "title": "브랜치 및 제출 기준",
+      "before_requested_baseline": "`main`과 최신 수정 브랜치의 HEAD가 다름",
+      "after_actual": "최신 수정 브랜치를 제출 대상으로 검증한다. main 반영은 최종 결과를 확인한 사용자의 병합 승인 후 수행한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL_GIT_CI_DELIVERY.json",
+      "status": "외부 확인 필요",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-09",
+      "title": "논문 출력물",
+      "before_requested_baseline": "최신 논문 PDF 47쪽 및 기존의 조판 검사 기록",
+      "after_actual": "최종 웹한글 PDF 전체48쪽을 이미지로 렌더하고 변경페이지·표/그림·목차·부록을 대조한다.",
+      "target": "FINALDOCS/VALIDATION/FINAL72_QA",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    },
+    {
+      "id": "D-10",
+      "title": "포스터 출력물",
+      "before_requested_baseline": "SVG·PPTX·PDF·PNG의 디지털 정합성 검사 통과",
+      "after_actual": "편집PPTX·SVG·A1 PDF·PNG를 재생성하고208문구·88수치셀·인용10편·규격·폰트·해시를 검증한다.",
+      "target": "FINALDOCS/VALIDATION/../POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/ACADEMIC_POLISH_VALIDATION.json",
+      "status": "수정 후 검증 완료",
+      "action_this_session": "검사·기존 반영 보존",
+      "verification": "FINAL_SUBMISSION_AUDIT_20261017.md; FINAL_GIT_CI_DELIVERY.json"
+    }
+  ]
+}

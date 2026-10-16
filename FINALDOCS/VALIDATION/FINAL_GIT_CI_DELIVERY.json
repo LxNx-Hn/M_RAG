@@ -1,63 +1,23 @@
 {
-  "status": "verified content payload; all required Actions passed",
-  "branch": "codex/professor-63-audit-20261016",
-  "baseline": "2ef613d67167aee4bf435d43b29178b01d0c547d",
-  "main_status": "not merged",
-  "thesis_pdf_sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126",
-  "thesis_hwpx_sha256": "6d1b92f7ad60282d4b78feb1f48e482af659905cebd497e5803d11c626f8d9c6",
-  "poster_native_tables": 4,
-  "poster_native_charts": 0,
-  "poster_pdf_sha256": "9340821ad0f4dce63f4ac3e3221c77040a9d633a5213368ad9ffc21480676f52",
-  "ci": [
-    {
-      "conclusion": "success",
-      "databaseId": 38813926877,
-      "headSha": "487110270cbe4853185ec3eaac097b738255c497",
-      "status": "completed",
-      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813926877",
-      "workflowName": "CI"
-    },
-    {
-      "conclusion": "success",
-      "databaseId": 38813927488,
-      "headSha": "487110270cbe4853185ec3eaac097b738255c497",
-      "status": "completed",
-      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813927488",
-      "workflowName": "Thesis HWPX validation"
-    },
-    {
-      "conclusion": "success",
-      "databaseId": 38813894589,
-      "headSha": "487110270cbe4853185ec3eaac097b738255c497",
-      "status": "completed",
-      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813894589",
-      "workflowName": "Validate A1 poster exports"
-    }
-  ],
-  "verified_content_commit": "487110270cbe4853185ec3eaac097b738255c497",
+  "review_date": "2026-10-17",
+  "status": "Local validation passed; final commit Actions pending",
+  "branch": "codex/final-submission-audit-20261017",
+  "working_baseline": "f7f3c2389602e7965280ef09619ff6d55f3ec593",
   "main_sha": "10578fb2b31df3001bdf7b6dd1d9027cde41334f",
-  "pr": "https://github.com/LxNx-Hn/M_RAG/pull/4",
-  "checks": [
-    {
-      "link": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813927488/job/116693746413",
-      "name": "validate",
-      "state": "SUCCESS"
-    },
-    {
-      "link": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813926877/job/116693745144",
-      "name": "backend",
-      "state": "SUCCESS"
-    },
-    {
-      "link": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813926877/job/116693744498",
-      "name": "frontend",
-      "state": "SUCCESS"
-    },
-    {
-      "link": "https://github.com/LxNx-Hn/M_RAG/actions/runs/38813894589/job/116693639055",
-      "name": "rebuild",
-      "state": "SUCCESS"
-    }
-  ],
-  "delivery_receipt_commit": "Commit containing this record; final HEAD CI and remote parity are checked after push and recorded in the local submission receipt."
+  "main_status": "not merged; user approval required by supplied D-08",
+  "thesis_pdf_sha256": "040aae64ad881e9c512cd92757e5faef0e9bcdf70b8ddffda7a855c48ae5072c",
+  "thesis_hwpx_sha256": "c8a9b7345d616c52ffe9d099c97a7f388f1fdc613f30cda62dfe427ce5c40bfb",
+  "poster_pdf_sha256": "266b8e11c7b0c53814285062a7974f58a3afd7610b60b5837d9ed11e85a5167b",
+  "local_checks": {
+    "validation_tests": 45,
+    "build_tests": 19,
+    "statistics_reproduced": true,
+    "web_hancom_public_private_pages": 48,
+    "all_page_text_unchanged": true,
+    "public_private_body_pixel_equal": true,
+    "ruff_version": "0.13.0",
+    "black_version": "26.3.1",
+    "compileall_passed": true
+  },
+  "ci": []
 }

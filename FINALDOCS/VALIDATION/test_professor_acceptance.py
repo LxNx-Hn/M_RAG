@@ -6,6 +6,7 @@ from pathlib import Path
 
 from professor_acceptance_checks import (
     poster_headings,
+    poster_reference_coverage,
     protocol_order,
     validate_manuscript,
     validate_poster,
@@ -15,6 +16,20 @@ FINAL = Path(__file__).resolve().parents[1]
 
 
 class ProfessorAcceptanceTests(unittest.TestCase):
+    def test_unlisted_pipeline_reference_is_rejected(self):
+        with self.assertRaisesRegex(AssertionError, "Unlisted poster references: 18"):
+            poster_reference_coverage(
+                ["Mi:dm[18], HyDE[2]", "08 주요 참고문헌", "[2] Gao et al."]
+            )
+
+    def test_core_and_implementation_references_are_resolved(self):
+        self.assertEqual(
+            poster_reference_coverage(
+                ["Mi:dm[18], HyDE[2]", "08 주요 참고문헌", "[2] Gao", "[18] Shin"]
+            )["cited"],
+            ["2", "18"],
+        )
+
     def test_missing_body_reference_is_rejected(self):
         text = (
             (FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md")
