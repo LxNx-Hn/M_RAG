@@ -227,7 +227,7 @@ def main():
             "Li",
             4,
             "SCD 토큰별 점수 조정",
-            "https://arxiv.org/abs/2511.09984",
+            "https://ojs.aaai.org/index.php/AAAI/article/view/40417",
         ),
     ]
     records = []

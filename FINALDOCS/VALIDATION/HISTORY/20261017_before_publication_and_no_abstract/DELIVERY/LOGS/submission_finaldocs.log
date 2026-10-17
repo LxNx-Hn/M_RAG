@@ -1,0 +1,6 @@
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\evaluation\main-hyde-cad-scd-reference-scd-gpt4o-official\merged.ragas_scores.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\evaluation\ext60_gpt4o\merged.ragas_scores.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\data\query_splits\decoder_main_queries.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\data\query_splits\extended_validation_questions.json
+INFO: manifest matches LF bytes (CRLF checkout): experiments\results\analysis\extended_validation_60_analysis.json
+PASS: FINALDOCS 60-query thesis package

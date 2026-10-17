@@ -1,0 +1,357 @@
+{
+  "transcript_sha256": "6a0e4ef18df5dac10c4ab017625945f26a814ced65322a34391209f3ac34e98a",
+  "source": "완성 논문 HWPX 제작 세션의 사용자 제공 전사 및 이번 첨부 감사",
+  "rows": [
+    {
+      "id": "TR-01",
+      "time": "00:04",
+      "requirement": "몇 프로가—발언 일부",
+      "status": "판정 제외",
+      "historical_audit_status": "판정 제외",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "00:04와31:41은 실질 수정 지시를 추론하지 않음",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-02",
+      "time": "00:31–01:24",
+      "requirement": "RAG 정의의 검색된 문맥이 무엇인가",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-03",
+      "time": "01:24–02:50",
+      "requirement": "추상적 context 대신 실체가 있는 검색 결과",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-04",
+      "time": "02:50–03:47",
+      "requirement": "RAG 정의 뒤 본 연구가 너무 빨리 등장",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-05",
+      "time": "04:22–05:52",
+      "requirement": "한국어-영어 언어 차이 및 필요성을 먼저 설명",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-06",
+      "time": "06:03–06:45",
+      "requirement": "HyDE가 무엇이며 RAG 내 기법인가 설명",
+      "status": "해결",
+      "historical_audit_status": "논문 해결·포스터 부분",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-07",
+      "time": "06:45–07:36",
+      "requirement": "선행기법 먼저, 이후 한국어 문제·연구 방법",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-08",
+      "time": "07:36–08:37",
+      "requirement": "서론의 문제제기·필요·의의 설명",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-09",
+      "time": "08:37–09:02",
+      "requirement": "서론은 개요, 세부는 본문; 논리 구조",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-10",
+      "time": "09:17–09:48",
+      "requirement": "긴 글과 표 설명은 좌측 정렬",
+      "status": "부분 해결",
+      "historical_audit_status": "코드 검증 완료·실물 검증",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-11",
+      "time": "09:54–09:57",
+      "requirement": "숫자는 우측, 짧은 항목은 가운데 가능",
+      "status": "부분 해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-12",
+      "time": "10:14–10:33",
+      "requirement": "열을 같은 폭으로만 구성하지 말고 글자 길이에 따라 조정",
+      "status": "부분 해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-13",
+      "time": "10:43–11:17",
+      "requirement": "ON/OFF 부호의 의미 명확히",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-14",
+      "time": "11:29–11:45",
+      "requirement": "description 셀 좌측 정렬",
+      "status": "부분 해결",
+      "historical_audit_status": "코드 검증 완료·실물 검증",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-15",
+      "time": "11:49–12:13",
+      "requirement": "그림의 잘린 화살표·글자 작음",
+      "status": "부분 해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-16",
+      "time": "12:13–13:22",
+      "requirement": "편집폭 활용·박스 안 글자 1~2pt 이상 확대",
+      "status": "부분 해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-17",
+      "time": "13:24–14:33",
+      "requirement": "그림·표 폭, 지나치게 넓거나 붙은 공백 조정",
+      "status": "부분 해결",
+      "historical_audit_status": "실물 검증 필요",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "실물 인쇄·발표 거리 판독",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-18",
+      "time": "14:44–15:15",
+      "requirement": "문서별 질의 수 같은 단순 표보다 질의 내용 제시",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-19",
+      "time": "15:20–15:53",
+      "requirement": "네 품질 지표와 한국어 지표 5개 구분",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-20",
+      "time": "15:53–16:51",
+      "requirement": "질의를 임의 구성한 것이 아니라는 근거·선행 평가 방식",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-21",
+      "time": "16:59–17:29",
+      "requirement": "평균값에 (표준편차) 표기",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-22",
+      "time": "17:29–17:47",
+      "requirement": "네 자리 수치는 세 자리; 자릿수 정렬",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-23",
+      "time": "17:29–17:59",
+      "requirement": "반복 생성 횟수 열 삭제, 불필요한 자동그림 정리",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-24",
+      "time": "18:05–18:42",
+      "requirement": "분석가를 위한 그림 대신 실제 입력출력 사례를 방법 절에",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-25",
+      "time": "18:54–19:25",
+      "requirement": "95% CI 그래프 정리, 표준편차로 설명",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-26",
+      "time": "19:30–20:01",
+      "requirement": "평균 대응 차이 뜻과 ON/OFF 비교 명확히",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-27",
+      "time": "20:01–21:29",
+      "requirement": "짝별 비교 t값·p값, SD, 유의수준 확인",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-28",
+      "time": "21:35–22:25",
+      "requirement": "여덟 조건 결과를 전체표로 먼저 보여주기",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-29",
+      "time": "22:37–24:02",
+      "requirement": "지표×조건의 방향과 가독성을 고려해 표 배치",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-30",
+      "time": "24:17–25:17",
+      "requirement": "단일 기법 비교와 복합 조합을 구분하고 표 통합",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-31",
+      "time": "25:17–28:51",
+      "requirement": "3요인 ON/OFF 완전요인실험의 전체 효과 ANOVA; 계획 대비 t",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-32",
+      "time": "29:15–29:49",
+      "requirement": "긴 표를 유지하고 해석·실험 방법을 더 상세히",
+      "status": "해결",
+      "historical_audit_status": "부분 해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-33",
+      "time": "29:49–30:49",
+      "requirement": "2³ full factorial 용어, 실험 배치표, 0/1 부호",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-34",
+      "time": "31:05–31:24",
+      "requirement": "큐브 장식 그림보다 실험 배치 정보에 집중",
+      "status": "해결",
+      "historical_audit_status": "해결",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "디지털 검증 완료",
+      "interpretation": "사용자 전사와 추가 감사의 문맥 해석. 음성 파일 직접 청취와 구분."
+    },
+    {
+      "id": "TR-35",
+      "time": "31:28–31:41",
+      "requirement": "1차 수정 후 재검토하겠다는 마무리 발언",
+      "status": "판정 제외",
+      "current_evidence": "REEXAM_FINAL_AUDIT_20261017.md; REEXAM_OBJECT_LAYOUT_20261017.json; REEXAM_QA; REEXAM_MANUSCRIPT_AB_20261017.md",
+      "remaining": "새 수정 요구를 도출하지 않음",
+      "interpretation": "마무리 발언"
+    }
+  ],
+  "physical_verification_separate": true,
+  "review_note": "00:04–31:41 전체 사용자 전사 재대조. 이번 실제 발언/관찰/추론/예상질문은 REEXAM_TRANSCRIPT_OBSERVATIONS_20261017.json. 초록 삭제는 별도 사용자 전달 지시로 우선 적용. 원음 청취를 했다는 주장은 하지 않는다."
+}

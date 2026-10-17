@@ -303,6 +303,9 @@ def main() -> None:
         )
         assert "주심" in cover_text and "부심" in cover_text
         template.close()
+        assert not re.search(
+            r"^# (국문초록|Abstract)|^(주제어|Keywords):", source, re.MULTILINE
+        ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
         for kind, count in (("그림", 13), ("표", 14)):
@@ -365,7 +368,7 @@ def main() -> None:
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
         "layout": layout_report,
-        "web_rendering": "see ../VALIDATION/PROFESSOR_FINAL_AUDIT_20261016.md",
+        "web_rendering": "see ../VALIDATION/REEXAM_FINAL_AUDIT_20261017.md and REEXAM_QA/",
     }
     (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

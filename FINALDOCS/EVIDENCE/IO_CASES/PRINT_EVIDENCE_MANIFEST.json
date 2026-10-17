@@ -43,10 +43,11 @@
           "excerpts": [
             {
               "field": "contexts",
-              "start": 612,
-              "end": 782,
-              "text": "RAPTOR selects nodes from different layers depending on the level of granularity required by the Published as a conference paper at ICLR 2024 Algorithm 2 Collapsed Tree A",
-              "context_index": 0
+              "start": 784,
+              "end": 984,
+              "text": "By providing both the original text and higher-level summaries for retrieval, RAPTOR can effectively handle a wider range of questions, from higher-order thematic queries to detail-oriented questions.",
+              "context_index": 3,
+              "source_pdf_page": 9
             },
             {
               "field": "generated_answer",
@@ -57,12 +58,15 @@
           ]
         }
       ],
+      "reference_answer": "The text retrieved by RAPTOR contains short descriptions of all the major parts of the story, whereas the text retrieved by DPR contains detailed descriptions of a narrow subset of the story.",
+      "reference_pdf_page": 20,
+      "reference_source_sha256": "9b9d683d1e902eab1817ac2d486322bcd45358519c437f41d358189d97a701b9",
       "image_size": [
         2000,
-        1194
+        1377
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png",
-      "image_sha256": "8d03a2d0ca4828b8dff499829e8c77e9e5d7fc47462fab3d6581e4fd96f9eaa6"
+      "image_sha256": "0984f751c447feb2db62cee1a63331ad77862221906ea7fdc357d1a1e3eecc6f"
     },
     {
       "case_id": "E02",
@@ -124,7 +128,7 @@
         1133
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E02_language_drift.png",
-      "image_sha256": "5fc9a59dfb4b618b7673764e30aac591fc1c29d738d083f8da3d3208763d46b0"
+      "image_sha256": "92fd3333b9ed12a5c21c61b52ecbcd58de5f675b2b773dc5fd79eb1a924e0060"
     },
     {
       "case_id": "E03",
@@ -230,7 +234,7 @@
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png",
-      "image_sha256": "7b7633f833f8c1896aa8b4a30313156d61149c840894d01cf3eebd94a500f59f"
+      "image_sha256": "c53a9e3db9698810c9c914230f89c56d5c24863ac3b2a811eae902dadf7ff1f6"
     },
     {
       "case_id": "E04",
@@ -355,7 +359,7 @@
         1804
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png",
-      "image_sha256": "344b8780a999efc66f57406a187fb3181b4c8f2e72d1fc2968def80979e64019"
+      "image_sha256": "26d27e7dcfd256eb4ac52696294b0caea5c6524b75d52a33185f0ae8249ec43f"
     },
     {
       "case_id": "E05",
@@ -485,7 +489,7 @@
         1682
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png",
-      "image_sha256": "ae3b489b9c17614ac96df4ae774e9468f7e135b0b3a3dd35f8a55d5451c5b9b4"
+      "image_sha256": "79296a3d745ef7da68f7e879d7c68348d53950757648d08356a9d25ac35745c7"
     },
     {
       "case_id": "E06",
@@ -591,7 +595,7 @@
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png",
-      "image_sha256": "b28c7fa9c28f039c3ff03007f83c4ec7c2c5b33fec0bfe6841a58e7e12989174"
+      "image_sha256": "6580c468f0702bfbdf5b99a3af2ee2c0bb1e618b065da2aaf8e3c98bb5158d57"
     }
   ]
 }

@@ -1,0 +1,21 @@
+C_q = Retrieve(q,D)
+
+y = LM(q,C_q)
+
+RRF(d) = {0.6} over {k + rank_dense(d)} + {0.4} over {k + rank_BM25(d)}
+
+z_CAD = (1 + alpha) z_ctx - alpha z_noctx
+
+tilde z_i = alpha z_i
+
+tilde z_i = beta z_i
+
+tilde z_i = z_i
+
+KoreanRatio = {N_Hangul} over {N_Hangul + N_ASCII}
+
+Delta_i = s_i^{ON} - s_i^{OFF}
+
+bar Delta = {1} over {n} sum_{i=1}^{n} Delta_i
+
+t = {bar Delta} over {s_Delta / sqrt n}

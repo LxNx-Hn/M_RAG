@@ -64,7 +64,7 @@ def validate_academic_text(text):
         "보정 후 p=0.117",
         "t(57)=0.862",
         "3요인 2수준 완전요인설계",
-        "영어 문맥과 SCD ON의 한국어 번역 문맥",
+        "SCD ON의 평가에는 저장된 영어 문맥을",
     ]:
         if marker not in text:
             raise AssertionError("reviewed analysis contract missing: " + marker)

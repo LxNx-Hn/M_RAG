@@ -3,10 +3,11 @@
     "hyde_off__no_decoder_control": [
       {
         "field": "contexts",
-        "start": 612,
-        "end": 782,
-        "text": "RAPTOR selects nodes from different layers depending on the level of granularity required by the Published as a conference paper at ICLR 2024 Algorithm 2 Collapsed Tree A",
-        "context_index": 0
+        "start": 784,
+        "end": 984,
+        "text": "By providing both the original text and higher-level summaries for retrieval, RAPTOR can effectively handle a wider range of questions, from higher-order thematic queries to detail-oriented questions.",
+        "context_index": 3,
+        "source_pdf_page": 9
       },
       {
         "field": "generated_answer",

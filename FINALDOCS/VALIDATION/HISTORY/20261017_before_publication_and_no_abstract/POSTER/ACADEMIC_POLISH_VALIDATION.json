@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-17",
+  "table_alignment": {
+    "cells_checked": 159,
+    "numeric_cells_right_aligned": 88,
+    "native_and_svg_alignment_match": true
+  },
+  "professor_acceptance": {
+    "protocol_groups": [
+      4,
+      4
+    ],
+    "independent_abstract": false,
+    "case_claim_evidence": true,
+    "references": {
+      "cited": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "18"
+      ],
+      "listed": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "18"
+      ]
+    }
+  },
+  "required_text_units": 208,
+  "pdf_pages": 1,
+  "size_mm": [
+    594.0000047471788,
+    841.0000013563367
+  ],
+  "native_tables": 4,
+  "native_charts": 0,
+  "all_svg_pptx_pdf_text_equal": true,
+  "print_image_px": [
+    7016,
+    9933
+  ],
+  "pdf_sha256": "266b8e11c7b0c53814285062a7974f58a3afd7610b60b5837d9ed11e85a5167b",
+  "pptx_sha256": "a88a7ef90a820a256e2c4cabeb17a0595e49b4f5ed9b9ad5c2b593a74cddbc80",
+  "svg_sha256": "d7f32ff6a009e827ba7f842d9751efbce8e1bac11b4c74df31afece2b9fd80a4",
+  "pdf_fonts": [
+    [
+      7,
+      "ttf",
+      "Type0",
+      "EIUBHK+MalgunGothic",
+      "f-0-1",
+      "Identity-H",
+      0
+    ],
+    [
+      8,
+      "ttf",
+      "TrueType",
+      "VTIDIR+MalgunGothic",
+      "f-0-0",
+      "WinAnsiEncoding",
+      0
+    ],
+    [
+      9,
+      "ttf",
+      "Type0",
+      "BXAORM+MalgunGothicBold",
+      "f-1-1",
+      "Identity-H",
+      0
+    ],
+    [
+      10,
+      "ttf",
+      "TrueType",
+      "VYFEYT+MalgunGothicBold",
+      "f-1-0",
+      "WinAnsiEncoding",
+      0
+    ],
+    [
+      11,
+      "ttf",
+      "Type0",
+      "ZAPSNM+Verdana",
+      "f-2-1",
+      "Identity-H",
+      0
+    ]
+  ],
+  "limitations": [
+    "Native PowerPoint application execution not verified",
+    "Physical print and viewing distance not tested",
+    "Rendering uses installed fonts; cross-platform glyph metrics may differ"
+  ]
+}

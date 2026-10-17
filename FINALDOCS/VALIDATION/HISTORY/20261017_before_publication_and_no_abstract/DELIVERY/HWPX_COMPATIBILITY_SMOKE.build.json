@@ -1,0 +1,139 @@
+{
+  "paragraphs": [
+    {
+      "kind": "paragraph",
+      "text": "1. 호환성 시험",
+      "style": "장(1.)",
+      "page_break": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "1.1 편집 가능한 개체",
+      "style": "절(1.1)",
+      "page_break": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "학교 양식의 문단 스타일과 한글 문장을 검사한다.",
+      "style": "본문",
+      "page_break": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "표 셀, 그림, 수식과 쪽번호를 각각 확인한다.",
+      "style": "본문",
+      "page_break": false
+    }
+  ],
+  "tables": [
+    {
+      "sheet": "T3-3_Factor_Position",
+      "rows": [
+        [
+          "요인",
+          "적용 위치",
+          "주 비교",
+          "주 지표"
+        ],
+        [
+          "HyDE",
+          "검색 표현 확장",
+          "CAD OFF·SCD OFF의 60 대응쌍",
+          "RAGAS 품질 지표"
+        ],
+        [
+          "CAD",
+          "문맥 기반 디코딩",
+          "동일 문맥 60쌍(근거 충실도 유효쌍 58개)",
+          "근거 충실도·답변 관련성·생성 시간"
+        ],
+        [
+          "SCD",
+          "출력 토큰 로짓 제어",
+          "HyDE OFF 동일 문맥 120쌍; 전체 240 상태 일치 대응쌍",
+          "한국어 문자 비율"
+        ]
+      ],
+      "merges": []
+    }
+  ],
+  "pictures": [
+    {
+      "kind": "picture",
+      "path": "FINALDOCS/FIGURES/fig1_1_research_setting.png",
+      "fraction": 0.9,
+      "sha256": "476ba3ffed3aba7d2272122e4d50ee337006a3f46f15f65ede7f915da2533263",
+      "pixels": [
+        5040,
+        2400
+      ],
+      "size": [
+        38269,
+        18223
+      ]
+    }
+  ],
+  "equations": [
+    "z_CAD = (1 + alpha) z_ctx - alpha z_noctx"
+  ],
+  "cover_paragraphs": [
+    {
+      "kind": "paragraph",
+      "text": "졸업자격실험보고서",
+      "style": "논문제목",
+      "page_break": true
+    },
+    {
+      "kind": "paragraph",
+      "text": "한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험",
+      "style": "논문제목",
+      "page_break": false
+    },
+    {
+      "kind": "paragraph",
+      "text": "[학생명 입력] · [학번 입력] · [지도교수 입력] · [제출일 입력]",
+      "style": "본문",
+      "page_break": false
+    }
+  ],
+  "cover_layout_tables": 1,
+  "template": {
+    "source_name": "붙임 2. 졸업논문보고서 양식_2025_스타일적용 (1).hwp",
+    "source_sha256": "c5327d22773050ce0e491eb859ba25c9db423ef66c8fe951659ea03756853895",
+    "page": {
+      "landscape": "WIDELY",
+      "width": "59528",
+      "height": "84188",
+      "gutterType": "LEFT_ONLY"
+    },
+    "margins": {
+      "header": "3401",
+      "footer": "3401",
+      "gutter": "0",
+      "left": "8503",
+      "right": "8503",
+      "top": "5669",
+      "bottom": "5669"
+    },
+    "columns": {
+      "id": "",
+      "type": "NEWSPAPER",
+      "layout": "LEFT",
+      "colCount": "1",
+      "sameSz": "1",
+      "sameGap": "0"
+    },
+    "conversion_report": "Hwp5ConversionReport(unconverted=mappingproxy({}), dropped=mappingproxy({}))",
+    "width": 42522
+  },
+  "inputs": {
+    "manuscript_sha256": "62413ddaa93189a45d4e63ad089b138a1d1d8a0df24b2e097db2fe88b18d6b43",
+    "tables_sha256": "b6a26faa06b5988fb919d706002a26fb75aa7112519bae3a848de834f03b0b11"
+  },
+  "output": {
+    "filename": "HWPX_COMPATIBILITY_SMOKE.hwpx",
+    "sha256": "60fffc1572b9b868a0f8cb9be02ae0a7357cc95d0da3a04aaf3df9749d206943",
+    "bytes": 1255653
+  },
+  "xml_validation": "ValidationReport(validated_parts=('Contents/header.xml', 'Contents/section0.xml'), issues=())"
+}

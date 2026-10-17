@@ -60,13 +60,36 @@ def source_view(case: dict, plan: dict, records: dict, scores: dict) -> dict:
                 "excerpts": excerpts,
             }
         )
-    return {"case_id": case["case_id"], "query_id": case["query_id"], "panels": panels}
+    view = {"case_id": case["case_id"], "query_id": case["query_id"], "panels": panels}
+    if case["case_id"] == "E01":
+        source = (
+            ROOT / "experiments/data/query_splits/extended_validation_literal_gt.json"
+        )
+        reference = next(
+            row
+            for row in json.loads(source.read_text(encoding="utf-8"))["queries"]
+            if row["query_id"] == case["query_id"]
+        )
+        view["reference_answer"] = reference["answer_span"]
+        view["reference_pdf_page"] = reference["source_page"] + 1
+        view["reference_source_sha256"] = hashlib.sha256(
+            source.read_bytes()
+        ).hexdigest()
+    return view
 
 
 def display_lines(view: dict) -> list[tuple[str, bool]]:
     panels = view["panels"]
     lines = [(f"{view['case_id']}  |  {view['query_id']}", True)]
     lines.append(("질문: " + panels[0]["query"], False))
+    if "reference_answer" in view:
+        lines.append(
+            (
+                f"참조 답변 원문 근거 (PDF {view['reference_pdf_page']}쪽): "
+                + view["reference_answer"],
+                False,
+            )
+        )
     if len(panels) == 2:
         # Context identity is computed from the complete stored input, below.
         lines.append((view["context_label"], True))
@@ -91,7 +114,9 @@ def display_lines(view: dict) -> list[tuple[str, bool]]:
         )
         for span in panel["excerpts"]:
             if span["field"] == "contexts":
-                title = f"문맥[{span['context_index'] + 1}] 발췌: "
+                page = span.get("source_pdf_page")
+                location = f", PDF {page}쪽" if page is not None else ""
+                title = f"문맥[{span['context_index'] + 1}]{location} 발췌: "
             else:
                 title = "저장 답변 발췌: "
             lines.append((title + "[…] " + span["text"] + " […]", False))

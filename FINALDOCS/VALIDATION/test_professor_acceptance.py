@@ -75,20 +75,18 @@ class ProfessorAcceptanceTests(unittest.TestCase):
                 [f"H{h}C{c}S{s}" for h in (0, 1) for c in (0, 1) for s in (0, 1)]
             )
 
-    def test_abstract_heading_is_rejected(self):
+    def test_poster_abstract_is_optional(self):
         for heading in ["초록", "01 Abstract", "국문초록"]:
-            with self.subTest(heading=heading), self.assertRaises(AssertionError):
-                poster_headings([heading])
+            with self.subTest(heading=heading):
+                self.assertTrue(poster_headings([heading]))
 
     def test_background_is_allowed(self):
         poster_headings(["01 연구 배경과 목적", "08 주요 참고문헌"])
 
-    def test_missing_abstract_is_rejected_in_thesis(self):
-        text = (
-            (FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md")
-            .read_text("utf-8")
-            .replace("# 국문초록", "# 개요")
-        )
+    def test_returned_abstract_is_rejected_in_thesis(self):
+        text = (FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md").read_text(
+            "utf-8"
+        ) + "\n# 국문초록 [스타일=목차제목]\n"
         with self.assertRaises(AssertionError):
             validate_manuscript(
                 text,

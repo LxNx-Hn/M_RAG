@@ -1,0 +1,1461 @@
+{
+  "verified_on": "2026-10-17",
+  "records": [
+    {
+      "id": "2",
+      "url": "https://aclanthology.org/2023.acl-long.99/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.712316+00:00",
+      "response_sha256": "44991979e940d6bc19a62d93237b809d54b1d940a35d8a891cc4eb45a19a0721",
+      "metadata": {
+        "citation_title": [
+          "Precise Zero-Shot Dense Retrieval without Relevance Labels"
+        ],
+        "citation_author": [
+          "Luyu Gao",
+          "Xueguang Ma",
+          "Jimmy Lin",
+          "Jamie Callan"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)"
+        ],
+        "citation_publication_date": [
+          "2023/7"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2023.acl-long.99.pdf"
+        ],
+        "citation_firstpage": [
+          "1762"
+        ],
+        "citation_lastpage": [
+          "1777"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2023.acl-long.99"
+        ]
+      },
+      "page_title": "Precise Zero-Shot Dense Retrieval without Relevance Labels - ACL Anthology"
+    },
+    {
+      "id": "3",
+      "url": "https://aclanthology.org/2024.naacl-short.69/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.725989+00:00",
+      "response_sha256": "abd2263fa20b1ba6a16db86492bbd27fe335b09e89568e8c4c4f92837b68d4ac",
+      "metadata": {
+        "citation_title": [
+          "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding"
+        ],
+        "citation_author": [
+          "Weijia Shi",
+          "Xiaochuang Han",
+          "Mike Lewis",
+          "Yulia Tsvetkov",
+          "Luke Zettlemoyer",
+          "Wen-tau Yih"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers)"
+        ],
+        "citation_publication_date": [
+          "2024/6"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.naacl-short.69.pdf"
+        ],
+        "citation_firstpage": [
+          "783"
+        ],
+        "citation_lastpage": [
+          "791"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2024.naacl-short.69"
+        ]
+      },
+      "page_title": "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding - ACL Anthology"
+    },
+    {
+      "id": "5",
+      "url": "https://aclanthology.org/2024.findings-acl.137/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.733065+00:00",
+      "response_sha256": "78a19d85fac3901178ebcc8ec473c26ecff111ebfb6128f03ff72bb1485c9051",
+      "metadata": {
+        "citation_title": [
+          "M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation"
+        ],
+        "citation_author": [
+          "Jianlyu Chen",
+          "Shitao Xiao",
+          "Peitian Zhang",
+          "Kun Luo",
+          "Defu Lian",
+          "Zheng Liu"
+        ],
+        "citation_conference_title": [
+          "Findings of the Association for Computational Linguistics: ACL 2024"
+        ],
+        "citation_publication_date": [
+          "2024/8"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.findings-acl.137.pdf"
+        ],
+        "citation_firstpage": [
+          "2318"
+        ],
+        "citation_lastpage": [
+          "2335"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2024.findings-acl.137"
+        ]
+      },
+      "page_title": "M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation - ACL Anthology"
+    },
+    {
+      "id": "9",
+      "url": "https://aclanthology.org/2024.tacl-1.9/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.741682+00:00",
+      "response_sha256": "f2d091aabf02a9f394ad94b95c8a68b445120e91c1885b0edb6fef8bb5d0a961",
+      "metadata": {
+        "citation_title": [
+          "Lost in the Middle: How Language Models Use Long Contexts"
+        ],
+        "citation_author": [
+          "Nelson F. Liu",
+          "Kevin Lin",
+          "John Hewitt",
+          "Ashwin Paranjape",
+          "Michele Bevilacqua",
+          "Fabio Petroni",
+          "Percy Liang"
+        ],
+        "citation_journal_title": [
+          "Transactions of the Association for Computational Linguistics"
+        ],
+        "citation_volume": [
+          "12"
+        ],
+        "citation_publication_date": [
+          "2024"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.tacl-1.9.pdf"
+        ],
+        "citation_firstpage": [
+          "157"
+        ],
+        "citation_lastpage": [
+          "173"
+        ],
+        "citation_doi": [
+          "10.1162/tacl_a_00638"
+        ]
+      },
+      "page_title": "Lost in the Middle: How Language Models Use Long Contexts - ACL Anthology"
+    },
+    {
+      "id": "11",
+      "url": "https://aclanthology.org/2020.emnlp-main.550/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.747748+00:00",
+      "response_sha256": "35398f598d9e957e4436240066ffc1ae5d8d4d2c2c1dd34740bc3461593bb0da",
+      "metadata": {
+        "citation_title": [
+          "Dense Passage Retrieval for Open-Domain Question Answering"
+        ],
+        "citation_author": [
+          "Vladimir Karpukhin",
+          "Barlas Oguz",
+          "Sewon Min",
+          "Patrick Lewis",
+          "Ledell Wu",
+          "Sergey Edunov",
+          "Danqi Chen",
+          "Wen-tau Yih"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)"
+        ],
+        "citation_publication_date": [
+          "2020/11"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2020.emnlp-main.550.pdf"
+        ],
+        "citation_firstpage": [
+          "6769"
+        ],
+        "citation_lastpage": [
+          "6781"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2020.emnlp-main.550"
+        ]
+      },
+      "page_title": "Dense Passage Retrieval for Open-Domain Question Answering - ACL Anthology"
+    },
+    {
+      "id": "12",
+      "url": "https://aclanthology.org/2021.eacl-main.74/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.727993+00:00",
+      "response_sha256": "f3662702743889585a9cfa4b7eb2490803a52ae8e41af9e9c34c37d7428c2c9c",
+      "metadata": {
+        "citation_title": [
+          "Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering"
+        ],
+        "citation_author": [
+          "Gautier Izacard",
+          "Édouard Grave"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume"
+        ],
+        "citation_publication_date": [
+          "2021/4"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2021.eacl-main.74.pdf"
+        ],
+        "citation_firstpage": [
+          "874"
+        ],
+        "citation_lastpage": [
+          "880"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2021.eacl-main.74"
+        ]
+      },
+      "page_title": "Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering - ACL Anthology"
+    },
+    {
+      "id": "10",
+      "url": "https://aclanthology.org/2024.eacl-demo.16/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.754831+00:00",
+      "response_sha256": "5937a611aa4899ceb055dc0a9858e9a6087d6659c261d81b201893f148b9bfb3",
+      "metadata": {
+        "citation_title": [
+          "RAGAs: Automated Evaluation of Retrieval Augmented Generation"
+        ],
+        "citation_author": [
+          "Shahul Es",
+          "Jithin James",
+          "Luis Espinosa Anke",
+          "Steven Schockaert"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations"
+        ],
+        "citation_publication_date": [
+          "2024/3"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.eacl-demo.16.pdf"
+        ],
+        "citation_firstpage": [
+          "150"
+        ],
+        "citation_lastpage": [
+          "158"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2024.eacl-demo.16"
+        ]
+      },
+      "page_title": "RAGAs: Automated Evaluation of Retrieval Augmented Generation - ACL Anthology"
+    },
+    {
+      "id": "13",
+      "url": "https://aclanthology.org/2023.acl-long.687/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.765777+00:00",
+      "response_sha256": "932db9d0b4c09c33ff3f386974085001e9fc6e01d7d4976ddec9fa718520de26",
+      "metadata": {
+        "citation_title": [
+          "Contrastive Decoding: Open-ended Text Generation as Optimization"
+        ],
+        "citation_author": [
+          "Xiang Lisa Li",
+          "Ari Holtzman",
+          "Daniel Fried",
+          "Percy Liang",
+          "Jason Eisner",
+          "Tatsunori B. Hashimoto",
+          "Luke Zettlemoyer",
+          "Mike Lewis"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)"
+        ],
+        "citation_publication_date": [
+          "2023/7"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2023.acl-long.687.pdf"
+        ],
+        "citation_firstpage": [
+          "12286"
+        ],
+        "citation_lastpage": [
+          "12312"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2023.acl-long.687"
+        ]
+      },
+      "page_title": "Contrastive Decoding: Open-ended Text Generation as Optimization - ACL Anthology"
+    },
+    {
+      "id": "16",
+      "url": "https://aclanthology.org/2024.naacl-long.389/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.779937+00:00",
+      "response_sha256": "2a9789734867f67634abe0d26f76c16e45878083c32a083f09953876dc0f7645",
+      "metadata": {
+        "citation_title": [
+          "Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity"
+        ],
+        "citation_author": [
+          "Soyeong Jeong",
+          "Jinheon Baek",
+          "Sukmin Cho",
+          "Sung Ju Hwang",
+          "Jong C. Park"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)"
+        ],
+        "citation_publication_date": [
+          "2024/6"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.naacl-long.389.pdf"
+        ],
+        "citation_firstpage": [
+          "7036"
+        ],
+        "citation_lastpage": [
+          "7050"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2024.naacl-long.389"
+        ]
+      },
+      "page_title": "Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity - ACL Anthology"
+    },
+    {
+      "id": "22",
+      "url": "https://aclanthology.org/2024.findings-emnlp.948/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.791035+00:00",
+      "response_sha256": "d8dcd21f2e421e1d7964dea74bb3e8d770be52f2add573aca7480fc6f766da8d",
+      "metadata": {
+        "citation_title": [
+          "Structured Chain-of-Thought Prompting for Few-Shot Generation of Content-Grounded QA Conversations"
+        ],
+        "citation_author": [
+          "Md Arafat Sultan",
+          "Jatin Ganhotra",
+          "Ramón Fernandez Astudillo"
+        ],
+        "citation_conference_title": [
+          "Findings of the Association for Computational Linguistics: EMNLP 2024"
+        ],
+        "citation_publication_date": [
+          "2024/11"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2024.findings-emnlp.948.pdf"
+        ],
+        "citation_firstpage": [
+          "16172"
+        ],
+        "citation_lastpage": [
+          "16187"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2024.findings-emnlp.948"
+        ]
+      },
+      "page_title": "Structured Chain-of-Thought Prompting for Few-Shot Generation of Content-Grounded QA Conversations - ACL Anthology"
+    },
+    {
+      "id": "1",
+      "url": "https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.794037+00:00",
+      "response_sha256": "5a425ab1b904e69e8ec394bc5f3cf61cd84db96b72c6cfd2a6c1c139443a73e8",
+      "metadata": {
+        "citation_title": [
+          "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+        ],
+        "citation_author": [
+          "Lewis, Patrick",
+          "Perez, Ethan",
+          "Piktus, Aleksandra",
+          "Petroni, Fabio",
+          "Karpukhin, Vladimir",
+          "Goyal, Naman",
+          "Küttler, Heinrich",
+          "Lewis, Mike",
+          "Yih, Wen-tau",
+          "Rocktäschel, Tim",
+          "Riedel, Sebastian",
+          "Kiela, Douwe"
+        ],
+        "citation_journal_title": [
+          "Advances in Neural Information Processing Systems"
+        ],
+        "citation_volume": [
+          "33"
+        ],
+        "citation_firstpage": [
+          "9459"
+        ],
+        "citation_lastpage": [
+          "9474"
+        ],
+        "citation_pdf_url": [
+          "https://proceedings.neurips.cc/paper_files/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf"
+        ],
+        "citation_publication_date": [
+          "2020"
+        ]
+      },
+      "page_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+    },
+    {
+      "id": "20",
+      "url": "https://aclanthology.org/2023.eacl-main.148/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.806190+00:00",
+      "response_sha256": "22d5a2ae9b0b0c892d7ff5c9adbd6c5447c4b3ce50b3b93c79cbbabae575c67e",
+      "metadata": {
+        "citation_title": [
+          "MTEB: Massive Text Embedding Benchmark"
+        ],
+        "citation_author": [
+          "Niklas Muennighoff",
+          "Nouamane Tazi",
+          "Loic Magne",
+          "Nils Reimers"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics"
+        ],
+        "citation_publication_date": [
+          "2023/5"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2023.eacl-main.148.pdf"
+        ],
+        "citation_firstpage": [
+          "2014"
+        ],
+        "citation_lastpage": [
+          "2037"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2023.eacl-main.148"
+        ]
+      },
+      "page_title": "MTEB: Massive Text Embedding Benchmark - ACL Anthology"
+    },
+    {
+      "id": "21",
+      "url": "https://aclanthology.org/2021.naacl-main.365/",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.819289+00:00",
+      "response_sha256": "d63295abd3f030b680cb41cab3dbb84365223ed7c6cacef98c7f505231345429",
+      "metadata": {
+        "citation_title": [
+          "A Dataset of Information-Seeking Questions and Answers Anchored in Research Papers"
+        ],
+        "citation_author": [
+          "Pradeep Dasigi",
+          "Kyle Lo",
+          "Iz Beltagy",
+          "Arman Cohan",
+          "Noah A. Smith",
+          "Matt Gardner"
+        ],
+        "citation_conference_title": [
+          "Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies"
+        ],
+        "citation_publication_date": [
+          "2021/6"
+        ],
+        "citation_pdf_url": [
+          "https://aclanthology.org/2021.naacl-main.365.pdf"
+        ],
+        "citation_firstpage": [
+          "4599"
+        ],
+        "citation_lastpage": [
+          "4610"
+        ],
+        "citation_doi": [
+          "10.18653/v1/2021.naacl-main.365"
+        ]
+      },
+      "page_title": "A Dataset of Information-Seeking Questions and Answers Anchored in Research Papers - ACL Anthology"
+    },
+    {
+      "id": "7",
+      "url": "https://api.crossref.org/works/10.1145/1571941.1572114",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.831447+00:00",
+      "response_sha256": "d080cfad91003ad1cd51af3859570adbfffc9335106e6096b649389a71661260",
+      "metadata": {},
+      "crossref": {
+        "publisher": "ACM",
+        "DOI": "10.1145/1571941.1572114",
+        "type": "proceedings-article",
+        "page": "758-759",
+        "title": [
+          "Reciprocal rank fusion outperforms condorcet and individual rank learning methods"
+        ],
+        "author": [
+          {
+            "given": "Gordon V.",
+            "family": "Cormack",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Waterloo, Waterloo, ON, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Charles L A",
+            "family": "Clarke",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Waterloo, Waterloo, ON, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Stefan",
+            "family": "Buettcher",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Google, Mountain View, CA, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Proceedings of the 32nd international ACM SIGIR conference on Research and development in information retrieval"
+        ],
+        "URL": "https://doi.org/10.1145/1571941.1572114",
+        "published": {
+          "date-parts": [
+            [
+              2009,
+              7,
+              19
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "6",
+      "url": "https://trec.nist.gov/pubs/trec3/t3_proceedings.html",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.832445+00:00",
+      "response_sha256": "1339a22578553c380833f0ba344b68b6a3c37e6b838845a335eba62614419a1c",
+      "metadata": {},
+      "page_title": "Text REtrieval Conference (TREC) TREC-3 Proceedings "
+    },
+    {
+      "id": "8",
+      "url": "https://api.crossref.org/works/10.1145/3331184.3331317",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.832445+00:00",
+      "response_sha256": "8ffd1e4e60279629c776b85edc7120611fe80c5403bcb031f42b2d6ed0ed74bb",
+      "metadata": {},
+      "crossref": {
+        "publisher": "ACM",
+        "DOI": "10.1145/3331184.3331317",
+        "type": "proceedings-article",
+        "page": "1101-1104",
+        "title": [
+          "CEDR"
+        ],
+        "author": [
+          {
+            "given": "Sean",
+            "family": "MacAvaney",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Georgetown University, Washington, DC, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Andrew",
+            "family": "Yates",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Max Planck Institute for Informatics, Saarbrücken, Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Arman",
+            "family": "Cohan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Allen Institute for Artificial Intelligence, Seattle, WA, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Nazli",
+            "family": "Goharian",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Georgetown University, Washington, DC, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval"
+        ],
+        "URL": "https://doi.org/10.1145/3331184.3331317",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              7,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "18",
+      "url": "https://api.crossref.org/works/10.1145/3637528.3671470",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.863279+00:00",
+      "response_sha256": "9d4c11259c82ea3108a5b9848a87188669830aed5f4529976a8b8ff771fd5af3",
+      "metadata": {},
+      "crossref": {
+        "publisher": "ACM",
+        "DOI": "10.1145/3637528.3671470",
+        "type": "proceedings-article",
+        "page": "6491-6501",
+        "title": [
+          "A Survey on RAG Meeting LLMs: Towards Retrieval-Augmented Large Language Models"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-4049-1233",
+            "authenticated-orcid": false,
+            "given": "Wenqi",
+            "family": "Fan",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-2945-1107",
+            "authenticated-orcid": false,
+            "given": "Yujuan",
+            "family": "Ding",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6903-8996",
+            "authenticated-orcid": false,
+            "given": "Liangbo",
+            "family": "Ning",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-7389-3810",
+            "authenticated-orcid": false,
+            "given": "Shijie",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-2369-1567",
+            "authenticated-orcid": false,
+            "given": "Hengyun",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-0684-6205",
+            "authenticated-orcid": false,
+            "given": "Dawei",
+            "family": "Yin",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Baidu Inc., Beijing, CN"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6097-7807",
+            "authenticated-orcid": false,
+            "given": "Tat-Seng",
+            "family": "Chua",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "National university of Singapore, Singapore, SG"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-3370-471X",
+            "authenticated-orcid": false,
+            "given": "Qing",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The Hong Kong Polytechnic University, Hong Kong, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining"
+        ],
+        "URL": "https://doi.org/10.1145/3637528.3671470",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              8,
+              24
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "19",
+      "url": "https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/65b9eea6e1cc6bb9f0cd2a47751a186f-Abstract-round2.html",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.969296+00:00",
+      "response_sha256": "e885b4e4fe6861b9baf68eda79ced93b2e9d71e34a814e049773d8ef9af36b44",
+      "metadata": {
+        "citation_title": [
+          "BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models"
+        ],
+        "citation_author": [
+          "Thakur, Nandan",
+          "Reimers, Nils",
+          "Rücklé, Andreas",
+          "Srivastava, Abhishek",
+          "Gurevych, Iryna"
+        ],
+        "citation_journal_title": [
+          "Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks"
+        ],
+        "citation_volume": [
+          "1"
+        ],
+        "citation_pdf_url": [
+          "https://datasets-benchmarks-proceedings.neurips.cc/paper_files/paper/2021/file/65b9eea6e1cc6bb9f0cd2a47751a186f-Paper-round2.pdf"
+        ],
+        "citation_publication_date": [
+          "2021-12-06"
+        ]
+      },
+      "page_title": "BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models"
+    },
+    {
+      "id": "17",
+      "url": "https://link.springer.com/article/10.1007/s41019-025-00335-5",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:13.966232+00:00",
+      "response_sha256": "0c556fece223d161aee6609b03107bbe05bc1843867efd981c7cfc84cd02f823",
+      "metadata": {
+        "citation_pdf_url": [
+          "https://link.springer.com/content/pdf/10.1007/s41019-025-00335-5.pdf"
+        ],
+        "citation_journal_title": [
+          "Data Science and Engineering"
+        ],
+        "citation_title": [
+          "Retrieval-Augmented Generation for AI-Generated Content: A Survey"
+        ],
+        "citation_volume": [
+          "11"
+        ],
+        "citation_issue": [
+          "1"
+        ],
+        "citation_publication_date": [
+          "2026/03"
+        ],
+        "citation_firstpage": [
+          "1"
+        ],
+        "citation_lastpage": [
+          "29"
+        ],
+        "citation_doi": [
+          "10.1007/s41019-025-00335-5"
+        ],
+        "citation_author": [
+          "Zhao, Penghao",
+          "Zhang, Hailin",
+          "Yu, Qinhan",
+          "Wang, Zhengren",
+          "Geng, Yunteng",
+          "Fu, Fangcheng",
+          "Yang, Ling",
+          "Zhang, Wentao",
+          "Jiang, Jie",
+          "Cui, Bin"
+        ]
+      },
+      "page_title": "Retrieval-Augmented Generation for AI-Generated Content: A Survey | Data Science and Engineering | Springer Nature Link"
+    },
+    {
+      "id": "M2",
+      "url": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.033253+00:00",
+      "response_sha256": "9e512f612f349c8a63b7fc7be8a92a62531a89a8ff24adde7ee35846b137dd55",
+      "metadata": {},
+      "page_title": "cross-encoder/ms-marco-MiniLM-L6-v2 · Hugging Face"
+    },
+    {
+      "id": "M1",
+      "url": "https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.077760+00:00",
+      "response_sha256": "0cf8f2d624d5eb5c87bce024c6631922e2e3417ccefc5d0d2c6298b90f57635d",
+      "metadata": {},
+      "page_title": "K-intelligence/Midm-2.0-Base-Instruct · Hugging Face"
+    },
+    {
+      "id": "old16",
+      "url": "https://arxiv.org/abs/2401.15884",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.700759+00:00",
+      "response_sha256": "73aadb909c06dee40d3565afae3090998be601addafbd02fe57df36e6579a17f",
+      "metadata": {
+        "citation_title": [
+          "Corrective Retrieval Augmented Generation"
+        ],
+        "citation_author": [
+          "Yan, Shi-Qi",
+          "Gu, Jia-Chen",
+          "Zhu, Yun",
+          "Ling, Zhen-Hua"
+        ],
+        "citation_date": [
+          "2024/01/29"
+        ],
+        "citation_pdf_url": [
+          "https://arxiv.org/pdf/2401.15884"
+        ]
+      },
+      "page_title": "[2401.15884] Corrective Retrieval Augmented Generation"
+    },
+    {
+      "id": "D1",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.720910+00:00",
+      "response_sha256": "52aff6f74a59b05c83c55e1d3e92f7142b452cc2dae9735358536cd837d2fc4b",
+      "metadata": {
+        "citation_title": [
+          "Retrieval-Augmented Generation for Large Language Models: A Survey"
+        ],
+        "citation_author": [
+          "Gao, Yunfan",
+          "Xiong, Yun",
+          "Gao, Xinyu",
+          "Jia, Kangxiang",
+          "Pan, Jinliu",
+          "Bi, Yuxi",
+          "Dai, Yi",
+          "Sun, Jiawei",
+          "Wang, Meng",
+          "Wang, Haofen"
+        ],
+        "citation_date": [
+          "2023/12/18"
+        ],
+        "citation_pdf_url": [
+          "https://arxiv.org/pdf/2312.10997"
+        ]
+      },
+      "page_title": "[2312.10997] Retrieval-Augmented Generation for Large Language Models: A Survey"
+    },
+    {
+      "id": "D4",
+      "url": "https://arxiv.org/abs/2603.18788v2",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.740185+00:00",
+      "response_sha256": "ef73fbb5f7cd76263e934790223e55895c147e19ea9dd4d050f5da9855eb74eb",
+      "metadata": {
+        "citation_title": [
+          "Mi:dm K 2.5 Pro"
+        ],
+        "citation_author": [
+          "KT Tech innovation Group"
+        ],
+        "citation_date": [
+          "2026/03/19"
+        ],
+        "citation_pdf_url": [
+          "https://arxiv.org/pdf/2603.18788"
+        ]
+      },
+      "page_title": "[2603.18788v2] Mi:dm K 2.5 Pro"
+    },
+    {
+      "id": "old8",
+      "url": "https://arxiv.org/abs/1901.04085",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.759185+00:00",
+      "response_sha256": "69d0628dfa9fe889ff88d3594bd9d2831207c9e9f452226ad3db643aa131dd04",
+      "metadata": {
+        "citation_title": [
+          "Passage Re-ranking with BERT"
+        ],
+        "citation_author": [
+          "Nogueira, Rodrigo",
+          "Cho, Kyunghyun"
+        ],
+        "citation_date": [
+          "2019/01/13"
+        ],
+        "citation_pdf_url": [
+          "https://arxiv.org/pdf/1901.04085"
+        ]
+      },
+      "page_title": "[1901.04085] Passage Re-ranking with BERT"
+    },
+    {
+      "id": "old18",
+      "url": "https://arxiv.org/abs/2601.09066",
+      "status_code": 200,
+      "retrieved_at_utc": "2026-10-16T20:01:14.782955+00:00",
+      "response_sha256": "bddbe0c47a60f0f5aae9e1b8b0cb8b260583576b4b9c12e3e75bf5055fe23d7a",
+      "metadata": {
+        "citation_title": [
+          "Mi:dm 2.0 Korea-centric Bilingual Language Models"
+        ],
+        "citation_author": [
+          "Shin, Donghoon",
+          "Lee, Sejung",
+          "Bae, Soonmin",
+          "Ryu, Hwijung",
+          "Ok, Changwon",
+          "Jung, Hoyoun",
+          "Ji, Hyesung",
+          "Lim, Jeehyun",
+          "Lee, Jehoon",
+          "Han, Ji-Eun",
+          "Baik, Jisoo",
+          "Kim, Mihyeon",
+          "Chung, Riwoo",
+          "Lee, Seongmin",
+          "Park, Wonjae",
+          "Heo, Yoonseok",
+          "Seo, Youngkyung",
+          "Won, Seyoun",
+          "Kim, Boeun",
+          "Heo, Cheolhun",
+          "Lee, Eunkyeong",
+          "Lee, Honghee",
+          "Ju, Hyeongju",
+          "Seo, Hyeontae",
+          "Shim, Jeongyong",
+          "Lee, Jisoo",
+          "Koh, Junseok",
+          "Kim, Junwoo",
+          "Lee, Minho",
+          "Kang, Minji",
+          "Kim, Minju",
+          "Nam, Sangha",
+          "Park, Seongheum",
+          "Kim, Taehyeong",
+          "Ahn, Euijai",
+          "Jeung, Hong Seok",
+          "Shin, Jisu",
+          "Kim, Jiyeon",
+          "Song, Seonyeong",
+          "Kong, Seung Hyun",
+          "Hong, Sukjin",
+          "Yun, Taeyang",
+          "Kim, Yu-Seon",
+          "Lee, A-Hyun",
+          "Lee, Chae-Jeong",
+          "Yu, Hye-Won",
+          "Ahn, Ji-Hyun",
+          "Kim, Song-Yeon",
+          "Jung, Sun-Woo",
+          "Kim, Eunju",
+          "Ha, Eunji",
+          "Baek, Jinwoo",
+          "Lee, Yun-ji",
+          "Park, Wanjin",
+          "Kim, Jeong Yeop",
+          "Kim, Eun Mi",
+          "Park, Hyoung Jun",
+          "Yoon, Jung Won",
+          "Noh, Min Sung",
+          "Oh, Myung Gyo",
+          "Lee, Wongyoung",
+          "Park, Yun Jin",
+          "Kwon, Young S.",
+          "Kim, Hyun Keun",
+          "Lee, Jieun",
+          "Park, YeoJoo"
+        ],
+        "citation_date": [
+          "2026/01/14"
+        ],
+        "citation_pdf_url": [
+          "https://arxiv.org/pdf/2601.09066"
+        ]
+      },
+      "page_title": "[2601.09066] Mi:dm 2.0 Korea-centric Bilingual Language Models"
+    },
+    {
+      "id": "14",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/8a2acd174940dbca361a6398a4f9df91-Abstract-Conference.html",
+      "retrieved_on": "2026-10-17",
+      "status_code": 200,
+      "response_sha256": "7926b0440815c54e175d761044d27d82bcde4136f5eb27cb2dad26f0ee79c560",
+      "page_title": "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval",
+      "verification": "Official ICLR 2024 Conference proceedings; OpenReview challenge avoided through publisher proceedings",
+      "metadata": {}
+    },
+    {
+      "id": "15",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/25f7be9694d7b32d5cc670927b8091e1-Abstract-Conference.html",
+      "retrieved_on": "2026-10-17",
+      "status_code": 200,
+      "response_sha256": "c0189bf7fd563e04ee9bb8bfe2474ac1762f57a97d87d1439e9e236430392b24",
+      "page_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "verification": "Official ICLR 2024 Conference proceedings; OpenReview challenge avoided through publisher proceedings",
+      "metadata": {}
+    },
+    {
+      "id": "4",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/40417",
+      "retrieved_on": "2026-10-17",
+      "verification_method": "web tool official publisher page",
+      "verified_metadata": {
+        "authors": [
+          "Bo Li",
+          "Zhenghua Xu",
+          "Rui Xie"
+        ],
+        "title": "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation",
+        "journal": "Proceedings of the AAAI Conference on Artificial Intelligence",
+        "volume": 40,
+        "issue": 37,
+        "pages": "31519–31526",
+        "year": 2026,
+        "doi": "10.1609/aaai.v40i37.40417"
+      },
+      "direct_python_fetch": "Connection closed; official page independently read using web tool",
+      "metadata": {}
+    }
+  ],
+  "model_alias_verified": {
+    "configured": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "official_redirect": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2",
+    "verified_via": "web tool official redirect 2026-10-17"
+  },
+  "original_reference_roles": {
+    "old8": "Preprint; scholarly ranking background replaced with distinct CEDR, implementation separately M2",
+    "old16": "Formal publication not confirmed; OpenReview challenge prevents direct withdrawn-status verification; distinct Adaptive-RAG used, no acceptance claim for CRAG",
+    "old18": "Official model source M1; preprint technical report is not scholarly publication evidence",
+    "old19": "Distinct KDD survey now academic18; actual Gao PDF unchanged as D1",
+    "old22": "Experimental source D4; original PDF identity retained"
+  },
+  "source_pdfs": [
+    {
+      "label": "D1",
+      "path": "experiments/data/source_papers/paper_nlp_rag.pdf",
+      "bytes": 1662567,
+      "pages": 21,
+      "sha256": "396a0fadeb4cd40f5c8ccc36b73a0815f6cb4d7f6bfa53b6c48c1f9aba7c7e02"
+    },
+    {
+      "label": "D2",
+      "path": "experiments/data/source_papers/paper_nlp_cad.pdf",
+      "bytes": 873576,
+      "pages": 8,
+      "sha256": "c0760ed8c79822961349589934a0b32d9ef07df85eb2fa52f90a6ee13d796deb"
+    },
+    {
+      "label": "D3",
+      "path": "experiments/data/source_papers/paper_nlp_raptor.pdf",
+      "bytes": 2547113,
+      "pages": 23,
+      "sha256": "01319e2e6e6ecfd504ee1bbda41d023f9e060bd3505ab3c161baa1d6d696cf75"
+    },
+    {
+      "label": "D4",
+      "path": "experiments/data/source_papers/paper_midm.pdf",
+      "bytes": 9568633,
+      "pages": 39,
+      "sha256": "32f9e0184f420991b0bedd9c8354d4579be5afb0db7416362a9b9f111a3b76d9"
+    }
+  ],
+  "comparison_22_original": [
+    {
+      "old_number": 1,
+      "old_source": "P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” *Advances in Neural Information Processing Systems*, Vol. 33, 2020. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "1",
+      "final_source": "P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” *Advances in Neural Information Processing Systems*, Vol. 33, pp. 9459–9474, 2020. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html"
+    },
+    {
+      "old_number": 2,
+      "old_source": "L. Gao et al., “Precise Zero-Shot Dense Retrieval without Relevance Labels,” *Proceedings of ACL*, pp. 1762–1777, 2023. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "2",
+      "final_source": "L. Gao et al., “Precise Zero-Shot Dense Retrieval without Relevance Labels,” *Proceedings of ACL*, pp. 1762–1777, 2023, doi: 10.18653/v1/2023.acl-long.99. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2023.acl-long.99/"
+    },
+    {
+      "old_number": 3,
+      "old_source": "W. Shi et al., “Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding,” *Proceedings of NAACL*, pp. 783–791, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "3",
+      "final_source": "W. Shi et al., “Trusting Your Evidence: Hallucinate Less with Context-Aware Decoding,” *Proceedings of NAACL*, pp. 783–791, 2024, doi: 10.18653/v1/2024.naacl-short.69. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2024.naacl-short.69/"
+    },
+    {
+      "old_number": 4,
+      "old_source": "B. Li, Z. Xu, and R. Xie, “Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation,” *Proceedings of the AAAI Conference on Artificial Intelligence*, Vol. 40, No. 37, pp. 31519–31526, 2026. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "4",
+      "final_source": "B. Li, Z. Xu, and R. Xie, “Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation,” *Proceedings of the AAAI Conference on Artificial Intelligence*, Vol. 40, No. 37, pp. 31519–31526, 2026, doi: 10.1609/aaai.v40i37.40417. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://ojs.aaai.org/index.php/AAAI/article/view/40417"
+    },
+    {
+      "old_number": 5,
+      "old_source": "J. Chen et al., “M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,” *Findings of the Association for Computational Linguistics: ACL 2024*, pp. 2318–2335, 2024, doi: 10.18653/v1/2024.findings-acl.137. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "5",
+      "final_source": "J. Chen et al., “M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,” *Findings of the Association for Computational Linguistics: ACL 2024*, pp. 2318–2335, 2024, doi: 10.18653/v1/2024.findings-acl.137. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2024.findings-acl.137/"
+    },
+    {
+      "old_number": 6,
+      "old_source": "S. E. Robertson et al., “Okapi at TREC-3,” *Text REtrieval Conference*, 1994. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "6",
+      "final_source": "S. E. Robertson, S. Walker, S. Jones, M. M. Hancock-Beaulieu, and M. Gatford, “Okapi at TREC-3,” *Proceedings of the Third Text REtrieval Conference (TREC-3)*, NIST Special Publication 500-225, pp. 109–126, 1995 (conference 1994). [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://trec.nist.gov/pubs/trec3/t3_proceedings.html"
+    },
+    {
+      "old_number": 7,
+      "old_source": "G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods,” *Proceedings of SIGIR*, pp. 758–759, 2009. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "7",
+      "final_source": "G. V. Cormack, C. L. A. Clarke, and S. Büttcher, “Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods,” *Proceedings of SIGIR*, pp. 758–759, 2009, doi: 10.1145/1571941.1572114. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://api.crossref.org/works/10.1145/1571941.1572114"
+    },
+    {
+      "old_number": 8,
+      "old_source": "R. Nogueira and K. Cho, “Passage Re-ranking with BERT,” arXiv:1901.04085, 2019. [스타일=참고문헌리스트]",
+      "publication_result": "기존 프리프린트와 다른 정식 논문으로 교체",
+      "final_label": "8",
+      "final_source": "S. MacAvaney, A. Yates, A. Cohan, and N. Goharian, “CEDR: Contextualized Embeddings for Document Ranking,” *Proceedings of SIGIR*, pp. 1101–1104, 2019, doi: 10.1145/3331184.3331317. [스타일=참고문헌리스트]",
+      "body_change": "2.2절을 CEDR의 BERT 분류 벡터·신경 순위 모델 설명으로 수정. 실제 구현은 M2의 MiniLM 쌍 입력 모델.",
+      "official_url": "https://api.crossref.org/works/10.1145/3331184.3331317"
+    },
+    {
+      "old_number": 9,
+      "old_source": "N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "9",
+      "final_source": "N. F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics*, Vol. 12, pp. 157–173, 2024, doi: 10.1162/tacl_a_00638. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2024.tacl-1.9/"
+    },
+    {
+      "old_number": 10,
+      "old_source": "S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "10",
+      "final_source": "S. Es et al., “RAGAs: Automated Evaluation of Retrieval Augmented Generation,” *Proceedings of EACL System Demonstrations*, pp. 150–158, 2024, doi: 10.18653/v1/2024.eacl-demo.16. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2024.eacl-demo.16/"
+    },
+    {
+      "old_number": 11,
+      "old_source": "V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "11",
+      "final_source": "V. Karpukhin et al., “Dense Passage Retrieval for Open-Domain Question Answering,” *Proceedings of EMNLP*, pp. 6769–6781, 2020, doi: 10.18653/v1/2020.emnlp-main.550. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2020.emnlp-main.550/"
+    },
+    {
+      "old_number": 12,
+      "old_source": "G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "12",
+      "final_source": "G. Izacard and E. Grave, “Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering,” *Proceedings of EACL*, pp. 874–880, 2021, doi: 10.18653/v1/2021.eacl-main.74. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2021.eacl-main.74/"
+    },
+    {
+      "old_number": 13,
+      "old_source": "X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,” *Proceedings of ACL*, pp. 12286–12312, 2023. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "13",
+      "final_source": "X. L. Li et al., “Contrastive Decoding: Open-ended Text Generation as Optimization,” *Proceedings of ACL*, pp. 12286–12312, 2023, doi: 10.18653/v1/2023.acl-long.687. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2023.acl-long.687/"
+    },
+    {
+      "old_number": 14,
+      "old_source": "P. Sarthi et al., “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,” *Proceedings of ICLR*, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "14",
+      "final_source": "P. Sarthi et al., “RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval,” *Proceedings of ICLR*, 2024. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/8a2acd174940dbca361a6398a4f9df91-Abstract-Conference.html"
+    },
+    {
+      "old_number": 15,
+      "old_source": "A. Asai et al., “Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection,” *Proceedings of ICLR*, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "15",
+      "final_source": "A. Asai et al., “Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection,” *Proceedings of ICLR*, 2024. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/25f7be9694d7b32d5cc670927b8091e1-Abstract-Conference.html"
+    },
+    {
+      "old_number": 16,
+      "old_source": "S.-Q. Yan et al., “Corrective Retrieval Augmented Generation,” arXiv:2401.15884, 2024. [스타일=참고문헌리스트]",
+      "publication_result": "기존 프리프린트와 다른 정식 논문으로 교체",
+      "final_label": "16",
+      "final_source": "S. Jeong, J. Baek, S. Cho, S. J. Hwang, and J. Park, “Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity,” *Proceedings of NAACL*, pp. 7036–7050, 2024, doi: 10.18653/v1/2024.naacl-long.389. [스타일=참고문헌리스트]",
+      "body_change": "2.7절·표2-1을 질문 복잡도 분류 기반 Adaptive-RAG의 검색 전략 선택으로 수정. CRAG의 게재·철회 상태를 확정 게재로 표현하지 않음.",
+      "official_url": "https://aclanthology.org/2024.naacl-long.389/"
+    },
+    {
+      "old_number": 17,
+      "old_source": "P. Zhao et al., “Retrieval-Augmented Generation for AI-Generated Content: A Survey,” *Data Science and Engineering*, Vol. 11, pp. 1–29, 2026, doi: 10.1007/s41019-025-00335-5. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "17",
+      "final_source": "P. Zhao et al., “Retrieval-Augmented Generation for AI-Generated Content: A Survey,” *Data Science and Engineering*, Vol. 11, No. 1, pp. 1–29, 2026, doi: 10.1007/s41019-025-00335-5. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://link.springer.com/article/10.1007/s41019-025-00335-5"
+    },
+    {
+      "old_number": 18,
+      "old_source": "D. Shin et al., “Mi:dm 2.0 Korea-centric Bilingual Language Models,” arXiv:2601.09066, 2026. [스타일=참고문헌리스트]",
+      "publication_result": "공식 모델·실험 PDF 출처로 분리",
+      "final_label": "M1",
+      "final_source": "공식 모델 카드[M1]",
+      "body_change": "모델은 M1, 실험 원문은 D4. 학술 출판 판정과 구현·자료 출처 역할을 분리.",
+      "official_url": "https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct"
+    },
+    {
+      "old_number": 19,
+      "old_source": "Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, 2023. [스타일=참고문헌리스트]",
+      "publication_result": "기존 프리프린트와 다른 정식 논문으로 교체",
+      "final_label": "18",
+      "final_source": "W. Fan et al., “A Survey on RAG Meeting LLMs: Towards Retrieval-Augmented Large Language Models,” *Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining*, pp. 6491–6501, 2024, doi: 10.1145/3637528.3671470. [스타일=참고문헌리스트]",
+      "body_change": "2.7절을 Fan 등의 아키텍처·학습 전략·응용 분류로 수정. 실제 평가의 Gao 원문 PDF는 D1로 보존.",
+      "official_url": "https://api.crossref.org/works/10.1145/3637528.3671470"
+    },
+    {
+      "old_number": 20,
+      "old_source": "N. Thakur et al., “BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models,” *Proceedings of NeurIPS Datasets and Benchmarks Track*, 2021. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "19",
+      "final_source": "N. Thakur et al., “BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models,” *Proceedings of NeurIPS Datasets and Benchmarks Track*, 2021. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/65b9eea6e1cc6bb9f0cd2a47751a186f-Abstract-round2.html"
+    },
+    {
+      "old_number": 21,
+      "old_source": "N. Muennighoff et al., “MTEB: Massive Text Embedding Benchmark,” *Proceedings of EACL*, pp. 2014–2037, 2023. [스타일=참고문헌리스트]",
+      "publication_result": "정식 학술대회·학술지 출판 확인",
+      "final_label": "20",
+      "final_source": "N. Muennighoff et al., “MTEB: Massive Text Embedding Benchmark,” *Proceedings of EACL*, pp. 2014–2037, 2023, doi: 10.18653/v1/2023.eacl-main.148. [스타일=참고문헌리스트]",
+      "body_change": "원 논문 근거 보존; DOI·공식 메타데이터와 서지 대조",
+      "official_url": "https://aclanthology.org/2023.eacl-main.148/"
+    },
+    {
+      "old_number": 22,
+      "old_source": "KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” technical report, arXiv:2603.18788v2, 2026. [스타일=참고문헌리스트]",
+      "publication_result": "공식 모델·실험 PDF 출처로 분리",
+      "final_label": "D4",
+      "final_source": "실험 원문 PDF[D4]",
+      "body_change": "모델은 M1, 실험 원문은 D4. 학술 출판 판정과 구현·자료 출처 역할을 분리.",
+      "official_url": "https://arxiv.org/abs/2603.18788v2"
+    }
+  ],
+  "new_scholarly_refs": [
+    {
+      "number": 21,
+      "source": "P. Dasigi, K. Lo, I. Beltagy, A. Cohan, N. A. Smith, and M. Gardner, “A Dataset of Information-Seeking Questions and Answers Anchored in Research Papers,” *Proceedings of NAACL*, pp. 4599–4610, 2021, doi: 10.18653/v1/2021.naacl-main.365. [스타일=참고문헌리스트]",
+      "url": "https://aclanthology.org/2021.naacl-main.365/"
+    },
+    {
+      "number": 22,
+      "source": "M. A. Sultan, J. Ganhotra, and R. F. Astudillo, “Structured Chain-of-Thought Prompting for Few-Shot Generation of Content-Grounded QA Conversations,” *Findings of EMNLP*, pp. 16172–16187, 2024, doi: 10.18653/v1/2024.findings-emnlp.948. [스타일=참고문헌리스트]",
+      "url": "https://aclanthology.org/2024.findings-emnlp.948/"
+    }
+  ],
+  "publisher_access_notes": {
+    "ACM": "Direct DL/DOI web fetch failed. Crossref publisher-deposited proceedings-article metadata used with CEDR author publication/code page and Fan author paper. This is a supplementary metadata path, not an assertion that ACM HTML was read.",
+    "CRAG": "Direct OpenReview page shows browser challenge. No confirmed publication/withdrawal claim is made; distinct formally published Adaptive-RAG supplies the related-work comparison.",
+    "model_version": "Stored experiment metadata gives generation model ID and parameters, but no weight revision SHA; current official model-card state is kept distinct from experimental revision."
+  }
+}

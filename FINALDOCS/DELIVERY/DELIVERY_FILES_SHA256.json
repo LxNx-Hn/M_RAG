@@ -1,12 +1,12 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "c8a9b7345d616c52ffe9d099c97a7f388f1fdc613f30cda62dfe427ce5c40bfb",
-    "bytes": 2671265,
+    "sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
+    "bytes": 2748213,
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "040aae64ad881e9c512cd92757e5faef0e9bcdf70b8ddffda7a855c48ae5072c",
-    "bytes": 3481603,
+    "sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
+    "bytes": 3864517,
     "hash_method": "raw bytes"
   },
   "SCHOOL_TEMPLATE_CONVERTED.hwpx": {
@@ -15,23 +15,23 @@
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.build.json": {
-    "sha256": "518d3a999f86aefac5b5e0d06ccaedb7d9d12f3ba8c84a4e145e16cdbc857582",
-    "bytes": 188372,
+    "sha256": "fdc9f54240c0da8c15dca923cb1c01d03a35ddc483346a157eba77867d4fa018",
+    "bytes": 191063,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_STRUCTURAL_QA.json": {
-    "sha256": "af09d7e4cbda688acf8534c3432ec0102cff7a53af29ad768f2b8a6f496ef39c",
-    "bytes": 29493,
+    "sha256": "dc8b115813a7fd68732a750ae3b99deae5ab3cc577ec04d099a0ab113f7ba6e2",
+    "bytes": 29773,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_EXTRACTED_TEXT.txt": {
-    "sha256": "46f5e4d834510584e50c7c6e6d5fc7efd652102fc5a1815f7327be5e3bb4d00b",
-    "bytes": 81360,
+    "sha256": "6067224431503423691cb1ae9ab6d60172160e56033b09a99b1fb5ba98c9239a",
+    "bytes": 83627,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "PAGE_MAP_60Q.json": {
-    "sha256": "93b2fe41444ff88008d303cd4deebe9c00800f7b4982174332655db5b0ca7b07",
-    "bytes": 7070,
+    "sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
+    "bytes": 7472,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "WEB_PROFESSOR_FINAL_20261016.jpg": {
@@ -47,6 +47,11 @@
   "WEB_AC63_FINAL_20261016.png": {
     "sha256": "64377b44d4088cab2fabb47b91a901a06b5fcfc92fdafde42c06fc6eafe6fc7b",
     "bytes": 102645,
+    "hash_method": "raw bytes"
+  },
+  "WEB_REEXAM_FINAL_20261017.png": {
+    "sha256": "778966234506f6aa5d6671c6917970269edf0b630fb58055a8ad9585986efcf9",
+    "bytes": 128896,
     "hash_method": "raw bytes"
   }
 }
