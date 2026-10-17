@@ -1,11 +1,92 @@
-"""Native poster protocol groups, source coverage and case content."""
+"""Native poster protocol groups, source coverage, statistics and case content."""
 
+import json
 import re
 import zipfile
 from pathlib import Path
 from lxml import etree as ET
 
 A = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
+STATS = Path(__file__).resolve().parents[1] / "DATA/TTEST_ANOVA_60Q.json"
+# The thesis reports paired t-tests and RM ANOVA without multiplicity adjustment.
+RETIRED_STATISTICS = [
+    "Holm",
+    "보정 p",
+    "보정 전",
+    "보정 후",
+    "Wilcoxon",
+    "윌콕슨",
+    "부호순열",
+    "부호 순열",
+    "sign-flip",
+    "permutation",
+]
+
+
+def expected_statistics_tables(stats):
+    """Poster ANOVA and paired-comparison cells derived from the thesis table rows."""
+    from build_ttest_anova_tables import build
+
+    tables = {t["sheet"]: t["rows"] for t in build(stats)}
+    korean, runtime = (
+        tables["T5-4_Korean_ANOVA"][1:],
+        tables["T5-5_Runtime_ANOVA"][1:],
+    )
+    anova = [["요인", "한국어 비율\nF", "p", "실행 시간\nF", "p"]] + [
+        [k[0], k[2], k[3], t[2], t[3]] for k, t in zip(korean, runtime)
+    ]
+    labels = ["HyDE\n답변 관련성", "CAD\n근거 충실도", "SCD H0\n한국어 비율"]
+    paired = [["비교", "차이\n(SD)", "t(df)", "p", "dz"]] + [
+        [label, row[5].replace(" ", "\n"), row[6].replace(" ", "\n"), row[7], row[8]]
+        for label, row in zip(labels, tables["T5-3_RQ_Paired"][1:])
+    ]
+    return anova, paired
+
+
+def table_cells(table):
+    return [
+        [
+            "\n".join(
+                "".join(p.xpath(".//a:t/text()", namespaces=A))
+                for p in cell.findall("a:txBody/a:p", A)
+            )
+            for cell in row.findall("a:tc", A)
+        ]
+        for row in table.findall("a:tr", A)
+    ]
+
+
+def svg_table_cells(document, index):
+    cells = {}
+    for node in document.xpath("//*[@data-table-cell]"):
+        t, r, c, k = map(int, node.get("data-table-cell").split(":"))
+        if t == index:
+            cells.setdefault((r, c), {})[k] = node.text or ""
+    rows = 1 + max(r for r, _ in cells)
+    cols = 1 + max(c for _, c in cells)
+    return [
+        ["\n".join(v for _, v in sorted(cells[(r, c)].items())) for c in range(cols)]
+        for r in range(rows)
+    ]
+
+
+def poster_statistics(slide, document, stats):
+    joined = "\n".join(slide.xpath(".//a:t/text()", namespaces=A))
+    joined += "\n" + "\n".join(document.itertext())
+    retired = [token for token in RETIRED_STATISTICS if token in joined]
+    if retired:
+        raise AssertionError("Retired poster statistics wording: " + ", ".join(retired))
+    tables = slide.findall(".//a:tbl", A)
+    for index, expected in zip((3, 4), expected_statistics_tables(stats)):
+        for name, actual in [
+            ("PPTX", table_cells(tables[index - 1])),
+            ("SVG", svg_table_cells(document, index)),
+        ]:
+            if actual != expected:
+                raise AssertionError(
+                    f"{name} poster table {index} differs from TTEST_ANOVA_60Q tables"
+                )
+    return {"anova_rows": 7, "paired_rows": 3, "multiplicity_adjustment": None}
 
 
 def protocol_order(codes):
@@ -45,7 +126,7 @@ def poster_reference_coverage(labels):
     return {"cited": sorted(cited, key=order), "listed": sorted(listed, key=order)}
 
 
-def validate_poster(pptx: Path, svg: Path):
+def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
     with zipfile.ZipFile(pptx) as package:
         slide = ET.fromstring(package.read("ppt/slides/slide1.xml"))
     labels = slide.xpath(".//a:t/text()", namespaces=A)
@@ -73,13 +154,24 @@ def validate_poster(pptx: Path, svg: Path):
         "By providing both the original text and higher-level summaries",
         "노드를 선택할 수 있습니다",
         "반복측정 분산분석(ANOVA)",
+        "대응 t-검정",
         "+0.080",
+        "t(59)=2.236, p=0.029",
+        "t(57)=0.862, p=0.393",
         "+21.8%p",
+        "(p<0.001)",
+        "한국어 비율 S·H×C",
+        "실행 시간 H·C·S·C×S",
+        "다중비교 보정 없는",
         "시간(초)",
     ]:
         if token not in joined:
             raise AssertionError("Missing reviewed poster content: " + token)
+    statistics = poster_statistics(
+        slide, document, json.loads(stats_path.read_text("utf-8"))
+    )
     return {
+        "statistics": statistics,
         "protocol_groups": [4, 4],
         "independent_abstract": poster_headings(labels),
         "abstract_required": False,

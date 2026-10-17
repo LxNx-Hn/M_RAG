@@ -8,7 +8,7 @@ if(outputArg<0 || !process.argv[outputArg+1]) throw new Error('--output director
 const tmp=path.resolve(process.argv[outputArg+1]);
 const fieldsArg=process.argv.indexOf('--personal-fields');
 const fields=fieldsArg<0?null:JSON.parse(await fs.readFile(process.argv[fieldsArg+1],'utf8'));
-const stats=JSON.parse(await fs.readFile(root+'/FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json','utf8'));
+const stats=JSON.parse(await fs.readFile(root+'/FINALDOCS/DATA/TTEST_ANOVA_60Q.json','utf8'));
 const data=JSON.parse(await fs.readFile(root+'/FINALDOCS/DATA/THESIS_TABLES_60Q.json','utf8'));
 const title=JSON.parse(await fs.readFile(root+'/FINALDOCS/DATA/REVISION_CONTRACT_20261015.json','utf8')).title;
 const W=594*96/25.4,H=841*96/25.4, font='Malgun Gothic';
@@ -107,7 +107,7 @@ for(const personal of fields?[false,true]:[false]) {
   text('생성 답변 발췌: “질문의 요구사항에 따라 서로 다른\n층위(layer)에서 노드를 선택할 수 있습니다.”',L,2569,C,60,18);
   text('충실도 1.000: 추출된 답변 주장을 검색 문맥이 모두 지지\n관련성 0.937: 답변 기반 질문과 원질문의 평균 의미 유사도',L,2632,C,60,18);
   text('평가: RAGAS 0.2.15[10]·gpt-4o·BGE-M3, 저장 답변 평가\nS0 영어 / S1 한국어 번역 평가 문맥, 모든 생성 문맥은 영어',L,2695,C,60,18);
-  text('반복측정 분산분석(ANOVA)·대응 t-검정·Holm, α=0.05\n품질 S별 H×C / 문자·시간 H×C×S, SCD 120·240쌍→질의60',L,2760,C,60,18,true);
+  text('반복측정 분산분석(ANOVA)·대응 t-검정, 양측 α=0.05\n품질 S별 H×C / 문자·시간 H×C×S, SCD 120·240쌍→질의60',L,2760,C,60,18,true);
   heading('05 조합별 결과와 통계 검정',R,365,C);
   text('HyDE·CAD·SCD 8조합의 품질·한국어 비율·시간 평균(SD)',R,430,C,36,18,true);
   const mets=['faithfulness','answer_relevancy','context_precision','context_recall','korean_ratio','duration_seconds'];
@@ -116,18 +116,18 @@ for(const personal of fields?[false,true]:[false]) {
   rect(R,484+72*5-1.5,C,3,purple); // Editable separator between S0 and S1 groups.
   text('S0: 영어 평가 문맥 / S1: 한국어 번역 평가 문맥\n충실도 H0C1S0 n=58, H0C0S1 n=57, 나머지 n=60\n한국어 비율·시간(초)은 생성 기록에서 직접 계산',R,1151,C,96,18);
   text('3요인 반복측정 ANOVA  ·  각 효과 df=(1,59)',R,1272,C,34,18,true);
-  const effects=['H','D','S','H:D','H:S','D:S','H:D:S'];
-  const ar=[['요인','한국어 비율\nF','보정 p','실행 시간\nF','보정 p'],...effects.map(e=>{const l=stats.anova.find(z=>z.metric==='korean_ratio'&&z.effect===e),t=stats.anova.find(z=>z.metric==='duration_seconds'&&z.effect===e);return[e.replaceAll('D','C').replaceAll(':','×'),f(l.F),p(l.p_holm),f(t.F),p(t.p_holm)];})];
+  const effects=['H','C','S','H×C','H×S','C×S','H×C×S'];
+  const ar=[['요인','한국어 비율\nF','p','실행 시간\nF','p'],...effects.map(e=>{const l=stats.rm_anova.korean_ratio.find(z=>z.effect===e),t=stats.rm_anova.duration_seconds.find(z=>z.effect===e);return[e,f(l.F),p(l.p),f(t.F),p(t.p)];})];
   table(ar,R,1323,C,51,[.19,.22,.18,.22,.19],['code','number','number','number','number']);
-  text('문자 비율·시간은 각각 7검정에 Holm 보정.\nRAGAS H×C 검정은 평가 문맥 언어별로 수행했으며,\n전체 24검정의 Holm 보정 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
+  text('p<0.05: 한국어 비율 S·H×C / 실행 시간 H·C·S·C×S\nRAGAS H×C 검정은 평가 문맥 언어별로 수행했으며,\n품질 4지표 24검정의 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
   text('기법별 대응 비교  ·  질의별 평균 차이, 양측 검정',R,1870,C,36,18,true);
-  const selected=[stats.paired.find(z=>z.factor==='HyDE'&&z.metric==='answer_relevancy'),stats.paired.find(z=>z.factor==='CAD'&&z.metric==='faithfulness'),stats.paired.find(z=>z.factor==='SCD_H0_same_context')];
-  table([['비교','차이\n(SD)','t(df)','보정 전\np','보정 후\np'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean)+'\n('+f(z.sd)+')',f(z.t)+'\n('+z.df+')',p(z.p),p(z.p_holm)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
-  text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\n보정: HyDE·CAD 각 4지표, SCD 주·전체 비교 2검정\nSCD 차이 +0.218은 한글 비중 +21.8%p에 해당\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,120,18);
+  const selected=['RQ1_HyDE_answer_relevancy','RQ2_CAD_faithfulness','RQ3_SCD_korean_ratio_H0'].map(k=>stats.primary_paired_t[k]);
+  table([['비교','차이\n(SD)','t(df)','p','dz'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean_diff)+'\n('+f(z.sd_diff)+')',f(z.t)+'\n('+z.df+')',p(z.p),f(z.dz)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
+  text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\np: 다중비교 보정 없는 양측 p, dz: 차이 평균/차이 SD\nSCD 차이 +0.218은 한글 비중 +21.8%p에 해당\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,120,18);
   heading('06 결과 해석',R,2395,C);
-  text('HyDE 관련성은 평균 +0.080점, Holm 보정 p=0.117이었다.\nCAD 충실도는 평균 +0.029점이며 질의별 증감이 달랐다.\nSCD 주 비교의 한국어 문자 비율은 평균 21.822%p 높았다.\nCAD 시간 증가: SCD OFF +46.583초 / ON +37.747초.',R,2450,C,128,18);
+  text('HyDE 관련성은 평균 +0.080점, t(59)=2.236, p=0.029였다.\nCAD 충실도는 평균 +0.029점, t(57)=0.862, p=0.393이었다.\nSCD 주 비교의 한국어 비율은 21.822%p 높았다(p<0.001).\nCAD 시간 증가: SCD OFF +46.583초 / ON +37.747초.',R,2450,C,128,18);
   heading('07 결론',R,2592,C);
-  text('HyDE 관련성과 CAD 충실도는 Holm 보정 후 유의하지 않았다.\nSCD는 같은 영어 근거에서 한국어 사용 비중을 높였다.\nCAD는 두 SCD 상태 모두 실행 시간이 늘었다.\nHyDE 비교에는 질의 번역과 가상 문서 생성이 함께 포함됐다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2655,C,160,18);
+  text('HyDE는 C0S0에서 관련성을 높였고, CAD 충실도 차이는 유의하지 않았다.\nSCD는 같은 영어 근거에서 한국어 사용 비중을 높였다.\nCAD는 두 SCD 상태 모두 실행 시간이 늘었다.\nHyDE 비교에는 질의 번역과 가상 문서 생성이 함께 포함됐다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2655,C,160,18);
   heading('08 주요 참고문헌',L,2840,W-2*L);
   text('[1] Lewis et al. RAG. NeurIPS, 2020.\n[2] Gao et al. HyDE. ACL, 2023.\n[3] Shi et al. Context-Aware Decoding. NAACL, 2024.',L,2904,C,99,16);
   text('[4] Li et al. Language Drift and SCD. AAAI, 2026.\n[5] Chen et al. M3-Embedding. ACL Findings, 2024.\n[10] Es et al. RAGAs. EACL Demonstrations, 2024.',R,2904,C,99,16);
@@ -136,7 +136,7 @@ for(const personal of fields?[false,true]:[false]) {
   text('학술 22편·모델·자료 출처: FINALDOCS/VALIDATION/REFERENCES.md · 통계·민감도: 동봉 상세표',L,3082,W-2*L,30,16);
   text('영어 문서 4종 · 질의 60개 · 생성 모델 1종 · 질의별 반복측정',L,3115,W-2*L,26,14,false,purple);
   text('A1 594 × 841 mm',L,3138,W-2*L,24,10.5,false,purple,'right');
-  sl.speakerNotes.text='Research sources and full statistics: FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json; FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md. The exploratory analysis uses query-level repeated measures and Holm-adjusted hypothesis families. Editable tables follow explicit data-type alignment. Reference [4] https://ojs.aaai.org/index.php/AAAI/article/view/40417; [8] https://doi.org/10.1145/3331184.3331317 is conceptual ranking background, not the implemented CEDR architecture. [M1] https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct; [M2] https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2. The English case evidence is a contiguous saved context excerpt (PDF p.9), reference evidence is on PDF p.20. References follow manuscript numbering.';
+  sl.speakerNotes.text='Research sources and full statistics: FINALDOCS/DATA/TTEST_ANOVA_60Q.json; FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md. The exploratory analysis uses query-level paired t-tests and repeated-measures ANOVA with two-sided alpha 0.05 and no multiplicity adjustment. Editable tables follow explicit data-type alignment. Reference [4] https://ojs.aaai.org/index.php/AAAI/article/view/40417; [8] https://doi.org/10.1145/3331184.3331317 is conceptual ranking background, not the implemented CEDR architecture. [M1] https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct; [M2] https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2. The English case evidence is a contiguous saved context excerpt (PDF p.9), reference evidence is on PDF p.20. References follow manuscript numbering.';
   await (await PresentationFile.exportPptx(pres)).save(out+'/candidate.pptx');
   await fs.writeFile(out+'/M_RAG_A1_FINAL_EDITABLE.svg',`<svg xmlns="http://www.w3.org/2000/svg" width="594mm" height="841mm" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="white"/>${svg.join('')}</svg>`);
   await fs.writeFile(out+'/scene_text.json',JSON.stringify(texts,null,2));
