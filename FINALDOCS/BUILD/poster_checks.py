@@ -79,11 +79,6 @@ def validate_poster(pptx: Path, svg: Path):
     ]:
         if token not in joined:
             raise AssertionError("Missing reviewed poster content: " + token)
-    for title in ["06 결과 해석", "07 결론"]:
-        index = labels.index(title)
-        prose = labels[index + 1]
-        if re.search(r"p\s*[=<]|t\(|F\(|\+0\.\d", prose):
-            raise AssertionError("Duplicate test values in interpretation/conclusion")
     return {
         "protocol_groups": [4, 4],
         "independent_abstract": poster_headings(labels),

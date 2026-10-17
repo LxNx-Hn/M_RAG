@@ -71,10 +71,10 @@ class ProseReviewTests(unittest.TestCase):
 
     def test_scientific_negatives_are_retained(self):
         for phrase in (
-            "유의수준 0.05보다 높았다",
+            "유의하지 않았다",
             "p=0.393",
-            "계산 대상 문자 수가 0인 답변",
-            "ON/OFF",
+            "분모가 0인 답변",
+            "ON−OFF",
         ):
             self.assertIn(phrase, self.text)
         validate_prose(self.text)
@@ -134,12 +134,22 @@ class AcademicRegressionTests(unittest.TestCase):
 
     def test_reintroduced_errors(self):
         for correct, error in (
-            ("검색 문맥으로 지칭한다", "검색 문맥가 달라졌다"),
-            ("보정 후 p=0.117", "신뢰구간는 [+0.1880"),
-            ("Holm 보정을 적용하였다", "HyDE와 CAD의 통제 비교"),
-            ("100,000회", "200,000회"),
+            ("검색 문맥과 답변이 함께", "검색 문맥가 답변이 함께"),
+            ("95% 신뢰구간은", "95% 신뢰구간는"),
+            (
+                "대응 t-검정과 반복측정 ANOVA를 사용하였다.",
+                "대응 t-검정과 반복측정 ANOVA를 사용하고 Holm 보정을 적용하였다.",
+            ),
+            (
+                "유의수준은 양측 0.05로 정하였다.",
+                "유의수준은 양측 0.05로 정하였다. Wilcoxon 검정을 추가하였다.",
+            ),
+            (
+                "유의하지 않았다(t(57)=0.862, p=0.393",
+                "유의하였다(t(57)=0.862, p=0.393",
+            ),
             ("Shi 외[3]의 CAD 로짓 결합을", "Shi 외[3]의 CAD 점수 합산을"),
-            ("Lewis 외[1]는", "Lewis 외[1]은"),
+            ("Lewis 외[1]의 RAG는", "Lewis 외[1]은"),
             ("Li 외[4]는", "Li 외[4]은"),
         ):
             with self.subTest(error=error):
@@ -167,10 +177,8 @@ class AcademicRegressionTests(unittest.TestCase):
 
     def test_reported_cross_reference_and_particle_errors(self):
         for correct, broken in (
-            ("그림 2-2는 입력 질의로", "그림 2-2은 입력 질의로"),
-            ("대응쌍의 구성은 3.3절에서", "대응쌍의 구성은 5.2절에서"),
-            ("요인 효과는 5.6절에서", "요인 효과는 5.7절에서"),
-            ("답변 품질 차이는 5.7절에서", "답변 품질 차이는 5.6절에서"),
+            ("실제 문서 구간이다(그림 2-2).", "실제 문서 구간이다. 그림 2-2은 이를 나타낸다."),
+            ("Shi 외[3]는 요약 과제와", "Shi 외[3]은 요약 과제와"),
         ):
             with self.subTest(broken=broken):
                 self.assertIn(correct, self.text)
@@ -303,7 +311,7 @@ class ProfessorAcceptanceTests(unittest.TestCase):
         text = (
             (FINAL / "MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md")
             .read_text("utf-8")
-            .replace("표 3-1의 요인", "실험 조건의 요인")
+            .replace("(표 3-1)", "")
         )
         with self.assertRaisesRegex(AssertionError, "Missing body object reference"):
             validate_manuscript(

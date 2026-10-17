@@ -1,10 +1,11 @@
-"""Check the professor-revised thesis against source records and typed objects."""
+"""Check the revised thesis against source records and typed objects."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -14,6 +15,8 @@ from print_evidence_checks import validate as validate_print_evidence
 
 FINAL = Path(__file__).resolve().parents[1]
 ROOT = FINAL.parent
+sys.path.insert(0, str(FINAL / "BUILD"))
+from build_ttest_anova_tables import build as build_statistics_tables  # noqa: E402
 
 
 def require(condition, message):
@@ -26,9 +29,12 @@ def main():
         encoding="utf-8"
     )
     contract = json.loads(
-        (FINAL / "DATA/REVISION_CONTRACT_20261015.json").read_text(encoding="utf-8")
+        (FINAL / "DATA/REVISION_CONTRACT_20261018.json").read_text(encoding="utf-8")
     )
     statistics = json.loads(
+        (FINAL / "DATA/TTEST_ANOVA_60Q.json").read_text(encoding="utf-8")
+    )
+    legacy = json.loads(
         (FINAL / "DATA/FACTORIAL_STATISTICS_60Q.json").read_text(encoding="utf-8")
     )
     table_source = json.loads(
@@ -81,93 +87,28 @@ def main():
             require(
                 value == f"{s['mean']:.3f} ({s['sd']:.3f})", "Mean/SD source mismatch"
             )
-    anova_tables = [
-        t
-        for t in table_source
-        if t["sheet"]
-        in ["T5-3_Quality_S0", "T5-4_Quality_S1", "T5-5_Factorial", "T5-6_Factorial"]
-    ]
+    # Every statistics table must equal a fresh rendering of the t/ANOVA report.
+    expected_tables = {t["sheet"]: t for t in build_statistics_tables(statistics)}
+    for sheet, spec in expected_tables.items():
+        actual = next(t for t in table_source if t["sheet"] == sheet)
+        require(
+            [[str(c) for c in r] for r in actual["rows"]]
+            == [[str(c) for c in r] for r in spec["rows"]],
+            "Statistics table differs from TTEST_ANOVA_60Q.json: " + sheet,
+        )
+    anova = statistics["rm_anova"]
     require(
-        sum(len(t["rows"]) - 1 for t in anova_tables) == 38,
-        "Factorial test coverage differs",
-    )
-    require(
-        len(statistics["anova"]) == 38 and len(statistics["paired"]) == 10,
+        sum(len(v) for v in anova.values()) == 38
+        and len(statistics["primary_paired_t"]) == 3,
         "Missing statistical tests",
     )
-
-    def format_p(value):
-        return "<0.001" if value < 0.001 else f"{value:.3f}"
-
-    metric_labels = {
-        "faithfulness": "근거 충실도",
-        "answer_relevancy": "답변 관련성",
-        "context_precision": "문맥 정밀도",
-        "context_recall": "문맥 재현율",
-    }
-    for spec in anova_tables:
-        if spec["sheet"].startswith("T5-3"):
-            results = [r for r in statistics["anova"] if r["protocol"].startswith("S0")]
-        elif spec["sheet"].startswith("T5-4"):
-            results = [r for r in statistics["anova"] if r["protocol"].startswith("S1")]
-        else:
-            endpoint = (
-                "korean_ratio"
-                if spec["sheet"].startswith("T5-5")
-                else "duration_seconds"
-            )
-            results = [r for r in statistics["anova"] if r["metric"] == endpoint]
-        expected_rows = []
-        for r in results:
-            effect = r["effect"].replace("D", "C").replace(":", "×")
-            prefix = (
-                [metric_labels[r["metric"]], effect]
-                if r["metric"] in metric_labels
-                else [effect]
-            )
-            expected_rows.append(
-                prefix
-                + [
-                    f"1, {r['df2']}",
-                    f"{r['F']:.3f}",
-                    format_p(r["p"]),
-                    format_p(r["p_holm"]),
-                    f"{r['partial_eta_squared']:.3f}",
-                ]
-            )
-        require(
-            spec["rows"][1:] == expected_rows,
-            "Factorial table statistic/p/effect mismatch: " + spec["sheet"],
-        )
-    for sheet, results in [
-        ("T5-7_Paired_Quality", statistics["paired"][:8]),
-        ("T5-8_Paired_Language", statistics["paired"][8:]),
-    ]:
-        rows = next(t for t in table_source if t["sheet"] == sheet)["rows"][1:]
-        for row, r in zip(rows, results):
-            scale = 100 if sheet.endswith("Language") else 1
-            expected = [
-                r["n"],
-                f"{r['mean']*scale:.3f} ({r['sd']*scale:.3f})",
-                f"{r['t']:.3f} ({r['df']})",
-                format_p(r["p"]),
-                format_p(r["p_holm"]),
-                f"{r['dz']:.3f}",
-            ]
-            require(
-                row[1:] == expected,
-                "Paired table statistic/p/effect mismatch: " + sheet,
-            )
-    time_rows = next(t for t in table_source if t["sheet"] == "T5-2_Runtime_SD")[
-        "rows"
-    ][1:]
-    for row in time_rows:
-        r = statistics["descriptives"][row[0]]["duration_seconds"]
-        require(
-            row[1:] == [f"{r['mean']:.3f}", f"{r['sd']:.3f}"],
-            "Runtime mean/SD source mismatch",
-        )
-    for rel, digest in statistics["source_sha256"].items():
+    obs = FINAL / "DATA/FACTORIAL_OBSERVATIONS_60Q.csv"
+    require(
+        hashlib.sha256(obs.read_bytes()).hexdigest()
+        == statistics["observations_sha256"],
+        "Observation table changed after t/ANOVA analysis",
+    )
+    for rel, digest in legacy["source_sha256"].items():
         b = (ROOT / rel).read_bytes()
         require(
             digest
@@ -228,10 +169,9 @@ def main():
         "Retired redundant figure returned",
     )
     for marker in [
-        "0.117",
         "p=0.393",
+        "p=0.029",
         "질의별",
-        "Holm",
         "부분 η²",
         "영어 검색 문맥",
         "한국어 번역",
@@ -239,7 +179,7 @@ def main():
         "512개",
         "3,072",
         "track1_0035",
-        "100,000회",
+        "track1_0009",
     ]:
         require(marker in text, "Missing scientific contract: " + marker)
     require(
@@ -270,7 +210,7 @@ def main():
         "Document balance differs",
     )
     print(
-        f"PASS: professor revision, 60x8 raw evidence, {cells} cells / 14 tables / 13 figures / 11 equations / 22 references; 38 factorial tests and 10 contrasts"
+        f"PASS: t/ANOVA revision, 60x8 raw evidence, {cells} cells / {contract['tables']} tables / 13 figures / 11 equations / 22 references; 38 RM ANOVA effects and 3 primary paired t-tests"
     )
     return 0
 

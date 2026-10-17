@@ -82,6 +82,7 @@ def main() -> None:
     )
     for sentence in prose_review["retired_defensive_sentences"]:
         assert sentence not in extracted, "Retired defensive sentence remains in HWPX"
+    metadata_text = extracted.replace("FINALDOCS/DATA/evidence_manifest_60q.json", "")
     for marker in (
         "FINALDOCS/",
         "[스타일=",
@@ -91,7 +92,7 @@ def main() -> None:
         "쪽번호 자동갱신",
         "[쪽나눔]",
     ):
-        assert marker not in extracted, f"Unresolved staging metadata: {marker}"
+        assert marker not in metadata_text, f"Unresolved staging metadata: {marker}"
     # The nine front staging entries are mapped into the original school covers.
     # They are metadata, not generic prose to print in the submission form.
     paragraphs = canonical_paragraphs(source)[9:]
@@ -145,12 +146,12 @@ def main() -> None:
                 actual_counts[paragraph] == count
             ), f"Manuscript paragraph occurrence mismatch: {paragraph[:100]}"
         tables = section.findall(".//hp:tbl", NS)
-        assert len(tables) == 16, "14 thesis tables + 2 school cover layout tables"
+        assert len(tables) == 17, "15 thesis tables + 2 school cover layout tables"
         workbook = load_workbook(
             ROOT / "FINALDOCS/TABLES/TABLES_60Q.xlsx", data_only=False
         )
         sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", source)
-        assert len(sheets) == 14
+        assert len(sheets) == 15
         cell_count = 0
         for table, name in zip(tables[2:], sheets):
             ws = workbook[name.strip()]
@@ -201,7 +202,7 @@ def main() -> None:
                 label = str(ws.cell(3, c + 1).value)
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|df|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
                         label,
                     )
                 )
@@ -305,7 +306,7 @@ def main() -> None:
         ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 13), ("표", 14)):
+        for kind, count in (("그림", 13), ("표", 15)):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
@@ -354,7 +355,7 @@ def main() -> None:
         "sha256": hashlib.sha256(args.file.read_bytes()).hexdigest(),
         "paragraphs_in_order": len(paragraphs),
         "table_cells_verified": cell_count,
-        "thesis_tables": 14,
+        "thesis_tables": 15,
         "cover_layout_tables": 2,
         "pictures": 13,
         "editable_equations": 11,
@@ -375,7 +376,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 14 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 15 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

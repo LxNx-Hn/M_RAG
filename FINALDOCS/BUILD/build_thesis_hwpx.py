@@ -113,8 +113,8 @@ def parse_manuscript(path: Path) -> list[dict]:
         pending_page_break = False
     if pending_page_break:
         raise ValueError("Dangling page-break directive")
-    if sum(e["kind"] == "table" for e in events) != 14:
-        raise ValueError("Expected exactly 14 reviewed table insertion events")
+    if sum(e["kind"] == "table" for e in events) != 15:
+        raise ValueError("Expected exactly 15 reviewed table insertion events")
     if sum(e["kind"] == "picture" for e in events) != 13:
         raise ValueError("Expected exactly 13 reviewed picture insertion events")
     return events
@@ -318,8 +318,12 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
         fractions = [0.20, 0.42, 0.38]
     elif nc == 2:
         fractions = [0.28, 0.72]
-    elif data["sheet"] in ("T5-7_Paired_Quality", "T5-8_Paired_Language"):
-        fractions = [0.23, 0.055, 0.21, 0.16, 0.10, 0.12, 0.125]
+    elif data["sheet"] == "T5-3_RQ_Paired":
+        fractions = [0.17, 0.15, 0.05, 0.12, 0.12, 0.12, 0.11, 0.08, 0.08]
+    elif data["sheet"] == "T5-6_Followup":
+        fractions = [0.25, 0.05, 0.13, 0.13, 0.13, 0.12, 0.10, 0.09]
+    elif data["sheet"] == "T5-7_Secondary":
+        fractions = [0.28, 0.07, 0.19, 0.17, 0.14, 0.15]
     elif nc == 7:
         fractions = [0.22, 0.12, 0.12, 0.13, 0.13, 0.14, 0.14]
     elif nc == 9:
@@ -396,7 +400,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 label = str(rows[0][c])
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|df|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
                         label,
                     )
                 )
@@ -496,12 +500,15 @@ def emit(
                 role in ("section", "table_caption")
                 and text.startswith(
                     (
+                        "[표 2-1]",
                         "[표 3-3]",
                         "[표 4-2]",
                         "[표 5-2]",
                         "[표 5-4]",
                         "[표 B-2]",
                         "5.5 조합별 평가 결과",
+                        "5.3 실험 조건 및 평가 절차",
+                        "5.8 종합 논의",
                         "B.2 문서별 및 질문 유형별 탐색 분석",
                         "5.9 실험 범위와 해석 기준",
                         "6.3 적용 시 실험 조건 선택",

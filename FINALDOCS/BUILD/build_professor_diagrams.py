@@ -179,7 +179,7 @@ def main():
     d.box(980, 700, 740, 155, "H×C×S 반복측정 ANOVA\n문자 비율·시간 n=60", GREEN, 40)
     d.arrow("450,610 450,680")
     d.arrow("1350,610 1350,680")
-    d.text(900, 965, "질의별 대응 차이 t 검정 · 평균(SD) · 효과크기 · Holm 보정", 42)
+    d.text(900, 965, "질의별 대응 t-검정 · 반복측정 ANOVA · 평균(SD) · 효과크기", 42)
     drawings[FIG / "fig5_0_evaluation_design.svg"] = d.svg()
     poster = args.poster_svg.read_text(encoding="utf-8")
     import re

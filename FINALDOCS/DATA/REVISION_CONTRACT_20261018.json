@@ -1,0 +1,50 @@
+{
+ "date": "2026-10-18",
+ "title": "한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험",
+ "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries",
+ "tables": 15,
+ "figures": 13,
+ "equations": 11,
+ "references": 22,
+ "literature_figures": 4,
+ "usage_hyperlinks": 4,
+ "sheets": [
+  "T2-1_Related_Work",
+  "T3-1_Factorial_Design",
+  "T4-1_Environment",
+  "T5-1_Mean_SD",
+  "T5-2_Runtime_SD",
+  "T5-3_RQ_Paired",
+  "T5-4_Korean_ANOVA",
+  "T5-5_Runtime_ANOVA",
+  "T5-6_Followup",
+  "T5-7_Secondary",
+  "Appendix_Queries",
+  "Appendix_Paper",
+  "Appendix_QueryType",
+  "Appendix_Quality_S0",
+  "Appendix_Quality_S1"
+ ],
+ "case_figures": {
+  "E01": "5-2",
+  "E06": "B-1",
+  "E04": "B-2",
+  "E05": "B-3",
+  "E02": "B-4",
+  "E03": "B-5"
+ },
+ "statistics": {
+  "source": "FINALDOCS/DATA/TTEST_ANOVA_60Q.json",
+  "methods": [
+   "paired t-test",
+   "repeated-measures ANOVA"
+  ],
+  "multiplicity_adjustment": null,
+  "primary_metrics": {
+   "RQ1": "HyDE answer_relevancy H1C0S0-H0C0S0",
+   "RQ2": "CAD faithfulness H0C1S0-H0C0S0",
+   "RQ3": "SCD korean_ratio HyDE OFF averaged over CAD"
+  }
+ },
+ "supersedes": "FINALDOCS/DATA/REVISION_CONTRACT_20261015.json"
+}

@@ -189,15 +189,11 @@ def validate_academic_text(text):
             raise AssertionError(f"academic regression: {error}")
     if re.search(r"(?:Lewis|Shi|Li) 외\[\d+\]은", text):
         raise AssertionError("reviewed author particle error returned")
-    evaluation = text.split("## 2.6 RAG 평가", 1)[1].split("## 2.7", 1)[0]
-    if "3.3절에서" not in evaluation or "5.4절에서" not in evaluation:
-        raise AssertionError("evaluation cross-reference regression")
-    if "부트스트랩" in evaluation or "5.2절" in evaluation:
-        raise AssertionError("evaluation theory/statistics placement regression")
-    cad = text.split("## 2.4 Context-Aware Decoding", 1)[1].split("## 2.5", 1)[0]
-    if "요인 효과는 5.6절" not in cad or "답변 품질 차이는 5.7절" not in cad:
-        raise AssertionError("CAD time/quality cross-reference regression")
-    for kind, count in (("그림", 13), ("표", 14)):
+    body = text.split("# 1. 서론", 1)[1].split("# 참고문헌", 1)[0]
+    for method in ("Holm", "Wilcoxon", "부호 순열", "Shapiro", "부트스트랩", "보정 p"):
+        if method in body:
+            raise AssertionError("statistics beyond paired t/RM ANOVA returned: " + method)
+    for kind, count in (("그림", 13), ("표", 15)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",
             text,
@@ -219,19 +215,19 @@ def validate_academic_text(text):
         ):
             raise AssertionError("separate source paragraph missing: figure " + number)
     for marker in [
-        "100,000회",
-        "20261015",
-        "Holm",
-        "질의별 두 차이 또는 네 차이",
+        "대응 t-검정",
+        "반복측정 ANOVA",
+        "질의별로 두 차이를 먼저 평균",
         "SCD OFF n=58, ON n=57",
-        "보정 후 p=0.117",
-        "t(57)=0.862",
-        "3요인 2수준 완전요인설계",
-        "SCD ON의 평가에는 저장된 영어 문맥을",
+        "t(59)=2.236, p=0.029",
+        "t(57)=0.862, p=0.393",
+        "탐색적 분석",
+        "2³ 완전요인설계",
+        "한국어 번역한 평가용 문맥",
     ]:
         if marker not in text:
             raise AssertionError("reviewed analysis contract missing: " + marker)
-    if re.search(r"유의(?:하|한).*p\s*=\s*0\.(?:117|393)", text):
+    if re.search(r"유의(?:하였|했|한)[^.]*p\s*=\s*0\.(?:393|097|088)", text):
         raise AssertionError("Nonsignificant p described as significant")
     if "\tWin\tLoss\tTie\t" in text:
         raise AssertionError("English direction columns returned")
@@ -246,9 +242,9 @@ def validate_manuscript(text, tables):
     for token in [
         "# 목    차",
         "한국어를 포함한",
-        "원정밀도",
-        "대응 차이의 SD를 사용",
-        "구분선을 표시",
+        "평균(SD)",
+        "질의별 차이의 표준편차",
+        "위쪽 네 행은 영어 문맥",
     ]:
         if token not in text:
             raise AssertionError(

@@ -1,5 +1,7 @@
 # 최종 제출 패키지 정리 결과
 
+이 보고서의 파일 수·용량·49쪽·해시는 정리 커밋 f62b7ff 시점의 기록이다. 후속 문체 교정으로 갱신한46쪽 제출본은 [PROSE_REVIEW.md](PROSE_REVIEW.md)와 [CURRENT_AUDIT.md](CURRENT_AUDIT.md)를 따른다.
+
 ## A. 정리 이전 저장소
 
 기준 HEAD `86a4a8d623201ee4bf925ae873513e8797b1dbd7`, 복구 annotated tag `pre-finaldocs-cleanup-20261018`. 원격에 복구 태그를 보존했다. main은 유지하며 `codex/finaldocs-cleanup-20261017`을 PR로 제출한다. 원래 추적 파일 1,242개, 297,192,456바이트(283.42MiB), VALIDATION 547개, BUILD 21개다. BUILD·VALIDATION 직접 Python 검사/생성 스크립트 24개, 테스트 파일 9개·테스트 메서드 68개였다. HISTORY 199개·41,585,622바이트와 검증 이미지 246개를 조사했다. 용량은 추적 작업 파일의 실제 바이트 합계이며 Git 객체·미추적 캐시는 제외한다.
