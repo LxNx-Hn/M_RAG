@@ -198,6 +198,8 @@ def validate_academic_text(text):
             r"아니(?:다|라)|(?:확인|판단)하기\s*어렵", unit["text"]
         ):
             raise AssertionError("defensive negative prose in body: " + unit["text"])
+    if "검색 문맥" in body:
+        raise AssertionError("abstract term '검색 문맥' returned; use 검색 결과")
     for kind, count in (("그림", 13), ("표", 15)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",
@@ -228,7 +230,7 @@ def validate_academic_text(text):
         "t(57)=0.862, p=0.393",
         "탐색적 분석",
         "2³ 완전요인설계",
-        "한국어 번역한 평가용 문맥",
+        "한국어로 번역하여 평가에 사용",
     ]:
         if marker not in text:
             raise AssertionError("reviewed analysis contract missing: " + marker)
@@ -249,7 +251,7 @@ def validate_manuscript(text, tables):
         "한국어를 포함한",
         "평균(SD)",
         "질의별 차이의 표준편차",
-        "위쪽 네 행은 영어 문맥",
+        "위쪽 네 행은 영어 검색 결과",
     ]:
         if token not in text:
             raise AssertionError(

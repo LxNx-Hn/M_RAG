@@ -1,6 +1,10 @@
-# 2026-10-15 통계 보고 기준
+# 현재 통계 보고 기준 · 2026-10-18
 
-현재 논문·포스터의 통계 기준은 `FACTORIAL_STATISTICS_60Q.json`이다. 8조건 평균(SD), 품질의 S0·S1별 H×C 반복측정 ANOVA 24건, 문자 비율·시간의 H×C×S 검정 각 7건, 대응 비교와 Holm 보정을 사용한다. 반복측정 단위는 질의 60개이며, SCD 120·240쌍은 질의별 차이로 평균해 분석한다. HyDE 답변 관련성의 보정 p=0.117, CAD 근거 충실도의 보정 p=1.000, SCD 주·전체 문자 비율의 보정 p<0.001이다. 아래 부트스트랩 수치와 원자료 해시는 보조 분석의 재현 기록이다. 최종 판정은 `VALIDATION/RESEARCH_PROVENANCE.md`와 원고의 검정표를 따른다.
+현재 논문·포스터의 통계 기준은 `TTEST_ANOVA_60Q.json`이다. 두 조건 비교는 대응 t-검정, 세 기법의 주효과·상호작용은 반복측정 ANOVA로 분석하며 다중비교 보정 없이 각 검정의 양측 p를 보고한다. 반복측정 단위는 질의 60개이고, SCD 120·240쌍은 질의별 차이로 평균해 n=60으로 검정한다. RQ1 HyDE 답변 관련성 t(59)=2.236, p=0.029; RQ2 CAD 근거 충실도 t(57)=0.862, p=0.393; RQ3 SCD 한국어 문자 비율 t(59)=13.951, p<0.001이다.
+
+## 이력: 2026-10-15 통계 보고 기준
+
+당시 기준은 `FACTORIAL_STATISTICS_60Q.json`이었고 Holm 보정(HyDE p=0.117, CAD p=1.000)과 Wilcoxon·부호 순열 민감도 분석을 사용했다. 아래 부트스트랩 수치와 원자료 해시는 그 이전 보조 분석의 재현 기록이며 현재 결론의 근거가 아니다.
 
 ---
 
@@ -26,7 +30,7 @@
 
 ## 평가 및 통계
 
-RAGAS 0.2.15에서 OpenAI gpt-4o judge와 BAAI/bge-m3 embedding을 사용하였다. SCD OFF는 저장된 영어 검색 문맥을, SCD ON은 gpt-4o로 한국어 변환한 평가 문맥을 사용하였다. Paired bootstrap은 query를 재표집 단위로 200,000회 수행했고 seed는 20260713이다. HyDE ON의 hypothetical document는 configuration별 sampling으로 생성되어 조건별 기술 비교에서 검색 문맥 변화와 함께 해석한다.
+RAGAS 0.2.15에서 OpenAI gpt-4o judge와 BAAI/bge-m3 embedding을 사용하였다. SCD OFF는 저장된 영어 검색 결과를, SCD ON은 gpt-4o로 한국어로 번역한 검색 결과를 사용하였다. Paired bootstrap은 query를 재표집 단위로 200,000회 수행했고 seed는 20260713이다. HyDE ON의 hypothetical document는 configuration별 sampling으로 생성되어 조건별 기술 비교에서 검색 문맥 변화와 함께 해석한다.
 
 | 항목 | 값 |
 |---|---:|

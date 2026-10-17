@@ -8,6 +8,8 @@ on:
       - 'FINALDOCS/POSTER/FINAL/rebuild_exports.py'
       - 'FINALDOCS/BUILD/poster_alignment.py'
       - 'FINALDOCS/BUILD/poster_checks.py'
+      - 'FINALDOCS/BUILD/build_ttest_anova_tables.py'
+      - 'FINALDOCS/DATA/TTEST_ANOVA_60Q.json'
       - 'FINALDOCS/VALIDATION/package_checks.py'
       - 'FINALDOCS/VALIDATION/ARTIFACT_MANIFEST.json'
       - '.github/workflows/sync_corrected_a1_poster.yml'
@@ -26,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
-          python -m pip install --quiet lxml pillow pymupdf fonttools
+          python -m pip install --quiet lxml pillow pymupdf fonttools openpyxl==3.1.5
       - name: Verify protected submission files
         run: python -m FINALDOCS.VALIDATION.package_checks --poster
       - name: Render temporary exports and verify editable PPTX

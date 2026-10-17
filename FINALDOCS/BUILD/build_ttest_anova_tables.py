@@ -199,12 +199,12 @@ def build(stats: dict) -> list[dict]:
         },
         {
             "sheet": "Appendix_Quality_S0",
-            "title": "표 B-3 SCD OFF 영어 평가 문맥의 품질 지표 H×C 반복측정 ANOVA",
+            "title": "표 B-3 SCD OFF 영어 평가의 품질 지표 H×C 반복측정 ANOVA",
             "rows": [quality_header] + anova_rows(a["quality_S0"], with_metric=True),
         },
         {
             "sheet": "Appendix_Quality_S1",
-            "title": "표 B-4 SCD ON 한국어 번역 평가 문맥의 품질 지표 H×C 반복측정 ANOVA",
+            "title": "표 B-4 SCD ON 한국어 번역 평가의 품질 지표 H×C 반복측정 ANOVA",
             "rows": [quality_header] + anova_rows(a["quality_S1"], with_metric=True),
         },
     ]
