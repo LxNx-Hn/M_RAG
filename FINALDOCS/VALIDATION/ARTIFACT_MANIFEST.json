@@ -67,7 +67,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "61a8fbdf547c3153d1c6f0c5c4c7ba70e1ac15ef3a75ef162b03bb160a3e8fb2",
+      "sha256": "25b468b1449466c06d4182f8cf4f9c45f6149b96380d4af0ff554ce19b447e65",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
@@ -75,7 +75,7 @@
       "change_note": "2026-10-18 Korean academic prose revision; measured data unchanged; PROSE_REVIEW.md contains complete before/after and rendering checks"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "0c31a7afabc2c41a7f411281ed1da429fa94623bc3350bb0c8000c1629faefca",
+      "sha256": "3179805e9d7ec05d14560df1be9f982382df317436d2585d897929cf0a491829",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
@@ -83,7 +83,7 @@
       "change_note": "2026-10-18 Korean academic prose revision; measured data unchanged; PROSE_REVIEW.md contains complete before/after and rendering checks"
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "bb372eb1acfc4be3f7849242f276bad3c4be6e59d73ccd75101f4f348526a4eb",
+      "sha256": "b1db21f1c8fa31f348af928eeead33ea1ac62f58b86aedb70961695691e2974a",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -277,7 +277,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "19c4cae2236a9693b7b7285404074f56acec2d3842ab00247f6b4d4a6275427b",
+      "sha256": "8dafd28c66c26735f3df3ae837c41d43c4ddabee92efab99b672202ddf0eba19",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
@@ -1964,7 +1964,7 @@
   "ttest_anova_revision": {
     "date": "2026-10-18",
     "statistics": "paired t-test and repeated-measures ANOVA only; no multiplicity adjustment",
-    "pdf": "Hancom Web export M_RAG_TTEST_ANOVA_20261018_v3.pdf, 48 pages",
+    "pdf": "Hancom Web export M_RAG_TTEST_ANOVA_20261018_v11.pdf, 51 pages",
     "legacy_statistics_preserved": "FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json",
     "poster": {
       "changed_masters_or_metadata": [
