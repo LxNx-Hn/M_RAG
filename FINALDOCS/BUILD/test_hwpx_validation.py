@@ -117,9 +117,7 @@ class ContentCorruptionTests(unittest.TestCase):
 
     def test_retired_defensive_prose_only_in_hwpx(self):
         review = json.loads(
-            (ROOT / "FINALDOCS/VALIDATION/PROSE_SENTENCE_REVIEW.json").read_text(
-                encoding="utf-8"
-            )
+            (ROOT / "FINALDOCS/VALIDATION/TEXT_REVIEW.json").read_text(encoding="utf-8")
         )
 
         def change(section, parts):

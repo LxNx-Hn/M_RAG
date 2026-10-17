@@ -1,13 +1,18 @@
 import fs from 'node:fs/promises';
 import { SpreadsheetFile, FileBlob } from '@oai/artifact-tool';
 import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const data=JSON.parse(await fs.readFile(`${root}/FINALDOCS/DATA/THESIS_TABLES_60Q.json`,'utf8'));
 const target=`${root}/FINALDOCS/TABLES/TABLES_60Q.xlsx`;
+const outputIndex=process.argv.indexOf('--output');
+if(outputIndex>=0 && !process.argv[outputIndex+1]) throw new Error('--output requires a file path');
+const output=outputIndex<0?`${root}/tmp/finaldocs/tables/TABLES_60Q.xlsx`:path.resolve(process.argv[outputIndex+1]);
+await fs.mkdir(path.dirname(output),{recursive:true});
 const wb=await SpreadsheetFile.importXlsx(await FileBlob.load(target));
-await fs.mkdir(`${root}/tmp/ac63/xlsx`,{recursive:true});
+await fs.mkdir(`${root}/tmp/finaldocs/tables`,{recursive:true});
 const before=await wb.render({sheetName:'T5-1_Mean_SD',range:'A3:F11',scale:1.5});
-await fs.writeFile(`${root}/tmp/ac63/xlsx/before.png`,new Uint8Array(await before.arrayBuffer()));
+await fs.writeFile(`${root}/tmp/finaldocs/tables/before.png`,new Uint8Array(await before.arrayBuffer()));
 for (const t of data) {
   const sh=wb.worksheets.getItem(t.sheet), n=t.rows.length, c=t.rows[0].length;
   sh.showGridLines=false;
@@ -39,7 +44,7 @@ for (const t of data) {
 }
 await wb.recalculate();
 const after=await wb.render({sheetName:'T5-1_Mean_SD',range:'A3:F11',scale:1.5});
-await fs.writeFile(`${root}/tmp/ac63/xlsx/after.png`,new Uint8Array(await after.arrayBuffer()));
+await fs.writeFile(`${root}/tmp/finaldocs/tables/after.png`,new Uint8Array(await after.arrayBuffer()));
 console.log((await wb.inspect({kind:'table',range:'T5-1_Mean_SD!A3:F11',include:'values',tableMaxRows:9,tableMaxCols:6})).ndjson);
-await (await SpreadsheetFile.exportXlsx(wb)).save(`${root}/FINALDOCS/TABLES/TABLES_60Q.xlsx`);
+await (await SpreadsheetFile.exportXlsx(wb)).save(output);
 console.log('exported',data.length,'native worksheets');

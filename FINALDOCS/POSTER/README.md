@@ -1,16 +1,3 @@
-> 최신 단계: 승인된 포스터 제목으로 논문 제목을 통일하고 포스터를 재조판했다. [현재 검토 기록](../VALIDATION/FINAL_TITLE_READABILITY_AUDIT.md). 아래 과거 교정 기록의 제목 및 해시는 해당 단계 당시의 값이다.
+# 최종 A1 포스터
 
-# M-RAG 졸업논문 학술 포스터
-
-현재 교정 완료본: [A1 원제목 유지, 최신 본문 30곳을 추가 교정한 최종 포스터](A1_FINAL_TITLE_CONFIRMED_20261010/README.md)
-
-- [A1 인쇄용 PDF](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_PRINT.pdf)
-- [A1 편집용 PPTX](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx)
-- [SVG 벡터 원본](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg)
-- [300dpi PNG](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_300DPI.png)
-- [전체 패키지 ZIP](A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_DELIVERY.zip)
-- [교정 A→B 기록](A1_FINAL_TITLE_CONFIRMED_20261010/A1_FINAL_REVIEW_KO.md)
-
-원제목: **한국어 질의–영어 학술·기술 문서 RAG에서의 HyDE·CAD·SCD 조합 실험**. 제목과 그래프 수치는 유지하고 포스터의 본문을 재검토하여 이번에 30곳을 교정하였다. 누적 교정 매핑은 51개다. 실제 A→C와 출력 검증은 최종 폴더의 ACADEMIC_POLISH_CHANGES.json과 ACADEMIC_POLISH_VALIDATION.json에 기록했다.
-
-이전 교정 이력은 [A1_PURPLE_PROOFREAD](A1_PURPLE_PROOFREAD/README.md)에서 확인할 수 있다.
+현재 편집·인쇄 원본과 생성 방법은 [FINAL/README.md](FINAL/README.md)에 있다. 이전 시안은 복구 태그 pre-finaldocs-cleanup-20261018에서 확인한다.

@@ -2,13 +2,14 @@ name: Validate A1 poster exports
 on:
   push:
     paths:
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.svg'
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/A1_COPYEDIT_MAP.json'
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/M_RAG_A1_FINAL_EDITABLE.pptx'
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/POSTER_REFERENCES_FULL.md'
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/POSTER_CASES_FULL.md'
-      - 'FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010/rebuild_exports.py'
+      - 'FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg'
+      - 'FINALDOCS/POSTER/FINAL/A1_COPYEDIT_MAP.json'
+      - 'FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx'
+      - 'FINALDOCS/POSTER/FINAL/rebuild_exports.py'
       - 'FINALDOCS/BUILD/poster_alignment.py'
+      - 'FINALDOCS/BUILD/poster_checks.py'
+      - 'FINALDOCS/VALIDATION/package_checks.py'
+      - 'FINALDOCS/VALIDATION/ARTIFACT_MANIFEST.json'
       - '.github/workflows/sync_corrected_a1_poster.yml'
   workflow_dispatch:
 permissions:
@@ -26,30 +27,18 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
           python -m pip install --quiet lxml pillow pymupdf fonttools
-      - name: Verify committed poster manifest
-        run: |
-          python - <<'PY'
-          import hashlib, json
-          from pathlib import Path
-          root = Path('FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010')
-          for name, expected in json.loads((root / 'SHA256_MANIFEST.json').read_text()).items():
-              data = (root / name).read_bytes()
-              if Path(name).suffix.lower() in {'.md', '.json', '.svg'}:
-                  data = data.replace(b'\r\n', b'\n')
-              actual = hashlib.sha256(data).hexdigest()
-              assert actual == expected, name
-          PY
+      - name: Verify protected submission files
+        run: python -m FINALDOCS.VALIDATION.package_checks --poster
       - name: Render temporary exports and verify editable PPTX
         shell: bash
         run: |
-          cp -r FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010 "$RUNNER_TEMP/poster-check"
-          python "$RUNNER_TEMP/poster-check/rebuild_exports.py" --build-dir "$GITHUB_WORKSPACE/FINALDOCS/BUILD"
+          python FINALDOCS/POSTER/FINAL/rebuild_exports.py --build-dir "$GITHUB_WORKSPACE/FINALDOCS/BUILD" --output "$RUNNER_TEMP/poster-exports"
       - name: Preserve failed rendering diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: poster-rendering-diagnostics
           path: |
-            ${{ runner.temp }}/poster-check/M_RAG_A1_FINAL_PRINT.pdf
-            ${{ runner.temp }}/poster-check/M_RAG_A1_FINAL_PREVIEW.png
-            ${{ runner.temp }}/poster-check/PDF_TEXT_DIAGNOSTIC.txt
+            ${{ runner.temp }}/poster-exports/M_RAG_A1_FINAL_PRINT.pdf
+            ${{ runner.temp }}/poster-exports/M_RAG_A1_FINAL_PREVIEW.png
+            ${{ runner.temp }}/poster-exports/PDF_TEXT_DIAGNOSTIC.txt

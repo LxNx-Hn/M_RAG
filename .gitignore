@@ -47,3 +47,12 @@ backend/.alice_runtime_env.sh
 
 # Confirmed personal thesis submission stays local.
 /FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_SUBMISSION.hwpx
+
+# Regenerable submission QA, exports and dependency caches
+/tmp/
+node_modules/
+_render_fonts/
+.pytest_cache/
+*.inspect.ndjson
+/FINALDOCS/VALIDATION/HISTORY/
+/FINALDOCS/DELIVERY/versions/

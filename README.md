@@ -13,7 +13,8 @@ not the core thesis algorithm.
 papers and eight HyDE/CAD/SCD configurations, yielding 480 stored generation
 records. In the fixed comparisons, HyDE changes answer relevancy by `+0.0805`,
 CAD changes matched-context faithfulness by `+0.0288` across 58 valid pairs,
-and SCD increases the Korean-character ratio by `+0.2289`. These are
+and SCD increases the Korean-character ratio by `+0.2182` in the primary
+same-context comparison (`+0.2289` across all conditions). These are
 application-study results: HyDE concerns query-side retrieval representation,
 CAD concerns decoding under identical context, and SCD concerns output-language
 adherence. The manuscript and claim map state the metric-specific limits.
@@ -163,7 +164,7 @@ npm run build
 | `FINALDOCS/` | self-contained 60-query Korean thesis and HWP submission package |
 | `FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md` | final Korean manuscript for HWP transfer |
 | `FINALDOCS/VALIDATION/verify_finaldocs_60q.py` | read-only package completeness and claim-boundary verifier |
-| `FINALDOCS/VALIDATION/FINAL_CLAIM_MAP_60Q.md` | final claim-to-artifact map |
+| `FINALDOCS/VALIDATION/RESEARCH_PROVENANCE.md` | final claim-to-artifact map |
 | `docs/ARCHITECTURE.md` | runtime and experiment-layer architecture |
 | `experiments/configs/fixed_backbone.yaml` | fixed Paper-RAG backbone config |
 | `experiments/configs/main_hyde_cad_scd_matrix.yaml` | 8-config main matrix |

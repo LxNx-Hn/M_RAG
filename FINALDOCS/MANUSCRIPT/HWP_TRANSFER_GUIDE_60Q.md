@@ -1,6 +1,6 @@
 # 학교 양식 HWPX 편집 안내
 
-단일 원고는 GRADUATION_REPORT_TRANSFER_KO_60Q.md이며, 표는 ../TABLES/TABLES_60Q.xlsx의 14개 시트를 사용한다. HWP_COPYPASTE_TABLES_60Q.txt는 같은 값을 탭 구분 형식으로 제공한다. HWP_EQUATION_INPUTS_60Q.txt는 편집 가능한 수식 11개의 원문이다.
+단일 원고는 GRADUATION_REPORT_TRANSFER_KO_60Q.md이며, 표는 ../TABLES/TABLES_60Q.xlsx의 14개 시트를 사용한다. 표의 탭 구분 원문과11개 수식 원문은 단일 원고의 해당 삽입 블록에서 가져온다. 별도 복사본을 편집하지 않는다.
 
 현재 원고 삽입 지시를 따라 그림 13개를 배치한다. 문헌 도식 4개는 독립 개념도이며 출처 문단과 그림 자료 이용 정보를 함께 유지한다. 저장 사례 6개 중 대표 평가 예시는 5.3절, 나머지는 부록 B다. 이전 번호의 비활성 그림을 추가하지 않는다.
 

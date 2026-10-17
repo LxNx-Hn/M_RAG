@@ -16,18 +16,17 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r FINALDOCS/BUILD/requirements.txt
-      - name: Reproduce statistics from immutable 480 records
-        run: |
-          pip install -r FINALDOCS/VALIDATION/requirements-statistics.txt
-          python -X utf8 FINALDOCS/VALIDATION/verify_statistics_reproduction.py
-      - name: Validate committed thesis evidence and HWPX
-        run: |
-          python -X utf8 FINALDOCS/VALIDATION/verify_finaldocs_60q.py
-          python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
-          python -X utf8 -m unittest discover -s FINALDOCS/VALIDATION -p 'test_*.py'
-          python -X utf8 -m unittest discover -s FINALDOCS/BUILD -p 'test_*.py'
+      - run: pip install -r FINALDOCS/VALIDATION/requirements-statistics.txt
+      - name: Validate thesis, research, poster and package
+        run: python -X utf8 -m FINALDOCS.VALIDATION.validate_all --output "$RUNNER_TEMP/finaldocs-checks"
       - name: Rebuild from school template and verify again
         run: |
-          python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json
-          python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py
+          python -X utf8 FINALDOCS/BUILD/build_thesis_hwpx.py --template FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_CONVERTED.hwpx --page-map FINALDOCS/DELIVERY/PAGE_MAP_60Q.json --output "$RUNNER_TEMP/thesis-rebuild"
+          python -X utf8 FINALDOCS/BUILD/verify_thesis_hwpx.py --file "$RUNNER_TEMP/thesis-rebuild/GRADUATION_REPORT_60Q_FINAL.hwpx" --report-dir "$RUNNER_TEMP/thesis-rebuild-checks"
           python -m compileall -q FINALDOCS/BUILD FINALDOCS/VALIDATION/verify_finaldocs_60q.py
+      - name: Preserve validation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-validation
+          path: ${{ runner.temp }}/finaldocs-checks/VALIDATION_RESULT.json

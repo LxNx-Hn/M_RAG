@@ -8,10 +8,9 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from academic_language_checks import validate_academic_text
+from manuscript_checks import validate_academic_text, validate_submission_assets
 from openpyxl import load_workbook
 from print_evidence_checks import validate as validate_print_evidence
-from submission_audit_checks import validate_submission_assets
 
 FINAL = Path(__file__).resolve().parents[1]
 ROOT = FINAL.parent

@@ -7,9 +7,7 @@ from pathlib import Path
 from lxml import etree
 from poster_alignment import validate_alignment, NS
 
-FOLDER = (
-    Path(__file__).resolve().parents[1] / "POSTER/A1_FINAL_TITLE_CONFIRMED_20261010"
-)
+FOLDER = Path(__file__).resolve().parents[1] / "POSTER/FINAL"
 
 
 class PosterAlignmentTests(unittest.TestCase):

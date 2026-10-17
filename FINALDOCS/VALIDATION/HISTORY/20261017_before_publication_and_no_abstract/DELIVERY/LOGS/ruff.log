@@ -1,3 +1,0 @@
-COMMAND: python -m ruff check FINALDOCS/BUILD FINALDOCS/VALIDATION/verify_finaldocs_60q.py
-EXIT: 0
-All checks passed!

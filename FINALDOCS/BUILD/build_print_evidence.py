@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 import re
 import sys
@@ -177,6 +178,10 @@ def render(view: dict, path: Path) -> tuple[int, int]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=ROOT / "tmp/finaldocs/evidence")
+    args = parser.parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
     cases = json.loads(
         (ROOT / "FINALDOCS/DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
     )["cases"]
@@ -198,13 +203,13 @@ def main() -> None:
                 if same
                 else "A/B 검색 문맥, 검색 및 재정렬 ID 변경"
             )
-        path = OUT / CASE_FILENAMES[case["case_id"]]
+        path = args.output / CASE_FILENAMES[case["case_id"]]
         view["image_size"] = render(view, path)
-        view["image"] = path.relative_to(ROOT).as_posix()
+        view["image"] = (OUT / path.name).relative_to(ROOT).as_posix()
         view["image_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
         views.append(view)
         print(case["case_id"], view["image_size"])
-    MANIFEST.write_text(
+    (args.output / MANIFEST.name).write_text(
         json.dumps(
             {"font_px": FONT_SIZE, "width_px": WIDTH, "cases": views},
             ensure_ascii=False,

@@ -62,8 +62,12 @@ def main() -> None:
         type=Path,
         default=ROOT / "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx",
     )
+    parser.add_argument(
+        "--report-dir", type=Path, default=ROOT / "tmp/finaldocs/hwpx_checks"
+    )
     args = parser.parse_args()
     delivery = args.file.parent
+    args.report_dir.mkdir(parents=True, exist_ok=True)
     source = (
         ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
     ).read_text(encoding="utf-8")
@@ -74,9 +78,7 @@ def main() -> None:
     extracted = document.text.plain()
     assert "\ufffd" not in extracted, "Unicode replacement character detected"
     prose_review = json.loads(
-        (ROOT / "FINALDOCS/VALIDATION/PROSE_SENTENCE_REVIEW.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "FINALDOCS/VALIDATION/TEXT_REVIEW.json").read_text(encoding="utf-8")
     )
     for sentence in prose_review["retired_defensive_sentences"]:
         assert sentence not in extracted, "Retired defensive sentence remains in HWPX"
@@ -251,11 +253,6 @@ def main() -> None:
             if "\t" not in block
         ]
         assert scripts == equation_blocks and len(scripts) == 11
-        eq_input = (
-            ROOT / "FINALDOCS/MANUSCRIPT/HWP_EQUATION_INPUTS_60Q.txt"
-        ).read_text(encoding="utf-8")
-        for script in scripts:
-            assert norm(script) in norm(eq_input), script
         template = zipfile.ZipFile(delivery / "SCHOOL_TEMPLATE_CONVERTED.hwpx")
         original_header = ET.fromstring(template.read("Contents/header.xml"))
         layout_report = validate_layout(header, section)
@@ -368,12 +365,12 @@ def main() -> None:
         "school_styles_preserved": True,
         "package_and_xml": "PASS",
         "layout": layout_report,
-        "web_rendering": "see ../VALIDATION/REEXAM_FINAL_AUDIT_20261017.md and REEXAM_QA/",
+        "web_rendering": "see ../VALIDATION/CURRENT_AUDIT.md and PROFESSOR_FEEDBACK.md",
     }
-    (delivery / "HWPX_STRUCTURAL_QA.json").write_text(
+    (args.report_dir / "HWPX_STRUCTURAL_QA.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    (delivery / "HWPX_EXTRACTED_TEXT.txt").write_text(
+    (args.report_dir / "HWPX_EXTRACTED_TEXT.txt").write_text(
         "\n".join(line.rstrip() for line in extracted.splitlines()) + "\n",
         encoding="utf-8",
     )

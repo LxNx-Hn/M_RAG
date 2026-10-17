@@ -21,7 +21,7 @@ from statsmodels.stats.multitest import multipletests
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments/analyzers"))
-from analyze_extended_validation_60 import (
+from analyze_extended_validation_60 import (  # noqa: E402 - repository-local analyzer bootstrap
     DEFAULT_NEW_GENERATION,
     DEFAULT_OLD_GENERATION,
     DEFAULT_OLD_SCORES,

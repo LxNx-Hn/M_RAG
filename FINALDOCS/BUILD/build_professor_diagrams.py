@@ -49,10 +49,18 @@ class Drawing:
 
 
 def main():
+    global FIG
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inkscape", type=Path, required=True)
-    parser.add_argument("--poster-svg", type=Path, required=True)
+    parser.add_argument(
+        "--poster-svg",
+        type=Path,
+        default=ROOT / "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg",
+    )
+    parser.add_argument("--output", type=Path, default=ROOT / "tmp/finaldocs/figures")
     args = parser.parse_args()
+    FIG = args.output
+    (FIG / "LITERATURE").mkdir(parents=True, exist_ok=True)
     drawings = {}
     d = Drawing(1800, 630)
     d.text(900, 74, "한국어 질의로 영어 자료를 이용하는 질의응답")
@@ -260,7 +268,7 @@ def main():
             {
                 "review_date": "2026-10-15",
                 "figures": records,
-                "retained_legacy": "Original six crops and provenance retained in repository/history; not embedded in revised manuscript.",
+                "retained_legacy": "Previous source-art crops are recoverable from Git tag pre-finaldocs-cleanup-20261018; not embedded in current manuscript.",
             },
             ensure_ascii=False,
             indent=2,
