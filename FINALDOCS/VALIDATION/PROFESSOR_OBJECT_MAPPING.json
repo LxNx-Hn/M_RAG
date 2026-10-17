@@ -1,0 +1,279 @@
+{
+  "그림": [
+    {
+      "old_number": "1-1",
+      "old_title": "한국어 질의와 영어 학술 및 기술 문서를 사용하는 RAG 실험 환경",
+      "current_location": "그림1-1 재작성",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-1",
+      "old_title": "RAG의 검색기–생성기 구조",
+      "current_location": "그림2-1 독립도식",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-2",
+      "old_title": "긴 문맥에서 관련 정보 위치에 따른 성능 변화",
+      "current_location": "2.2 본문 설명",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-3",
+      "old_title": "HyDE의 가상 문서 기반 검색 구조",
+      "current_location": "그림2-2 독립도식",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-4",
+      "old_title": "Context-Aware Decoding의 분포 대조 구조",
+      "current_location": "그림2-3 독립도식",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-5",
+      "old_title": "다국어 RAG의 출력 언어 이탈 사례",
+      "current_location": "그림2-4 독립도식",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "2-6",
+      "old_title": "RAGAS의 근거 충실도 높음/낮음 예시",
+      "current_location": "5.3 그림5-2 실제 평가 사례",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "3-1",
+      "old_title": "HyDE, CAD, SCD를 조합한 RAG-Cube 8개 조건",
+      "current_location": "표3-1 0/1 요인설계",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-1",
+      "old_title": "고정 Paper-RAG 백본 실행 흐름",
+      "current_location": "그림4-1 구현 흐름",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-2",
+      "old_title": "생성 기록–평가–대응 분석 흐름",
+      "current_location": "그림5-1 평가 절차로 통합",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-1",
+      "old_title": "60개 질의 평가 및 HyDE, CAD, SCD의 대응 비교 설계",
+      "current_location": "그림5-1 평가 절차로 통합",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-2",
+      "old_title": "평가 프로토콜별 RAG-Cube 조건 평균",
+      "current_location": "표5-1 평균(SD)",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-3",
+      "old_title": "HyDE 적용에 따른 검색 문맥 및 답변 변화 사례",
+      "current_location": "부록 그림B-2",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-4",
+      "old_title": "HyDE와 CAD의 주 대응 비교",
+      "current_location": "표5-7 대응 t",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-5",
+      "old_title": "동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례",
+      "current_location": "부록 그림B-3",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-6",
+      "old_title": "RAG-Cube 조건별 평균 실행 시간",
+      "current_location": "표5-2 실행 시간 평균(SD)",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-7",
+      "old_title": "SCD OFF 조건의 출력 언어 이탈 사례",
+      "current_location": "부록 그림B-4",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-8",
+      "old_title": "동일 검색 문맥에서 SCD 적용 전후 출력 언어 변화 사례",
+      "current_location": "부록 그림B-5",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-9",
+      "old_title": "SCD의 한국어 문자 비율 변화",
+      "current_location": "표5-5·5-8 요인/대응 검정",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-10",
+      "old_title": "질문, 검색 근거, 생성 답변과 평가 결과 예시",
+      "current_location": "그림5-2 방법절 실제사례",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-11",
+      "old_title": "HyDE와 CAD의 조건군별 근거 충실도 및 답변 관련성 평균 대응 차이",
+      "current_location": "부록 표B-1·B-2 조건군 분석",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "B-1",
+      "old_title": "동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 추가 사례",
+      "current_location": "부록 그림B-1",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    }
+  ],
+  "표": [
+    {
+      "old_number": "2-1",
+      "old_title": "관련 연구와 본 실험의 연결",
+      "current_location": "표2-1",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "3-1",
+      "old_title": "연구 및 실험 요구사항",
+      "current_location": "3.1 요구사항 문장",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "3-2",
+      "old_title": "RAG-Cube 8개 조건",
+      "current_location": "표3-1 완전요인설계",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "3-3",
+      "old_title": "실험 요인별 적용 위치와 비교 단위",
+      "current_location": "3.2·3.3 적용위치/분석단위 문장",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-1",
+      "old_title": "실험 실행 환경",
+      "current_location": "표4-1 공통환경",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-2",
+      "old_title": "고정 Paper-RAG 백본",
+      "current_location": "표4-1·4.2 통합",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-3",
+      "old_title": "실험 조건별 실행 시간",
+      "current_location": "표5-2 평균(SD)",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "4-4",
+      "old_title": "생성 기록의 주요 필드",
+      "current_location": "4.3 기록필드 문장",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-1",
+      "old_title": "4개 문서별 질의 구성",
+      "current_location": "5.1 문서별15개 설명",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-2",
+      "old_title": "SCD 평가 프로토콜별 RAG-Cube 조건 평균",
+      "current_location": "표5-1 평균(SD)",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-3",
+      "old_title": "HyDE 주 비교 결과",
+      "current_location": "표5-7 통합",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-4",
+      "old_title": "CAD 동일 문맥 주 비교 결과",
+      "current_location": "표5-7 통합",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-5",
+      "old_title": "SCD 조합별 한국어 문자 비율 변화",
+      "current_location": "표5-1·5-5·5-8 전체평균/요인/차이",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "5-6",
+      "old_title": "SCD 대응쌍 분석 요약",
+      "current_location": "표5-8 질의별 대응 검정",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "A-1",
+      "old_title": "60개 질의–대상 문서 쌍",
+      "current_location": "표A-1",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "B-1",
+      "old_title": "문서별 탐색 분석",
+      "current_location": "표B-1",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    },
+    {
+      "old_number": "B-2",
+      "old_title": "질문 유형별 탐색 분석",
+      "current_location": "표B-2",
+      "reason": "평가 목적에 맞춘 통합·이동·평균(SD)/검정표 또는 독립 개념도로 재구성",
+      "preservation": "원래 커밋 d4931ec와 HISTORY 유지"
+    }
+  ]
+}

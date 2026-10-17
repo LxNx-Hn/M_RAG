@@ -72,6 +72,17 @@ class ProseReviewTests(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, "unreviewed prose unit"):
             validate_prose(self.text + "\n\n질문 복잡도가 이 차이의 원인이다.")
 
+    def test_editorial_history_cannot_be_manifest_approved(self):
+        sentence = "초기 질문과 LLM 요약 대화 원본은 미보관 상태다."
+        text = self.text + "\n\n" + sentence
+        review = copy.deepcopy(self.review)
+        review["final_review"].extend(
+            dict(u, decision="retain", type="F", reason="approved")
+            for u in units(sentence)
+        )
+        with self.assertRaisesRegex(AssertionError, "forbidden editorial"):
+            validate_prose(text, review)
+
     def test_code_equations_and_original_bibliography_excluded(self):
         addition = (
             "\n```text\n원자료: 측정하지 않았다.\n```\n"

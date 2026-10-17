@@ -1,6 +1,48 @@
 {
-  "date": "2026-10-15",
-  "required_text_units": 204,
+  "date": "2026-10-17",
+  "table_alignment": {
+    "cells_checked": 159,
+    "numeric_cells_right_aligned": 88,
+    "native_and_svg_alignment_match": true
+  },
+  "professor_acceptance": {
+    "protocol_groups": [
+      4,
+      4
+    ],
+    "independent_abstract": false,
+    "abstract_required": false,
+    "case_claim_evidence": true,
+    "references": {
+      "cited": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "M1",
+        "M2"
+      ],
+      "listed": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "M1",
+        "M2"
+      ]
+    }
+  },
+  "required_text_units": 209,
   "pdf_pages": 1,
   "size_mm": [
     594.0000047471788,
@@ -13,15 +55,15 @@
     7016,
     9933
   ],
-  "pdf_sha256": "7b80eabd1e545e599aa84023a4ef7c67b170962ad0887e4d667c15df51e6837d",
-  "pptx_sha256": "5aa8cd9ba065b2ce4eeb818465767b2cbda5d58e44a7297642f9489e7e3b8f0f",
-  "svg_sha256": "edfec2818f0313d89c25261f52d6c4cf87c19934778f49d8a5f7c199725a44f8",
+  "pdf_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
+  "pptx_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
+  "svg_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
   "pdf_fonts": [
     [
       7,
       "ttf",
       "Type0",
-      "GPIYLM+MalgunGothic",
+      "WTKKPV+MalgunGothic",
       "f-0-1",
       "Identity-H",
       0
@@ -30,7 +72,7 @@
       8,
       "ttf",
       "TrueType",
-      "LBNFKR+MalgunGothic",
+      "MYFYGV+MalgunGothic",
       "f-0-0",
       "WinAnsiEncoding",
       0
@@ -38,19 +80,28 @@
     [
       9,
       "ttf",
-      "Type0",
-      "XIQYKO+MalgunGothicBold",
-      "f-1-1",
-      "Identity-H",
+      "TrueType",
+      "MAAQQC+MalgunGothicBold",
+      "f-1-0",
+      "WinAnsiEncoding",
       0
     ],
     [
       10,
       "ttf",
-      "TrueType",
-      "KGIGIU+MalgunGothicBold",
-      "f-1-0",
-      "WinAnsiEncoding",
+      "Type0",
+      "EJLJPP+MalgunGothicBold",
+      "f-1-1",
+      "Identity-H",
+      0
+    ],
+    [
+      11,
+      "ttf",
+      "Type0",
+      "ZAPSNM+Verdana",
+      "f-2-1",
+      "Identity-H",
       0
     ]
   ],

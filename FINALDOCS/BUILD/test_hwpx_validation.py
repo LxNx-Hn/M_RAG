@@ -21,6 +21,20 @@ NS = {"hp": "http://www.hancom.co.kr/hwpml/2011/paragraph"}
 
 
 class ContentCorruptionTests(unittest.TestCase):
+    def test_protocol_group_separator_required(self):
+        def change(section, parts):
+            tables = section.findall(".//hp:tbl", NS)
+            # Covers + related work + design + environment precede Table 5-1.
+            table = tables[5]
+            cells = table.findall("hp:tr", NS)[5].findall("hp:tc", NS)
+            previous = table.findall("hp:tr", NS)[4].findall("hp:tc", NS)
+            for cell, old in zip(cells, previous):
+                cell.set("borderFillIDRef", old.get("borderFillIDRef"))
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Missing S0/S1 table group border", result.stderr)
+
     def run_case(self, change=None):
         with tempfile.TemporaryDirectory() as folder:
             folder = Path(folder)

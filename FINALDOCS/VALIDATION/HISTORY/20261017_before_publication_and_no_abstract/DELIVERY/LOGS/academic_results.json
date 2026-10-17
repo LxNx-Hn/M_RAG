@@ -1,0 +1,143 @@
+[
+  {
+    "name": "academic_finaldocs",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "FINALDOCS/VALIDATION/verify_finaldocs_60q.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_finaldocs.log"
+  },
+  {
+    "name": "academic_hwpx",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "FINALDOCS/BUILD/verify_thesis_hwpx.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_hwpx.log"
+  },
+  {
+    "name": "academic_text_regressions",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "FINALDOCS/VALIDATION",
+      "-p",
+      "test_*.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_text_regressions.log"
+  },
+  {
+    "name": "academic_hwpx_corruption",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "FINALDOCS/BUILD",
+      "-p",
+      "test_*.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_hwpx_corruption.log"
+  },
+  {
+    "name": "academic_compile",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-m",
+      "compileall",
+      "-q",
+      "FINALDOCS/BUILD/build_thesis_hwpx.py",
+      "FINALDOCS/BUILD/verify_thesis_hwpx.py",
+      "FINALDOCS/BUILD/test_hwpx_validation.py",
+      "FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "FINALDOCS/VALIDATION/academic_language_checks.py",
+      "FINALDOCS/VALIDATION/test_academic_language_checks.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_compile.log"
+  },
+  {
+    "name": "academic_ruff",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "FINALDOCS/BUILD/build_thesis_hwpx.py",
+      "FINALDOCS/BUILD/verify_thesis_hwpx.py",
+      "FINALDOCS/BUILD/test_hwpx_validation.py",
+      "FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "FINALDOCS/VALIDATION/academic_language_checks.py",
+      "FINALDOCS/VALIDATION/test_academic_language_checks.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_ruff.log"
+  },
+  {
+    "name": "academic_black",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-m",
+      "black",
+      "--check",
+      "FINALDOCS/BUILD/build_thesis_hwpx.py",
+      "FINALDOCS/BUILD/verify_thesis_hwpx.py",
+      "FINALDOCS/BUILD/test_hwpx_validation.py",
+      "FINALDOCS/VALIDATION/verify_finaldocs_60q.py",
+      "FINALDOCS/VALIDATION/academic_language_checks.py",
+      "FINALDOCS/VALIDATION/test_academic_language_checks.py"
+    ],
+    "exit_code": 0,
+    "log": "academic_black.log"
+  },
+  {
+    "name": "academic_backend_ruff",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-m",
+      "ruff",
+      "check",
+      "backend"
+    ],
+    "exit_code": 0,
+    "log": "academic_backend_ruff.log"
+  },
+  {
+    "name": "academic_backend_black",
+    "command": [
+      "C:\\Users\\KiKi\\Desktop\\CODE\\M_RAG\\.venv-hwpx\\Scripts\\python.exe",
+      "-m",
+      "black",
+      "--check",
+      "backend"
+    ],
+    "exit_code": 0,
+    "log": "academic_backend_black.log"
+  },
+  {
+    "name": "academic_diff",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "academic_diff.log"
+  }
+]

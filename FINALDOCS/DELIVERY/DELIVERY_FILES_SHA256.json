@@ -1,12 +1,12 @@
 {
   "GRADUATION_REPORT_60Q_FINAL.hwpx": {
-    "sha256": "c3a43167d28ac4410d92a9eccf64e395a3bcbbd46244c720e138857cffdf9ff2",
-    "bytes": 2673090,
+    "sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
+    "bytes": 2748213,
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.pdf": {
-    "sha256": "92656de27bb9c430c6e0fe75a114f03a57447c53e7860439eb79c78bb94a8905",
-    "bytes": 3482499,
+    "sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
+    "bytes": 3864517,
     "hash_method": "raw bytes"
   },
   "SCHOOL_TEMPLATE_CONVERTED.hwpx": {
@@ -15,28 +15,43 @@
     "hash_method": "raw bytes"
   },
   "GRADUATION_REPORT_60Q_FINAL.build.json": {
-    "sha256": "a4ccc5231fa8acdbbd97d346ee27e94a0bf862aa31505dfb4a27b25964b2b3aa",
-    "bytes": 188112,
+    "sha256": "fdc9f54240c0da8c15dca923cb1c01d03a35ddc483346a157eba77867d4fa018",
+    "bytes": 191063,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_STRUCTURAL_QA.json": {
-    "sha256": "b9d4986ae30fd3495d938a7c829e079f1db591ffb1334139a99dcf2f40a086b7",
-    "bytes": 29498,
+    "sha256": "dc8b115813a7fd68732a750ae3b99deae5ab3cc577ec04d099a0ab113f7ba6e2",
+    "bytes": 29773,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "HWPX_EXTRACTED_TEXT.txt": {
-    "sha256": "8759ed09a22da7b2dc52070e77b71e6eba29253f538ea61aace184ac3f786f42",
-    "bytes": 81095,
+    "sha256": "6067224431503423691cb1ae9ab6d60172160e56033b09a99b1fb5ba98c9239a",
+    "bytes": 83627,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "PAGE_MAP_60Q.json": {
-    "sha256": "0a03342027fd83e4aed30d2292c50e9842110f70a248bf6ae92a7fefda06e867",
-    "bytes": 6972,
+    "sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
+    "bytes": 7472,
     "hash_method": "UTF-8 bytes, CRLF normalized to LF"
   },
   "WEB_PROFESSOR_FINAL_20261016.jpg": {
     "sha256": "b09cec8d39b457b0e1129059226cb04e1756a549b28ed44da050060640e0bca6",
     "bytes": 119369,
+    "hash_method": "raw bytes"
+  },
+  "WEB_POSITIVE_FINAL_20261016.jpg": {
+    "sha256": "06cd9df5a526228e11445a8638e1b29e3149b3a21104eb22534349dd185e85b8",
+    "bytes": 125009,
+    "hash_method": "raw bytes"
+  },
+  "WEB_AC63_FINAL_20261016.png": {
+    "sha256": "64377b44d4088cab2fabb47b91a901a06b5fcfc92fdafde42c06fc6eafe6fc7b",
+    "bytes": 102645,
+    "hash_method": "raw bytes"
+  },
+  "WEB_REEXAM_FINAL_20261017.png": {
+    "sha256": "778966234506f6aa5d6671c6917970269edf0b630fb58055a8ad9585986efcf9",
+    "bytes": 128896,
     "hash_method": "raw bytes"
   }
 }

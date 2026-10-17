@@ -1,0 +1,29 @@
+{
+  "head_sha": "0e864f262ee90fec2772cc708cbb3ec1e727f177",
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 37823626796,
+      "headSha": "0e864f262ee90fec2772cc708cbb3ec1e727f177",
+      "name": "CI",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626796"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37823626834,
+      "headSha": "0e864f262ee90fec2772cc708cbb3ec1e727f177",
+      "name": "Thesis HWPX validation",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626834"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37823626827,
+      "headSha": "0e864f262ee90fec2772cc708cbb3ec1e727f177",
+      "name": "Publish Backend Image",
+      "status": "completed",
+      "url": "https://github.com/LxNx-Hn/M_RAG/actions/runs/37823626827"
+    }
+  ]
+}

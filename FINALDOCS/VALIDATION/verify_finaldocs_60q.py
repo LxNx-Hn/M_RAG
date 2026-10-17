@@ -96,7 +96,10 @@ def main():
         len(statistics["anova"]) == 38 and len(statistics["paired"]) == 10,
         "Missing statistical tests",
     )
-    format_p = lambda value: "<0.001" if value < 0.001 else f"{value:.3f}"
+
+    def format_p(value):
+        return "<0.001" if value < 0.001 else f"{value:.3f}"
+
     metric_labels = {
         "faithfulness": "근거 충실도",
         "answer_relevancy": "답변 관련성",
@@ -240,6 +243,12 @@ def main():
         "100,000회",
     ]:
         require(marker in text, "Missing scientific contract: " + marker)
+    require(
+        not re.search(
+            r"^# (국문초록|Abstract)|^(주제어|Keywords):", text, re.MULTILINE
+        ),
+        "Thesis abstracts returned",
+    )
     refs = text.split("# 참고문헌", 1)[1].split("# 그림 자료 이용 정보", 1)[0]
     require(
         [int(n) for n in re.findall(r"^\[(\d+)\]", refs, re.MULTILINE)]

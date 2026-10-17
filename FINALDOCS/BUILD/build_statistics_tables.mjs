@@ -1,11 +1,15 @@
 import fs from 'node:fs/promises';
-import { Workbook, SpreadsheetFile } from '@oai/artifact-tool';
+import { SpreadsheetFile, FileBlob } from '@oai/artifact-tool';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const data=JSON.parse(await fs.readFile(`${root}/FINALDOCS/DATA/THESIS_TABLES_60Q.json`,'utf8'));
-const wb=Workbook.create();
+const target=`${root}/FINALDOCS/TABLES/TABLES_60Q.xlsx`;
+const wb=await SpreadsheetFile.importXlsx(await FileBlob.load(target));
+await fs.mkdir(`${root}/tmp/ac63/xlsx`,{recursive:true});
+const before=await wb.render({sheetName:'T5-1_Mean_SD',range:'A3:F11',scale:1.5});
+await fs.writeFile(`${root}/tmp/ac63/xlsx/before.png`,new Uint8Array(await before.arrayBuffer()));
 for (const t of data) {
-  const sh=wb.worksheets.add(t.sheet), n=t.rows.length, c=t.rows[0].length;
+  const sh=wb.worksheets.getItem(t.sheet), n=t.rows.length, c=t.rows[0].length;
   sh.showGridLines=false;
   sh.getCell(0,0).values=[[t.title]];
   sh.getCell(1,0).values=[['Source: FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json; query evidence preserved']];
@@ -23,8 +27,9 @@ for (const t of data) {
   for(let col=0;col<c;col++) {
     const header=t.rows[0][col];
     const r=sh.getRangeByIndexes(3,col,n-1,1);
-    r.format.horizontalAlignment= /^(n|유효 n|평균|SD|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율)/.test(header)?'right':(['조건','H','C','S','효과','df'].includes(header)?'center':'left');
+    r.format.horizontalAlignment= /^(n|유효 n|평균|SD|df|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율)/.test(header)?'right':(['조건','H','C','S','효과'].includes(header)?'center':'left');
   }
+  if(t.sheet==='T5-1_Mean_SD') sh.getRange('A8:F8').format.borders={top:{style:'medium',color:'#695184'}};
   if(t.sheet==='Appendix_Queries') {
     sh.getRange('B:B').format.columnWidth=64;
     sh.getRange('F:F').format.columnWidth=94;
@@ -33,5 +38,8 @@ for (const t of data) {
   sh.freezePanes.freezeRows(3);
 }
 await wb.recalculate();
+const after=await wb.render({sheetName:'T5-1_Mean_SD',range:'A3:F11',scale:1.5});
+await fs.writeFile(`${root}/tmp/ac63/xlsx/after.png`,new Uint8Array(await after.arrayBuffer()));
+console.log((await wb.inspect({kind:'table',range:'T5-1_Mean_SD!A3:F11',include:'values',tableMaxRows:9,tableMaxCols:6})).ndjson);
 await (await SpreadsheetFile.exportXlsx(wb)).save(`${root}/FINALDOCS/TABLES/TABLES_60Q.xlsx`);
 console.log('exported',data.length,'native worksheets');

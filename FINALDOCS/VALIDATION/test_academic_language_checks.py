@@ -54,6 +54,18 @@ class AcademicRegressionTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             validate_academic_text(self.text + "\n" + caption)
 
+    def test_reported_cross_reference_and_particle_errors(self):
+        for correct, broken in (
+            ("그림 2-2는 입력 질의로", "그림 2-2은 입력 질의로"),
+            ("대응쌍의 구성은 3.3절에서", "대응쌍의 구성은 5.2절에서"),
+            ("요인 효과는 5.6절에서", "요인 효과는 5.7절에서"),
+            ("답변 품질 차이는 5.7절에서", "답변 품질 차이는 5.6절에서"),
+        ):
+            with self.subTest(broken=broken):
+                self.assertIn(correct, self.text)
+                with self.assertRaises(AssertionError):
+                    validate_academic_text(self.text.replace(correct, broken, 1))
+
 
 if __name__ == "__main__":
     unittest.main()

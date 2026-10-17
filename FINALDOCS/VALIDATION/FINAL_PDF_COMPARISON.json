@@ -1,17 +1,22 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-17",
   "pages": 48,
+  "before_sha256": "2e2c99d88d28b3fcca9403a1ab07c652785a996b98f6392013202e9d35a8b126",
+  "after_sha256": "040aae64ad881e9c512cd92757e5faef0e9bcdf70b8ddffda7a855c48ae5072c",
+  "text_changed_pages": [],
+  "pixel_changed_pages": [
+    20
+  ],
+  "method": "Web Hancom PDF download; all-page extracted text and 96dpi pixels",
+  "public_pdf_sha256": "040aae64ad881e9c512cd92757e5faef0e9bcdf70b8ddffda7a855c48ae5072c",
+  "private_pdf_sha256": "25b9d504c2116b5a77761a86e99cd6ab8cf2d04f13d9a4a6c6ab6f9cf007af4b",
   "public_private_changed_pages": [
     1,
     2
   ],
-  "draft_final_changed_pages": [
-    5,
-    6,
-    7,
-    8
-  ],
-  "public_pdf_sha256": "92656de27bb9c430c6e0fe75a114f03a57447c53e7860439eb79c78bb94a8905",
-  "private_pdf_sha256": "93b12819e5e56f9ca582ac9b9bdca65537441267ea57be345083e3bccea63fb1",
-  "body_pixel_comparison_dpi": 72
+  "body_pixel_comparison_dpi": 96,
+  "public_private_body_pages": "3-48 pixel identical",
+  "all_48_pages_rendered": true,
+  "visual_evidence": "FINAL72_QA/RENDER_MANIFEST.json; page-*.png; contact-*.jpg",
+  "physical_print": "현장 확인 필요"
 }

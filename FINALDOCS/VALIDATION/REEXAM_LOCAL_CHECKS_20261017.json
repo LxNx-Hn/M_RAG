@@ -1,0 +1,23 @@
+{
+  "baseline": "75c0e9ee4797e7a9b629df05195087e44268791a",
+  "statistics": "480 records,38 factorial tests,10 contrasts,5 missing; every mean/SD/test/p/Holm/effect/sensitivity independently reproduced",
+  "validation_tests": 49,
+  "build_tests": 19,
+  "hwpx": "281 paragraphs,1229 cells,14 tables,13 pictures,11 equations,22 scholarly references",
+  "pdf": "49 pages,6 pixel-identical evidence images >=9pt,60 intact query rows/360 cells/repeated headers",
+  "poster": "A1,209 text units equal SVG/PPTX/PDF,4 native tables,159 cells,88 numeric right aligned",
+  "changed_python_ruff_black": "12 changed Python files checked using Ruff0.13.0/Black26.3.1",
+  "broad_existing_lint_limitations": [
+    "Existing E402 dynamic imports in analyze_factorial_60q.py/audit_evaluation_inputs_60q.py",
+    "User untracked build_hwp_transfer_docx.py existing lint/format issues left unchanged"
+  ],
+  "compileall": "passed",
+  "node_syntax": "passed",
+  "model_or_judge_calls": false,
+  "physical_print_native_powerpoint": "not tested",
+  "cross_platform_fixes": [
+    "Reference JSON hash normalizes only CRLF/LF, raw evidence unchanged",
+    "Actual Cairo/Nanum PDF maps one en dash to soft-hyphen ToUnicode; exact observed alias normalized,209 full text units retained",
+    "Regression tests reject dropped words and changed numbers, and validate both Git line endings"
+  ]
+}

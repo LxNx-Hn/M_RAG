@@ -1,0 +1,17 @@
+{
+  "public_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
+  "private_sha256": "ceca1f29de5de3b14a5a2f8059d84424ce005449349e8e5983b27ab681951b62",
+  "layout_draft_sha256": "7f617d2f5efb3a182f8ba97541b05a947c1d30d3def8618933ea744d9f78f3ba",
+  "pdf_pages": 49,
+  "private_different_pages": [
+    1,
+    2
+  ],
+  "layout_different_pages": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "comparison": "All pages RGB pixel bytes at72dpi; public/private body and contents3-49 identical; only TOC3-6 differs from visually reviewed layout draft."
+}

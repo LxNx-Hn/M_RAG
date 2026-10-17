@@ -310,6 +310,12 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     # Wider text columns in appendix keep actual questions and evidence intact.
     if data["sheet"] == "Appendix_Queries":
         fractions = [0.11, 0.29, 0.12, 0.10, 0.05, 0.33]
+    elif data["sheet"] == "T2-1_Related_Work":
+        fractions = [0.22, 0.32, 0.46]
+    elif data["sheet"] == "T3-1_Factorial_Design":
+        fractions = [0.46, 0.18, 0.18, 0.18]
+    elif data["sheet"] == "T4-1_Environment":
+        fractions = [0.20, 0.42, 0.38]
     elif nc == 2:
         fractions = [0.28, 0.72]
     elif data["sheet"] in ("T5-7_Paired_Quality", "T5-8_Paired_Language"):
@@ -390,18 +396,33 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 label = str(rows[0][c])
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|df|F|p|보정 p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
                         label,
                     )
                 )
                 alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "df")
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과")
                     else "RIGHT" if numeric else "LEFT"
                 )
                 p.set("paraPrIDRef", align_refs[alignment])
             for run in cell.findall(".//hp:run", NS):
                 run.set("charPrIDRef", cell_style.get("charPrIDRef"))
+    if data["sheet"] == "T5-1_Mean_SD":
+        fills = header.find(".//hh:borderFills", NS)
+        source_id = table.cell(5, 0).element.get("borderFillIDRef")
+        source = fills.find(f"hh:borderFill[@id='{source_id}']", NS)
+        divider = copy.deepcopy(source)
+        divider_id = str(max(int(f.get("id")) for f in fills) + 1)
+        divider.set("id", divider_id)
+        top = divider.find("hh:topBorder", NS)
+        top.set("type", "SOLID")
+        top.set("width", "0.4 mm")
+        top.set("color", "#000000")
+        fills.append(divider)
+        fills.set("itemCnt", str(len(fills)))
+        for c in range(nc):
+            table.cell(5, c).element.set("borderFillIDRef", divider_id)
     for r0, c0, r1, c1 in data["merges"]:
         table.merge_cells(r0, c0, r1, c1)
     return table.paragraph
@@ -480,7 +501,7 @@ def emit(
                         "[표 5-2]",
                         "[표 5-4]",
                         "[표 B-2]",
-                        "1.2 연구범위",
+                        "5.5 조합별 평가 결과",
                         "B.2 문서별 및 질문 유형별 탐색 분석",
                         "5.9 실험 범위와 해석 기준",
                         "6.3 적용 시 실험 조건 선택",
@@ -617,6 +638,8 @@ def main() -> None:
         doc.save_to_path(template_copy)
     workbook = load_workbook(args.tables, data_only=False)
     events = parse_manuscript(args.manuscript)
+    if any(e.get("text") in ("국문초록", "Abstract") for e in events):
+        raise ValueError("School submission requires the thesis without abstracts")
     pages = {}
     if args.page_map:
         page_map = json.loads(args.page_map.read_text(encoding="utf-8"))
@@ -682,10 +705,8 @@ def main() -> None:
         insert_school_covers(doc, template_copy, front)
         body_events = events[3:]
     else:
-        abstract_index = next(
-            i for i, e in enumerate(events) if e.get("text") == "국문초록"
-        )
-        front = events[:abstract_index]
+        toc_index = next(i for i, e in enumerate(events) if e.get("text") == "목    차")
+        front = events[:toc_index]
         if len(front) != 9:
             raise ValueError(
                 "Review school-cover mapping: expected nine canonical front paragraphs"
@@ -696,7 +717,7 @@ def main() -> None:
             else None
         )
         insert_school_covers(doc, template_copy, front, fields)
-        body_events = events[abstract_index:]
+        body_events = events[toc_index:]
     mapping = emit(doc, body_events, workbook, audit["width"], pages)
     mapping["cover_paragraphs"] = front
     mapping["cover_layout_tables"] = 1 if args.smoke_only else 2

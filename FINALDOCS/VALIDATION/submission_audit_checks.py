@@ -21,7 +21,7 @@ EXPECTED_URLS = {
     "2-1": "https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
     "2-2": "https://aclanthology.org/2023.acl-long.99/",
     "2-3": "https://aclanthology.org/2024.naacl-short.69/",
-    "2-4": "https://arxiv.org/abs/2511.09984",
+    "2-4": "https://ojs.aaai.org/index.php/AAAI/article/view/40417",
 }
 
 
