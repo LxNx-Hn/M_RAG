@@ -60,13 +60,14 @@
       ],
       "reference_answer": "The text retrieved by RAPTOR contains short descriptions of all the major parts of the story, whereas the text retrieved by DPR contains detailed descriptions of a narrow subset of the story.",
       "reference_pdf_page": 20,
-      "reference_source_sha256": "9b9d683d1e902eab1817ac2d486322bcd45358519c437f41d358189d97a701b9",
+      "reference_source_sha256": "a575c10efeb1fcf6f00214bb66e32e916c13fbebbd281479552162f39770729e",
       "image_size": [
         2000,
         1377
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png",
-      "image_sha256": "0984f751c447feb2db62cee1a63331ad77862221906ea7fdc357d1a1e3eecc6f"
+      "image_sha256": "0984f751c447feb2db62cee1a63331ad77862221906ea7fdc357d1a1e3eecc6f",
+      "reference_source_hash_method": "UTF-8 bytes, CRLF normalized to LF"
     },
     {
       "case_id": "E02",

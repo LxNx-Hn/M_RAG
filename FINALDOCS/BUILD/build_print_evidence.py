@@ -73,8 +73,9 @@ def source_view(case: dict, plan: dict, records: dict, scores: dict) -> dict:
         view["reference_answer"] = reference["answer_span"]
         view["reference_pdf_page"] = reference["source_page"] + 1
         view["reference_source_sha256"] = hashlib.sha256(
-            source.read_bytes()
+            source.read_bytes().replace(b"\r\n", b"\n")
         ).hexdigest()
+        view["reference_source_hash_method"] = "UTF-8 bytes, CRLF normalized to LF"
     return view
 
 

@@ -145,7 +145,7 @@
 |BUILD/build_professor_diagrams.py · FIGURES/fig4_1_pipeline.*|구현 재정렬 출처와 실제 모델 구분 부족|CEDR[8]와MiniLM[M2],생성[M1] 구분|실제 구현·학술 설명 대조,13그림/6증빙 렌더 확인.|
 |DATA/THESIS_TABLES_60Q.json · TABLES/TABLES_60Q.xlsx|관련연구 옛 출처|Adaptive-RAG·BEIR19·MTEB20 내용/인용 동기화|14sheet 원형·스타일 보존,수치 불변,1229셀 HWPX 일치.|
 |BUILD/build_academic_poster.mjs · POSTER 산출물|이전근거·출처/표시208단위|01~04·08 실제 문구 보완,표시209단위|PPTX 첫당사 도구 검증,PPTX/SVG/PDF 전문자 일치,A1/4표159셀 검증.|
-|VALIDATION/*checks.py · test_professor_acceptance.py|초록 유지·포스터 독립초록 금지 전제|논문 초록 부재,포스터 초록은 선택;숫자·M/D 참조누락 검증|64자동테스트,본문순서·공식양식 재빌드 검사.|
+|VALIDATION/*checks.py · test_professor_acceptance.py|초록 유지·포스터 독립초록 금지 전제|논문 초록 부재,포스터 초록은 선택;숫자·M/D 참조누락 검증|68자동테스트,본문순서·공식양식 재빌드 검사.|
 |VALIDATION/PROSE_SENTENCE_REVIEW.json|삭제된 초록 포함 기존 단위|현재 전체535단위 및 신규 교열 기록|문장별 text/hash/행 위치 일치;직전 문장 원문은 A→B·HISTORY 유지.|
 |DELIVERY/* · VALIDATION/REEXAM_*|초록 있는48쪽 해시/보고|초록 없는49쪽 웹출력,새pagemap·해시·전수검수|개인/공개는표지1·2쪽만 차이;새산출물의 실제SHA를 기준으로 검증.|
 
@@ -179,7 +179,9 @@ CEDR은 실제 MiniLM 모델과 동일하다고 쓰지 않고 BERT 표현을 순
 
 포스터01~08 및05전체평균/검정 하위영역을 각각 확대 확인했다.594×841mm,7016×9933px,4편집표159셀/88숫자우측정렬,209표시단위의PPTX/SVG/PDF동일성을 검증했다. 개인 포스터는 로컬 제출폴더에만 보관한다.
 
-검증명령: `verify_statistics_reproduction.py`, `verify_finaldocs_60q.py`, `verify_thesis_hwpx.py`, `verify_print_pdf.py`, `unittest discover`(VALIDATION45/BUILD19), pinned Ruff0.13.0·Black26.3.1,compileall,node --check,git diff --check.변경한Python9개는Ruff·Black검사를통과했다.전체VALIDATION디렉터리검사에서기존analyze_factorial_60q.py·audit_evaluation_inputs_60q.py의동적import E402와사용자미추적DOCX빌더의기존lint문제는이번변경범위밖으로구분했다.포매팅은AST일치와재빌드HWPX의텍스트·배치·자산·일대일ID참조그래프동일성으로검증했고,실제웹출력HWPX/PDF를유지했다. 백엔드49파일의CI고정버전Ruff/Black도통과했다. 정확한 커밋·원격·Actions실행결과는 최종 로컬 제출폴더 VALIDATION/REEXAM_GIT_CI_DELIVERY.json에 기록한다.본문/포스터의 검증을 이전CI성공으로 대체하지 않는다.
+검증명령: `verify_statistics_reproduction.py`, `verify_finaldocs_60q.py`, `verify_thesis_hwpx.py`, `verify_print_pdf.py`, `unittest discover`(VALIDATION49/BUILD19), pinned Ruff0.13.0·Black26.3.1,compileall,node --check,git diff --check.변경한Python12개는Ruff·Black검사를통과했다.전체VALIDATION디렉터리검사에서기존analyze_factorial_60q.py·audit_evaluation_inputs_60q.py의동적import E402와사용자미추적DOCX빌더의기존lint문제는이번변경범위밖으로구분했다.포매팅은AST일치와재빌드HWPX의텍스트·배치·자산·일대일ID참조그래프동일성으로검증했고,실제웹출력HWPX/PDF를유지했다. 백엔드49파일의CI고정버전Ruff/Black도통과했다. 정확한 커밋·원격·Actions실행결과는 최종 로컬 제출폴더 VALIDATION/REEXAM_GIT_CI_DELIVERY.json에 기록한다.본문/포스터의 검증을 이전CI성공으로 대체하지 않는다.
+
+CI의 실제 교차환경 실패도 수정했다. 새 참조답변 JSON의 해시는 CRLF/LF만 정규화해 검증하며 원자료는 유지했다. Linux Cairo/Nanum의 PDF ToUnicode가 화면상 대시를 U+00AD로 추출하는 한 건은 실제 CI PDF·PNG를 내려받아 확인했다. 검증기는 이 관찰된 문자 별칭만 반영하고 209문구 전체 일치 검사를 유지한다. 누락 단어·변조 숫자 거부 및 Git 줄바꿈 회귀 검사를 추가해 VALIDATION49+BUILD19, 총68개가 통과했다.
 
 ## H. 논문·포스터 개별 제출 판정
 

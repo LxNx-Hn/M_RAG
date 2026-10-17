@@ -29,6 +29,21 @@ def compact(value):
     return re.sub(r"\s+", "", value)
 
 
+def validate_pdf_text(required, extracted):
+    # Cairo/Nanum on Linux maps the visible SVG en dash to U+00AD in
+    # PDF ToUnicode. Preserve strict text matching except this observed alias.
+    text = compact(extracted).replace("\u00ad", "\u2013")
+    for value in required:
+        if compact(value) not in text:
+            missing_lines = [
+                line for line in value.splitlines() if compact(line) not in text
+            ]
+            raise AssertionError(
+                f"PDF mismatch: {value}; missing individual lines: {missing_lines}"
+            )
+    return {"cairo_soft_hyphen_aliases": extracted.count("\u00ad")}
+
+
 def sha(path):
     data = path.read_bytes()
     if path.suffix.lower() in {".md", ".json", ".svg"}:
@@ -93,19 +108,13 @@ def main(build_dir):
         assert len(doc) == 1
         mm = [doc[0].rect.width * 25.4 / 72, doc[0].rect.height * 25.4 / 72]
         assert abs(mm[0] - 594) < 0.02 and abs(mm[1] - 841) < 0.02
-        text = compact(doc[0].get_text())
-        poster_headings(doc[0].get_text().splitlines())
-        for value in required:
-            if compact(value) not in text:
-                (ROOT / "PDF_TEXT_DIAGNOSTIC.txt").write_text(
-                    doc[0].get_text(), encoding="utf-8"
-                )
-                missing_lines = [
-                    line for line in value.splitlines() if compact(line) not in text
-                ]
-                raise AssertionError(
-                    f"PDF mismatch: {value}; missing individual lines: {missing_lines}"
-                )
+        extracted = doc[0].get_text()
+        poster_headings(extracted.splitlines())
+        try:
+            pdf_text_encoding = validate_pdf_text(required, extracted)
+        except AssertionError:
+            (ROOT / "PDF_TEXT_DIAGNOSTIC.txt").write_text(extracted, encoding="utf-8")
+            raise
         fonts = doc[0].get_fonts(full=True)
     with Image.open(raster) as image:
         assert image.size == (7016, 9933)
@@ -121,6 +130,7 @@ def main(build_dir):
         "native_tables": 4,
         "native_charts": 0,
         "all_svg_pptx_pdf_text_equal": True,
+        "pdf_text_encoding": pdf_text_encoding,
         "print_image_px": [7016, 9933],
         "pdf_sha256": sha(pdf),
         "pptx_sha256": sha(pptx),

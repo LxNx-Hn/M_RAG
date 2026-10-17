@@ -3,6 +3,8 @@
 import copy
 import json
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from print_evidence_checks import MANIFEST, PLAN, validate
 
@@ -14,6 +16,20 @@ class PrintEvidenceTests(unittest.TestCase):
 
     def test_baseline(self):
         validate(self.manifest, self.plan)
+
+    def test_reference_source_git_line_endings(self):
+        original = Path.read_bytes
+        for newline in (b"\n", b"\r\n"):
+            with self.subTest(newline=newline):
+
+                def read_with_line_endings(path):
+                    data = original(path)
+                    if path.name == "extended_validation_literal_gt.json":
+                        return data.replace(b"\r\n", b"\n").replace(b"\n", newline)
+                    return data
+
+                with patch.object(Path, "read_bytes", read_with_line_endings):
+                    validate(self.manifest, self.plan)
 
     def test_changed_metric(self):
         self.manifest["cases"][0]["panels"][0]["metrics"]["faithfulness"] = 0.5
