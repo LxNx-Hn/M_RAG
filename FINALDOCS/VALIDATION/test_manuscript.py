@@ -71,7 +71,7 @@ class ProseReviewTests(unittest.TestCase):
 
     def test_scientific_negatives_are_retained(self):
         for phrase in (
-            "유의하지 않았다",
+            "p값은 유의수준 0.05보다 컸다",
             "p=0.393",
             "분모가 0인 답변",
             "ON−OFF",
@@ -145,7 +145,7 @@ class AcademicRegressionTests(unittest.TestCase):
                 "유의수준은 양측 0.05로 정하였다. Wilcoxon 검정을 추가하였다.",
             ),
             (
-                "유의하지 않았다(t(57)=0.862, p=0.393",
+                "p값은 유의수준 0.05보다 컸다(t(57)=0.862, p=0.393",
                 "유의하였다(t(57)=0.862, p=0.393",
             ),
             ("Shi 외[3]의 CAD 로짓 결합을", "Shi 외[3]의 CAD 점수 합산을"),
@@ -156,6 +156,16 @@ class AcademicRegressionTests(unittest.TestCase):
                 self.assertIn(correct, self.text)
                 with self.assertRaises(AssertionError):
                     validate_academic_text(self.text.replace(correct, error, 1))
+
+    def test_defensive_negative_prose_rejected(self):
+        broken = self.text.replace(
+            "질의 하나가 표본 하나가 되도록 하였다(n=60).",
+            "질의 하나가 표본 하나가 되도록 하였다(n=60). 각 쌍은 독립 표본이 아니다.",
+            1,
+        )
+        self.assertNotEqual(broken, self.text)
+        with self.assertRaisesRegex(AssertionError, "defensive negative prose"):
+            validate_academic_text(broken)
 
     def test_shi_particle_regression(self):
         invalid = self.text + "\nShi 외[3]은 제시한 사례이다.\n"
@@ -333,6 +343,26 @@ class ProfessorAcceptanceTests(unittest.TestCase):
             folder / "M_RAG_A1_FINAL_EDITABLE.pptx",
             folder / "M_RAG_A1_FINAL_EDITABLE.svg",
         )
+
+    def test_poster_statistics_follow_ttest_anova(self):
+        import tempfile
+
+        folder = FINAL / "POSTER/FINAL"
+        pptx = folder / "M_RAG_A1_FINAL_EDITABLE.pptx"
+        svg = (folder / "M_RAG_A1_FINAL_EDITABLE.svg").read_text("utf-8")
+        cases = {
+            "differs from TTEST_ANOVA_60Q": svg.replace(">0.029</text>", ">0.117</text>"),
+            "Retired poster statistics wording": svg.replace(
+                "다중비교 보정 없는 양측 p", "Holm 보정 p"
+            ),
+        }
+        for message, mutated in cases.items():
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as d:
+                self.assertNotEqual(mutated, svg)
+                path = Path(d) / "poster.svg"
+                path.write_text(mutated, "utf-8")
+                with self.assertRaisesRegex(AssertionError, message):
+                    validate_poster(pptx, path)
 
     def test_interleaved_protocol_is_rejected(self):
         with self.assertRaises(AssertionError):

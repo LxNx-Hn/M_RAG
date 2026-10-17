@@ -193,6 +193,11 @@ def validate_academic_text(text):
     for method in ("Holm", "Wilcoxon", "부호 순열", "Shapiro", "부트스트랩", "보정 p"):
         if method in body:
             raise AssertionError("statistics beyond paired t/RM ANOVA returned: " + method)
+    for unit in units(body):
+        if not unit["text"].startswith(("#", "[")) and re.search(
+            r"아니(?:다|라)|(?:확인|판단)하기\s*어렵", unit["text"]
+        ):
+            raise AssertionError("defensive negative prose in body: " + unit["text"])
     for kind, count in (("그림", 13), ("표", 15)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",

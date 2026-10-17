@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "05e026b52b6e35b904c8b4fdd10fd6b1ed399d425448e82f04a44df49c847c51",
+ "source_lf_sha256": "e77647e796c42c73f4a151eb0fb5520915a80227835d1e735f174d6efd6818ec",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -25,7 +25,26 @@
   "초기 질문과 LLM 요약 대화의 작성 절차는 연구자 확인 기록으로 남아 있다.",
   "HyDE 적용 조건에서 가상 문서 샘플링으로 검색 문맥이 달라진 경우에는 해당 조건의 검색 결과를 그대로 분석하였다.",
   "세 기법의 기존 평가는 모델과 과제가 서로 다르다.",
-  "평균 차이를 검정한 두 방법과 순위를 이용한 방법에서 유의성 판단이 달랐다."
+  "평균 차이를 검정한 두 방법과 순위를 이용한 방법에서 유의성 판단이 달랐다.",
+  "첫째, 한국어 질문과 영어 원문은 같은 개념을 다른 어휘로 표현하므로 질문에 맞는 근거를 찾기 어렵다.",
+  "그러나 세 기법은 서로 다른 모델과 과제에서 따로 제안되고 평가되었으며, 한국어 질문과 영어 문서를 사용하는 하나의 RAG 파이프라인에서 함께 비교한 결과는 확인하기 어렵다.",
+  "최종 답변의 근거는 가상 문서가 아니라 검색한 실제 문서 구간이다(그림 2-2).",
+  "답변 생성에는 모든 조건에서 영어 문맥을 입력했고, 평가할 답변은 수정하지 않았다.",
+  "같은 질의 60개를 모든 조건에서 측정하였으므로 조건 간 점수는 서로 독립이 아니다.",
+  "이 분석은 실험을 마친 뒤 연구 질문에 맞추어 정리한 탐색적 분석이며, 핵심 지표를 사전에 등록하지는 않았다.",
+  "H·C 주효과와 C×S 상호작용의 유의성은 바뀌지 않았다(C×S F(1,57)=12.022, p=0.001).",
+  "RQ2에서 CAD를 적용하면 근거 충실도가 평균 0.029점 높아졌으나 유의하지 않았다(t(57)=0.862, p=0.393, dz=0.11).",
+  "SCD는 HyDE·CAD의 적용 여부와 관계없이 한국어 비율을 높였으며, SCD가 포함된 상호작용(H×S, C×S, H×C×S)은 모두 유의하지 않았다.",
+  "HyDE는 CAD를 적용하지 않았을 때 한국어 문자 비율을 8.5%p 높였으나(p=0.017), CAD를 적용했을 때에는 차이가 1.4%p로 유의하지 않았다(p=0.674).",
+  "품질 지표의 H×C ANOVA(부록 B의 표 B-3, 표 B-4)에서는 두 평가 문맥 모두 유의한 효과가 없었다. p값이 가장 작은 효과는 영어 문맥(p=0.097)과 번역 문맥(p=0.088) 모두 답변 관련성의 HyDE 주효과였다.",
+  "즉 CAD 수준을 평균하면 HyDE의 답변 관련성 향상은 유의하지 않았으며, RQ1의 유의한 차이는 CAD를 적용하지 않은 조건에서 관찰된 결과다.",
+  "HyDE와 CAD는 핵심 지표 이외의 품질 지표에서도 유의한 변화를 보이지 않았다.",
+  "다만 CAD를 함께 적용하면 이 차이가 작아졌고, 문맥 정밀도·재현율은 변하지 않았다.",
+  "CAD는 같은 검색 문맥에서 근거 충실도를 유의하게 높이지 못했다.",
+  "둘째, CAD는 답변을 일부 수정하는 것이 아니라 전혀 다른 답변을 생성하였고(CAD 미적용 답변과 같은 답변 0개), 그 결과 질의별 차이의 표준편차가 평균 차이보다 훨씬 컸다.",
+  "따라서 결과는 이 질의 집합에서 관찰된 조건 간 차이이며, 다른 분야의 문서나 생성 시드에서의 변동은 확인하지 않았다.",
+  "CAD 수준을 평균한 주효과는 유의하지 않았다(p=0.097).",
+  "RQ2: 같은 검색 문맥에서 CAD의 근거 충실도 차이는 평균 0.029점으로 유의하지 않았다(t(57)=0.862, p=0.393)."
  ],
  "final_review": [
   {
@@ -933,12 +952,12 @@
   {
    "line": 100,
    "section": "1.1 연구배경 및 목적",
-   "text": "모델이 학습하지 않은 최신 논문이나 기술 문서에 대해서도 원문을 근거로 답할 수 있어 학술 문서 질의응답에 널리 쓰인다.",
-   "sha256": "0f7a6dd46191a276d861d75912d7fd078cfbb7daa8985bee15b45ff2ece2efcc",
-   "candidate": true,
+   "text": "모델의 학습 시점 이후에 나온 논문이나 기술 문서에 대해서도 원문을 근거로 답할 수 있어 학술 문서 질의응답에 널리 쓰인다.",
+   "sha256": "fa42740861d92d6333cb8fbd5b5e3a4aa60384665fb3b85fac4d9377adec00cf",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
@@ -999,12 +1018,12 @@
   {
    "line": 104,
    "section": "1.1 연구배경 및 목적",
-   "text": "첫째, 한국어 질문과 영어 원문은 같은 개념을 다른 어휘로 표현하므로 질문에 맞는 근거를 찾기 어렵다.",
-   "sha256": "810ab9d3e29576e7151656b55a04a01bfc9aaeb569e09f7f3c51cf588c94e095",
+   "text": "첫째, 한국어 질문과 영어 원문은 같은 개념을 다른 어휘로 표현하므로, 검색기는 어휘 차이를 넘어 질문에 맞는 근거를 찾아야 한다.",
+   "sha256": "972aa0586d9637cb67246b4fb713a441911e280684aee8e59b399b34ce6202c6",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
@@ -1032,12 +1051,12 @@
   {
    "line": 104,
    "section": "1.1 연구배경 및 목적",
-   "text": "그러나 세 기법은 서로 다른 모델과 과제에서 따로 제안되고 평가되었으며, 한국어 질문과 영어 문서를 사용하는 하나의 RAG 파이프라인에서 함께 비교한 결과는 확인하기 어렵다.",
-   "sha256": "2906701be273cd87c5b1bc5306d430b00b4205e6e68fce46630cb2e0c4e0d248",
-   "candidate": true,
+   "text": "세 기법은 서로 다른 모델과 과제에서 각각 제안되고 평가되었으므로, 한국어 질문과 영어 문서를 사용하는 하나의 RAG 파이프라인에서 세 기법의 효과를 함께 비교할 필요가 있다.",
+   "sha256": "036587b51ce024d1d0a33c3ca691394388b6e79a4ce2c728e2e2318143f94a86",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
@@ -1074,7 +1093,7 @@
    "screening_hits": []
   },
   {
-   "line": 112,
+   "line": 114,
    "section": "1.2 연구범위",
    "text": "## 1.2 연구범위",
    "sha256": "17aa4cca84015b2ee285c9045f83b8f1f93d47e1d429417571a7b2c3234e50d7",
@@ -1085,7 +1104,7 @@
    "screening_hits": []
   },
   {
-   "line": 114,
+   "line": 116,
    "section": "1.2 연구범위",
    "text": "검색 대상은 RAG Survey[D1], CAD[D2], RAPTOR[D3], Mi:dm K 2.5 Pro Technical Report[D4]의 영어 문서 4종이다.",
    "sha256": "a220be71751e3d6fdc573f11a25172d1acfef36dc572687ab87500a117b2f772",
@@ -1096,7 +1115,7 @@
    "screening_hits": []
   },
   {
-   "line": 114,
+   "line": 116,
    "section": "1.2 연구범위",
    "text": "문서마다 한국어 질의 15개를 작성하여 총 60개를 구성하였고, 각 질의는 지정한 문서 안에서만 검색하였다.",
    "sha256": "f8c2bad6fff36bafdd7a97d84ddcdedf7ec662cce9f42b33c6c8cc231f7fb3cd",
@@ -1107,7 +1126,7 @@
    "screening_hits": []
   },
   {
-   "line": 114,
+   "line": 116,
    "section": "1.2 연구범위",
    "text": "질의마다 8개 조건을 적용하여 생성 답변 480개를 얻었다.",
    "sha256": "14b8d8c5c30c81609e4b5384e1e4adec01ae8248832e9cca770cf4eb0f768bbb",
@@ -1118,7 +1137,7 @@
    "screening_hits": []
   },
   {
-   "line": 116,
+   "line": 118,
    "section": "1.2 연구범위",
    "text": "답변 생성 모델은 Mi:dm 2.0 Base Instruct[M1]이다.",
    "sha256": "3821e0b03bcb4b07685125898a12ab9a5e90ce4efe6ebd4d86166b381b95eec0",
@@ -1129,7 +1148,7 @@
    "screening_hits": []
   },
   {
-   "line": 116,
+   "line": 118,
    "section": "1.2 연구범위",
    "text": "답변 품질은 RAGAS의 네 지표로, 출력 언어는 한국어 문자 비율로, 비용은 조건 실행 시간으로 측정하였다.",
    "sha256": "9adb9e65ebcf1a3f2bbfe5f8d85468c072c269144070ee07b8ebfb74203e0498",
@@ -1140,7 +1159,7 @@
    "screening_hits": []
   },
   {
-   "line": 116,
+   "line": 118,
    "section": "1.2 연구범위",
    "text": "검색·재정렬·생성 설정은 4장에 정리하였다.",
    "sha256": "28bfef61e47c6dfb3131bb27ba2c5274e36915cfabdc3eecb2be18d3ee2dbbd9",
@@ -1151,7 +1170,7 @@
    "screening_hits": []
   },
   {
-   "line": 118,
+   "line": 120,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "## 1.3 연구 질문 및 논문 구성",
    "sha256": "dd2960c4363681133e5adaf0490504a33f27ed2057fbf7abb69b780be7c0c311",
@@ -1162,7 +1181,7 @@
    "screening_hits": []
   },
   {
-   "line": 120,
+   "line": 122,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "각 연구 질문은 해당 기법의 목적에 맞는 지표 하나를 핵심 지표로 정하였다.",
    "sha256": "7ea018c0a57b30fed3a5cb042ebef9ab4b9a1ee9366089b35f7b3b5f62d4466b",
@@ -1173,7 +1192,7 @@
    "screening_hits": []
   },
   {
-   "line": 122,
+   "line": 124,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "RQ1.",
    "sha256": "0fdc175bbbb9b8eaf8d5ad4661d84679279e06419a12e96211dc89f4132acd9d",
@@ -1184,18 +1203,18 @@
    "screening_hits": []
   },
   {
-   "line": 122,
+   "line": 124,
    "section": "1.3 연구 질문 및 논문 구성",
-   "text": "CAD와 SCD를 적용하지 않은 조건에서, 번역과 가상 문서 생성을 포함한 HyDE 검색은 답변 관련성을 높이는가?",
-   "sha256": "c7676067a589dcb36c141b7d8ba3ce8f43e0ed5116d0a674281cedc412366bd4",
-   "candidate": true,
+   "text": "CAD와 SCD를 모두 끈 기본 조건에서, 번역과 가상 문서 생성을 포함한 HyDE 검색은 답변 관련성을 높이는가?",
+   "sha256": "9e39f4661d5ed029dfe43455e434863149dc9eb6ef07d9219bbc2258dc23d997",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 124,
+   "line": 126,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "RQ2.",
    "sha256": "c0d1ce223ab7df8be2f7f9325ef02899d11d0844b3359c218f5df06a08b0910d",
@@ -1206,7 +1225,7 @@
    "screening_hits": []
   },
   {
-   "line": 124,
+   "line": 126,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "같은 검색 문맥을 사용할 때, CAD는 답변의 근거 충실도를 높이는가?",
    "sha256": "4cf2cf4d47b6e04c3abe3bc0f8584b9b9692632fc348fb78b26e2007b4c9d696",
@@ -1217,7 +1236,7 @@
    "screening_hits": []
   },
   {
-   "line": 126,
+   "line": 128,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "RQ3.",
    "sha256": "50725f9403ce22d2a0c703abca42b0eaf05aa64119cd91010514d5cf28aa8d5b",
@@ -1228,7 +1247,7 @@
    "screening_hits": []
   },
   {
-   "line": 126,
+   "line": 128,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "SCD는 생성 답변의 한국어 문자 비율을 높이는가?",
    "sha256": "7158453efd73dba5613ceec9bcd7a7c7cfdc7dc78520bcc4e95b2de8657d5079",
@@ -1239,7 +1258,7 @@
    "screening_hits": []
   },
   {
-   "line": 128,
+   "line": 130,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "RQ4.",
    "sha256": "76cb122249ab6da271b144a6a26d0cc229f9e0a72161423c3694e3a1e0a15c3d",
@@ -1250,7 +1269,7 @@
    "screening_hits": []
   },
   {
-   "line": 128,
+   "line": 130,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "HyDE·CAD·SCD를 조합하면 한국어 문자 비율과 실행 시간에 주효과와 상호작용이 나타나는가?",
    "sha256": "8ff6e5323a67b6e3c51b604a80b53a85b4ceddd2acfbccb4739aa34181455acf",
@@ -1261,7 +1280,7 @@
    "screening_hits": []
   },
   {
-   "line": 130,
+   "line": 132,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "RQ1~RQ3은 대응 t-검정으로, RQ4는 반복측정 분산분석(ANOVA)으로 분석하였다.",
    "sha256": "f680c088f09d510ba4e481ae56c0b8a6f7eb937a75598cd87e0ab977e0ec538b",
@@ -1272,7 +1291,7 @@
    "screening_hits": []
   },
   {
-   "line": 130,
+   "line": 132,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "나머지 품질 지표는 보조 결과로 함께 보고한다.",
    "sha256": "bd36fede4c012d83e594fe4889308671dd5358954f30fe8017a0b5807e390415",
@@ -1283,7 +1302,7 @@
    "screening_hits": []
   },
   {
-   "line": 130,
+   "line": 132,
    "section": "1.3 연구 질문 및 논문 구성",
    "text": "2장에서는 세 기법과 관련 연구를, 3장과 4장에서는 실험 설계와 구현을, 5장에서는 평가 방법과 결과를, 6장에서는 결론을 제시한다.",
    "sha256": "dc2d8a0c755f5f333d11198bfd16fd6dd00e48181b2e0200cc9b55ee549c4f31",
@@ -1294,7 +1313,7 @@
    "screening_hits": []
   },
   {
-   "line": 132,
+   "line": 134,
    "section": "2. 이론적 배경",
    "text": "# 2. 이론적 배경",
    "sha256": "d6cd29bc1af6c6c1b2d7cfc5c1158c10e3328123b01171ea7cce9751c0fe286e",
@@ -1305,7 +1324,7 @@
    "screening_hits": []
   },
   {
-   "line": 134,
+   "line": 136,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "## 2.1 Retrieval-Augmented Generation",
    "sha256": "6de3e88ddbde7eef99d5ae336ae8863dd0c56f2ac5a940284328a6dc27c1078e",
@@ -1316,7 +1335,7 @@
    "screening_hits": []
   },
   {
-   "line": 136,
+   "line": 138,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "Lewis 외[1]의 RAG는 검색기(retriever)가 외부 문서 인덱스에서 관련 문서를 찾고, 생성기(generator)가 질의와 검색 문서를 함께 입력받아 답변을 생성하는 구조다(그림 2-1).",
    "sha256": "94989372b544b76af361c35895a2dd5f4d8e94ee8c0713e9f09a08b9b574d003",
@@ -1327,7 +1346,7 @@
    "screening_hits": []
   },
   {
-   "line": 140,
+   "line": 142,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "[그림 2-1] RAG의 검색기–생성기 구조",
    "sha256": "4fa1c9f41f19184163bcc46ee31331caaa8f8766d81a5716bfee21389c6289ed",
@@ -1338,7 +1357,7 @@
    "screening_hits": []
   },
   {
-   "line": 142,
+   "line": 144,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "본 연구에서 작성한 도식이며, Lewis 외[1]의 RAG 구조를 참고하였다.",
    "sha256": "36834fcb6d770ac3465cc1ab10cd8318ad32ddb7ed1173f53c5769387bb30db9",
@@ -1349,7 +1368,7 @@
    "screening_hits": []
   },
   {
-   "line": 144,
+   "line": 146,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "질의를 q, 문서 집합을 D라 하면 검색기는 D에서 질의와 관련된 문맥 C_q를 선택하고, 생성 모델은 q와 C_q를 입력받아 답변 y를 생성한다.",
    "sha256": "78e9898f3bd1a076549f79711759c4aae6458fc3ce151a1447c500f153ee729b",
@@ -1360,7 +1379,7 @@
    "screening_hits": []
   },
   {
-   "line": 144,
+   "line": 146,
    "section": "2.1 Retrieval-Augmented Generation",
    "text": "본 논문에서 검색 문맥은 C_q, 즉 생성 모델에 실제로 입력한 문서 구간의 텍스트를 뜻한다.",
    "sha256": "ab2b55c8b4435d48359ff76f07d5d5b379feb9231f39795087b1d3d7efbc73f5",
@@ -1371,7 +1390,7 @@
    "screening_hits": []
   },
   {
-   "line": 156,
+   "line": 158,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "## 2.2 하이브리드 검색과 재정렬",
    "sha256": "2affb071a1b13553d6cfada72b35d5529f5bde2f49fabe0f46d9eaa178837a62",
@@ -1382,7 +1401,7 @@
    "screening_hits": []
   },
   {
-   "line": 158,
+   "line": 160,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "밀집 검색은 질의와 문서 구간을 임베딩한 벡터의 유사도로, BM25 희소 검색은 두 텍스트의 어휘 일치로 관련 구간을 찾는다[5][6].",
    "sha256": "63f31c6f975166fbd2141df1e7f5588c10094e424387ee12912283d1feb6c588",
@@ -1393,7 +1412,7 @@
    "screening_hits": []
   },
   {
-   "line": 158,
+   "line": 160,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "한국어 질문과 영어 원문은 어휘가 거의 겹치지 않지만, 논문명·모델명·데이터셋명·수치처럼 두 언어에 같은 형태로 쓰이는 표기는 BM25의 검색 단서가 된다.",
    "sha256": "45b42cfb064cc8fa4fdc03300e603c1a51939df64dcfe1b8074d0df06a92ca24",
@@ -1404,7 +1423,7 @@
    "screening_hits": []
   },
   {
-   "line": 160,
+   "line": 162,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "두 검색 결과는 가중 역순위 융합(weighted Reciprocal Rank Fusion, RRF)으로 결합한다[7].",
    "sha256": "b6db980c320b44bf9bfb0e7d6ac90d7c23b5296da27584a64b77e92151f05087",
@@ -1415,7 +1434,7 @@
    "screening_hits": []
   },
   {
-   "line": 160,
+   "line": 162,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "문서 d의 밀집 검색 순위와 BM25 순위를 각각 rank_dense(d), rank_BM25(d)라 할 때, 가중치 0.6과 0.4, 상수 k=60을 적용한 결합 점수는 다음과 같다.",
    "sha256": "d0c25dbcffeb702f2a379856bac7a4dca7aabcae813e73edbe377100d50156e6",
@@ -1426,7 +1445,7 @@
    "screening_hits": []
   },
   {
-   "line": 168,
+   "line": 170,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "결합한 후보는 재정렬 모델로 다시 정렬한다.",
    "sha256": "9f580d523feb7b1522c448ec0f8f76d6627c94a7326aaaf028fdcc0284048c60",
@@ -1437,7 +1456,7 @@
    "screening_hits": []
   },
   {
-   "line": 168,
+   "line": 170,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "재정렬 모델은 질의와 후보 구간을 한 쌍으로 입력받아 관련성 점수를 계산하며, CEDR[8]처럼 문맥화된 언어 모델 표현을 순위 계산에 활용하는 방식이 대표적이다.",
    "sha256": "28b0578eb7beb7daa12062336ece225ac6f4f5883ee19d568d334de2a4624d5f",
@@ -1448,7 +1467,7 @@
    "screening_hits": []
   },
   {
-   "line": 168,
+   "line": 170,
    "section": "2.2 하이브리드 검색과 재정렬",
    "text": "생성 모델은 입력 내 위치에 따라 근거를 다르게 활용할 수 있으므로[9], 재정렬 순서는 최종 문맥의 배치에도 영향을 준다.",
    "sha256": "aadff74eb60c8d234b28d2aa6f3a4e5b7810f1f0fa967fa1096ed942b569ff9c",
@@ -1459,7 +1478,7 @@
    "screening_hits": []
   },
   {
-   "line": 170,
+   "line": 172,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "## 2.3 가상 문서 임베딩과 검색",
    "sha256": "96a21594daffe8d2adef50159bfc3baafdb55e8a3177ce0cdcfa8aa7bd215c9f",
@@ -1470,7 +1489,7 @@
    "screening_hits": []
   },
   {
-   "line": 172,
+   "line": 174,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "HyDE는 입력 질의를 바탕으로 가상 문서를 생성한 뒤, 이를 임베딩 벡터로 변환한다.",
    "sha256": "54cf1501531cd03a5c285fcba16168a421ed2dac3831036ce19249a958488637",
@@ -1481,7 +1500,7 @@
    "screening_hits": []
   },
   {
-   "line": 172,
+   "line": 174,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "생성된 벡터로 실제 문서 집합에서 유사한 문서를 검색한다[2].",
    "sha256": "c71c939153ec634f44bb9ab37a54b7a954c274e3f0fafb3bd27d9bc61af6fb9f",
@@ -1492,7 +1511,7 @@
    "screening_hits": []
   },
   {
-   "line": 172,
+   "line": 174,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "가상 문서의 내용이 틀릴 수 있어도 답변과 비슷한 어휘와 문장 구조를 갖기 때문에, 짧은 질문을 그대로 임베딩할 때보다 관련 문서에 가까운 검색 입력을 얻을 수 있다.",
    "sha256": "3ac69f572439e39e47bb0483ce3dfecc8e2a4e9a839fc08c562cac78cbc6efd0",
@@ -1503,18 +1522,18 @@
    "screening_hits": []
   },
   {
-   "line": 172,
+   "line": 174,
    "section": "2.3 가상 문서 임베딩과 검색",
-   "text": "최종 답변의 근거는 가상 문서가 아니라 검색한 실제 문서 구간이다(그림 2-2).",
-   "sha256": "73b3f0a5f9e7cd10a0f58120f7f9de86762df65b10b0094038e872d69c424364",
-   "candidate": true,
+   "text": "가상 문서는 검색 입력으로만 쓰이고, 최종 답변의 근거는 검색한 실제 문서 구간이다(그림 2-2).",
+   "sha256": "a429ef9cfcbb66d7b04c59b91fb7a22dc421d1d9b2f6b5071d44c3bae03de65c",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 176,
+   "line": 178,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "[그림 2-2] HyDE의 가상 문서 기반 검색 구조",
    "sha256": "91da1feec65eadace4eae614e5e31b8edd14e70aea4361be657ef22109ba7ee0",
@@ -1525,7 +1544,7 @@
    "screening_hits": []
   },
   {
-   "line": 178,
+   "line": 180,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "본 연구에서 작성한 도식이며, Gao 외[2]의 HyDE 구조를 참고하였다.",
    "sha256": "227d8640febf7405fa6bdbe32451c409e6062e934509d6ef34fbc147e48e0673",
@@ -1536,7 +1555,7 @@
    "screening_hits": []
   },
   {
-   "line": 180,
+   "line": 182,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "Gao 외[2]는 관련성 레이블 없이 수행하는 검색에서 HyDE가 Contriever보다 높은 성능을 보이며, 한국어를 포함한 비영어 검색에서도 효과가 있음을 보고하였다.",
    "sha256": "6238575eaebb90bb8df85d38d43c1449d2b13f0e571d018c8f5932cb2616055c",
@@ -1547,7 +1566,7 @@
    "screening_hits": []
   },
   {
-   "line": 180,
+   "line": 182,
    "section": "2.3 가상 문서 임베딩과 검색",
    "text": "본 연구에서는 한국어 질의를 영어로 번역한 뒤 영어 가상 문서를 생성하였으므로, HyDE 조건의 변화에는 번역과 가상 문서 생성의 효과가 함께 포함된다.",
    "sha256": "973b82766a59d971a9478571b47e6119c84c992500e19f6723519bb66f89f1db",
@@ -1558,7 +1577,7 @@
    "screening_hits": []
   },
   {
-   "line": 182,
+   "line": 184,
    "section": "2.4 Context-Aware Decoding",
    "text": "## 2.4 Context-Aware Decoding",
    "sha256": "084e9c8be2a00f14f34d3ec95f1a5142ad7651dedcb29ad67a01edf7dd5823b6",
@@ -1569,7 +1588,7 @@
    "screening_hits": []
   },
   {
-   "line": 184,
+   "line": 186,
    "section": "2.4 Context-Aware Decoding",
    "text": "CAD는 검색 문맥을 포함한 경우와 제외한 경우에 계산한 다음 토큰의 점수를 비교하는 디코딩 방법이다[3].",
    "sha256": "2ed8160a315b807206db56b7482f243a4025bd7e5556152ca0247d0218f3d3d3",
@@ -1580,7 +1599,7 @@
    "screening_hits": []
   },
   {
-   "line": 184,
+   "line": 186,
    "section": "2.4 Context-Aware Decoding",
    "text": "두 점수의 차이가 큰 토큰은 문맥 덕분에 선택되는 토큰이므로, 이 차이를 키우면 모델의 사전 지식보다 문맥의 내용을 따르는 답변이 생성된다(그림 2-3).",
    "sha256": "2909b5508c647ddcc5411145ddc494a1772f53afe403fddd3fd803cca489e0a5",
@@ -1591,7 +1610,7 @@
    "screening_hits": []
   },
   {
-   "line": 188,
+   "line": 190,
    "section": "2.4 Context-Aware Decoding",
    "text": "[그림 2-3] CAD의 문맥 포함·제외 로짓 결합",
    "sha256": "4aeaab3d23bd1d0e65f7554b4726f83790c6f31c52c98f5ab0be14f88c281950",
@@ -1602,7 +1621,7 @@
    "screening_hits": []
   },
   {
-   "line": 190,
+   "line": 192,
    "section": "2.4 Context-Aware Decoding",
    "text": "본 연구에서 작성한 도식이며, Shi 외[3]의 CAD 로짓 결합을 참고하였다.",
    "sha256": "66c09c30cbb16420be4a4ba47336dcc237bad755a62136a5c902f751049f0c7f",
@@ -1613,7 +1632,7 @@
    "screening_hits": []
   },
   {
-   "line": 192,
+   "line": 194,
    "section": "2.4 Context-Aware Decoding",
    "text": "같은 생성 접두 시퀀스에서 문맥을 포함한 로짓을 z_ctx, 문맥을 제외한 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 문맥의 영향을 키우는 정도이며 α=0이면 일반 디코딩과 같다.",
    "sha256": "764a81b51375923eabd5a0a9c2ced595645aa1e76a183a4ee29239204ae9fa02",
@@ -1624,7 +1643,7 @@
    "screening_hits": []
   },
   {
-   "line": 200,
+   "line": 202,
    "section": "2.4 Context-Aware Decoding",
    "text": "Shi 외[3]는 요약 과제와, 모델의 사전 지식이 문맥과 충돌하는 지식 충돌 과제에서 CAD가 문맥 반영을 높인다고 보고하였다.",
    "sha256": "278a3dfdf4a5a8fb4d908bffd170de5dfc4f05aceab345ab0f67eda5177eec12",
@@ -1635,7 +1654,7 @@
    "screening_hits": []
   },
   {
-   "line": 200,
+   "line": 202,
    "section": "2.4 Context-Aware Decoding",
    "text": "CAD는 토큰마다 문맥을 제외한 입력을 한 번 더 계산하므로 생성 시간이 늘어난다.",
    "sha256": "d9a647868718029736baca9a9f76c095eb18aff18d70417e092789e6717c5043",
@@ -1646,7 +1665,7 @@
    "screening_hits": []
   },
   {
-   "line": 202,
+   "line": 204,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "## 2.5 Soft Constrained Decoding과 언어 이탈",
    "sha256": "c8360d59e0632635a9c09a0baeaa54d5972a5e56db8cafdb8f1c0cec858054f5",
@@ -1657,7 +1676,7 @@
    "screening_hits": []
   },
   {
-   "line": 204,
+   "line": 206,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "다국어 RAG에서는 질문과 다른 언어의 문서를 검색하면 답변이 검색 문서의 언어로 바뀌는 언어 이탈이 발생할 수 있다.",
    "sha256": "4f03a997dfb9653cd42787288d9e588fb06c83a0e5e86501a2b8fada01208f5f",
@@ -1668,7 +1687,7 @@
    "screening_hits": []
   },
   {
-   "line": 204,
+   "line": 206,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "Li 외[4]는 이 현상을 분석하고, 디코딩 단계에서 목표 언어 토큰의 점수를 조정하는 SCD를 제안하였다.",
    "sha256": "dc4d95bb4e9d052d9a8e75aea7e554c6cd6de7fc9e2076d09db9e84f08bc8d02",
@@ -1679,7 +1698,7 @@
    "screening_hits": []
   },
   {
-   "line": 204,
+   "line": 206,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "SCD는 어휘 집합을 목표 언어 토큰, 비목표 언어 토큰과 숫자·기호 같은 중립 토큰으로 나누어 로짓을 조정한다(그림 2-4).",
    "sha256": "58e864983c0b18131b1d1c4f6200f73f9a3179f07935f0ead089dcea3dfc8999",
@@ -1690,7 +1709,7 @@
    "screening_hits": []
   },
   {
-   "line": 208,
+   "line": 210,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "[그림 2-4] SCD의 토큰 그룹별 로짓 조정",
    "sha256": "7b59b12ff253352e9b75705f1555b920d8cfb80d98904c833e6fe683e64ac09a",
@@ -1701,7 +1720,7 @@
    "screening_hits": []
   },
   {
-   "line": 210,
+   "line": 212,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "본 연구에서 작성한 도식이며, Li 외[4]의 SCD 토큰별 점수 조정을 참고하였다.",
    "sha256": "3556015b08e3ae6a7704fbaf1ed9c3fff52a486ba02c0641bb258aaf3f61de41",
@@ -1712,7 +1731,7 @@
    "screening_hits": []
   },
   {
-   "line": 212,
+   "line": 214,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "생성한 토큰 수가 Tstart 이상이 되면 목표 언어 토큰의 로짓 z_i에는 α를, 비목표 언어 토큰의 로짓에는 β를 곱하고, 중립 토큰은 그대로 둔다.",
    "sha256": "a813a7de10fc5b12338ce9e6e7ebe896ee38fa3912a5571f88f81f36a6aa1e85",
@@ -1723,7 +1742,7 @@
    "screening_hits": []
   },
   {
-   "line": 212,
+   "line": 214,
    "section": "2.5 Soft Constrained Decoding과 언어 이탈",
    "text": "본 연구는 한국어를 목표 언어로 하여 원 논문의 곱셈식을 그대로 적용하였다.",
    "sha256": "62fd6be4dd9e1a75a8ca82122727c152e37babf54983a2c5ce4294a82d352e6f",
@@ -1734,7 +1753,7 @@
    "screening_hits": []
   },
   {
-   "line": 232,
+   "line": 234,
    "section": "2.6 RAG 평가",
    "text": "## 2.6 RAG 평가",
    "sha256": "a9a4ae8b9f1e6b9679bf807ff8307aaa376a07d1e5db6ccfa09da6bafa67bc87",
@@ -1745,18 +1764,18 @@
    "screening_hits": []
   },
   {
-   "line": 234,
+   "line": 236,
    "section": "2.6 RAG 평가",
-   "text": "RAGAS(Retrieval Augmented Generation Assessment)는 참조 답변 없이도 RAG의 검색과 생성을 나누어 평가할 수 있도록 제안된 자동 평가 프레임워크다[10].",
-   "sha256": "b59e6aac93e987d3000baf9ba9e820e931686df120bdc163852ae4103e4aab55",
-   "candidate": true,
+   "text": "RAGAS(Retrieval Augmented Generation Assessment)는 RAG의 검색과 생성을 나누어 자동으로 평가하는 프레임워크다[10].",
+   "sha256": "bbc2402c54eb655e1e0696c6b17d274dbd7144e692cf69a7f4a0581bcea93f10",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 234,
+   "line": 236,
    "section": "2.6 RAG 평가",
    "text": "평가 모델(LLM)이 답변을 주장 단위로 나누고 각 주장이 검색 문맥에 근거하는지 판정하는 방식으로 근거 충실도(faithfulness)를 계산하며, 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)도 함께 제공한다.",
    "sha256": "1b942e963082c01d77753deeae358c2be2f79a1cd72aec0db3c37dcedf3ce8f0",
@@ -1767,7 +1786,7 @@
    "screening_hits": []
   },
   {
-   "line": 234,
+   "line": 236,
    "section": "2.6 RAG 평가",
    "text": "근거 충실도와 답변 관련성은 생성 답변을, 문맥 정밀도와 문맥 재현율은 검색 문맥을 평가한다.",
    "sha256": "5ff34a461043f3d8fef1912d76dbf2a43b495209f538c28d1ac8139e24c6610c",
@@ -1778,7 +1797,7 @@
    "screening_hits": []
   },
   {
-   "line": 234,
+   "line": 236,
    "section": "2.6 RAG 평가",
    "text": "본 연구에서 사용한 지표별 계산 방식은 5.2절에 정리하였다.",
    "sha256": "3085bc7a0721189e91dca7ca3a59950dcfa7ef5fcea3345466e333d42c0ae6a1",
@@ -1789,7 +1808,7 @@
    "screening_hits": []
   },
   {
-   "line": 236,
+   "line": 238,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "## 2.7 관련 연구와 본 연구의 위치",
    "sha256": "c3127ac2f7e27899cb3f88b2b162678776c66bd46275427ffeeb597437b099f4",
@@ -1800,7 +1819,7 @@
    "screening_hits": []
   },
   {
-   "line": 238,
+   "line": 240,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "RAG의 검색 구조는 질의와 문서를 각각 임베딩하는 Dense Passage Retrieval[11]과 여러 검색 구간을 디코더에서 함께 활용하는 Fusion-in-Decoder[12]를 거쳐 발전하였다.",
    "sha256": "5759dfe5b6a7b20b9aac674f6ee807f9e4f5470734fb5a4f4dc50be82e3f5a4f",
@@ -1811,7 +1830,7 @@
    "screening_hits": []
   },
   {
-   "line": 238,
+   "line": 240,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "생성 단계에서는 출력 분포를 직접 조정하는 디코딩 기법이 연구되었다.",
    "sha256": "7191a5140ba5e418f3bd1758b60021ba3f4986bb274a771385bc4839190a5a7f",
@@ -1822,7 +1841,7 @@
    "screening_hits": []
   },
   {
-   "line": 238,
+   "line": 240,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "Contrastive Decoding[13]은 큰 모델과 작은 모델의 로그확률 차이로 토큰을 선택하며, CAD는 같은 모델에서 문맥을 포함한 입력과 제외한 입력을 대조한다는 점에서 다르다.",
    "sha256": "383146dffeb43ecb14f7f37bbc1e49ed6d2682c629a4253aed2dda18d7057bd3",
@@ -1833,7 +1852,7 @@
    "screening_hits": []
   },
   {
-   "line": 240,
+   "line": 242,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "검색 단위와 검색 시점을 조정하는 연구도 이어졌다.",
    "sha256": "7e18ac7e54699caf9b9d1d410df62a7787531262d9db1b3d618b039a47c6dc52",
@@ -1844,7 +1863,7 @@
    "screening_hits": []
   },
   {
-   "line": 240,
+   "line": 242,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "RAPTOR[14]는 문서 청크를 반복적으로 군집화하고 요약하여 계층적 검색 구조를 만들며, 본 실험의 검색 대상 문서[D3]이기도 하다.",
    "sha256": "d9d28587e2fb6a0e40ee81ade4060b227ba4e6ecb7efa340cd008af75676c9d5",
@@ -1855,7 +1874,7 @@
    "screening_hits": []
   },
   {
-   "line": 240,
+   "line": 242,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "Self-RAG[15]는 검색 필요성과 생성 결과를 스스로 평가하고, Adaptive-RAG[16]는 질문의 복잡도에 따라 검색 전략을 선택한다.",
    "sha256": "25eaae65e4adaf40abcea58dbac6a1824039902aa3e51d6cb46001c616df8534",
@@ -1866,7 +1885,7 @@
    "screening_hits": []
   },
   {
-   "line": 240,
+   "line": 242,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "검색과 생성의 구성 요소별 기법은 Zhao 외[17]와 Fan 외[18]의 조사 연구에 정리되어 있으며, 검색 모델의 성능 비교에는 BEIR[19]와 MTEB[20] 같은 공개 벤치마크가 쓰인다.",
    "sha256": "096d39e83979bce25e085a5a32c944ef9d0c1dc180717b1b0d8ed06a70613400",
@@ -1877,7 +1896,7 @@
    "screening_hits": []
   },
   {
-   "line": 242,
+   "line": 244,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "이들 연구는 검색 전략이나 디코딩 기법을 각각 개선하는 데 초점을 둔다.",
    "sha256": "6cf8ff4546405587c353bd2e9b9f0afd74ce4b587d7f5573df0c863a2781deda",
@@ -1888,7 +1907,7 @@
    "screening_hits": []
   },
   {
-   "line": 242,
+   "line": 244,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "본 연구는 검색·생성 백본을 고정한 채 검색 입력(HyDE)과 디코딩 제어(CAD, SCD)를 함께 바꾸어, 한국어 질의–영어 문서 환경에서 각 기법의 단독 효과와 조합 효과를 비교한다.",
    "sha256": "605a10e9f3279ca7e1c62f387b0ff7f90cfd68e38a99d08f239ab70ef7f70061",
@@ -1899,7 +1918,7 @@
    "screening_hits": []
   },
   {
-   "line": 242,
+   "line": 244,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "표 2-1에 주요 선행연구와 본 연구의 비교 질문을 정리하였다.",
    "sha256": "931a2694e362ceb306b984a79babf148bf08acaad6caaa4d5f279d4ecc83844f",
@@ -1910,7 +1929,7 @@
    "screening_hits": []
   },
   {
-   "line": 244,
+   "line": 246,
    "section": "2.7 관련 연구와 본 연구의 위치",
    "text": "[표 2-1] 선행연구의 접근과 본 연구의 비교 질문",
    "sha256": "3b607d05647a87ac6b3f7d675c2719757c5b6ac76e16175f208f325836eca246",
@@ -1921,7 +1940,7 @@
    "screening_hits": []
   },
   {
-   "line": 258,
+   "line": 260,
    "section": "3. 시스템 설계",
    "text": "# 3. 시스템 설계",
    "sha256": "c1458783df87db621de5cb798a413dd24de5e466409da62e08d1020e60310502",
@@ -1932,7 +1951,7 @@
    "screening_hits": []
   },
   {
-   "line": 260,
+   "line": 262,
    "section": "3.1 연구 및 실험 요구사항",
    "text": "## 3.1 연구 및 실험 요구사항",
    "sha256": "88bae5b0790aa57b5a17b8cec25afb20dc01cceb252a5ab8b31a6adc6ab4ecf6",
@@ -1943,7 +1962,7 @@
    "screening_hits": []
   },
   {
-   "line": 262,
+   "line": 264,
    "section": "3.1 연구 및 실험 요구사항",
    "text": "세 기법의 효과를 비교하려면 기법 이외의 조건이 모든 실험 조건에서 같아야 한다.",
    "sha256": "8b3c07106544304ee0a595b85c21dad2f9f66fe1efa7bdccee3a04122db28b88",
@@ -1954,7 +1973,7 @@
    "screening_hits": []
   },
   {
-   "line": 262,
+   "line": 264,
    "section": "3.1 연구 및 실험 요구사항",
    "text": "따라서 검색·재정렬·생성 모델과 공통 파라미터를 고정하고, 질의마다 검색 결과, 생성 답변, 실행 시간과 적용 파라미터를 저장하여 질의 ID로 조건 간 결과를 연결하였다.",
    "sha256": "4e8a831f11dc311c4a894f2c7ad30affc7200498a1cf28980cb79c4348b2eba8",
@@ -1965,7 +1984,7 @@
    "screening_hits": []
   },
   {
-   "line": 264,
+   "line": 266,
    "section": "3.2 아키텍처 설계",
    "text": "## 3.2 아키텍처 설계",
    "sha256": "60361e12f414f9a93ccf33eefb563837f9baaeaa8317f05b964b21f3624999ae",
@@ -1976,7 +1995,7 @@
    "screening_hits": []
   },
   {
-   "line": 266,
+   "line": 268,
    "section": "3.2 아키텍처 설계",
    "text": "Paper-RAG는 한국어 질의와 대상 문서를 입력받아 검색 후보를 구성하고, 선택한 문맥을 답변 생성 모듈에 전달한다.",
    "sha256": "b59b33ba92091d9a6b2fff0a6637799ee967c9b8247e395c667f01569021ed87",
@@ -1987,7 +2006,7 @@
    "screening_hits": []
   },
   {
-   "line": 266,
+   "line": 268,
    "section": "3.2 아키텍처 설계",
    "text": "HyDE를 적용하면 밀집 검색의 입력이 원질의에서 가상 문서로 바뀌며, BM25 검색과 재정렬에는 항상 한국어 원질의를 사용한다.",
    "sha256": "ceb5baeaa458a0f74f34d93b41f3427cc52b85f81e1ef6bb40b56030ace3cbba",
@@ -1998,7 +2017,7 @@
    "screening_hits": []
   },
   {
-   "line": 266,
+   "line": 268,
    "section": "3.2 아키텍처 설계",
    "text": "두 검색 결과는 가중 RRF로 결합한 뒤 CrossEncoder로 재정렬하고, 상위 5개 구간을 생성 모델에 입력한다.",
    "sha256": "b7d9e9b3d8b5d2fefbaf3e0e3492c3f80ba55a16feff30e32541727b1d1467cb",
@@ -2009,7 +2028,7 @@
    "screening_hits": []
   },
   {
-   "line": 266,
+   "line": 268,
    "section": "3.2 아키텍처 설계",
    "text": "CAD와 SCD는 생성 단계의 로짓에 적용하며, 함께 적용할 때에는 CAD로 로짓을 결합한 다음 SCD의 언어별 계수를 곱한다.",
    "sha256": "adab00d26d4bc0a9ae1512ffcbae342dcedd947432abce5b5f32d827c7826eb4",
@@ -2020,7 +2039,7 @@
    "screening_hits": []
   },
   {
-   "line": 268,
+   "line": 270,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "## 3.3 완전요인 실험 및 대응 비교 설계",
    "sha256": "5e55960b70af6a8b30d68d829622132624b20425b85973d523a6bdc7db642bb5",
@@ -2031,7 +2050,7 @@
    "screening_hits": []
   },
   {
-   "line": 270,
+   "line": 272,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "HyDE, CAD, SCD를 각각 미적용(0)과 적용(1)의 두 수준으로 둔 2³ 완전요인설계를 사용하였다(표 3-1).",
    "sha256": "2eb944dc660f5f3ff3995e73a2c1f89ed76cf4459aea7d7b252933ca20dcd643",
@@ -2042,7 +2061,7 @@
    "screening_hits": []
   },
   {
-   "line": 270,
+   "line": 272,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "조건명의 H, C, S는 각각 HyDE, CAD, SCD를 뜻한다.",
    "sha256": "f1bcf384863f3b0f772eea8bc535c539cbf7e7e020250cf9274c13704d120e2b",
@@ -2053,7 +2072,7 @@
    "screening_hits": []
   },
   {
-   "line": 270,
+   "line": 272,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "같은 질의 60개를 8개 조건에 모두 적용하였으므로, 질의가 반복측정의 단위가 된다.",
    "sha256": "a4f32f687242ec64e15093407f08002039b779b63a0de29f4e6c58a73d707893",
@@ -2064,7 +2083,7 @@
    "screening_hits": []
   },
   {
-   "line": 270,
+   "line": 272,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "각 질의·조건의 답변은 한 번씩 생성하였다.",
    "sha256": "04f0e421f66c948a715f7d735076de5137c0ebf8abdb1232f7a8417fc8b7b682",
@@ -2075,7 +2094,7 @@
    "screening_hits": []
   },
   {
-   "line": 272,
+   "line": 274,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "[표 3-1] HyDE·CAD·SCD의 3요인 2수준 실험 조건",
    "sha256": "08494e857e3a0c00c9c8e65f5da40ba48d7967dfb426d1978b33effd4f5faf2d",
@@ -2086,7 +2105,7 @@
    "screening_hits": []
   },
   {
-   "line": 288,
+   "line": 290,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "이 설계에서는 두 종류의 비교가 가능하다.",
    "sha256": "42b151610c08aaf52ef46dbeeb534b321118ecd8f247d86306d4af433e795f36",
@@ -2097,7 +2116,7 @@
    "screening_hits": []
   },
   {
-   "line": 288,
+   "line": 290,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "단순 비교는 다른 두 기법의 수준을 고정하고 한 기법만 켜고 끈 두 조건을 비교한다.",
    "sha256": "b32cdb8ca860129e04af14ea80ad746db28573847ad6b02228217894beea4217",
@@ -2108,7 +2127,7 @@
    "screening_hits": []
   },
   {
-   "line": 288,
+   "line": 290,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "예를 들어 HyDE의 단순 비교는 H0C0S0과 H1C0S0을, CAD의 단순 비교는 H0C0S0과 H0C1S0을 비교한다.",
    "sha256": "ae98cbeb8fb43fffdbcff3c6298daebfa3d13dd95136708a6d5eab907aeec8f1",
@@ -2119,7 +2138,7 @@
    "screening_hits": []
   },
   {
-   "line": 288,
+   "line": 290,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "CAD 비교에서는 두 조건의 검색 청크 ID, 재정렬 청크 ID와 최종 검색 문맥이 모두 같음을 확인하였다.",
    "sha256": "f153180fa71628f487f66ccf8c14a6bfe8725393d1228917e3964ddb957f7e17",
@@ -2130,7 +2149,7 @@
    "screening_hits": []
   },
   {
-   "line": 288,
+   "line": 290,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
    "text": "요인 분석은 8개 조건 전체를 사용하여, 다른 기법의 수준을 평균한 각 기법의 주효과와, 한 기법의 효과가 다른 기법의 적용 여부에 따라 달라지는 상호작용을 검정한다.",
    "sha256": "6d650024aeb34017c535540f8a73c49bf7c6c23edd27d13377a7f37fa0019ea9",
@@ -2141,7 +2160,7 @@
    "screening_hits": []
   },
   {
-   "line": 290,
+   "line": 292,
    "section": "4. 프로그램 구현",
    "text": "# 4. 프로그램 구현",
    "sha256": "6cf22bf7c5150f8e4c493935e0262450ddef95ec6704e1a3b14840250f5894aa",
@@ -2152,7 +2171,7 @@
    "screening_hits": []
   },
   {
-   "line": 292,
+   "line": 294,
    "section": "4.1 시스템 환경",
    "text": "## 4.1 시스템 환경",
    "sha256": "cbe9ac85d233431ff48b84e1fd45794c94a9a79165e6854d38f7be4a1846ab6a",
@@ -2163,7 +2182,7 @@
    "screening_hits": []
   },
   {
-   "line": 294,
+   "line": 296,
    "section": "4.1 시스템 환경",
    "text": "표 4-1은 모든 조건에 공통으로 적용한 검색·재정렬·생성 설정과 기법별 파라미터다.",
    "sha256": "54d8c5c7cbb58d9808147a2cf54b8f4e86a3cbf0aeae68b55dab3a4513a19655",
@@ -2174,7 +2193,7 @@
    "screening_hits": []
   },
   {
-   "line": 294,
+   "line": 296,
    "section": "4.1 시스템 환경",
    "text": "청크 분할과 문맥 길이는 공백 기준 단어 수로, 답변 길이는 생성 모델의 토큰 수로 계산하였다.",
    "sha256": "ed715388c809a83d718209364ea3170b629a6250fd90b850523293ef63c4baf7",
@@ -2185,7 +2204,7 @@
    "screening_hits": []
   },
   {
-   "line": 296,
+   "line": 298,
    "section": "4.1 시스템 환경",
    "text": "[표 4-1] 검색·재정렬·생성 단계의 모델과 공통 실행 설정",
    "sha256": "a9d1bf92b639f71dded871d6dfa6a72c15b0815b29b2fe94422e24464921b6fb",
@@ -2196,7 +2215,7 @@
    "screening_hits": []
   },
   {
-   "line": 314,
+   "line": 316,
    "section": "4.1 시스템 환경",
    "text": "재정렬에는 MS MARCO로 학습한 MiniLM CrossEncoder[M2]를 사용하였고, 한국어 원질의와 영어 후보 구간을 한 쌍으로 입력하였다.",
    "sha256": "6a91f072a86b15bbc3b319e857a2e9109e7620a0b508a830c568018686ebb0ab",
@@ -2207,7 +2226,7 @@
    "screening_hits": []
   },
   {
-   "line": 314,
+   "line": 316,
    "section": "4.1 시스템 환경",
    "text": "선택한 5개 구간의 단어 수 합이 3,072단어를 넘으면 ContextCompressor가 질의와 공통으로 등장하는 단어의 비율로 문장 순위를 매기고, 구간마다 단어 수의 절반에 해당하는 문장을 원래 순서대로 남긴다.",
    "sha256": "10997978bbfc313a68d74197992cca593acee7c66533fb4c31cfce851c2f6d81",
@@ -2218,7 +2237,7 @@
    "screening_hits": []
   },
   {
-   "line": 314,
+   "line": 316,
    "section": "4.1 시스템 환경",
    "text": "검색 후보 수 8, 재정렬 후보 수 8, 최종 문맥 5는 평가 질의와 분리한 튜닝 질의 5개로 정한 뒤 고정하였다.",
    "sha256": "62f3f880b9c957ea13504a376744288a30dcc3dbf0cfc8e8bf13a972fe12143f",
@@ -2229,7 +2248,7 @@
    "screening_hits": []
   },
   {
-   "line": 316,
+   "line": 318,
    "section": "4.2 시스템 구성",
    "text": "## 4.2 시스템 구성",
    "sha256": "4609187aece251a77f0fbb71c28cc51d384ff0fb4ae1fa0349f57d54a93f75cd",
@@ -2240,7 +2259,7 @@
    "screening_hits": []
   },
   {
-   "line": 318,
+   "line": 320,
    "section": "4.2 시스템 구성",
    "text": "그림 4-1은 질의 입력부터 답변 생성까지의 처리 순서다.",
    "sha256": "6ad6ec2ad6fbfa308982c23344afce5fa4214da1a0104d91e0b8f57f6f0f90e6",
@@ -2251,7 +2270,7 @@
    "screening_hits": []
   },
   {
-   "line": 318,
+   "line": 320,
    "section": "4.2 시스템 구성",
    "text": "HyDE 조건에서는 답변 생성과 같은 Mi:dm 2.0 Base Instruct로 한국어 질의를 영어로 번역하고, 번역문으로 영어 가상 문서를 생성하여 밀집 검색에 사용한다.",
    "sha256": "c5f84e913e74e20d652be52872218599897543cbcf3694e6e161f265a59f8a46",
@@ -2262,7 +2281,7 @@
    "screening_hits": []
   },
   {
-   "line": 318,
+   "line": 320,
    "section": "4.2 시스템 구성",
    "text": "답변 생성에는 검색한 실제 영어 구간을 입력한다.",
    "sha256": "a72bf9e4617ab8f29a93a5d3d18202dc075a5c72eed982d3072782abe97cfaf9",
@@ -2273,7 +2292,7 @@
    "screening_hits": []
   },
   {
-   "line": 322,
+   "line": 324,
    "section": "4.2 시스템 구성",
    "text": "[그림 4-1] 한국어 질의의 검색·융합·재정렬 및 답변 생성 흐름",
    "sha256": "d1d811fb01bda08be2ecebde19442232011a154d523a4caf8d88854c90849b6b",
@@ -2284,7 +2303,7 @@
    "screening_hits": []
   },
   {
-   "line": 324,
+   "line": 326,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "## 4.3 시스템 구현과 실행 기록",
    "sha256": "fd668b47986d6b9257600ddbe2c79fd4d5e755aca49102b73312e3cffedfcfb3",
@@ -2295,7 +2314,7 @@
    "screening_hits": []
   },
   {
-   "line": 326,
+   "line": 328,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "CAD는 생성 단계마다 같은 지시문에서 검색 문맥만 뺀 입력의 로짓을 다시 계산하여 2.4절의 식으로 결합한다.",
    "sha256": "5b3f6898c34bd8a6c41b6f96f630839f7398c9ed7c22a01a993743aeeeac7b90",
@@ -2306,7 +2325,7 @@
    "screening_hits": []
   },
   {
-   "line": 326,
+   "line": 328,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "SCD는 생성한 토큰이 5개가 되면 한국어 토큰과 비한국어 토큰에 각각 α와 β를 곱한다.",
    "sha256": "cfca9c2f66c935840ae95465713796e1f0134674b3949c654c3d4351995b161c",
@@ -2317,7 +2336,7 @@
    "screening_hits": []
   },
   {
-   "line": 328,
+   "line": 330,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "각 생성 기록에는 질의 ID, 실험 조건, 검색·재정렬 청크 ID, 최종 검색 문맥, 생성 답변, 실행 시간과 적용 파라미터를 저장하였다.",
    "sha256": "40f35e852922afe94a8002c837272eaf4d398a81957fc218a159261d283f5feb",
@@ -2328,7 +2347,7 @@
    "screening_hits": []
   },
   {
-   "line": 328,
+   "line": 330,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "평가값은 질의 ID와 조건명으로 생성 기록에 연결하였다.",
    "sha256": "2910690a913f15eb13ab355454ec9430ee441243d6be7cd599ea61d37155f61a",
@@ -2339,7 +2358,7 @@
    "screening_hits": []
   },
   {
-   "line": 330,
+   "line": 332,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "조건 실행 시간은 모델과 검색 구성요소의 초기화가 끝난 뒤, 각 질의·조건의 처리 시작부터 답변 생성과 기록용 메타데이터 구성이 끝날 때까지 측정하였다.",
    "sha256": "6b14b34e9c0113dbc3f303b69f89e58362d392f52698b0bae38bd46c5bb8b476",
@@ -2350,18 +2369,18 @@
    "screening_hits": []
   },
   {
-   "line": 330,
+   "line": 332,
    "section": "4.3 시스템 구현과 실행 기록",
-   "text": "HyDE 조건에는 번역과 가상 문서 생성 시간이 포함되며, 평가 API 호출과 파일 기록은 측정 구간에서 제외하였다.",
-   "sha256": "60a5dd377eebadf8cc986cab149d7472999a1349f9a0cd9c7f3712f1142be78f",
+   "text": "HyDE 조건에는 번역과 가상 문서 생성 시간이 포함되며, 평가 API 호출과 파일 기록은 측정이 끝난 뒤에 수행하였다.",
+   "sha256": "e9fc76defe9b14c034266fa116d65b50377a1653133594f6c2ea748b65ef3ec4",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 330,
+   "line": 332,
    "section": "4.3 시스템 구현과 실행 기록",
    "text": "측정값은 초 단위로 소수점 셋째 자리까지 저장하였다.",
    "sha256": "bd0d472f87fdbb2d33d249538012d6095e2a4dbbc7d0fc3a9d42f176377f2e38",
@@ -2372,7 +2391,7 @@
    "screening_hits": []
   },
   {
-   "line": 332,
+   "line": 334,
    "section": "5. 실험",
    "text": "# 5. 실험",
    "sha256": "fd56412ac72a92b52c64d58c04eac427b825f47d0888da7f8f4b63883312a2e7",
@@ -2383,7 +2402,7 @@
    "screening_hits": []
   },
   {
-   "line": 334,
+   "line": 336,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "## 5.1 평가 대상 및 질의 구성",
    "sha256": "8fed0209fbc04e10e2dbafcad3515d2ca915649c81a78a1280d1e98c08be26c3",
@@ -2394,7 +2413,7 @@
    "screening_hits": []
   },
   {
-   "line": 336,
+   "line": 338,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "평가 질의는 RAG Survey[D1], CAD[D2], RAPTOR[D3], Mi:dm K 2.5 Pro Technical Report[D4]의 영어 문서 4종에서 문서별 15개씩 총 60개를 구성하였다.",
    "sha256": "7aa6a2c51bf0fc01ec728ed80b1a47cc80f14cd24b1e1aabb7edd4e5c1ce187c",
@@ -2405,7 +2424,7 @@
    "screening_hits": []
   },
   {
-   "line": 336,
+   "line": 338,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "네 문서는 각각 RAG의 개요, 근거 활용 디코딩, 계층적 검색, 한국어·영어 언어 모델 기술을 다룬다.",
    "sha256": "44c16fa5b9c89a2c5597571ab12cd628ebe2d43fb96e1e835e2d0ecea89d170d",
@@ -2416,7 +2435,7 @@
    "screening_hits": []
   },
   {
-   "line": 338,
+   "line": 340,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "질의는 다음 순서로 작성하였다.",
    "sha256": "7bec78228794a86ebe149a68daec8532eeba84181687652345f116c88a929256",
@@ -2427,7 +2446,7 @@
    "screening_hits": []
   },
   {
-   "line": 338,
+   "line": 340,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "먼저 문서마다 질문 형식과 범위를 정하는 초기 질문 3개를 작성하고, 대규모 언어 모델(Large Language Model, LLM)로 문서의 주요 내용을 15개 내용 단위로 요약하였다.",
    "sha256": "8b9589bef12b3887aa1de80d12f9cd39d721b51e63ae1b6acb1615bc0b654fd4",
@@ -2438,7 +2457,7 @@
    "screening_hits": []
   },
   {
-   "line": 338,
+   "line": 340,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "단위마다 한국어 질의를 1개씩 작성한 뒤, 연구자가 원문 PDF에서 각 질의의 답변 가능성과 정답 근거를 확인하고 원문 페이지를 기록하였다(부록 A).",
    "sha256": "9cf6d5478849e9826751c2c131f43748a6832710ee6c314d9bc96646bf1c578b",
@@ -2449,7 +2468,7 @@
    "screening_hits": []
   },
   {
-   "line": 338,
+   "line": 340,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "질문 작성과 답변 근거 확인을 분리하는 방식은 논문 기반 질의응답 데이터셋인 QASPER[21]와 문서 기반 대화 생성 연구[22]의 절차를 참고하였다.",
    "sha256": "bd992736cdc8e31d8c927d19a4d6cc34e03712ee9dd070e4dd9d10fce7703fae",
@@ -2460,7 +2479,7 @@
    "screening_hits": []
   },
   {
-   "line": 340,
+   "line": 342,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "질문 유형은 요구하는 정보에 따라 분류하였다.",
    "sha256": "1c38468734066b407e06c1ad6d1101bf67e88f7b42e7df3eba8efdef604ee8e1",
@@ -2471,7 +2490,7 @@
    "screening_hits": []
   },
   {
-   "line": 340,
+   "line": 342,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "개념·수치·구성 요소를 묻는 ‘사실 및 정의’ 8개, 구조·처리 과정·실험 설정을 묻는 ‘방법 및 절차’ 29개, 정량·정성 결과나 방법 간 차이를 묻는 ‘결과 및 비교’ 20개, 연구 목적과 기여를 묻는 ‘목적 및 기여’ 3개다.",
    "sha256": "230ccccdeb64b184dfa8173b300b2a5c1102b78574b572422bb38bfd83fea1ba",
@@ -2482,7 +2501,7 @@
    "screening_hits": []
   },
   {
-   "line": 340,
+   "line": 342,
    "section": "5.1 평가 대상 및 질의 구성",
    "text": "문서별 질의 수는 같게 맞추었으나 유형별 질의 수는 문서 내용에 따라 달라졌다.",
    "sha256": "775f4be4a01deeaee69c62021ef779d6de4f1c2ff3a22169f5a30c25704795c6",
@@ -2493,7 +2512,7 @@
    "screening_hits": []
   },
   {
-   "line": 342,
+   "line": 344,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "## 5.2 평가 지표와 해석 기준",
    "sha256": "3b5dd58a6a28c04e1266738ca090fd666614f8e43fad68d06de9f308ff9f9bb4",
@@ -2504,7 +2523,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "답변 품질은 RAGAS의 네 지표로 평가하였다.",
    "sha256": "e94d6f97c1a78032e0605983a7f51ced774631c3ccedeeba09d8f01ba087bf5c",
@@ -2515,7 +2534,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "근거 충실도는 생성 답변의 주장 가운데 검색 문맥으로 뒷받침되는 주장의 비율이다.",
    "sha256": "97350638ae9452bbef580c9e4267032382bad6a984d7ca649bffedd782954e60",
@@ -2526,7 +2545,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "답변 관련성은 평가 모델이 생성 답변으로부터 역으로 만든 질문과 원질문의 임베딩 코사인 유사도다.",
    "sha256": "2c1965efe5a7d0ef0d833150a3b7124c73cee36c8a39f4a0ea4b8d6435684a4f",
@@ -2537,7 +2556,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "문맥 정밀도는 참조 답변에 유용한 검색 구간이 상위에 배치된 정도이며, 문맥 재현율은 참조 답변의 주장 가운데 검색 문맥이 뒷받침하는 비율이다.",
    "sha256": "2c66937dbfbcfae0d3463fb1bc6cc9ca37c72faac40c557bb505b6c7266b8476",
@@ -2548,7 +2567,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "참조 답변은 부록 A의 정답 근거를 사용하였다.",
    "sha256": "1f976928e15bdd5c28b68197f3f9456478618c041459c8b52d20e1bf669dde6e",
@@ -2559,7 +2578,7 @@
    "screening_hits": []
   },
   {
-   "line": 344,
+   "line": 346,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "네 지표 모두 0~1 범위이며 값이 클수록 좋다.",
    "sha256": "5c37fb5456597c2b6e4afd86d7f39273e81c31325a25b91a91cd312993afe3ca",
@@ -2570,7 +2589,7 @@
    "screening_hits": []
   },
   {
-   "line": 346,
+   "line": 348,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "출력 언어는 생성 답변의 한국어 문자 비율로 측정하였다.",
    "sha256": "0ae3bb5ff4b0249c8ea8209f54831a203102037a8a590e09b036ab0a9707867d",
@@ -2581,7 +2600,7 @@
    "screening_hits": []
   },
   {
-   "line": 346,
+   "line": 348,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "한글 문자 수를 N_Hangul, ASCII 영문자 수를 N_ASCII라 하면 다음과 같다.",
    "sha256": "114883d97981409d8773c576e6b83ed4571b7641ae8227aeb416717f2371d46b",
@@ -2592,18 +2611,18 @@
    "screening_hits": []
   },
   {
-   "line": 354,
+   "line": 356,
    "section": "5.2 평가 지표와 해석 기준",
-   "text": "숫자·공백·문장부호는 계산에서 제외하였다.",
-   "sha256": "98d584e9e565f1cca4f737899857e8c57442716c4afe45070c65afb5ba4294b3",
+   "text": "계산에는 한글과 ASCII 영문자만 사용하였다.",
+   "sha256": "ecb64d7ffdf7adcebe793a565530eb9267a40e0dae7a7bd374481896e2e9c9cb",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 354,
+   "line": 356,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "영어 논문명·모델명도 ASCII 영문자로 세므로, 자연스러운 한국어 답변도 1.0보다 낮은 값을 가질 수 있다.",
    "sha256": "1a20c32659d3b5b0bb28ab133fc4c22e53aa36796807ba8dc8b7f40c2b9d3c40",
@@ -2614,7 +2633,7 @@
    "screening_hits": []
   },
   {
-   "line": 354,
+   "line": 356,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "비율 0.700은 계산 대상 문자의 70.0%가 한글이라는 뜻이며, 두 조건의 차이 0.218은 21.8%p로 읽는다.",
    "sha256": "360031faaa7bc18db7320c8f3565b3800a225e80985931df7e19bef23d169d57",
@@ -2625,7 +2644,7 @@
    "screening_hits": []
   },
   {
-   "line": 354,
+   "line": 356,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "숫자만 반복하여 분모가 0인 답변 1건(track1_0035, H1C0S1)은 분석기에 저장된 값 0을 사용하였다.",
    "sha256": "8d6cc08d04e4a4f72bce3675248d83a1fe2b5056d403b65a3979633dd16367c0",
@@ -2636,7 +2655,7 @@
    "screening_hits": []
   },
   {
-   "line": 356,
+   "line": 358,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "## 5.3 실험 조건 및 평가 절차",
    "sha256": "9430d1171486b91657deeefb3db71887d264897bc6f2dcd92b0721caad557d53",
@@ -2647,7 +2666,7 @@
    "screening_hits": []
   },
   {
-   "line": 358,
+   "line": 360,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "평가에는 RAGAS 0.2.15, 평가 모델 OpenAI gpt-4o, 임베딩 모델 BAAI/bge-m3를 사용하였다.",
    "sha256": "2c858927a3e94e3b8feacfd23ddfebe468574c782e6b45b0d180f179afee2ed8",
@@ -2658,7 +2677,7 @@
    "screening_hits": []
   },
   {
-   "line": 358,
+   "line": 360,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "문맥 정밀도는 참조 답변을 입력받는 ContextPrecision(LLMContextPrecisionWithReference 상속)으로 계산하였다.",
    "sha256": "b80a6c677cac1811da74976788a7f0319f3d4518855a4a35c3372dfa5c8bf80a",
@@ -2669,51 +2688,51 @@
    "screening_hits": []
   },
   {
-   "line": 360,
+   "line": 362,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "SCD를 적용한 답변은 대부분 한국어이므로, 영어 검색 문맥과 한국어 답변을 그대로 대조하면 평가 모델이 같은 내용을 다른 언어로 쓴 주장을 근거로 인정하지 않을 수 있다.",
-   "sha256": "6924776a938a4d10aebe48b6f2e7a8732d66485290f928b95d9e11295647d4ed",
-   "candidate": true,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 360,
-   "section": "5.3 실험 조건 및 평가 절차",
-   "text": "이를 줄이기 위해 SCD ON 조건은 저장된 영어 검색 문맥을 gpt-4o로 한국어 번역한 평가용 문맥으로, SCD OFF 조건은 생성에 사용한 영어 문맥으로 평가하였다(그림 5-1).",
-   "sha256": "2c98c36f534a7e3824d731ccf549b974b9532b1d6f58923f648607cc1765b187",
+   "text": "SCD를 적용한 답변은 대부분 한국어이므로, 평가 모델이 답변의 주장과 검색 문맥을 같은 언어로 대조하도록 SCD ON 조건은 저장된 영어 검색 문맥을 gpt-4o로 한국어 번역한 평가용 문맥으로 평가하였다.",
+   "sha256": "4bc04c747a59fb8f607c70cfdd8d07a637d5b0529fd06208eff969678a664ffe",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 360,
+   "line": 362,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "답변 생성에는 모든 조건에서 영어 문맥을 입력했고, 평가할 답변은 수정하지 않았다.",
-   "sha256": "97ce06c46c63f9714bdf8fb07307a04876f96d6c395607ed4d4fbdcd09c6ba36",
-   "candidate": true,
+   "text": "SCD OFF 조건은 생성에 사용한 영어 문맥으로 평가하였다(그림 5-1).",
+   "sha256": "706fdcaf0ff64c44c8c850988f81b30389aa804d1e991e43aa7c262c26905873",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 360,
+   "line": 362,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "두 조건의 평가 입력이 다르므로 SCD ON과 OFF의 품질 점수는 직접 비교하지 않고, 품질 분석은 SCD 상태별로 나누어 수행하였다.",
-   "sha256": "43c998e032b4670110392e5f55e8f26ed88a740d8087ff37f9148313b48a3c71",
-   "candidate": true,
+   "text": "답변 생성에는 모든 조건에서 영어 문맥을 입력했으며, 평가에는 저장된 답변을 그대로 사용하였다.",
+   "sha256": "5b80434dadc6d53c7841b777d3ae09ff04c20c374d4c890a96e23a74882d58a5",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 364,
+   "line": 362,
+   "section": "5.3 실험 조건 및 평가 절차",
+   "text": "두 조건은 평가 입력의 언어가 다르므로, 품질 분석은 SCD 상태별로 나누어 수행하였다.",
+   "sha256": "55ef5a11aeb74d40aeedfed39507d30061d9e862cfcadee1546ebac305458f50",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
+   "screening_hits": []
+  },
+  {
+   "line": 366,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "[그림 5-1] 질의별 생성 기록과 평가값을 연결하는 대응 비교 절차",
    "sha256": "91a0f419683d8fb5a7f656f3f35af866470afa40c36d284a082adedb95f71553",
@@ -2724,7 +2743,7 @@
    "screening_hits": []
   },
   {
-   "line": 366,
+   "line": 368,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "그림 5-2는 RAPTOR 질의 ext_raptor_011의 질문, 영어 검색 근거, 참조 답변, 생성 답변과 평가값이다.",
    "sha256": "fdaeb0f6b52982b44811fe7d403a484ddaa7447ec94d203c4f3fbe39a539d842",
@@ -2735,7 +2754,7 @@
    "screening_hits": []
   },
   {
-   "line": 366,
+   "line": 368,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "검색 근거로는 원문과 고수준 요약을 함께 검색하는 이유를 설명한 원문 9쪽의 문장을, 참조 답변으로는 19~20쪽의 Cinderella 정성 비교를 사용하였다.",
    "sha256": "461c72da14db9f34deec52cb2051427892a6f1cbf4244aa47645ba1dcfd0db86",
@@ -2746,7 +2765,7 @@
    "screening_hits": []
   },
   {
-   "line": 366,
+   "line": 368,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "근거 충실도는 생성 답변의 주장을 검색 문맥과, 문맥 재현율은 참조 답변을 검색 문맥과 대조한다.",
    "sha256": "ab0c1adcd031999dd5053c08bd8d7ec77e2f2e03e3fa7514cda6e9a94a3424d4",
@@ -2757,7 +2776,7 @@
    "screening_hits": []
   },
   {
-   "line": 370,
+   "line": 372,
    "section": "5.3 실험 조건 및 평가 절차",
    "text": "[그림 5-2] RAPTOR 질의의 검색 근거, 생성 답변 및 평가 예시",
    "sha256": "c1da05a5ada895b2212e3cef0213718c2bb03d53b1d979514272626a10cd87a4",
@@ -2768,7 +2787,7 @@
    "screening_hits": []
   },
   {
-   "line": 372,
+   "line": 374,
    "section": "5.4 통계 분석 방법",
    "text": "## 5.4 통계 분석 방법",
    "sha256": "c4ecc2b6182ea10ec0c706023d864b58c6daec337d3e96b5f5dce98d14e24c77",
@@ -2779,7 +2798,7 @@
    "screening_hits": []
   },
   {
-   "line": 374,
+   "line": 376,
    "section": "5.4 통계 분석 방법",
    "text": "통계 분석에는 대응 t-검정과 반복측정 ANOVA를 사용하였다.",
    "sha256": "a5aba003762405380b784dd57d27c085ac3a67861fd1640341379d6f5662ab2f",
@@ -2790,29 +2809,18 @@
    "screening_hits": []
   },
   {
-   "line": 374,
+   "line": 376,
    "section": "5.4 통계 분석 방법",
-   "text": "같은 질의 60개를 모든 조건에서 측정하였으므로 조건 간 점수는 서로 독립이 아니다.",
-   "sha256": "6b4028e01ccfa403d775ca4d8fe154c07214ce8d5e9d7200ef6533a0effd9861",
-   "candidate": true,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 374,
-   "section": "5.4 통계 분석 방법",
-   "text": "따라서 두 조건의 비교에는 질의별 점수 차이를 검정하는 대응 t-검정을, 세 기법의 주효과와 상호작용에는 질의를 반복측정 단위로 한 반복측정 ANOVA를 적용하였다.",
-   "sha256": "32f16ac3b954231298e9fd5b55fd2d851465e9df51ed5ac1df4f4853db3a27dc",
+   "text": "같은 질의 60개를 모든 조건에서 측정하였으므로, 두 조건의 비교에는 질의별 점수 차이를 검정하는 대응 t-검정을, 세 기법의 주효과와 상호작용에는 질의를 반복측정 단위로 한 반복측정 ANOVA를 적용하였다.",
+   "sha256": "9d95e8eef52959207c2fd8bb2af378d8f772a0d6c4e37c43bf47ec30b2fc88a8",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 374,
+   "line": 376,
    "section": "5.4 통계 분석 방법",
    "text": "유의수준은 양측 0.05로 정하였다.",
    "sha256": "23bf49d8f0102d89cd7f0880ff300d307287679fbe67b5dacd044b518d145fde",
@@ -2823,7 +2831,7 @@
    "screening_hits": []
   },
   {
-   "line": 376,
+   "line": 378,
    "section": "5.4 통계 분석 방법",
    "text": "대응 t-검정의 귀무가설은 질의별 ON−OFF 차이의 평균이 0이라는 것이다.",
    "sha256": "da9d9a5f64ba5236d85702de503149d6a0c8e0f65fc93c8526e1c5bc2e40aa59",
@@ -2834,7 +2842,7 @@
    "screening_hits": []
   },
   {
-   "line": 376,
+   "line": 378,
    "section": "5.4 통계 분석 방법",
    "text": "질의 i의 적용 조건 점수를 s_i^ON, 미적용 조건 점수를 s_i^OFF라 하면 차이, 평균 차이와 t 통계량은 다음과 같다. s_Δ는 질의별 차이의 표본표준편차이며 자유도는 n−1이다.",
    "sha256": "4845feadc7b2350dc68e5c3a0fd51a5f48a75d643967d90d78f4330c22c4bac2",
@@ -2845,7 +2853,7 @@
    "screening_hits": []
   },
   {
-   "line": 390,
+   "line": 392,
    "section": "5.4 통계 분석 방법",
    "text": "효과크기는 평균 차이를 차이의 표준편차로 나눈 Cohen dz로 나타내었다.",
    "sha256": "0e278777f4eea404a41f515a5dea76a7340f4ae859f33d05fd7ea5fd777c7404",
@@ -2856,29 +2864,18 @@
    "screening_hits": []
   },
   {
-   "line": 390,
+   "line": 392,
    "section": "5.4 통계 분석 방법",
-   "text": "RQ3에서는 한 질의에 SCD 대응쌍이 둘(CAD OFF·ON) 있으므로, 질의별로 두 차이를 먼저 평균하여 검정 표본을 60개로 맞추었다.",
-   "sha256": "4363e93daad656b6bd1a24e18f2571c9a6e06e15fed3574a19374db470e959a4",
+   "text": "RQ3에서는 한 질의에 SCD 대응쌍이 둘(CAD OFF·ON) 있으므로, 질의별로 두 차이를 먼저 평균하여 질의 하나가 표본 하나가 되도록 하였다(n=60).",
+   "sha256": "4f18e40c14a9a1ba6778651147cafcebf3383535b57857d944cbf0808e159a5e",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 390,
-   "section": "5.4 통계 분석 방법",
-   "text": "이렇게 하지 않으면 같은 질의의 쌍을 서로 독립인 표본으로 중복 계산하게 된다.",
-   "sha256": "756e97bf5bcf94a7a88ef4b41863dcdd65c9b0b541d800096322270d0549c454",
-   "candidate": true,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 392,
+   "line": 394,
    "section": "5.4 통계 분석 방법",
    "text": "반복측정 ANOVA의 각 효과는 두 수준을 가지므로 자유도는 (1, n−1)이고, 효과크기는 부분 η²=F/(F+오차 자유도)로 계산하였다.",
    "sha256": "fc9c3365e2a260438ed9b6e2c2741d72de6ce84aca11eb9960d80c1cee83b07f",
@@ -2889,7 +2886,7 @@
    "screening_hits": []
   },
   {
-   "line": 392,
+   "line": 394,
    "section": "5.4 통계 분석 방법",
    "text": "한국어 문자 비율과 실행 시간은 8개 조건 전체로 H×C×S 3요인 ANOVA를 수행하였다.",
    "sha256": "c9ca2f6231dc1cb84e5192e8617a673653ffff0ab872fb43df6f8c7caca42c4e",
@@ -2900,7 +2897,7 @@
    "screening_hits": []
   },
   {
-   "line": 392,
+   "line": 394,
    "section": "5.4 통계 분석 방법",
    "text": "품질 지표는 5.3절의 이유로 SCD OFF와 ON 안에서 각각 H×C 2요인 ANOVA를 수행하였다.",
    "sha256": "a00e3a90904b2848f784016b3d8a46a6de5b060c900ead15e4837cf29885eedf",
@@ -2911,7 +2908,7 @@
    "screening_hits": []
   },
   {
-   "line": 392,
+   "line": 394,
    "section": "5.4 통계 분석 방법",
    "text": "유의한 상호작용은 해당 조건별 단순 효과를 대응 t-검정으로 확인하였다.",
    "sha256": "0621d16c6498967a00433420b99948f8a291e757c1655a97412cf33129dc2ccd",
@@ -2922,7 +2919,7 @@
    "screening_hits": []
   },
   {
-   "line": 394,
+   "line": 396,
    "section": "5.4 통계 분석 방법",
    "text": "RAGAS 평가값 1,920개 중 1,915개가 유효했고, 결측 5개는 모두 근거 충실도에서 발생하였다(ext_rag_003·006의 H0C1S0, ext_rag_003·005·006의 H0C0S1).",
    "sha256": "5a7c56177049562a70c526295a3c46420178192733bdeef978dca727469c2981",
@@ -2933,7 +2930,7 @@
    "screening_hits": []
   },
   {
-   "line": 394,
+   "line": 396,
    "section": "5.4 통계 분석 방법",
    "text": "각 검정은 필요한 조건의 값이 모두 있는 질의만 사용하였으며, 이에 따라 RQ2의 표본은 58개다.",
    "sha256": "28438555021c707c5e37bc683ed7187ff53dda8f36ee79e6e19550e16834a545",
@@ -2944,18 +2941,18 @@
    "screening_hits": []
   },
   {
-   "line": 396,
+   "line": 398,
    "section": "5.4 통계 분석 방법",
-   "text": "이 분석은 실험을 마친 뒤 연구 질문에 맞추어 정리한 탐색적 분석이며, 핵심 지표를 사전에 등록하지는 않았다.",
-   "sha256": "b6383b136c4eeef4fb3a3f7673f4a533e72373a21c956f8ce11f682f931cfc0b",
-   "candidate": true,
+   "text": "이 분석은 실험을 마친 뒤 연구 질문에 맞추어 핵심 지표를 정한 탐색적 분석이다.",
+   "sha256": "abcb5d1c016bc7660cf146e9e24add6708a74c0fb3670ae8c52d148b3d15580c",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 396,
+   "line": 398,
    "section": "5.4 통계 분석 방법",
    "text": "여러 검정을 수행하였으므로 개별 p값은 제1종 오류가 누적될 수 있다는 점을 고려하여 해석하였다.",
    "sha256": "c9fcc19c4d43cad9a72194b2bf449990de84223230e3cfb8011008813f469d2d",
@@ -2966,7 +2963,7 @@
    "screening_hits": []
   },
   {
-   "line": 398,
+   "line": 400,
    "section": "5.5 조합별 평가 결과",
    "text": "## 5.5 조합별 평가 결과",
    "sha256": "f88fdb7ef443f4cb0f78ada6748d2f3be361cf155b814bbf6391178b5723bf5b",
@@ -2977,7 +2974,7 @@
    "screening_hits": []
   },
   {
-   "line": 400,
+   "line": 402,
    "section": "5.5 조합별 평가 결과",
    "text": "표 5-1은 8개 조건의 품질 지표와 한국어 문자 비율의 평균(SD)이다.",
    "sha256": "677363e6fe566cd24b21b8b0154437388204cdc29815b1395dbd25a68b31daa3",
@@ -2988,7 +2985,7 @@
    "screening_hits": []
   },
   {
-   "line": 400,
+   "line": 402,
    "section": "5.5 조합별 평가 결과",
    "text": "위쪽 네 행은 영어 문맥으로, 아래쪽 네 행은 한국어 번역 문맥으로 평가한 결과다.",
    "sha256": "73bb6f00b702d60a802e8a75b5e7fde1ee3b36b9294244a36a272aed9fc0e8ae",
@@ -2999,7 +2996,7 @@
    "screening_hits": []
   },
   {
-   "line": 402,
+   "line": 404,
    "section": "5.5 조합별 평가 결과",
    "text": "[표 5-1] 평가 문맥 언어별 8조건의 품질 및 한국어 문자 비율 평균(SD)",
    "sha256": "b6bfc1ce8f739a1ea9d0bc4fe36edae3683f028db9e16bb08ff1bb0a8f6868d9",
@@ -3010,7 +3007,7 @@
    "screening_hits": []
   },
   {
-   "line": 418,
+   "line": 420,
    "section": "5.5 조합별 평가 결과",
    "text": "충실도는 H0C1S0이 n=58, H0C0S1이 n=57이고 나머지는 n=60이다.",
    "sha256": "152d7973ba31c75dcc8b99ae7b919add8c0a2bbe24ae0392c173bf667ab83484",
@@ -3021,7 +3018,7 @@
    "screening_hits": []
   },
   {
-   "line": 418,
+   "line": 420,
    "section": "5.5 조합별 평가 결과",
    "text": "영어 문맥으로 평가한 조건 중 답변 관련성은 H1C0S0(0.763)이, 근거 충실도는 H1C1S0(0.860)이 가장 높았다.",
    "sha256": "faebb2e49ed68c312fd8a0d5ad16cd82c4696f34b201a247b935a273e921c29b",
@@ -3032,18 +3029,18 @@
    "screening_hits": []
   },
   {
-   "line": 418,
+   "line": 420,
    "section": "5.5 조합별 평가 결과",
-   "text": "한국어 문자 비율은 SCD를 적용한 네 조건이 모두 0.699 이상으로, 적용하지 않은 네 조건(0.488~0.556)보다 높았고 H1C0S1이 0.807로 가장 높았다.",
-   "sha256": "2e4d4133df9faae481bd29ce504bad35559a0dc28b63e25bf5c548a44ee3c290",
-   "candidate": true,
+   "text": "한국어 문자 비율은 SCD를 적용한 네 조건이 모두 0.699 이상으로, 미적용 네 조건(0.488~0.556)보다 높았고 H1C0S1이 0.807로 가장 높았다.",
+   "sha256": "0b8faa19580d7ef3ed4209e93de824f7b441e6b9ff8d0e53d0c6182736b35623",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 418,
+   "line": 420,
    "section": "5.5 조합별 평가 결과",
    "text": "이 순위는 평균의 비교이며, 조건 간 차이가 통계적으로 유의한지는 5.6절과 5.7절에서 검정한다.",
    "sha256": "24f2459d8f0c2f383f48ff46b1bf9270d34502871aa7e3da427dcec21930ff3e",
@@ -3054,7 +3051,7 @@
    "screening_hits": []
   },
   {
-   "line": 420,
+   "line": 422,
    "section": "5.5 조합별 평가 결과",
    "text": "[표 5-2] 8조건의 조건 실행 시간 평균, 표준편차와 중앙값",
    "sha256": "d5b9ff18ab5a900ccf62527b617a8b42b67912c0a44fa598ef0f9b0a3925a34a",
@@ -3065,18 +3062,18 @@
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
-   "text": "CAD를 적용한 네 조건은 55~74초로, 적용하지 않은 네 조건(19~25초)의 약 2.9배였다.",
-   "sha256": "ef74a14236aeda303169930a4301d02268e75e07460943859c821422eed2b699",
-   "candidate": true,
+   "text": "CAD를 적용한 네 조건은 55~74초로, 미적용 네 조건(19~25초)의 약 2.9배였다.",
+   "sha256": "d09d348fe275752b70a99facbaefa5f208e16455f425e377c90b4b71fa89ac6d",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
    "text": "H0C0S0의 SD가 다른 CAD 미적용 조건보다 큰 것은 각 질의 세트의 첫 실행이었던 track1_0009(164.2초)와 ext_rag_001(117.3초) 때문이다.",
    "sha256": "28fcab5af725b9cffb8715b701d7101667c590437392698d715741ad01d5c3c7",
@@ -3087,7 +3084,7 @@
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
    "text": "두 기록은 각 실행에서 모델 초기화 직후 처음 처리된 질의로, 다른 질의의 같은 조건(중앙값 16.1초)보다 7~10배 길었다.",
    "sha256": "53dabc534b12c3d472b8bfbdd10ec4963d808203e97a943c20d1c42ebb39b3b2",
@@ -3098,7 +3095,7 @@
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
    "text": "두 질의를 제외한 58개로 다시 분석하면 H0C0S0의 평균은 16.7초가 되고, SCD는 CAD 미적용 조건에서 실행 시간을 1~2초 늘리고 CAD 적용 조건에서는 7~8초 줄였다.",
    "sha256": "a049cbf9e06270da35421c88a031b99c74772c2e87d8bcccdb0eac71023294e7",
@@ -3109,18 +3106,18 @@
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
-   "text": "H·C 주효과와 C×S 상호작용의 유의성은 바뀌지 않았다(C×S F(1,57)=12.022, p=0.001).",
-   "sha256": "19345f9e520cffcf907d29e0c185e596df6c417071c2369d0a9c47153b3edece",
+   "text": "H·C 주효과와 C×S 상호작용은 그대로 유의하였다(C×S F(1,57)=12.022, p=0.001).",
+   "sha256": "140f2956ff5bd06b6a8b07667dde32372e6fe5b6ff289906346015f744664280",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 436,
+   "line": 438,
    "section": "5.5 조합별 평가 결과",
    "text": "주 분석은 원자료 60개를 그대로 사용하였다.",
    "sha256": "687fb7fd3343135ae8bbf78c6991e4e6a499dcf048d072cd47aca1e85c7bfcd9",
@@ -3131,7 +3128,7 @@
    "screening_hits": []
   },
   {
-   "line": 438,
+   "line": 440,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "## 5.6 연구 질문별 대응 비교",
    "sha256": "66466136f5c0d5603d2d08d88f321dbeced6a80f1e472f33d417f6fcd0b86d6a",
@@ -3142,7 +3139,7 @@
    "screening_hits": []
   },
   {
-   "line": 440,
+   "line": 442,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "표 5-3은 RQ1~RQ3의 핵심 지표에 대한 대응 t-검정 결과다.",
    "sha256": "5dd4f1fdaeef8ebc4c709de767e737198ef933ebbf020d39d330cde00a94b9eb",
@@ -3153,7 +3150,7 @@
    "screening_hits": []
   },
   {
-   "line": 440,
+   "line": 442,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "평균 차이는 적용(ON) 조건 점수에서 미적용(OFF) 조건 점수를 뺀 값이고, SD는 질의별 차이의 표준편차다.",
    "sha256": "78c80038ddf1232041f9ca6742c394d533cf28852ce656e3a168f47bb9ee7fee",
@@ -3164,7 +3161,7 @@
    "screening_hits": []
   },
   {
-   "line": 442,
+   "line": 444,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "[표 5-3] 연구 질문별 핵심 지표의 대응 t-검정",
    "sha256": "85ca595aaecaace593b2efb0d7c64c5e12fcae6e6a23e67a3f3ea8a0ae7ffc4a",
@@ -3175,7 +3172,7 @@
    "screening_hits": []
   },
   {
-   "line": 453,
+   "line": 455,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "RQ1에서 HyDE를 적용하면 답변 관련성이 평균 0.080점 높아졌고, 이 차이는 유의하였다(t(59)=2.236, p=0.029, dz=0.29).",
    "sha256": "aa16560ef4cf49d3ded63278d35f6188c39ae16f62e9c153b528c19c67ed59b8",
@@ -3186,7 +3183,7 @@
    "screening_hits": []
   },
   {
-   "line": 453,
+   "line": 455,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "60개 질의 중 38개에서 점수가 올랐고 17개에서 내렸다.",
    "sha256": "6b5436a21f44490a300905f7f75199fd96687bc268cb99ce3574c5957777919b",
@@ -3197,7 +3194,7 @@
    "screening_hits": []
   },
   {
-   "line": 453,
+   "line": 455,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "평균 차이의 95% 신뢰구간은 [0.009, 0.153]이다.",
    "sha256": "a456c68f84d52d94520bcfcd679573c0581ceb90a868b463f7fa5d4e8080ad92",
@@ -3208,7 +3205,7 @@
    "screening_hits": []
   },
   {
-   "line": 453,
+   "line": 455,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "밀집 검색의 입력이 가상 문서로 바뀌면서 검색 문맥과 답변이 함께 달라진 사례를 부록 B의 그림 B-2에 제시하였다.",
    "sha256": "253c0202732b6b8682fe30a376436f34cf843bb918e1f1b28317b196dbe56d69",
@@ -3219,18 +3216,18 @@
    "screening_hits": []
   },
   {
-   "line": 455,
+   "line": 457,
    "section": "5.6 연구 질문별 대응 비교",
-   "text": "RQ2에서 CAD를 적용하면 근거 충실도가 평균 0.029점 높아졌으나 유의하지 않았다(t(57)=0.862, p=0.393, dz=0.11).",
-   "sha256": "04be3fe54cc2580d9860612487d5ceea857c8875a1f2725ba574118fbba5dfb6",
-   "candidate": true,
+   "text": "RQ2에서 CAD를 적용하면 근거 충실도가 평균 0.029점 높아졌고, p값은 유의수준 0.05보다 컸다(t(57)=0.862, p=0.393, dz=0.11).",
+   "sha256": "c0972cebbd3c0248346dcc488a5cbe01a1e8824bf270df2049bb470c32550cee",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 455,
+   "line": 457,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "표의 OFF 평균 0.810은 양쪽 값이 모두 있는 58개 질의의 평균이므로 표 5-1의 0.791과 다르다.",
    "sha256": "80c6e62778584640d42734d4b33078eea95eac481edf4e5a366a90a15ae6d644",
@@ -3241,7 +3238,7 @@
    "screening_hits": []
   },
   {
-   "line": 455,
+   "line": 457,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "질의별로는 22개가 오르고 24개가 내렸으며 12개는 같았다.",
    "sha256": "f534b029c8827c647c10acbefaf2c6258d7350c43e29c60b855dc33150f37e1d",
@@ -3252,7 +3249,7 @@
    "screening_hits": []
   },
   {
-   "line": 455,
+   "line": 457,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "차이의 표준편차(0.255)가 평균 차이의 약 9배여서, 같은 검색 문맥에서도 CAD의 효과가 질의마다 크게 달랐다.",
    "sha256": "8e3f15c27239bdba6c50123a4a67e55df9fbea0c4ba2b38651544fad46ed5eed",
@@ -3263,7 +3260,7 @@
    "screening_hits": []
   },
   {
-   "line": 455,
+   "line": 457,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "충실도가 오른 사례(그림 B-3)와 내린 사례(그림 B-1)를 부록 B에 제시하였다.",
    "sha256": "b4b94e9c038feb1b51358669386fca6a1321addcf64b0d092faf65224b6a572b",
@@ -3274,7 +3271,7 @@
    "screening_hits": []
   },
   {
-   "line": 457,
+   "line": 459,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "RQ3에서 SCD를 적용하면 한국어 문자 비율이 평균 21.8%p 높아졌다(t(59)=13.951, p<0.001, dz=1.80).",
    "sha256": "2222a009cc8c5968935e97652d26a3f51716d5a255eb0798f99a038709954936",
@@ -3285,7 +3282,7 @@
    "screening_hits": []
   },
   {
-   "line": 457,
+   "line": 459,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "60개 질의 중 58개에서 비율이 올랐다.",
    "sha256": "b924637266ce9e5c21ec989049466a9d664b11e31b09df7d54ebbc9e1851d2e7",
@@ -3296,7 +3293,7 @@
    "screening_hits": []
   },
   {
-   "line": 457,
+   "line": 459,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "HyDE·CAD의 네 상태를 모두 평균한 비교에서도 22.9%p 높아졌다(표 5-7).",
    "sha256": "93cd914f67f329110c702149e0c76e071f45a275161a80237075c3c6c3991c1a",
@@ -3307,7 +3304,7 @@
    "screening_hits": []
   },
   {
-   "line": 457,
+   "line": 459,
    "section": "5.6 연구 질문별 대응 비교",
    "text": "SCD 미적용 조건에서 영어 중심으로 답한 사례와 SCD 적용 후 한국어 비율이 높아진 사례를 그림 B-4와 그림 B-5에 제시하였다.",
    "sha256": "0f483d4dcb9427b8c8e70f1f9b48e2d79e4ab70d58c56887acc5060090aeb21f",
@@ -3318,7 +3315,7 @@
    "screening_hits": []
   },
   {
-   "line": 459,
+   "line": 461,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "## 5.7 요인 주효과 및 상호작용",
    "sha256": "ea1cfedffea45c02db9d7aca63c464aa89d8e7080c8410d7355dc4e3e4f1907b",
@@ -3329,7 +3326,7 @@
    "screening_hits": []
   },
   {
-   "line": 461,
+   "line": 463,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "RQ4는 8개 조건 전체에 대한 반복측정 ANOVA로 분석하였다.",
    "sha256": "abae45dd244d1f03f5b4804c79d5824df4783a629e1f44ea073bd795576d08d0",
@@ -3340,7 +3337,7 @@
    "screening_hits": []
   },
   {
-   "line": 461,
+   "line": 463,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "표 5-4와 표 5-5는 한국어 문자 비율과 실행 시간의 결과다.",
    "sha256": "66dc1a9efa3e9167fb218cafe321071c3a84b48bc37fbf77e1b7c4a0f7af15cb",
@@ -3351,7 +3348,7 @@
    "screening_hits": []
   },
   {
-   "line": 463,
+   "line": 465,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "[표 5-4] 한국어 문자 비율의 H×C×S 반복측정 ANOVA",
    "sha256": "6ae07526c1bd707351bb5e22b3471b10927665f7003c576ebb979455cf04d767",
@@ -3362,7 +3359,7 @@
    "screening_hits": []
   },
   {
-   "line": 478,
+   "line": 480,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "[표 5-5] 조건 실행 시간의 H×C×S 반복측정 ANOVA",
    "sha256": "6aa7e07ea13a86a16a0906784f3f4dc6375be2771c7ecaa519666d752ce6acec",
@@ -3373,7 +3370,7 @@
    "screening_hits": []
   },
   {
-   "line": 493,
+   "line": 495,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "한국어 문자 비율에서는 SCD 주효과가 가장 컸다(F(1,59)=341.302, p<0.001, 부분 η²=0.853).",
    "sha256": "1f8ad966a7253027deb9e5897e09d525c2afcd25d3974ab7baa4480e356a5846",
@@ -3384,18 +3381,18 @@
    "screening_hits": []
   },
   {
-   "line": 493,
+   "line": 495,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "SCD는 HyDE·CAD의 적용 여부와 관계없이 한국어 비율을 높였으며, SCD가 포함된 상호작용(H×S, C×S, H×C×S)은 모두 유의하지 않았다.",
-   "sha256": "81db769aaa5d608dc18c07e558215adb74b16ee5ea5f74a24ba88038ce4ac10b",
+   "text": "SCD는 HyDE·CAD의 적용 여부와 관계없이 한국어 비율을 높였으며, SCD가 포함된 상호작용(H×S, C×S, H×C×S)의 p값은 모두 0.3보다 컸다.",
+   "sha256": "a54fb2331fdd4aa4cbdbf499c05f88e4dd5d3ae4dfd11aeedfe0b4f868764608",
    "candidate": true,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 493,
+   "line": 495,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "이와 별도로 H×C 상호작용이 유의하였다(F(1,59)=4.417, p=0.040).",
    "sha256": "73cf0b17a32de7cddf4db3709b2895a0af4d1d8ea66e52872be24c7816fef72a",
@@ -3406,7 +3403,7 @@
    "screening_hits": []
   },
   {
-   "line": 495,
+   "line": 497,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "실행 시간에서는 CAD 주효과(F(1,59)=423.765, p<0.001, 부분 η²=0.878)와 HyDE 주효과(F(1,59)=16.362, p<0.001)가 유의하였다.",
    "sha256": "0008ed946e246b9f950b2a3f00fde5c5f9b495ff793cf77d524f7e2543b0aeee",
@@ -3417,7 +3414,7 @@
    "screening_hits": []
   },
   {
-   "line": 495,
+   "line": 497,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "CAD는 토큰마다 문맥 제외 입력을 다시 계산하고, HyDE는 번역과 가상 문서 생성을 추가로 수행하기 때문이다.",
    "sha256": "cd33f46a58b7d78997981428129dc32a3cc0bdc6fece9dd4ffb2b2d100b9b2d5",
@@ -3428,7 +3425,7 @@
    "screening_hits": []
   },
   {
-   "line": 495,
+   "line": 497,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "SCD 주효과(p=0.016)와 C×S 상호작용(p<0.001)도 유의하였다.",
    "sha256": "d1861f4270cfa2fd197f8ac22ae946a9c0d3cb7751036ef8134cfc7e19bff66a",
@@ -3439,7 +3436,7 @@
    "screening_hits": []
   },
   {
-   "line": 497,
+   "line": 499,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "표 5-6은 유의한 두 상호작용을 단순 효과로 나누어 본 결과다.",
    "sha256": "f94c4e5ac9455e63260dcc6b688a921bb8ead5f0dffb58b3e5eb92bfcc6d58b1",
@@ -3450,7 +3447,7 @@
    "screening_hits": []
   },
   {
-   "line": 497,
+   "line": 499,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "두 SCD 상태 또는 두 HyDE 상태는 질의별로 평균하였다.",
    "sha256": "651d59030cfd88f8cb115c7d1d295a567d9edffbc26aaccc284e22e6a2790618",
@@ -3461,7 +3458,7 @@
    "screening_hits": []
   },
   {
-   "line": 499,
+   "line": 501,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "[표 5-6] 유의한 상호작용의 단순 효과 대응 t-검정",
    "sha256": "cdd5735315a0e35446edfc1e86b7b5ce5f8d0346add0b3af22e8bdb90e141088",
@@ -3472,18 +3469,18 @@
    "screening_hits": []
   },
   {
-   "line": 511,
+   "line": 513,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "HyDE는 CAD를 적용하지 않았을 때 한국어 문자 비율을 8.5%p 높였으나(p=0.017), CAD를 적용했을 때에는 차이가 1.4%p로 유의하지 않았다(p=0.674).",
-   "sha256": "91d2eaa77f0767b31435a879143863a2e696da4048cf054157a7a4548a1ab622",
-   "candidate": true,
+   "text": "HyDE는 CAD 미적용 조건에서 한국어 문자 비율을 8.5%p 높였으나(p=0.017), CAD 적용 조건에서는 1.4%p 높였다(p=0.674).",
+   "sha256": "c5cb3f90f9f394e49253edee477316bddefc96d5730339e802a8d919c3ce1511",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 511,
+   "line": 513,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "CAD는 두 SCD 상태 모두에서 실행 시간을 유의하게 늘렸으며, 증가폭은 SCD OFF에서 46.6초, SCD ON에서 37.7초였다.",
    "sha256": "9329b2322c91124984cd4e650376174c09a55d47ec182bf9bf4fea57b36ad8f7",
@@ -3494,7 +3491,7 @@
    "screening_hits": []
   },
   {
-   "line": 511,
+   "line": 513,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "즉 C×S 상호작용은 SCD를 함께 적용할 때 CAD의 추가 시간이 약 9초 줄어든 결과다.",
    "sha256": "cf60a0855c68bc34cfa641f4f7bcd0f5794b4667c1294f8d60c76c4b11b4862f",
@@ -3505,7 +3502,7 @@
    "screening_hits": []
   },
   {
-   "line": 511,
+   "line": 513,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "SCD 주효과는 이 감소가 CAD 적용 조건에서 나타난 것이며, CAD 미적용 조건에서 SCD는 중앙값 기준으로 실행 시간을 1.5~2.5초 늘렸다(표 5-2).",
    "sha256": "86598dee68b91a3fd92d3d07ad8f162bc37d574387042a5e799e1430b604bba6",
@@ -3516,29 +3513,29 @@
    "screening_hits": []
   },
   {
-   "line": 513,
+   "line": 515,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "품질 지표의 H×C ANOVA(부록 B의 표 B-3, 표 B-4)에서는 두 평가 문맥 모두 유의한 효과가 없었다. p값이 가장 작은 효과는 영어 문맥(p=0.097)과 번역 문맥(p=0.088) 모두 답변 관련성의 HyDE 주효과였다.",
-   "sha256": "f5bff82adda1660d51db27930178ac3906f5ad59aa00644186b3acb9b0314f64",
-   "candidate": true,
+   "text": "품질 지표의 H×C ANOVA(부록 B의 표 B-3, 표 B-4)에서는 두 평가 문맥 모두 모든 효과의 p값이 0.05보다 컸다. p값이 가장 작은 효과는 영어 문맥(p=0.097)과 번역 문맥(p=0.088) 모두 답변 관련성의 HyDE 주효과였다.",
+   "sha256": "1dd459ba225cb8536a3e2b3b327f812cc512b44ba012499a6cbc2209296057ee",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 513,
+   "line": 515,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "즉 CAD 수준을 평균하면 HyDE의 답변 관련성 향상은 유의하지 않았으며, RQ1의 유의한 차이는 CAD를 적용하지 않은 조건에서 관찰된 결과다.",
-   "sha256": "a6cfd01413bb907a02c2ef90a8061055cfcd1e5a047dcc073603c846b4541e55",
-   "candidate": true,
+   "text": "따라서 RQ1에서 확인한 HyDE의 답변 관련성 향상은 CAD 미적용 조건에서 나타난 효과다.",
+   "sha256": "6a1991e8a7b9929fffb6c2750c62ff49d08b44a6acfe9318d88dadd386756ad4",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 513,
+   "line": 515,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "CAD를 적용한 조건에서 HyDE의 답변 관련성 차이는 0.029점이었다(t(59)=0.661, p=0.512).",
    "sha256": "d40ca46532fa42e284030c7b7d648452b503106438b6daa0cbfca52c35d40020",
@@ -3549,7 +3546,7 @@
    "screening_hits": []
   },
   {
-   "line": 515,
+   "line": 517,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "보조 지표의 단순 비교 결과는 표 5-7과 같다.",
    "sha256": "959ccc1ead9b093b4aa201bc9d538d413dbdad9d216ef44fb893c174ceab6757",
@@ -3560,18 +3557,18 @@
    "screening_hits": []
   },
   {
-   "line": 515,
+   "line": 517,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "HyDE와 CAD는 핵심 지표 이외의 품질 지표에서도 유의한 변화를 보이지 않았다.",
-   "sha256": "ba69ce49976b4496fb3d0b830b360d0ff5d47bfb7a15cd6d28446fd53aeb4b88",
+   "text": "HyDE와 CAD의 보조 지표는 평균 차이가 −0.034~0.044점이었고, 모든 p값이 0.2보다 컸다.",
+   "sha256": "4aebfb71d37287e8d7d4d3de29aa278dd38fb6080e12ca420c839024c5fa4fa1",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 517,
+   "line": 519,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "[표 5-7] 보조 지표의 대응 t-검정",
    "sha256": "5b0ba77ea805f9fe7aedbe30edc364dfa071abffc151137a071d9e6953692c40",
@@ -3582,7 +3579,7 @@
    "screening_hits": []
   },
   {
-   "line": 532,
+   "line": 534,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "HyDE는 C0S0, CAD는 H0S0 조건에서 비교하였다.",
    "sha256": "4423c2d213fc4c14e8b546c8ce9c25df7abbdf4fbdd58342ae0cb7399b3b9956",
@@ -3593,7 +3590,7 @@
    "screening_hits": []
   },
   {
-   "line": 532,
+   "line": 534,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "CAD의 문맥 정밀도와 재현율은 같은 검색 문맥을 평가하므로 차이가 0이어야 하지만, 평가 모델이 같은 입력을 정밀도 8쌍, 재현율 1쌍에서 다르게 채점하였다.",
    "sha256": "9dd4e67d1c920408fd39a70b3572e580a1e7be2ee731ab1a13060efcc34dff36",
@@ -3604,7 +3601,7 @@
    "screening_hits": []
   },
   {
-   "line": 532,
+   "line": 534,
    "section": "5.7 요인 주효과 및 상호작용",
    "text": "이는 RAGAS 평가값 자체에 평가 모델의 변동이 포함되어 있음을 보여 준다.",
    "sha256": "3523e59e524ecbb3676aec946b0c6160a30b010857bfd80e711eb100913712f8",
@@ -3615,7 +3612,7 @@
    "screening_hits": []
   },
   {
-   "line": 534,
+   "line": 536,
    "section": "5.8 종합 논의",
    "text": "## 5.8 종합 논의",
    "sha256": "3373862acbb43f699122259a9443808cd0761d68c6207639f59866de6c96ca51",
@@ -3626,7 +3623,7 @@
    "screening_hits": []
   },
   {
-   "line": 536,
+   "line": 538,
    "section": "5.8 종합 논의",
    "text": "세 기법 중 목표 지표에서 가장 뚜렷한 효과를 보인 것은 SCD다.",
    "sha256": "cac55662683815be6fba625f231e2a3236554a62886b1112c6ea230cd74ceee8",
@@ -3637,7 +3634,7 @@
    "screening_hits": []
   },
   {
-   "line": 536,
+   "line": 538,
    "section": "5.8 종합 논의",
    "text": "SCD는 영어 근거를 입력받은 답변의 한국어 비율을 약 22%p 높였고, 이 효과는 HyDE·CAD의 적용 여부와 관계없이 나타났다.",
    "sha256": "78aff7441bad9f34d293751736b357d06a0bb14376e66277b9099b715a1dc78f",
@@ -3648,7 +3645,7 @@
    "screening_hits": []
   },
   {
-   "line": 536,
+   "line": 538,
    "section": "5.8 종합 논의",
    "text": "CAD 미적용 조건에서 늘어난 실행 시간도 중앙값 기준 1.5~2.5초였다.",
    "sha256": "94787c834064981496bf0bd071c0e8b34da57e39ea00650685d0ebbc5b8bdfb7",
@@ -3659,7 +3656,7 @@
    "screening_hits": []
   },
   {
-   "line": 536,
+   "line": 538,
    "section": "5.8 종합 논의",
    "text": "한국어 질의–영어 문서 RAG에서 한국어 답변이 필요하다면 SCD는 비용이 작은 선택지다.",
    "sha256": "a1fe81d6589f0898dabe1141d447d35acaaafee1a7fdb22d84b03b56918e6949",
@@ -3670,18 +3667,18 @@
    "screening_hits": []
   },
   {
-   "line": 538,
+   "line": 540,
    "section": "5.8 종합 논의",
-   "text": "HyDE는 다른 기법을 적용하지 않은 기본 조건에서 답변 관련성을 높였다.",
-   "sha256": "62bbd28f9f5d39fd2b33e02e90ff45a31ef9092adaff9e97f6e9419b45f01059",
-   "candidate": true,
+   "text": "HyDE는 CAD와 SCD를 모두 끈 기본 조건에서 답변 관련성을 높였다.",
+   "sha256": "39fea0aa4a8c2164da86f933662c86b6a87b1eac234c34cb0eee09a75f9848e1",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 538,
+   "line": 540,
    "section": "5.8 종합 논의",
    "text": "번역과 가상 문서로 검색 입력이 바뀌면서 질문에 더 맞는 근거가 검색되고, 답변이 질문에 더 직접 답하게 된 것으로 해석할 수 있다.",
    "sha256": "25c95a4e2ec44904d67009bbe353ce8c9288175a1a167104f4230404f150d02e",
@@ -3692,18 +3689,18 @@
    "screening_hits": []
   },
   {
-   "line": 538,
+   "line": 540,
    "section": "5.8 종합 논의",
-   "text": "다만 CAD를 함께 적용하면 이 차이가 작아졌고, 문맥 정밀도·재현율은 변하지 않았다.",
-   "sha256": "79a3b9c9da3fd415ebac90a6f9980dd891a0e5f2ce5ca8e2887ea581181dc242",
-   "candidate": true,
+   "text": "다만 CAD를 함께 적용하면 이 차이가 0.029점으로 작아졌고, 문맥 정밀도와 재현율의 차이는 각각 −0.034점과 0.000점이었다.",
+   "sha256": "8ee9b1f493d86638ff13f358a926274224fbd6f467282d1aeb76a03bdf757eaa",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 538,
+   "line": 540,
    "section": "5.8 종합 논의",
    "text": "HyDE의 효과에는 번역과 가상 문서 생성이 함께 포함되어 있으며, 실행 시간은 다른 기법 수준을 평균하여 약 7초 늘었다.",
    "sha256": "0d0a840cf782a48b2ebbb469f2706249454a748911ec0e6d90e45b467c7c7a6b",
@@ -3714,18 +3711,18 @@
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
-   "text": "CAD는 같은 검색 문맥에서 근거 충실도를 유의하게 높이지 못했다.",
-   "sha256": "705a6dd126050c7c5e673ead3117c228da3dc24c0cf750ec369e7d1f378235d1",
+   "text": "같은 검색 문맥에서 CAD에 따른 근거 충실도 증가는 평균 0.029점으로 작았다.",
+   "sha256": "d8668e271f2294c75a75d263c658de5173eb9fa57208e0ddd1804d20c06e8cb1",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
    "text": "저장 자료에서 확인되는 이유는 세 가지다.",
    "sha256": "07b03d95e25ce6df97e78be749b87dc3c02bcb149509385ad1570f815d92e2d6",
@@ -3736,7 +3733,7 @@
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
    "text": "첫째, CAD 미적용 답변 58개 중 25개가 이미 충실도 1.0이어서 개선될 여지가 작았다.",
    "sha256": "8992d24b4072d029905b75bb5500b5af9c65089daa36ec58d13800af7b6b6651",
@@ -3747,18 +3744,18 @@
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
-   "text": "둘째, CAD는 답변을 일부 수정하는 것이 아니라 전혀 다른 답변을 생성하였고(CAD 미적용 답변과 같은 답변 0개), 그 결과 질의별 차이의 표준편차가 평균 차이보다 훨씬 컸다.",
-   "sha256": "70841ca8e660debc95b27cf12ad1dce70c4617fe441834493f8a77747cd22dde",
-   "candidate": true,
+   "text": "둘째, CAD는 답변 전체를 새로 생성하였고(60쌍 모두 답변이 달랐다), 그 결과 질의별 차이의 표준편차가 평균 차이보다 훨씬 컸다.",
+   "sha256": "8c22f63713da6c9a6107275f13f636f76f990a3570542a62d4579c1c794e6e8b",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
    "text": "이 정도의 효과크기(dz=0.11)를 검출하려면 현재보다 훨씬 많은 질의가 필요하다.",
    "sha256": "21f6d5b8b9a182c6d37f66b5dd61451b3e644bbaca5765ee43aa828ee3899561",
@@ -3769,7 +3766,7 @@
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
    "text": "셋째, 같은 입력에서도 평가 모델의 채점이 달라지는 경우가 있어 작은 차이는 평가 변동에 묻힐 수 있다.",
    "sha256": "ee1637be95e8d896a2bf8caef1dd689231c4e57cd7fb62a799759b3768bee4f4",
@@ -3780,18 +3777,18 @@
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
-   "text": "또한 CAD는 모델의 사전 지식과 문맥이 충돌할 때 효과가 크도록 설계되었으나[3], 본 실험의 질의는 모델이 잘 알지 못하는 특정 문서의 세부 내용이어서 기본 RAG도 이미 문맥을 따르는 경우가 많았다.",
-   "sha256": "5f1e7e74bfef266bbbc5ef9bbf5e55839037c4ba002f0fda64cca8d4f6b3036e",
+   "text": "또한 CAD는 모델의 사전 지식과 문맥이 충돌할 때 효과가 크도록 설계되었으나[3], 본 실험의 질의는 모델이 학습했을 가능성이 낮은 특정 문서의 세부 내용이어서 기본 RAG도 이미 문맥을 따르는 경우가 많았다.",
+   "sha256": "7f2251ad929b05486b59be4d410a0b894c3a3345d52068881672fbab15823537",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 540,
+   "line": 542,
    "section": "5.8 종합 논의",
    "text": "반면 실행 시간은 약 2.9배로 늘었으므로, 본 실험 조건에서 CAD는 품질 이득보다 시간 비용이 분명한 기법이었다.",
    "sha256": "ecfade12eb2dcf9b12ee6231ead7f89c0de88f57ef98188d4c647c44f892a521",
@@ -3802,7 +3799,7 @@
    "screening_hits": []
   },
   {
-   "line": 542,
+   "line": 544,
    "section": "5.8 종합 논의",
    "text": "조합 측면에서는 SCD와 다른 기법 사이에 한국어 비율의 상호작용이 없어 SCD를 독립적으로 추가할 수 있었다.",
    "sha256": "291fa7401f7ba33696b4e41b7b45c075d7cd7993be73486464a1cde0922207e2",
@@ -3813,7 +3810,7 @@
    "screening_hits": []
   },
   {
-   "line": 542,
+   "line": 544,
    "section": "5.8 종합 논의",
    "text": "HyDE의 한국어 비율 향상은 CAD 미적용 조건에서만 나타났고, CAD와 SCD를 함께 쓰면 CAD의 추가 시간이 약 9초 줄었다.",
    "sha256": "5d7ec687ddfbd8d3655fdb1107fcc225715d87348fe0c0e422837683cc51a92f",
@@ -3824,18 +3821,18 @@
    "screening_hits": []
   },
   {
-   "line": 542,
+   "line": 544,
    "section": "5.8 종합 논의",
-   "text": "평균값 기준으로는 H1C0S1이 한국어 비율이 가장 높고(0.807), CAD를 쓰지 않아 실행 시간도 24.9초로 짧은 조건이었다.",
-   "sha256": "dad2e300db457c5ab5bd777d88b47ae3826f7704f6cdf62eb515df133147fdd8",
+   "text": "평균값 기준으로는 H1C0S1이 한국어 비율이 가장 높고(0.807), CAD 미적용 조건이어서 실행 시간도 24.9초로 짧았다.",
+   "sha256": "92647c17333a192df6ef8956385b8455e7a8cc412f593bd6759477799d986891",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 544,
+   "line": 546,
    "section": "5.9 평가 범위와 후속 검증",
    "text": "## 5.9 평가 범위와 후속 검증",
    "sha256": "03f3813d24a83c497e5465ed0f7ea13039ba042a34203de47a9eba607675a7ca",
@@ -3846,7 +3843,7 @@
    "screening_hits": []
   },
   {
-   "line": 546,
+   "line": 548,
    "section": "5.9 평가 범위와 후속 검증",
    "text": "분석 대상은 문서 4종에서 구성한 질의 60개이며 각 질의·조건의 답변은 한 번씩 생성하고 평가하였다.",
    "sha256": "778515c992e172d6dfb2484a9268abad69f36ee75da969596037516aa9d548c3",
@@ -3857,18 +3854,18 @@
    "screening_hits": []
   },
   {
-   "line": 546,
+   "line": 548,
    "section": "5.9 평가 범위와 후속 검증",
-   "text": "따라서 결과는 이 질의 집합에서 관찰된 조건 간 차이이며, 다른 분야의 문서나 생성 시드에서의 변동은 확인하지 않았다.",
-   "sha256": "5fada13ae20642ce820a07529daefa5fe1345265a945fc8ecff0da7498826fe2",
-   "candidate": true,
+   "text": "따라서 결과는 이 질의 집합에서 관찰된 조건 간 차이이며, 다른 분야의 문서와 생성 시드에 따른 변동은 반복 실험으로 측정할 대상이다.",
+   "sha256": "33f03370376853af68cfc139d7a013d8bd0c0640695bafbb3a7efc50eb9e4f41",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 546,
+   "line": 548,
    "section": "5.9 평가 범위와 후속 검증",
    "text": "HyDE 조건은 가상 문서를 샘플링하므로 같은 질의라도 실행마다 검색 문맥이 달라질 수 있다.",
    "sha256": "0637d07873936471ec30e31f8692995c4892c70d2da16e143c39ef1e9a841f33",
@@ -3879,29 +3876,29 @@
    "screening_hits": []
   },
   {
-   "line": 546,
+   "line": 548,
    "section": "5.9 평가 범위와 후속 검증",
-   "text": "RAGAS 품질은 SCD 상태에 따라 평가 문맥의 언어가 달라 SCD의 품질 효과는 비교 대상에서 제외하였다.",
-   "sha256": "ef77f36c3a7d3edd63090f74e73814af4a45dce6489c6a5ab0f736310631cb4d",
+   "text": "RAGAS 품질은 SCD 상태에 따라 평가 문맥의 언어가 달라 SCD 상태별로 나누어 해석하였다.",
+   "sha256": "f00599be5c5887e7b4afa11575bdf0e8c71c11fb3e019b9fc68688540e274aea",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 546,
-   "section": "5.9 평가 범위와 후속 검증",
-   "text": "한국어 문자 비율은 답변의 언어 구성을 측정하는 지표이므로, 번역의 정확성과 문장의 자연스러움은 사람 평가로 따로 확인해야 한다.",
-   "sha256": "e3e1c02a08e82152644be4efac5f9e037b97418e839f08d838e60190f53ed46e",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
    "line": 548,
+   "section": "5.9 평가 범위와 후속 검증",
+   "text": "한국어 문자 비율은 답변의 언어 구성을 측정하는 지표이므로, 번역의 정확성과 문장의 자연스러움은 사람 평가로 확인할 항목이다.",
+   "sha256": "11ea1a74531050ffdf2b7ec86b7b4214c5e3c9430d0b0fa0c8e7ef97fed4cbfd",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
+   "screening_hits": []
+  },
+  {
+   "line": 550,
    "section": "6. 결론",
    "text": "# 6. 결론",
    "sha256": "133627a43b0d672029efcdcb1340c18d7b9ac408a29f1da1780589e12c2c8951",
@@ -3912,7 +3909,7 @@
    "screening_hits": []
   },
   {
-   "line": 550,
+   "line": 552,
    "section": "6. 결론",
    "text": "본 연구는 한국어 질의로 영어 학술·기술 문서를 검색하는 Paper-RAG에서 HyDE·CAD·SCD의 8개 조합을 같은 질의 60개에 적용하고, 대응 t-검정과 반복측정 ANOVA로 각 기법의 단독 효과와 조합 효과를 분석하였다.",
    "sha256": "83bfcf8f783368d3785428baf45400d8a63c2edcaf896b112f1a3da80f6520c1",
@@ -3923,7 +3920,7 @@
    "screening_hits": []
   },
   {
-   "line": 552,
+   "line": 554,
    "section": "6.1 연구 질문별 결과",
    "text": "## 6.1 연구 질문별 결과",
    "sha256": "1174fb60ead23a43a3aeb61ca9c4484c73dffa65f7742b90b71629ae076aa0e5",
@@ -3934,40 +3931,40 @@
    "screening_hits": []
   },
   {
-   "line": 554,
+   "line": 556,
    "section": "6.1 연구 질문별 결과",
-   "text": "RQ1: CAD와 SCD를 적용하지 않은 조건에서 HyDE는 답변 관련성을 평균 0.080점 높였다(t(59)=2.236, p=0.029).",
-   "sha256": "27fb5dbb1b6eccb59af18de26f9082e528f466aa15a1af17bb93c47b15bf3106",
-   "candidate": true,
+   "text": "RQ1: CAD와 SCD를 모두 끈 기본 조건에서 HyDE는 답변 관련성을 평균 0.080점 높였다(t(59)=2.236, p=0.029).",
+   "sha256": "e2bb3b2666cd5fa03a7cbf910386154d5113f351283ad1be2f601486c47a8fe7",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 554,
-   "section": "6.1 연구 질문별 결과",
-   "text": "CAD 수준을 평균한 주효과는 유의하지 않았다(p=0.097).",
-   "sha256": "1fcaf01bb2a225d83ab2f585e85952236d21874c36f442f0d64ba9c5dfc3c791",
-   "candidate": true,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
    "line": 556,
    "section": "6.1 연구 질문별 결과",
-   "text": "RQ2: 같은 검색 문맥에서 CAD의 근거 충실도 차이는 평균 0.029점으로 유의하지 않았다(t(57)=0.862, p=0.393).",
-   "sha256": "4f0ff99b453fb5b05ac5c1ec30ce326071929e90804754cf84409e70ebd170dc",
-   "candidate": true,
+   "text": "CAD 수준을 평균한 주효과는 p=0.097이었다.",
+   "sha256": "d4a90de0c1044f5b2c9b545298ba4c0d082588942c46b9103934dbec9d7a23da",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
    "line": 558,
+   "section": "6.1 연구 질문별 결과",
+   "text": "RQ2: 같은 검색 문맥에서 CAD는 근거 충실도를 평균 0.029점 높였고, p값은 유의수준 0.05보다 컸다(t(57)=0.862, p=0.393).",
+   "sha256": "cb27c516150b4b4da930be023cba7f34c6b7670688a9d665c400ce92626cc036",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
+   "screening_hits": []
+  },
+  {
+   "line": 560,
    "section": "6.1 연구 질문별 결과",
    "text": "RQ3: SCD는 한국어 문자 비율을 평균 21.8%p 높였다(t(59)=13.951, p<0.001).",
    "sha256": "2bf5f96de7b7f8d3aed15738336cf1de1aa60c7d677a0a5a0e88b6fc3cd13def",
@@ -3978,7 +3975,7 @@
    "screening_hits": []
   },
   {
-   "line": 560,
+   "line": 562,
    "section": "6.1 연구 질문별 결과",
    "text": "RQ4: 한국어 문자 비율에서는 SCD 주효과(p<0.001)와 H×C 상호작용(p=0.040)이, 실행 시간에서는 HyDE·CAD·SCD 주효과와 C×S 상호작용(p<0.001)이 유의하였다.",
    "sha256": "8485012a8bc47b1b4b0abaaa4f6afdecbcaa85459dad875cc3c9e717af900bd4",
@@ -3989,7 +3986,7 @@
    "screening_hits": []
   },
   {
-   "line": 560,
+   "line": 562,
    "section": "6.1 연구 질문별 결과",
    "text": "CAD는 실행 시간을 약 2.9배로 늘렸고, SCD와 함께 적용하면 그 증가폭이 약 9초 줄었다.",
    "sha256": "5b405c96b7de8021b9ccc10a912e8d500de89d3858dc3d27540438cb4359ed75",
@@ -4000,7 +3997,7 @@
    "screening_hits": []
   },
   {
-   "line": 562,
+   "line": 564,
    "section": "6.2 연구의 의의",
    "text": "## 6.2 연구의 의의",
    "sha256": "eca49e72cece7c1f01f1dffef1731bfb9e99db9184a9566f7ad33084b9514012",
@@ -4011,7 +4008,7 @@
    "screening_hits": []
   },
   {
-   "line": 564,
+   "line": 566,
    "section": "6.2 연구의 의의",
    "text": "본 연구는 서로 다른 환경에서 제안된 HyDE·CAD·SCD를 한국어 질의–영어 문서라는 하나의 RAG 환경에서 같은 백본과 질의로 비교하였다.",
    "sha256": "30a002ebc4a30880e38cd9d13323e0ef27c2da4de15d225b91fe70531f9db4b1",
@@ -4022,18 +4019,18 @@
    "screening_hits": []
   },
   {
-   "line": 564,
+   "line": 566,
    "section": "6.2 연구의 의의",
-   "text": "그 결과 출력 언어 제어(SCD)는 다른 기법과 독립적으로 큰 효과를 보였고, 검색 입력 변경(HyDE)은 기본 조건에서 답변 관련성을 높였으며, 근거 반영 디코딩(CAD)은 이 환경에서 품질 이득 없이 시간 비용이 컸다는 점을 정량적으로 보였다.",
-   "sha256": "6a671fbc9f27a73f078ebfa95bfda9079090fea60bfa73ba8dba95a02e382741",
-   "candidate": true,
+   "text": "그 결과 출력 언어 제어(SCD)는 다른 기법과 독립적으로 큰 효과를 보였고, 검색 입력 변경(HyDE)은 기본 조건에서 답변 관련성을 높였으며, 근거 반영 디코딩(CAD)은 이 환경에서 품질 이득보다 시간 비용이 컸다는 점을 정량적으로 보였다.",
+   "sha256": "dc89faf6262033f97c5b9d8e2e45d50b919819fa39bee8dc8e519d1a4795a15a",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 564,
+   "line": 566,
    "section": "6.2 연구의 의의",
    "text": "또한 단순 비교와 요인 분석을 함께 사용하여, 특정 조건에서의 효과와 다른 기법 수준을 평균한 효과가 다를 수 있음을 확인하였다.",
    "sha256": "ba781e140cee050ae1d43f352ac7fc190bde15cca1b0a54dc7d888725ece173f",
@@ -4044,7 +4041,7 @@
    "screening_hits": []
   },
   {
-   "line": 566,
+   "line": 568,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "## 6.3 적용 조건과 후속 연구",
    "sha256": "669550277283ffdeb0e6a0ef0a3307897d2619e397a22912f140f44ff7e5a97f",
@@ -4055,7 +4052,7 @@
    "screening_hits": []
   },
   {
-   "line": 568,
+   "line": 570,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "한국어 답변이 필요한 영어 문서 RAG에는 SCD를 기본으로 적용하고, 답변 관련성이 중요하면 HyDE를 함께 적용하는 구성을 우선 고려할 수 있다.",
    "sha256": "4c7d0ac84a645381c8a23a5147c48fdb3d1a5bbf7182c92f58e2e338df59457b",
@@ -4066,7 +4063,7 @@
    "screening_hits": []
   },
   {
-   "line": 568,
+   "line": 570,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "CAD는 실행 시간이 크게 늘어나므로 모델의 사전 지식과 문서 내용이 충돌하는 질의처럼 효과가 기대되는 경우에 선택적으로 적용하는 것이 적절하다.",
    "sha256": "7b552673e1b906fe734f76d1c6f37ee79361669ab81e4547e1249a04475c050e",
@@ -4077,7 +4074,7 @@
    "screening_hits": []
   },
   {
-   "line": 570,
+   "line": 572,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "후속 연구로는 다음을 제안한다.",
    "sha256": "faecf428da47bd64a759fc269ba4694ca53176a78604db51957b34b5d483eb2a",
@@ -4088,7 +4085,7 @@
    "screening_hits": []
   },
   {
-   "line": 570,
+   "line": 572,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "첫째, 번역만 적용한 조건을 추가하여 HyDE의 효과를 번역과 가상 문서 생성으로 분리한다.",
    "sha256": "6fd21587094e633a3c7ee6e929be94fa58a96dcaa1f2fdc39f4f13c2cfb66ccf",
@@ -4099,7 +4096,7 @@
    "screening_hits": []
   },
   {
-   "line": 570,
+   "line": 572,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "둘째, CAD의 α를 바꾸고 지식 충돌형 질의를 포함하여 CAD가 효과를 보이는 조건을 확인한다.",
    "sha256": "96e6cd44d10d3ccf125a0f24de162ad344a284a624c239d0dc86f9a2b19d1dd3",
@@ -4110,7 +4107,7 @@
    "screening_hits": []
   },
   {
-   "line": 570,
+   "line": 572,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "셋째, 질의 수와 문서 분야를 늘리고 생성과 평가를 반복하여 결과의 변동을 측정하며, 모든 조건의 평가 문맥 언어를 통일한다.",
    "sha256": "d584d35b76ad8c46ff6ab08ccd3273ac49bc606e9eaf6ac3a903adf9a8e1e888",
@@ -4121,7 +4118,7 @@
    "screening_hits": []
   },
   {
-   "line": 570,
+   "line": 572,
    "section": "6.3 적용 조건과 후속 연구",
    "text": "넷째, 사람 평가로 한국어 답변의 정확성과 자연스러움을 확인한다.",
    "sha256": "068226653e7fba2d0b9ebade6eeb48e9df59afe3460895eb0978f2d4d79822b3",
@@ -4132,7 +4129,7 @@
    "screening_hits": []
   },
   {
-   "line": 572,
+   "line": 574,
    "section": "참고문헌",
    "text": "# 참고문헌",
    "sha256": "6f5962b9446e7a699d9e95593af31ce57b9ed25098291c5996a76df23e7ac560",
@@ -4143,7 +4140,7 @@
    "screening_hits": []
   },
   {
-   "line": 618,
+   "line": 620,
    "section": "실험 사용 모델 및 원문 자료 출처",
    "text": "## 실험 사용 모델 및 원문 자료 출처",
    "sha256": "5c90cff6e1d4683a6708a7868f98f819143c3fb602d93311ee294c6d43379d88",
@@ -4154,7 +4151,7 @@
    "screening_hits": []
   },
   {
-   "line": 620,
+   "line": 622,
    "section": "실험 사용 모델 및 원문 자료 출처",
    "text": "학술 참고문헌 [1]~[22]와 별도로 구현에 사용한 모델 카드[M1][M2]와 검색 대상 문서[D1]~[D4]의 출처를 정리하였다.",
    "sha256": "e28096964ac9292bb427b7080ec53021163af1c47775288b1ca368e7dee9625c",
@@ -4165,7 +4162,7 @@
    "screening_hits": []
   },
   {
-   "line": 634,
+   "line": 636,
    "section": "실험 사용 모델 및 원문 자료 출처",
    "text": "D1~D4의 실험 PDF는 저장된 원본 바이트를 사용한다.",
    "sha256": "94a578027cffca5e167dc26e1d67d4535d7ec05839668514b9089e906b328fa2",
@@ -4176,7 +4173,7 @@
    "screening_hits": []
   },
   {
-   "line": 634,
+   "line": 636,
    "section": "실험 사용 모델 및 원문 자료 출처",
    "text": "문서별 SHA-256과 질의·원문 페이지·정답 근거 대응은 동봉 자료 출처 검증표와 부록 A에서 제시한다.",
    "sha256": "b8c320d8857da251ff05412ddccdd886e437f49cb37b4cf55c314fee0c49db25",
@@ -4187,7 +4184,7 @@
    "screening_hits": []
   },
   {
-   "line": 636,
+   "line": 638,
    "section": "그림 자료 이용 정보",
    "text": "# 그림 자료 이용 정보",
    "sha256": "12807300c6ed33d089855f173718fd0cde484237db6730804e19306c7b274e18",
@@ -4198,7 +4195,7 @@
    "screening_hits": []
   },
   {
-   "line": 638,
+   "line": 640,
    "section": "그림 자료 이용 정보",
    "text": "그림 2-1~2-4는 본 연구에서 작성한 독립 도식이다.",
    "sha256": "d3d8e324768ef91bec171d2cd27bb3d30d7cd2e54d1cd5553e05ac44b5ba6508",
@@ -4209,7 +4206,7 @@
    "screening_hits": []
   },
   {
-   "line": 638,
+   "line": 640,
    "section": "그림 자료 이용 정보",
    "text": "각 그림의 개념 출처와 참고 자료는 다음과 같다.",
    "sha256": "def7a1617a46d0d920e9575d85ca784b876235da84f5a9cb96819583120abf68",
@@ -4220,7 +4217,7 @@
    "screening_hits": []
   },
   {
-   "line": 640,
+   "line": 642,
    "section": "그림 자료 이용 정보",
    "text": "그림 2-1 — 본 연구 작성.",
    "sha256": "ba31b6758081eeb3cac635666368d6906b021ae2ab23c85affcd5dec0ac84398",
@@ -4231,7 +4228,7 @@
    "screening_hits": []
   },
   {
-   "line": 640,
+   "line": 642,
    "section": "그림 자료 이용 정보",
    "text": "Lewis 외[1]의 RAG 구조를 참고하여 독립 도식을 작성하였다.",
    "sha256": "4fbeae780d7c0c407483dc4f7d68777f181edbc077c0171e88e3003356ae2e80",
@@ -4242,7 +4239,7 @@
    "screening_hits": []
   },
   {
-   "line": 642,
+   "line": 644,
    "section": "그림 자료 이용 정보",
    "text": "참고 자료: https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
    "sha256": "17a3999f483b35ddcccc7ecfcf316ea93571566b2e70ad09866eba3517ab8a12",
@@ -4253,7 +4250,7 @@
    "screening_hits": []
   },
   {
-   "line": 644,
+   "line": 646,
    "section": "그림 자료 이용 정보",
    "text": "그림 2-2 — 본 연구 작성.",
    "sha256": "6541ec3bc9080034b5c723560d6ff952ad198b52c72b7a1161d37b838d076630",
@@ -4264,7 +4261,7 @@
    "screening_hits": []
   },
   {
-   "line": 644,
+   "line": 646,
    "section": "그림 자료 이용 정보",
    "text": "Gao 외[2]의 HyDE 구조를 참고하여 독립 도식을 작성하였다.",
    "sha256": "a94dcd7aa74e54ca91d64463822629287c236a63f208b91ece6e561e3ee5516e",
@@ -4275,7 +4272,7 @@
    "screening_hits": []
   },
   {
-   "line": 646,
+   "line": 648,
    "section": "그림 자료 이용 정보",
    "text": "참고 자료: https://aclanthology.org/2023.acl-long.99/",
    "sha256": "cc30bdb5853fedd2577ea422036345d5518c1d7c0e4bda306a8b3aa5f5d18559",
@@ -4286,7 +4283,7 @@
    "screening_hits": []
   },
   {
-   "line": 648,
+   "line": 650,
    "section": "그림 자료 이용 정보",
    "text": "그림 2-3 — 본 연구 작성.",
    "sha256": "c7358c3c1c72188462cdad56b43ebd9a2e8da65f6062501b575eaeeafbe3e6b5",
@@ -4297,7 +4294,7 @@
    "screening_hits": []
   },
   {
-   "line": 648,
+   "line": 650,
    "section": "그림 자료 이용 정보",
    "text": "Shi 외[3]의 CAD 로짓 결합을 참고하여 독립 도식을 작성하였다.",
    "sha256": "11fd4fe3e9c03fa6abd4b3c2483beeb1588b1cb0d0002e89549c9c3fa70c349d",
@@ -4308,7 +4305,7 @@
    "screening_hits": []
   },
   {
-   "line": 650,
+   "line": 652,
    "section": "그림 자료 이용 정보",
    "text": "참고 자료: https://aclanthology.org/2024.naacl-short.69/",
    "sha256": "1d4bac2e3a59c6846171d2b6d0e61e9ffeaf2812841fa7ea53b1eac8f7d810ab",
@@ -4319,7 +4316,7 @@
    "screening_hits": []
   },
   {
-   "line": 652,
+   "line": 654,
    "section": "그림 자료 이용 정보",
    "text": "그림 2-4 — 본 연구 작성.",
    "sha256": "0d8d7e7024bf993520f108d82258567a15176322b7db0782a2ea3ddf8a9eb9dd",
@@ -4330,7 +4327,7 @@
    "screening_hits": []
   },
   {
-   "line": 652,
+   "line": 654,
    "section": "그림 자료 이용 정보",
    "text": "Li 외[4]의 SCD 토큰별 점수 조정을 참고하여 독립 도식을 작성하였다.",
    "sha256": "c0581cf5ca8310fd3ca56dc0ddaa70171cc7ab4f42da52ed779374102c9e3c10",
@@ -4341,7 +4338,7 @@
    "screening_hits": []
   },
   {
-   "line": 654,
+   "line": 656,
    "section": "그림 자료 이용 정보",
    "text": "참고 자료: https://ojs.aaai.org/index.php/AAAI/article/view/40417",
    "sha256": "f9d9c01ac34a2a227f1254dfd19af5bafd1e10b1fd39bcbe6f401dd148a2bdbc",
@@ -4352,7 +4349,7 @@
    "screening_hits": []
   },
   {
-   "line": 656,
+   "line": 658,
    "section": "부록 A. 60개 질의 목록",
    "text": "# 부록 A. 60개 질의 목록",
    "sha256": "ff6f0f90f6c0caa2d82fe96e64f09d503f2e15ce8419d3e60829724c11ba084a",
@@ -4363,7 +4360,7 @@
    "screening_hits": []
   },
   {
-   "line": 658,
+   "line": 660,
    "section": "부록 A. 60개 질의 목록",
    "text": "표 A-1은 각 질의의 대상 문서, 원문 페이지와 정답 근거를 제시한다.",
    "sha256": "d5485505da6c02dcddcb1b351146c76a0a1c1d6ebe2a9559b344048bf5130102",
@@ -4374,7 +4371,7 @@
    "screening_hits": []
   },
   {
-   "line": 660,
+   "line": 662,
    "section": "부록 A. 60개 질의 목록",
    "text": "[표 A-1] 60개 한국어 질의의 대상 문서·유형·원문 페이지 및 정답 근거",
    "sha256": "7bc5d07e9f23055e63bd232e970eedc4278e3879f57be198bffc2f0d88396517",
@@ -4385,7 +4382,7 @@
    "screening_hits": []
   },
   {
-   "line": 728,
+   "line": 730,
    "section": "부록 B. 추가 사례 및 탐색 분석",
    "text": "# 부록 B. 추가 사례 및 탐색 분석",
    "sha256": "3b98da025482418af9760437dc78d1cd02bf1def4f56c11bc5e87210164c2bbe",
@@ -4396,7 +4393,7 @@
    "screening_hits": []
   },
   {
-   "line": 730,
+   "line": 732,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "## B.1 저장된 생성·검색 사례",
    "sha256": "ebf70997813cf5222b578a7c9eca4438322f7ef986ced279dacb44058d6f2ca1",
@@ -4407,7 +4404,7 @@
    "screening_hits": []
   },
   {
-   "line": 734,
+   "line": 736,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "[그림 B-1] 동일 검색 문맥에서 CAD 적용 후 근거 충실도가 감소한 사례",
    "sha256": "5be86e0d0feb3a1a0c884492de968cb5af1d09efae61dc42459096ba970fef7e",
@@ -4418,7 +4415,7 @@
    "screening_hits": []
   },
   {
-   "line": 738,
+   "line": 740,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "[그림 B-2] HyDE 적용에 따른 검색 문맥 및 답변 변화 사례",
    "sha256": "16878ee97c994eced3a84317f0997e65770058ac8a4a1c6f899222c19b8c5d21",
@@ -4429,7 +4426,7 @@
    "screening_hits": []
   },
   {
-   "line": 742,
+   "line": 744,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "[그림 B-3] 동일 검색 문맥에서 CAD 적용 전후 답변 비교 사례",
    "sha256": "16fa83e9cafd45840d4391c7617acb7f5d8c7f5530c3c24275c3573ce7f417d8",
@@ -4440,7 +4437,7 @@
    "screening_hits": []
   },
   {
-   "line": 746,
+   "line": 748,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "[그림 B-4] SCD 미적용 조건의 영어 중심 출력 사례",
    "sha256": "04e44459b5cbe46fd5f47e78c82d388710eeaf8e1134c75ce267918bbc0c444f",
@@ -4451,7 +4448,7 @@
    "screening_hits": []
   },
   {
-   "line": 750,
+   "line": 752,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "[그림 B-5] SCD 적용 전후 한국어 문자 비율 변화 사례",
    "sha256": "1c870cb59185c02b300d567d16dc8d1b72fd0c3188af8c6dac951c029ecc49c9",
@@ -4462,18 +4459,18 @@
    "screening_hits": []
   },
   {
-   "line": 752,
+   "line": 754,
    "section": "B.1 저장된 생성·검색 사례",
-   "text": "그림 B-5(E03)는 HyDE를 적용한 조건의 사례로, RQ3의 HyDE OFF 비교에 포함되지 않는다.",
-   "sha256": "a82c0c66371c05e84a9a1d6bd8a23621eba062e52a05ebfc1a700f1ed920111c",
-   "candidate": true,
+   "text": "그림 B-5(E03)는 HyDE 적용 조건의 사례이며, RQ3의 주 비교는 HyDE OFF 조건의 대응쌍을 사용한다.",
+   "sha256": "c6d95274ef52b63dee679a73fa1d21a9b3aef79bfff8cd80d36474405ebdfdbb",
+   "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "2026-10-18 방어형 부정 서술 정리: 수행한 내용과 수치를 직접 서술하도록 고치고 원자료(TTEST_ANOVA_60Q.json)와 대조하였다.",
    "screening_hits": []
   },
   {
-   "line": 752,
+   "line": 754,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "그림 B-1~B-5의 전체 답변과 지표는 동봉한 FINALDOCS/DATA/evidence_manifest_60q.json의 사례 ID와 질의 ID로 찾을 수 있다.",
    "sha256": "dd602562efdf2231bfd2b715e4495868c8fe0d81675c2e314f507b2a10a52778",
@@ -4484,7 +4481,7 @@
    "screening_hits": []
   },
   {
-   "line": 752,
+   "line": 754,
    "section": "B.1 저장된 생성·검색 사례",
    "text": "이 목록에는 생성 기록의 파일 경로와 적용 조건이 있으며, 평가값은 experiments/results/evaluation의 질의 ID·조건명으로 연결된다.",
    "sha256": "b487e85c4614d21d26c8cc56a791f50b561a6fe46291acc64e4cca56d0c1241b",
@@ -4495,7 +4492,7 @@
    "screening_hits": []
   },
   {
-   "line": 754,
+   "line": 756,
    "section": "B.2 문서별 및 질문 유형별 탐색 분석",
    "text": "## B.2 문서별 및 질문 유형별 탐색 분석",
    "sha256": "f349fab986915957f401ee20cc633e9425b2680f4b6901e6f937a28c21092d5a",
@@ -4506,7 +4503,7 @@
    "screening_hits": []
   },
   {
-   "line": 756,
+   "line": 758,
    "section": "B.2 문서별 및 질문 유형별 탐색 분석",
    "text": "[표 B-1] 문서별 HyDE·CAD 대응 점수 차이의 평균(SD)",
    "sha256": "f17591ac15fcbd63453acaea9b5031904ebb14bfe65b5c082a541b9ca331de4d",
@@ -4517,7 +4514,7 @@
    "screening_hits": []
   },
   {
-   "line": 796,
+   "line": 798,
    "section": "B.2 문서별 및 질문 유형별 탐색 분석",
    "text": "[표 B-2] 질문 유형별 HyDE·CAD 대응 점수 차이의 평균(SD)",
    "sha256": "7c93bc492181fff57b1fe36c7146cea9e8e46c2fc5a1e010bad0cd364b2429af",
@@ -4528,7 +4525,7 @@
    "screening_hits": []
   },
   {
-   "line": 836,
+   "line": 838,
    "section": "B.2 문서별 및 질문 유형별 탐색 분석",
    "text": "표 B-1과 표 B-2는 하위집단의 탐색적 기술통계다.",
    "sha256": "8bea25429bbc3ef9ee703f4b7c824591f56b4e3e71bbab16de6ce9210c4a605b",
@@ -4539,7 +4536,7 @@
    "screening_hits": []
   },
   {
-   "line": 836,
+   "line": 838,
    "section": "B.2 문서별 및 질문 유형별 탐색 분석",
    "text": "질문 유형의 질의 수는 사실·정의 8, 방법·절차 29, 결과·비교 20, 목적·기여 3개이며, 결측이 있는 비교는 표의 유효 n을 사용하였다.",
    "sha256": "890a53e6514d66b9e6146c6bdc4966cd528fbfb0c41ea82ff80fc91772121ffe",
@@ -4550,7 +4547,7 @@
    "screening_hits": []
   },
   {
-   "line": 838,
+   "line": 842,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "## B.3 품질 지표의 반복측정 ANOVA",
    "sha256": "6e141b3e8afd963aef9a9a4f235e848f3ae0169747c5aa3f2e4ea878f0997466",
@@ -4561,7 +4558,7 @@
    "screening_hits": []
   },
   {
-   "line": 840,
+   "line": 844,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "표 B-3과 표 B-4는 SCD 상태별 평가 문맥에서 네 품질 지표의 H×C 반복측정 ANOVA 결과다.",
    "sha256": "37b142ff74fa6f114b6090828ed3886f4e4bdb317cd20182fc056ca5ffdf19fa",
@@ -4572,7 +4569,7 @@
    "screening_hits": []
   },
   {
-   "line": 840,
+   "line": 844,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "근거 충실도는 결측을 제외하여 SCD OFF n=58, ON n=57이며 나머지 지표는 n=60이다.",
    "sha256": "d5bc0d217c96c5be6c1f1b4213f6b487c85a26accd986a282ebf6b28d3679315",
@@ -4583,7 +4580,7 @@
    "screening_hits": []
   },
   {
-   "line": 840,
+   "line": 844,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "두 표의 모든 효과는 p≥0.05였다.",
    "sha256": "642e19bc2d5bc0443e9b45fadc932dca308a979f09c978f9354f3d1ed5859395",
@@ -4594,7 +4591,7 @@
    "screening_hits": []
   },
   {
-   "line": 842,
+   "line": 846,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "[표 B-3] SCD OFF 영어 평가 문맥의 품질 지표 H×C 반복측정 ANOVA",
    "sha256": "f3622da4af0b9c886736637107c9f076e4c4e964e19e1d43af22c2dc23d53a0d",
@@ -4605,7 +4602,7 @@
    "screening_hits": []
   },
   {
-   "line": 862,
+   "line": 866,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
    "text": "[표 B-4] SCD ON 한국어 번역 평가 문맥의 품질 지표 H×C 반복측정 ANOVA",
    "sha256": "3d0937a90c421aa05600a42c33dba1ae6259e73cae62e2335f94004686fa1375",
@@ -4616,7 +4613,7 @@
    "screening_hits": []
   }
  ],
- "review_note": "2026-10-18 t/ANOVA 개정: 본문 1~6장 재작성, 부록 B.3 추가. 기존 검토 문장은 해시가 같을 때 이유를 승계했다.",
+ "review_note": "2026-10-18 t/ANOVA 개정: 본문 1~6장 재작성, 부록 B.3 추가. 기존 검토 문장은 해시가 같을 때 이유를 승계했다. 이후 방어형 부정 서술을 직접 서술로 정리했다.",
  "historical_reviewed_head": "75c0e9ee4797e7a9b629df05195087e44268791a (revision baseline)",
  "sentence_changes": [
   {
