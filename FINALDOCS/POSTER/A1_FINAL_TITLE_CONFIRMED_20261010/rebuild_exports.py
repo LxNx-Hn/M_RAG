@@ -96,7 +96,16 @@ def main(build_dir):
         text = compact(doc[0].get_text())
         poster_headings(doc[0].get_text().splitlines())
         for value in required:
-            assert compact(value) in text, "PDF mismatch: " + value
+            if compact(value) not in text:
+                (ROOT / "PDF_TEXT_DIAGNOSTIC.txt").write_text(
+                    doc[0].get_text(), encoding="utf-8"
+                )
+                missing_lines = [
+                    line for line in value.splitlines() if compact(line) not in text
+                ]
+                raise AssertionError(
+                    f"PDF mismatch: {value}; missing individual lines: {missing_lines}"
+                )
         fonts = doc[0].get_fonts(full=True)
     with Image.open(raster) as image:
         assert image.size == (7016, 9933)

@@ -44,3 +44,12 @@ jobs:
         run: |
           cp -r FINALDOCS/POSTER/A1_FINAL_TITLE_CONFIRMED_20261010 "$RUNNER_TEMP/poster-check"
           python "$RUNNER_TEMP/poster-check/rebuild_exports.py" --build-dir "$GITHUB_WORKSPACE/FINALDOCS/BUILD"
+      - name: Preserve failed rendering diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: poster-rendering-diagnostics
+          path: |
+            ${{ runner.temp }}/poster-check/M_RAG_A1_FINAL_PRINT.pdf
+            ${{ runner.temp }}/poster-check/M_RAG_A1_FINAL_PREVIEW.png
+            ${{ runner.temp }}/poster-check/PDF_TEXT_DIAGNOSTIC.txt
