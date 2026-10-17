@@ -13,7 +13,6 @@ import zipfile
 from datetime import date
 from pathlib import Path
 
-import fitz
 from lxml import etree
 from PIL import Image
 
@@ -52,6 +51,8 @@ def sha(path):
 
 
 def main(build_dir):
+    import fitz
+
     svg = ROOT / (NAME + "_EDITABLE.svg")
     pptx = ROOT / (NAME + "_EDITABLE.pptx")
     sys.path.insert(0, str(build_dir))
