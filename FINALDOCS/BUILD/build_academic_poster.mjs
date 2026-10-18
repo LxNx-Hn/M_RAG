@@ -99,7 +99,7 @@ for(const personal of fields?[false,true]:[false]) {
   text('문서마다 주요 내용을 15개 단위로 요약해 단위별 질의를 작성하고,\n총 60개 질의의 원문 페이지·정답 근거·답변 가능성을 확인',L,1930,C,62,18);
   heading('04 평가 지표 및 실험·통계 방법',L,2010,C);
   text('근거 충실도: 높을수록 검색 결과가 뒷받침하는 답변 주장 비율이 크다.\n답변 관련성: 높을수록 답변 기반 질문과 원질문의 의미가 가깝다.\n문맥 정밀도: 높을수록 참조 답변에 유용한 구간이 상위에 놓인다.\n문맥 재현율: 높을수록 검색 근거가 포괄하는 참조 답변 비중이 크다.\n한국어 비율: 한글 / (한글 + ASCII 영문자), 높을수록 한글 비중이 크다.',L,2070,C,150,18);
-  text('품질 관측값은 0~1이다. 차이는 ON−OFF 평균 차이다.\n한국어 비율 0.700은 70.0%, 차이 +0.218은 +21.8%p다.',L,2225,C,90,18);
+  text('품질 관측값은 0~1이다. 차이 = ON − OFF 평균.\n한국어 비율 0.700은 70.0%, 차이 +0.218은 +21.8%p다.',L,2225,C,90,18);
   text('평가 예시  ext_raptor_011, H0C0S0',L,2320,C,30,18,true);
   text('질문: Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based\nretrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?',L,2352,C,60,18);
   text('검색 근거(PDF p.9): “By providing both the original text and higher-level summaries\nfor retrieval, RAPTOR can effectively handle a wider range of\nquestions, from higher-order thematic queries to detail-oriented questions.”',L,2414,C,90,18);
@@ -114,7 +114,7 @@ for(const personal of fields?[false,true]:[false]) {
   const meanrows=[['조건','근거\n충실도','답변\n관련성','문맥\n정밀도','문맥\n재현율','한국어\n비율','실행\n시간'],...conditions.toSorted((a,b)=>a[5].localeCompare(b[5])||a.localeCompare(b)).map(z=>[z,...mets.map(m=>{const a=stats.descriptives[z][m];return f(a.mean)+'\n('+f(a.sd)+')';})])];
   table(meanrows,R,484,C,72,[.16,.14,.14,.14,.14,.14,.14],['code','number','number','number','number','number','number']);
   rect(R,484+72*5-1.5,C,3,purple); // Editable separator between S0 and S1 groups.
-  text('S0: 영어로 평가 / S1: 한국어 번역으로 평가\n충실도 H0C1S0 n=58, H0C0S1 n=57, 나머지 n=60\n한국어 비율·시간(초)은 답변과 실행 시간에서 직접 계산',R,1151,C,96,18);
+  text('S0: 영어로 평가 / S1: 한국어 번역으로 평가\n충실도 H0C1S0 n=58, H0C0S1 n=57, 나머지 n=60\n한국어 비율·시간(초)은 RAGAS를 거치지 않고 직접 계산',R,1151,C,96,18);
   text('3요인 반복측정 ANOVA  ·  각 효과 df=(1,59)',R,1272,C,34,18,true);
   const effects=['H','C','S','H×C','H×S','C×S','H×C×S'];
   const ar=[['요인','한국어 비율\nF','p','실행 시간\nF','p'],...effects.map(e=>{const l=stats.rm_anova.korean_ratio.find(z=>z.effect===e),t=stats.rm_anova.duration_seconds.find(z=>z.effect===e);return[e,f(l.F),p(l.p),f(t.F),p(t.p)];})];
@@ -125,9 +125,9 @@ for(const personal of fields?[false,true]:[false]) {
   table([['비교','차이\n(SD)','t(df)','p','dz'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean_diff)+'\n('+f(z.sd_diff)+')',f(z.t)+'\n('+z.df+')',p(z.p),f(z.dz)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
   text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\np: 다중비교 보정 없는 양측 p, dz: 차이 평균/차이 SD\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,90,18);
   heading('06 결과 해석',R,2365,C);
-  text('HyDE: 기본 조건에서 관련성이 유의하게 높았고(p=0.029),\nSCD 적용 조건의 추가 비교에서는 p=0.114였다.\nCAD: 충실도 차이는 작았고(p=0.393), 실행 시간은 약 2.9배였다.\nSCD: 네 조합 모두에서 한국어 문자 비율이 높았고, CAD와 함께\n쓰면 CAD의 추가 시간이 약 9초 줄었다(C×S, p<0.001).',R,2420,C,150,18);
+  text('HyDE: 기본 조건에서 관련성이 유의하게 높았으나(p=0.029),\nSCD 적용 조건의 추가 비교에서는 p=0.114였다.\nCAD: 충실도 차이는 작았고(p=0.393), 실행 시간은 약 2.9배였다.\nSCD: 네 조합 모두에서 한국어 문자 비율이 높았고, CAD와 함께\n쓰면 CAD의 추가 시간이 약 9초 줄었다(C×S, p<0.001).',R,2420,C,150,18);
   heading('07 결론',R,2582,C);
-  text('한국어 답변이 필요하면 SCD가 비용이 작은 선택이었다.\nHyDE의 관련성 향상은 기본 조건(C0S0)에서 관측되었고,\n이 차이에는 질의 번역과 가상 문서 생성이 함께 포함되었다.\nCAD는 충실도 차이가 작고 실행 시간이 약 2.9배로 늘었다\n(SCD 미적용 3.1배, 적용 2.7배).\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2645,C,182,18);
+  text('한국어 답변이 필요하면 SCD가 비용이 작은 선택지다.\nHyDE의 관련성 향상은 기본 조건(C0S0)에서 관측되었고,\n이 차이에는 질의 번역과 가상 문서 생성이 함께 포함되었다.\nCAD는 시간 비용이 커서(약 2.9배; SCD 미적용 3.1배, 적용 2.7배),\n지식 충돌형 질의처럼 효과가 기대될 때 선택적으로 검토한다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2645,C,182,18);
   heading('08 주요 참고문헌',L,2840,W-2*L);
   text('[1] Lewis et al. RAG. NeurIPS, 2020.\n[2] Gao et al. HyDE. ACL, 2023.\n[3] Shi et al. Context-Aware Decoding. NAACL, 2024.',L,2904,C,99,16);
   text('[4] Li et al. Language Drift and SCD. AAAI, 2026.\n[5] Chen et al. M3-Embedding. ACL Findings, 2024.\n[10] Es et al. RAGAs. EACL Demonstrations, 2024.',R,2904,C,99,16);

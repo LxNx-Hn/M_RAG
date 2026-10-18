@@ -155,7 +155,7 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "노드를 선택할 수 있습니다",
         "반복측정 분산분석(ANOVA)",
         "대응 t-검정",
-        "관련성이 유의하게 높았고(p=0.029)",
+        "관련성이 유의하게 높았으나(p=0.029)",
         "추가 비교에서는 p=0.114",
         "충실도 차이는 작았고(p=0.393)",
         "+21.8%p",
@@ -170,15 +170,16 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "검색 결과가 모두 지지",
         "평가 언어: S0 영어 / S1 한국어 번역, 생성 입력은 모두 영어",
         "S0: 영어로 평가 / S1: 한국어 번역으로 평가",
-        "한국어 답변이 필요하면 SCD가 비용이 작은 선택이었다.",
-        "실행 시간이 약 2.9배로 늘었다",
-        "(SCD 미적용 3.1배, 적용 2.7배)",
+        "한국어 답변이 필요하면 SCD가 비용이 작은 선택지다.",
+        "시간 비용이 커서(약 2.9배; SCD 미적용 3.1배, 적용 2.7배)",
+        "효과가 기대될 때 선택적으로 검토한다",
         "논문의 참고문헌에 수록",
         "SCD 대응쌍은 질의별 평균(n=60)",
+        "차이 = ON − OFF 평균.",
         "언어 이탈",
         "검색 결과가 뒷받침하는 답변 주장",
         "15개 단위로 요약해 단위별 질의",
-        "답변과 실행 시간에서 직접 계산",
+        "RAGAS를 거치지 않고 직접 계산",
     ]:
         if token not in joined:
             raise AssertionError("Missing reviewed poster content: " + token)
@@ -194,6 +195,9 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "120·240쌍",
         "한국어 사용 비중",
         "생성 기록에서 직접 계산",
+        "답변과 실행 시간에서 직접 계산",
+        "평균 차이다.",
+        "선택이었다.",
     ]:
         if token in joined:
             raise AssertionError("Retired poster wording: " + token)
