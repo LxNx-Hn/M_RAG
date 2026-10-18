@@ -77,7 +77,7 @@ for(const personal of fields?[false,true]:[false]) {
   heading('01 연구 배경과 목적',L,365,C);
   text('검색 증강 생성(Retrieval-Augmented Generation, RAG)은\n관련 문서 구간을 검색하고 그 텍스트로 답변을 생성한다[1].',L,430,C,68,18);
   text('HyDE: 가상 문서 임베딩(Hypothetical Document Embeddings)\n가상 문서 검색 입력 구성[2]\nCAD: 문맥 인식 디코딩(Context-Aware Decoding)\n검색 근거의 영향 조정[3]\nSCD: 소프트 제약 디코딩(Soft Constrained Decoding)\n출력 언어 제어[4]',L,494,C,180,18);
-  text('HyDE는 한국어 등 다국어 검색에서 평가되었다[2].\n한국어 질의–영어 문서 환경에서 HyDE·CAD·SCD의\n개별 차이와 조합 효과를 같은 파이프라인에서 비교하였다.',L,678,C,90,18,true);
+  text('HyDE는 한국어를 포함한 다국어 검색에서 평가되었다[2].\n한국어 질의–영어 문서 환경에서 HyDE·CAD·SCD의\n개별 차이와 조합 효과를 같은 파이프라인에서 비교하였다.',L,678,C,90,18,true);
   heading('02 Paper-RAG 구조와 기법 적용 위치',L,773,C);
   text('Paper-RAG는 실험에 사용한 고정 검색·생성 파이프라인이다.',L,837,C,36,18);
   const b=(C-44)/2;
@@ -87,7 +87,7 @@ for(const personal of fields?[false,true]:[false]) {
   box('가중 RRF[7]\n0.6 / 0.4, k=60',L+b+44,1046,b,78);
   arrow(L+b/2-9,1018,18,22,90);arrow(L+b+8,1062,28,20);
   arrow(L+b+44+b/2-9,1018,18,22,90);
-  box('원질의·구간 쌍 CrossEncoder 재정렬[8][M2]\n상위 5개 구간 선택·문맥 길이 관리',L,1156,C,84);
+  box('원질의·구간 쌍 CrossEncoder 재정렬[8][M2]\n상위 5개 구간 선택·입력 길이 관리',L,1156,C,84);
   box('Mi:dm 2.0 Base Instruct[M1]\nCAD 로짓 결합 후 SCD 언어별 조정, 최종 답변 생성',L,1274,C,83,green);
   arrow(L+C/2-9,1131,18,18,90);arrow(L+C/2-9,1248,18,18,90);
   heading('03 3요인 완전요인 실험 설계',L,1390,C);
@@ -105,8 +105,8 @@ for(const personal of fields?[false,true]:[false]) {
   text('검색 근거(PDF p.9): “By providing both the original text and higher-level summaries\nfor retrieval, RAPTOR can effectively handle a wider range of\nquestions, from higher-order thematic queries to detail-oriented questions.”',L,2414,C,90,18);
   text('참조 답변 요지(PDF p.20): RAPTOR는 이야기의 주요 부분을,\nDPR은 이야기의 좁은 일부를 자세히 검색한다.',L,2507,C,60,18);
   text('생성 답변 발췌: “질문의 요구사항에 따라 서로 다른\n층위(layer)에서 노드를 선택할 수 있습니다.”',L,2569,C,60,18);
-  text('충실도 1.000: 추출된 답변 주장을 검색 문맥이 모두 지지\n관련성 0.937: 답변 기반 질문과 원질문의 평균 의미 유사도',L,2632,C,60,18);
-  text('평가: RAGAS 0.2.15[10]·gpt-4o·BGE-M3, 저장 답변 평가\nS0 영어 / S1 한국어 번역 평가 문맥, 모든 생성 문맥은 영어',L,2695,C,60,18);
+  text('충실도 1.000: 추출된 답변 주장을 검색 결과가 모두 지지\n관련성 0.937: 답변 기반 질문과 원질문의 평균 의미 유사도',L,2632,C,60,18);
+  text('평가: RAGAS 0.2.15[10]·gpt-4o·BGE-M3, 저장 답변 평가\n평가 언어: S0 영어 / S1 한국어 번역, 생성 입력은 모두 영어',L,2695,C,60,18);
   text('반복측정 분산분석(ANOVA)·대응 t-검정, 양측 α=0.05\n품질 S별 H×C / 문자·시간 H×C×S, SCD 120·240쌍→질의60',L,2760,C,60,18,true);
   heading('05 조합별 결과와 통계 검정',R,365,C);
   text('HyDE·CAD·SCD 8조합의 품질·한국어 비율·시간 평균(SD)',R,430,C,36,18,true);
@@ -114,12 +114,12 @@ for(const personal of fields?[false,true]:[false]) {
   const meanrows=[['조건','근거\n충실도','답변\n관련성','문맥\n정밀도','문맥\n재현율','한국어\n비율','실행\n시간'],...conditions.toSorted((a,b)=>a[5].localeCompare(b[5])||a.localeCompare(b)).map(z=>[z,...mets.map(m=>{const a=stats.descriptives[z][m];return f(a.mean)+'\n('+f(a.sd)+')';})])];
   table(meanrows,R,484,C,72,[.16,.14,.14,.14,.14,.14,.14],['code','number','number','number','number','number','number']);
   rect(R,484+72*5-1.5,C,3,purple); // Editable separator between S0 and S1 groups.
-  text('S0: 영어 평가 문맥 / S1: 한국어 번역 평가 문맥\n충실도 H0C1S0 n=58, H0C0S1 n=57, 나머지 n=60\n한국어 비율·시간(초)은 생성 기록에서 직접 계산',R,1151,C,96,18);
+  text('S0: 영어로 평가 / S1: 한국어 번역으로 평가\n충실도 H0C1S0 n=58, H0C0S1 n=57, 나머지 n=60\n한국어 비율·시간(초)은 생성 기록에서 직접 계산',R,1151,C,96,18);
   text('3요인 반복측정 ANOVA  ·  각 효과 df=(1,59)',R,1272,C,34,18,true);
   const effects=['H','C','S','H×C','H×S','C×S','H×C×S'];
   const ar=[['요인','한국어 비율\nF','p','실행 시간\nF','p'],...effects.map(e=>{const l=stats.rm_anova.korean_ratio.find(z=>z.effect===e),t=stats.rm_anova.duration_seconds.find(z=>z.effect===e);return[e,f(l.F),p(l.p),f(t.F),p(t.p)];})];
   table(ar,R,1323,C,51,[.19,.22,.18,.22,.19],['code','number','number','number','number']);
-  text('p<0.05: 한국어 비율 S·H×C / 실행 시간 H·C·S·C×S\nRAGAS H×C 검정은 평가 문맥 언어별로 수행했으며,\n품질 4지표 24검정의 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
+  text('p<0.05: 한국어 비율 S·H×C / 실행 시간 H·C·S·C×S\nRAGAS H×C 검정은 평가 언어별로 수행했으며,\n품질 4지표 24검정의 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
   text('기법별 대응 비교  ·  질의별 평균 차이, 양측 검정',R,1870,C,36,18,true);
   const selected=['RQ1_HyDE_answer_relevancy','RQ2_CAD_faithfulness','RQ3_SCD_korean_ratio_H0'].map(k=>stats.primary_paired_t[k]);
   table([['비교','차이\n(SD)','t(df)','p','dz'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean_diff)+'\n('+f(z.sd_diff)+')',f(z.t)+'\n('+z.df+')',p(z.p),f(z.dz)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
@@ -127,13 +127,13 @@ for(const personal of fields?[false,true]:[false]) {
   heading('06 결과 해석',R,2395,C);
   text('HyDE 관련성은 평균 +0.080점, t(59)=2.236, p=0.029였다.\nCAD 충실도는 평균 +0.029점, t(57)=0.862, p=0.393이었다.\nSCD 주 비교의 한국어 비율은 21.822%p 높았다(p<0.001).\nCAD 시간 증가: SCD OFF +46.583초 / ON +37.747초.',R,2450,C,128,18);
   heading('07 결론',R,2592,C);
-  text('HyDE는 C0S0에서 관련성을 높였고, CAD 충실도 차이는 유의하지 않았다.\nSCD는 같은 영어 근거에서 한국어 사용 비중을 높였다.\nCAD는 두 SCD 상태 모두 실행 시간이 늘었다.\nHyDE 비교에는 질의 번역과 가상 문서 생성이 함께 포함됐다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2655,C,160,18);
+  text('HyDE는 C0S0에서 관련성을 높였고(p=0.029), CAD 충실도 차이는 p=0.393이었다.\nSCD는 같은 영어 근거에서 한국어 사용 비중을 높였다.\nCAD는 실행 시간을 SCD 미적용 3.1배, 적용 2.7배로 늘렸다.\nHyDE 비교에는 질의 번역과 가상 문서 생성이 함께 포함됐다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2655,C,160,18);
   heading('08 주요 참고문헌',L,2840,W-2*L);
   text('[1] Lewis et al. RAG. NeurIPS, 2020.\n[2] Gao et al. HyDE. ACL, 2023.\n[3] Shi et al. Context-Aware Decoding. NAACL, 2024.',L,2904,C,99,16);
   text('[4] Li et al. Language Drift and SCD. AAAI, 2026.\n[5] Chen et al. M3-Embedding. ACL Findings, 2024.\n[10] Es et al. RAGAs. EACL Demonstrations, 2024.',R,2904,C,99,16);
   text('[6] Robertson et al. Okapi at TREC-3. NIST, 1995.\n[7] Cormack et al. Reciprocal Rank Fusion. SIGIR, 2009.',L,3010,C,60,16);
   text('[8] MacAvaney et al. CEDR. SIGIR, 2019.\n공식 모델  [M1] KT Mi:dm 2.0 / [M2] MiniLM CrossEncoder',R,3010,C,60,16);
-  text('학술 22편·모델·자료 출처: FINALDOCS/VALIDATION/REFERENCES.md · 통계·민감도: 동봉 상세표',L,3082,W-2*L,30,16);
+  text('전체 참고문헌 22편과 모델·자료 출처는 논문의 참고문헌에 수록',L,3082,W-2*L,30,16);
   text('영어 문서 4종 · 질의 60개 · 생성 모델 1종 · 질의별 반복측정',L,3115,W-2*L,26,14,false,purple);
   text('A1 594 × 841 mm',L,3138,W-2*L,24,10.5,false,purple,'right');
   sl.speakerNotes.text='Research sources and full statistics: FINALDOCS/DATA/TTEST_ANOVA_60Q.json; FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md. The exploratory analysis uses query-level paired t-tests and repeated-measures ANOVA with two-sided alpha 0.05 and no multiplicity adjustment. Editable tables follow explicit data-type alignment. Reference [4] https://ojs.aaai.org/index.php/AAAI/article/view/40417; [8] https://doi.org/10.1145/3331184.3331317 is conceptual ranking background, not the implemented CEDR architecture. [M1] https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct; [M2] https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2. The English case evidence is a contiguous saved context excerpt (PDF p.9), reference evidence is on PDF p.20. References follow manuscript numbering.';

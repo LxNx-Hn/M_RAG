@@ -164,9 +164,28 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "실행 시간 H·C·S·C×S",
         "다중비교 보정 없는",
         "시간(초)",
+        "한국어를 포함한 다국어 검색",
+        "입력 길이 관리",
+        "검색 결과가 모두 지지",
+        "평가 언어: S0 영어 / S1 한국어 번역, 생성 입력은 모두 영어",
+        "S0: 영어로 평가 / S1: 한국어 번역으로 평가",
+        "관련성을 높였고(p=0.029), CAD 충실도 차이는 p=0.393이었다.",
+        "SCD 미적용 3.1배, 적용 2.7배",
+        "논문의 참고문헌에 수록",
     ]:
         if token not in joined:
             raise AssertionError("Missing reviewed poster content: " + token)
+    # Wording aligned with the latest manuscript replaces these phrases.
+    for token in [
+        "평가 문맥",
+        "생성 문맥",
+        "문맥 길이",
+        "REFERENCES.md",
+        "동봉 상세표",
+        "두 SCD 상태 모두에서",
+    ]:
+        if token in joined:
+            raise AssertionError("Retired poster wording: " + token)
     statistics = poster_statistics(
         slide, document, json.loads(stats_path.read_text("utf-8"))
     )
