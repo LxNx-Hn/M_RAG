@@ -37,7 +37,7 @@ def validate_pdf_map(pdf, mapping):
         hashlib.sha256(pdf.read_bytes()).hexdigest() == mapping["pdf_sha256"]
     ), "Page map PDF hash mismatch"
     with fitz.open(pdf) as doc:
-        assert len(doc) == mapping["pdf_pages"] == 51, "PDF page count mismatch"
+        assert len(doc) == mapping["pdf_pages"] == 50, "PDF page count mismatch"
         assert not mapping["unresolved"], "Unresolved page map entries"
         for physical, expected in mapping["printed_footers"].items():
             page = doc[int(physical) - 1]
@@ -136,7 +136,7 @@ def main():
                 (ROOT / "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json").read_text("utf-8")
             ),
         )
-        print("PASS: protected research inputs, submitted files and 51-page print map")
+        print("PASS: protected research inputs, submitted files and 50-page print map")
 
 
 if __name__ == "__main__":

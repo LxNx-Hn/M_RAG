@@ -208,7 +208,7 @@ def main() -> None:
                 )
                 expected_alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과")
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "요인")
                     else "RIGHT" if numeric else "LEFT"
                 )
                 for paragraph in cell.findall(".//hp:p", NS):

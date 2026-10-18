@@ -324,6 +324,9 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
         fractions = [0.25, 0.05, 0.13, 0.13, 0.13, 0.12, 0.10, 0.09]
     elif data["sheet"] == "T5-7_Secondary":
         fractions = [0.28, 0.07, 0.19, 0.17, 0.14, 0.15]
+    elif data["sheet"] in ("Appendix_Paper", "Appendix_QueryType"):
+        # Long group names get the width; short factor and n columns stay narrow.
+        fractions = [0.42, 0.10, 0.18, 0.10, 0.20]
     elif nc == 7:
         fractions = [0.22, 0.12, 0.12, 0.13, 0.13, 0.14, 0.14]
     elif nc == 9:
@@ -406,7 +409,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 )
                 alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과")
+                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "요인")
                     else "RIGHT" if numeric else "LEFT"
                 )
                 p.set("paraPrIDRef", align_refs[alignment])
