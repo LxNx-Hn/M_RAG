@@ -160,10 +160,8 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "충실도 차이는 작았고(p=0.393)",
         "+21.8%p",
         "추가 시간이 약 9초 줄었다(C×S, p<0.001)",
-        "한국어 비율 S·H×C*",
-        "실행 시간 H·C·S*·C×S",
-        "*유의수준 근처의 탐색적 결과",
-        "다중비교 보정 없는",
+        "한국어 비율 S·H×C / 실행 시간 H·C·S·C×S",
+        "p: 양측 p",
         "시간(초)",
         "세 기법의",
         "입력 길이 관리",
@@ -197,6 +195,8 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "생성 기록에서 직접 계산",
         "답변과 실행 시간에서 직접 계산",
         "평균 차이다.",
+        "탐색적 결과",
+        "보정 없는",
         "선택이었다.",
     ]:
         if token in joined:

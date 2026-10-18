@@ -119,11 +119,11 @@ for(const personal of fields?[false,true]:[false]) {
   const effects=['H','C','S','H×C','H×S','C×S','H×C×S'];
   const ar=[['요인','한국어 비율\nF','p','실행 시간\nF','p'],...effects.map(e=>{const l=stats.rm_anova.korean_ratio.find(z=>z.effect===e),t=stats.rm_anova.duration_seconds.find(z=>z.effect===e);return[e,f(l.F),p(l.p),f(t.F),p(t.p)];})];
   table(ar,R,1323,C,51,[.19,.22,.18,.22,.19],['code','number','number','number','number']);
-  text('p<0.05: 한국어 비율 S·H×C* / 실행 시간 H·C·S*·C×S (*유의수준 근처의 탐색적 결과)\nRAGAS H×C 검정은 평가 언어별로 수행했으며,\n품질 4지표 24검정의 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
+  text('p<0.05: 한국어 비율 S·H×C / 실행 시간 H·C·S·C×S\nRAGAS H×C 검정은 평가 언어별로 수행했으며,\n품질 4지표 24검정의 p는 모두 0.05 이상이었다.',R,1760,C,96,18);
   text('기법별 대응 비교  ·  질의별 평균 차이, 양측 검정',R,1870,C,36,18,true);
   const selected=['RQ1_HyDE_answer_relevancy','RQ2_CAD_faithfulness','RQ3_SCD_korean_ratio_H0'].map(k=>stats.primary_paired_t[k]);
   table([['비교','차이\n(SD)','t(df)','p','dz'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean_diff)+'\n('+f(z.sd_diff)+')',f(z.t)+'\n('+z.df+')',p(z.p),f(z.dz)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
-  text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\np: 다중비교 보정 없는 양측 p, dz: 차이 평균/차이 SD\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,90,18);
+  text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\np: 양측 p, dz: 차이 평균/차이 SD\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,90,18);
   heading('06 결과 해석',R,2365,C);
   text('HyDE: 기본 조건에서 관련성이 유의하게 높았으나(p=0.029),\nSCD 적용 조건의 추가 비교에서는 p=0.114였다.\nCAD: 충실도 차이는 작았고(p=0.393), 실행 시간은 약 2.9배였다.\nSCD: 네 조합 모두에서 한국어 문자 비율이 높았고, CAD와 함께\n쓰면 CAD의 추가 시간이 약 9초 줄었다(C×S, p<0.001).',R,2420,C,150,18);
   heading('07 결론',R,2582,C);

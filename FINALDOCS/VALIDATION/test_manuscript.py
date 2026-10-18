@@ -359,7 +359,7 @@ class ProfessorAcceptanceTests(unittest.TestCase):
         cases = {
             "differs from TTEST_ANOVA_60Q": svg.replace(">0.029</text>", ">0.117</text>"),
             "Retired poster statistics wording": svg.replace(
-                "다중비교 보정 없는 양측 p", "Holm 보정 p"
+                "p: 양측 p", "p: Holm 보정 p"
             ),
         }
         for message, mutated in cases.items():
