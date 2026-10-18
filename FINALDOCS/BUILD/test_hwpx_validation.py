@@ -209,7 +209,7 @@ class ContentCorruptionTests(unittest.TestCase):
                 p
                 for p in section
                 if "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)).startswith(
-                    "본 연구에서 작성한 도식이며, Shi"
+                    "그림 2-3 — Shi"
                 )
             )
             header = ET.fromstring(parts["Contents/header.xml"])

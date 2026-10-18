@@ -148,7 +148,10 @@ class AcademicRegressionTests(unittest.TestCase):
                 "p값은 유의수준 0.05보다 컸다(t(57)=0.862, p=0.393",
                 "유의하였다(t(57)=0.862, p=0.393",
             ),
-            ("Shi 외[3]의 CAD 로짓 결합을", "Shi 외[3]의 CAD 점수 합산을"),
+            (
+                "CAD의 문맥 포함·제외 로짓 결합[3] [스타일=그림제목]",
+                "CAD의 문맥 포함·제외 로짓 결합 [스타일=그림제목]",
+            ),
             ("Lewis 외[1]의 RAG는", "Lewis 외[1]은"),
             ("Li 외[4]는", "Li 외[4]은"),
         ):
@@ -222,9 +225,12 @@ class SubmissionAuditTests(unittest.TestCase):
             self.manifest["figures"][2]["caption_source"],
         ):
             with self.subTest(value=value), self.assertRaises(AssertionError):
-                validate_submission_assets(
-                    ROOT, self.text.replace(value, "누락", 1), self.manifest
+                broken = (
+                    self.text.replace(f"{value} [스타일=그림제목]", "누락 [스타일=그림제목]")
+                    if value.endswith("]")
+                    else self.text.replace(value, "누락", 1)
                 )
+                validate_submission_assets(ROOT, broken, self.manifest)
 
     def test_changed_image_hash(self):
         changed = copy.deepcopy(self.manifest)
@@ -250,7 +256,7 @@ class SubmissionAuditTests(unittest.TestCase):
 
     def test_caption_manifest_must_match(self):
         source = self.manifest["figures"][0]["caption_source"]
-        with self.assertRaisesRegex(AssertionError, "attribution"):
+        with self.assertRaisesRegex(AssertionError, "caption"):
             validate_submission_assets(
                 ROOT, self.text.replace(source, "누락"), self.manifest
             )
@@ -259,7 +265,7 @@ class SubmissionAuditTests(unittest.TestCase):
         changed = copy.deepcopy(self.manifest)
         source = changed["figures"][0]["caption_source"]
         changed["figures"][0]["caption_source"] = "출처: Lewis 외[1]의 그림 발췌."
-        with self.assertRaisesRegex(AssertionError, "creator and concept"):
+        with self.assertRaisesRegex(AssertionError, "reference/object"):
             validate_submission_assets(
                 ROOT,
                 self.text.replace(source, changed["figures"][0]["caption_source"]),
@@ -280,7 +286,7 @@ class SubmissionAuditTests(unittest.TestCase):
         for index in (1, 2):
             changed = copy.deepcopy(self.manifest)
             old = changed["figures"][index]["caption_source"]
-            new = old.replace("외[2]", "외[11]").replace("외[3]", "외[11]")
+            new = old.replace("[2]", "[11]").replace("[3]", "[11]")
             changed["figures"][index]["caption_source"] = new
             with self.subTest(index=index), self.assertRaisesRegex(
                 AssertionError, "reference/object"

@@ -96,7 +96,7 @@ def validate_layout(header, section):
         checked.append(
             {"role": role, "paragraph_id": p.get("id"), "paraPrIDRef": shape.get("id")}
         )
-    assert sum(r["role"] == "figure_source" for r in checked) == 4
+    assert sum(r["role"] == "figure_source" for r in checked) == 0
     assert sum(r["role"] == "picture" for r in checked) == 13
     assert sum(r["role"] == "table" for r in checked) == 15
     assert sum(r["role"] == "equation" for r in checked) == 11

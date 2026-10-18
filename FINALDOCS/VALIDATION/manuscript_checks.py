@@ -104,10 +104,10 @@ EXPECTED_FILES = {
 }
 
 EXPECTED_CAPTIONS = {
-    "2-1": "본 연구에서 작성한 도식이며, Lewis 외[1]의 RAG 구조를 참고하였다.",
-    "2-2": "본 연구에서 작성한 도식이며, Gao 외[2]의 HyDE 구조를 참고하였다.",
-    "2-3": "본 연구에서 작성한 도식이며, Shi 외[3]의 CAD 로짓 결합을 참고하였다.",
-    "2-4": "본 연구에서 작성한 도식이며, Li 외[4]의 SCD 토큰별 점수 조정을 참고하였다.",
+    "2-1": "RAG의 검색기–생성기 구조[1]",
+    "2-2": "HyDE의 가상 문서 기반 검색 구조[2]",
+    "2-3": "CAD의 문맥 포함·제외 로짓 결합[3]",
+    "2-4": "SCD의 토큰 그룹별 로짓 조정[4]",
 }
 
 EXPECTED_URLS = {
@@ -146,9 +146,11 @@ def validate_submission_assets(root: Path, text: str, manifest=None):
             raise AssertionError("source PNG hash mismatch: " + n)
         if f"LITERATURE/{expected} |" not in text:
             raise AssertionError("reviewed image not inserted: " + n)
-        if r["caption_source"] != EXPECTED_CAPTIONS[n]:
+        if r["caption_source"] != EXPECTED_CAPTIONS[n] or not r[
+            "caption_source"
+        ].endswith(f"[{r['reference']}]"):
             raise AssertionError(
-                "independent caption must state creator and concept; reference/object mismatch: "
+                "caption must carry the concept citation; reference/object mismatch: "
                 + n
             )
         if (
@@ -162,17 +164,13 @@ def validate_submission_assets(root: Path, text: str, manifest=None):
             or EXPECTED_URLS[n] not in usage
         ):
             raise AssertionError("attribution source URL missing: " + n)
-        if text.count(r["caption_source"]) != 1:
-            raise AssertionError("reviewed attribution missing or repeated: " + n)
-        if not re.search(
-            rf"\[그림 {n}\] [^\n]+ \[스타일=그림제목\]\n\n"
-            + re.escape(r["caption_source"])
-            + r"\s*(?:\n|$)",
-            text,
-        ):
-            raise AssertionError("separate concise source paragraph missing: " + n)
+        caption = f"[그림 {n}] {r['caption_source']} [스타일=그림제목]"
+        if text.count(caption) != 1:
+            raise AssertionError("cited figure caption missing or repeated: " + n)
         if text.count(r["usage_entry"]) != 1 or r["usage_entry"] not in usage:
             raise AssertionError("detailed attribution missing: " + n)
+    if "본 연구에서 작성한 도식" in text or "독립 도식" in text:
+        raise AssertionError("repeated authorship disclaimer returned")
     if "발췌하여 편집하였다" in usage or "공통 라이선스: CC BY" in usage:
         raise AssertionError("independent diagrams misrepresented as copied source art")
 
@@ -198,6 +196,9 @@ def validate_academic_text(text):
             r"아니(?:다|라)|(?:확인|판단)하기\s*어렵", unit["text"]
         ):
             raise AssertionError("defensive negative prose in body: " + unit["text"])
+    for legacy in ("19개와 41개", "두 묶음", "질의 세트", "evidence_manifest", "SHA-256"):
+        if legacy in body:
+            raise AssertionError("project history or audit metadata in body: " + legacy)
     if "검색 문맥" in body:
         raise AssertionError("abstract term '검색 문맥' returned; use 검색 결과")
     for kind, count in (("그림", 13), ("표", 15)):
@@ -215,12 +216,9 @@ def validate_academic_text(text):
             raise AssertionError(f"{kind} list/caption count must be {count}")
         if Counter(listed) != Counter(captions):
             raise AssertionError(f"{kind} full titles differ between list and body")
-    for number, source in EXPECTED_CAPTIONS.items():
-        if not re.search(
-            rf"\[그림 {number}\] [^\n]+ \[스타일=그림제목\]\n\n" + re.escape(source),
-            text,
-        ):
-            raise AssertionError("separate source paragraph missing: figure " + number)
+    for number, caption in EXPECTED_CAPTIONS.items():
+        if f"[그림 {number}] {caption} [스타일=그림제목]" not in text:
+            raise AssertionError("cited caption missing: figure " + number)
     for marker in [
         "대응 t-검정",
         "반복측정 ANOVA",

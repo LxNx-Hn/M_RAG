@@ -13,3 +13,5 @@
 `PROSE_REVIEW.md`는 본문 전수 교열·96후보 판정·전체 문장 A→B·문단 재구성·최종 해시, `CURRENT_AUDIT.md`는 현재 판정, `PROFESSOR_FEEDBACK.md`는 전사·추가 메모·관찰/추론·실제 A→B·39개 이전 객체·27개 현재 객체·예상질문18개, `REFERENCES.md/.json`은 출판 검증, `RESEARCH_PROVENANCE.md`는 질의 작성과 자료 가용성·주장 근거다.
 
 `CLEANUP_FILES.csv`는 기준1242파일의 처리·원래SHA·의존 참조·복구 경로를 담는다. `CLEANUP_REPORT.md`는 전후 규모와 검사 기능 대응이다. 이전 파일 복원은 `git show pre-finaldocs-cleanup-20261018:<경로>`로 내용을 확인한 뒤 `git restore --source pre-finaldocs-cleanup-20261018 -- <경로>`로 필요한 파일만 복원한다.
+
+2026-10-18 금지 기준 A→B 전수 교열의 1문장 1행 대조표는 `AB_FULL_REVIEW_20261018.md`, 수정·검증 보고는 `FINAL_REVISION_REPORT_20261018.md`에 있다. 두 문서는 작업 기록이며 논문 본문과 분리한다.

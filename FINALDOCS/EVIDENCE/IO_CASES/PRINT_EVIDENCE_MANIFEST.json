@@ -61,13 +61,13 @@
       "reference_answer": "The text retrieved by RAPTOR contains short descriptions of all the major parts of the story, whereas the text retrieved by DPR contains detailed descriptions of a narrow subset of the story.",
       "reference_pdf_page": 20,
       "reference_source_sha256": "a575c10efeb1fcf6f00214bb66e32e916c13fbebbd281479552162f39770729e",
+      "reference_source_hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "image_size": [
         2000,
         1377
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E01_normal_qa.png",
-      "image_sha256": "0984f751c447feb2db62cee1a63331ad77862221906ea7fdc357d1a1e3eecc6f",
-      "reference_source_hash_method": "UTF-8 bytes, CRLF normalized to LF"
+      "image_sha256": "0984f751c447feb2db62cee1a63331ad77862221906ea7fdc357d1a1e3eecc6f"
     },
     {
       "case_id": "E02",
@@ -229,13 +229,13 @@
           ]
         }
       ],
-      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
+      "context_label": "A/B 검색 결과, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E03_scd_rescue.png",
-      "image_sha256": "c53a9e3db9698810c9c914230f89c56d5c24863ac3b2a811eae902dadf7ff1f6"
+      "image_sha256": "6278f7c1e6641ae007c19643bad68ba8d1101c82518e897425afaa9b46d1acd8"
     },
     {
       "case_id": "E04",
@@ -354,13 +354,13 @@
           ]
         }
       ],
-      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 변경",
+      "context_label": "A/B 검색 결과, 검색 및 재정렬 ID 변경",
       "image_size": [
         2000,
         1804
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E04_hyde_retrieval_change.png",
-      "image_sha256": "26d27e7dcfd256eb4ac52696294b0caea5c6524b75d52a33185f0ae8249ec43f"
+      "image_sha256": "41afb9e3586793cb9f105c1de1038c7bbfed9c57afd949a26140a307fd85c85b"
     },
     {
       "case_id": "E05",
@@ -484,13 +484,13 @@
           ]
         }
       ],
-      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
+      "context_label": "A/B 검색 결과, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1682
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E05_cad_positive_same_context.png",
-      "image_sha256": "79296a3d745ef7da68f7e879d7c68348d53950757648d08356a9d25ac35745c7"
+      "image_sha256": "ae1dff21d6145d72af4120de48c2d38c0feeb66b0915a089e00fcb782457b1bd"
     },
     {
       "case_id": "E06",
@@ -590,13 +590,13 @@
           ]
         }
       ],
-      "context_label": "A/B 검색 문맥, 검색 및 재정렬 ID 동일",
+      "context_label": "A/B 검색 결과, 검색 및 재정렬 ID 동일",
       "image_size": [
         2000,
         1987
       ],
       "image": "FINALDOCS/EVIDENCE/IO_CASES/E06_cad_tradeoff_same_context.png",
-      "image_sha256": "6580c468f0702bfbdf5b99a3af2ee2c0bb1e618b065da2aaf8e3c98bb5158d57"
+      "image_sha256": "12fc223d077c2b83d8ca014ce53a4eee6ef1c9b6b266b2026b53fb313dc4bbde"
     }
   ]
 }

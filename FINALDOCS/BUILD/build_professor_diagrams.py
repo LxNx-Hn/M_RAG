@@ -81,7 +81,7 @@ def main():
     d.arrow("450,270 660,270")
     d.arrow("1120,270 1330,270")
     d.text(900, 95, "RAG: 외부 자료의 검색 결과를 답변 생성에 활용")
-    d.text(900, 485, "검색 문맥 = 생성 모델에 제공하는 검색 결과의 텍스트")
+    d.text(900, 485, "검색 결과 = 생성 모델에 입력하는 문서 구간의 텍스트")
     d.text(900, 565, "출력: 질문에 대한 생성 답변 y")
     drawings[FIG / "LITERATURE/fig2_1_rag_independent.svg"] = d.svg()
     d = Drawing(1800, 730)
@@ -105,7 +105,7 @@ def main():
         150,
         650,
         200,
-        "질문 + 검색 문맥\n+ 생성 접두 시퀀스\n문맥 포함 로짓 z_ctx",
+        "질문 + 검색 결과\n+ 생성 접두 시퀀스\n문맥 포함 로짓 z_ctx",
         GREEN,
         40,
     )
@@ -123,7 +123,7 @@ def main():
     )
     d.arrow("735,245 890,245 890,330 980,330")
     d.arrow("735,485 890,485 890,410 980,410")
-    d.text(900, 700, "CAD 적용 시 각 토큰의 최종 점수에 검색 문맥의 영향을 반영", 42)
+    d.text(900, 700, "CAD 적용 시 각 토큰의 최종 점수에 검색 결과의 영향을 반영", 42)
     drawings[FIG / "LITERATURE/fig2_3_cad_independent.svg"] = d.svg()
     d = Drawing(1800, 900)
     d.text(900, 80, "SCD: 토큰 그룹별 로짓 계수 적용")
@@ -241,13 +241,14 @@ def main():
     records = []
     for n, stem, author, ref, concept, url in source_info:
         png = FIG / "LITERATURE" / f"{stem}.png"
-        object_text = concept + ("를" if concept.endswith("구조") else "을")
-        caption = f"본 연구에서 작성한 도식이며, {author} 외[{ref}]의 {object_text} 참고하였다."
-        if n == "2-1":
-            caption = (
-                "본 연구에서 작성한 도식이며, Lewis 외[1]의 RAG 구조를 참고하였다."
-            )
-        usage = f"그림 {n} — 본 연구 작성. {author} 외[{ref}]의 {object_text} 참고하여 독립 도식을 작성하였다."
+        titles = {
+            "2-1": "RAG의 검색기–생성기 구조",
+            "2-2": "HyDE의 가상 문서 기반 검색 구조",
+            "2-3": "CAD의 문맥 포함·제외 로짓 결합",
+            "2-4": "SCD의 토큰 그룹별 로짓 조정",
+        }
+        caption = f"{titles[n]}[{ref}]"
+        usage = f"그림 {n} — {author} 외[{ref}]의 {concept}"
         records.append(
             {
                 "figure": n,
