@@ -520,8 +520,10 @@ def emit(
                         "6.3 적용 시 실험 조건 선택",
                     )
                 )
-            ):
-                # Reviewed Web PDF: keep short table and section openings intact.
+            ) or (role == "reference" and text.startswith(("[10] ", "[20] "))):
+                # Reviewed Web PDF: keep short table and section openings intact,
+                # and start references [10] and [20] on a new page instead of
+                # leaving their first line alone at the foot of pages 25 and 26.
                 p.element.set("pageBreak", "1")
             if text == "1. 서론":
                 doc.page.restart_page_number(p, number=1)
