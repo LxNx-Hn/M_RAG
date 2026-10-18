@@ -67,7 +67,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "c2fa51f5c211b8b2ac0f5e9e024124e88a7d3751f5dfb9036a523feb9f89ac6c",
+      "sha256": "8190068613d637be9da853b660cf67d5925b2432d13edd5bb40192965b2bc9d2",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
@@ -75,7 +75,7 @@
       "change_note": "2026-10-18 Korean academic prose revision; measured data unchanged; PROSE_REVIEW.md contains complete before/after and rendering checks"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "6798ae7e24da7041de98a394fb9ee2615aba04e7a7524e0c5aad8a6cda579950",
+      "sha256": "d898c03cd0cc139dae9035f5f3dde91ffebcfe984b37f25bc972719b10ea1fd7",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
@@ -83,7 +83,7 @@
       "change_note": "2026-10-18 Korean academic prose revision; measured data unchanged; PROSE_REVIEW.md contains complete before/after and rendering checks"
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "8082061a7dc67d4ac56a56a9ed65016bb26495619bc7e1dc3cc49ca516862687",
+      "sha256": "aa92944acc3c872145e991272b2f5fbe68685e403b69becd41e7c45f49b15061",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -277,7 +277,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "28d6f10491c4cccd1b55165ac49ef338bae5d6006a80fd906d2917f0fc9a5148",
+      "sha256": "b600ecebc958276a8fdf0012feacf71fd8b263868024327226198fd42ff06ee6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
@@ -285,7 +285,7 @@
       "change_note": "2026-10-18 Korean academic prose revision; measured data unchanged; PROSE_REVIEW.md contains complete before/after and rendering checks"
     },
     "FINALDOCS/POSTER/FINAL/A1_COPYEDIT_MAP.json": {
-      "sha256": "a72f34dd7f494b9e02b64dbd680883526677675e2c1eb241f7b8fee760d60c52",
+      "sha256": "1740bca1184bb7936b6978bda0f380280f4ad440c79fb1307402c1e3e309fa4c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "10ae7038afd4a82f1ae0d14c62e5bbcf81a22f56324d58f0867e0eea75ba764a",
       "role": "submission_input_or_master",
@@ -294,7 +294,7 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "6ece680a625754c4c6e05e1ea8dd501868494e4d031a3f2c024e9a0125cace33",
+      "sha256": "4cc41603ae7f806081c3ab4eaf4c938b95ed852949c4d3b8a182bb1abeab10f9",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
@@ -303,7 +303,7 @@
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "25a658f31f4c34543ae9471bb4dddc99cd7102b4d18a122ad36927b4d2145d33",
+      "sha256": "7838a8f20e9c7bde054d60af7241bf3976432f29d8100f54d5342936726b6669",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
@@ -312,7 +312,7 @@
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "1375e7930e5ea296c22eff7cc8662bcadae6a8a681f990cf388266b3a87be497",
+      "sha256": "6b6c56ffa1d89339cfa67406d1eb2a025940142e90e4d949a019f352319d7673",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",

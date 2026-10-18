@@ -159,7 +159,7 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "추가 비교에서는 p=0.114",
         "충실도 차이는 작았고(p=0.393)",
         "+21.8%p",
-        "추가 시간이 약 9초 줄었다(C×S, p<0.001)",
+        "추가 시간이 약 8.8초 줄었다(C×S, p<0.001)",
         "한국어 비율 S·H×C / 실행 시간 H·C·S·C×S",
         "p: 양측 p",
         "시간(초)",

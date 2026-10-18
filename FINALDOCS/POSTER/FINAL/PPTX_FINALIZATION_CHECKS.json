@@ -1,7 +1,7 @@
 {
   "schemaVersion": "presentation-finalization.v1",
-  "finalSha256": "6ece680a625754c4c6e05e1ea8dd501868494e4d031a3f2c024e9a0125cace33",
-  "byteCount": 34827,
+  "finalSha256": "4cc41603ae7f806081c3ab4eaf4c938b95ed852949c4d3b8a182bb1abeab10f9",
+  "byteCount": 34843,
   "packageIntegrity": {
     "chart_count": 0,
     "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
@@ -58,7 +58,7 @@
       "Malgun Gothic"
     ],
     "scriptFonts": {},
-    "referenceSha256": "d3deb8340b439f749c92f698141c7deea2a3fac41f48b513b7b13dacff9dde6e",
+    "referenceSha256": "6ece680a625754c4c6e05e1ea8dd501868494e4d031a3f2c024e9a0125cace33",
     "referenceFontsVerifiedInEncodedText": true,
     "checked_text_script_count": 406,
     "native_font_rendering_verified": false,
@@ -75,7 +75,7 @@
     "performed": true,
     "passed": true,
     "slideCount": 1,
-    "sha256": "6ece680a625754c4c6e05e1ea8dd501868494e4d031a3f2c024e9a0125cace33",
+    "sha256": "4cc41603ae7f806081c3ab4eaf4c938b95ed852949c4d3b8a182bb1abeab10f9",
     "runtimeNodeModules": "C:/Users/KiKi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules",
     "nodeExecutable": "C:\\Users\\KiKi\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
   },
@@ -124,7 +124,7 @@
     "native_chart_count": 0,
     "native_powerpoint_verified": false,
     "passed": true,
-    "presentation_sha256": "6ece680a625754c4c6e05e1ea8dd501868494e4d031a3f2c024e9a0125cace33",
+    "presentation_sha256": "4cc41603ae7f806081c3ab4eaf4c938b95ed852949c4d3b8a182bb1abeab10f9",
     "schema_version": "presentation-native-chart-titles.v1",
     "slide_count": 1,
     "source_text_emitted": false,
