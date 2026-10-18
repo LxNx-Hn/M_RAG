@@ -631,7 +631,7 @@ RQ4: SCD는 네 조합 모두에서 한국어 비율을 높였고, CAD는 실행
 
 학술 참고문헌 [1]~[22]와 별도로 구현에 사용한 모델 카드[M1][M2]와 검색 대상 문서[D1]~[D4]의 출처를 정리하였다.
 
-[M1] KT, K-intelligence/Midm-2.0-Base-Instruct, 공식 모델 카드, https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct (확인: 2026-10-17). 실행 기록의 생성 모델 ID는 이 모델이며 답변 생성은 greedy, 최대 새 토큰 512개다. 저장 기록의 버전 정보는 모델 ID와 실행 파라미터로 구성된다. [스타일=참고문헌리스트]
+[M1] KT, K-intelligence/Midm-2.0-Base-Instruct, 공식 모델 카드, https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct (확인: 2026-10-17). 실행 기록의 생성 모델 ID는 이 모델이며 답변 생성은 greedy, 최대 새 토큰 512개다. [스타일=참고문헌리스트]
 
 [M2] Sentence Transformers, cross-encoder/ms-marco-MiniLM-L6-v2, 공식 모델 카드, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 (확인: 2026-10-17). 실행 설정의 모델 문자열은 cross-encoder/ms-marco-MiniLM-L-6-v2이며, 원질의·후보 구간 쌍을 입력하는 CrossEncoder 재정렬에 사용하였다. [스타일=참고문헌리스트]
 
