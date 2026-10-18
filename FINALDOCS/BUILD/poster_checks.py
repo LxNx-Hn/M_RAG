@@ -172,6 +172,8 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "관련성을 높였고(p=0.029), CAD 충실도 차이는 p=0.393이었다.",
         "SCD 미적용 3.1배, 적용 2.7배",
         "논문의 참고문헌에 수록",
+        "SCD OFF +46.6초 / ON +37.7초",
+        "SCD 대응쌍은 질의별 평균(n=60)",
     ]:
         if token not in joined:
             raise AssertionError("Missing reviewed poster content: " + token)
@@ -183,6 +185,8 @@ def validate_poster(pptx: Path, svg: Path, stats_path: Path = STATS):
         "REFERENCES.md",
         "동봉 상세표",
         "두 SCD 상태 모두에서",
+        "21.822%p",
+        "120·240쌍",
     ]:
         if token in joined:
             raise AssertionError("Retired poster wording: " + token)

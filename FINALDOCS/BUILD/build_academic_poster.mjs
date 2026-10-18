@@ -107,7 +107,7 @@ for(const personal of fields?[false,true]:[false]) {
   text('생성 답변 발췌: “질문의 요구사항에 따라 서로 다른\n층위(layer)에서 노드를 선택할 수 있습니다.”',L,2569,C,60,18);
   text('충실도 1.000: 추출된 답변 주장을 검색 결과가 모두 지지\n관련성 0.937: 답변 기반 질문과 원질문의 평균 의미 유사도',L,2632,C,60,18);
   text('평가: RAGAS 0.2.15[10]·gpt-4o·BGE-M3, 저장 답변 평가\n평가 언어: S0 영어 / S1 한국어 번역, 생성 입력은 모두 영어',L,2695,C,60,18);
-  text('반복측정 분산분석(ANOVA)·대응 t-검정, 양측 α=0.05\n품질 S별 H×C / 문자·시간 H×C×S, SCD 120·240쌍→질의60',L,2760,C,60,18,true);
+  text('반복측정 분산분석(ANOVA)·대응 t-검정, 양측 α=0.05\n품질: SCD 상태별 H×C / 한국어 비율·시간: H×C×S, SCD 대응쌍은 질의별 평균(n=60)',L,2760,C,60,18,true);
   heading('05 조합별 결과와 통계 검정',R,365,C);
   text('HyDE·CAD·SCD 8조합의 품질·한국어 비율·시간 평균(SD)',R,430,C,36,18,true);
   const mets=['faithfulness','answer_relevancy','context_precision','context_recall','korean_ratio','duration_seconds'];
@@ -125,7 +125,7 @@ for(const personal of fields?[false,true]:[false]) {
   table([['비교','차이\n(SD)','t(df)','p','dz'],...selected.map((z,i)=>[['HyDE\n답변 관련성','CAD\n근거 충실도','SCD H0\n한국어 비율'][i],f(z.mean_diff)+'\n('+f(z.sd_diff)+')',f(z.t)+'\n('+z.df+')',p(z.p),f(z.dz)])],R,1923,C,84,[.25,.23,.2,.16,.16],['description','number','number','number','number']);
   text('HyDE: C0S0, CAD: H0S0, SCD: H0의 CAD 상태 평균\np: 다중비교 보정 없는 양측 p, dz: 차이 평균/차이 SD\nSCD 차이 +0.218은 한글 비중 +21.8%p에 해당\n평균표 SD는 점수의 산포, 대응표 SD는 ON−OFF 차이의 산포',R,2264,C,120,18);
   heading('06 결과 해석',R,2395,C);
-  text('HyDE 관련성은 평균 +0.080점, t(59)=2.236, p=0.029였다.\nCAD 충실도는 평균 +0.029점, t(57)=0.862, p=0.393이었다.\nSCD 주 비교의 한국어 비율은 21.822%p 높았다(p<0.001).\nCAD 시간 증가: SCD OFF +46.583초 / ON +37.747초.',R,2450,C,128,18);
+  text('HyDE 관련성은 평균 +0.080점, t(59)=2.236, p=0.029였다.\nCAD 충실도는 평균 +0.029점, t(57)=0.862, p=0.393이었다.\nSCD 주 비교의 한국어 비율은 21.8%p 높았다(p<0.001).\nCAD 시간 증가: SCD OFF +46.6초 / ON +37.7초.',R,2450,C,128,18);
   heading('07 결론',R,2592,C);
   text('HyDE는 C0S0에서 관련성을 높였고(p=0.029), CAD 충실도 차이는 p=0.393이었다.\nSCD는 같은 영어 근거에서 한국어 사용 비중을 높였다.\nCAD는 실행 시간을 SCD 미적용 3.1배, 적용 2.7배로 늘렸다.\nHyDE 비교에는 질의 번역과 가상 문서 생성이 함께 포함됐다.\n후속 실험: 번역 단독 조건, 반복 생성·평가, 한국어 사람 평가.',R,2655,C,160,18);
   heading('08 주요 참고문헌',L,2840,W-2*L);
