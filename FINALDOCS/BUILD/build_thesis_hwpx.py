@@ -309,7 +309,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     nr, nc = len(rows), len(rows[0])
     # Wider text columns in appendix keep actual questions and evidence intact.
     if data["sheet"] == "Appendix_Queries":
-        fractions = [0.11, 0.29, 0.12, 0.10, 0.05, 0.33]
+        fractions = [0.10, 0.27, 0.12, 0.10, 0.09, 0.32]
     elif data["sheet"] == "T2-1_Related_Work":
         fractions = [0.22, 0.32, 0.46]
     elif data["sheet"] == "T3-1_Factorial_Design":
@@ -319,7 +319,8 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     elif nc == 2:
         fractions = [0.28, 0.72]
     elif data["sheet"] == "T5-3_RQ_Paired":
-        fractions = [0.17, 0.15, 0.05, 0.12, 0.12, 0.12, 0.11, 0.08, 0.08]
+        # Condition codes (H1C0S0−H0C0S0) and "<0.001" stay on one line.
+        fractions = [0.17, 0.195, 0.05, 0.105, 0.105, 0.105, 0.095, 0.095, 0.08]
     elif data["sheet"] == "T5-6_Followup":
         fractions = [0.25, 0.05, 0.13, 0.13, 0.13, 0.12, 0.10, 0.09]
     elif data["sheet"] == "T5-7_Secondary":
