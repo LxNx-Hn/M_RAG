@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "a84b0ff9ec09b6798f2146df7f10a72724000a90cd4d8d9fb1982a0646795747",
+ "source_lf_sha256": "301256632e24b29cdf0517c893cf1dad10c5074f8d71db4c0706615ebada9d91",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -2066,12 +2066,23 @@
   {
    "line": 265,
    "section": "3.2 아키텍처 설계",
-   "text": "CAD는 검색 결과의 유무에 따른 원래 로짓의 차이를 이용하므로 먼저 적용하고, SCD는 그 결과에 언어별 계수를 곱해 출력 언어를 조정한다.",
-   "sha256": "b77a79d1d4fad7cfb8989e456d367114ed1fe1bafe395da2b1c11293d25690b5",
+   "text": "CAD는 검색 결과의 유무에 따른 원래 로짓의 차이를 이용하므로 먼저 적용한다.",
+   "sha256": "3d6bd47927e6a510bc0714a63350c37c47b885030ec0ea5249953552a5d217ad",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 2차 외부 검토 반영: 서론 논리 구조, 이론 설명의 인과 표현, 3~4장 설계 이유와 처리 절차, 5.8절 결과와 해석의 분리, 6장 중복 정리, 부록 사례 해설을 원자료·원문(CAD α 설정 등)과 대조하여 작성하였다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
+   "screening_hits": []
+  },
+  {
+   "line": 265,
+   "section": "3.2 아키텍처 설계",
+   "text": "SCD는 CAD가 결합한 로짓에 언어별 계수를 곱해 출력 언어를 조정한다.",
+   "sha256": "6904ec41cba6b0cfff62514ff9750ac271babf64a446487e45cb697679b2cf24",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -2308,12 +2319,12 @@
   {
    "line": 313,
    "section": "4.1 시스템 환경",
-   "text": "평가 질의와 분리한 튜닝 질의 5개에서 문맥 재현율 0.95 이상인 조합 가운데 근거 충실도가 가장 높은 설정을 골라, 검색 후보 수 8, 재정렬 후보 수 8, 최종 입력 구간 수 5를 모든 조건에 고정하였다.",
-   "sha256": "74b50316705519b8314b888408c6fc3b02e362f876ad09f24c33a2f311d3d9f5",
+   "text": "평가 질의와 분리한 튜닝 질의 5개에서 문맥 재현율 0.95 이상인 후보 설정 가운데 근거 충실도가 가장 높은 설정을 골라, 검색 후보 수 8, 재정렬 후보 수 8, 최종 입력 구간 수 5를 모든 조건에 고정하였다.",
+   "sha256": "16199b7a1ba7e26d05b804dd35cdf6f3a2b74009f7bfe31def8a8ba9cd177ff2",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열(A→B 27항목 지침) 반영: 같은 절차의 짧은 문장을 연결하고, '이 분석은/이 설계에서는/이 결과는/즉/조합 결과를 보면' 같은 지시·해설형 문장과 절 안내·근거 선언 문장을 정리하였다. 수치와 통계적 결론은 그대로 두었다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -3199,12 +3210,12 @@
   {
    "line": 421,
    "section": "5.5 조합별 평가 결과",
-   "text": "CAD를 적용한 네 조건의 평균 실행 시간은 55~74초, 미적용 네 조건은 19~25초였으며, 네 조건씩 평균하면 CAD 적용 조건이 약 2.9배 길었다.",
-   "sha256": "929a75be66a37c7e581ce321016e4b31bf8a10e3cf34cdb464d976e9d22ca5be",
+   "text": "CAD를 적용한 네 조건의 평균 실행 시간은 55~74초, 미적용 네 조건은 19~25초였으며, 네 조건씩 평균한 실행 시간은 CAD 적용 조건이 미적용 조건의 약 2.9배였다.",
+   "sha256": "98150903eb70c13b2b51fdebb5af9b7e278ab4677f7b1533e0ee378fa2cb8114",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -3562,12 +3573,12 @@
   {
    "line": 480,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "모델 초기화 직후 처리한 두 기록을 제외하면 SCD 주효과의 p값은 0.045였다.",
-   "sha256": "1cece217ecdde719ff8ff0482d42a0ec64de023259ed313cb62958f906df0b0f",
+   "text": "모델 초기화 직후 처리한 두 기록을 제외한 분석에서 SCD 주효과의 p값은 0.045였다.",
+   "sha256": "713c28fd83c0d36ca739af2e4c0055950b3c3631df8c0d9f510501bdbc0f14c3",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 문장 재독(가독성·연결·모호성·중복·방어형 기준) 반영: 입력 질의 용어를 '질의'로 통일하고, 3.1·3.3과 2.4·4.3의 중복 서술을 한 곳으로 줄이고, 주어가 빠진 p값 문장과 이중 표현을 바로잡고, 그림 1-1을 세 기법의 적용 위치 도식으로 바꾸었다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -3617,12 +3628,12 @@
   {
    "line": 496,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "SCD를 함께 적용하면 CAD의 추가 시간이 약 8.8초 짧았다(C×S 상호작용, p<0.001).",
-   "sha256": "3e9aa6125480d5db14be20f24543f8ac9525de38f4bdec6628ed2e69e2a4204b",
+   "text": "SCD를 함께 적용한 조건에서 CAD의 추가 시간이 약 8.8초 짧았다(C×S 상호작용, p<0.001).",
+   "sha256": "4ae8ffd502a370b58db4d075a40637bbd94169172aab096d2facc9e277a18f24",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -3848,12 +3859,12 @@
   {
    "line": 523,
    "section": "5.8 종합 논의",
-   "text": "다른 기법의 수준을 평균하면 HyDE는 실행 시간을 약 7초 늘렸다.",
-   "sha256": "ddcb3f4dccaf2ad35998a8b14e90ebcfa54f0b0d8c3a9e1554855cc4658d9fff",
+   "text": "다른 기법의 수준을 평균한 비교에서 HyDE는 실행 시간을 약 7초 늘렸다.",
+   "sha256": "748a4fa6c8a4920780cb98e14faaac871ba70d701094004141a6c44bf2084c46",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -3892,12 +3903,12 @@
   {
    "line": 527,
    "section": "5.8 종합 논의",
-   "text": "CAD는 60쌍 모두에서 답변 텍스트를 바꾸었으나, 근거 충실도는 22개 질의에서 오르고 24개에서 내려 평균 차이가 +0.029점에 그쳤다.",
-   "sha256": "5758069b65774ad2b4d9b7e5f440a9c87e95b21859bd0604b1d777e7e01e8969",
+   "text": "CAD는 60쌍 모두에서 답변 텍스트를 바꾸었으나, 근거 충실도는 22개 질의에서 오르고 24개에서 내려 평균 차이가 작았다.",
+   "sha256": "0f94d013442b2b0913ec2eca51fa44f2f00a23c74dd853a92526b86926f0bcd1",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
@@ -4112,12 +4123,12 @@
   {
    "line": 553,
    "section": "6.1 연구 질문별 결과",
-   "text": "실행 시간에서는 C×S 상호작용이 유의하여(p<0.001), SCD를 함께 적용하면 CAD의 추가 시간이 약 8.8초 줄었다.",
-   "sha256": "3b7c6178b54fc0bafd5ab8fc6b215c953d3c5ad4955d598e69be26c5df08304c",
+   "text": "실행 시간에서는 C×S 상호작용이 유의하여(p<0.001), SCD를 함께 적용한 조건에서 CAD의 추가 시간이 약 8.8초 짧았다.",
+   "sha256": "05648f3a7f5a173a1b3a9e2d207dec00498d75b9ce1304a057778449dc82ce90",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 재독: 6.1절 C×S 수치를 5.7절(약 8.8초)과 맞추고, 5.9절의 평가 언어 반복 문장을 삭제하고, 4.3절의 단독 문장을 4.2절 기록 절차에 합쳤다.",
+   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
    "screening_hits": []
   },
   {
