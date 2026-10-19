@@ -1,4 +1,4 @@
-# M-RAG 최종 제출 자료
+# Cube-RAG 최종 제출 자료
 
 현재 논문은 **국·영문초록과 주제어를 삭제한 47쪽**, 표14개·그림13개·편집 수식11개·정식 학술문헌22편이다. 2026-10-18 개정에서 통계 분석을 대응 t-검정과 반복측정 ANOVA로 한정하고(다중비교 보정 없음, 탐색적 분석으로 명시) 본문 1~6장을 다시 썼다. 통계 결과는 [TTEST_ANOVA_60Q.json](DATA/TTEST_ANOVA_60Q.json)이며, 이전 Holm·Wilcoxon 포함 분석은 [FACTORIAL_STATISTICS_60Q.json](DATA/FACTORIAL_STATISTICS_60Q.json)에 이력으로 보존한다. [문체 교정 대조표](VALIDATION/PROSE_REVIEW.md)는 개정 전 문체 교정 기록이다.
 
