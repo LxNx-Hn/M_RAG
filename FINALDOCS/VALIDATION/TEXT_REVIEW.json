@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "301256632e24b29cdf0517c893cf1dad10c5074f8d71db4c0706615ebada9d91",
+ "source_lf_sha256": "f62a9609cf5425bfdc63354c7577d76dff9c5a57b8342f7bbc96a074190aa6a4",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -1054,12 +1054,12 @@
   {
    "line": 103,
    "section": "1.1 연구배경 및 목적",
-   "text": "선행 연구에서는 세 기법을 서로 다른 모델과 과제에서 각각 제안하고 평가하였지만, 같은 파이프라인과 질의에서 세 기법의 효과와 실행 시간을 함께 비교하지는 않았다.",
-   "sha256": "5379749f559a32443c9be2c5d0aedd55485c991f115cf0c6240421d538caea2b",
+   "text": "세 기법의 원 논문[2][3][4]에서는 각 기법을 서로 다른 모델과 과제에서 제안하고 평가하였지만, 같은 파이프라인과 질의에서 세 기법의 효과와 실행 시간을 함께 비교하지는 않았다.",
+   "sha256": "814fe6c1e705ede0322cfcd27b3eabdac03f0da2c9554321a2258133798ee6c6",
    "candidate": true,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -1571,34 +1571,34 @@
   {
    "line": 183,
    "section": "2.4 Context-Aware Decoding",
-   "text": "CAD는 검색 결과를 포함한 입력과 제외한 입력에서 각각 다음 토큰의 점수를 계산하는 디코딩 방법이다[3].",
-   "sha256": "78f8c847b0d238e68aaf6dce8f3709ad9f3e2cefe0b3cf9cb9bc88ac567f3cb3",
+   "text": "CAD는 검색 결과를 포함한 입력과 제외한 입력에서 각각 다음 토큰의 로짓을 계산하고, 두 로짓을 가중 결합하여 다음 토큰을 고르는 디코딩 방법이다[3].",
+   "sha256": "2e5bd410a0830df4bbdfa1b3d10c11e38216965da93481a082f3b8cc65b2381d",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
    "line": 183,
    "section": "2.4 Context-Aware Decoding",
-   "text": "검색 결과를 넣었을 때 점수가 크게 오르는 토큰일수록 검색 결과의 영향을 많이 받는다.",
-   "sha256": "dbf314a4ff7687241dd30bc244b0e41e18410750aacc0eade3b8e2223e0aadfb",
+   "text": "검색 결과를 넣었을 때 로짓이 크게 오르는 토큰일수록 검색 결과의 영향을 많이 받는다.",
+   "sha256": "804159e39040669e427106ccad49d1931ecdaa3386947cfffbe8164e835463aa",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
    "line": 183,
    "section": "2.4 Context-Aware Decoding",
-   "text": "CAD는 두 점수의 차이를 키워, 모델의 사전 지식보다 검색 결과의 내용을 반영하는 토큰이 선택되도록 한다(그림 2-3).",
-   "sha256": "73a74e4e4bf7ed1e65e0d48278810bfec18f6669648f5597644efa18c9246bba",
+   "text": "CAD는 두 로짓의 차이를 키워, 모델의 사전 지식보다 검색 결과의 내용을 반영하는 토큰이 선택되도록 한다(그림 2-3).",
+   "sha256": "dcfcdba78bf4c4c65781336ea071e2eb0abce83c7d1ac978b79328aefeed7c97",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 2차 외부 검토 반영: 서론 논리 구조, 이론 설명의 인과 표현, 3~4장 설계 이유와 처리 절차, 5.8절 결과와 해석의 분리, 6장 중복 정리, 부록 사례 해설을 원자료·원문(CAD α 설정 등)과 대조하여 작성하였다.",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -1615,12 +1615,12 @@
   {
    "line": 189,
    "section": "2.4 Context-Aware Decoding",
-   "text": "두 입력 뒤에 같은 생성 토큰열이 이어질 때, 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
-   "sha256": "1d472f75a6b43a53b9091344cf20f8e02427163474c7204ea5188bc6c0ea72ad",
+   "text": "같은 생성 이력에서 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
+   "sha256": "55cd06953e6bbdac1305ce98a2e5bc929ba5abcb1fafe49595904d14424a0a76",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -2319,12 +2319,23 @@
   {
    "line": 313,
    "section": "4.1 시스템 환경",
-   "text": "평가 질의와 분리한 튜닝 질의 5개에서 문맥 재현율 0.95 이상인 후보 설정 가운데 근거 충실도가 가장 높은 설정을 골라, 검색 후보 수 8, 재정렬 후보 수 8, 최종 입력 구간 수 5를 모든 조건에 고정하였다.",
-   "sha256": "16199b7a1ba7e26d05b804dd35cdf6f3a2b74009f7bfe31def8a8ba9cd177ff2",
+   "text": "평가 질의와 분리한 튜닝 질의 5개에서 문맥 재현율이 0.95 이상인 후보 설정을 비교하였다.",
+   "sha256": "9d9644783eff7f55245bda124927d659bbbc4792ba017a045b30ebc1962f4192",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Second sentence review: conditional-plus-past tense, mixed agent roles and a repeated figure",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "screening_hits": []
+  },
+  {
+   "line": 313,
+   "section": "4.1 시스템 환경",
+   "text": "그중 근거 충실도가 가장 높은 설정을 선택하여 검색 후보 8개, 재정렬 후보 8개, 최종 입력 구간 5개를 모든 조건에 고정하였다.",
+   "sha256": "347faaf6a904fb84afa13943b9d49c9a1ea68d96842ac13cf824c49c59b82b37",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -2385,12 +2396,12 @@
   {
    "line": 317,
    "section": "4.2 시스템 구성",
-   "text": "그 밖의 조건에서는 한국어 원질의를 그대로 쓴다.",
-   "sha256": "1f9dcb798af103b1358db8c2365dd133f2ec6fddb22aeb7cf12ffa520e2220e9",
+   "text": "HyDE 미적용 조건에서는 한국어 원질의를 그대로 쓴다.",
+   "sha256": "c97b20877a7c6312ee954ae2d25c86f5fb08bede6ba0e3359803070330e7e802",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 금지 기준 A→B 전수 교열: 방어형·이력·감사 메타 서술을 측정값과 실제 처리로 바꾸고 저장 답변·코드와 대조하였다.",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -2594,12 +2605,12 @@
   {
    "line": 341,
    "section": "5.1 평가 대상 및 질의 구성",
-   "text": "단위마다 질의를 하나씩 구성하여, 초기 질문 3개를 포함한 문서당 15개를 만들었다.",
-   "sha256": "3bd954b63d8304decea8cd0afd417a751c5c686d9f6cdd07647768a77ab5cf4a",
+   "text": "각 내용 단위에 질의를 하나씩 작성하였으며, 문서별 질의 15개에는 초기 질문 3개가 포함되었다.",
+   "sha256": "b055329f63dc60f3c35e34c9866d20a2dd7e3145daf35e3dc633b017b1741423",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -2858,12 +2869,23 @@
   {
    "line": 363,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "이에 따라 평가 모델은 답변의 주장과 검색 결과를 같은 언어로 대조한다.",
-   "sha256": "6a8b5d45fd8df4a3388e31a4a84c23eca9109f8b4c56dfa97b856d357487698e",
+   "text": "근거 충실도는 한국어 답변과 번역한 검색 결과를 대조한다.",
+   "sha256": "7fa53dfc8d167cbe76b94ea23b0375817cfe6e3baa4c2cd4bcfeac0d66603961",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "screening_hits": []
+  },
+  {
+   "line": 363,
+   "section": "5.3 실험 조건 및 평가 절차",
+   "text": "참조 답변(부록 A의 정답 근거)은 모든 조건에서 영어 원문을 그대로 사용하였으므로, SCD ON 조건의 문맥 정밀도와 문맥 재현율은 번역한 검색 결과와 영어 참조 답변을 대조한 값이다.",
+   "sha256": "6c592e74c0741065e3e4f69d192844f59c4a82dd76879a593e588c1e57be4dc9",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -3078,12 +3100,12 @@
   {
    "line": 395,
    "section": "5.4 통계 분석 방법",
-   "text": "한국어 문자 비율과 실행 시간에는 8개 조건 전체로 H×C×S 3요인 ANOVA를 적용하였다.",
-   "sha256": "4e362a4bf298e512eaddfdf82be165da74debc1cdea3ef766f727ce54add8dae",
+   "text": "한국어 문자 비율과 실행 시간에는 8개 조건을 대상으로 H×C×S 3요인 반복측정 ANOVA를 적용하였다.",
+   "sha256": "308b4013596f0689a5dbea9bf5d2d842229f657456a0796d03c4e72f5af32047",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -3144,23 +3166,34 @@
   {
    "line": 401,
    "section": "5.5 조합별 평가 결과",
-   "text": "표 5-1은 8개 조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD)이다.",
-   "sha256": "b5fdc6293f52b4ed68f3c123bedaf31b2a20c95669285323e8e1d765308ed1bc",
+   "text": "표 5-1에는 8개 조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD)을 제시하였다.",
+   "sha256": "3e8eb07a404012680eb85bf91a6e236584151dd37a46906b1628c449015c90cc",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
    "line": 401,
    "section": "5.5 조합별 평가 결과",
-   "text": "위쪽 네 행은 영어 검색 결과로, 아래쪽 네 행은 한국어로 번역한 검색 결과로 평가한 품질 지표이며, 한국어 문자 비율과 실행 시간은 생성 답변과 실행 기록에서 직접 계산한 값이다.",
-   "sha256": "836334b5915d93b22e1de5068526009ede514cf36568b1f89a71e061e963260b",
+   "text": "위쪽 네 행은 영어 검색 결과로 품질 지표를 평가한 SCD 미적용 조건이고, 아래쪽 네 행은 한국어로 번역한 검색 결과로 평가한 SCD 적용 조건이다.",
+   "sha256": "fe23a17ac64034063b6f6389c7f1afeb82947e21564415170af3d555054726a3",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "screening_hits": []
+  },
+  {
+   "line": 401,
+   "section": "5.5 조합별 평가 결과",
+   "text": "한국어 문자 비율과 실행 시간은 각각 생성 답변과 실행 기록에서 계산하였다.",
+   "sha256": "99ebbfe16e36db601b328ab851fa1019dd62c6a75b2c31ac65a2855f9f6988b4",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -3584,12 +3617,23 @@
   {
    "line": 482,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "표 5-5에는 다른 요인의 두 수준을 질의별로 평균하여 계산한 두 상호작용의 단순 효과를 제시하였다.",
-   "sha256": "38d9c08c257994afa219b721d71eca4db4acda1c6c656af7814b224ac7377711",
+   "text": "표 5-5에는 H×C와 C×S 상호작용의 단순 효과를 제시하였다.",
+   "sha256": "adf4547b5509d5ce01974ffb08897d82f79f863ed46988746af92764e6ea2dd3",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "screening_hits": []
+  },
+  {
+   "line": 482,
+   "section": "5.7 요인 주효과 및 상호작용",
+   "text": "각 비교에서는 나머지 요인의 두 수준을 질의별로 평균하였다.",
+   "sha256": "a32619ee3a555c0ee16cb13dd9779dd78405a3e9aed93b87e499ff5b1d643267",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -4178,12 +4222,12 @@
   {
    "line": 557,
    "section": "6.2 연구의 의의",
-   "text": "단순 비교로는 기법별 효과를, 요인 분석으로는 주효과와 상호작용을 분석하였다.",
-   "sha256": "d88f2a04d4d3ea4665351b3b6d08e23f60e6feb52df477311a77c5e79a1dc195",
+   "text": "단순 비교로는 다른 기법의 수준을 고정한 조건 간 차이를, 요인 분석으로는 주효과와 상호작용을 분석하였다.",
+   "sha256": "347e471b29d2d016a8aa1b6b6a1cbccc5045c7af6c0c378b3584636468abd77c",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
@@ -4222,12 +4266,12 @@
   {
    "line": 561,
    "section": "6.3 적용 조건과 후속 연구",
-   "text": "한국어 답변을 생성하는 Paper-RAG에는 SCD를 기본으로 적용할 수 있다.",
-   "sha256": "02c333e8c924d280b560554ba108cfa969f115ccad54d614673f0493b1523cdd",
+   "text": "답변의 한국어 문자 비율을 높여야 하는 Paper-RAG에는 SCD를 기본으로 적용할 수 있다.",
+   "sha256": "876110fc7ff5077ce045f1395aa3397cbc9cc47b2f0f680ef69b4b9bbe4139bd",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
+   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
    "screening_hits": []
   },
   {
