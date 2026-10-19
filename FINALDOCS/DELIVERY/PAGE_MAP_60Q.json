@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "a00ac70d641ab9e168d59f58cbf43652c9047694db9998978336af0d5a179be6",
-  "manuscript_lf_sha256": "f62a9609cf5425bfdc63354c7577d76dff9c5a57b8342f7bbc96a074190aa6a4",
+  "manuscript_sha256": "b3a631c4ece750d8851a978587d1d9a6fb221c4cbd6779d58193f2705ab5e725",
+  "manuscript_lf_sha256": "59c35af8ece1f033de1c81c73be8b3cba176db291355f8587e16841e3cb1927a",
   "layout_code_lf_sha256": {
     "build_thesis_hwpx.py": "93bddd20b69aefa795e8a46548d9002ce8dc6e98314657ce5a13bb438e6d8437",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "9254c39069c9d0732aae644e05783f731c60b15bfad928304fed35622c5542c1",
+  "pdf_sha256": "a2fa3b006d3db8c183675bb9c90057bbcfafdf11ecea0d918336ca5ef62644bd",
   "pdf_pages": 47,
   "physical_pages": {
     "1.1 연구배경 및 목적": 7,
@@ -200,51 +200,51 @@
   },
   "body_first_physical_page": 7,
   "unresolved": [],
-  "method": "Hancom Web PDF (v62, 47 pages) after applying the independent v61 review (CAD definition, RAGAS reference language, method sentences); all pages rendered; every heading, table and figure anchor and the TOC are unchanged from v61; 9 glyph-unresolved headings (including 5.1) resolved from rendered pages.",
+  "method": "Hancom Web PDF (v63, 47 pages) after applying the second independent review (SCD start token, CAD definition, HyDE scope, compression order, metric scope); all pages rendered; every heading, table and figure anchor and the TOC are unchanged from v62; 9 glyph-unresolved headings (including 5.1) resolved from rendered pages.",
   "visual_resolutions": {
     "1. 서론": {
       "physical_page": 7,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 7",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 7",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "2. 이론적 배경": {
       "physical_page": 9,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 9",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 9",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "3. 시스템 설계": {
       "physical_page": 14,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 14",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 14",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "4. 프로그램 구현": {
       "physical_page": 16,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 16",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 16",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "5. 실험": {
       "physical_page": 18,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 18",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 18",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "5.1 평가 대상 및 질의 구성": {
       "physical_page": 18,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 18",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 18",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "참고문헌": {
       "physical_page": 28,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 28",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 28",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "부록 B. 추가 사례 및 탐색 분석": {
       "physical_page": 40,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 40",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 40",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "B.2 문서별 및 질문 유형별 탐색 분석": {
       "physical_page": 45,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v62.pdf page 45",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261020_v63.pdf page 45",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     }
   }

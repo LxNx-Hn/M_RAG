@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "f62a9609cf5425bfdc63354c7577d76dff9c5a57b8342f7bbc96a074190aa6a4",
+ "source_lf_sha256": "59c35af8ece1f033de1c81c73be8b3cba176db291355f8587e16841e3cb1927a",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -1098,12 +1098,12 @@
   {
    "line": 111,
    "section": "1.1 연구배경 및 목적",
-   "text": "본 연구의 목적은 답변 품질, 한국어 문자 비율, 실행 시간의 기법별 차이를 같은 질의에서 비교하여, 한국어 질의–영어 문서 RAG의 기법 조합을 정하는 근거를 제시하는 것이다.",
-   "sha256": "25c8198b30532a96f53ea7ea07ff44cd189aa38e297b1fb2f5c922acba64fc0b",
+   "text": "본 연구의 목적은 검색·생성 품질, 한국어 문자 비율, 실행 시간의 기법별 차이를 같은 질의에서 비교하여, 한국어 질의–영어 문서 RAG의 기법 조합을 정하는 근거를 제시하는 것이다.",
+   "sha256": "7e78b54d8f322f4ec09d19828acc2a38a80bf61addc1ff5d30e734c5b9a74e4b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -1164,12 +1164,12 @@
   {
    "line": 117,
    "section": "1.2 연구범위",
-   "text": "답변 품질은 RAGAS의 네 지표로, 출력 언어는 한국어 문자 비율로, 비용은 조건 실행 시간으로 측정하였다.",
-   "sha256": "9adb9e65ebcf1a3f2bbfe5f8d85468c072c269144070ee07b8ebfb74203e0498",
+   "text": "검색·생성 품질은 RAGAS의 네 지표로, 출력 언어는 한국어 문자 비율로, 비용은 조건 실행 시간으로 측정하였다.",
+   "sha256": "33559ece45ce8cff9d73d19623d674125b867fed738aef112d556786ddbf5ce2",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -1571,12 +1571,12 @@
   {
    "line": 183,
    "section": "2.4 Context-Aware Decoding",
-   "text": "CAD는 검색 결과를 포함한 입력과 제외한 입력에서 각각 다음 토큰의 로짓을 계산하고, 두 로짓을 가중 결합하여 다음 토큰을 고르는 디코딩 방법이다[3].",
-   "sha256": "2e5bd410a0830df4bbdfa1b3d10c11e38216965da93481a082f3b8cc65b2381d",
+   "text": "CAD는 검색 결과를 포함했을 때와 제외했을 때의 다음 토큰 로짓을 가중 결합하는 디코딩 방법이다[3].",
+   "sha256": "ddcdc5f09a597b99c9e254c81a8c3cd91a71a2644c29087367d57f1528cb9dce",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -1615,12 +1615,12 @@
   {
    "line": 189,
    "section": "2.4 Context-Aware Decoding",
-   "text": "같은 생성 이력에서 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
-   "sha256": "55cd06953e6bbdac1305ce98a2e5bc929ba5abcb1fafe49595904d14424a0a76",
+   "text": "지금까지 생성한 토큰열을 동일하게 두고, 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
+   "sha256": "5c13a6c4f248dd70ad3a008f548c0d5d171bb3e377db496f724fc9211330706b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -2022,23 +2022,12 @@
   {
    "line": 263,
    "section": "3.2 아키텍처 설계",
-   "text": "HyDE를 적용하면 밀집 검색의 입력만 원질의에서 영어 가상 문서로 바뀐다.",
-   "sha256": "4aec92874dbb6b4791e76f7e7763b871a262a97e8702580a169b121ca476a4b8",
+   "text": "HyDE는 밀집 검색의 입력만 원질의에서 영어 가상 문서로 바꾸며, BM25와 재정렬에는 항상 한국어 원질의를 사용하였다.",
+   "sha256": "62fa6474d29073d90f07e75bc8a3aafe15431b19e5bddaa771ea741e10c8697d",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
-   "screening_hits": []
-  },
-  {
-   "line": 263,
-   "section": "3.2 아키텍처 설계",
-   "text": "BM25와 재정렬에는 항상 한국어 원질의를 사용하여, HyDE 적용 여부에 따른 차이가 밀집 검색 입력에서만 생기도록 하였다.",
-   "sha256": "93e1536481291463ff7cf735fbcce59bd54152167103812d697203a694c42ab1",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -2429,12 +2418,12 @@
   {
    "line": 319,
    "section": "4.2 시스템 구성",
-   "text": "고른 구간은 검색 결과로 생성 모델에 입력하며, 단어 수 합이 3,072단어를 넘으면 먼저 ContextCompressor로 줄인다.",
-   "sha256": "486abb29755512872cde427d2415460a6f0bfbdc1b6dc2eb9ea0fe5c43764507",
+   "text": "고른 구간의 단어 수 합이 3,072단어를 넘으면 ContextCompressor로 압축한 뒤 생성 모델에 입력하고, 넘지 않으면 그대로 입력한다.",
+   "sha256": "a5b31bbb172802097e4db5199f12a0b3c1fbee3e82f8286feeff213be72251d8",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -2693,12 +2682,12 @@
   {
    "line": 347,
    "section": "5.2 평가 지표와 해석 기준",
-   "text": "답변 품질은 RAGAS의 네 지표로 평가하였으며, 참조 답변으로는 부록 A의 정답 근거를 사용하였다.",
-   "sha256": "61ca35528eb935084d7adbf4405089cc97eb5098069ee9ccc0cde3823ee59860",
+   "text": "검색·생성 품질은 RAGAS의 네 지표로 평가하였으며, 참조 답변으로는 부록 A의 정답 근거를 사용하였다.",
+   "sha256": "b087c3f328cf7e441de25a1a1e6266258d61a7868dafb6b5d06b28fef7097a4b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -3012,12 +3001,12 @@
   {
    "line": 377,
    "section": "5.4 통계 분석 방법",
-   "text": "유의수준은 양측 0.05로 정하였다.",
-   "sha256": "23bf49d8f0102d89cd7f0880ff300d307287679fbe67b5dacd044b518d145fde",
+   "text": "대응 t-검정은 양측 검정으로 실시하였으며, 모든 검정의 유의수준은 0.05로 정하였다.",
+   "sha256": "bc38f3bba4f12782e6dcda175ee3a7909946ffd24a683b6761db0579d5fa1470",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열: 5.4절 유의수준과 핵심 지표 선정 시점을 각각 서술하였다.",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -3100,12 +3089,12 @@
   {
    "line": 395,
    "section": "5.4 통계 분석 방법",
-   "text": "한국어 문자 비율과 실행 시간에는 8개 조건을 대상으로 H×C×S 3요인 반복측정 ANOVA를 적용하였다.",
-   "sha256": "308b4013596f0689a5dbea9bf5d2d842229f657456a0796d03c4e72f5af32047",
+   "text": "8개 조건에서 측정한 한국어 문자 비율과 실행 시간에 H×C×S 3요인 반복측정 ANOVA를 적용하였다.",
+   "sha256": "45ad8dee0e1322190b62a08dc16376f6c766664ac6ae086cc1b7f2665299c562",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Independent review of v61: CAD definition, scoped prior-work gap, RAGAS reference language, clearer method sentences",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -3782,23 +3771,23 @@
   {
    "line": 517,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "CAD 대응쌍은 검색 결과가 같은데도 문맥 정밀도 8쌍과 문맥 재현율 1쌍에서 점수가 달랐다.",
-   "sha256": "1b7c8a87d395db261cb9f6168b80fa81c14e54a0c565c6614fd2f978a04ebf11",
+   "text": "CAD 적용 전후의 질문·참조 답변·검색 결과가 같았지만, 문맥 정밀도는 8쌍, 문맥 재현율은 1쌍에서 점수가 달랐다.",
+   "sha256": "37c4de13c3fa6e500ce681ed7ada85c8d77996ae7b27cf475daa5386f33b1bcd",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
    "line": 517,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "검색 결과만 평가하는 지표가 달라졌으므로, RAGAS 평가값에는 평가 모델의 채점 변동이 포함되어 있다.",
-   "sha256": "10d4239fd54a4291157f858776d321a06695629046157d64f3083dce098e9c5c",
+   "text": "같은 평가 입력에서 생긴 이 점수 차이는 평가 모델의 채점 변동이다.",
+   "sha256": "5d1b01ff1a73a471653df8962a32aa5093ae2179b6317535b5a32e1b0983226b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -4211,12 +4200,12 @@
   {
    "line": 557,
    "section": "6.2 연구의 의의",
-   "text": "답변 품질은 SCD 상태별로 평가 언어를 나누어 분석하였고, 한국어 문자 비율과 실행 시간은 8개 조건 전체에서 비교하였다.",
-   "sha256": "c0c391ebe9ba55e33ec100b5910bb809ae7496017cb6c14c877867981e89a2a9",
+   "text": "검색·생성 품질은 SCD 상태별로 평가 언어를 나누어 분석하였고, 한국어 문자 비율과 실행 시간은 8개 조건 전체에서 비교하였다.",
+   "sha256": "0434993861c0d58f5b0a82dc9f7133690f4e8d39a89c249f66928dd75b98080a",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -4233,12 +4222,12 @@
   {
    "line": 557,
    "section": "6.2 연구의 의의",
-   "text": "SCD는 작은 시간 비용으로 한국어 문자 비율을 높였고, HyDE는 기본 조건에서 답변 관련성을 높였다.",
-   "sha256": "f652ffcd4b42c76f157826c073e95418a6acc07a71c7d109b42c75129feabbd5",
+   "text": "SCD는 네 조합 모두에서 한국어 문자 비율을 높였고, HyDE는 기본 조건에서 답변 관련성을 높였다.",
+   "sha256": "e566ae099bebc6e5e07a284efea3c8c27ee6e105be6a7d4747412dea35cf43b3",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
@@ -4772,12 +4761,12 @@
   {
    "line": 751,
    "section": "B.1 저장된 생성·검색 사례",
-   "text": "로짓 조정은 다섯 번째 생성 토큰부터 시작되지만(Tstart=5), 이 답변에서 한국어는 영어 문장 몇 개 뒤에 처음 나타났다.",
-   "sha256": "9da62344885d0ab32ea5c0428f603c2cb39ba60f7f3f3e13e32cb4efbc5b7d68",
+   "text": "처음 다섯 토큰을 생성한 뒤 로짓 조정이 시작되지만(Tstart=5), 이 답변에서는 영어 문장 몇 개가 생성된 뒤 한국어가 나타났다.",
+   "sha256": "80fd91153cbf5d76ad4a7621350b5f4116c8dc8018ca580bbad99119938bcdb2",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Second independent review of v62: SCD start-token fix, CAD definition, HyDE scope, compression order, metric scope",
    "screening_hits": []
   },
   {
