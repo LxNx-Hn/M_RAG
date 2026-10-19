@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "e7587e16d6a6e529377c0034f8fc12c2beb99adf4d4eb00066bce876c267f854",
+ "source_lf_sha256": "a84b0ff9ec09b6798f2146df7f10a72724000a90cd4d8d9fb1982a0646795747",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -1032,12 +1032,23 @@
   {
    "line": 103,
    "section": "1.1 연구배경 및 목적",
-   "text": "앞의 세 기법은 이 과제에 하나씩 대응하여, HyDE는 검색 입력을, CAD는 근거 반영을, SCD는 출력 언어를 조정한다.",
-   "sha256": "f591e7de940e7df264a80d46a1e7691e2599f0b5a9688f18f1cdb84607a120ba",
+   "text": "앞의 세 기법은 이 과제에 하나씩 대응한다.",
+   "sha256": "f5c3f4c798c59aa170af81eb9cc453491e5b2a89e16c30f3180e08efc4b3f959",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "screening_hits": []
+  },
+  {
+   "line": 103,
+   "section": "1.1 연구배경 및 목적",
+   "text": "HyDE는 검색 입력을, CAD는 근거 반영을, SCD는 출력 언어를 조정한다.",
+   "sha256": "5cdfd782e12e5e62ed789bb9a1f3bd748b3e9879a37c2c440fbc38db6bcbc790",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -1065,12 +1076,12 @@
   {
    "line": 105,
    "section": "1.1 연구배경 및 목적",
-   "text": "본 연구는 영어 학술·기술 문서를 검색하여 한국어로 답하는 Paper-RAG를 구성하고, 한국어 질의 60개에 HyDE·CAD·SCD의 8개 조합(RAG-Cube)을 적용하였다(그림 1-1).",
-   "sha256": "a76a97beaaee2c2d920c82a0752a88e029d13ecd070640c5e5983c16a0faaa23",
+   "text": "본 연구는 영어 학술·기술 문서를 검색하여 한국어로 답하는 Paper-RAG를 구성하고, 한국어 질의 60개에 HyDE·CAD·SCD의 적용 여부를 조합한 8개 조건(RAG-Cube)을 적용하였다(그림 1-1).",
+   "sha256": "89b576d5af66f73fed869b7d956e80882253de57ff62949600de4483c364ab31",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -1604,12 +1615,12 @@
   {
    "line": 189,
    "section": "2.4 Context-Aware Decoding",
-   "text": "지금까지 생성한 토큰이 같을 때, 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
-   "sha256": "e532d8943766ba0e8c9a67e5d9743e9bd1664a862e40bcb80a3d66509228f3ea",
+   "text": "두 입력 뒤에 같은 생성 토큰열이 이어질 때, 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도를 정하며, α=0이면 일반 디코딩과 같다.",
+   "sha256": "1d472f75a6b43a53b9091344cf20f8e02427163474c7204ea5188bc6c0ea72ad",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -1747,23 +1758,23 @@
   {
    "line": 229,
    "section": "2.6 RAG 평가",
-   "text": "근거 충실도(faithfulness)는 평가 모델로 쓰는 대규모 언어 모델(Large Language Model, LLM)이 답변을 주장 단위로 나누고 각 주장이 검색 결과에 근거하는지 판정하여 계산한다.",
-   "sha256": "16ff43cc02ab2fe39949e022e529b842735ab8ec6160dee6dd3f6b9d60446957",
+   "text": "RAGAS가 제공하는 근거 충실도(faithfulness), 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall) 가운데 근거 충실도와 답변 관련성은 생성 답변을, 문맥 정밀도와 문맥 재현율은 검색 결과를 평가한다.",
+   "sha256": "811e83ad1d74ddfcdf33c9ccc680402f7c531a3c0345fd55602bb6c0819ce62f",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 저자 확인 반영: 5.1절 질의 작성 절차를 초기 질문 3개 포함·gpt-4o 요약으로 밝히고, LLM 약어의 정의를 첫 등장 위치(2.6절)로 옮겼다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
    "line": 229,
    "section": "2.6 RAG 평가",
-   "text": "이 밖에 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)이 있으며, 근거 충실도와 답변 관련성은 생성 답변을, 문맥 정밀도와 문맥 재현율은 검색 결과를 평가한다.",
-   "sha256": "2f283603def4a82317ee47925be45384e0c02b11ac443de39f6c40e859774ea5",
+   "text": "근거 충실도는 평가 모델로 쓰는 대규모 언어 모델(Large Language Model, LLM)이 답변을 주장 단위로 나누고 각 주장이 검색 결과에 근거하는지 판정하여 계산한다.",
+   "sha256": "6e250d5334073d4ecc0fb7de2ef5a58b3e9be907aa8e01e6b3bb7a3b9cd89c05",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2033,12 +2044,12 @@
   {
    "line": 265,
    "section": "3.2 아키텍처 설계",
-   "text": "두 검색 결과는 가중 RRF로 결합한 뒤 CrossEncoder로 재정렬하고, 상위 5개 구간을 검색 결과로 생성 모델에 입력한다.",
-   "sha256": "85f9830f6968fa86ba51e573aa88554504ca8f21d996a250baa9f8900fe9f3c6",
+   "text": "두 검색 결과를 가중 RRF로 결합하고 CrossEncoder로 재정렬한 뒤, 상위 5개 구간을 생성 모델에 입력한다.",
+   "sha256": "7faaeae118d79c2f64273428df0f4eba4e72b25faa07ec67dbd5b37eb001b023",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 2차 외부 검토 반영: 서론 논리 구조, 이론 설명의 인과 표현, 3~4장 설계 이유와 처리 절차, 5.8절 결과와 해석의 분리, 6장 중복 정리, 부록 사례 해설을 원자료·원문(CAD α 설정 등)과 대조하여 작성하였다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2066,12 +2077,12 @@
   {
    "line": 265,
    "section": "3.2 아키텍처 설계",
-   "text": "두 기법은 생성 단계에만 작용하므로, HyDE 미적용 조건에서 CAD와 SCD의 적용 전후 비교는 같은 검색 결과를 사용한다.",
-   "sha256": "e002e95827ae068595377472d4d92ea1955f62dd262ff19c908a726682e4178e",
+   "text": "두 기법은 생성 단계에만 작용하므로, HyDE 미적용 조건에서 CAD와 SCD의 적용 전후 비교에는 같은 검색 결과가 쓰인다.",
+   "sha256": "539f405291d6c7a3783b87da65180cd9ab74e4262b088b7855a04d11c24c6bab",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 독립 검증(a8bdc81) 반영: 결론의 적용 권고를 해당 조합의 관측값과 맞추고, 인과 단정·구어체·중복 해명을 정리하였다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2187,12 +2198,12 @@
   {
    "line": 287,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
-   "text": "요인 분석에는 8개 조건 전체를 사용한다.",
-   "sha256": "b4d8675bc65719d03156b1ea1de3b64ccd8de25d840a304af9de13c70b47f942",
+   "text": "요인 분석에는 8개 조건 전체를 사용하였다.",
+   "sha256": "214a983e64b2259f02bafcf23baab1270725c6689ae0c6adbbd3f6d5879f03bb",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2385,12 +2396,23 @@
   {
    "line": 319,
    "section": "4.2 시스템 구성",
-   "text": "CrossEncoder로 후보를 재정렬하여 상위 5개 구간을 고르고, 단어 수 합이 3,072단어를 넘으면 ContextCompressor로 줄인 뒤, 이 구간들을 검색 결과로 생성 모델에 입력한다.",
-   "sha256": "337708cd4f003e352693746d09773ce39cb35ada567b67db890db157739f912b",
+   "text": "CrossEncoder로 후보를 재정렬하여 상위 5개 구간을 고른다.",
+   "sha256": "0c522e6f76b6000476ba1dc48aa848e160d4ba140eb604c42bdc9de183df14ef",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열(A→B 27항목 지침) 반영: 같은 절차의 짧은 문장을 연결하고, '이 분석은/이 설계에서는/이 결과는/즉/조합 결과를 보면' 같은 지시·해설형 문장과 절 안내·근거 선언 문장을 정리하였다. 수치와 통계적 결론은 그대로 두었다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "screening_hits": []
+  },
+  {
+   "line": 319,
+   "section": "4.2 시스템 구성",
+   "text": "고른 구간은 검색 결과로 생성 모델에 입력하며, 단어 수 합이 3,072단어를 넘으면 먼저 ContextCompressor로 줄인다.",
+   "sha256": "486abb29755512872cde427d2415460a6f0bfbdc1b6dc2eb9ea0fe5c43764507",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2636,17 +2658,6 @@
    "screening_hits": []
   },
   {
-   "line": 343,
-   "section": "5.1 평가 대상 및 질의 구성",
-   "text": "60개 질의 전체와 정답 근거는 부록 A에 수록하였다.",
-   "sha256": "bc0117a0738c264b1f8686a829730474f8a773beb82ca19aad7cb36e0db3c3b3",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
-   "screening_hits": []
-  },
-  {
    "line": 345,
    "section": "5.2 평가 지표와 해석 기준",
    "text": "## 5.2 평가 지표와 해석 기준",
@@ -2660,12 +2671,12 @@
   {
    "line": 347,
    "section": "5.2 평가 지표와 해석 기준",
-   "text": "답변 품질은 RAGAS의 네 지표로 평가하였다.",
-   "sha256": "e94d6f97c1a78032e0605983a7f51ced774631c3ccedeeba09d8f01ba087bf5c",
+   "text": "답변 품질은 RAGAS의 네 지표로 평가하였으며, 참조 답변으로는 부록 A의 정답 근거를 사용하였다.",
+   "sha256": "61ca35528eb935084d7adbf4405089cc97eb5098069ee9ccc0cde3823ee59860",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2704,23 +2715,12 @@
   {
    "line": 347,
    "section": "5.2 평가 지표와 해석 기준",
-   "text": "부록 A의 정답 근거를 참조 답변으로 사용하였다.",
-   "sha256": "9d4b45c4a677801e5a167a4ac6b8ec63437958ae8922f3d20c284915348e64de",
+   "text": "근거 충실도, 문맥 정밀도, 문맥 재현율은 0~1 범위의 비율이고, 코사인 유사도인 답변 관련성은 이론적으로 −1~1 범위를 갖는다.",
+   "sha256": "be2959b37daab6fe4a26e684e1f56ff4632fd196dde8bd1cbf2a90654fcdeee2",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
-   "screening_hits": []
-  },
-  {
-   "line": 347,
-   "section": "5.2 평가 지표와 해석 기준",
-   "text": "근거 충실도, 문맥 정밀도와 문맥 재현율은 0~1 범위의 비율이고, 답변 관련성은 코사인 유사도이므로 이론적으로 −1~1 범위를 갖는다.",
-   "sha256": "cc440dc2b888bcdfd055db9456cd8929b5ba9c9656bcf9d74c325c918be1cf28",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-18 2차 외부 검토 반영: 서론 논리 구조, 이론 설명의 인과 표현, 3~4장 설계 이유와 처리 절차, 5.8절 결과와 해석의 분리, 6장 중복 정리, 부록 사례 해설을 원자료·원문(CAD α 설정 등)과 대조하여 작성하였다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -2836,12 +2836,23 @@
   {
    "line": 363,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "SCD를 적용한 답변은 대부분 한국어이므로, 평가 모델이 답변의 주장과 검색 결과를 같은 언어로 대조하도록 SCD ON 조건에서는 저장된 영어 검색 결과를 gpt-4o를 이용해 한국어로 번역하여 평가에 사용하였다.",
-   "sha256": "b19b011abce27ab357c64cf3548d5716eb6da500d5fd3d5912435396569ddc1e",
+   "text": "SCD ON 조건의 답변은 대부분 한국어이므로, 이 조건에서는 저장된 영어 검색 결과를 gpt-4o를 이용해 한국어로 번역하여 평가에 사용하였다.",
+   "sha256": "3a19b7b5ba938d1f5dd364ece568dde57958dc4d3ff45796226b503f5b8f5ccc",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
+   "screening_hits": []
+  },
+  {
+   "line": 363,
+   "section": "5.3 실험 조건 및 평가 절차",
+   "text": "이에 따라 평가 모델은 답변의 주장과 검색 결과를 같은 언어로 대조한다.",
+   "sha256": "6a8b5d45fd8df4a3388e31a4a84c23eca9109f8b4c56dfa97b856d357487698e",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -3232,12 +3243,12 @@
   {
    "line": 421,
    "section": "5.5 조합별 평가 결과",
-   "text": "같은 재분석에서 SCD는 CAD 미적용 조건에서 실행 시간을 1~2초 늘리고 CAD 적용 조건에서는 7~8초 줄였다.",
-   "sha256": "9c01b593fbd7d2599c7254d20452085215d7354f730865aca90a68a40a7d80b6",
+   "text": "이 58개 질의로 다시 분석한 결과, SCD는 CAD 미적용 조건에서 실행 시간을 1~2초 늘리고 CAD 적용 조건에서는 7~8초 줄였다.",
+   "sha256": "1d4208460c08917728a70e78d97525e9b10f3324b390726d6c6627ddc11928da",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -3881,23 +3892,23 @@
   {
    "line": 527,
    "section": "5.8 종합 논의",
-   "text": "CAD 적용 전후 답변의 텍스트는 60쌍 모두 달랐다.",
-   "sha256": "bf1bbb228555ba91ccd35abf9923eb46cbc02c6667503f291c87ac4b196313ef",
+   "text": "CAD는 60쌍 모두에서 답변 텍스트를 바꾸었으나, 근거 충실도는 22개 질의에서 오르고 24개에서 내려 평균 차이가 +0.029점에 그쳤다.",
+   "sha256": "5758069b65774ad2b4d9b7e5f440a9c87e95b21859bd0604b1d777e7e01e8969",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
    "line": 527,
    "section": "5.8 종합 논의",
-   "text": "근거 충실도 차이의 표준편차(0.255)는 평균 차이의 약 9배로, CAD의 효과는 질의마다 크게 달랐다.",
-   "sha256": "c4e2fb82f8d35663afa3ea99e00f53fbd95bf1bc0f779dc6345965d697017970",
+   "text": "차이의 표준편차(0.255)는 평균 차이의 약 9배로, 효과의 방향과 크기가 질의마다 크게 달랐다.",
+   "sha256": "f80b665077d13c587ae33a9a87f26980daf87422d2c9b089be48960139325281",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Paragraph-level prose rewrite: split joined claims, fix tense and subject, remove filler and duplicated description",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -4035,12 +4046,12 @@
   {
    "line": 543,
    "section": "6. 결론",
-   "text": "본 연구는 한국어 질의로 영어 학술·기술 문서를 검색하는 Paper-RAG에서 HyDE·CAD·SCD의 8개 조합을 같은 질의 60개에 적용하고, 대응 t-검정과 반복측정 ANOVA로 각 기법의 단독 효과와 조합 효과를 분석하였다.",
-   "sha256": "83bfcf8f783368d3785428baf45400d8a63c2edcaf896b112f1a3da80f6520c1",
+   "text": "본 연구는 한국어 질의로 영어 학술·기술 문서를 검색하는 Paper-RAG에서 HyDE·CAD·SCD의 적용 여부를 조합한 8개 조건을 같은 질의 60개에 적용하고, 대응 t-검정과 반복측정 ANOVA로 각 기법의 단독 효과와 조합 효과를 분석하였다.",
+   "sha256": "5991a25466ac0d3afc78896b9c0881f6abe05c4998f2997772f21f6eefb9f6e1",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -4145,12 +4156,12 @@
   {
    "line": 557,
    "section": "6.2 연구의 의의",
-   "text": "답변 품질은 SCD 상태별로 평가 언어를 나누어 분석하였고, 한국어 문자 비율과 실행 시간은 8개 조합 전체에서 비교하였다.",
-   "sha256": "b03d9c07766bec4454a38f6ea14615a8835bfea3096585f0d1d09bacfd37ec0c",
+   "text": "답변 품질은 SCD 상태별로 평가 언어를 나누어 분석하였고, 한국어 문자 비율과 실행 시간은 8개 조건 전체에서 비교하였다.",
+   "sha256": "c0c391ebe9ba55e33ec100b5910bb809ae7496017cb6c14c877867981e89a2a9",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Detail pass: fix clause logic, subject agreement, unclear referents, ordering and repetition flagged in the sentence-by-sentence review",
    "screening_hits": []
   },
   {
@@ -4789,17 +4800,6 @@
    "decision": "retain",
    "type": "F",
    "reason": "실제 사례와 집계/주비교의 범위를 구별하고, 저장 기록의 ID·경로 또는 하위집단의 유효n을 확인했다.",
-   "screening_hits": []
-  },
-  {
-   "line": 840,
-   "section": "B.2 문서별 및 질문 유형별 탐색 분석",
-   "text": "질문 유형의 질의 수는 사실 및 정의 8개, 방법 및 절차 29개, 결과 및 비교 20개, 목적 및 기여 3개다.",
-   "sha256": "2569f106e8a1d24c8da323a95ce097c86d4a475f79106da0ffd9e14bda092f78",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
    "screening_hits": []
   },
   {
