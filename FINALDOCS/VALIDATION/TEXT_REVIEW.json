@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "ca3efd1f5f200e9f6f6289997914bb1453be705f6e7cff7c0c464383b864e616",
+ "source_lf_sha256": "2a7dd2a582c7abea3adcd03cfe89c2ef405363b0910afb6405d993e74b7fce02",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -790,12 +790,12 @@
   {
    "line": 83,
    "section": "표 목 차",
-   "text": "[표 5-1] 8조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD) ···· [쪽번호 자동갱신]",
-   "sha256": "85941c43485b4648462fa942e4d43f0b96e2830b58e8bf9d67dc6e97df284e65",
+   "text": "[표 5-1] 8개 조건의 품질 지표·한국어 비율·실행 시간 평균(SD) ···· [쪽번호 자동갱신]",
+   "sha256": "2b76958162ab664b4eedc7a8d2e68a89acbc615f4c902167e1e0cf7f53222b08",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -812,23 +812,23 @@
   {
    "line": 85,
    "section": "표 목 차",
-   "text": "[표 5-3] 한국어 문자 비율에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA ···· [쪽번호 자동갱신]",
-   "sha256": "040a3a625a537f01de810bc352e328e5da1a4c00e53ab138b4de6a64d93cce4f",
+   "text": "[표 5-3] 한국어 문자 비율의 H×C×S 반복측정 ANOVA ···· [쪽번호 자동갱신]",
+   "sha256": "f9d429f2d9297abf0cd4f3bbe743500c4965faa90b29535f8fa4473d4e3608fa",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
    "line": 86,
    "section": "표 목 차",
-   "text": "[표 5-4] 조건 실행 시간에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA ···· [쪽번호 자동갱신]",
-   "sha256": "7fa438c2ec2f20d03f7811945f983ca2f2d977e57e4e9d124549fdff9a5f19b3",
+   "text": "[표 5-4] 실행 시간의 H×C×S 반복측정 ANOVA ···· [쪽번호 자동갱신]",
+   "sha256": "e5b0719730ea81d55adc08044b61ed01634b74955d8c24f2b4812c0f84c3867e",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -845,23 +845,23 @@
   {
    "line": 88,
    "section": "표 목 차",
-   "text": "[표 5-6] 보조 지표(HyDE·CAD 품질, SCD 한국어 비율)의 대응 t-검정 ···· [쪽번호 자동갱신]",
-   "sha256": "da6e02c8687e376e49330449db6f238be2941988f5534c40ef8083d37fa55ba9",
+   "text": "[표 5-6] HyDE·CAD 보조 지표와 SCD 한국어 비율의 대응 t-검정 ···· [쪽번호 자동갱신]",
+   "sha256": "2a9eeafa122f2b12016c7734fdd1d15b066cc81be85002202ef7f2acd36b5afb",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: shorter table titles so table-of-tables entries fit one line",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
    "line": 89,
    "section": "표 목 차",
-   "text": "[표 A-1] 60개 한국어 질의의 대상 문서·유형·원문 페이지 및 정답 근거 ···· [쪽번호 자동갱신]",
-   "sha256": "9170dc247c7b7b1d93a8e2f89e3a97b1ccee22007dbedbb5ee26aeb01a93e2e3",
+   "text": "[표 A-1] 60개 질의의 대상 문서·유형·원문 페이지·정답 근거 ···· [쪽번호 자동갱신]",
+   "sha256": "5e6713142a4f339ecbf89ccc76b0680a7d788624028ca34282c97c78414c0e3a",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "학교 명명 스타일·목차·표/그림 제목과 번호를 본문의 실제 객체와 대조하여 유지했다.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -900,12 +900,12 @@
   {
    "line": 93,
    "section": "표 목 차",
-   "text": "[표 B-4] SCD ON 한국어 번역 평가의 품질 지표 H×C 반복측정 ANOVA ···· [쪽번호 자동갱신]",
-   "sha256": "20b746c191fcf9e8c141af547a86581a4398119ca82796ecfe550b0f00cd610a",
+   "text": "[표 B-4] SCD ON 번역 평가의 품질 지표 H×C 반복측정 ANOVA ···· [쪽번호 자동갱신]",
+   "sha256": "0884d467499b1a41d8fcd84bdc3b67c9246dc3af36aac944dc79abb39ef03524",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -3133,12 +3133,12 @@
   {
    "line": 403,
    "section": "5.5 조합별 평가 결과",
-   "text": "[표 5-1] 8조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD)",
-   "sha256": "28164a7ae6d375195704beca48c89f224b396ff60c62cddcf632284c6d111129",
+   "text": "[표 5-1] 8개 조건의 품질 지표·한국어 비율·실행 시간 평균(SD)",
+   "sha256": "46d52a070e21bde953f84fd6c83606c8322f1e1273ae6ca9e7d8c260d172f307",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -3430,23 +3430,23 @@
   {
    "line": 448,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "[표 5-3] 한국어 문자 비율에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
-   "sha256": "ec846d1cd80a305fd09733001950feb04e2593d7562fa31c4d62d344f5078b9c",
+   "text": "[표 5-3] 한국어 문자 비율의 H×C×S 반복측정 ANOVA",
+   "sha256": "8e9228521fcc79bcbd8227927db3ff3185e55fea6b4ff72c147f26344cf16c92",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
    "line": 463,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "[표 5-4] 조건 실행 시간에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
-   "sha256": "bcca9dd42a6a925b08b9e0f7af3440feb9c4da7de03d60ea1d7ddbd3b8eafbb9",
+   "text": "[표 5-4] 실행 시간의 H×C×S 반복측정 ANOVA",
+   "sha256": "2cb19b6856c6185c177ce99de797a55e38098afea7df3e6ff0d97f9fa6c51370",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 교수 피드백 미반영 항목 반영: 결과 표를 표 5-1 하나로 통합(실행 시간 평균(SD) 열 추가, 기존 표 5-2 삭제), 표의 n 열 삭제, 신뢰구간 문장 삭제, 본문 dz 소수점 세 자리 통일, 표 번호 재배열과 표 제목 구체화, 서론의 선행 연구 한계와 연구 필요성 문장 정리.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -3650,12 +3650,12 @@
   {
    "line": 502,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "[표 5-6] 보조 지표(HyDE·CAD 품질, SCD 한국어 비율)의 대응 t-검정",
-   "sha256": "15d513325561eb712270db470a2436c4fac2ba76115ebbda4472e094f34e0b11",
+   "text": "[표 5-6] HyDE·CAD 보조 지표와 SCD 한국어 비율의 대응 t-검정",
+   "sha256": "d422765b2ec203cb88aca3d5a60b198173fb9118e81ebbe1cdf466310fcbda00",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: shorter table titles so table-of-tables entries fit one line",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -4409,12 +4409,12 @@
   {
    "line": 653,
    "section": "부록 A. 60개 질의 목록",
-   "text": "[표 A-1] 60개 한국어 질의의 대상 문서·유형·원문 페이지 및 정답 근거",
-   "sha256": "7bc5d07e9f23055e63bd232e970eedc4278e3879f57be198bffc2f0d88396517",
+   "text": "[표 A-1] 60개 질의의 대상 문서·유형·원문 페이지·정답 근거",
+   "sha256": "a577fab848ebc196a725264b8b33648bd7bf83e0e454dd521e16b3c0138a80c5",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "학교 명명 스타일·목차·표/그림 제목과 번호를 본문의 실제 객체와 대조하여 유지했다.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   },
   {
@@ -4805,12 +4805,12 @@
   {
    "line": 868,
    "section": "B.3 품질 지표의 반복측정 ANOVA",
-   "text": "[표 B-4] SCD ON 한국어 번역 평가의 품질 지표 H×C 반복측정 ANOVA",
-   "sha256": "284bf85d2e52ea654342bf47088096599af520085223dbb7692eb290a5a4d79b",
+   "text": "[표 B-4] SCD ON 번역 평가의 품질 지표 H×C 반복측정 ANOVA",
+   "sha256": "3e952587407b75f43cb4d4ada6062b2c3bcfafdc2017a569f7b307552613ee49",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Shorter table titles so table-of-tables entries fit one line in the Hancom editor and PDF",
    "screening_hits": []
   }
  ],

@@ -174,7 +174,7 @@ def build(stats: dict) -> list[dict]:
     return [
         {
             "sheet": "T5-1_Mean_SD",
-            "title": "표 5-1 8조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD)",
+            "title": "표 5-1 8개 조건의 품질 지표·한국어 비율·실행 시간 평균(SD)",
             "rows": means,
         },
         {
@@ -184,12 +184,12 @@ def build(stats: dict) -> list[dict]:
         },
         {
             "sheet": "T5-4_Korean_ANOVA",
-            "title": "표 5-3 한국어 문자 비율에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
+            "title": "표 5-3 한국어 문자 비율의 H×C×S 반복측정 ANOVA",
             "rows": [effect_header] + anova_rows(a["korean_ratio"]),
         },
         {
             "sheet": "T5-5_Runtime_ANOVA",
-            "title": "표 5-4 조건 실행 시간에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
+            "title": "표 5-4 실행 시간의 H×C×S 반복측정 ANOVA",
             "rows": [effect_header] + anova_rows(a["duration_seconds"]),
         },
         {
@@ -199,7 +199,7 @@ def build(stats: dict) -> list[dict]:
         },
         {
             "sheet": "T5-7_Secondary",
-            "title": "표 5-6 보조 지표(HyDE·CAD 품질, SCD 한국어 비율)의 대응 t-검정",
+            "title": "표 5-6 HyDE·CAD 보조 지표와 SCD 한국어 비율의 대응 t-검정",
             "rows": secondary,
         },
         {
@@ -209,7 +209,7 @@ def build(stats: dict) -> list[dict]:
         },
         {
             "sheet": "Appendix_Quality_S1",
-            "title": "표 B-4 SCD ON 한국어 번역 평가의 품질 지표 H×C 반복측정 ANOVA",
+            "title": "표 B-4 SCD ON 번역 평가의 품질 지표 H×C 반복측정 ANOVA",
             "rows": [quality_header] + anova_rows(a["quality_S1"], with_metric=True),
         },
     ]

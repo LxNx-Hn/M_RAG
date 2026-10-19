@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "e43f6e33ed6dee5449102bbb2afb4c0f970e05ea46eaac42481bb6205e0a50f0",
-  "manuscript_lf_sha256": "ca3efd1f5f200e9f6f6289997914bb1453be705f6e7cff7c0c464383b864e616",
+  "manuscript_sha256": "3323e253647f9d83aa114d50c4d17cd0b2a46a62cd0a81678fdb7f3699e3ac0b",
+  "manuscript_lf_sha256": "2a7dd2a582c7abea3adcd03cfe89c2ef405363b0910afb6405d993e74b7fce02",
   "layout_code_lf_sha256": {
     "build_thesis_hwpx.py": "93bddd20b69aefa795e8a46548d9002ce8dc6e98314657ce5a13bb438e6d8437",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "0023e4c895a3ec9c141fc3f2a6182c960613f884848e7612e891d65c6475ebda",
+  "pdf_sha256": "6c3b97b148cbab406a22ac3036e3113fdfd6c6df03728d869fd43d0f66dc7e95",
   "pdf_pages": 47,
   "physical_pages": {
     "1.1 연구배경 및 목적": 7,
@@ -200,46 +200,46 @@
   },
   "body_first_physical_page": 7,
   "unresolved": [],
-  "method": "Hancom Web PDF (v54, 47 pages) after the 2026-10-19 one-verb copyedit of 5.7, 5.8 and 6.2-6.3; all pages rendered; text differs from v53 only on pages 23, 25 and 27, every anchor and the TOC are unchanged; 8 glyph-unresolved headings resolved from rendered pages.",
+  "method": "Hancom Web PDF (v56, 47 pages) after shortening six table titles so every table-of-tables entry fits one line in both the Hancom Web editor and the PDF; all pages rendered; text differs from v54 only on the table-of-tables page and the caption pages 21, 23, 24, 32 and 47; every anchor is unchanged; 8 glyph-unresolved headings resolved from rendered pages.",
   "visual_resolutions": {
     "1. 서론": {
       "physical_page": 7,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 7",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 7",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "2. 이론적 배경": {
       "physical_page": 9,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 9",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 9",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "3. 시스템 설계": {
       "physical_page": 14,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 14",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 14",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "4. 프로그램 구현": {
       "physical_page": 16,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 16",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 16",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "5. 실험": {
       "physical_page": 18,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 18",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 18",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "참고문헌": {
       "physical_page": 28,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 28",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 28",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "부록 B. 추가 사례 및 탐색 분석": {
       "physical_page": 40,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 40",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 40",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     },
     "B.2 문서별 및 질문 유형별 탐색 분석": {
       "physical_page": 45,
-      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v54.pdf page 45",
+      "evidence": "Hancom Web PDF M_RAG_TTEST_ANOVA_20261019_v56.pdf page 45",
       "reason": "Rendered page heading read directly; glyph extraction did not resolve unique heading"
     }
   }
