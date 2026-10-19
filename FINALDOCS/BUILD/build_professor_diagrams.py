@@ -62,17 +62,35 @@ def main():
     FIG = args.output
     (FIG / "LITERATURE").mkdir(parents=True, exist_ok=True)
     drawings = {}
-    d = Drawing(1800, 630)
-    d.text(900, 74, "한국어 질의로 영어 자료를 이용하는 질의응답")
-    for x, label, color in [
-        (35, "한국어 질의\n질문 60개", BLUE),
-        (665, "영어 학술·기술 문서\n4종에서 근거 검색", PURPLE),
-        (1295, "생성 답변\n품질·출력 언어 평가", GREEN),
-    ]:
-        d.box(x, 200, 470, 195, label, color, 42)
-    d.arrow("515,295 645,295")
-    d.arrow("1145,295 1275,295")
-    d.text(900, 505, "HyDE: 검색 표현   CAD: 근거 활용   SCD: 출력 언어", 42)
+    # Figure 1-1 shows where each technique switches on; Figure 4-1 keeps the
+    # model names and parameters of the implemented pipeline.
+    d = Drawing(1800, 650)
+    for y, w, h, label in [(10, 1760, 320, "검색 단계"), (350, 1220, 290, "생성 단계")]:
+        d.parts.append(
+            f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#F5F6FA" stroke="none"/>'
+        )
+        d.text(44, y + 42, label, 32, center=False)
+    d.box(40, 120, 300, 150, "한국어 질의\n60개", BLUE, 40)
+    d.box(430, 70, 540, 120, "HyDE  ON / OFF\nON: 영어 번역 → 가상 문서", ORANGE, 36)
+    d.text(700, 232, "OFF: 원질의를 그대로 사용", 30)
+    d.box(1040, 70, 300, 120, "밀집 검색", PURPLE, 40)
+    d.box(1040, 200, 300, 120, "BM25 검색\n한국어 원질의", PURPLE, 36)
+    d.box(1440, 110, 320, 170, "융합·재정렬\n상위 5개 구간", PURPLE, 40)
+    d.arrow("340,195 390,195 390,130 415,130")
+    d.arrow("970,130 1025,130")
+    d.arrow("390,195 390,260 1025,260")
+    d.arrow("1340,130 1390,130 1390,170 1425,170")
+    d.arrow("1340,260 1390,260 1390,220 1425,220")
+    d.parts.append(
+        f'<rect x="40" y="405" width="1180" height="220" rx="12" fill="#FFFFFF" stroke="{GREEN}" stroke-width="4"/>'
+    )
+    d.text(630, 447, "Mi:dm 2.0 답변 생성: 토큰마다 로짓 처리", 34)
+    d.box(90, 468, 480, 140, "CAD  ON / OFF\n문맥 포함·제외 로짓 결합", ORANGE, 36)
+    d.box(690, 468, 480, 140, "SCD  ON / OFF\n언어별 로짓 조정", ORANGE, 36)
+    d.arrow("570,538 675,538")
+    d.arrow("1600,280 1600,340 630,340 630,390")
+    d.box(1320, 415, 440, 200, "평가\n답변 품질(RAGAS)\n한국어 문자 비율\n실행 시간", GREEN, 34)
+    d.arrow("1220,515 1305,515")
     drawings[FIG / "fig1_1_research_setting.svg"] = d.svg()
     d = Drawing(1800, 650)
     d.box(40, 180, 400, 180, "질문 q\n외부 문서 집합 D", BLUE)

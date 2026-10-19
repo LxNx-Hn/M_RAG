@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "eb10947a61ffc58ed3938bb7251611db6e5315365cb1f57d49a6c39d9c31eba2",
-  "manuscript_lf_sha256": "eb10947a61ffc58ed3938bb7251611db6e5315365cb1f57d49a6c39d9c31eba2",
+  "manuscript_sha256": "e6ca73138dc3967c1df45874eae661b008d579e3e0b61516cdaf37861e8f90df",
+  "manuscript_lf_sha256": "e6ca73138dc3967c1df45874eae661b008d579e3e0b61516cdaf37861e8f90df",
   "layout_code_lf_sha256": {
     "build_thesis_hwpx.py": "e2f339353ae61d2da418195d7201d8bfa3bfc08dfd46e356f1247c43ae633352",
     "layout_policy.py": "409dcee55469d9edeef515f7ba01be375e421a37e81b7775322df441ae72c46b"
   },
-  "pdf_sha256": "4795dd0fe1686b3365081db3164b6c26a10af65de8f04bdd64863afef77a8a2e",
+  "pdf_sha256": "e3c353403326fb85320d29db358c10d41c8c0609745870025be334540d050ee0",
   "pdf_pages": 50,
   "physical_pages": {
     "1.1 연구배경 및 목적": 7,
@@ -205,7 +205,7 @@
   },
   "body_first_physical_page": 7,
   "unresolved": [],
-  "method": "Hancom Web PDF (v37, 50 pages) after the 2026-10-19 final-audit revision; rendered pages compared with the previous delivery PDF, only pages 7-9, 17, 24, 27, 28, 31-33 and 35-42 differ; anchors identical; 8 glyph-unresolved headings resolved from rendered pages.",
+  "method": "Hancom Web PDF (v39, 50 pages) after the 2026-10-19 final-audit revision; rendered pages compared with the previous delivery PDF, only pages 5, 7, 8, 9, 10, 15, 17, 18, 19, 20, 24, 26, 27, 28, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42 differ; anchors identical; 8 glyph-unresolved headings resolved from rendered pages.",
   "visual_resolutions": {
     "1. 서론": {
       "physical_page": 7,
