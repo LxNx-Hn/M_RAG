@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "088b8deede02b030443403d546351e19a5ecb85d19391085ba1a8044df21a9e2",
+ "source_lf_sha256": "ca3efd1f5f200e9f6f6289997914bb1453be705f6e7cff7c0c464383b864e616",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -3419,12 +3419,12 @@
   {
    "line": 446,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "RQ4는 8개 조건 전체에 반복측정 ANOVA를 적용하여 분석하였으며, 한국어 문자 비율과 실행 시간의 결과를 표 5-3과 표 5-4에 제시하였다.",
-   "sha256": "49da963d64551da9992204806a1201d22c9aefb243a4f6f01fab344fac757b4b",
+   "text": "RQ4에서는 8개 조건의 한국어 문자 비율과 실행 시간에 반복측정 ANOVA를 적용하였으며, 결과를 표 5-3과 표 5-4에 제시하였다.",
+   "sha256": "76520cfdcb8479dcec3a9fab6c345c5c7dee23018b4758d5be9f973bea7fc666",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
    "screening_hits": []
   },
   {
@@ -3694,12 +3694,12 @@
   {
    "line": 521,
    "section": "5.8 종합 논의",
-   "text": "SCD는 영어 근거를 입력받은 답변의 한국어 문자 비율을 약 22%p 높였고, HyDE·CAD의 네 조합 모두에서 같은 방향의 증가가 관측되었다.",
-   "sha256": "31b4b37e8ac58815311fd79fd400737df3929431bfb1a2fe0b20a0db3fa17086",
+   "text": "SCD는 영어 근거를 입력받은 답변의 한국어 문자 비율을 약 22%p 높였고, HyDE·CAD의 네 조합 모두에서 비율이 높아졌다.",
+   "sha256": "6db7ce621c75d6e0d5b24ab982a9501721fafa6117ea869b1af664a9604f331f",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열(A→B 27항목 지침) 반영: 같은 절차의 짧은 문장을 연결하고, '이 분석은/이 설계에서는/이 결과는/즉/조합 결과를 보면' 같은 지시·해설형 문장과 절 안내·근거 선언 문장을 정리하였다. 수치와 통계적 결론은 그대로 두었다.",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
    "screening_hits": []
   },
   {
@@ -4101,17 +4101,6 @@
   {
    "line": 557,
    "section": "6.2 연구의 의의",
-   "text": "세 기법은 효과와 비용의 관계가 서로 달랐다.",
-   "sha256": "051568309d335fcbd0ebe433285af401e42163a26c5912ba21817d717def3a10",
-   "candidate": false,
-   "decision": "retain",
-   "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
-   "screening_hits": []
-  },
-  {
-   "line": 557,
-   "section": "6.2 연구의 의의",
    "text": "SCD는 작은 시간 비용으로 한국어 문자 비율을 높였고, HyDE는 기본 조건에서 답변 관련성을 높였다.",
    "sha256": "f652ffcd4b42c76f157826c073e95418a6acc07a71c7d109b42c75129feabbd5",
    "candidate": false,
@@ -4145,34 +4134,45 @@
   {
    "line": 561,
    "section": "6.3 적용 조건과 후속 연구",
-   "text": "한국어 답변이 필요한 한국어 질의–영어 문서 RAG에는 SCD를 기본으로 적용할 수 있다.",
-   "sha256": "462a8b87452f6bf0ce91102a85a30a0dbafcc8f3abb26303e320f8e45c33d186",
+   "text": "한국어 답변을 생성하는 Paper-RAG에는 SCD를 기본으로 적용할 수 있다.",
+   "sha256": "02c333e8c924d280b560554ba108cfa969f115ccad54d614673f0493b1523cdd",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
    "screening_hits": []
   },
   {
    "line": 561,
    "section": "6.3 적용 조건과 후속 연구",
-   "text": "HyDE는 SCD를 적용한 상태의 탐색적 비교에서 답변 관련성 차이가 +0.072점(p=0.114)이었으므로, 조건별 답변 관련성, 한국어 문자 비율, 실행 시간을 함께 비교하여 적용 여부를 정한다.",
-   "sha256": "e389cc43d45bdbb52da00431ec606ef611f177b93aeab396d72b6ef45fd2a656",
+   "text": "SCD 적용 조건에서 HyDE를 추가했을 때 답변 관련성의 평균 차이는 +0.072점이었다(p=0.114).",
+   "sha256": "6f05cfcd68349edfe5a74e57f282d0eac595b2e0f022fea7741d27b36ee5f927",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass: removes duplicated purpose/finding statements and adverbial research-act phrasing",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
    "screening_hits": []
   },
   {
    "line": 561,
    "section": "6.3 적용 조건과 후속 연구",
-   "text": "CAD는 실행 시간이 크게 늘어나므로, 모델의 사전 지식과 문서 내용이 충돌하는 질의처럼 효과가 기대되는 경우에 선택적으로 검토할 수 있다.",
-   "sha256": "178139deb2ed3f8b9633530126ca3a1da5a45e2621d41489b97867ea47f232ab",
+   "text": "HyDE의 적용 여부는 조건별 답변 관련성, 한국어 문자 비율과 실행 시간을 비교하여 결정한다.",
+   "sha256": "2fc1dfe9aa130cfee9b3060922b9c522395352cbb96c98ce9957eef4b8ea02ec",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 독립 검증(a8bdc81) 반영: 결론의 적용 권고를 해당 조합의 관측값과 맞추고, 인과 단정·구어체·중복 해명을 정리하였다.",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
+   "screening_hits": []
+  },
+  {
+   "line": 561,
+   "section": "6.3 적용 조건과 후속 연구",
+   "text": "CAD는 실행 시간이 크게 늘어나므로, 모델의 사전 지식과 문서 내용이 충돌하는 질의처럼 효과가 기대되는 경우에만 적용을 검토한다.",
+   "sha256": "b83860bcdd75b891104685578fb9027d7acc7ac3c0040ff3705e5a8336ee0f3c",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
    "screening_hits": []
   },
   {
