@@ -146,12 +146,12 @@ def main() -> None:
                 actual_counts[paragraph] == count
             ), f"Manuscript paragraph occurrence mismatch: {paragraph[:100]}"
         tables = section.findall(".//hp:tbl", NS)
-        assert len(tables) == 17, "15 thesis tables + 2 school cover layout tables"
+        assert len(tables) == 16, "14 thesis tables + 2 school cover layout tables"
         workbook = load_workbook(
             ROOT / "FINALDOCS/TABLES/TABLES_60Q.xlsx", data_only=False
         )
         sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", source)
-        assert len(sheets) == 15
+        assert len(sheets) == 14
         cell_count = 0
         for table, name in zip(tables[2:], sheets):
             ws = workbook[name.strip()]
@@ -202,7 +202,7 @@ def main() -> None:
                 label = str(ws.cell(3, c + 1).value)
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|실행 시간|원문 페이지)",
                         label,
                     )
                 )
@@ -306,7 +306,7 @@ def main() -> None:
         ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 13), ("표", 15)):
+        for kind, count in (("그림", 13), ("표", 14)):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
@@ -376,7 +376,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 15 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 14 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

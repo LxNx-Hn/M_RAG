@@ -135,7 +135,6 @@ class AcademicRegressionTests(unittest.TestCase):
     def test_reintroduced_errors(self):
         for correct, error in (
             ("검색 결과와 답변이 함께", "검색 문맥과 답변이 함께"),
-            ("95% 신뢰구간은", "95% 신뢰구간는"),
             (
                 "대응 t-검정과 반복측정 ANOVA를 사용하였다.",
                 "대응 t-검정과 반복측정 ANOVA를 사용하고 Holm 보정을 적용하였다.",

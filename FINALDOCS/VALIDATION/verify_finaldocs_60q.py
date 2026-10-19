@@ -80,6 +80,7 @@ def main():
         "context_precision",
         "context_recall",
         "korean_ratio",
+        "duration_seconds",
     ]
     for row in means:
         for value, metric in zip(row[1:], metrics):

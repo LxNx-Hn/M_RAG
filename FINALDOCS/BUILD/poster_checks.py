@@ -37,7 +37,7 @@ def expected_statistics_tables(stats):
     ]
     labels = ["HyDE\n답변 관련성", "CAD\n근거 충실도", "SCD H0\n한국어 비율"]
     paired = [["비교", "차이\n(SD)", "t(df)", "p", "dz"]] + [
-        [label, row[5].replace(" ", "\n"), row[6].replace(" ", "\n"), row[7], row[8]]
+        [label, row[4].replace(" ", "\n"), row[5].replace(" ", "\n"), row[6], row[7]]
         for label, row in zip(labels, tables["T5-3_RQ_Paired"][1:])
     ]
     return anova, paired

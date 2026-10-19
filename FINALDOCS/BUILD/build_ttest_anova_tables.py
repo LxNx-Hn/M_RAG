@@ -26,6 +26,7 @@ RETIRED = [
     "T5-6_Factorial",
     "T5-7_Paired_Quality",
     "T5-8_Paired_Language",
+    "T5-2_Runtime_SD",
 ]
 METRIC_KO = {
     "faithfulness": "근거 충실도",
@@ -39,6 +40,7 @@ NUMERIC = (
     "평균",
     "SD",
     "중앙값",
+    "실행 시간",
     "df",
     "F",
     "p",
@@ -66,7 +68,7 @@ def msd(mean: float, sd: float) -> str:
 
 
 def paired_row(label, cmp, r, with_means=True):
-    row = [label] + ([cmp] if cmp is not None else []) + [r["n"]]
+    row = [label] + ([cmp] if cmp is not None else [])
     if with_means:
         row += [msd(r["on_mean"], r["on_sd"]), msd(r["off_mean"], r["off_sd"])]
     return row + [
@@ -102,20 +104,24 @@ def build(stats: dict) -> list[dict]:
         stats["rm_anova"],
         stats["interaction_followups"],
     )
-    runtime = [["조건", "평균(초)", "SD(초)", "중앙값(초)"]] + [
-        [
-            c,
-            f3(d[c]["duration_seconds"]["mean"]),
-            f3(d[c]["duration_seconds"]["sd"]),
-            f3(d[c]["duration_seconds"]["median"]),
-        ]
-        for c in sorted(d, key=lambda c: (c[1], c[3], c[5]))
+    # One results table: S0 rows (English evaluation) above S1 rows (Korean).
+    order = sorted(d, key=lambda c: (c[5], c[1], c[3]))
+    metrics = [
+        "faithfulness",
+        "answer_relevancy",
+        "context_precision",
+        "context_recall",
+        "korean_ratio",
+        "duration_seconds",
+    ]
+    header = ["조건", "충실도", "관련성", "정밀도", "재현율", "한국어 비율", "실행 시간(초)"]
+    means = [header] + [
+        [c] + [msd(d[c][m]["mean"], d[c][m]["sd"]) for m in metrics] for c in order
     ]
     primary = [
         [
             "연구 질문·지표",
             "비교 조건",
-            "n",
             "평균 ON(SD)",
             "평균 OFF(SD)",
             "평균 차이(SD)",
@@ -137,7 +143,6 @@ def build(stats: dict) -> list[dict]:
     followup = [
         [
             "상호작용과 단순 효과",
-            "n",
             "평균 ON(SD)",
             "평균 OFF(SD)",
             "평균 차이(SD)",
@@ -154,7 +159,7 @@ def build(stats: dict) -> list[dict]:
         paired_row("실행 시간 C×S: SCD OFF의 CAD", None, fu["duration_CAD_at_S0"]),
         paired_row("실행 시간 C×S: SCD ON의 CAD", None, fu["duration_CAD_at_S1"]),
     ]
-    secondary = [["요인·지표", "n", "평균 차이(SD)", "t(df)", "p", "dz"]]
+    secondary = [["요인·지표", "평균 차이(SD)", "t(df)", "p", "dz"]]
     for key, label in [
         ("HyDE_faithfulness", "HyDE 근거 충실도"),
         ("HyDE_context_precision", "HyDE 문맥 정밀도"),
@@ -168,33 +173,33 @@ def build(stats: dict) -> list[dict]:
     quality_header = ["지표", "효과", "df", "F", "p", "부분 η²"]
     return [
         {
-            "sheet": "T5-2_Runtime_SD",
-            "title": "표 5-2 8조건의 조건 실행 시간 평균, 표준편차와 중앙값",
-            "rows": runtime,
+            "sheet": "T5-1_Mean_SD",
+            "title": "표 5-1 8조건의 품질 지표, 한국어 문자 비율과 실행 시간의 평균(SD)",
+            "rows": means,
         },
         {
             "sheet": "T5-3_RQ_Paired",
-            "title": "표 5-3 연구 질문별 핵심 지표의 대응 t-검정",
+            "title": "표 5-2 연구 질문별 핵심 지표의 ON·OFF 평균(SD)과 대응 t-검정",
             "rows": primary,
         },
         {
             "sheet": "T5-4_Korean_ANOVA",
-            "title": "표 5-4 한국어 문자 비율의 H×C×S 반복측정 ANOVA",
+            "title": "표 5-3 한국어 문자 비율에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
             "rows": [effect_header] + anova_rows(a["korean_ratio"]),
         },
         {
             "sheet": "T5-5_Runtime_ANOVA",
-            "title": "표 5-5 조건 실행 시간의 H×C×S 반복측정 ANOVA",
+            "title": "표 5-4 조건 실행 시간에 대한 HyDE·CAD·SCD(H×C×S) 반복측정 ANOVA",
             "rows": [effect_header] + anova_rows(a["duration_seconds"]),
         },
         {
             "sheet": "T5-6_Followup",
-            "title": "표 5-6 유의한 상호작용의 단순 효과 대응 t-검정",
+            "title": "표 5-5 유의한 상호작용(H×C, C×S)의 단순 효과 대응 t-검정",
             "rows": followup,
         },
         {
             "sheet": "T5-7_Secondary",
-            "title": "표 5-7 보조 지표의 대응 t-검정",
+            "title": "표 5-6 보조 지표(HyDE·CAD 품질, SCD 한국어 비율)의 대응 t-검정",
             "rows": secondary,
         },
         {
@@ -215,7 +220,6 @@ ORDER = [
     "T3-1_Factorial_Design",
     "T4-1_Environment",
     "T5-1_Mean_SD",
-    "T5-2_Runtime_SD",
     "T5-3_RQ_Paired",
     "T5-4_Korean_ANOVA",
     "T5-5_Runtime_ANOVA",
@@ -277,6 +281,12 @@ def main():
     }
     for name in RETIRED:
         existing.pop(name, None)
+    for name in ("Appendix_Paper", "Appendix_QueryType"):
+        rows = existing[name]["rows"]
+        if "유효 n" in rows[0]:
+            col = rows[0].index("유효 n")
+            existing[name]["rows"] = [r[:col] + r[col + 1 :] for r in rows]
+        new[name] = existing[name]
     existing.update(new)
     tables = [existing[name] for name in ORDER]
     TABLES_JSON.write_text(

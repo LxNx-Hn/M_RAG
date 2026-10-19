@@ -155,7 +155,7 @@ class ContentCorruptionTests(unittest.TestCase):
             table = next(
                 t
                 for t in section.findall(".//hp:tbl", NS)[2:]
-                if t.get("rowCnt") == "9" and t.get("colCnt") == "6"
+                if t.get("rowCnt") == "9" and t.get("colCnt") == "7"
             )
             header_para = (
                 table.findall("hp:tr", NS)[0]

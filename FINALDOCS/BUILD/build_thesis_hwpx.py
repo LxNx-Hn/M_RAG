@@ -113,8 +113,8 @@ def parse_manuscript(path: Path) -> list[dict]:
         pending_page_break = False
     if pending_page_break:
         raise ValueError("Dangling page-break directive")
-    if sum(e["kind"] == "table" for e in events) != 15:
-        raise ValueError("Expected exactly 15 reviewed table insertion events")
+    if sum(e["kind"] == "table" for e in events) != 14:
+        raise ValueError("Expected exactly 14 reviewed table insertion events")
     if sum(e["kind"] == "picture" for e in events) != 13:
         raise ValueError("Expected exactly 13 reviewed picture insertion events")
     return events
@@ -318,16 +318,19 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
         fractions = [0.20, 0.42, 0.38]
     elif nc == 2:
         fractions = [0.28, 0.72]
+    elif data["sheet"] == "T5-1_Mean_SD":
+        # Every mean (SD) cell wraps the same way: mean above, SD below.
+        fractions = [0.18, 0.135, 0.135, 0.135, 0.135, 0.135, 0.145]
     elif data["sheet"] == "T5-3_RQ_Paired":
         # Condition codes (H1C0S0−H0C0S0) and "<0.001" stay on one line.
-        fractions = [0.17, 0.195, 0.05, 0.105, 0.105, 0.105, 0.095, 0.095, 0.08]
+        fractions = [0.20, 0.20, 0.105, 0.105, 0.105, 0.11, 0.095, 0.08]
     elif data["sheet"] == "T5-6_Followup":
-        fractions = [0.25, 0.05, 0.13, 0.13, 0.13, 0.12, 0.10, 0.09]
+        fractions = [0.27, 0.14, 0.14, 0.14, 0.12, 0.10, 0.09]
     elif data["sheet"] == "T5-7_Secondary":
-        fractions = [0.28, 0.07, 0.19, 0.17, 0.14, 0.15]
+        fractions = [0.34, 0.20, 0.17, 0.14, 0.15]
     elif data["sheet"] in ("Appendix_Paper", "Appendix_QueryType"):
-        # Long group names get the width; short factor and n columns stay narrow.
-        fractions = [0.42, 0.10, 0.18, 0.10, 0.20]
+        # Long group names get the width; the short factor column stays narrow.
+        fractions = [0.46, 0.12, 0.20, 0.22]
     elif nc == 7:
         fractions = [0.22, 0.12, 0.12, 0.13, 0.13, 0.14, 0.14]
     elif nc == 9:
@@ -404,7 +407,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 label = str(rows[0][c])
                 numeric = bool(
                     re.match(
-                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|원문 페이지)",
+                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|실행 시간|원문 페이지)",
                         label,
                     )
                 )
@@ -504,13 +507,11 @@ def emit(
                 role in ("section", "table_caption")
                 and text.startswith(
                     (
-                        "[표 2-1]",
-                        "[표 3-1]",
+                        "1.2 연구범위",
+                        "5.7 요인 주효과 및 상호작용",
                         "[표 3-3]",
                         "[표 4-2]",
-                        "[표 5-2]",
                         "[표 B-2]",
-                        "5.5 조합별 평가 결과",
                         "5.3 실험 조건 및 평가 절차",
                         "5.8 종합 논의",
                         "B.2 문서별 및 질문 유형별 탐색 분석",
@@ -518,10 +519,15 @@ def emit(
                         "6.3 적용 시 실험 조건 선택",
                     )
                 )
-            ) or (role == "reference" and text.startswith(("[10] ", "[20] "))):
+            ) or (role == "reference" and text.startswith(("[10] ", "[20] "))) or (
+                role == "body"
+                and text.startswith(("반복측정 ANOVA의 각 효과는", "표 5-5에는"))
+            ):
                 # Reviewed Web PDF: keep short table and section openings intact,
-                # and start references [10] and [20] on a new page instead of
-                # leaving their first line alone at the foot of pages 25 and 26.
+                # start 1.2 and 5.7 with their text and tables, keep the table 5-5
+                # lead-in with its table, and start references [10] and [20] and
+                # the 5.4 ANOVA paragraph on a new page instead of leaving their
+                # first line alone at the foot of the previous page.
                 p.element.set("pageBreak", "1")
             if text == "1. 서론":
                 doc.page.restart_page_number(p, number=1)

@@ -65,32 +65,33 @@ def main():
     # Figure 1-1 shows where each technique switches on; Figure 4-1 keeps the
     # model names and parameters of the implemented pipeline.
     d = Drawing(1800, 650)
-    for y, w, h, label in [(10, 1760, 320, "검색 단계"), (350, 1220, 290, "생성 단계")]:
+    # Printed at 150 mm wide: 40 units = 9.5 pt, close to the 10 pt table titles.
+    for y, w, h, label in [(10, 1760, 330, "검색 단계"), (355, 1250, 285, "생성 단계")]:
         d.parts.append(
             f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#F5F6FA" stroke="none"/>'
         )
-        d.text(44, y + 42, label, 32, center=False)
-    d.box(40, 120, 300, 150, "한국어 질의\n60개", BLUE, 40)
-    d.box(430, 70, 540, 120, "HyDE  ON / OFF\nON: 영어 번역 → 가상 문서", ORANGE, 36)
-    d.text(700, 232, "OFF: 원질의를 그대로 사용", 30)
-    d.box(1040, 70, 300, 120, "밀집 검색", PURPLE, 40)
-    d.box(1040, 200, 300, 120, "BM25 검색\n한국어 원질의", PURPLE, 36)
-    d.box(1440, 110, 320, 170, "융합·재정렬\n상위 5개 구간", PURPLE, 40)
-    d.arrow("340,195 390,195 390,130 415,130")
-    d.arrow("970,130 1025,130")
-    d.arrow("390,195 390,260 1025,260")
-    d.arrow("1340,130 1390,130 1390,170 1425,170")
-    d.arrow("1340,260 1390,260 1390,220 1425,220")
+        d.text(44, y + 44, label, 38, center=False)
+    d.box(40, 120, 300, 160, "한국어 질의\n60개", BLUE, 42)
+    d.box(410, 62, 620, 130, "HyDE  ON / OFF\nON: 영어 번역 → 가상 문서", ORANGE, 40)
+    d.text(720, 236, "OFF: 원질의를 그대로 사용", 36)
+    d.box(1080, 62, 280, 130, "밀집 검색", PURPLE, 42)
+    d.box(1080, 205, 280, 130, "BM25 검색\n한국어 원질의", PURPLE, 40)
+    d.box(1440, 105, 330, 185, "융합·재정렬\n상위 5개 구간", PURPLE, 42)
+    d.arrow("340,200 380,200 380,127 395,127")
+    d.arrow("1030,127 1065,127")
+    d.arrow("380,200 380,270 1065,270")
+    d.arrow("1360,127 1400,127 1400,172 1425,172")
+    d.arrow("1360,270 1400,270 1400,225 1425,225")
     d.parts.append(
-        f'<rect x="40" y="405" width="1180" height="220" rx="12" fill="#FFFFFF" stroke="{GREEN}" stroke-width="4"/>'
+        f'<rect x="40" y="410" width="1205" height="220" rx="12" fill="#FFFFFF" stroke="{GREEN}" stroke-width="4"/>'
     )
-    d.text(630, 447, "Mi:dm 2.0 답변 생성: 토큰마다 로짓 처리", 34)
-    d.box(90, 468, 480, 140, "CAD  ON / OFF\n문맥 포함·제외 로짓 결합", ORANGE, 36)
-    d.box(690, 468, 480, 140, "SCD  ON / OFF\n언어별 로짓 조정", ORANGE, 36)
-    d.arrow("570,538 675,538")
-    d.arrow("1600,280 1600,340 630,340 630,390")
-    d.box(1320, 415, 440, 200, "평가\n답변 품질(RAGAS)\n한국어 문자 비율\n실행 시간", GREEN, 34)
-    d.arrow("1220,515 1305,515")
+    d.text(642, 455, "Mi:dm 2.0 답변 생성: 토큰마다 로짓 처리", 38)
+    d.box(70, 475, 540, 140, "CAD  ON / OFF\n문맥 포함·제외 로짓 결합", ORANGE, 40)
+    d.box(680, 475, 540, 140, "SCD  ON / OFF\n언어별 로짓 조정", ORANGE, 40)
+    d.arrow("610,545 665,545")
+    d.arrow("1605,290 1605,345 642,345 642,395")
+    d.box(1325, 400, 445, 240, "평가\n답변 품질(RAGAS)\n한국어 문자 비율\n실행 시간", GREEN, 38)
+    d.arrow("1245,520 1310,520")
     drawings[FIG / "fig1_1_research_setting.svg"] = d.svg()
     d = Drawing(1800, 650)
     d.box(40, 180, 400, 180, "질문 q\n외부 문서 집합 D", BLUE)
