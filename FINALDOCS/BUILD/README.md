@@ -11,7 +11,7 @@ python FINALDOCS/BUILD/render_pdf_qa.py FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q
 python FINALDOCS/POSTER/FINAL/rebuild_exports.py --output tmp/finaldocs/poster
 ```
 
-HWPX가 조판 엔진을 대신하지 않는다. 내용이나 배치를 바꿨다면 새 HWPX를 한컴독스 웹에서 열어 PDF로 출력하고 모든 쪽을 검토한다. `map_pdf_pages.py <PDF> --output <임시지도>`로 실제 쪽을 찾고, 추출되지 않는 제목은 페이지에서 읽어 근거를 남긴 뒤 목차를 재빌드한다. 2026-10-18 t·ANOVA 개정본을 한컴독스 웹에서 출력한 최신 PDF는 50쪽이다. 변하지 않은 문서에 과거 쪽 보정값을 적용하지 않는다. 통계표는 `python FINALDOCS/VALIDATION/analyze_ttest_anova_60q.py` 다음 `python FINALDOCS/BUILD/build_ttest_anova_tables.py`로 JSON·XLSX·원고용 블록을 갱신한다.
+HWPX가 조판 엔진을 대신하지 않는다. 내용이나 배치를 바꿨다면 새 HWPX를 한컴독스 웹에서 열어 PDF로 출력하고 모든 쪽을 검토한다. `map_pdf_pages.py <PDF> --output <임시지도>`로 실제 쪽을 찾고, 추출되지 않는 제목은 페이지에서 읽어 근거를 남긴 뒤 목차를 재빌드한다. 2026-10-19 최종 문장·그림 개정본을 한컴독스 웹에서 출력한 최신 PDF는 49쪽이다. 변하지 않은 문서에 과거 쪽 보정값을 적용하지 않는다. 통계표는 `python FINALDOCS/VALIDATION/analyze_ttest_anova_60q.py` 다음 `python FINALDOCS/BUILD/build_ttest_anova_tables.py`로 JSON·XLSX·원고용 블록을 갱신한다.
 
 개인 제출본은 저장소 밖 JSON을 `--personal-fields`로 전달하고 출력도 저장소 밖에 둔다. 확정된 성명·학번·소속·지도교수·제출일만 사용하며 미정인 인준·심사위원·날인은 입력하지 않는다.
 
