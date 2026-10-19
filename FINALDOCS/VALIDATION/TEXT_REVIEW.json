@@ -1,7 +1,7 @@
 {
  "reviewed_head": "f62b7fff6387efe9cf9b823a080b6ad0a5000a85 + t/ANOVA manuscript revision",
  "review_date": "2026-10-18",
- "source_lf_sha256": "2a7dd2a582c7abea3adcd03cfe89c2ef405363b0910afb6405d993e74b7fce02",
+ "source_lf_sha256": "e8445337e951dbfacd62823b4e2e703dde79f5c972608b3304034e491d089b15",
  "method": "1~6장 서술문 전수 재독, 제시 후보96건 문맥 검토, 문장별 대조 및 구조/수치 보존 검사. PROSE_REVIEW.md 참조. 후보 검색은 검수 보조이며 자동 문체 판정 점수가 아니다.",
  "retired_defensive_sentences": [
   "원 논문의 그림을 발췌하거나 재도식화하지 않았다.",
@@ -955,23 +955,23 @@
   {
    "line": 101,
    "section": "1.1 연구배경 및 목적",
-   "text": "RAG의 성능은 검색 단계와 생성 단계 모두에서 개선할 수 있다.",
-   "sha256": "34f9906fb28a051e3e736e55630ec39671067e12bfcee9d3b681fcc39ed250a0",
+   "text": "RAG는 검색 단계와 생성 단계에서 각각 성능을 개선할 수 있다.",
+   "sha256": "bf7d8ef70e5325f8ae946eee52c92789f545cd9a8d7f9f01db06cf11b14125eb",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 101,
    "section": "1.1 연구배경 및 목적",
-   "text": "가상 문서 임베딩(Hypothetical Document Embeddings, HyDE)은 질문으로 답변 형태의 가상 문서를 먼저 생성하고, 이 문서의 임베딩으로 실제 문서를 검색한다[2].",
-   "sha256": "e9056e8503eab7ff822c516882eaf7996b305dd363289483f717ad1295657333",
+   "text": "가상 문서 임베딩(Hypothetical Document Embeddings, HyDE)은 질문에 대한 답변 형태의 가상 문서를 먼저 생성하고, 이 문서의 임베딩으로 실제 문서를 검색한다[2].",
+   "sha256": "e6d7b1d61e876e2258662ac8687c1d44bdf55ed4e7e5e8c69a03638d349f1d3e",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1109,12 +1109,12 @@
   {
    "line": 115,
    "section": "1.2 연구범위",
-   "text": "문서마다 한국어 질의 15개를 작성하여 총 60개를 구성하였고, 각 질의는 지정한 문서 안에서만 검색하였다.",
-   "sha256": "f8c2bad6fff36bafdd7a97d84ddcdedf7ec662cce9f42b33c6c8cc231f7fb3cd",
+   "text": "문서마다 한국어 질의를 15개씩, 총 60개 작성하였고, 각 질의는 지정한 문서 안에서만 검색하였다.",
+   "sha256": "da251d6b9c51a58209e92b091a8ba77bf4bc541a37c3a23177d0a29a116dab68",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1516,12 +1516,12 @@
   {
    "line": 179,
    "section": "2.3 가상 문서 임베딩과 검색",
-   "text": "Gao 외[2]는 관련성 레이블 없이 수행하는 검색에서 HyDE가 Contriever보다 높은 성능을 보였고, 한국어를 포함한 비영어 검색에서도 효과가 있다고 보고하였다.",
-   "sha256": "2014e6039c2342e1d0ec097073eeb1e327e2c75c30abee60290451e36cc6aef8",
+   "text": "Gao 외[2]는 관련성 레이블 없이 수행하는 검색에서 HyDE가 Contriever보다 높은 성능을 보이고, 한국어를 포함한 비영어 검색에서도 효과가 있다고 보고하였다.",
+   "sha256": "a1d09125421209043f8411e849b1a73146d8e08e9ba9a06b6bab04a0f1655a63",
    "candidate": true,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 문장 재독(가독성·연결·모호성·중복·방어형 기준) 반영: 입력 질의 용어를 '질의'로 통일하고, 3.1·3.3과 2.4·4.3의 중복 서술을 한 곳으로 줄이고, 주어가 빠진 p값 문장과 이중 표현을 바로잡고, 그림 1-1을 세 기법의 적용 위치 도식으로 바꾸었다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1549,12 +1549,12 @@
   {
    "line": 183,
    "section": "2.4 Context-Aware Decoding",
-   "text": "CAD는 검색 결과를 포함한 입력과 제외한 입력에서 계산한 다음 토큰의 점수를 비교하는 디코딩 방법이다[3].",
-   "sha256": "7ed09b17cf9f1fc5ef0d805597a99b9e220c45a409a39bb129f7251c19a13443",
+   "text": "CAD는 검색 결과를 포함한 입력과 제외한 입력에서 각각 다음 토큰의 점수를 계산하고, 두 점수를 비교하여 토큰을 선택하는 디코딩 방법이다[3].",
+   "sha256": "93b397f8be866f2119c726d91e5aeac9a5f680016f52de589079d7431e742621",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1593,34 +1593,34 @@
   {
    "line": 189,
    "section": "2.4 Context-Aware Decoding",
-   "text": "같은 생성 접두 시퀀스에서 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도이며 α=0이면 일반 디코딩과 같다.",
-   "sha256": "e3c0df376efdc07f1279516bda7a516c5a9f65eb9483cbefffbe9ccc12fd3d1f",
+   "text": "지금까지 생성한 토큰이 같을 때, 검색 결과를 포함한 입력의 로짓을 z_ctx, 제외한 입력의 로짓을 z_noctx라 하면 CAD의 로짓은 다음과 같다. α는 검색 결과의 영향을 키우는 정도이며 α=0이면 일반 디코딩과 같다.",
+   "sha256": "80d6b415c9aa4c92702f69b40a7d640b6d79f88334a4698ae4dbc08708838a9b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 197,
    "section": "2.4 Context-Aware Decoding",
-   "text": "Shi 외[3]는 요약 과제와, 모델의 사전 지식이 입력 문서의 내용과 충돌하는 지식 충돌 과제에서 CAD가 입력 문서를 더 충실히 반영한다고 보고하였다.",
-   "sha256": "946c83e685e725ee5eebcd8f1511e76001df3030e86cc4a8f42cf9483c88b916",
+   "text": "Shi 외[3]는 요약 과제와 지식 충돌 과제(모델의 사전 지식이 입력 문서의 내용과 충돌하는 과제)에서 CAD가 입력 문서를 더 충실히 반영한다고 보고하였다.",
+   "sha256": "d50a0859bbdc6cdd40ceadc67ec5d3854ed8878965a5637ed8424f2ee8f459d6",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 197,
    "section": "2.4 Context-Aware Decoding",
-   "text": "CAD는 토큰마다 검색 결과를 제외한 입력을 한 번 더 계산하므로 생성 시간이 늘어난다.",
-   "sha256": "34cb525c59850589f264e59d39382cafc3439c48255a5f657f777d2ade4f5402",
+   "text": "CAD는 토큰마다 검색 결과를 제외한 입력의 로짓을 한 번 더 계산하므로 생성 시간이 늘어난다.",
+   "sha256": "b81226d45283cae0da0cc49a895f6b819e3c258debbe6533b02e68406be99153",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1747,12 +1747,12 @@
   {
    "line": 229,
    "section": "2.6 RAG 평가",
-   "text": "이 밖에 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 제공한다.",
-   "sha256": "6292ed25f69877fb47eda7ae606709b08f89278149a63db5f2f83bbb12e65c14",
+   "text": "RAGAS는 이 밖에도 답변 관련성(answer relevancy), 문맥 정밀도(context precision), 문맥 재현율(context recall)을 제공한다.",
+   "sha256": "4199e324ae8cc79b8e780735eaf7047dd2bdb4e52f4af78ccfa6f11d9b9658ae",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 5차 재독: 150자를 넘는 나열형 문장을 둘로 나누고, 부록 B.1에서 연달아 쓴 '보여 주는/보여 준다'를 관측 서술로 바꾸었다. 수치와 인용은 그대로 두었다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -1835,12 +1835,23 @@
   {
    "line": 237,
    "section": "2.7 관련 연구와 본 연구의 위치",
-   "text": "검색 전략에서는 RAPTOR[14]가 문서를 계층적으로 요약한 구조로 긴 문서의 검색을 개선하였으며, 본 실험의 검색 대상 문서[D3]이기도 하다.",
-   "sha256": "7f532bffa1a9429af1ce6742650603a3bbdf2bc14f9f22efb958bbc24adbfea9",
+   "text": "검색 전략에서는 RAPTOR[14]가 문서를 계층적으로 요약한 구조로 긴 문서의 검색을 개선하였다.",
+   "sha256": "6c99c9d43135d52591f2222639c1acd35e2ada155fb237e11c8e9a2b2a06c2fa",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 금지 기준 A→B 전수 교열: 방어형·이력·감사 메타 서술을 측정값과 실제 처리로 바꾸고 저장 답변·코드와 대조하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
+   "screening_hits": []
+  },
+  {
+   "line": 237,
+   "section": "2.7 관련 연구와 본 연구의 위치",
+   "text": "RAPTOR 논문은 본 실험의 검색 대상 문서[D3]이기도 하다.",
+   "sha256": "19f08443d3431f8be7128ba91d4794689cc77fc8fdb00bd3f637c23abc898553",
+   "candidate": false,
+   "decision": "retain",
+   "type": "F",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2143,12 +2154,12 @@
   {
    "line": 287,
    "section": "3.3 완전요인 실험 및 대응 비교 설계",
-   "text": "예를 들어 HyDE의 단순 비교는 H0C0S0과 H1C0S0을, CAD의 단순 비교는 H0C0S0과 H0C1S0을 비교한다.",
-   "sha256": "ae98cbeb8fb43fffdbcff3c6298daebfa3d13dd95136708a6d5eab907aeec8f1",
+   "text": "예를 들어 HyDE의 단순 비교 대상은 H0C0S0과 H1C0S0이고, CAD는 H0C0S0과 H0C1S0이다.",
+   "sha256": "3b1420cdfa628d3a5988e1dbdb32926beeac7a5a173ffdcdc646af635edbab98",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2319,23 +2330,23 @@
   {
    "line": 317,
    "section": "4.2 시스템 구성",
-   "text": "먼저 질의에 지정된 대상 문서의 밀집 검색·BM25 인덱스를 불러와 검색 입력을 구성한다.",
-   "sha256": "256b32713cb4b7b5a7673fdbe3969d35d08096c2b06d392a7cca234e3b8e73a3",
+   "text": "먼저 질의에 지정된 대상 문서의 밀집 검색·BM25 인덱스를 불러온다.",
+   "sha256": "967a0ff23a449eccb5c60d36c298613abffbbd338b6821bfe2cf166db575dcef",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 금지 기준 A→B 전수 교열: 방어형·이력·감사 메타 서술을 측정값과 실제 처리로 바꾸고 저장 답변·코드와 대조하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 317,
    "section": "4.2 시스템 구성",
-   "text": "HyDE 조건에서는 답변 생성과 같은 Mi:dm 2.0 Base Instruct로 한국어 질의를 영어로 번역하고, 번역문으로 영어 가상 문서를 생성하여 밀집 검색의 입력으로 쓴다.",
-   "sha256": "a02dab867b259def363064a907c88fa34bcd7a9d592c9136fb4c84aa3d6508f4",
+   "text": "HyDE 조건에서는 답변 생성에 쓰는 Mi:dm 2.0 Base Instruct로 한국어 질의를 영어로 번역하고, 번역문으로 영어 가상 문서를 생성하여 밀집 검색의 입력으로 쓴다.",
+   "sha256": "23831239c669fe8c109ab5baa9a25f163004f645215afe9b8e1263d5a29241c3",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 금지 기준 A→B 전수 교열: 방어형·이력·감사 메타 서술을 측정값과 실제 처리로 바꾸고 저장 답변·코드와 대조하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2418,23 +2429,23 @@
   {
    "line": 329,
    "section": "4.3 시스템 구현과 실행 기록",
-   "text": "CAD는 토큰을 하나 생성할 때마다 같은 지시문에서 검색 결과만 뺀 입력의 로짓을 다시 계산하여 2.4절의 식으로 결합한다.",
-   "sha256": "bc6e44f5d2d4846d5333bde5e9bf66868518d0339ca169da050295419de42fff",
+   "text": "CAD는 토큰을 하나 생성할 때마다 같은 지시문에서 검색 결과만 뺀 입력의 로짓을 추가로 계산하고, 두 로짓을 2.4절의 식으로 결합한다.",
+   "sha256": "83347dcea57c221a18e0b1ec79986db680a56240eb4efb4d94c780c72c69258e",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 독립 문장 검토(INDEPENDENT_PROSE_REVIEW_20261018.md) 반영: 비유의 결과의 효과 동사, 'p값은 ~보다 컸다' 반복, 기록 보관 설명 중복, 원인-결과 순서, RQ4 결론의 C×S 누락, 부록 인용 질문 불일치를 고쳤다. '유의하지 않았다'와 '선택되지 않을 수 있다'는 통계 결과와 2.5절 근거를 서술하는 문장으로 유지한다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 329,
    "section": "4.3 시스템 구현과 실행 기록",
-   "text": "SCD는 생성한 토큰이 5개가 되면 한국어 토큰과 비한국어 토큰에 각각 α와 β를 곱한다.",
-   "sha256": "cfca9c2f66c935840ae95465713796e1f0134674b3949c654c3d4351995b161c",
+   "text": "SCD는 생성한 토큰이 5개 이상이 되면 한국어 토큰과 비한국어 토큰의 로짓에 각각 α와 β를 곱한다.",
+   "sha256": "afd367173721af643d4565093ec80628ca669f239a84119c31c6a49f08bbbf1f",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2506,12 +2517,12 @@
   {
    "line": 339,
    "section": "5.1 평가 대상 및 질의 구성",
-   "text": "평가 질의는 RAG Survey[D1], CAD[D2], RAPTOR[D3], Mi:dm K 2.5 Pro Technical Report[D4]의 영어 문서 4종에서 문서별 15개씩 총 60개를 구성하였다.",
-   "sha256": "7aa6a2c51bf0fc01ec728ed80b1a47cc80f14cd24b1e1aabb7edd4e5c1ce187c",
+   "text": "RAG Survey[D1], CAD[D2], RAPTOR[D3], Mi:dm K 2.5 Pro Technical Report[D4]의 영어 문서 4종에서 문서별로 15개씩, 총 60개의 평가 질의를 구성하였다.",
+   "sha256": "737fdf3b0f7b206348928f083752b15ec0ad929c9e0494c955205b4274594d0b",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2583,12 +2594,12 @@
   {
    "line": 343,
    "section": "5.1 평가 대상 및 질의 구성",
-   "text": "개념·수치·구성 요소를 묻는 ‘사실 및 정의’ 8개, 구조·처리 과정·실험 설정을 묻는 ‘방법 및 절차’ 29개, 정량·정성 결과나 방법 간 차이를 묻는 ‘결과 및 비교’ 20개, 연구 목적과 기여를 묻는 ‘목적 및 기여’ 3개다.",
-   "sha256": "230ccccdeb64b184dfa8173b300b2a5c1102b78574b572422bb38bfd83fea1ba",
+   "text": "유형별로는 개념·수치·구성 요소를 묻는 ‘사실 및 정의’ 8개, 구조·처리 과정·실험 설정을 묻는 ‘방법 및 절차’ 29개, 정량·정성 결과나 방법 간 차이를 묻는 ‘결과 및 비교’ 20개, 연구 목적과 기여를 묻는 ‘목적 및 기여’ 3개다.",
+   "sha256": "97010abb499dab88ca5982a97704d2f92a1c09c510acdb602b802bb85728c6f8",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2770,12 +2781,12 @@
   {
    "line": 357,
    "section": "5.2 평가 지표와 해석 기준",
-   "text": "숫자만 반복하여 분모가 0인 답변 1건(track1_0035, H1C0S1)은 한국어 문자 비율을 0으로 처리하였다.",
-   "sha256": "65355b3156108da0282b0a8c40426d585e30944f58260b6ac6e6705b8dc9322f",
+   "text": "숫자만 반복하여 분모가 0인 답변 1건(track1_0035, H1C0S1)의 한국어 문자 비율은 0으로 처리하였다.",
+   "sha256": "2300c1403a53d7ab88c927c698a42cb18626f3480089352d199d72a62d596d73",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 독립 문장 검토(INDEPENDENT_PROSE_REVIEW_20261018.md) 반영: 비유의 결과의 효과 동사, 'p값은 ~보다 컸다' 반복, 기록 보관 설명 중복, 원인-결과 순서, RQ4 결론의 C×S 누락, 부록 인용 질문 불일치를 고쳤다. '유의하지 않았다'와 '선택되지 않을 수 있다'는 통계 결과와 2.5절 근거를 서술하는 문장으로 유지한다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2814,12 +2825,12 @@
   {
    "line": 363,
    "section": "5.3 실험 조건 및 평가 절차",
-   "text": "SCD를 적용한 답변은 대부분 한국어이므로, SCD ON 조건은 저장된 영어 검색 결과를 gpt-4o를 이용해 한국어로 번역하여 평가에 사용하였다.",
-   "sha256": "e461e257763a74457a4b693974d3d9ff06a00d4cfcc8caa6d49437dcdf11d259",
+   "text": "SCD를 적용한 답변은 대부분 한국어이므로, SCD ON 조건에서는 저장된 영어 검색 결과를 gpt-4o를 이용해 한국어로 번역하여 평가에 사용하였다.",
+   "sha256": "3da810503f63c45c946e45e23fac7a24fe99ba8618deb85d64001dd724e968da",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-19 전달력·문장 품질 재검토 A회차 반영: 긴 문장 분리(4.1, 5.1, 5.3, 5.5, 5.7), 주술 호응(5.2), 비교 기준 명시(5.5 2.9배), 연구 목적·의의 문장의 구체화(1.1, 6.2), 결론 RQ2의 유의성 서술, 선행연구 묶음 표현(2.7)과 CEDR 소개(2.2), 부록 B.1 도입문을 정리하였다. 수치와 통계 결론은 바꾸지 않았다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -2935,12 +2946,12 @@
   {
    "line": 377,
    "section": "5.4 통계 분석 방법",
-   "text": "같은 질의 60개를 8개 조건에서 모두 측정한 결과에 대응 t-검정과 반복측정 ANOVA를 사용하였다.",
-   "sha256": "4ce72c1918256beb11553d71d8d908e0396cc26088e0765fbd92c7caa52a8215",
+   "text": "같은 질의 60개를 8개 조건에서 모두 측정한 결과에 대응 t-검정과 반복측정 ANOVA를 적용하였다.",
+   "sha256": "762b857ea2f81e55373e053c0fc1e564ca1d2accc31be583741b858662c74bff",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열(A→B 27항목 지침) 반영: 같은 절차의 짧은 문장을 연결하고, '이 분석은/이 설계에서는/이 결과는/즉/조합 결과를 보면' 같은 지시·해설형 문장과 절 안내·근거 선언 문장을 정리하였다. 수치와 통계적 결론은 그대로 두었다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3045,34 +3056,34 @@
   {
    "line": 395,
    "section": "5.4 통계 분석 방법",
-   "text": "한국어 문자 비율과 실행 시간은 8개 조건 전체로 H×C×S 3요인 ANOVA를 수행하였다.",
-   "sha256": "c9ca2f6231dc1cb84e5192e8617a673653ffff0ab872fb43df6f8c7caca42c4e",
+   "text": "한국어 문자 비율과 실행 시간에는 8개 조건 전체로 H×C×S 3요인 ANOVA를 적용하였다.",
+   "sha256": "4e362a4bf298e512eaddfdf82be165da74debc1cdea3ef766f727ce54add8dae",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 395,
    "section": "5.4 통계 분석 방법",
-   "text": "품질 지표는 SCD 상태에 따라 평가 입력의 언어가 다르므로(5.3절), SCD OFF와 ON 안에서 각각 H×C 2요인 ANOVA를 수행하였다.",
-   "sha256": "78ebb31596b7dbefddcfc4956e59ede1c5b06c19ca76ef3b15943f7fd9024ac5",
+   "text": "품질 지표는 SCD 상태에 따라 평가 입력의 언어가 다르므로(5.3절), SCD OFF와 ON 안에서 각각 H×C 2요인 ANOVA를 적용하였다.",
+   "sha256": "92334049f8db897e1447cee4a271f246242e04453827e6a13df3effee8b4c5af",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 독립 문장 검토(INDEPENDENT_PROSE_REVIEW_20261018.md) 반영: 비유의 결과의 효과 동사, 'p값은 ~보다 컸다' 반복, 기록 보관 설명 중복, 원인-결과 순서, RQ4 결론의 C×S 누락, 부록 인용 질문 불일치를 고쳤다. '유의하지 않았다'와 '선택되지 않을 수 있다'는 통계 결과와 2.5절 근거를 서술하는 문장으로 유지한다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
    "line": 395,
    "section": "5.4 통계 분석 방법",
-   "text": "유의한 상호작용은 조건별 단순 효과를 대응 t-검정으로 확인하였다.",
-   "sha256": "54f17902e86f06a5eece4a02e0c25c0c8166708923d8c66b3a6e0ed63ddca36f",
+   "text": "유의한 상호작용에 대해서는 조건별 단순 효과를 대응 t-검정으로 확인하였다.",
+   "sha256": "26ac4fab08339f9ba51f586e7a08a0c07cae0c3d4b6094cfa426d1f30d904e3d",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 금지 기준 A→B 전수 교열: 방어형·이력·감사 메타 서술을 측정값과 실제 처리로 바꾸고 저장 답변·코드와 대조하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3144,12 +3155,12 @@
   {
    "line": 419,
    "section": "5.5 조합별 평가 결과",
-   "text": "충실도는 H0C1S0이 n=58, H0C0S1이 n=57이고 나머지는 n=60이다.",
-   "sha256": "152d7973ba31c75dcc8b99ae7b919add8c0a2bbe24ae0392c173bf667ab83484",
+   "text": "근거 충실도의 질의 수는 H0C1S0이 58개, H0C0S1이 57개이고 나머지 조건은 60개다.",
+   "sha256": "7e7b4a4084c6e6d27072fd592c0b963b31263b284d5582abd61bfcab1ed3b2dd",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3342,12 +3353,12 @@
   {
    "line": 440,
    "section": "5.6 연구 질문별 대응 비교",
-   "text": "표의 OFF 평균 0.810은 양쪽 값이 모두 있는 58개 질의의 평균이므로 표 5-1의 0.791과 다르다.",
-   "sha256": "80c6e62778584640d42734d4b33078eea95eac481edf4e5a366a90a15ae6d644",
+   "text": "표 5-2의 OFF 평균 0.810은 양쪽 값이 모두 있는 58개 질의의 평균이므로 표 5-1의 0.791과 다르다.",
+   "sha256": "610ff832ebf03327049bcfff8df36265fe181246cd68311fda474714bdf0e791",
    "candidate": true,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 통계 재설계(대응 t-검정·반복측정 ANOVA만 사용) 원고 재작성에서 문단 논리·수치·인용을 TTEST_ANOVA_60Q.json과 원자료에 대조하여 작성했다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3496,12 +3507,12 @@
   {
    "line": 480,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "CAD는 토큰마다 검색 결과를 제외한 입력을 다시 계산하고, HyDE는 번역과 가상 문서 생성을 추가로 수행하기 때문이다.",
-   "sha256": "daa588d2d4643e79f7de568b98a9612e5d8a5f3eef0db7b70237fbd54619ca54",
+   "text": "CAD는 토큰마다 검색 결과를 제외한 입력의 로짓을 추가로 계산하고, HyDE는 번역과 가상 문서 생성을 추가로 수행하기 때문이다.",
+   "sha256": "b36d340d563c213dc0a9c37781b9d73ed54571a67c9e5f9fd09bac52dc902888",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 교수 피드백·외부 검토 반영: '검색 문맥'을 실체가 있는 '검색 결과'로 통일하고, 서론의 의의·질의 예시·상호작용과 경계 유의성 해석을 원자료와 대조하여 수정하였다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3672,12 +3683,12 @@
   {
    "line": 517,
    "section": "5.7 요인 주효과 및 상호작용",
-   "text": "CAD 대응쌍은 같은 검색 결과를 평가하는데도 문맥 정밀도 8쌍과 재현율 1쌍에서 점수가 달랐으며, RAGAS 평가값에는 평가 모델의 채점 변동이 포함되어 있었다.",
-   "sha256": "8148e56cf87a397bb22dc839572693b8e4bbc7581fb111e4e3bcd8374dcfab24",
+   "text": "CAD 대응쌍은 검색 결과가 같은데도 문맥 정밀도 8쌍과 문맥 재현율 1쌍에서 점수가 달라, RAGAS 평가값에 평가 모델의 채점 변동이 포함되어 있었다.",
+   "sha256": "3bdc66696dd1a3d73c9c6d1670cae27546ce46000394a6dad4d3828f179265c0",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "2026-10-18 최종 교열(A→B 27항목 지침) 반영: 같은 절차의 짧은 문장을 연결하고, '이 분석은/이 설계에서는/이 결과는/즉/조합 결과를 보면' 같은 지시·해설형 문장과 절 안내·근거 선언 문장을 정리하였다. 수치와 통계적 결론은 그대로 두었다.",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {
@@ -3694,12 +3705,12 @@
   {
    "line": 521,
    "section": "5.8 종합 논의",
-   "text": "SCD는 영어 근거를 입력받은 답변의 한국어 문자 비율을 약 22%p 높였고, HyDE·CAD의 네 조합 모두에서 비율이 높아졌다.",
-   "sha256": "6db7ce621c75d6e0d5b24ab982a9501721fafa6117ea869b1af664a9604f331f",
+   "text": "SCD는 영어 근거로 생성한 답변의 한국어 문자 비율을 약 22%p 높였고, HyDE·CAD의 네 조합 모두에서 비율이 높아졌다.",
+   "sha256": "a59b74052d1f03306fa185abe835ae2b5c911f8a8d3e1696eac0676e07daa267",
    "candidate": false,
    "decision": "retain",
    "type": "F",
-   "reason": "Style pass 2: one core verb per research act; removes abstract summary and merged result/recommendation sentences",
+   "reason": "Sentence-by-sentence read: fixes ambiguous phrasing, subject-predicate agreement and unclear referents",
    "screening_hits": []
   },
   {

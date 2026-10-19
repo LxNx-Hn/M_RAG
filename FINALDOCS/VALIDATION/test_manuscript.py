@@ -136,8 +136,8 @@ class AcademicRegressionTests(unittest.TestCase):
         for correct, error in (
             ("검색 결과와 답변이 함께", "검색 문맥과 답변이 함께"),
             (
-                "대응 t-검정과 반복측정 ANOVA를 사용하였다.",
-                "대응 t-검정과 반복측정 ANOVA를 사용하고 Holm 보정을 적용하였다.",
+                "대응 t-검정과 반복측정 ANOVA를 적용하였다.",
+                "대응 t-검정과 반복측정 ANOVA를 적용하고 Holm 보정을 적용하였다.",
             ),
             (
                 "유의수준은 양측 0.05로 정하였다.",
