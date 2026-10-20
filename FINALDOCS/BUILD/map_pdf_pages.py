@@ -36,13 +36,19 @@ def main():
             )
         )
         match = re.fullmatch(r"-(\d+)-", footer)
-        if not match:
+        if match:
+            printed[index] = int(match[1])
+        elif printed:
             raise ValueError(f"Unresolved printed footer at physical page {index}")
-        printed[index] = int(match[1])
-    restarts = [i for i in printed if i > 1 and printed[i] == 1]
-    if len(restarts) != 1:
-        raise ValueError(f"Expected one body page restart: {restarts}")
-    body_first = restarts[0]
+    # As in the school template, the cover and contents pages carry no page
+    # number; numbering starts at 1 on the introduction and runs to the end.
+    if not printed:
+        raise ValueError("No printed page numbers found")
+    body_first = min(printed)
+    if body_first == 1 or printed[body_first] != 1:
+        raise ValueError(f"Expected unnumbered front pages, then 1: {printed}")
+    if [printed[i] for i in sorted(printed)] != list(range(1, len(printed) + 1)):
+        raise ValueError("Printed page numbers are not consecutive")
     pages = [normalize(text) for text in page_texts]
     page_lines = []
     for page in doc:

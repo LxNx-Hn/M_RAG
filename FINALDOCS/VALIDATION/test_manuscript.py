@@ -151,8 +151,8 @@ class AcademicRegressionTests(unittest.TestCase):
                 "CAD의 문맥 포함·제외 로짓 결합[3] [스타일=그림제목]",
                 "CAD의 문맥 포함·제외 로짓 결합 [스타일=그림제목]",
             ),
-            ("Lewis 외[1]의 RAG는", "Lewis 외[1]은"),
-            ("Li 외[4]는", "Li 외[4]은"),
+            ("Lewis 외의 RAG는", "Lewis 외[1]은"),
+            ("Li 외는 이 현상을", "Li 외[4]은"),
         ):
             with self.subTest(error=error):
                 self.assertIn(correct, self.text)
@@ -190,7 +190,7 @@ class AcademicRegressionTests(unittest.TestCase):
     def test_reported_cross_reference_and_particle_errors(self):
         for correct, broken in (
             ("실제 문서 구간이다(그림 2-2).", "실제 문서 구간이다. 그림 2-2은 이를 나타낸다."),
-            ("Shi 외[3]는 요약 과제와", "Shi 외[3]은 요약 과제와"),
+            ("Shi 외는 요약 과제와", "Shi 외[3]은 요약 과제와"),
         ):
             with self.subTest(broken=broken):
                 self.assertIn(correct, self.text)

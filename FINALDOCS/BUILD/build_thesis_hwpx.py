@@ -499,42 +499,57 @@ def emit(
                 mapping["layout"].append(apply_layout(doc, p, role))
             if role == "usage_url":
                 prefix, url = text.split("https://", 1)
+                url, _, suffix = url.partition(" ")
                 url = "https://" + url
                 char_ref = p.element.find("hp:run", NS).get("charPrIDRef")
                 for run in list(p.element.findall("hp:run", NS)):
                     p.element.remove(run)
                 p.add_run(prefix, char_pr_id_ref=char_ref)
                 doc.refs.add_hyperlink(url, url, paragraph=p, char_pr_id_ref=char_ref)
+                if suffix:
+                    # Access date after the link, e.g. "(확인: 2026-10-20)".
+                    p.add_run(" " + suffix, char_pr_id_ref=char_ref)
             if e["page_break"] or (
                 role in ("section", "table_caption")
                 and text.startswith(
                     (
                         "1.2 연구범위",
-                        "5.7 요인 주효과 및 상호작용",
-                        "그림 자료 이용 정보",
+                        "[표 2-1]",
+                        "[표 5-3]",
+                        "[표 5-5]",
                         "[표 3-3]",
                         "[표 4-2]",
-                        "[표 B-2]",
                         "5.3 실험 조건 및 평가 절차",
                         "5.8 종합 논의",
+                        "그림 자료 이용 정보",
                         "B.2 문서별 및 질문 유형별 탐색 분석",
                         "5.9 실험 범위와 해석 기준",
                         "6.3 적용 시 실험 조건 선택",
                     )
                 )
-            ) or (role == "reference" and text.startswith(("[10] ", "[20] "))) or (
-                role == "body"
-                and text.startswith(("반복측정 ANOVA의 각 효과는", "표 5-5에는"))
             ):
-                # Reviewed Web PDF: keep short table and section openings intact,
-                # start 1.2 and 5.7 with their text and tables, keep the table 5-5
-                # lead-in with its table, and start the 5.4 ANOVA paragraph on a
-                # new page instead of leaving its first line alone at the foot of
-                # the previous page. References [10] and [20] start a new page so no
-                # entry is split with its first line alone at the page foot.
+                # Only section starts that land at a full page in both the Hancom
+                # web editor and its PDF export. Breaks inside sections and the
+                # reference list left half-empty pages in the editor, whose font
+                # metrics differ from the PDF export, so the text now flows.
                 p.element.set("pageBreak", "1")
             if text == "1. 서론":
                 doc.page.restart_page_number(p, number=1)
+                # As in the school template, the page-number control starts at
+                # the introduction, so the cover and contents pages carry none.
+                run = p.element.makeelement(
+                    f"{{{HP}}}run",
+                    {"charPrIDRef": p.element.find("hp:run", NS).get("charPrIDRef")},
+                )
+                ctrl = run.makeelement(f"{{{HP}}}ctrl", {})
+                ctrl.append(
+                    ctrl.makeelement(
+                        f"{{{HP}}}pageNum",
+                        {"pos": "BOTTOM_CENTER", "formatType": "DIGIT", "sideChar": "-"},
+                    )
+                )
+                run.append(ctrl)
+                p.element.insert(0, run)
             mapping["paragraphs"].append(e)
         elif kind == "table":
             data = table_data(workbook[e["sheet"]])
@@ -572,9 +587,6 @@ def emit(
             )
             mapping["layout"].append(apply_layout(doc, p, "equation"))
             mapping["equations"].append(e["text"])
-    doc.page.set_page_number(
-        position="BOTTOM_CENTER", format_type="DIGIT", prefix="- ", suffix=" -"
-    )
     return mapping
 
 

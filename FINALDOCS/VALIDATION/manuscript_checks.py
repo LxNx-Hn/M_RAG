@@ -228,7 +228,7 @@ def validate_academic_text(text):
         "t(57)=0.862, p=0.393",
         "실험 종료 후 선정",
         "2³ 완전요인설계",
-        "gpt-4o로 번역한 한국어 검색 결과를 사용",
+        "GPT-4o로 번역한 한국어 검색 결과를 사용",
     ]:
         if marker not in text:
             raise AssertionError("reviewed analysis contract missing: " + marker)
