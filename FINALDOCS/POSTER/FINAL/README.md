@@ -6,7 +6,7 @@
 
 2026-10-18 문체 교정에서5개 텍스트 상자를 수정하고 PPTX·SVG·PDF를 함께 갱신했다. 통계표4개·159셀의 원래 값은 같다. [문구 대조표](../../VALIDATION/PROSE_REVIEW.md#포스터-문구-대조)에 변경 내용을 기록했다. 상세 출처는 [REFERENCES.md](../../VALIDATION/REFERENCES.md), 교수 대응·구획별 이유는 [PROFESSOR_FEEDBACK.md](../../VALIDATION/PROFESSOR_FEEDBACK.md), 실제 사례는 [증빙 명세](../../EVIDENCE/IO_CASES/PRINT_EVIDENCE_MANIFEST.json), 전체 통계는 [권위 JSON](../../DATA/TTEST_ANOVA_60Q.json)에서 확인한다.
 
-2026-10-18 t·ANOVA 개정에서 05~07의 통계 문구와 ANOVA·대응 비교 표를 논문 표 5-3~5-5에 맞췄다. Holm 보정 p와 보정 전·후 열을 없애고 ANOVA는 보정 없는 p, 대응 비교는 p와 dz를 표시한다. 표4개·159셀·88수치 우측정렬과 01~08 배치는 유지했다. 원본은 `FINALDOCS/BUILD/build_academic_poster.mjs`에서 재생성했고, `poster_checks.py`가 표 값을 `build_ttest_anova_tables.py`의 build() 행과 대조한다. 이어서 01·02·04·05·07·출처 줄의 문구를 논문 최신본 용어(평가 언어, 입력 길이, 검색 결과, 참고문헌 수록)에 맞췄으며 수치·표·배치는 그대로다. 이전 Holm 분석은 [FACTORIAL_STATISTICS_60Q.json](../../DATA/FACTORIAL_STATISTICS_60Q.json)에 이력으로 남아 있다.
+2026-10-18 t·ANOVA 개정에서 05~07의 통계 문구와 ANOVA·대응 비교 표를 논문 표 5-2~5-4에 맞췄다. Holm 보정 p와 보정 전·후 열을 없애고 ANOVA는 보정 없는 p, 대응 비교는 p와 dz를 표시한다. 표4개·159셀·88수치 우측정렬과 01~08 배치는 유지했다. 원본은 `FINALDOCS/BUILD/build_academic_poster.mjs`에서 재생성했고, `poster_checks.py`가 표 값을 `build_ttest_anova_tables.py`의 build() 행과 대조한다. 이어서 01·02·04·05·07·출처 줄의 문구를 논문 최신본 용어(평가 언어, 입력 길이, 검색 결과, 참고문헌 수록)에 맞췄으며 수치·표·배치는 그대로다. 이전 Holm 분석은 [FACTORIAL_STATISTICS_60Q.json](../../DATA/FACTORIAL_STATISTICS_60Q.json)에 이력으로 남아 있다.
 
 ```powershell
 python FINALDOCS/POSTER/FINAL/rebuild_exports.py --output tmp/finaldocs/poster

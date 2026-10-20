@@ -21,7 +21,7 @@ def validate_layout(header, section):
         text = "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)).strip()
         style = styles[p.get("styleIDRef")]
         role = None
-        if text == "그림 자료 이용 정보" and style == "참고문헌제목":
+        if text == "그림 자료 이용 정보" and style in ("참고문헌제목", "절(1.1)"):
             usage = True
         elif text.startswith("부록 A."):
             usage = False

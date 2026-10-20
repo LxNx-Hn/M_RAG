@@ -99,6 +99,8 @@ def parse_manuscript(path: Path) -> list[dict]:
         style = style_match[1] if style_match else "본문"
         if line.startswith("# "):
             usage_section = clean(line) == "그림 자료 이용 정보"
+        elif line.startswith("## ") and clean(line) == "그림 자료 이용 정보":
+            usage_section = True
         if re.match(r"^\[\d+\]", line):
             style = "참고문헌리스트"
         events.append(
@@ -509,6 +511,7 @@ def emit(
                     (
                         "1.2 연구범위",
                         "5.7 요인 주효과 및 상호작용",
+                        "그림 자료 이용 정보",
                         "[표 3-3]",
                         "[표 4-2]",
                         "[표 B-2]",
@@ -525,9 +528,10 @@ def emit(
             ):
                 # Reviewed Web PDF: keep short table and section openings intact,
                 # start 1.2 and 5.7 with their text and tables, keep the table 5-5
-                # lead-in with its table, and start references [10] and [20] and
-                # the 5.4 ANOVA paragraph on a new page instead of leaving their
-                # first line alone at the foot of the previous page.
+                # lead-in with its table, and start the 5.4 ANOVA paragraph on a
+                # new page instead of leaving its first line alone at the foot of
+                # the previous page. References [10] and [20] start a new page so no
+                # entry is split with its first line alone at the page foot.
                 p.element.set("pageBreak", "1")
             if text == "1. 서론":
                 doc.page.restart_page_number(p, number=1)

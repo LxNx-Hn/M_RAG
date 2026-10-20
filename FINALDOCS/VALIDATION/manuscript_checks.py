@@ -128,7 +128,7 @@ def validate_submission_assets(root: Path, text: str, manifest=None):
         )
     )
     records = manifest["figures"]
-    usage = text.split("# 그림 자료 이용 정보 [스타일=참고문헌제목]", 1)
+    usage = text.split("## 그림 자료 이용 정보 [스타일=절(1.1)]", 1)
     if len(usage) != 2 or "# 부록 A." not in usage[1]:
         raise AssertionError("figure usage section must precede appendix A")
     usage = usage[1].split("# 부록 A.", 1)[0]
@@ -228,7 +228,7 @@ def validate_academic_text(text):
         "t(57)=0.862, p=0.393",
         "실험 종료 후 선정",
         "2³ 완전요인설계",
-        "한국어로 번역하여 평가에 사용",
+        "gpt-4o로 번역한 한국어 검색 결과를 사용",
     ]:
         if marker not in text:
             raise AssertionError("reviewed analysis contract missing: " + marker)

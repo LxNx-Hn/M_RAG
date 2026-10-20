@@ -90,7 +90,7 @@ def main():
     d.box(680, 475, 540, 140, "SCD  ON / OFF\n언어별 로짓 조정", ORANGE, 40)
     d.arrow("610,545 665,545")
     d.arrow("1605,290 1605,345 642,345 642,395")
-    d.box(1325, 400, 445, 240, "평가\n답변 품질(RAGAS)\n한국어 문자 비율\n실행 시간", GREEN, 38)
+    d.box(1325, 400, 445, 240, "평가\n검색·생성 품질(RAGAS)\n한국어 문자 비율\n실행 시간", GREEN, 38)
     d.arrow("1245,520 1310,520")
     drawings[FIG / "fig1_1_research_setting.svg"] = d.svg()
     d = Drawing(1800, 650)
@@ -203,9 +203,14 @@ def main():
     poster = args.poster_svg.read_text(encoding="utf-8")
     import re
 
+    # Figure 4-1 shows only the processing flow: the poster's one-line Paper-RAG
+    # definition is already in the body text, and the reranker cites the model
+    # actually used [M2] rather than the CEDR background work [8].
+    poster = re.sub(r"<text[^>]*>Paper-RAG는 [^<]*</text>", "", poster, count=1)
+    poster = poster.replace("CrossEncoder 재정렬[8][M2]", "CrossEncoder 재정렬[M2]", 1)
     poster = re.sub(
         r'width="594mm" height="841mm" viewBox="[^"]+"',
-        'width="159mm" height="81.847mm" viewBox="68 831 1033.52 532"',
+        'width="159mm" height="74.306mm" viewBox="68 880 1033.52 483"',
         poster,
         count=1,
     )
