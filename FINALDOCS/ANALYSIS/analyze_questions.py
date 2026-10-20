@@ -180,6 +180,9 @@ def deltas(obs, annotations):
                 ), "quality must stay in one evaluation language"
             for q in wide.index:
                 a, b = wide.loc[q, (metric, base)], wide.loc[q, (metric, applied)]
+                # Exclude stored zero-relevancy pairs from this comparison.
+                # Preserve the raw values; judge flags are not in the records.
+                zero = metric == "answer_relevancy" and (a == 0 or b == 0)
                 rows.append(
                     {
                         "comparison": name,
@@ -190,7 +193,8 @@ def deltas(obs, annotations):
                         "query_id": q,
                         "base_value": a,
                         "applied_value": b,
-                        "delta": _delta(a, b),
+                        "delta": float("nan") if zero else _delta(a, b),
+                        "relevancy_zero_excluded": bool(zero),
                     }
                 )
     return pd.DataFrame(rows).merge(annotations, on="query_id", validate="many_to_one")
@@ -232,6 +236,7 @@ def summarize(d):
                     "n_questions": len(g),
                     "n": len(v),
                     "missing_pairs": len(g) - len(v),
+                    "relevancy_zero_excluded": int(g.relevancy_zero_excluded.sum()),
                     "base_mean": v.base_value.mean(),
                     "applied_mean": v.applied_value.mean(),
                     "mean_delta": v.delta.mean(),

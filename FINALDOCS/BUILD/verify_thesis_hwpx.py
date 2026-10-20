@@ -298,7 +298,7 @@ def main() -> None:
         assert workbook["Appendix_Queries"].max_row - 3 == 60
         pictures = section.findall(".//hp:pic", NS)
         image_paths = re.findall(r"\[(?:그림|입출력증빙)삽입:\s*([^|]+)\|", source)
-        assert len(pictures) == len(image_paths) == 10
+        assert len(pictures) == len(image_paths) == 11
         hpf = ET.fromstring(z.read("Contents/content.hpf"))
         assets = {
             x.get("id"): x.get("href") for x in hpf.iter() if x.tag.endswith("}item")
@@ -375,7 +375,7 @@ def main() -> None:
         ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 10), ("표", 9)):
+        for kind, count in (("그림", 11), ("표", 9)):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
@@ -418,7 +418,7 @@ def main() -> None:
         "native_table_segments": len(tables) - 2,
         "appendix_segments": len(appendix_parts),
         "cover_layout_tables": 2,
-        "pictures": 10,
+        "pictures": 11,
         "editable_equations": 8,
         "references": 22,
         "queries": len(queries),
@@ -437,7 +437,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of 9 logical tables, 10 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of 9 logical tables, 11 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

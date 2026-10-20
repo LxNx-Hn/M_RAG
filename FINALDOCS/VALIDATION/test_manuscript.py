@@ -29,13 +29,15 @@ class ManuscriptTests(unittest.TestCase):
             if t["sheet"].startswith("T5-"):
                 groups = [t["rows"][r0][0] for r0, _, _, _ in t["merges"]]
                 self.assertTrue(groups)
-                self.assertTrue(all("기준 " in g and " → 적용 " in g for g in groups))
+                self.assertTrue(all("했을 때의 " in g for g in groups))
+                self.assertTrue(all("→" not in g and " · " not in g for g in groups))
 
     def test_only_raw_score_parallel_result_figures(self):
-        self.assertNotIn("fig5_5", self.text)
+        self.assertNotIn("fig5_5_question_deltas", self.text)
         self.assertNotIn("fig5_6", self.text)
-        self.assertIn("fig5_3_parallel_english", self.text)
-        self.assertIn("fig5_4_parallel_korean", self.text)
+        self.assertIn("fig5_3_parallel_hyde_types", self.text)
+        self.assertIn("fig5_4_parallel_cad_types", self.text)
+        self.assertIn("fig5_5_parallel_scd_types", self.text)
 
     def test_appendices(self):
         self.assertIn("# 부록 A.", self.text)

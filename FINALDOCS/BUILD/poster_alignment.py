@@ -15,7 +15,7 @@ NS = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 SCHEMAS = [
     ["c", "c", "c", "c", "d"],
     ["d", "d", "d"],
-    ["d"] + ["n"] * 7,
+    ["d"] + ["n"] * 6,
     ["d", "d", "n", "n"],
     ["d"] + ["n"] * 4,
     ["d"] + ["n"] * 4,
@@ -38,9 +38,19 @@ def validate_alignment(pptx: Path, svg: Path) -> dict:
                 expected = {"c": "ctr", "n": "r", "d": "l"}[kind]
                 for para in cell.findall("a:txBody/a:p", NS):
                     props = para.find("a:pPr", NS)
-                    assert props is not None and props.get("algn") == expected, f"PPTX table {ti} row {ri} col {ci}: expected {expected}"
-                label = "".join("".join(cell.xpath(".//a:t/text()", namespaces=NS)).split())
-                assert label in vector, f"SVG table {ti} row {ri} col {ci}: text missing"
+                    assert (
+                        props is not None and props.get("algn") == expected
+                    ), f"PPTX table {ti} row {ri} col {ci}: expected {expected}"
+                label = "".join(
+                    "".join(cell.xpath(".//a:t/text()", namespaces=NS)).split()
+                )
+                assert (
+                    label in vector
+                ), f"SVG table {ti} row {ri} col {ci}: text missing"
                 checked += 1
                 right += kind == "n"
-    return {"cells_checked": checked, "numeric_cells_right_aligned": right, "svg_text_matches": True}
+    return {
+        "cells_checked": checked,
+        "numeric_cells_right_aligned": right,
+        "svg_text_matches": True,
+    }

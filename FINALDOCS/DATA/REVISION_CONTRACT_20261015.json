@@ -3,7 +3,7 @@
   "title": "한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험",
   "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries",
   "tables": 9,
-  "figures": 10,
+  "figures": 11,
   "equations": 8,
   "references": 22,
   "literature_figures": 4,
@@ -27,5 +27,6 @@
     "방법 및 절차": 29,
     "결과 및 비교": 20,
     "목적 및 기여": 3
-  }
+  },
+  "question_profile_revision": "2026-10-20: HyDE, CAD, SCD figures each split the 60 questions into four types; six axes include raw seconds"
 }

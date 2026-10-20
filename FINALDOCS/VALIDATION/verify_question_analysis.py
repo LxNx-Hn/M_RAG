@@ -106,8 +106,15 @@ def validate_summary(obs, summary, annotations):
         g = raw if r.grouping == "전체" else raw[raw[r.grouping].astype(str) == r.level]
         wide = g.pivot(index="query_id", columns="condition", values=r.metric)
         pair = wide[[r.base, r.applied]].dropna()
+        zero_count = 0
+        if r.metric == "answer_relevancy":
+            excluded = pair.eq(0).any(axis=1)
+            zero_count = int(excluded.sum())
+            pair = pair.loc[~excluded]
         diff = pair[r.applied] - pair[r.base]
         assert len(diff) == r.n and len(g) / 8 == r.n_questions
+        assert r.relevancy_zero_excluded == zero_count
+        assert r.missing_pairs == r.n_questions - r.n
         for actual, expected in [
             (r.base_mean, pair[r.base].mean()),
             (r.applied_mean, pair[r.applied].mean()),
@@ -198,9 +205,12 @@ def validate_pairs(obs, deltas):
         )
         for v, raw in [(r.base_value, x), (r.applied_value, y)]:
             assert (pd.isna(v) and pd.isna(raw)) or abs(v - raw) < 1e-12
-        assert (pd.isna(r.delta) and (pd.isna(x) or pd.isna(y))) or abs(
-            r.delta - (y - x)
-        ) < 1e-12
+        excluded = r.metric == "answer_relevancy" and (x == 0 or y == 0)
+        assert bool(r.relevancy_zero_excluded) == excluded
+        if excluded or pd.isna(x) or pd.isna(y):
+            assert pd.isna(r.delta), "Excluded or missing pair has a difference"
+        else:
+            assert abs(r.delta - (y - x)) < 1e-12
     assert actual == expected, "Missing or unapproved comparison"
 
 

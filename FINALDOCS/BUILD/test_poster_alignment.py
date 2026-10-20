@@ -10,7 +10,10 @@ from lxml import etree
 from poster_alignment import NS, validate_alignment
 
 FOLDER = Path(__file__).resolve().parents[1] / "POSTER/FINAL"
-PPTX, SVG = FOLDER / "M_RAG_A1_FINAL_EDITABLE.pptx", FOLDER / "M_RAG_A1_FINAL_EDITABLE.svg"
+PPTX, SVG = (
+    FOLDER / "M_RAG_A1_FINAL_EDITABLE.pptx",
+    FOLDER / "M_RAG_A1_FINAL_EDITABLE.svg",
+)
 
 
 def mutate_slide(work, operation):
@@ -29,11 +32,13 @@ def mutate_slide(work, operation):
 class PosterAlignmentTests(unittest.TestCase):
     def test_current_files(self):
         result = validate_alignment(PPTX, SVG)
-        self.assertEqual(result["numeric_cells_right_aligned"], 35 + 16 + 16 + 12)
+        self.assertEqual(result["numeric_cells_right_aligned"], 30 + 16 + 16 + 12)
 
     def test_native_numeric_center_rejected(self):
         def change(xml):
-            xml.findall(".//a:tbl", NS)[2].findall("a:tr", NS)[1].findall("a:tc", NS)[1].find("a:txBody/a:p/a:pPr", NS).set("algn", "ctr")
+            xml.findall(".//a:tbl", NS)[2].findall("a:tr", NS)[1].findall("a:tc", NS)[
+                1
+            ].find("a:txBody/a:p/a:pPr", NS).set("algn", "ctr")
 
         with tempfile.TemporaryDirectory() as work:
             with self.assertRaisesRegex(AssertionError, "PPTX table 3 row 1 col 1"):

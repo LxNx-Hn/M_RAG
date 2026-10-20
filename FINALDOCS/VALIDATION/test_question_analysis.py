@@ -8,7 +8,11 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "FINALDOCS/ANALYSIS"))
 from analyze_questions import deltas, load, annotate, source_questions  # noqa: E402
-from verify_question_analysis import validate_observations, FORBIDDEN  # noqa: E402
+from verify_question_analysis import (  # noqa: E402
+    validate_observations,
+    validate_pairs,
+    FORBIDDEN,
+)  # noqa: E402
 
 
 class QuestionEvidenceTests(unittest.TestCase):
@@ -66,6 +70,23 @@ class QuestionEvidenceTests(unittest.TestCase):
             & (d.query_id == "ext_cad_007")
         ]
         self.assertEqual(x.delta.iat[0], -0.05)
+
+    def test_zero_exclusion_preserves_original_score(self):
+        d = deltas(self.obs, annotate(self.ann, source_questions()))
+        validate_pairs(self.obs, d)
+        excluded = d[d.relevancy_zero_excluded]
+        self.assertGreater(len(excluded), 0)
+        self.assertTrue(excluded.delta.isna().all())
+        self.assertTrue(
+            ((excluded.base_value == 0) | (excluded.applied_value == 0)).all()
+        )
+        bad = d.copy()
+        index = excluded.index[0]
+        bad.loc[index, "delta"] = (
+            bad.loc[index, "applied_value"] - bad.loc[index, "base_value"]
+        )
+        with self.assertRaisesRegex(AssertionError, "Excluded or missing"):
+            validate_pairs(self.obs, bad)
 
     def test_user_rejected_content(self):
         for text in [
