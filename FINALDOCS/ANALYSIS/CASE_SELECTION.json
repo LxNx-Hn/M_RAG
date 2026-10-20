@@ -1,0 +1,65 @@
+{
+  "findings": {
+    "F1": "HyDE는 방법·절차 질문의 답변 관련성을 두 평가 언어에서 모두 높였다. 상승의 상당 부분은 기준 답변이 관련성 0으로 판정된 질문에서 나왔다.",
+    "F2": "결과·비교 질문은 필요한 수치가 입력 구간에 들어왔는지와 답변이 그 수치를 옮겼는지에 따라 결과가 갈렸다.",
+    "F3": "CAD는 입력 구간이 같은 상태에서 답변의 형식과 내용을 바꾸었고, 자동 점수의 상승과 요구 정보 제시가 일치하지 않는 경우가 있었다.",
+    "F4": "HyDE 조건에 CAD를 더한 비교는 HyDE 가상 문서가 다시 생성되어 입력 구간도 함께 달라졌다.",
+    "F5": "SCD는 대부분의 질문에서 한국어 문자 비율을 높였지만, 답변이 영어 원문을 이어 쓴 경우에는 비율이 오르지 않았다."
+  },
+  "cases": [
+    {
+      "finding": "F1",
+      "title": "RAPTOR에서 BIC가 결정하는 항목",
+      "query_id": "ext_raptor_004",
+      "comparison": "미적용 → HyDE"
+    },
+    {
+      "finding": "F1",
+      "title": "NQ-Swap 데이터셋의 생성 절차",
+      "query_id": "ext_cad_004",
+      "comparison": "미적용 → HyDE"
+    },
+    {
+      "finding": "F1",
+      "title": "Fusion SFT의 non-reasoning 비중 확대 목적",
+      "query_id": "ext_midm_005",
+      "comparison": "미적용 → HyDE"
+    },
+    {
+      "finding": "F2",
+      "title": "QuALITY의 계층별 검색 성능 비교",
+      "query_id": "ext_raptor_010",
+      "comparison": "미적용 → HyDE"
+    },
+    {
+      "finding": "F2",
+      "title": "LLaMA-30B·XSUM의 세 지표 비교",
+      "query_id": "ext_cad_009",
+      "comparison": "미적용 → CAD"
+    },
+    {
+      "finding": "F3",
+      "title": "RAPTOR 청크 길이와 문장 경계 처리",
+      "query_id": "ext_raptor_001",
+      "comparison": "미적용 → CAD"
+    },
+    {
+      "finding": "F3",
+      "title": "지식 집약 과제에서 RAG의 이점",
+      "query_id": "track1_0012",
+      "comparison": "미적용 → CAD"
+    },
+    {
+      "finding": "F4",
+      "title": "Naive RAG의 처리 과정",
+      "query_id": "track1_0010",
+      "comparison": "HyDE → HyDE+CAD"
+    },
+    {
+      "finding": "F5",
+      "title": "큰 청크와 작은 청크의 장단점",
+      "query_id": "ext_rag_003",
+      "comparison": "미적용 → SCD"
+    }
+  ]
+}

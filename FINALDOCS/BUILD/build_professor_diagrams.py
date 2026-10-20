@@ -156,65 +156,8 @@ def main():
     d.text(900, 635, "CAD와 함께 적용할 때: CAD 로짓 결합 후 SCD 계수 적용", 42)
     d.text(900, 755, "출력 특성의 측정: 한글 / (한글 + ASCII 영문자)", 44)
     drawings[FIG / "LITERATURE/fig2_4_scd_independent.svg"] = d.svg()
-    d = Drawing(1800, 1040)
-    d.text(900, 75, "질의 60개를 같은 8조건에서 반복측정")
-    for x, label in [
-        (30, "한국어 질의\n60개"),
-        (650, "H·C·S 적용 조합\n8조건"),
-        (1270, "저장 생성 기록\n480개"),
-    ]:
-        d.box(x, 140, 490, 150, label, size=44)
-    d.arrow("535,215 625,215")
-    d.arrow("1155,215 1245,215")
-    d.box(
-        80,
-        405,
-        740,
-        190,
-        "RAGAS 품질 지표\nS0 영어 / S1 한국어 번역 검색 결과",
-        PURPLE,
-        42,
-    )
-    d.box(
-        980,
-        405,
-        740,
-        190,
-        "한국어 문자 비율·조건 실행 시간\n생성 답변과 실행 로그에서 계산",
-        GREEN,
-        42,
-    )
-    d.arrow("1515,300 1515,340 450,340 450,390")
-    d.arrow("1515,340 1350,340 1350,390")
-    d.box(
-        80,
-        700,
-        740,
-        155,
-        "S0·S1별 H×C 반복측정 ANOVA\n충실도 n=58/57, 다른 지표 n=60",
-        PURPLE,
-        40,
-    )
-    d.box(980, 700, 740, 155, "H×C×S 반복측정 ANOVA\n문자 비율·시간 n=60", GREEN, 40)
-    d.arrow("450,610 450,680")
-    d.arrow("1350,610 1350,680")
-    d.text(900, 965, "질의별 대응 t-검정 · 반복측정 ANOVA · 평균(SD) · 효과크기", 42)
-    drawings[FIG / "fig5_0_evaluation_design.svg"] = d.svg()
-    poster = args.poster_svg.read_text(encoding="utf-8")
-    import re
-
-    # Figure 4-1 shows only the processing flow: the poster's one-line Paper-RAG
-    # definition is already in the body text, and the reranker cites the model
-    # actually used [M2] rather than the CEDR background work [8].
-    poster = re.sub(r"<text[^>]*>Paper-RAG는 [^<]*</text>", "", poster, count=1)
-    poster = poster.replace("CrossEncoder 재정렬[8][M2]", "CrossEncoder 재정렬[M2]", 1)
-    poster = re.sub(
-        r'width="594mm" height="841mm" viewBox="[^"]+"',
-        'width="159mm" height="74.306mm" viewBox="68 880 1033.52 483"',
-        poster,
-        count=1,
-    )
-    drawings[FIG / "fig4_1_pipeline.svg"] = poster
+    # Pipeline figure 4-1 is a standalone SVG source.
+    # Analysis/plot_questions.py owns evaluation figure 5-1.
     for target, svg in drawings.items():
         target.write_text(svg, encoding="utf-8")
         subprocess.run(

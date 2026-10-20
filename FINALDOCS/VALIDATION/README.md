@@ -1,17 +1,11 @@
-# 최종 검증과 근거
+# 제출 자료 검증
 
-한 번에 실행: `python -m FINALDOCS.VALIDATION.validate_all`. 결과는 `tmp/finaldocs/validation/VALIDATION_RESULT.json`에 성공·실패·추가 확인 필요를 구분해 기록한다. 오류가 발생하면 종료코드1이며 통과로 대체하지 않는다.
+```powershell
+python -X utf8 -m FINALDOCS.VALIDATION.validate_all
+```
 
-|책임|구현·자료|검출 범위|
-|---|---|---|
-|논문 내용·표·출처|manuscript_checks.py, verify_finaldocs_60q.py, TEXT_REVIEW.json|표14/1126셀·그림13·수식11·초록부재·문헌/모델/자료 인용·문장·배치 연결|
-|HWPX·학교 양식|../BUILD/verify_thesis_hwpx.py, layout_checks.py|22개 학교 스타일·문단 순서·실제 셀/그림/수식·서론 쪽번호·표지/심사란|
-|통계·원자료|analyze_ttest_anova_60q.py, ../BUILD/build_ttest_anova_tables.py, verify_statistics_reproduction.py, print_evidence_checks.py|60질의/480기록/1915유효값/5결측·평균SD·대응t·38 반복측정 ANOVA 효과·효과크기·실제 사례. 본문 표는 TTEST_ANOVA_60Q.json에서 재생성하며, verify_statistics_reproduction.py는 이력 분석(FACTORIAL_STATISTICS_60Q.json)을 재현한다|
-|포스터|../BUILD/poster_checks.py, poster_alignment.py, package_checks.py|A1·4편집표159셀/88숫자우측정렬·209문구 PPTX/SVG/PDF 일치·출처|
-|제출 패키지|package_checks.py, ARTIFACT_MANIFEST.json|원자료/제출 파일 해시·45쪽 페이지 지도·누락·A1 규격|
+검증은 원래 1,920개 품질 측정값(결측 5개 포함), 480개 시간과 한국어 문자 비율, 질문별 대응 차이 3,360개, 요약 728행, 질문 유형과 실제 사례 근거를 대조한다. 논리 표 9개는 XLSX·원고·HWPX 사이의 셀·정렬·최댓값 강조를 비교한다. 부록 A는 표 조각을 다시 합쳐 60행의 순서와 값을 확인하고 한 쪽을 넘는 높이를 거부한다.
 
-`PROSE_REVIEW.md`는 본문 전수 교열·96후보 판정·전체 문장 A→B·문단 재구성·최종 해시, `CURRENT_AUDIT.md`는 현재 판정, `PROFESSOR_FEEDBACK.md`는 전사·추가 메모·관찰/추론·실제 A→B·39개 이전 객체·27개 현재 객체·예상질문18개, `REFERENCES.md/.json`은 출판 검증, `RESEARCH_PROVENANCE.md`는 질의 작성과 자료 가용성·주장 근거다.
+HWPX 검사는 학교 양식·문단·표·그림·수식·참고문헌·쪽번호를 확인한다. 포스터는 A1 크기·편집 가능한 표 5개와 평행좌표 2개·질문 계열 120개·숫자 오른쪽 정렬 69개·PPTX/SVG/PDF 문구를 검사한다. 실제 한컴 편집 화면 검토 기록과 출력 파일 해시를 별도로 연결한다.
 
-`CLEANUP_FILES.csv`는 기준1242파일의 처리·원래SHA·의존 참조·복구 경로를 담는다. `CLEANUP_REPORT.md`는 전후 규모와 검사 기능 대응이다. 이전 파일 복원은 `git show pre-finaldocs-cleanup-20261018:<경로>`로 내용을 확인한 뒤 `git restore --source pre-finaldocs-cleanup-20261018 -- <경로>`로 필요한 파일만 복원한다.
-
-2026-10-18 금지 기준 A→B 전수 교열의 1문장 1행 대조표는 `AB_FULL_REVIEW_20261018.md`, 수정·검증 보고는 `FINAL_REVISION_REPORT_20261018.md`에 있다. 두 문서는 작업 기록이며 논문 본문과 분리한다.
+원자료·표 셀·최대값 강조·문단·수식·페이지 번호·부록 누락·표 높이·차트 점수·정렬을 훼손하는 회귀 검사를 포함한다. 전체 검사는 제출 파일과 쪽 지도·화면 검토 기록이 갱신된 상태에서 통과해야 한다. 인준 정보, 실물 인쇄와 설치형 PowerPoint 실행은 디지털 검증과 구분한다.

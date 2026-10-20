@@ -1,35 +1,31 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-20",
   "title": "한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험",
   "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries",
-  "tables": 14,
-  "figures": 13,
-  "equations": 11,
+  "tables": 9,
+  "figures": 10,
+  "equations": 8,
   "references": 22,
   "literature_figures": 4,
   "usage_hyperlinks": 4,
   "sheets": [
     "T2-1_Related_Work",
-    "T3-1_Factorial_Design",
     "T4-1_Environment",
-    "T5-1_Mean_SD",
-    "T5-2_Runtime_SD",
-    "T5-3_Quality_S0",
-    "T5-4_Quality_S1",
-    "T5-5_Factorial",
-    "T5-6_Factorial",
-    "T5-7_Paired_Quality",
-    "T5-8_Paired_Language",
-    "Appendix_Queries",
-    "Appendix_Paper",
-    "Appendix_QueryType"
+    "T5-1_HyDE_Relevance",
+    "T5-2_CAD_Faithfulness",
+    "T5-3_Combinations",
+    "T5-4_HyDE_Retrieval",
+    "T5-5_Korean",
+    "T5-6_Time",
+    "Appendix_Queries"
   ],
   "case_figures": {
-    "E01": "5-2",
-    "E06": "B-1",
-    "E04": "B-2",
-    "E05": "B-3",
-    "E02": "B-4",
-    "E03": "B-5"
+    "fig5_2_io_example": "5-2"
+  },
+  "question_types": {
+    "사실 및 정의": 8,
+    "방법 및 절차": 29,
+    "결과 및 비교": 20,
+    "목적 및 기여": 3
   }
 }

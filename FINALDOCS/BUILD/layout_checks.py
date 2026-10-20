@@ -1,6 +1,8 @@
 """Inspect saved OWPML role formatting without trusting the build log."""
 
 import re
+import copy
+from lxml import etree as ET
 
 HH = "http://www.hancom.co.kr/hwpml/2011/head"
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
@@ -33,10 +35,10 @@ def validate_layout(header, section):
             if index >= 3:
                 role = "table"
                 table = p.find(".//hp:tbl", NS)
-                height = int(table.find("hp:sz", NS).get("height"))
-                assert table.find("hp:pos", NS).get("treatAsChar") == (
-                    "1" if height <= 50000 else "0"
-                ), "table caption flow missing"
+                position = table.find("hp:pos", NS)
+                assert position.get("treatAsChar") == "1", "inline table flow missing"
+                assert position.get("flowWithText") == "1", "table anchor flow missing"
+                assert position.get("allowOverlap") == "0", "table overlap enabled"
         elif style in ("장(1.)", "부록제목", "참고문헌제목"):
             role = "chapter"
         elif style == "절(1.1)":
@@ -75,9 +77,23 @@ def validate_layout(header, section):
             continue
         shape = para[p.get("paraPrIDRef")]
         original = definitions[p.get("styleIDRef")]
-        assert p.get("paraPrIDRef") == original.get(
-            "paraPrIDRef"
-        ), f"School paragraph style overridden: {role}"
+        expected = copy.deepcopy(para[original.get("paraPrIDRef")])
+        expected.set("id", shape.get("id"))
+        if role in ("table_caption", "section", "picture", "body"):
+            flags = expected.find("hh:breakSetting", NS)
+            flags.set("widowOrphan", "1")
+            if role in ("table_caption", "section", "picture"):
+                flags.set("keepWithNext", "1")
+        if role == "table_caption":
+            for branch in expected.findall("hp:switch/*", NS):
+                for margin in branch.iter():
+                    if margin.tag == "{http://www.hancom.co.kr/hwpml/2011/core}next":
+                        margin.set(
+                            "value", "300" if branch.tag.endswith("case") else "600"
+                        )
+        assert ET.tostring(shape, method="c14n", exclusive=True) == ET.tostring(
+            expected, method="c14n", exclusive=True
+        ), f"School paragraph formatting or pagination differs: {role}"
         for run in p.findall("hp:run", NS):
             assert run.get("charPrIDRef") == original.get(
                 "charPrIDRef"
@@ -97,9 +113,12 @@ def validate_layout(header, section):
             {"role": role, "paragraph_id": p.get("id"), "paraPrIDRef": shape.get("id")}
         )
     assert sum(r["role"] == "figure_source" for r in checked) == 0
-    assert sum(r["role"] == "picture" for r in checked) == 13
-    assert sum(r["role"] == "table" for r in checked) == 14
-    assert sum(r["role"] == "equation" for r in checked) == 11
+    assert sum(r["role"] == "picture" for r in checked) == 10
+    assert (
+        sum(r["role"] == "table" for r in checked)
+        == len(section.findall(".//hp:tbl", NS)) - 2
+    )
+    assert sum(r["role"] == "equation" for r in checked) == 8
     assert len(links) == 4
     return {
         "paragraphs": checked,

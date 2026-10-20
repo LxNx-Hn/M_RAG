@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="453.6pt" height="260.5pt" viewBox="0 0 453.6 260.5" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T17:52:32.912078</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 260.5 
+L 453.6 260.5 
+L 453.6 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="15.647188" transform="rotate(-0 4.248 15.647188)">질문</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 17.079805)">RAPTOR의 클러스터링 과정에서 Bayesian Information</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 32.717422)">Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="62.321563" transform="rotate(-0 4.248 62.321563)">참조 답변</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #263044" x="85.428" y="63.637695" transform="rotate(-0 85.428 63.637695)">to determine the optimal number of clusters (원문 4쪽)</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="93.362188" transform="rotate(-0 4.248 93.362188)">입력 구간</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 94.355938)">To determine the optimal number of clusters, we employ</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 109.580938)">the Bayesian Information Criterion (BIC) for model</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 125.951914)">selection.</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="155.237188" transform="rotate(-0 4.248 155.237188)">생성 답변</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 157.241563)">제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 171.894805)">과정에서 Bayesian Information Criterion(BIC)은 최적의</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 187.968008)">클러스터 개수 결정을 위해 사용됨이 확인됩니다.</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="217.112188" transform="rotate(-0 4.248 217.112188)">평가값</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 219.228945)">근거 충실도 0.857 · 답변 관련성 0.895 / 문맥 정밀도 0.700</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 234.576992)">· 문맥 재현율 1.000</text>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -75,8 +75,8 @@ def main(build_dir, output):
         presentation = etree.fromstring(z.read("ppt/presentation.xml"))
         size = presentation.find("p:sldSz", NS)
         assert (int(size.get("cx")), int(size.get("cy"))) == (21384000, 30276000)
-        assert len(slide.findall(".//a:tbl", NS)) == 4
-        assert not slide.xpath(".//*[local-name()='chart']")
+        assert len(slide.findall(".//a:tbl", NS)) == 5
+        assert len(slide.xpath(".//*[local-name()='chart']")) == 2
         assert len(presentation.findall("p:sldIdLst/p:sldId", NS)) == 1
         assert z.testzip() is None
     for value in required:
@@ -130,8 +130,8 @@ def main(build_dir, output):
         "required_text_units": len(required),
         "pdf_pages": 1,
         "size_mm": mm,
-        "native_tables": 4,
-        "native_charts": 0,
+        "native_tables": 5,
+        "native_charts": 2,
         "all_svg_pptx_pdf_text_equal": True,
         "pdf_text_encoding": pdf_text_encoding,
         "print_image_px": [7016, 9933],

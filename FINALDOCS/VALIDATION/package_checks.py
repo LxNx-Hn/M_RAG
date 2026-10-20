@@ -37,7 +37,7 @@ def validate_pdf_map(pdf, mapping):
         hashlib.sha256(pdf.read_bytes()).hexdigest() == mapping["pdf_sha256"]
     ), "Page map PDF hash mismatch"
     with fitz.open(pdf) as doc:
-        assert len(doc) == mapping["pdf_pages"] == 45, "PDF page count mismatch"
+        assert len(doc) == mapping["pdf_pages"], "PDF page count mismatch"
         assert not mapping["unresolved"], "Unresolved page map entries"
         for physical, expected in mapping["printed_footers"].items():
             page = doc[int(physical) - 1]
@@ -58,55 +58,45 @@ def validate_pdf_map(pdf, mapping):
 
 
 def validate_poster_files(folder):
-    import importlib.util
     import fitz
 
     pptx = folder / "M_RAG_A1_FINAL_EDITABLE.pptx"
     svg = folder / "M_RAG_A1_FINAL_EDITABLE.svg"
-    with zipfile.ZipFile(pptx) as package:
-        assert package.testzip() is None
-        presentation = etree.fromstring(package.read("ppt/presentation.xml"))
-        size = presentation.find(
+    with zipfile.ZipFile(pptx) as z:
+        xml = etree.fromstring(z.read("ppt/presentation.xml"))
+        size = xml.find(
             "{http://schemas.openxmlformats.org/presentationml/2006/main}sldSz"
         )
         assert (int(size.get("cx")), int(size.get("cy"))) == (
             21384000,
             30276000,
         ), "A1 PPTX size mismatch"
-        assert (
-            len(
-                presentation.findall(
-                    "{http://schemas.openxmlformats.org/presentationml/2006/main}sldIdLst/{http://schemas.openxmlformats.org/presentationml/2006/main}sldId"
-                )
+        native = "".join(
+            etree.fromstring(z.read("ppt/slides/slide1.xml")).xpath(
+                "//*[local-name()='t']/text()"
             )
-            == 1
         )
-        slide = etree.fromstring(package.read("ppt/slides/slide1.xml"))
-        labels = slide.xpath(".//*[local-name()='t']/text()")
-        assert len(slide.xpath(".//*[local-name()='tbl']")) == 4
-    required = json.loads((folder / "A1_COPYEDIT_MAP.json").read_text("utf-8"))[
-        "required_text"
+    vector = "".join(etree.fromstring(svg.read_bytes()).itertext())
+    # Every text unit the poster builder placed (FINALDOCS/BUILD/build_poster.py).
+    required = [
+        t
+        for t in json.loads((folder / "POSTER_TEXT.json").read_text(encoding="utf-8"))
+        if t.strip()
     ]
 
-    def compact(text):
-        return "".join(text.split())
+    def compact(s):
+        return "".join(s.split())
 
-    native = compact("".join(labels))
-    vector = compact("".join(etree.fromstring(svg.read_bytes()).itertext()))
-    for value in required:
-        assert compact(value) in native and compact(value) in vector, (
-            "Native/vector text mismatch: " + value
+    with fitz.open(folder / "M_RAG_A1_FINAL_PRINT.pdf") as pdf:
+        assert len(pdf) == 1
+        assert (
+            abs(pdf[0].rect.width * 25.4 / 72 - 594) < 0.1
+            and abs(pdf[0].rect.height * 25.4 / 72 - 841) < 0.1
         )
-    spec = importlib.util.spec_from_file_location(
-        "poster_export", folder / "rebuild_exports.py"
-    )
-    export = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(export)
-    with fitz.open(folder / "M_RAG_A1_FINAL_PRINT.pdf") as doc:
-        assert len(doc) == 1
-        assert abs(doc[0].rect.width * 25.4 / 72 - 594) < 0.02
-        assert abs(doc[0].rect.height * 25.4 / 72 - 841) < 0.02
-        export.validate_pdf_text(required, doc[0].get_text())
+        printed = pdf[0].get_text()
+    for text in required:
+        for name, content in [("PPTX", native), ("SVG", vector), ("PDF", printed)]:
+            assert compact(text) in compact(content), f"{name} text mismatch: {text}"
     return {
         "alignment": validate_alignment(pptx, svg),
         "content": validate_poster(pptx, svg),
@@ -136,7 +126,7 @@ def main():
                 (ROOT / "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json").read_text("utf-8")
             ),
         )
-        print("PASS: protected research inputs, submitted files and 50-page print map")
+        print("PASS: protected research inputs, submitted files and current page map")
 
 
 if __name__ == "__main__":

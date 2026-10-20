@@ -146,18 +146,54 @@ def main() -> None:
                 actual_counts[paragraph] == count
             ), f"Manuscript paragraph occurrence mismatch: {paragraph[:100]}"
         tables = section.findall(".//hp:tbl", NS)
-        assert len(tables) == 16, "14 thesis tables + 2 school cover layout tables"
+        assert len(tables) >= 12, "Long inline appendix must be segmented"
         workbook = load_workbook(
             ROOT / "FINALDOCS/TABLES/TABLES_60Q.xlsx", data_only=False
         )
         sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", source)
-        assert len(sheets) == 14
+        assert len(sheets) == 9
+        definitions = {
+            t["sheet"]: t
+            for t in json.loads(
+                (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+        }
         cell_count = 0
-        for table, name in zip(tables[2:], sheets):
+        instances = [
+            (t, name, list(range(workbook[name.strip()].max_row - 2)))
+            for t, name in zip(tables[2:10], sheets[:8])
+        ]
+        next_row = 1
+        appendix_parts = tables[10:]
+        for index, table in enumerate(appendix_parts):
+            count = int(table.get("rowCnt"))
+            assert count >= 2, "Empty appendix segment"
+            source_rows = [0] + list(range(next_row, next_row + count - 1))
+            instances.append((table, sheets[-1], source_rows))
+            next_row += count - 1
+            size = table.find("hp:sz", NS)
+            assert int(size.get("height")) <= (
+                42000 if index == 0 else 60000
+            ), "Inline appendix exceeds page height"
+        assert next_row == 61, "Appendix must retain all 60 source rows exactly once"
+        continued = [
+            "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS))
+            for p in section
+            if "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS)).startswith(
+                "[계속표 A-1"
+            )
+        ]
+        assert continued == [
+            f"[계속표 A-1 ({i+1}/{len(appendix_parts)})] 60개 질문과 정답 근거"
+            for i in range(1, len(appendix_parts))
+        ]
+        for table, name, source_rows in instances:
             ws = workbook[name.strip()]
-            assert int(table.get("rowCnt")) == ws.max_row - 2
+            assert int(table.get("rowCnt")) == len(source_rows)
             assert int(table.get("colCnt")) == ws.max_column
-            expected_break = "TABLE" if name.strip() == "Appendix_Queries" else "CELL"
+            expected_break = "TABLE"
             assert (
                 table.get("pageBreak") == expected_break
             ), "Table row pagination changed"
@@ -173,7 +209,7 @@ def main() -> None:
             for cell in table.findall("hp:tr/hp:tc", NS):
                 address = cell.find("hp:cellAddr", NS)
                 r, c = int(address.get("rowAddr")), int(address.get("colAddr"))
-                original = ws.cell(r + 3, c + 1)
+                original = ws.cell(source_rows[r] + 3, c + 1)
                 assert (
                     original.data_type != "f"
                 ), "Cached-only formula input not permitted"
@@ -187,28 +223,61 @@ def main() -> None:
                 assert norm(text) == norm(
                     value
                 ), f"{name} cell {original.coordinate}: {text!r} != {value!r}"
-                if name.strip() == "T5-1_Mean_SD" and r == 5:
-                    fill_id = cell.get("borderFillIDRef")
-                    fill = next(
+                fill_id = cell.get("borderFillIDRef")
+                fill = next(
+                    item
+                    for item in header.iter()
+                    if item.tag.endswith("}borderFill") and item.get("id") == fill_id
+                )
+                for brush in fill.iter():
+                    if brush.tag.endswith("}winBrush"):
+                        assert brush.get("faceColor") in (
+                            "#FFFFFF",
+                            "none",
+                            "NONE",
+                            None,
+                        ), "Result cell colour shading returned"
+                for run in cell.findall(".//hp:run", NS):
+                    char_id = run.get("charPrIDRef")
+                    char = next(
                         item
                         for item in header.iter()
-                        if item.tag.endswith("}borderFill")
-                        and item.get("id") == fill_id
+                        if item.tag.endswith("}charPr") and item.get("id") == char_id
                     )
-                    top = next(item for item in fill if item.tag.endswith("}topBorder"))
-                    assert (
-                        top.get("type") == "SOLID" and top.get("width") == "0.4 mm"
-                    ), "Missing S0/S1 table group border"
+                    is_bold = any(item.tag.endswith("}bold") for item in char)
+                    assert is_bold == bool(
+                        original.font.bold
+                    ), f"Native bold mismatch: {name} {original.coordinate}"
                 label = str(ws.cell(3, c + 1).value)
-                numeric = bool(
-                    re.match(
-                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|실행 시간|원문 페이지)",
-                        label,
+                numeric = (
+                    (c in definitions[name.strip()]["numeric_columns"])
+                    if definitions[name.strip()].get("numeric_columns") is not None
+                    else bool(
+                        re.match(
+                            r"^(?:n|유효 n|평균|질문 수|기준 점수|적용 점수|기준 시간|적용 시간|점수 차이|개선/|증가/|원문 페이지|근거 충실도|답변 관련성|문맥|한국어 비율|실행 시간)",
+                            label,
+                        )
                     )
                 )
                 expected_alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "요인")
+                    if r == 0
+                    or label
+                    in (
+                        "조건",
+                        "H",
+                        "C",
+                        "S",
+                        "효과",
+                        "요인",
+                        "번호",
+                        "HyDE",
+                        "CAD",
+                        "SCD",
+                        "조건 코드",
+                        "품질 평가 언어",
+                        "비교 조건",
+                    )
                     else "RIGHT" if numeric else "LEFT"
                 )
                 for paragraph in cell.findall(".//hp:p", NS):
@@ -229,7 +298,7 @@ def main() -> None:
         assert workbook["Appendix_Queries"].max_row - 3 == 60
         pictures = section.findall(".//hp:pic", NS)
         image_paths = re.findall(r"\[(?:그림|입출력증빙)삽입:\s*([^|]+)\|", source)
-        assert len(pictures) == len(image_paths) == 13
+        assert len(pictures) == len(image_paths) == 10
         hpf = ET.fromstring(z.read("Contents/content.hpf"))
         assets = {
             x.get("id"): x.get("href") for x in hpf.iter() if x.tag.endswith("}item")
@@ -253,7 +322,7 @@ def main() -> None:
             for block in re.findall(r"```text\n(.*?)```", source, re.DOTALL)
             if "\t" not in block
         ]
-        assert scripts == equation_blocks and len(scripts) == 11
+        assert scripts == equation_blocks and len(scripts) == 8
         template = zipfile.ZipFile(delivery / "SCHOOL_TEMPLATE_CONVERTED.hwpx")
         original_header = ET.fromstring(template.read("Contents/header.xml"))
         layout_report = validate_layout(header, section)
@@ -306,26 +375,16 @@ def main() -> None:
         ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 13), ("표", 14)):
+        for kind, count in (("그림", 10), ("표", 9)):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
                 re.MULTILINE,
             )
             assert len(captions) == len(set(captions)) == count
-        expected = {
-            "E04": "B-2",
-            "E05": "B-3",
-            "E02": "B-4",
-            "E03": "B-5",
-            "E01": "5-2",
-            "E06": "B-1",
-        }
-        for case, number in expected.items():
-            assert re.search(
-                rf"\[(?:입출력증빙|그림)삽입:[^\n]*{case}[^\n]*\]\s*\[그림 {number}\]",
-                source,
-            )
+        assert re.search(
+            r"\[그림삽입:[^\n]*fig5_2_io_example[^\n]*\]\s*\[그림 5-2\]", source
+        )
     manifest = json.loads(
         (ROOT / "FINALDOCS/DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
     )
@@ -355,10 +414,12 @@ def main() -> None:
         "sha256": hashlib.sha256(args.file.read_bytes()).hexdigest(),
         "paragraphs_in_order": len(paragraphs),
         "table_cells_verified": cell_count,
-        "thesis_tables": 15,
+        "thesis_tables": 9,
+        "native_table_segments": len(tables) - 2,
+        "appendix_segments": len(appendix_parts),
         "cover_layout_tables": 2,
-        "pictures": 13,
-        "editable_equations": 11,
+        "pictures": 10,
+        "editable_equations": 8,
         "references": 22,
         "queries": len(queries),
         "configurations": dict(configs),
@@ -376,7 +437,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, 14 tables, 13 pictures, 11 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of 9 logical tables, 10 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

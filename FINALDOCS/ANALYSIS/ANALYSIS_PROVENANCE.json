@@ -1,0 +1,96 @@
+{
+  "inputs": {
+    "FINALDOCS/DATA/FACTORIAL_OBSERVATIONS_60Q.csv": "207b00840e364f4e4d5588252d7ce6389ada1cb49bd48cf962d6fd6cb9e0e76e",
+    "FINALDOCS/ANALYSIS/QUERY_TYPE_ANNOTATIONS.csv": "922f826774733e2416b80daa8cec306e8975c4d6dc5dab734d3bc309175f3ed6",
+    "FINALDOCS/DATA/QUESTIONS_60Q.json": "d88f42d453ca82d4639af281529b473ee3cfc296b0a5575c608805b21d6d6f49"
+  },
+  "classification_sha256": "72389bff47f61e2a3bbd13610ea7edec444a9ce506695d4caa32474a759a1270",
+  "question_types": {
+    "사실 및 정의": 8,
+    "방법 및 절차": 29,
+    "결과 및 비교": 20,
+    "목적 및 기여": 3
+  },
+  "comparisons": [
+    [
+      "미적용 → HyDE",
+      "H0C0S0",
+      "H1C0S0",
+      "영어"
+    ],
+    [
+      "미적용 → CAD",
+      "H0C0S0",
+      "H0C1S0",
+      "영어"
+    ],
+    [
+      "HyDE → HyDE+CAD",
+      "H1C0S0",
+      "H1C1S0",
+      "영어"
+    ],
+    [
+      "CAD → HyDE+CAD",
+      "H0C1S0",
+      "H1C1S0",
+      "영어"
+    ],
+    [
+      "SCD → HyDE+SCD",
+      "H0C0S1",
+      "H1C0S1",
+      "한국어 번역"
+    ],
+    [
+      "SCD → CAD+SCD",
+      "H0C0S1",
+      "H0C1S1",
+      "한국어 번역"
+    ],
+    [
+      "HyDE+SCD → HyDE+CAD+SCD",
+      "H1C0S1",
+      "H1C1S1",
+      "한국어 번역"
+    ],
+    [
+      "CAD+SCD → HyDE+CAD+SCD",
+      "H0C1S1",
+      "H1C1S1",
+      "한국어 번역"
+    ],
+    [
+      "미적용 → SCD",
+      "H0C0S0",
+      "H0C0S1",
+      null
+    ],
+    [
+      "HyDE → HyDE+SCD",
+      "H1C0S0",
+      "H1C0S1",
+      null
+    ],
+    [
+      "CAD → CAD+SCD",
+      "H0C1S0",
+      "H0C1S1",
+      null
+    ],
+    [
+      "HyDE+CAD → HyDE+CAD+SCD",
+      "H1C1S0",
+      "H1C1S1",
+      null
+    ]
+  ],
+  "delta_rows": 3360,
+  "rules": {
+    "quality": "같은 평가 언어(SCD 미적용끼리, SCD 적용끼리)의 두 조건만 비교",
+    "score_change": "0.05 초과 개선, -0.05 미만 악화, 경계 포함 사이는 비슷함",
+    "time_change": "1초 초과 증가, -1초 미만 감소, 사이는 비슷함",
+    "missing": "결측 질문은 해당 비교의 두 평균에서 함께 제외"
+  },
+  "status": "저장된 측정값의 질문별 기술 분석"
+}

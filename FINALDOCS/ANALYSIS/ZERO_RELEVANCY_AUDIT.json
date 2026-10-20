@@ -1,0 +1,851 @@
+{
+  "rule": "RAGAS 0.2.15 ResponseRelevancy: score = mean cosine x int(not noncommittal)",
+  "counts": [
+    {
+      "condition": "H0C0S0",
+      "name": "미적용",
+      "전체": 7,
+      "사실 및 정의": 0,
+      "방법 및 절차": 6,
+      "결과 및 비교": 1,
+      "목적 및 기여": 0
+    },
+    {
+      "condition": "H0C1S0",
+      "name": "CAD",
+      "전체": 6,
+      "사실 및 정의": 0,
+      "방법 및 절차": 3,
+      "결과 및 비교": 2,
+      "목적 및 기여": 1
+    },
+    {
+      "condition": "H1C0S0",
+      "name": "HyDE",
+      "전체": 3,
+      "사실 및 정의": 0,
+      "방법 및 절차": 1,
+      "결과 및 비교": 2,
+      "목적 및 기여": 0
+    },
+    {
+      "condition": "H1C1S0",
+      "name": "HyDE+CAD",
+      "전체": 5,
+      "사실 및 정의": 0,
+      "방법 및 절차": 3,
+      "결과 및 비교": 1,
+      "목적 및 기여": 1
+    },
+    {
+      "condition": "H0C0S1",
+      "name": "SCD",
+      "전체": 8,
+      "사실 및 정의": 1,
+      "방법 및 절차": 7,
+      "결과 및 비교": 0,
+      "목적 및 기여": 0
+    },
+    {
+      "condition": "H0C1S1",
+      "name": "CAD+SCD",
+      "전체": 11,
+      "사실 및 정의": 1,
+      "방법 및 절차": 7,
+      "결과 및 비교": 1,
+      "목적 및 기여": 2
+    },
+    {
+      "condition": "H1C0S1",
+      "name": "HyDE+SCD",
+      "전체": 6,
+      "사실 및 정의": 0,
+      "방법 및 절차": 3,
+      "결과 및 비교": 2,
+      "목적 및 기여": 1
+    },
+    {
+      "condition": "H1C1S1",
+      "name": "HyDE+CAD+SCD",
+      "전체": 8,
+      "사실 및 정의": 0,
+      "방법 및 절차": 4,
+      "결과 및 비교": 3,
+      "목적 및 기여": 1
+    }
+  ],
+  "transitions": [
+    {
+      "comparison": "미적용 → HyDE",
+      "evaluation_language": "영어",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 6,
+      "positive_to_zero": 2,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_cad_004",
+        "ext_midm_004",
+        "ext_midm_005",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_007",
+        "ext_raptor_010"
+      ],
+      "mean_delta": 0.08049500000000001,
+      "n_both_positive": 51,
+      "mean_delta_both_positive": 0.043737254901960794
+    },
+    {
+      "comparison": "미적용 → HyDE",
+      "evaluation_language": "영어",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.04546250000000002,
+      "n_both_positive": 8,
+      "mean_delta_both_positive": 0.04546250000000002
+    },
+    {
+      "comparison": "미적용 → HyDE",
+      "evaluation_language": "영어",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 6,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_cad_004",
+        "ext_midm_004",
+        "ext_midm_005",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_007"
+      ],
+      "mean_delta": 0.17191034482758621,
+      "n_both_positive": 22,
+      "mean_delta_both_positive": 0.06885909090909091
+    },
+    {
+      "comparison": "미적용 → HyDE",
+      "evaluation_language": "영어",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "ext_raptor_010"
+      ],
+      "mean_delta": -0.021639999999999993,
+      "n_both_positive": 18,
+      "mean_delta_both_positive": 0.024366666666666672
+    },
+    {
+      "comparison": "미적용 → HyDE",
+      "evaluation_language": "영어",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": -0.02886666666666667,
+      "n_both_positive": 3,
+      "mean_delta_both_positive": -0.02886666666666667
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "evaluation_language": "영어",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 6,
+      "positive_to_zero": 5,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_cad_004",
+        "ext_midm_005",
+        "ext_midm_008",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_midm_009",
+        "ext_rag_003",
+        "ext_rag_005",
+        "ext_raptor_006",
+        "track1_0012"
+      ],
+      "mean_delta": -0.00733500000000001,
+      "n_both_positive": 48,
+      "mean_delta_both_positive": -0.021468750000000005
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "evaluation_language": "영어",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": -0.014499999999999985,
+      "n_both_positive": 8,
+      "mean_delta_both_positive": -0.014499999999999985
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "evaluation_language": "영어",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 5,
+      "positive_to_zero": 2,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_cad_004",
+        "ext_midm_005",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_003",
+        "ext_rag_005"
+      ],
+      "mean_delta": 0.0684310344827586,
+      "n_both_positive": 21,
+      "mean_delta_both_positive": -0.02058095238095239
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "evaluation_language": "영어",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 1,
+      "positive_to_zero": 2,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_midm_008"
+      ],
+      "positive_to_zero_ids": [
+        "ext_midm_009",
+        "ext_raptor_006"
+      ],
+      "mean_delta": -0.06835,
+      "n_both_positive": 17,
+      "mean_delta_both_positive": -0.02592941176470589
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "evaluation_language": "영어",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "track1_0012"
+      ],
+      "mean_delta": -0.3138666666666667,
+      "n_both_positive": 2,
+      "mean_delta_both_positive": -0.02074999999999999
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 2,
+      "positive_to_zero": 4,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_cad_007",
+        "ext_midm_008"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_004",
+        "ext_raptor_005",
+        "track1_0009",
+        "track1_0010"
+      ],
+      "mean_delta": -0.058808333333333344,
+      "n_both_positive": 53,
+      "mean_delta_both_positive": -0.02699622641509435
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.010562499999999989,
+      "n_both_positive": 8,
+      "mean_delta_both_positive": 0.010562499999999989
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 1,
+      "positive_to_zero": 3,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_cad_007"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_004",
+        "ext_raptor_005",
+        "track1_0010"
+      ],
+      "mean_delta": -0.10407241379310347,
+      "n_both_positive": 25,
+      "mean_delta_both_positive": -0.03516000000000001
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 1,
+      "positive_to_zero": 0,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_midm_008"
+      ],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.00047499999999999767,
+      "n_both_positive": 18,
+      "mean_delta_both_positive": -0.03605
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "track1_0009"
+      ],
+      "mean_delta": -0.20146666666666666,
+      "n_both_positive": 2,
+      "mean_delta_both_positive": 0.006300000000000028
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 6,
+      "positive_to_zero": 5,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_midm_009",
+        "ext_rag_003",
+        "ext_rag_005",
+        "ext_raptor_006",
+        "track1_0012"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_004",
+        "ext_raptor_005",
+        "ext_raptor_010",
+        "track1_0009",
+        "track1_0010"
+      ],
+      "mean_delta": 0.029021666666666664,
+      "n_both_positive": 49,
+      "mean_delta_both_positive": 0.009993877551020412
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.07052499999999999,
+      "n_both_positive": 8,
+      "mean_delta_both_positive": 0.07052499999999999
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 3,
+      "positive_to_zero": 3,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_rag_003",
+        "ext_rag_005"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_004",
+        "ext_raptor_005",
+        "track1_0010"
+      ],
+      "mean_delta": -0.0005931034482758656,
+      "n_both_positive": 23,
+      "mean_delta_both_positive": -0.004421739130434783
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 2,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_midm_009",
+        "ext_raptor_006"
+      ],
+      "positive_to_zero_ids": [
+        "ext_raptor_010"
+      ],
+      "mean_delta": 0.047185000000000005,
+      "n_both_positive": 17,
+      "mean_delta_both_positive": 0.0016000000000000066
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "evaluation_language": "영어",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 1,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "track1_0012"
+      ],
+      "positive_to_zero_ids": [
+        "track1_0009"
+      ],
+      "mean_delta": 0.08353333333333335,
+      "n_both_positive": 1,
+      "mean_delta_both_positive": 0.0
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 7,
+      "positive_to_zero": 5,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_midm_005",
+        "ext_rag_003",
+        "ext_raptor_001",
+        "ext_raptor_004",
+        "ext_raptor_005",
+        "track1_0015"
+      ],
+      "positive_to_zero_ids": [
+        "ext_midm_008",
+        "ext_rag_004",
+        "ext_rag_005",
+        "ext_raptor_010",
+        "track1_0009"
+      ],
+      "mean_delta": 0.07248333333333333,
+      "n_both_positive": 47,
+      "mean_delta_both_positive": 0.03519787234042553
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 1,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "track1_0015"
+      ],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.0857125,
+      "n_both_positive": 7,
+      "mean_delta_both_positive": -0.025428571428571436
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 6,
+      "positive_to_zero": 2,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_midm_005",
+        "ext_rag_003",
+        "ext_raptor_001",
+        "ext_raptor_004",
+        "ext_raptor_005"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_004",
+        "ext_rag_005"
+      ],
+      "mean_delta": 0.15665517241379315,
+      "n_both_positive": 20,
+      "mean_delta_both_positive": 0.044895000000000004
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 0,
+      "positive_to_zero": 2,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "ext_midm_008",
+        "ext_raptor_010"
+      ],
+      "mean_delta": -0.01199,
+      "n_both_positive": 18,
+      "mean_delta_both_positive": 0.05478333333333333
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "track1_0009"
+      ],
+      "mean_delta": -0.21329999999999996,
+      "n_both_positive": 2,
+      "mean_delta_both_positive": -0.025849999999999984
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 4,
+      "positive_to_zero": 7,
+      "zero_to_zero": 4,
+      "zero_to_positive_ids": [
+        "ext_midm_005",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_midm_009",
+        "ext_rag_001",
+        "ext_rag_004",
+        "ext_rag_007",
+        "ext_raptor_003",
+        "track1_0009",
+        "track1_0012"
+      ],
+      "mean_delta": -0.037656666666666665,
+      "n_both_positive": 45,
+      "mean_delta_both_positive": -0.01922222222222222
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": -0.016049999999999995,
+      "n_both_positive": 7,
+      "mean_delta_both_positive": -0.018342857142857136
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 4,
+      "positive_to_zero": 4,
+      "zero_to_zero": 3,
+      "zero_to_positive_ids": [
+        "ext_midm_005",
+        "ext_rag_006",
+        "ext_raptor_001",
+        "ext_raptor_004"
+      ],
+      "positive_to_zero_ids": [
+        "ext_rag_001",
+        "ext_rag_004",
+        "ext_rag_007",
+        "ext_raptor_003"
+      ],
+      "mean_delta": -0.0018344827586206924,
+      "n_both_positive": 18,
+      "mean_delta_both_positive": -0.04275555555555556
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "ext_midm_009"
+      ],
+      "mean_delta": -0.029474999999999994,
+      "n_both_positive": 19,
+      "mean_delta_both_positive": 0.0017368421052631681
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 2,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "track1_0009",
+        "track1_0012"
+      ],
+      "mean_delta": -0.4961,
+      "n_both_positive": 1,
+      "mean_delta_both_positive": 0.0
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 2,
+      "positive_to_zero": 4,
+      "zero_to_zero": 4,
+      "zero_to_positive_ids": [
+        "ext_rag_004",
+        "ext_rag_005"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_005",
+        "ext_rag_001",
+        "ext_raptor_002",
+        "track1_0035"
+      ],
+      "mean_delta": -0.04265333333333333,
+      "n_both_positive": 50,
+      "mean_delta_both_positive": -0.02743
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": -0.009887499999999994,
+      "n_both_positive": 8,
+      "mean_delta_both_positive": -0.009887499999999994
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 2,
+      "positive_to_zero": 3,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_rag_004",
+        "ext_rag_005"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_005",
+        "ext_rag_001",
+        "ext_raptor_002"
+      ],
+      "mean_delta": -0.054982758620689645,
+      "n_both_positive": 23,
+      "mean_delta_both_positive": -0.03231304347826086
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 0,
+      "positive_to_zero": 1,
+      "zero_to_zero": 2,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [
+        "track1_0035"
+      ],
+      "mean_delta": -0.04239999999999999,
+      "n_both_positive": 17,
+      "mean_delta_both_positive": -0.03009411764705882
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 0,
+      "positive_to_zero": 0,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [],
+      "positive_to_zero_ids": [],
+      "mean_delta": -0.01253333333333336,
+      "n_both_positive": 2,
+      "mean_delta_both_positive": -0.01880000000000004
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "전체",
+      "n": 60,
+      "zero_to_positive": 9,
+      "positive_to_zero": 6,
+      "zero_to_zero": 2,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_midm_009",
+        "ext_rag_003",
+        "ext_rag_004",
+        "ext_rag_007",
+        "ext_raptor_003",
+        "ext_raptor_005",
+        "track1_0012",
+        "track1_0015"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_005",
+        "ext_midm_008",
+        "ext_rag_006",
+        "ext_raptor_002",
+        "ext_raptor_010",
+        "track1_0035"
+      ],
+      "mean_delta": 0.06748666666666667,
+      "n_both_positive": 43,
+      "mean_delta_both_positive": 0.013553488372093027
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "사실 및 정의",
+      "n": 8,
+      "zero_to_positive": 1,
+      "positive_to_zero": 0,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "track1_0015"
+      ],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.091875,
+      "n_both_positive": 7,
+      "mean_delta_both_positive": 0.00017142857142856842
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "방법 및 절차",
+      "n": 29,
+      "zero_to_positive": 6,
+      "positive_to_zero": 3,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "ext_midm_004",
+        "ext_rag_003",
+        "ext_rag_004",
+        "ext_rag_007",
+        "ext_raptor_003",
+        "ext_raptor_005"
+      ],
+      "positive_to_zero_ids": [
+        "ext_cad_005",
+        "ext_rag_006",
+        "ext_raptor_002"
+      ],
+      "mean_delta": 0.10350689655172415,
+      "n_both_positive": 19,
+      "mean_delta_both_positive": 0.015773684210526332
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "결과 및 비교",
+      "n": 20,
+      "zero_to_positive": 1,
+      "positive_to_zero": 3,
+      "zero_to_zero": 0,
+      "zero_to_positive_ids": [
+        "ext_midm_009"
+      ],
+      "positive_to_zero_ids": [
+        "ext_midm_008",
+        "ext_raptor_010",
+        "track1_0035"
+      ],
+      "mean_delta": -0.024915000000000007,
+      "n_both_positive": 16,
+      "mean_delta_both_positive": 0.017618749999999992
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "evaluation_language": "한국어 번역",
+      "level": "목적 및 기여",
+      "n": 3,
+      "zero_to_positive": 1,
+      "positive_to_zero": 0,
+      "zero_to_zero": 1,
+      "zero_to_positive_ids": [
+        "track1_0012"
+      ],
+      "positive_to_zero_ids": [],
+      "mean_delta": 0.27026666666666666,
+      "n_both_positive": 1,
+      "mean_delta_both_positive": 0.0
+    }
+  ]
+}

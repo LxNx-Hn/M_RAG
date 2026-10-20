@@ -24,6 +24,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
 HH = "http://www.hancom.co.kr/hwpml/2011/head"
+HC = "http://www.hancom.co.kr/hwpml/2011/core"
 NS = {"hp": HP, "hh": HH}
 
 
@@ -115,10 +116,14 @@ def parse_manuscript(path: Path) -> list[dict]:
         pending_page_break = False
     if pending_page_break:
         raise ValueError("Dangling page-break directive")
-    if sum(e["kind"] == "table" for e in events) != 14:
-        raise ValueError("Expected exactly 14 reviewed table insertion events")
-    if sum(e["kind"] == "picture" for e in events) != 13:
-        raise ValueError("Expected exactly 13 reviewed picture insertion events")
+    contract = json.loads(
+        (ROOT / "FINALDOCS/DATA/REVISION_CONTRACT_20261015.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for kind, key in [("table", "tables"), ("picture", "figures")]:
+        if sum(e["kind"] == kind for e in events) != contract[key]:
+            raise ValueError(f"Reviewed {kind} count differs from submission contract")
     return events
 
 
@@ -142,7 +147,24 @@ def table_data(sheet) -> dict:
         for m in sheet.merged_cells.ranges
         if m.min_row >= 3
     ]
-    return {"sheet": sheet.title, "rows": rows, "merges": merges}
+    bold = [
+        [r, c]
+        for r, row in enumerate(sheet.iter_rows(min_row=3))
+        for c, cell in enumerate(row)
+        if cell.font.bold
+    ]
+    definitions = json.loads(
+        (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(encoding="utf-8")
+    )
+    definition = next(t for t in definitions if t["sheet"] == sheet.title)
+    return {
+        "sheet": sheet.title,
+        "rows": rows,
+        "merges": merges,
+        "bold_cells": bold,
+        "column_fractions": definition.get("column_fractions"),
+        "numeric_columns": definition.get("numeric_columns"),
+    }
 
 
 def sha(path: Path) -> str:
@@ -226,30 +248,15 @@ def insert_school_covers(
         not isinstance(v, str) or not v.strip() for v in fields.values()
     ):
         raise ValueError("Unknown or empty personal field")
-    placeholders = dict(
-        zip(sorted(allowed), ["[" + k + " 입력]" for k in sorted(allowed)])
-    )
-    placeholders.update(
-        {
-            "name": "[학생명 입력]",
-            "student_id": "[학번 입력]",
-            "department": "[소속 학과 입력]",
-            "university": "[소속 대학·캠퍼스 입력]",
-            "advisor": "[지도교수 입력]",
-            "submission_date": "[제출일 입력]",
-            "submission_year": "[제출연도 입력]",
-            "approval_date": "[인준일 입력]",
-            "chair": "[주심 입력]",
-            "reviewer": "[부심 입력]",
-        }
-    )
-    values = {**placeholders, **fields}
+    # Unconfirmed school-form fields remain blank in the public master.
+    values = {key: fields.get(key, "") for key in allowed}
+    identity = ", ".join(values[key] for key in ("name", "student_id") if values[key])
     first = {
         0: front[0]["text"],
         2: front[1]["text"],
         5: "지도교수  " + values["advisor"],
         7: values["department"] + "\n" + values["university"],
-        9: values["name"] + ", " + values["student_id"],
+        9: identity,
         11: values["submission_year"],
     }
     second = (
@@ -257,11 +264,12 @@ def insert_school_covers(
             0: front[0]["text"],
             2: front[1]["text"],
             4: ENGLISH_TITLE,
-            6: values["name"] + ", " + values["student_id"],
+            6: identity,
             8: "지도교수  " + values["advisor"],
             10: "본 보고서를 졸업자격 실험보고서로 제출함.",
             11: values["submission_date"],
-            13: values["name"] + "의 졸업자격 실험보고 통과를 인준함.",
+            13: (values["name"] + "의 " if values["name"] else "")
+            + "졸업자격 실험보고 통과를 인준함.",
             14: values["approval_date"],
             16: "주심  "
             + values["chair"]
@@ -306,37 +314,20 @@ def insert_school_covers(
         doc.sections[0].element.append(cover)
 
 
-def insert_table(doc: HwpxDocument, data: dict, width: int):
+def table_geometry(data: dict, width: int):
     rows = data["rows"]
-    nr, nc = len(rows), len(rows[0])
+    nc = len(rows[0])
     # Wider text columns in appendix keep actual questions and evidence intact.
     if data["sheet"] == "Appendix_Queries":
-        fractions = [0.10, 0.27, 0.12, 0.10, 0.09, 0.32]
+        fractions = data.get("column_fractions") or [0.15, 0.32, 0.10, 0.09, 0.05, 0.29]
     elif data["sheet"] == "T2-1_Related_Work":
         fractions = [0.22, 0.32, 0.46]
-    elif data["sheet"] == "T3-1_Factorial_Design":
-        fractions = [0.46, 0.18, 0.18, 0.18]
     elif data["sheet"] == "T4-1_Environment":
         fractions = [0.20, 0.42, 0.38]
     elif nc == 2:
         fractions = [0.28, 0.72]
-    elif data["sheet"] == "T5-1_Mean_SD":
-        # Every mean (SD) cell wraps the same way: mean above, SD below.
-        fractions = [0.18, 0.135, 0.135, 0.135, 0.135, 0.135, 0.145]
-    elif data["sheet"] == "T5-3_RQ_Paired":
-        # Condition codes (H1C0S0−H0C0S0) and "<0.001" stay on one line.
-        fractions = [0.20, 0.20, 0.105, 0.105, 0.105, 0.11, 0.095, 0.08]
-    elif data["sheet"] == "T5-6_Followup":
-        fractions = [0.27, 0.14, 0.14, 0.14, 0.12, 0.10, 0.09]
-    elif data["sheet"] == "T5-7_Secondary":
-        fractions = [0.34, 0.20, 0.17, 0.14, 0.15]
-    elif data["sheet"] in ("Appendix_Paper", "Appendix_QueryType"):
-        # Long group names get the width; the short factor column stays narrow.
-        fractions = [0.46, 0.12, 0.20, 0.22]
-    elif nc == 7:
-        fractions = [0.22, 0.12, 0.12, 0.13, 0.13, 0.14, 0.14]
-    elif nc == 9:
-        fractions = [0.16, 0.11, 0.11, 0.11, 0.11, 0.11, 0.10, 0.10, 0.09]
+    elif data.get("column_fractions"):
+        fractions = data["column_fractions"]
     else:
         fractions = [1 / nc] * nc
     widths = [int(width * f) for f in fractions]
@@ -352,10 +343,17 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             max(
                 1700,
                 max(
-                    (
-                        1
-                        + sum(900 if ord(ch) > 127 else 500 for ch in value)
-                        // max(900, w - 1020)
+                    sum(
+                        max(
+                            1,
+                            (
+                                sum(900 if ord(ch) > 127 else 500 for ch in line)
+                                + max(900, w - 1020)
+                                - 1
+                            )
+                            // max(900, w - 1020),
+                        )
+                        for line in value.split("\n")
                     )
                     * 1200
                     + 400
@@ -363,6 +361,58 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 ),
             )
         )
+    return widths, heights
+
+
+def split_appendix(data: dict, width: int) -> list[dict]:
+    """Bound inline native tables to actual page height; preserve every source row."""
+    if data["sheet"] != "Appendix_Queries":
+        return [data]
+    assert not data["merges"], "Review merged appendix cells before pagination"
+    _, heights = table_geometry(data, width)
+    groups = []
+    current = []
+    used = heights[0]
+    for source_row in range(1, len(data["rows"])):
+        budget = 42000 if not groups else 56000
+        assert heights[source_row] + heights[0] <= budget, "Appendix row exceeds a page"
+        if current and used + heights[source_row] > budget:
+            groups.append(current)
+            current = []
+            used = heights[0]
+        current.append(source_row)
+        used += heights[source_row]
+    if current:
+        groups.append(current)
+    # Merge a short trailing segment when the combined table and its caption
+    # fit the school's 66,048-unit body area, avoiding a one-row appendix page.
+    if len(groups) > 1:
+        trailing = groups[-2] + groups[-1]
+        if heights[0] + sum(heights[i] for i in trailing) <= 60000:
+            groups[-2:] = [trailing]
+    pieces = []
+    for indexes in groups:
+        source_rows = [0] + indexes
+        pieces.append(
+            {
+                **data,
+                "rows": [data["rows"][i] for i in source_rows],
+                "source_rows": source_rows,
+                "bold_cells": [
+                    [i, c]
+                    for i, r in enumerate(source_rows)
+                    for rr, c in data["bold_cells"]
+                    if rr == r
+                ],
+            }
+        )
+    return pieces
+
+
+def insert_table(doc: HwpxDocument, data: dict, width: int):
+    rows = data["rows"]
+    nr, nc = len(rows), len(rows[0])
+    widths, heights = table_geometry(data, width)
     cell_style = doc.parts.headers[0].element.find(".//hh:style[@name='표내용']", NS)
     header = doc.parts.headers[0].element
     original_para = header.find(
@@ -390,14 +440,10 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     )
     table.set_column_widths(widths)
     table.element.set("repeatHeader", "1")
-    table.element.set(
-        "pageBreak", "TABLE" if data["sheet"] == "Appendix_Queries" else "CELL"
-    )
-    # Inline tables participate in the caption's keepWithNext flow. Long
-    # appendix rows stay intact across pages, with repeated headers as floats.
-    table.element.find("hp:pos", NS).set(
-        "treatAsChar", "1" if sum(heights) <= 50000 else "0"
-    )
+    # Each inline table fits a page. Long appendix tables are explicitly segmented.
+    # TABLE keeps the bounded object intact; every segment repeats its header.
+    table.element.set("pageBreak", "TABLE")
+    table.element.find("hp:pos", NS).set("treatAsChar", "1")
     for r, row in enumerate(rows):
         for c, value in enumerate(row):
             table.set_cell_text(r, c, value)
@@ -407,35 +453,55 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             for p in cell.findall(".//hp:p", NS):
                 p.set("styleIDRef", cell_style.get("id"))
                 label = str(rows[0][c])
-                numeric = bool(
-                    re.match(
-                        r"^(?:n|유효 n|평균|SD|중앙값|df|F|p|부분|dz|t\(|충실도|관련성|정밀도|재현율|한국어 비율|실행 시간|원문 페이지)",
-                        label,
+                numeric = (
+                    (c in data["numeric_columns"])
+                    if data.get("numeric_columns") is not None
+                    else bool(
+                        re.match(
+                            r"^(?:n|유효 n|평균|질문 수|기준 점수|적용 점수|기준 시간|적용 시간|평균 변화량|개선/|증가/|원문 페이지|근거 충실도|답변 관련성|문맥|한국어 비율|실행 시간)",
+                            label,
+                        )
                     )
                 )
                 alignment = (
                     "CENTER"
-                    if r == 0 or label in ("조건", "H", "C", "S", "효과", "요인")
+                    if r == 0
+                    or label
+                    in (
+                        "조건",
+                        "H",
+                        "C",
+                        "S",
+                        "효과",
+                        "요인",
+                        "번호",
+                        "HyDE",
+                        "CAD",
+                        "SCD",
+                        "조건 코드",
+                        "품질 평가 언어",
+                        "비교 조건",
+                    )
                     else "RIGHT" if numeric else "LEFT"
                 )
                 p.set("paraPrIDRef", align_refs[alignment])
             for run in cell.findall(".//hp:run", NS):
                 run.set("charPrIDRef", cell_style.get("charPrIDRef"))
-    if data["sheet"] == "T5-1_Mean_SD":
-        fills = header.find(".//hh:borderFills", NS)
-        source_id = table.cell(5, 0).element.get("borderFillIDRef")
-        source = fills.find(f"hh:borderFill[@id='{source_id}']", NS)
-        divider = copy.deepcopy(source)
-        divider_id = str(max(int(f.get("id")) for f in fills) + 1)
-        divider.set("id", divider_id)
-        top = divider.find("hh:topBorder", NS)
-        top.set("type", "SOLID")
-        top.set("width", "0.4 mm")
-        top.set("color", "#000000")
-        fills.append(divider)
-        fills.set("itemCnt", str(len(fills)))
-        for c in range(nc):
-            table.cell(5, c).element.set("borderFillIDRef", divider_id)
+    # Native bold character properties, with no extrema colour fills.
+    chars = header.find(".//hh:charProperties", NS)
+    if chars is None:
+        chars = header.find(".//hh:charPr", NS).getparent()
+    base = next(c for c in chars if c.get("id") == cell_style.get("charPrIDRef"))
+    bold = copy.deepcopy(base)
+    bold_id = str(max(int(c.get("id")) for c in chars) + 1)
+    bold.set("id", bold_id)
+    if bold.find("hh:bold", NS) is None:
+        ET.SubElement(bold, f"{{{HH}}}bold")
+    chars.append(bold)
+    chars.set("itemCnt", str(len(chars)))
+    for r, c in data.get("bold_cells", []):
+        for run in table.cell(r, c).element.findall(".//hp:run", NS):
+            run.set("charPrIDRef", bold_id)
     for r0, c0, r1, c1 in data["merges"]:
         table.merge_cells(r0, c0, r1, c1)
     return table.paragraph
@@ -509,29 +575,7 @@ def emit(
                 if suffix:
                     # Access date after the link, e.g. "(확인: 2026-10-20)".
                     p.add_run(" " + suffix, char_pr_id_ref=char_ref)
-            if e["page_break"] or (
-                role in ("section", "table_caption")
-                and text.startswith(
-                    (
-                        "1.2 연구범위",
-                        "[표 2-1]",
-                        "[표 5-3]",
-                        "[표 5-5]",
-                        "[표 3-3]",
-                        "[표 4-2]",
-                        "5.3 실험 조건 및 평가 절차",
-                        "5.8 종합 논의",
-                        "그림 자료 이용 정보",
-                        "B.2 문서별 및 질문 유형별 탐색 분석",
-                        "5.9 실험 범위와 해석 기준",
-                        "6.3 적용 시 실험 조건 선택",
-                    )
-                )
-            ):
-                # Only section starts that land at a full page in both the Hancom
-                # web editor and its PDF export. Breaks inside sections and the
-                # reference list left half-empty pages in the editor, whose font
-                # metrics differ from the PDF export, so the text now flows.
+            if e["page_break"]:
                 p.element.set("pageBreak", "1")
             if text == "1. 서론":
                 doc.page.restart_page_number(p, number=1)
@@ -545,7 +589,11 @@ def emit(
                 ctrl.append(
                     ctrl.makeelement(
                         f"{{{HP}}}pageNum",
-                        {"pos": "BOTTOM_CENTER", "formatType": "DIGIT", "sideChar": "-"},
+                        {
+                            "pos": "BOTTOM_CENTER",
+                            "formatType": "DIGIT",
+                            "sideChar": "-",
+                        },
                     )
                 )
                 run.append(ctrl)
@@ -553,9 +601,22 @@ def emit(
             mapping["paragraphs"].append(e)
         elif kind == "table":
             data = table_data(workbook[e["sheet"]])
-            p = insert_table(doc, data, width)
-            mapping["layout"].append(apply_layout(doc, p, "table"))
-            mapping["tables"].append(data)
+            pieces = split_appendix(data, width)
+            for part, piece in enumerate(pieces):
+                if part:
+                    caption = (
+                        f"[계속표 A-1 ({part + 1}/{len(pieces)})] 60개 질문과 정답 근거"
+                    )
+                    continued = doc.add_paragraph(
+                        caption, style="표제목", inherit_style=False
+                    )
+                    continued.element.set("pageBreak", "1")
+                    mapping["layout"].append(
+                        apply_layout(doc, continued, "table_caption")
+                    )
+                p = insert_table(doc, piece, width)
+                mapping["layout"].append(apply_layout(doc, p, "table"))
+                mapping["tables"].append(piece)
         elif kind == "picture":
             path = ROOT / e["path"]
             with Image.open(path) as image:
@@ -730,7 +791,7 @@ def main() -> None:
                 "style": "본문",
                 "page_break": False,
             },
-            {"kind": "table", "sheet": "T3-1_Factorial_Design"},
+            {"kind": "table", "sheet": "T5-1_Relevance_EN"},
             next(e for e in events if e["kind"] == "picture"),
             {"kind": "equation", "text": "z_CAD = (1 + alpha) z_ctx - alpha z_noctx"},
         ]

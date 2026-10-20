@@ -1,0 +1,35 @@
+{
+  "head": "00b951fcf66f2da643f536296079d7587a4c92b8",
+  "branch": "codex/thesis-korean-prose-20261018",
+  "source_sha256": {
+    "FINALDOCS/ANALYSIS/analyze_questions.py": "37ce7fe8739d9ba95e800a685792b731ab462ccb10b1dba97625ed2b44ab588a",
+    "FINALDOCS/ANALYSIS/review_cases.py": "d4373e151e7c028b301342439db229d33d1245ea9f591ca0b30b18c800022044",
+    "FINALDOCS/ANALYSIS/plot_questions.py": "1ceeb86c88305114e5d01de35feb130d74ec40f984ad0abc815f1e2a78ba97b6",
+    "FINALDOCS/BUILD/build_question_manuscript.py": "b5db47cefddd5b9379ff3f8ee67f8ec73eb7ab0f5808c93417f1f21d8e0058eb",
+    "FINALDOCS/BUILD/build_question_poster.mjs": "3ba0202fc353fede12bc4b4568a1b2bc2b9786f78c421e5b0d4b616960bed501"
+  },
+  "findings": [
+    {
+      "location": "plot_questions.py:38; build_question_poster.mjs:67",
+      "status": "requires correction",
+      "issue": "graph selection hardcodes question IDs"
+    },
+    {
+      "location": "review_cases.py:REVIEWS",
+      "status": "requires correction",
+      "issue": "selection and interpretation are coupled in a fixed list"
+    },
+    {
+      "location": "build_question_poster.mjs:72,93",
+      "status": "requires correction",
+      "issue": "personal plugin cache path"
+    },
+    {
+      "location": "manuscript and poster",
+      "status": "requires correction",
+      "issue": "A versus B labels and defensive prose remain"
+    }
+  ],
+  "existing_changes": "preserved; initial inherited.patch and latest WORKTREE inventory retained",
+  "editor": "R5 uploaded, current final screen review pending"
+}

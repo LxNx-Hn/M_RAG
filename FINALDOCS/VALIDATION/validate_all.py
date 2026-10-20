@@ -29,24 +29,17 @@ def main():
             ],
         ),
         (
-            "원자료·통계 독립 재현",
-            ["FINALDOCS/VALIDATION/verify_statistics_reproduction.py"],
+            "원자료·질문별 계산 독립 재현",
+            ["FINALDOCS/VALIDATION/verify_question_analysis.py"],
         ),
         ("보존 해시·페이지 지도", ["-m", "FINALDOCS.VALIDATION.package_checks"]),
         (
-            "포스터 A1·수치·209문구",
+            "포스터 A1·유형별 수치·평행좌표",
             ["-m", "FINALDOCS.VALIDATION.package_checks", "--poster"],
         ),
+        ("한컴 편집 화면·출력 연결", ["FINALDOCS/VALIDATION/verify_editor_review.py"]),
         (
-            "인쇄 사례·60질의360셀",
-            [
-                "FINALDOCS/BUILD/verify_print_pdf.py",
-                "--output",
-                str(args.output / "print"),
-            ],
-        ),
-        (
-            "내용·통계·패키지 회귀",
+            "내용·질문 분석·패키지 회귀",
             [
                 "-m",
                 "unittest",
