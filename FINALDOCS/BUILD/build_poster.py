@@ -197,7 +197,7 @@ def parallel_png(path):
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(21.7, 5.7), scale=2.0, save_to=path, compact=True
+        data, "방법 질문", size=(21.7, 5.2), scale=2.0, save_to=path, compact=True
     )
 
 
@@ -381,7 +381,7 @@ def condition_label(code):
     return f"{CONDITIONS.index(code) + 1} {NAMES[code]}"
 
 
-def build(out_dir: Path):
+def build(out_dir: Path, personal=None):
     s = summary()
     cs = condition_summary()
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -396,7 +396,7 @@ def build(out_dir: Path):
     P.rect(0, 0, W, 92, PURPLE)
     P.text(
         L,
-        13,
+        9,
         W - 2 * L,
         50,
         [
@@ -411,7 +411,7 @@ def build(out_dir: Path):
     )
     P.text(
         L,
-        70,
+        65,
         W - 2 * L,
         12,
         "질문 유형별 원점수와 실제 답변 분석",
@@ -419,6 +419,14 @@ def build(out_dir: Path):
         color=WHITE,
         align=PP_ALIGN.CENTER,
     )
+    f = personal or {}
+    identity = "{} {} {}, 지도교수 {}".format(
+        f.get("department", "[학과]"),
+        f.get("student_id", "[학번]"),
+        f.get("name", "[이름]"),
+        f.get("advisor", "[지도교수]"),
+    )
+    P.text(L, 79.5, W - 2 * L, 8, identity, size=20, color=WHITE, align=PP_ALIGN.CENTER)
 
     # ---------------- left column
     y = P.heading(L, 102, C, "01 연구 배경과 목적")
@@ -652,15 +660,16 @@ def build(out_dir: Path):
         L,
         yl + 2,
         C,
-        11,
+        22,
         [
-            "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023  [3] Shi et al., CAD, NAACL 2024",
-            "[4] Li et al., SCD, AAAI 2026  [5] Es et al., RAGAs, EACL 2024",
+            "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023",
+            "[3] Shi et al., CAD, NAACL 2024  [4] Li et al., SCD, AAAI 2026",
+            "[5] Es et al., RAGAs, EACL 2024",
         ],
-        size=15,
-        color=GREY,
+        size=17,
+        color=INK,
     )
-    y = max(yl + 2 + 11, yr)
+    y = max(yl + 2 + 22, yr)
     bottom = y
     assert bottom <= H - 6, f"poster overflows: {bottom:.1f} mm"
     pptx = out_dir / "M_RAG_A1_FINAL_EDITABLE.pptx"
@@ -701,8 +710,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", type=Path, default=ROOT / "tmp/poster")
     ap.add_argument("--no-export", action="store_true")
+    ap.add_argument(
+        "--personal-fields",
+        type=Path,
+        help="Local personal_fields.json (department, student_id, name, advisor are used); output must stay outside the repository",
+    )
     a = ap.parse_args()
-    pptx = build(a.output)
+    personal = None
+    if a.personal_fields:
+        fields = json.loads(a.personal_fields.read_text(encoding="utf-8"))
+        used = ("department", "student_id", "name", "advisor")
+        if any(not str(fields.get(k, "")).strip() for k in used):
+            raise ValueError("Personal fields need department, student_id, name, advisor")
+        personal = {k: fields[k] for k in used}
+        if a.output.resolve().is_relative_to(ROOT.resolve()):
+            raise ValueError("Personal poster output must stay outside the repository")
+    pptx = build(a.output, personal)
     if not a.no_export:
         export(pptx)
 

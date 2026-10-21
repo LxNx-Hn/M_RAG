@@ -2,6 +2,7 @@
  "한국어 질의로 영어 학술 및 기술 문서를 검색하는",
  "RAG에서의 HyDE, CAD, SCD 조합 실험",
  "질문 유형별 원점수와 실제 답변 분석",
+ "[학과] [학번] [이름], 지도교수 [지도교수]",
  "01 연구 배경과 목적",
  "- 한국어 질문으로 영어 논문을 검색해 한국어로 답하는 RAG",
  "- HyDE는 검색 입력, CAD는 근거 반영, SCD는 출력 언어를 조정",
@@ -326,6 +327,7 @@
  "- QuALITY 질문은 HyDE 후 73.68이 빠져 관련성이 0.87에서 0.00으로",
  "- XSUM 질문은 CAD가 다른 행 수치를 옮겼는데 충실도가 0.53에서 0.87로",
  "- RAG 이점 질문은 CAD 후 지시문만 남아 관련성이 0.90에서 0.00으로",
- "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023  [3] Shi et al., CAD, NAACL 2024",
- "[4] Li et al., SCD, AAAI 2026  [5] Es et al., RAGAs, EACL 2024"
+ "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023",
+ "[3] Shi et al., CAD, NAACL 2024  [4] Li et al., SCD, AAAI 2026",
+ "[5] Es et al., RAGAs, EACL 2024"
 ]

@@ -6,6 +6,8 @@
 - `POSTER_TEXT.json`: 포스터에 배치한 모든 문구. 검사 코드가 PPTX, SVG, PDF에서 같은 문구를 확인한다.
 - `poster_pipeline.png`, `poster_parallel.png`: 포스터에 넣은 도식과 방법 질문 25개의 평행좌표(미적용, HyDE, CAD, SCD 네 패널을 2×2로 배치).
 
+제목 아래 학과, 학번, 이름, 지도교수 줄은 공개본에서 [학과] [학번] [이름], 지도교수 [지도교수]로 둔다. 개인 제출본은 저장소 밖 `personal_fields.json`을 `--personal-fields`로 전달하고 출력도 저장소 밖에 둔다.
+
 재생성(Windows, PowerPoint 설치 환경):
 
 ```powershell

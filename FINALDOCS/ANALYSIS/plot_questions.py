@@ -261,7 +261,7 @@ def group_profiles(
     else:
         fig.text(0.5, 0.008, "0점과 결측값은 선으로 잇지 않음", ha="center", fontsize=8.5 * scale, color=INK)
     if compact:
-        fig.subplots_adjust(left=0.035, right=0.985, top=0.84, bottom=0.15, hspace=0.62, wspace=0.12)
+        fig.subplots_adjust(left=0.035, right=0.985, top=0.8, bottom=0.15, hspace=0.62, wspace=0.12)
     else:
         fig.subplots_adjust(left=0.07, right=0.985, top=0.925 if scale == 1.0 else 0.9, bottom=0.075, hspace=0.85 if scale == 1.0 else 0.95)
     if save_to:
