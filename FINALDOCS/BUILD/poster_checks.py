@@ -117,7 +117,7 @@ def validate_poster(pptx, svg=None):
         slide = ET.fromstring(z.read("ppt/slides/slide1.xml"))
         media = [n for n in z.namelist() if n.startswith("ppt/media/")]
     tables = [cell_rows(t) for t in slide.findall(".//a:tbl", A)]
-    assert len(tables) == 6, "Expected six native tables"
+    assert len(tables) == 5, "Expected five native tables"
     assert len(media) >= 2, "Pipeline diagram or parallel-coordinate image missing"
     text = "".join(slide.xpath("//*[local-name()='t']/text()"))
     hit = FORBIDDEN.search(text)
@@ -135,17 +135,22 @@ def validate_poster(pptx, svg=None):
         ]
         assert [c[0] for c in legend[i]] == expect, f"Condition legend differs: row {i}"
 
-    means = tables[2]
+    means = tables[3]
     for i, code in enumerate(CONDITIONS, 1):
         expect = [labels[i - 1]] + [f2(mean("전체", code, m)) for m in SCORE_METRICS]
         assert [c[0] for c in means[i]] == expect, f"Poster value differs: mean row {i}"
     check_bold(means, [1, 2, 3, 4, 5], "Condition mean table")
 
     blocks = [
-        ("faithfulness", "answer_relevancy"),
-        ("context_precision", "context_recall", "korean_ratio"),
+        (
+            "faithfulness",
+            "answer_relevancy",
+            "context_precision",
+            "context_recall",
+            "korean_ratio",
+        )
     ]
-    for t_index, block in zip((3, 4), blocks):
+    for t_index, block in zip((4,), blocks):
         groups = tables[t_index]
         for i, code in enumerate(CONDITIONS, 1):
             expect = [labels[i - 1]] + [
@@ -160,14 +165,14 @@ def validate_poster(pptx, svg=None):
 
     for i, a0 in enumerate(["H1C0S0", "H0C1S0", "H0C0S1"], 1):
         r = pick("전체", "H0C0S0", a0, "duration_seconds")
-        assert [c[0] for c in tables[5][i]] == [
+        assert [c[0] for c in tables[2][i]] == [
             NAMES[a0],
             f2(r.base_mean),
             f2(r.applied_mean),
             f2(r.mean_delta, True),
         ], f"Poster value differs: time row {i}"
-    check_bold(tables[5], [2, 3], "Time table")
-    return {"tables": 6, "result_rows_checked": 8 + 8 + 8 + 8 + 3, "decimals": 2}
+    check_bold(tables[2], [2, 3], "Time table")
+    return {"tables": 5, "result_rows_checked": 8 + 8 + 8 + 3, "decimals": 2}
 
 
 def protocol_order(codes):

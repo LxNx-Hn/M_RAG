@@ -34,14 +34,14 @@ class PosterEvidenceTests(unittest.TestCase):
 
     def test_changed_value(self):
         def change(slide):
-            self.cell(slide, 2, 2, 4).find(".//a:t", A).text = "+0.99"
+            self.cell(slide, 3, 2, 4).find(".//a:t", A).text = "+0.99"
 
         with self.assertRaisesRegex(AssertionError, "Poster value differs"):
             self.trial(change)
 
     def test_bold_on_non_maximum(self):
         def change(slide):
-            for r in self.cell(slide, 5, 1, 2).findall(".//a:rPr", A):
+            for r in self.cell(slide, 2, 1, 2).findall(".//a:rPr", A):
                 r.set("b", "1")
 
         with self.assertRaisesRegex(AssertionError, "bold differs"):

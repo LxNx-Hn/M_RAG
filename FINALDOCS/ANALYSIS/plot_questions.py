@@ -160,12 +160,16 @@ def group_extremes(data, group, code, metric):
 def group_profiles(
     data, group, size=(6.3, 7.4), scale=1.0, save_to=None, highlights=None, compact=False
 ):
-    """Four stacked condition panels for one question group."""
+    """Four condition panels for one question group (stacked, or 2 x 2 when compact)."""
     by = data.set_index(["query_id", "condition"])
     members = data[(data.question_group == group) & (data.condition == BASE)]
-    fig, axes = plt.subplots(len(GROUP_PANELS), 1, figsize=size, sharey=True)
+    if compact:
+        fig, axes = plt.subplots(2, 2, figsize=size, sharey=True)
+        axes = list(axes.flatten())
+    else:
+        fig, axes = plt.subplots(len(GROUP_PANELS), 1, figsize=size, sharey=True)
     x = np.arange(len(AXES))
-    labels = LABELS if scale == 1.0 else [s.replace("\n", " ") for s in LABELS]
+    labels = LABELS if (scale == 1.0 or compact) else [s.replace("\n", " ") for s in LABELS]
     for ax, (code, metric) in zip(axes, GROUP_PANELS):
         for q in members.query_id:
             ax.plot(
@@ -231,10 +235,10 @@ def group_profiles(
         ax.set_xlim(-0.2, len(AXES) - 0.8)
         ax.set_ylim(-0.04, 1.04)
         ax.set_yticks([0, 0.5, 1.0], ["0", "0.5", "1"])
-        ax.set_xticks(x, labels if (not compact or ax is axes[-1]) else [""] * len(labels))
+        ax.set_xticks(x, labels if (not compact or ax in axes[-2:]) else [""] * len(labels))
         ax.tick_params(labelsize=9.5 * scale, length=0)
         ax.spines[["top", "right", "bottom"]].set_visible(False)
-        ax.set_title(title, loc="left", fontsize=10.5 * scale, fontweight="bold", color=INK, pad=4 * scale)
+        ax.set_title(title, loc="left", fontsize=10.5 * scale, fontweight="bold", color=INK, pad=(7 if compact else 4) * scale)
     handles = [
         plt.Line2D([], [], color=GREY, lw=2.2),
         plt.Line2D([], [], color=UP, lw=2.4, marker="^", markersize=6, markeredgewidth=0),
@@ -252,9 +256,12 @@ def group_profiles(
         handlelength=1.8,
         columnspacing=1.2,
     )
-    fig.text(0.5, 0.008, "0점과 결측값은 선으로 잇지 않음", ha="center", fontsize=8.5 * scale, color=INK)
     if compact:
-        fig.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.1, hspace=0.45)
+        fig.text(0.985, 0.975, "0점과 결측값은 선으로 잇지 않음", ha="right", va="top", fontsize=8.5 * scale, color=INK)
+    else:
+        fig.text(0.5, 0.008, "0점과 결측값은 선으로 잇지 않음", ha="center", fontsize=8.5 * scale, color=INK)
+    if compact:
+        fig.subplots_adjust(left=0.035, right=0.985, top=0.84, bottom=0.15, hspace=0.62, wspace=0.12)
     else:
         fig.subplots_adjust(left=0.07, right=0.985, top=0.925 if scale == 1.0 else 0.9, bottom=0.075, hspace=0.85 if scale == 1.0 else 0.95)
     if save_to:

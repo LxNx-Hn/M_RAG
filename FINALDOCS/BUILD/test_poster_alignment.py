@@ -32,7 +32,7 @@ def mutate_slide(work, operation):
 class PosterAlignmentTests(unittest.TestCase):
     def test_current_files(self):
         result = validate_alignment(PPTX, SVG)
-        self.assertEqual(result["numeric_cells_right_aligned"], 40 + 48 + 72 + 9)
+        self.assertEqual(result["numeric_cells_right_aligned"], 9 + 40 + 120)
 
     def test_native_numeric_center_rejected(self):
         def change(xml):
