@@ -326,9 +326,6 @@
  "- QuALITY 질문은 HyDE 후 73.68이 빠져 관련성이 0.87에서 0.00으로 내림",
  "- XSUM 질문은 CAD가 다른 행 수치를 옮겼는데 충실도가 0.53에서 0.87로 오름",
  "- RAG 이점 질문은 CAD 후 지시문만 남아 관련성이 0.90에서 0.00으로 내림",
- "[1] Lewis et al., RAG, NeurIPS 2020",
- "[2] Gao et al., HyDE, ACL 2023",
- "[3] Shi et al., CAD, NAACL 2024",
- "[4] Li et al., SCD, AAAI 2026",
- "[5] Es et al., RAGAs, EACL 2024"
+ "[1] Lewis et al., RAG, NeurIPS 2020      [2] Gao et al., HyDE, ACL 2023      [3] Shi et al., CAD, NAACL 2024",
+ "[4] Li et al., SCD, AAAI 2026      [5] Es et al., RAGAs, EACL 2024"
 ]

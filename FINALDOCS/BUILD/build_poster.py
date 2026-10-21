@@ -197,7 +197,7 @@ def parallel_png(path):
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(21.7, 4.9), scale=2.0, save_to=path, compact=True
+        data, "방법 질문", size=(21.7, 5.8), scale=2.0, save_to=path, compact=True
     )
 
 
@@ -647,22 +647,20 @@ def build(out_dir: Path, personal=None):
         ],
         size=20,
     )
+    y = max(yl, yr) + 3
     P.text(
         L,
-        yl + 2,
-        C,
-        38,
+        y,
+        W - 2 * L,
+        16,
         [
-            "[1] Lewis et al., RAG, NeurIPS 2020",
-            "[2] Gao et al., HyDE, ACL 2023",
-            "[3] Shi et al., CAD, NAACL 2024",
-            "[4] Li et al., SCD, AAAI 2026",
-            "[5] Es et al., RAGAs, EACL 2024",
+            "[1] Lewis et al., RAG, NeurIPS 2020      [2] Gao et al., HyDE, ACL 2023      [3] Shi et al., CAD, NAACL 2024",
+            "[4] Li et al., SCD, AAAI 2026      [5] Es et al., RAGAs, EACL 2024",
         ],
         size=17,
         color=INK,
     )
-    y = max(yl + 2 + 38, yr)
+    y += 16
     bottom = y
     assert bottom <= H - 6, f"poster overflows: {bottom:.1f} mm"
     pptx = out_dir / "M_RAG_A1_FINAL_EDITABLE.pptx"
