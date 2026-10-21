@@ -189,15 +189,22 @@ def pipeline_png(path):
     plt.close(fig)
 
 
-def parallel_png(path):
-    """The 25 method questions in four stacked condition panels."""
+def mechanism_png(path):
+    """The example question through HyDE, CAD and SCD (same drawing as Figure 4-2)."""
+    from plot_questions import example_mechanism
+
+    example_mechanism(save_to=path, scale=3.44)
+
+
+def parallel_png(path, height_in=6.1, width_in=21.7):
+    """The 25 method questions in four condition panels."""
     from plot_questions import group_profiles
 
     data = pd.read_csv(
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(21.7, 6.1), scale=2.0, save_to=path, compact=True
+        data, "방법 질문", size=(width_in, height_in), scale=2.0 if width_in > 15 else 1.75, save_to=path, compact=True
     )
 
 
@@ -382,12 +389,10 @@ def condition_label(code):
 
 
 def build(out_dir: Path, personal=None):
-    s = summary()
     cs = condition_summary()
     out_dir.mkdir(parents=True, exist_ok=True)
-    pipe, par = out_dir / "poster_pipeline.png", out_dir / "poster_parallel.png"
-    pipeline_png(pipe)
-    parallel_png(par)
+    mech, par = out_dir / "poster_mechanism.png", out_dir / "poster_parallel.png"
+    mechanism_png(mech)
     P = Poster()
 
     def mean(level, code, metric):
@@ -419,152 +424,73 @@ def build(out_dir: Path, personal=None):
     )
     P.text(L, 66, W - 2 * L, 10, identity, size=24, color=WHITE, align=PP_ALIGN.CENTER)
 
-    # ---------------- left column
-    y = P.heading(L, TOP, C, "01 연구 배경과 목적")
-    y = P.bullets(
-        L,
-        y,
-        C,
-        [
-            "한국어 질문으로 영어 논문을 검색해 한국어로 답하는 RAG",
-            "HyDE는 검색 입력, CAD는 근거 반영, SCD는 출력 언어를 조정",
-            "같은 질문 60개로 유형마다 유리한 기법을 비교",
-        ],
-    )
-    y = P.heading(L, y + 12, C, "02 파이프라인과 실험 조건")
-    y = P.picture(pipe, L, y + 4, C) + 10
-    rows = [["조건", "HyDE", "CAD", "SCD", "품질 평가 근거"]]
-    for c in CONDITIONS:
-        rows.append(
-            [
-                condition_label(c),
-                "+" if c[1] == "1" else "−",
-                "+" if c[3] == "1" else "−",
-                "+" if c[5] == "1" else "−",
-                "한국어 번역" if c[5] == "1" else "영어",
-            ]
-        )
-    y = P.table(
-        L,
-        y,
-        C,
-        rows,
-        [2.6, 1.0, 1.0, 1.0, 1.9],
-        size=18,
-        row_h=7.0,
-        aligns=["left", "center", "center", "center", "left"],
-    )
-    y = P.bullets(
-        L,
-        y + 3,
-        C,
-        [
-            "HyDE는 Hypothetical Document Embeddings, CAD는\nContext-Aware Decoding, SCD는 Soft Constrained Decoding\n표의 +는 적용, −는 미적용을 뜻함",
-        ],
-        size=18,
-    )
-    left_end = y + 4
+    FW = W - 2 * L
 
-    # ---------------- right column
-    y = P.heading(R, TOP, C, "03 질문 60개와 평가 지표")
-    y = P.bullets(
+    # ---------------- 01 background, two bullet columns
+    y = P.heading(L, TOP, FW, "01 연구 배경과 목적")
+    yl = P.bullets(
+        L,
+        y,
+        C,
+        [
+            "한국어 질문으로 영어 논문을 찾아 한국어로 답하는 RAG",
+            "질문과 원문의 어휘가 달라 근거 구간을 찾기 어려움",
+            "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
+        ],
+    )
+    yr = P.bullets(
         R,
         y,
         C,
         [
-            "영어 문서 4종에서 15개씩 질문 60개, 조건 8개, 답변 480개",
-            "수치 질문 18개, 방법 질문 25개, 개념과 결과 질문 17개",
+            "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
+            "세 문제에 맞춘 HyDE, CAD, SCD를 같은 질문 60개에 조합",
+            "질문 유형마다 각 기법의 이득과 손실을 비교",
         ],
     )
-    rows = [
-        ["지표", "무엇을 측정하는가", "값의 방향"],
-        ["근거 충실도", "답변 주장 중 입력 구간이 뒷받침하는 비율", "높을수록 근거 일치"],
-        [
-            "답변 관련성",
-            "답변에서 만든 질문과 원래 질문의 유사도\n회피하거나 모호한 응답은 0",
-            "높을수록 질문에 부합",
-        ],
-        ["문맥 정밀도", "유용한 검색 구간이 위쪽에 놓인 정도", "높을수록 순위 정확"],
-        ["문맥 재현율", "참조 답변을 검색 구간이 뒷받침하는 비율", "높을수록 근거 확보"],
-        ["한국어 문자 비율", "한글 ÷ (한글 + ASCII 영문자)", "높을수록 한국어 출력"],
-        ["처리 시간", "질문 하나의 검색과 생성 시간(초)", "낮을수록 비용 감소"],
-    ]
-    y = P.table(
-        R,
-        y + 1,
-        C,
-        rows,
-        [1.55, 3.35, 1.7],
-        size=17,
-        row_h=8.9,
-        aligns=["left", "left", "left"],
-    )
+
+    # ---------------- 02 example question through the three techniques
+    y = P.heading(L, max(yl, yr) + 3, FW, "02 예시 질문으로 본 세 기법의 작동")
+    y = P.picture(mech, L, y + 1, FW)
     P.text(
-        R,
-        y + 2,
-        C,
+        L,
+        y + 1,
+        FW,
         8,
-        "점수 지표는 0에서 1 사이이며 관련성의 이론 범위는 −1에서 1",
+        "HyDE Hypothetical Document Embeddings   CAD Context-Aware Decoding   SCD Soft Constrained Decoding   점 위치와 글자 크기는 원리를 보인 개념도",
         size=16,
         color=GREY,
     )
-    y += 11
+    y += 10
 
-    y = P.heading(R, y + 2, C, "04 단일 기법의 처리 시간")
-    rows = [["기법", "미적용(초)", "적용(초)", "변화(초)"]]
-    for a0 in ["H1C0S0", "H0C1S0", "H0C0S1"]:
-        r = pick(s, "전체", "H0C0S0", a0, "duration_seconds")
-        rows.append(
-            [NAMES[a0], f2(r.base_mean), f2(r.applied_mean), f2(r.mean_delta, True)]
-        )
-    y = P.table(
-        R,
+    # ---------------- 03 questions and metrics
+    y = P.heading(L, y + 2, FW, "03 질문과 평가")
+    yl = P.bullets(
+        L,
         y,
-        C,
-        rows,
-        [1.5, 1.6, 1.5, 1.5],
-        bold=set(bold_max(rows, [2, 3])),
-        size=18,
-        row_h=7.5,
-    )
-    y = P.bullets(
-        R,
-        y + 3,
-        C,
-        ["CAD는 토큰마다 로짓을 두 번 계산해 처리 시간이 약 세 배(굵은 값은 가장 긴 시간)"],
-        size=19,
-    )
-
-    y = P.heading(R, y + 2, C, "05 조건별 평균 점수")
-    rows = [["조건"] + [METRIC_SHORT[m] for m in SCORE_METRICS]]
-    for c in CONDITIONS:
-        rows.append([condition_label(c)] + [f2(mean("전체", c, m)) for m in SCORE_METRICS])
-    y = P.table(
-        R,
-        y,
-        C,
-        rows,
-        [2.5, 1.1, 1.1, 1.1, 1.1, 1.3],
-        bold=set(bold_max(rows, [1, 2, 3, 4, 5])),
-        size=18,
-        row_h=7.5,
-        header_h=14,
-    )
-    y = P.bullets(
-        R,
-        y + 3,
         C,
         [
-            "두 기법 이상 결합한 조건의 관련성은 모두 HyDE보다 낮음",
+            "영어 문서 4종에서 15개씩, 한국어 질문 60개",
+            "수치 18개, 방법 25개, 개념과 결과 17개",
+            "세 기법의 적용 여부를 조합한 조건 8개, 답변 480개",
         ],
-        size=19,
+        size=20,
     )
-    right_end = y
+    yr = P.bullets(
+        R,
+        y,
+        C,
+        [
+            "답변 품질은 RAGAS의 근거 충실도, 답변 관련성,\n문맥 정밀도, 문맥 재현율(0에서 1)",
+            "출력 언어는 한국어 문자 비율",
+            "SCD 조건 4, 6, 7, 8은 한국어 번역 근거로 평가",
+        ],
+        size=20,
+    )
+    y = max(yl, yr)
 
-    # ---------------- full width
-    FW = W - 2 * L
-    y = max(left_end, right_end) + 4
-    y = P.heading(L, y, FW, "06 질문 유형별 평균 점수")
+    # ---------------- 04 question-type means (wide table)
+    y = P.heading(L, y + 4, FW, "04 질문 유형별 평균 점수")
     groups = [
         ("수치 질문", "수치"),
         ("방법 질문", "방법"),
@@ -609,22 +535,14 @@ def build(out_dir: Path, personal=None):
         size=19,
     )
 
-    y = P.heading(L, y + 4, FW, "07 방법 질문 25개의 조건별 원점수 평행좌표")
-    y = P.picture(par, L, y, FW)
-    y = P.bullets(
-        L,
-        y + 1,
-        W - 2 * L,
-        [
-            "HyDE 적용 후 관련성 축의 선이 위로 모이고 관련성 0점 답변이 5개에서 1개로 줄어듦",
-        ],
-        size=19,
-    )
-
-    y = P.heading(L, y + 2, C, "08 결론")
-    yl = P.bullets(
-        L,
-        y,
+    # ---------------- 05 parallel coordinates (left) beside 06 and 07 (right)
+    y0 = y + 4
+    refs_h = 13
+    # right column first, its height sets the parallel chart height
+    yr = P.heading(R, y0, C, "06 결론")
+    yr = P.bullets(
+        R,
+        yr,
         C,
         [
             "한 지표가 중요하면 기법 하나(관련성, 개념과 결과 질문은 HyDE)",
@@ -632,12 +550,13 @@ def build(out_dir: Path, personal=None):
             "고루 지키려면 세 기법(방법 질문의 네 품질 지표 모두 상승)",
             "조합은 HyDE 단독보다 관련성이 낮고 일관된 이득은 SCD의 한국어 비율",
         ],
-        size=20,
+        size=21,
+        gap=5.5,
     )
-    P.heading(R, y - 17, C, "09 실제 답변에서 확인한 점")
+    yr = P.heading(R, yr + 6, C, "07 실제 답변에서 확인한 점")
     yr = P.bullets(
         R,
-        y,
+        yr,
         C,
         [
             "BIC 질문은 HyDE가 근거 구간을 찾아 관련성이 0.00에서 0.89로 오름",
@@ -645,7 +564,24 @@ def build(out_dir: Path, personal=None):
             "XSUM 질문은 CAD가 다른 행 수치를 옮겼는데 충실도가 0.53에서 0.87로 오름",
             "RAG 이점 질문은 CAD 후 지시문만 남아 관련성이 0.90에서 0.00으로 내림",
         ],
-        size=20,
+        size=21,
+        gap=5.5,
+    )
+    end = max(yr, H - 6 - refs_h)
+    yl = P.heading(L, y0, C, "05 방법 질문 25개의 원점수 평행좌표")
+    caption_h = 21
+    width_in = C / 25.4
+    height_in = (end - yl - caption_h) / 25.4
+    parallel_png(par, height_in, width_in)
+    yl = P.picture(par, L, yl, C)
+    yl = P.bullets(
+        L,
+        yl + 1,
+        C,
+        [
+            "HyDE 적용 후 관련성 축의 선이 위로 모이고\n관련성 0점 답변이 5개에서 1개로 줄어듦",
+        ],
+        size=19,
     )
     y = max(yl, yr) + 3
     P.text(

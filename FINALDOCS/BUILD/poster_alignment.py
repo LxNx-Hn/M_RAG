@@ -14,10 +14,6 @@ NS = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 # c: centred short code, d: description (left), n: number (right)
 # each schema is (column kinds, number of header rows)
 SCHEMAS = [
-    (["d", "c", "c", "c", "d"], 1),
-    (["d", "d", "d"], 1),
-    (["d"] + ["n"] * 3, 1),
-    (["d"] + ["n"] * 5, 1),
     (["d"] + ["n"] * 15, 2),
 ]
 
@@ -26,7 +22,7 @@ def validate_alignment(pptx: Path, svg: Path) -> dict:
     with zipfile.ZipFile(pptx) as package:
         slide = etree.fromstring(package.read("ppt/slides/slide1.xml"))
     tables = slide.findall(".//a:tbl", NS)
-    assert len(tables) == len(SCHEMAS), "Expected five native tables"
+    assert len(tables) == len(SCHEMAS), "Expected one native table"
     vector = "".join("".join(etree.fromstring(svg.read_bytes()).itertext()).split())
     checked = right = 0
     for ti, (table, (kinds, heads)) in enumerate(zip(tables, SCHEMAS), 1):

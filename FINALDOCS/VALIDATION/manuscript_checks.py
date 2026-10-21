@@ -201,7 +201,7 @@ def validate_academic_text(text):
             raise AssertionError("project history or audit metadata in body: " + legacy)
     if "검색 문맥" in body:
         raise AssertionError("abstract term '검색 문맥' returned; use 검색 결과")
-    for kind, count in (("그림", 13), ("표", 14)):
+    for kind, count in (("그림", 14), ("표", 14)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",
             text,

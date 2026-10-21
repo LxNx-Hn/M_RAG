@@ -32,16 +32,16 @@ def mutate_slide(work, operation):
 class PosterAlignmentTests(unittest.TestCase):
     def test_current_files(self):
         result = validate_alignment(PPTX, SVG)
-        self.assertEqual(result["numeric_cells_right_aligned"], 9 + 40 + 120)
+        self.assertEqual(result["numeric_cells_right_aligned"], 120)
 
     def test_native_numeric_center_rejected(self):
         def change(xml):
-            xml.findall(".//a:tbl", NS)[2].findall("a:tr", NS)[1].findall("a:tc", NS)[
+            xml.findall(".//a:tbl", NS)[0].findall("a:tr", NS)[2].findall("a:tc", NS)[
                 1
             ].find("a:txBody/a:p/a:pPr", NS).set("algn", "ctr")
 
         with tempfile.TemporaryDirectory() as work:
-            with self.assertRaisesRegex(AssertionError, "PPTX table 3 row 1 col 1"):
+            with self.assertRaisesRegex(AssertionError, "PPTX table 1 row 2 col 1"):
                 validate_alignment(mutate_slide(work, change), SVG)
 
     def test_svg_missing_text_rejected(self):

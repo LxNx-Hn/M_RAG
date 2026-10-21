@@ -113,7 +113,7 @@ def validate_layout(header, section):
             {"role": role, "paragraph_id": p.get("id"), "paraPrIDRef": shape.get("id")}
         )
     assert sum(r["role"] == "figure_source" for r in checked) == 0
-    assert sum(r["role"] == "picture" for r in checked) == 11
+    assert sum(r["role"] == "picture" for r in checked) == 12
     assert (
         sum(r["role"] == "table" for r in checked)
         == len(section.findall(".//hp:tbl", NS)) - 2

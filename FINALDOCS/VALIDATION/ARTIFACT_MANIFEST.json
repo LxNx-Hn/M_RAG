@@ -28,11 +28,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/REVISION_CONTRACT_20261015.json": {
-      "sha256": "466003a436ea84402662c60a627f3586afbcdaa0a641d5f1cbd3a8fc294c4a75",
+      "sha256": "6d0fad8f1408023e6aeb060dbcbc414fa7541fe909523c615c2a25efd26859c5",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "600ec48065e0ca03c4896092a4ca44ac5b0ce450b39924560243d746c50d9b50",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/DATA/REVISION_CONTRACT_20261018.json": {
@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "f47aebd3e602c19b0489b7b9008a12e505c81e71a8766a79937622c649448760",
+      "sha256": "75defee01f8d956716dd4e4f139dde58a2be12b53efb2baf1ca66e7caa31800c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "9c4c8beb636e371cf123dadedeb407ac3d2d80c960bd1c07235bb69dc2dd20be",
+      "sha256": "3a6ccc0425fe3c972cae81401f6c975fdaec850a18603e5e18bb74798331bde6",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "bf4850bb7545222942402f79c6f3a27ee258ed2fc769d7657ee8de552e939b05",
+      "sha256": "9ccf288e0b8aca1ad11cdf11e8cfa8be332588fb6349a07798b24e980d0733ec",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "d11492ec5435121c758ec35dc10a6cd666c37eb73153d39a10dcd52dbb9cc505",
+      "sha256": "d3ffb0d691ddb0cca1b76cab42e6a508a179639f6a3fa838fc70648f00456d19",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/POSTER/FINAL/A1_COPYEDIT_MAP.json": {
@@ -303,34 +303,34 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "5f853f79230348ec639a559ac230e447b43ce0e064d0c5d8a95a2fc318d276da",
+      "sha256": "3a6d3e564bf911fc8ad6faa8a591c2036e69f78304c2d65d72508d969a07859d",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 840318
+      "bytes": 1152963
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "5ffa2ca40fc4329f053576dc0e5921d31727fee1ae0635800bbed8a2699ff65c",
+      "sha256": "be0ad884d62e54daaf0031b2378b743644d405ee4b6d65ccfb77fa8328109144",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1342465
+      "bytes": 1395590
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "4968139989b879fca59a10b88ae14c96dd7f8c3f58386eaf95ce7733081a2234",
+      "sha256": "4440e5bdf6dcf01c48f25519b4fa1bd8c465f55094f80ecc813b1006f3a10e4a",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 951853
+      "bytes": 1033599
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
       "sha256": "6b2a39e5eb5e0a677c9b95b73b5aa89a55da19765c69364c4ae5d3448c753f5d",
@@ -1979,24 +1979,24 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "fefda54c40835312c349f5c3f68ce56629f64fb82516db6363bebaacc5ad7f80",
+      "sha256": "8f4090a91805f2414dafc824be8c030d281e8eb09690865e677e3dc566bd04ac",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
-      "bytes": 1628368
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
+      "bytes": 1586268
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "0b8f46d3f5375a2709106a55c369d2c1770eb13eed437ecf1e72cc1cd7832484",
+      "sha256": "c64f37c88cc6e9a70573c33ad0aded8181882e203cfcad78363559de9082d884",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
-      "bytes": 5808
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
+      "bytes": 4412
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
-      "sha256": "af5a701af07392acfbd9167095d3fb501af93c9547ba18371ff5ecd5756fb986",
+      "sha256": "bd3ad0b75a0eeedaae13a6aac821e040aca19529961758cc7a64dee443794d10",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
       "bytes": null
     },
     "FINALDOCS/FIGURES/fig5_3_parallel_hyde_types.png": {
@@ -2064,9 +2064,10 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "b3d1ebb63364406962d933b33d6275aa6197b31cdb46623d4aaf282aaa5b0046",
+      "sha256": "e053aa605443b3dcc3e051e17a41d37a0ebcef1152dd9e8685df6c556320763c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
-      "role": "question_group_revision_20261021"
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2083,6 +2084,30 @@
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
       "bytes": 292568
+    },
+    "FINALDOCS/FIGURES/fig4_2_example_mechanism.png": {
+      "sha256": "50110733595bc682b3c9576cddab32a86ec74723b93e0b2aec3eb98bc72eed12",
+      "hash_method": "raw bytes",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
+    },
+    "FINALDOCS/FIGURES/fig4_2_example_mechanism.svg": {
+      "sha256": "b1a783d9bb57b8c44643397f724d9fe3995a09a187620b362bcb5280ef2f2ed5",
+      "hash_method": "UTF-8 bytes, CRLF normalized to LF",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
+    },
+    "FINALDOCS/POSTER/FINAL/poster_mechanism.png": {
+      "sha256": "5e611ed3b6fc7954f63fdd5370f566fc1ecc5d288676393787d878d11e5dcb1b",
+      "hash_method": "raw bytes",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
+    },
+    "FINALDOCS/ANALYSIS/EXAMPLE_MECHANISM.json": {
+      "sha256": "59c85fc16eb8f39b293f83ce5815e3130c9c4887ba8f028514ce2e612b495276",
+      "hash_method": "UTF-8 bytes, CRLF normalized to LF",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
     }
   },
   "prose_revision": {

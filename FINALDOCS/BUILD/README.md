@@ -17,7 +17,7 @@ python -m FINALDOCS.VALIDATION.validate_all
 
 `build_question_tables.py`는 표 정의 JSON과 XLSX를 함께 만든다(openpyxl). 표 3-1은 조건 번호와 기법별 적용 여부, 표 5-1은 8개 조건의 지표별 평균(표준편차), 표 5-2는 같은 평균을 수치, 방법, 개념과 결과 질문으로 나눈 값이다. 표 5-2는 지표 두 개씩 세 묶음으로 나누어 한 쪽에 들어가게 하며, 묶음마다 머리행 두 줄(`header_rows`)을 둔다. 평행좌표는 질문 유형마다 그림 하나이며 미적용, HyDE, CAD, SCD 조건을 위에서 아래로 쌓는다. 한컴 편집 화면 검수 기록은 `VALIDATION/EDITOR_REVIEW_20261021.json`, 이번 개정의 수정 내역은 `VALIDATION/REVISION_REPORT_20261021.md`에 있다.
 
-실제 그림 재생성에는 Matplotlib와 맑은 고딕이 필요하며 `ANALYSIS/plot_questions.py`를 실행한다. 그림은 11개, 편집 수식은 8개, 논리 표는 6개다. `build_professor_diagrams.py`는 연구 설정과 관련 연구의 독립 도식을 만들며, Inkscape가 없으면 `--chrome "C:/Program Files/Google/Chrome/Application/chrome.exe"`로 같은 SVG를 렌더링한다. 파이프라인(그림 4-1)은 독립 SVG 원본이며 같은 방식으로 PNG를 만든다.
+실제 그림 재생성에는 Matplotlib와 맑은 고딕이 필요하며 `ANALYSIS/plot_questions.py`를 실행한다. 그림은 12개, 편집 수식은 8개, 논리 표는 6개다. `build_professor_diagrams.py`는 연구 설정과 관련 연구의 독립 도식을 만들며, Inkscape가 없으면 `--chrome "C:/Program Files/Google/Chrome/Application/chrome.exe"`로 같은 SVG를 렌더링한다. 파이프라인(그림 4-1)은 독립 SVG 원본이며 같은 방식으로 PNG를 만든다.
 
 HWPX 표와 그림은 학교 지시대로 글자처럼 취급한다. 긴 부록 표는 첫 조각 42,000 HWPUNIT, 이후 조각 56,000 HWPUNIT 이내로 나누고 마지막 조각을 합칠 때는 60,000 HWPUNIT까지 사용한다. 모든 표 조각에 머리행을 둔다. 질문과 정답 근거의 전체 60행과 표시값은 XLSX에 직접 대조한다. 표 셀 정렬, 강조, 학교 서식을 유지한다.
 
