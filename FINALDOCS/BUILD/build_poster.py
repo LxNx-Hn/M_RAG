@@ -197,7 +197,7 @@ def parallel_png(path):
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(21.7, 5.2), scale=2.0, save_to=path, compact=True
+        data, "방법 질문", size=(21.7, 4.9), scale=2.0, save_to=path, compact=True
     )
 
 
@@ -393,7 +393,8 @@ def build(out_dir: Path, personal=None):
     def mean(level, code, metric):
         return stat(cs, level, code, metric)["mean"]
 
-    P.rect(0, 0, W, 92, PURPLE)
+    TOP = 90  # first section heading below the title band
+    P.rect(0, 0, W, TOP - 10, PURPLE)
     P.text(
         L,
         9,
@@ -409,16 +410,6 @@ def build(out_dir: Path, personal=None):
         align=PP_ALIGN.CENTER,
         spacing=1.05,
     )
-    P.text(
-        L,
-        65,
-        W - 2 * L,
-        12,
-        "질문 유형별 원점수와 실제 답변 분석",
-        size=30,
-        color=WHITE,
-        align=PP_ALIGN.CENTER,
-    )
     f = personal or {}
     identity = "{} {} {}, 지도교수 {}".format(
         f.get("department", "[학과]"),
@@ -426,10 +417,10 @@ def build(out_dir: Path, personal=None):
         f.get("name", "[이름]"),
         f.get("advisor", "[지도교수]"),
     )
-    P.text(L, 79.5, W - 2 * L, 8, identity, size=20, color=WHITE, align=PP_ALIGN.CENTER)
+    P.text(L, 66, W - 2 * L, 10, identity, size=24, color=WHITE, align=PP_ALIGN.CENTER)
 
     # ---------------- left column
-    y = P.heading(L, 102, C, "01 연구 배경과 목적")
+    y = P.heading(L, TOP, C, "01 연구 배경과 목적")
     y = P.bullets(
         L,
         y,
@@ -475,7 +466,7 @@ def build(out_dir: Path, personal=None):
     left_end = y + 4
 
     # ---------------- right column
-    y = P.heading(R, 102, C, "03 질문 60개와 평가 지표")
+    y = P.heading(R, TOP, C, "03 질문 60개와 평가 지표")
     y = P.bullets(
         R,
         y,
@@ -660,16 +651,18 @@ def build(out_dir: Path, personal=None):
         L,
         yl + 2,
         C,
-        22,
+        38,
         [
-            "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023",
-            "[3] Shi et al., CAD, NAACL 2024  [4] Li et al., SCD, AAAI 2026",
+            "[1] Lewis et al., RAG, NeurIPS 2020",
+            "[2] Gao et al., HyDE, ACL 2023",
+            "[3] Shi et al., CAD, NAACL 2024",
+            "[4] Li et al., SCD, AAAI 2026",
             "[5] Es et al., RAGAs, EACL 2024",
         ],
         size=17,
         color=INK,
     )
-    y = max(yl + 2 + 22, yr)
+    y = max(yl + 2 + 38, yr)
     bottom = y
     assert bottom <= H - 6, f"poster overflows: {bottom:.1f} mm"
     pptx = out_dir / "M_RAG_A1_FINAL_EDITABLE.pptx"
