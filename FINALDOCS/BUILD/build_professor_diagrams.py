@@ -117,7 +117,7 @@ def main():
         d.box(x, 200, 380, 180, label, color, 42)
     for x in [425, 875, 1325]:
         d.arrow(f"{x},290 {x+45},290")
-    d.text(900, 505, "본 실험은 한국어 질의 → 영어 번역 → 가상 문서 → BGE-M3", 42)
+    d.text(900, 505, "본 실험은 영어로 번역한 질의로 가상 문서를 생성해 BGE-M3로 검색", 42)
     d.text(900, 585, "BM25 검색과 CrossEncoder 재정렬에는 한국어 원질의 사용", 42)
     drawings[FIG / "LITERATURE/fig2_2_hyde_independent.svg"] = d.svg()
     d = Drawing(1800, 850)

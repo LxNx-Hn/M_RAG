@@ -1,11 +1,11 @@
 {
   "date": "2026-10-21",
   "editor": "한컴독스 웹 한글(Chrome)",
-  "document": "M_RAG_QUESTION_GROUPS_20261021_v9.hwpx",
-  "hwpx_sha256": "f9242d1f7e59de147a8229cf15a72d7d3f708ba318b37ab6b7fba922a326c96a",
-  "pdf_sha256": "a7e17bf8d9a4c47dd22e7d29a93790d8fb7e93a93aa0c6b0e4163344bec437dd",
+  "document": "M_RAG_QUESTION_GROUPS_20261021_v10.hwpx",
+  "hwpx_sha256": "2f7a7b1acc6b12856a326949c2f2d1bdd263cbb7ef73997d1ac5b1782e01184b",
+  "pdf_sha256": "f316e767c3edde76be75aa28bfb0bb3243557753bbffe195dfc796553137f12e",
   "pdf_pages": 47,
-  "page_map_stable_from": "v8 to v9: 47 pages, every TOC anchor unchanged after page numbers were inserted",
+  "page_map_stable_from": "v9 to v10: 47 pages, every TOC anchor unchanged (only Figure 2-2 wording changed, same image size)",
   "checked": [
     "v1~v5 한컴 내보내기 47~50쪽을 쪽별로 확인하고 빈 공간, 표 배치, 그림 크기를 수정",
     "v6 편집 화면에서 표 5-2(16쪽)와 그림 5-4(19쪽)를 실제 본문 폭으로 확인",
@@ -17,7 +17,8 @@
     "평행좌표 그림 높이를 줄여 그림과 해설 문단이 같은 쪽에 놓이도록 조정",
     "5.5절의 해설 문단을 표 5-2 앞으로 옮겨 15쪽의 빈 공간 축소",
     "5.8절과 6장의 중복 문장을 줄여 장 끝이 다음 쪽으로 2줄씩 넘어가는 현상 제거",
-    "5.6절 해설 문단을 그림 5-3 앞에 모아 17쪽 하단의 빈 공간 제거"
+    "5.6절 해설 문단을 그림 5-3 앞에 모아 17쪽 하단의 빈 공간 제거",
+    "그림 2-2와 포스터 도식 안의 화살표 표기를 문장으로 바꿈"
   ],
   "visually_confirmed_toc": {
     "1. 서론": 1,
