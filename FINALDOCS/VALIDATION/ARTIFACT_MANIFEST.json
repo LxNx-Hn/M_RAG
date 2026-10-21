@@ -55,7 +55,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "2f7a7b1acc6b12856a326949c2f2d1bdd263cbb7ef73997d1ac5b1782e01184b",
+      "sha256": "a7612beb9698f28bab0bf0a23d3aefc884acbb7f8ce83024eb9cda6d4bc9d36c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
@@ -64,7 +64,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "f316e767c3edde76be75aa28bfb0bb3243557753bbffe195dfc796553137f12e",
+      "sha256": "a9992ad10ef935b975ccc6b8a6b7560de72debc0a4ab54c84a7c60ea76e1ebec",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
@@ -73,7 +73,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "fcd86d2122c1ca4deddf50891720e744bdccde25437480cd93fb4b27ee46a643",
+      "sha256": "68d386f3c7da7b3e3f5672a8f4ac54c40e3073108d0f6e9ac64e27b45b9bae0c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -303,7 +303,7 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "8d8dff45b88522757e6dce7351f855038782313f191de8522ab5f71524b625c9",
+      "sha256": "bac9b32b8900d374c5015bc01f8509b095ea3427ef4f587552cc6743623b0372",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
@@ -313,7 +313,7 @@
       "bytes": 840318
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "b831d4960f45c0f5b70217b18d132ce0a2e67f393df341a0c8dd0de0638b5104",
+      "sha256": "cdff9cfb8e17dfa5e5ce7cf2b4f9a540dc93dd1fd7b0cb0fe5a2b09912965d6c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
@@ -323,7 +323,7 @@
       "bytes": 1342465
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "f7c84288d08beb40dd70dc18097001418b35e12046373c67b3f2d2acbbe74f1c",
+      "sha256": "5830c3f4f2817b0a13dc53676eb2c8966839a7b3508f9d264ebab3e543755845",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
@@ -1979,7 +1979,7 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "dfdc97b130a648a539627deb7a74067e5a77250cd815800ab24442c97d4759f6",
+      "sha256": "42855867b2e0cf58ab371ea6115e4375329fa44e78cf3544253e42c688e27ebe",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
@@ -1993,7 +1993,7 @@
       "bytes": 5808
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
-      "sha256": "a63a8763402717bc1d632021937c32dcd11b5fa8564d1890f369e4e17d3a71ef",
+      "sha256": "b1171fbfe5b2ddbc6eb1c63d785bf2f263120658c96f1de1a08d8bbd0943bc6a",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
@@ -2040,7 +2040,7 @@
       "role": "question_group_revision_20261021"
     },
     "FINALDOCS/FIGURES/fig5_3_parallel_numeric.png": {
-      "sha256": "f49fee6d46cc7d3251d5a8f61d5cd1009d266ab48ad9d2af0b870340e1fa67a9",
+      "sha256": "68a44ab9402abed2d80027fb2fe798bc95f6552853e9a9215e701738382547e6",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
@@ -2048,7 +2048,7 @@
       "bytes": 567073
     },
     "FINALDOCS/FIGURES/fig5_4_parallel_method.png": {
-      "sha256": "a1bac007db6a09a7af9b4ceacb00c33a33c0509e2841c1ac35f784d204a6075e",
+      "sha256": "a9e796bdc1a37d1ebf3b1d72b61ba90952300d2167b32d2ede34910b6e3ac5c8",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
@@ -2056,7 +2056,7 @@
       "bytes": 672162
     },
     "FINALDOCS/FIGURES/fig5_5_parallel_concept.png": {
-      "sha256": "2380d9c3ca2f0695f2e4a94ce6fb0becc929c8ce351af48cab02fcba45b16c6f",
+      "sha256": "8e1586853a05f42a58235f9b04391113f7f9653054f2ca90357af3751fe8c3e4",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
@@ -2064,7 +2064,7 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "2487ddd900a25a9f8b862da7bf192f74fbe339458f6af45f463ccec11cbcfb3e",
+      "sha256": "7d47bc257f940e73ba408b6401b2e11b24716aa72251964c9657703722e79ef8",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021"
     },
@@ -2103,7 +2103,7 @@
   "question_analysis_revision": {
     "date": "2026-10-21",
     "analysis": "조건별 평균(표준편차)과 수치, 방법, 개념과 결과의 세 질문 유형별 평균; 질문별 변화는 미적용 기준",
-    "pdf": "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf (한컴독스 v10 내보내기, 47쪽)",
+    "pdf": "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf (한컴독스 v11 내보내기, 47쪽)",
     "poster_source": "FINALDOCS/BUILD/build_poster.py",
     "review": "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json"
   }

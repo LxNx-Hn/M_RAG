@@ -200,8 +200,9 @@ def group_profiles(
                     color=colour,
                     lw=2.4 * scale,
                     zorder=4,
-                    marker=".",
-                    markersize=3 * scale,
+                    marker="^" if colour == UP else "v",
+                    markersize=5.5 * scale,
+                    markeredgewidth=0,
                 )
                 if highlights is not None:
                     highlights.append(
@@ -236,8 +237,8 @@ def group_profiles(
         ax.set_title(title, loc="left", fontsize=10.5 * scale, fontweight="bold", color=INK, pad=4 * scale)
     handles = [
         plt.Line2D([], [], color=GREY, lw=2.2),
-        plt.Line2D([], [], color=UP, lw=2.4),
-        plt.Line2D([], [], color=DOWN, lw=2.4),
+        plt.Line2D([], [], color=UP, lw=2.4, marker="^", markersize=6, markeredgewidth=0),
+        plt.Line2D([], [], color=DOWN, lw=2.4, marker="v", markersize=6, markeredgewidth=0),
         plt.Line2D([], [], color=INK, lw=1.2, ls=(0, (3, 2))),
     ]
     fig.legend(
