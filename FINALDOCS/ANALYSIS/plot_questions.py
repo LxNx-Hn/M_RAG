@@ -78,7 +78,7 @@ COMBINED_PANELS = [
     ("H1C1S0", "H0C1S0", "answer_relevancy", "답변 관련성"),
     ("H1C1S1", "H0C1S1", "answer_relevancy", "답변 관련성"),
 ]
-UP, DOWN, GREY = "#1f5fa8", "#c0392b", "#b8bcc4"
+UP, DOWN, GREY = "#c0392b", "#1f5fa8", "#b8bcc4"
 TOP = 3
 
 

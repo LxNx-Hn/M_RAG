@@ -1,11 +1,11 @@
 {
   "date": "2026-10-21",
   "editor": "한컴독스 웹 한글(Chrome)",
-  "document": "M_RAG_QUESTION_GROUPS_20261021_v15.hwpx",
-  "hwpx_sha256": "5e63969347aa718ce10a34ba895c479654f498a8ed0576a27936463d582434e0",
-  "pdf_sha256": "13458b1588730a96a27d37e496d760b3c5402f7a0ae5b4be39fb9b895e22ab7c",
+  "document": "M_RAG_QUESTION_GROUPS_20261021_v16.hwpx",
+  "hwpx_sha256": "f689d88ee08e1463668515bb0f5b54a9daa3c2a78ca765c288cb65046e5484f2",
+  "pdf_sha256": "1501fdf09b2fd3cb72c248d13094f306c91ba61bd035de6c4394dd59e64111b6",
   "pdf_pages": 47,
-  "page_map_stable_from": "v14 to v15: 47 pages, every TOC anchor unchanged after page numbers were inserted",
+  "page_map_stable_from": "v15 to v16: 47 pages, every TOC anchor unchanged (rise line red, fall line blue; same image size)",
   "checked": [
     "v1~v5 한컴 내보내기 47~50쪽을 쪽별로 확인하고 빈 공간, 표 배치, 그림 크기를 수정",
     "v6 편집 화면에서 표 5-2(16쪽)와 그림 5-4(19쪽)를 실제 본문 폭으로 확인",
@@ -21,7 +21,8 @@
     "5.6절 해설 문단을 그림 5-3 앞에 모아 17쪽 하단의 빈 공간 제거",
     "그림 2-2와 포스터 도식 안의 화살표 표기를 문장으로 바꿈",
     "평행좌표의 오른 질문과 내린 질문 선에 ▲, ▼ 표식을 더해 흑백 인쇄에서도 구분되도록 함",
-    "5.4, 5.5, 5.8, 6장에 기법 수의 트레이드오프(지표 하나는 기법 하나, 고른 품질은 세 기법)를 추가"
+    "5.4, 5.5, 5.8, 6장에 기법 수의 트레이드오프(지표 하나는 기법 하나, 고른 품질은 세 기법)를 추가",
+    "평행좌표의 색을 오른 질문은 빨강, 내린 질문은 파랑으로 바꿈"
   ],
   "visually_confirmed_toc": {
     "1. 서론": 1,
