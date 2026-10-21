@@ -77,16 +77,16 @@ def cell_rows(table):
 def f2(v, sign=False):
     if sign and round(v, 2) == 0:
         return "0.00"
-    return f"{v:+.2f}" if sign else f"{v:.2f}"
+    return f"{v:+.2f}".replace("-", "−") if sign else f"{v:.2f}"
 
 
-def check_bold(rows, cols, label, skip_last=False):
-    body = rows[1 : len(rows) - (1 if skip_last else 0)]
+def check_bold(rows, cols, label, skip_last=False, start=1):
+    body = rows[start : len(rows) - (1 if skip_last else 0)]
     for c in cols:
-        top = max(float(r[c][0]) for r in body)
+        top = max(float(r[c][0].replace("−", "-")) for r in body)
         for i, r in enumerate(body, 1):
             assert r[c][1] == (
-                float(r[c][0]) == top
+                float(r[c][0].replace("−", "-")) == top
             ), f"{label} bold differs at row {i} col {c}"
 
 
@@ -117,7 +117,7 @@ def validate_poster(pptx, svg=None):
         slide = ET.fromstring(z.read("ppt/slides/slide1.xml"))
         media = [n for n in z.namelist() if n.startswith("ppt/media/")]
     tables = [cell_rows(t) for t in slide.findall(".//a:tbl", A)]
-    assert len(tables) == 5, "Expected five native tables"
+    assert len(tables) == 6, "Expected six native tables"
     assert len(media) >= 2, "Pipeline diagram or parallel-coordinate image missing"
     text = "".join(slide.xpath("//*[local-name()='t']/text()"))
     hit = FORBIDDEN.search(text)
@@ -141,26 +141,33 @@ def validate_poster(pptx, svg=None):
         assert [c[0] for c in means[i]] == expect, f"Poster value differs: mean row {i}"
     check_bold(means, [1, 2, 3, 4, 5], "Condition mean table")
 
-    groups = tables[3]
-    for i, code in enumerate(CONDITIONS, 1):
-        expect = [labels[i - 1]] + [
-            f2(mean(g, code, m))
-            for g in GROUPS
-            for m in ("answer_relevancy", "faithfulness")
-        ]
-        assert [c[0] for c in groups[i]] == expect, f"Poster value differs: group row {i}"
-    check_bold(groups, [1, 2, 3, 4, 5, 6], "Question group table")
+    blocks = [
+        ("faithfulness", "answer_relevancy"),
+        ("context_precision", "context_recall", "korean_ratio"),
+    ]
+    for t_index, block in zip((3, 4), blocks):
+        groups = tables[t_index]
+        for i, code in enumerate(CONDITIONS, 1):
+            expect = [labels[i - 1]] + [
+                f2(mean(g, code, m)) for m in block for g in GROUPS
+            ]
+            assert [c[0] for c in groups[i + 1]] == expect, (
+                f"Poster value differs: group table {t_index} row {i}"
+            )
+        check_bold(
+            groups, list(range(1, 1 + 3 * len(block))), "Question group table", start=2
+        )
 
     for i, a0 in enumerate(["H1C0S0", "H0C1S0", "H0C0S1"], 1):
         r = pick("전체", "H0C0S0", a0, "duration_seconds")
-        assert [c[0] for c in tables[4][i]] == [
+        assert [c[0] for c in tables[5][i]] == [
             NAMES[a0],
             f2(r.base_mean),
             f2(r.applied_mean),
             f2(r.mean_delta, True),
         ], f"Poster value differs: time row {i}"
-    check_bold(tables[4], [2, 3], "Time table")
-    return {"tables": 5, "result_rows_checked": 8 + 8 + 8 + 3, "decimals": 2}
+    check_bold(tables[5], [2, 3], "Time table")
+    return {"tables": 6, "result_rows_checked": 8 + 8 + 8 + 8 + 3, "decimals": 2}
 
 
 def protocol_order(codes):

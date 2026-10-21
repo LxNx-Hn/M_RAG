@@ -119,7 +119,7 @@ def main():
     body, results = expand(body), expand(results)
     appendix = (
         "# 부록 A. 60개 질문과 정답 근거 [스타일=부록제목]\n\n"
-        "각 질문의 대상 문서와 유형, 원문 페이지, 정답 근거를 제시하였다. "
+        "표 A-1은 각 질문의 대상 문서와 유형, 원문 페이지, 정답 근거를 정리한 것이다. "
         "유형은 5.1절의 수치, 방법, 개념과 결과 질문이며, 질문 ID는 저장된 생성 기록과 평가 기록을 연결하는 식별자다.\n\n"
         + render_table(by["Appendix_Queries"])
     )

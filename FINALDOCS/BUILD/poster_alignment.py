@@ -12,12 +12,14 @@ from lxml import etree
 
 NS = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 # c: centred short code, d: description (left), n: number (right)
+# each schema is (column kinds, number of header rows)
 SCHEMAS = [
-    ["d", "c", "c", "c", "d"],
-    ["d", "d", "d"],
-    ["d"] + ["n"] * 5,
-    ["d"] + ["n"] * 6,
-    ["d"] + ["n"] * 3,
+    (["d", "c", "c", "c", "d"], 1),
+    (["d", "d", "d"], 1),
+    (["d"] + ["n"] * 5, 1),
+    (["d"] + ["n"] * 6, 2),
+    (["d"] + ["n"] * 9, 2),
+    (["d"] + ["n"] * 3, 1),
 ]
 
 
@@ -25,15 +27,15 @@ def validate_alignment(pptx: Path, svg: Path) -> dict:
     with zipfile.ZipFile(pptx) as package:
         slide = etree.fromstring(package.read("ppt/slides/slide1.xml"))
     tables = slide.findall(".//a:tbl", NS)
-    assert len(tables) == len(SCHEMAS), "Expected five native tables"
+    assert len(tables) == len(SCHEMAS), "Expected six native tables"
     vector = "".join("".join(etree.fromstring(svg.read_bytes()).itertext()).split())
     checked = right = 0
-    for ti, (table, kinds) in enumerate(zip(tables, SCHEMAS), 1):
+    for ti, (table, (kinds, heads)) in enumerate(zip(tables, SCHEMAS), 1):
         for ri, row in enumerate(table.findall("a:tr", NS)):
             cells = row.findall("a:tc", NS)
             assert len(cells) == len(kinds), "Table schema width differs"
             for ci, cell in enumerate(cells):
-                kind = "c" if ri == 0 else kinds[ci]
+                kind = "c" if ri < heads else kinds[ci]
                 expected = {"c": "ctr", "n": "r", "d": "l"}[kind]
                 for para in cell.findall("a:txBody/a:p", NS):
                     props = para.find("a:pPr", NS)

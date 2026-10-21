@@ -84,7 +84,7 @@ def pick(s, level, base, applied, metric):
 def f2(v, sign=False):
     if sign and round(v, 2) == 0:
         return "0.00"
-    return f"{v:+.2f}" if sign else f"{v:.2f}"
+    return f"{v:+.2f}".replace("-", "−") if sign else f"{v:.2f}"
 
 
 # ---------------------------------------------------------------- figures
@@ -197,7 +197,7 @@ def parallel_png(path):
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(21.7, 7.4), scale=2.0, save_to=path, compact=True
+        data, "방법 질문", size=(21.7, 6.3), scale=2.0, save_to=path, compact=True
     )
 
 
@@ -284,6 +284,8 @@ class Poster:
         row_h=9.2,
         header_h=None,
         aligns=None,
+        header_rows=1,
+        merges=(),
     ):
         nr, nc = len(rows), len(rows[0])
         line = size * 0.3528 * 1.22
@@ -327,11 +329,11 @@ class Poster:
                     r.text = t
                     r.font.name = FONT
                     r.font.size = Pt(size)
-                    r.font.bold = i == 0 or (i, j) in bold
+                    r.font.bold = i < header_rows or (i, j) in bold
                     r.font.color.rgb = INK
                     a = (
                         "center"
-                        if i == 0
+                        if i < header_rows
                         else (aligns[j] if aligns else ("left" if j == 0 else "right"))
                     )
                     p.alignment = {
@@ -345,6 +347,8 @@ class Poster:
                     sf = etree.SubElement(ln, qn("a:solidFill"))
                     etree.SubElement(sf, qn("a:srgbClr"), val="777777")
                 self.texts.append(str(rows[i][j]))
+        for r0, c0, r1, c1 in merges:
+            tbl.cell(r0, c0).merge(tbl.cell(r1, c1))
         return y + sum(heights)
 
     def picture(self, path, x, y, w):
@@ -352,13 +356,13 @@ class Poster:
         return y + pic.height / 36000
 
 
-def bold_max(rows, cols, skip_last=False):
+def bold_max(rows, cols, skip_last=False, start=1):
     out = []
-    body = range(1, len(rows) - (1 if skip_last else 0))
+    body = range(start, len(rows) - (1 if skip_last else 0))
     for c in cols:
-        vals = [float(rows[i][c]) for i in body]
+        vals = [float(rows[i][c].replace("−", "-")) for i in body]
         m = max(vals)
-        out += [(i, c) for i in body if float(rows[i][c]) == m]
+        out += [(i, c) for i, v in zip(body, vals) if v == m]
     return out
 
 
@@ -428,7 +432,7 @@ def build(out_dir: Path):
             "같은 질문 60개로 유형마다 유리한 기법을 비교",
         ],
     )
-    y = P.heading(L, y + 4, C, "02 파이프라인과 실험 조건")
+    y = P.heading(L, y + 12, C, "02 파이프라인과 실험 조건")
     y = P.picture(pipe, L, y, C) + 3
     rows = [["조건", "HyDE", "CAD", "SCD", "품질 평가 근거"]]
     for c in CONDITIONS:
@@ -460,7 +464,7 @@ def build(out_dir: Path):
         ],
         size=18,
     )
-    y = P.heading(L, y + 4, C, "03 질문 60개와 평가 지표")
+    y = P.heading(L, y + 12, C, "03 질문 60개와 평가 지표")
     y = P.bullets(
         L,
         y,
@@ -490,7 +494,7 @@ def build(out_dir: Path):
         rows,
         [1.55, 3.35, 1.7],
         size=17,
-        row_h=9.3,
+        row_h=8.9,
         aligns=["left", "left", "left"],
     )
     P.text(
@@ -502,7 +506,7 @@ def build(out_dir: Path):
         size=16,
         color=GREY,
     )
-    left_end = y + 9
+    left_end = y + 11
 
     # ---------------- right column
     y = P.heading(R, 102, C, "04 조건별 평균 점수")
@@ -517,7 +521,7 @@ def build(out_dir: Path):
         [2.5, 1.1, 1.1, 1.1, 1.1, 1.3],
         bold=set(bold_max(rows, [1, 2, 3, 4, 5])),
         size=18,
-        row_h=8.2,
+        row_h=7.5,
         header_h=14,
     )
     y = P.bullets(
@@ -525,50 +529,55 @@ def build(out_dir: Path):
         y + 3,
         C,
         [
-            "관련성은 HyDE(0.76), 충실도는 HyDE+CAD(0.86),\n한국어 비율은 HyDE+SCD(0.81)가 가장 높음",
             "두 기법 이상 결합한 조건의 관련성은 모두 HyDE보다 낮음",
             "조건 4, 6, 7, 8의 품질 지표는 한국어 번역 근거로 평가",
         ],
         size=19,
     )
 
-    y = P.heading(R, y + 4, C, "05 질문 유형별 평균 점수")
-    groups = [("수치 질문", "수치"), ("방법 질문", "방법"), ("개념과 결과 질문", "개념과 결과")]
-    rows = [["조건"] + [f"{short}\n{metric}" for _, short in groups for metric in ("관련성", "충실도")]]
-    for c in CONDITIONS:
-        rows.append(
-            [condition_label(c)]
-            + [
-                f2(mean(g, c, m))
-                for g, _ in groups
-                for m in ("answer_relevancy", "faithfulness")
-            ]
+    right_gap = 2
+    y = P.heading(R, y + right_gap, C, "05 질문 유형별 평균 점수")
+    groups = [
+        ("수치 질문", "수치"),
+        ("방법 질문", "방법"),
+        ("개념과 결과 질문", "개념과\n결과"),
+    ]
+    for block in (
+        [("faithfulness", "근거 충실도"), ("answer_relevancy", "답변 관련성")],
+        [("context_precision", "문맥 정밀도"), ("context_recall", "문맥 재현율"), ("korean_ratio", "한국어 문자 비율")],
+    ):
+        top = ["조건"]
+        for _, label in block:
+            top += [label, "", ""]
+        rows = [top, [""] + [short for _ in block for _, short in groups]]
+        for c in CONDITIONS:
+            rows.append(
+                [condition_label(c)]
+                + [f2(mean(g, c, m)) for m, _ in block for g, _ in groups]
+            )
+        cols = list(range(1, len(rows[0])))
+        merges = [(0, 0, 1, 0)] + [(0, 1 + 3 * k, 0, 3 + 3 * k) for k in range(len(block))]
+        y = P.table(
+            R,
+            y + (0 if block[0][0] == "faithfulness" else 1.5),
+            C,
+            rows,
+            [1.64 if len(block) == 2 else 2.46] + [1.0] * (len(rows[0]) - 1),
+            bold=set(bold_max(rows, cols, start=2)),
+            size=16,
+            row_h=7.0,
+            header_rows=2,
+            merges=merges,
         )
-    y = P.table(
-        R,
-        y,
-        C,
-        rows,
-        [2.3, 0.95, 0.95, 0.95, 0.95, 1.35, 1.35],
-        bold=set(bold_max(rows, [1, 2, 3, 4, 5, 6])),
-        size=17,
-        row_h=8.2,
-        header_h=14,
-    )
     y = P.bullets(
         R,
         y + 3,
         C,
-        [
-            "방법 질문은 HyDE가 관련성을 0.57에서 0.74로 높임",
-            "수치 질문은 CAD가 충실도를 0.83에서 0.90으로 높이고\nHyDE의 관련성은 0.74로 그대로",
-            "개념과 결과 질문은 CAD가 충실도와 관련성을 모두 낮춤",
-            "SCD는 세 유형 모두 한국어 비율을 높임(수치 0.58에서 0.81)",
-        ],
+        ["관련성은 방법 질문에서 HyDE, 충실도는 수치 질문에서 CAD가 크게 높임"],
         size=19,
     )
 
-    y = P.heading(R, y + 4, C, "06 단일 기법의 처리 시간")
+    y = P.heading(R, y + right_gap, C, "06 단일 기법의 처리 시간")
     rows = [["기법", "미적용(초)", "적용(초)", "변화(초)"]]
     for a0 in ["H1C0S0", "H0C1S0", "H0C0S1"]:
         r = pick(s, "전체", "H0C0S0", a0, "duration_seconds")
@@ -583,7 +592,7 @@ def build(out_dir: Path):
         [1.5, 1.6, 1.5, 1.5],
         bold=set(bold_max(rows, [2, 3])),
         size=18,
-        row_h=8.2,
+        row_h=7.5,
     )
     y = P.bullets(
         R,
@@ -634,20 +643,21 @@ def build(out_dir: Path):
         ],
         size=20,
     )
-    y = max(yl, yr) + 3
     P.text(
         L,
-        y,
-        W - 2 * L,
-        14,
+        yl + 2,
+        C,
+        17,
         [
-            "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023  [3] Shi et al., CAD, NAACL 2024",
-            "[4] Li et al., Language Drift and SCD, AAAI 2026  [5] Es et al., RAGAs, EACL 2024",
+            "[1] Lewis et al., RAG, NeurIPS 2020  [2] Gao et al., HyDE, ACL 2023",
+            "[3] Shi et al., CAD, NAACL 2024  [4] Li et al., SCD, AAAI 2026",
+            "[5] Es et al., RAGAs, EACL 2024",
         ],
         size=15,
         color=GREY,
     )
-    bottom = y + 14
+    y = max(yl + 2 + 17, yr)
+    bottom = y
     assert bottom <= H - 6, f"poster overflows: {bottom:.1f} mm"
     pptx = out_dir / "M_RAG_A1_FINAL_EDITABLE.pptx"
     P.prs.save(pptx)
