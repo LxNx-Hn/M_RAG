@@ -55,7 +55,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "e5cfb9c844e453199786e997b380e95dc293627849197a3efb48986313a1c5e5",
+      "sha256": "f47aebd3e602c19b0489b7b9008a12e505c81e71a8766a79937622c649448760",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
@@ -64,7 +64,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "7fd8b019ffa19c275e635330da8b3108e2c8b01497e32cc027c4011e0b0909e7",
+      "sha256": "9c4c8beb636e371cf123dadedeb407ac3d2d80c960bd1c07235bb69dc2dd20be",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
@@ -73,7 +73,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "1500864e2a71cc9338d3213e93e0e2e55decf3ffc92687542f99dd88a1513d94",
+      "sha256": "bf4850bb7545222942402f79c6f3a27ee258ed2fc769d7657ee8de552e939b05",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -285,7 +285,7 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "3e08b3ba66aa640a8a3dd407cff82ff4e13e80e381359c95a8131c44c4f39daf",
+      "sha256": "d11492ec5435121c758ec35dc10a6cd666c37eb73153d39a10dcd52dbb9cc505",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
@@ -303,7 +303,7 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "21b894c4a197ba3d411fa5fae1fd8b63e8b16164af885f197ec782a59aa90e9f",
+      "sha256": "cbb3db8cf6b4f8f8f2034a586c51494817f6b2283580aeaa6af5c8199e10d4c7",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
@@ -313,7 +313,7 @@
       "bytes": 840318
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "c1cf7bb63a8a5e88ae51847af974de79160a99125da942681854963b9ec52e4c",
+      "sha256": "c61c1b46c7812a6b77590900b406655359197452eeff059c517f62207a6a6d9c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
@@ -323,7 +323,7 @@
       "bytes": 1342465
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "efd932cfb985afdfd7c4fa8260ff1a478061efe30e41a34a50cc7376916b96e8",
+      "sha256": "be637d0c2e2ea46e2255e57ccc32a058003f5c14e1a733eec003d3363d9d7e31",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
@@ -1979,14 +1979,14 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "73e777609c79a6df1a13dff882766b8a236552c0141984124350df5a975a57d4",
+      "sha256": "52657dfbfac9507bae0c444ea077d6d141155315ba273b7459f9163bd3fbd3e1",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
       "bytes": 1628368
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "555a7e6cee85bb7bc0901d593cf6d3034cbd764fb0749a403977827cab532cfc",
+      "sha256": "d452988b0c5f31d8e0fcdc713e5f76d9d8674c92b378a82222eba783ef008f69",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery",
@@ -2064,7 +2064,7 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "ec493b745f48094537fe30c9eadc0ed7b050886f82b4fd170114a2db8bfe9ae2",
+      "sha256": "b3d1ebb63364406962d933b33d6275aa6197b31cdb46623d4aaf282aaa5b0046",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021"
     },
@@ -2103,7 +2103,7 @@
   "question_analysis_revision": {
     "date": "2026-10-21",
     "analysis": "조건별 평균(표준편차)과 수치, 방법, 개념과 결과의 세 질문 유형별 평균; 질문별 변화는 미적용 기준",
-    "pdf": "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf (한컴독스 v19 내보내기, 47쪽)",
+    "pdf": "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf (한컴독스 v21 내보내기, 47쪽)",
     "poster_source": "FINALDOCS/BUILD/build_poster.py",
     "review": "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json"
   }

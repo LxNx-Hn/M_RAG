@@ -527,7 +527,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "검색 대상은 영어 문서 4종으로, RAG Survey[D1], CAD[D2], RAPTOR(Recursive Abstractive Processing for Tree-Organized Retrieval)[D3], Mi:dm K 2.5 Pro Technical Report[D4]이다. 문서마다 한국어 질문을 15개씩, 총 60개 작성하였고, 각 질문의 검색 범위는 해당 문서로 한정하였다. 질문마다 8개 조건을 적용하여 생성 답변 480개를 얻었다.",
+      "text": "검색 대상은 영어 문서 네 종으로, RAG Survey[D1], CAD[D2], RAPTOR(Recursive Abstractive Processing for Tree-Organized Retrieval)[D3], Mi:dm K 2.5 Pro Technical Report[D4]이다. 문서마다 한국어 질문을 15개씩, 총 60개 작성하였고, 각 질문의 검색 범위는 해당 문서로 한정하였다. 질문마다 여덟 조건을 적용하여 생성 답변 480개를 얻었다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1283,7 +1283,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "같은 유형의 평균이 오른 경우에도 질문마다 변화의 크기와 방향은 달랐다. 그림 5-3부터 그림 5-5는 세 유형의 질문별 원점수를 미적용, HyDE, CAD, SCD 조건으로 나누어 그린 평행좌표로, 평균이 가리는 질문 사이의 차이와 평균에서 멀리 떨어진 질문을 보여준다. 색 선은 미적용과 비교하여 HyDE의 답변 관련성, CAD의 근거 충실도, SCD의 한국어 문자 비율이 가장 크게 오르거나 내린 질문이다.",
+      "text": "같은 유형의 평균이 오른 경우에도 질문마다 변화의 크기와 방향은 달랐다. 그림 5-3부터 그림 5-5는 세 유형의 질문별 원점수를 미적용, HyDE, CAD, SCD 조건으로 나누어 그린 평행좌표로, 평균이 가리는 질문 사이의 차이와 평균에서 멀리 떨어진 질문을 보여 준다. 색 선은 미적용과 비교하여 HyDE의 답변 관련성, CAD의 근거 충실도, SCD의 한국어 문자 비율이 가장 크게 오르거나 내린 질문이다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1367,7 +1367,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "관련성 점수가 올라도 요구 정보가 빠진 답변이 있었다. Mi:dm 보고서에서 Fusion SFT(지도 미세조정) 단계의 비추론(non-reasoning) 데이터 비중을 늘린 목적을 묻는 질문의 정답은 대화 정렬이라는 목적과 창작, 번역, 일반 질의응답 데이터의 보강이며, 이 내용은 두 조건의 입력 구간에 모두 있었다. HyDE 답변은 사전학습 단계의 데이터 구성을 다룬 영어 원문을 이어 썼고, 답변 관련성은 0.00에서 0.46으로 올랐다.",
+      "text": "관련성 점수가 올라도 요구 정보가 빠진 답변이 있었다. Mi:dm 보고서에서 Fusion SFT(지도 미세조정) 단계의 비추론(non-reasoning) 데이터 비중을 늘린 목적을 묻는 질문의 정답은 대화 정렬이라는 목적과 창작, 번역, 일반 질의응답 데이터의 보강이며, 이 내용은 미적용과 HyDE의 입력 구간에 모두 있었다. HyDE 답변은 사전학습 단계의 데이터 구성을 다룬 영어 원문을 이어 썼다. 이 답변에는 목적과 보강 과제가 빠졌지만 답변 관련성은 0.00에서 0.46으로 올랐다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1381,7 +1381,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "CAD가 높인 근거 충실도에는 다른 수치나 다른 내용을 옮긴 답변도 포함되었다. CAD 논문의 표에서 LLaMA-30B의 XSUM 결과를 묻는 질문의 정답은 일반 디코딩과 CAD의 ROUGE-L 18.7과 22.0, factKB 47.7과 66.4, BERT-P 87.1과 90.3이다. 미적용과 CAD 답변은 모두 같은 표의 다른 행 값인 ROUGE-L 25.8과 31.8, factKB 87.8을 XSUM 결과로 제시하였다. CAD 답변은 일반 디코딩의 factKB 47.7과 BERT-P 87.1만 정답대로 옮겼는데도 근거 충실도가 0.53에서 0.87로 올랐다. RAPTOR가 문서를 100토큰 단위로 나누는 규칙을 묻는 질문에서도 CAD 답변은 트리 구축 비용이 문서 길이에 선형으로 늘어난다는 다른 내용을 설명하였고, 근거 충실도는 0.25에서 1.00으로, 답변 관련성은 0.00에서 0.76으로 올랐다. 근거 충실도는 답변의 주장이 입력 구간에 있는지를 평가하므로, 입력 구간의 다른 행이나 다른 문단을 옮긴 답변도 높은 점수를 받는다.",
+      "text": "CAD가 높인 근거 충실도에는 다른 수치나 다른 내용을 옮긴 답변도 포함되었다. CAD 논문의 표에서 LLaMA-30B의 XSUM 결과를 묻는 질문의 정답은 일반 디코딩과 CAD의 ROUGE-L 18.7과 22.0, factKB 47.7과 66.4, BERT-P 87.1과 90.3이다. 미적용과 CAD 답변은 모두 같은 표의 다른 행 값인 ROUGE-L 25.8과 31.8, factKB 87.8을 XSUM 결과로 제시하였다. CAD 답변에서 정답과 같은 값은 일반 디코딩의 factKB 47.7과 BERT-P 87.1뿐이었지만, 근거 충실도는 0.53에서 0.87로 올랐다. RAPTOR가 문서를 100토큰 단위로 나누는 규칙을 묻는 질문에서도 CAD 답변은 트리 구축 비용이 문서 길이에 선형으로 늘어난다는 다른 내용을 설명하였고, 근거 충실도는 0.25에서 1.00으로, 답변 관련성은 0.00에서 0.76으로 올랐다. 근거 충실도는 답변의 주장이 입력 구간에 있는지를 평가하므로, 입력 구간의 다른 행이나 다른 문단을 옮긴 답변도 높은 점수를 받는다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1423,7 +1423,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "수치 질문에서 HyDE 조건의 답변 관련성은 0.74로 그대로였고 문맥 정밀도와 재현율은 낮아졌다. 근거 충실도는 CAD를 포함한 조건에서 0.90 이상이었지만, 처리 시간은 14.65초에서 55.41초로 늘었고 다른 행의 수치를 옮긴 답변도 높은 충실도를 받았다. 수치 질문의 답변 품질은 정답 수치가 담긴 구간이 입력에 들어오는지와 답변이 그 값을 정확히 옮기는지에 달려 있었다.",
+      "text": "수치 질문에서 HyDE 조건의 답변 관련성은 0.74로 그대로였고 문맥 정밀도와 재현율은 낮아졌다. 근거 충실도는 CAD, HyDE+CAD, HyDE+CAD+SCD에서 0.90 이상이었지만, 처리 시간은 14.65초에서 55.41초로 늘었고 다른 행의 수치를 옮긴 답변도 높은 충실도를 받았다. 수치 질문의 답변 품질은 정답 수치가 담긴 구간이 입력에 들어오는지와 답변이 그 값을 정확히 옮기는지에 달려 있었다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1507,7 +1507,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "한 지표를 가장 높이거나 응답 시간을 줄여야 하면 기법 하나를 적용하며, 관련성이 중요한 질문과 개념과 결과 질문에는 HyDE가 가장 좋았다. 수치 질문은 정답 수치가 담긴 구간이 검색되는지를 먼저 확인하고, 근거 충실도가 중요하면 처리 시간을 감수하고 HyDE+CAD를 사용한다. 한국어 답변이 필요하면 SCD를 더하며, 방법 질문처럼 검색 근거, 충실도, 관련성을 고루 지켜야 하는 질문에는 세 기법을 모두 적용한다.",
+      "text": "한 지표를 가장 높이거나 응답 시간을 줄여야 하면 기법 하나를 적용하며, 관련성이 중요한 질문과 개념과 결과 질문에는 HyDE를 적용한다. 수치 질문은 정답 수치가 담긴 구간이 검색되는지를 먼저 확인하고, 근거 충실도가 중요하면 처리 시간을 감수하고 HyDE+CAD를 사용한다. 한국어 답변이 필요하면 SCD를 더하며, 방법 질문처럼 검색 근거, 충실도, 관련성을 고루 지켜야 하는 질문에는 세 기법을 모두 적용한다.",
       "style": "본문",
       "page_break": false,
       "usage_section": false
@@ -1710,35 +1710,35 @@
     },
     {
       "kind": "paragraph",
-      "text": "[M2] MiniLM CrossEncoder 재정렬 모델의 공식 모델 카드, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 (확인: 2026-10-17). 원질의와 후보 구간의 쌍을 입력하는 CrossEncoder 재정렬에 사용하였다(구현 설정 표기: cross-encoder/ms-marco-MiniLM-L-6-v2).",
+      "text": "[M2] MiniLM CrossEncoder 재정렬 모델의 공식 모델 카드, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 (확인: 2026-10-17). 원질의와 후보 구간의 쌍을 입력하는 CrossEncoder 재정렬에 사용하였다(구현 설정의 표기는 cross-encoder/ms-marco-MiniLM-L-6-v2).",
       "style": "참고문헌리스트",
       "page_break": false,
       "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "[D1] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, https://arxiv.org/abs/2312.10997 (확인: 2026-10-20). 실험 원문: paper_nlp_rag.pdf.",
+      "text": "[D1] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, https://arxiv.org/abs/2312.10997 (확인: 2026-10-20). 실험 원문 파일은 paper_nlp_rag.pdf이다.",
       "style": "참고문헌리스트",
       "page_break": false,
       "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "[D2] W. Shi et al., CAD 논문[3]. 실험 원문: paper_nlp_cad.pdf.",
+      "text": "[D2] W. Shi et al., CAD 논문[3]. 실험 원문 파일은 paper_nlp_cad.pdf이다.",
       "style": "참고문헌리스트",
       "page_break": false,
       "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "[D3] P. Sarthi et al., RAPTOR 논문[14]. 실험 원문: paper_nlp_raptor.pdf.",
+      "text": "[D3] P. Sarthi et al., RAPTOR 논문[14]. 실험 원문 파일은 paper_nlp_raptor.pdf이다.",
       "style": "참고문헌리스트",
       "page_break": false,
       "usage_section": false
     },
     {
       "kind": "paragraph",
-      "text": "[D4] KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” 기업 기술보고서, arXiv:2603.18788v2, 2026, https://arxiv.org/abs/2603.18788v2 (확인: 2026-10-20). 실험 원문: paper_midm.pdf.",
+      "text": "[D4] KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” 기업 기술보고서, arXiv:2603.18788v2, 2026, https://arxiv.org/abs/2603.18788v2 (확인: 2026-10-20). 실험 원문 파일은 paper_midm.pdf이다.",
       "style": "참고문헌리스트",
       "page_break": false,
       "usage_section": false
@@ -4448,1729 +4448,1729 @@
   "layout": [
     {
       "role": "chapter",
-      "paragraph_id": "477183864",
+      "paragraph_id": "925349367",
       "paraPrIDRef": "23",
       "styleIDRef": "4"
     },
     {
       "role": "body",
-      "paragraph_id": "1844747066",
+      "paragraph_id": "1914465715",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1026777279",
+      "paragraph_id": "1619553964",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "814725120",
+      "paragraph_id": "1547199222",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "810655273",
+      "paragraph_id": "577173489",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "375678865",
+      "paragraph_id": "149730939",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1143347160",
+      "paragraph_id": "1482798242",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "356539635",
+      "paragraph_id": "1205758924",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "picture",
-      "paragraph_id": "428558694",
+      "paragraph_id": "561342670",
       "paraPrIDRef": "30",
       "styleIDRef": "19"
     },
     {
       "role": "figure_caption",
-      "paragraph_id": "1762809590",
+      "paragraph_id": "2029250621",
       "paraPrIDRef": "24",
       "styleIDRef": "18"
     },
     {
       "role": "section",
-      "paragraph_id": "1148079535",
+      "paragraph_id": "1797154501",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "327819147",
+      "paragraph_id": "66409947",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "485070303",
+      "paragraph_id": "2044789216",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "2020916524",
+      "paragraph_id": "1995894325",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1476951750",
+      "paragraph_id": "2099228423",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "658109874",
+      "paragraph_id": "1734487727",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1095467508",
+      "paragraph_id": "1832100159",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1941835086",
+      "paragraph_id": "843402569",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "130961080",
+      "paragraph_id": "1194400747",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "chapter",
-      "paragraph_id": "15532410",
+      "paragraph_id": "1127175803",
       "paraPrIDRef": "23",
       "styleIDRef": "4"
     },
     {
       "role": "body",
-      "paragraph_id": "706168066",
+      "paragraph_id": "1851601007",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "2112217796",
+      "paragraph_id": "1100589184",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1843923842",
+      "paragraph_id": "2120607239",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "picture",
-      "paragraph_id": "308069704",
+      "paragraph_id": "401995675",
       "paraPrIDRef": "30",
       "styleIDRef": "19"
     },
     {
       "role": "figure_caption",
-      "paragraph_id": "1457200041",
+      "paragraph_id": "83809443",
       "paraPrIDRef": "24",
       "styleIDRef": "18"
     },
     {
       "role": "body",
-      "paragraph_id": "2002679630",
+      "paragraph_id": "184286964",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "equation",
-      "paragraph_id": "2028890034",
+      "paragraph_id": "74057953",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "equation",
-      "paragraph_id": "799439820",
+      "paragraph_id": "1671461643",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "section",
-      "paragraph_id": "1910080805",
+      "paragraph_id": "262763144",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1441776859",
+      "paragraph_id": "1022262439",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "695361132",
+      "paragraph_id": "679541184",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "equation",
-      "paragraph_id": "1264257948",
+      "paragraph_id": "725011571",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "body",
-      "paragraph_id": "1711104548",
+      "paragraph_id": "1848993094",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1558214492",
+      "paragraph_id": "1455964870",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1975636582",
+      "paragraph_id": "1643967068",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "picture",
-      "paragraph_id": "972271167",
+      "paragraph_id": "598408014",
       "paraPrIDRef": "30",
       "styleIDRef": "19"
     },
     {
       "role": "figure_caption",
-      "paragraph_id": "856754047",
+      "paragraph_id": "1276397557",
       "paraPrIDRef": "24",
       "styleIDRef": "18"
     },
     {
       "role": "body",
-      "paragraph_id": "615802589",
+      "paragraph_id": "2106162407",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1672078590",
+      "paragraph_id": "278627238",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "416149395",
+      "paragraph_id": "675638153",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1774915172",
+      "paragraph_id": "1745278333",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "equation",
-      "paragraph_id": "740538911",
+      "paragraph_id": "1102052905",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "body",
-      "paragraph_id": "751910172",
+      "paragraph_id": "1146478694",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "picture",
-      "paragraph_id": "1114604407",
+      "paragraph_id": "1607307045",
       "paraPrIDRef": "30",
       "styleIDRef": "19"
     },
     {
       "role": "figure_caption",
-      "paragraph_id": "1587428524",
+      "paragraph_id": "2118661144",
       "paraPrIDRef": "24",
       "styleIDRef": "18"
     },
     {
       "role": "section",
-      "paragraph_id": "1194649103",
+      "paragraph_id": "2095742242",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "804398501",
+      "paragraph_id": "930433614",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "picture",
-      "paragraph_id": "625636221",
+      "paragraph_id": "1458980333",
       "paraPrIDRef": "30",
       "styleIDRef": "19"
     },
     {
       "role": "figure_caption",
-      "paragraph_id": "1441505501",
+      "paragraph_id": "1335715073",
       "paraPrIDRef": "24",
       "styleIDRef": "18"
     },
     {
       "role": "body",
-      "paragraph_id": "73305872",
+      "paragraph_id": "33569320",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "equation",
-      "paragraph_id": "346651598",
+      "paragraph_id": "112532428",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "equation",
-      "paragraph_id": "1250959746",
+      "paragraph_id": "1365925893",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "equation",
-      "paragraph_id": "277020524",
+      "paragraph_id": "475118284",
       "paraPrIDRef": "19",
       "styleIDRef": "19"
     },
     {
       "role": "section",
-      "paragraph_id": "1653253905",
+      "paragraph_id": "802076775",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1095921137",
+      "paragraph_id": "313995124",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "520671347",
+      "paragraph_id": "1730432930",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1426482115",
+      "paragraph_id": "800338474",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1273796098",
+      "paragraph_id": "1289673992",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1600750519",
+      "paragraph_id": "512370751",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1734076682",
+      "paragraph_id": "398854477",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "958298467",
+      "paragraph_id": "1524260132",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "chapter",
-      "paragraph_id": "95973124",
+      "paragraph_id": "400859389",
       "paraPrIDRef": "23",
       "styleIDRef": "4"
     },
     {
       "role": "body",
-      "paragraph_id": "927758396",
+      "paragraph_id": "385381806",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "195419621",
+      "paragraph_id": "650776594",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1857343205",
+      "paragraph_id": "45006461",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "452132992",
+      "paragraph_id": "581971155",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1563198018",
+      "paragraph_id": "1017296265",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1545807697",
+      "paragraph_id": "401694179",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1783948172",
+      "paragraph_id": "996938255",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "168079988",
+      "paragraph_id": "488454362",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "964051269",
+      "paragraph_id": "1552992688",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1769332392",
-      "paraPrIDRef": "20",
-      "styleIDRef": "17"
-    },
-    {
-      "role": "table_note",
-      "paragraph_id": "359476227",
-      "paraPrIDRef": "13",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1366981300",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "126822707",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "chapter",
-      "paragraph_id": "530026339",
-      "paraPrIDRef": "23",
-      "styleIDRef": "4"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1339364458",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "239550238",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1426110684",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "table_caption",
-      "paragraph_id": "655871122",
-      "paraPrIDRef": "31",
-      "styleIDRef": "15"
-    },
-    {
-      "role": "table",
-      "paragraph_id": "1393131333",
-      "paraPrIDRef": "20",
-      "styleIDRef": "17"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "648894329",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "490061853",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "396231996",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1992890639",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1637867240",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "1457964983",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "1843516766",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "2111621873",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "923329914",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1833526528",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1937766341",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "chapter",
-      "paragraph_id": "80772139",
-      "paraPrIDRef": "23",
-      "styleIDRef": "4"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1138977947",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "2020050141",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1070482294",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1569618167",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1859961414",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "452437727",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "323182537",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "460852435",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "402017565",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "995436748",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1232575265",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "equation",
-      "paragraph_id": "873309099",
-      "paraPrIDRef": "19",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1646546185",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "153681772",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "892859830",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "242194501",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "801243004",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "306450066",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "1628927181",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "1509701497",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "580745118",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "100979142",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1547380751",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1281472892",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "1324684896",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "843414995",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "table_caption",
-      "paragraph_id": "185347462",
-      "paraPrIDRef": "31",
-      "styleIDRef": "15"
-    },
-    {
-      "role": "table",
-      "paragraph_id": "1513816264",
+      "paragraph_id": "1855034468",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_note",
-      "paragraph_id": "1574457490",
+      "paragraph_id": "1960577250",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1164386872",
+      "paragraph_id": "1557300527",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1136371932",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1637190632",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1447819934",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "890071990",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "104300743",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "463340322",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1179404684",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "11931867",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1528186578",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1855176286",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "950365883",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "table_caption",
-      "paragraph_id": "130992891",
-      "paraPrIDRef": "31",
-      "styleIDRef": "15"
-    },
-    {
-      "role": "table",
-      "paragraph_id": "735999499",
-      "paraPrIDRef": "20",
-      "styleIDRef": "17"
-    },
-    {
-      "role": "table_note",
-      "paragraph_id": "1485866743",
-      "paraPrIDRef": "13",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "413996857",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "1384873363",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "823839706",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1104352526",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "456176297",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1327672900",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1826760161",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "2085433169",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "40563393",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "2059629947",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "1793512449",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "picture",
-      "paragraph_id": "236752133",
-      "paraPrIDRef": "30",
-      "styleIDRef": "19"
-    },
-    {
-      "role": "figure_caption",
-      "paragraph_id": "859318532",
-      "paraPrIDRef": "24",
-      "styleIDRef": "18"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "620987412",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "564698591",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1155774058",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "696204395",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "202363602",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "2049096952",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1743734078",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1894961081",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1342740638",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1771903006",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "section",
-      "paragraph_id": "1080449728",
-      "paraPrIDRef": "28",
-      "styleIDRef": "5"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "949361403",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1352695822",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "1135418688",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "609129661",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
-    },
-    {
-      "role": "body",
-      "paragraph_id": "984948536",
+      "paragraph_id": "988993544",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "chapter",
-      "paragraph_id": "925702369",
+      "paragraph_id": "1013117520",
       "paraPrIDRef": "23",
       "styleIDRef": "4"
     },
     {
       "role": "body",
-      "paragraph_id": "1736556159",
+      "paragraph_id": "979431721",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "626666912",
+      "paragraph_id": "614688160",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "642966315",
+      "paragraph_id": "668761558",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
-      "role": "body",
-      "paragraph_id": "1619643449",
-      "paraPrIDRef": "27",
-      "styleIDRef": "3"
+      "role": "table_caption",
+      "paragraph_id": "1094238576",
+      "paraPrIDRef": "31",
+      "styleIDRef": "15"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1789028153",
+      "paraPrIDRef": "20",
+      "styleIDRef": "17"
     },
     {
       "role": "body",
-      "paragraph_id": "1836747954",
+      "paragraph_id": "815664919",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "476930422",
+      "paragraph_id": "1456513627",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1602214885",
+      "paragraph_id": "110116449",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1469579214",
+      "paragraph_id": "812930499",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1980075087",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1026510861",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "870419932",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
     },
     {
       "role": "section",
-      "paragraph_id": "169559880",
+      "paragraph_id": "2005814769",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "577353169",
+      "paragraph_id": "1051811668",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1389247745",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1196297108",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "chapter",
-      "paragraph_id": "473553605",
+      "paragraph_id": "1893659494",
+      "paraPrIDRef": "23",
+      "styleIDRef": "4"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1557386080",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "2135924111",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2136655074",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1459299685",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "820598403",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1892486249",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "847409008",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1656815493",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1204280564",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1803981572",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1841100799",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "equation",
+      "paragraph_id": "146815757",
+      "paraPrIDRef": "19",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2079916277",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "107194947",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1535472645",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1022089095",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "538079739",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "449732979",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1634840233",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1065958182",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "876314429",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1460972962",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1870234544",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2029329798",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1464173842",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2059563280",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "1672104802",
+      "paraPrIDRef": "31",
+      "styleIDRef": "15"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "40959536",
+      "paraPrIDRef": "20",
+      "styleIDRef": "17"
+    },
+    {
+      "role": "table_note",
+      "paragraph_id": "881428833",
+      "paraPrIDRef": "13",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1287025577",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1070799818",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1712136960",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1493177561",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "382813009",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "398609378",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1529600894",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1236605081",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1248493168",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "95125952",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1326888818",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "955255575",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "table_caption",
+      "paragraph_id": "364152201",
+      "paraPrIDRef": "31",
+      "styleIDRef": "15"
+    },
+    {
+      "role": "table",
+      "paragraph_id": "1233186565",
+      "paraPrIDRef": "20",
+      "styleIDRef": "17"
+    },
+    {
+      "role": "table_note",
+      "paragraph_id": "138509800",
+      "paraPrIDRef": "13",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "659578843",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "2123742895",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "614876327",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "324896881",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2112698232",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1833954902",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1192667831",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "763022184",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1500009472",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1954184615",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1938332514",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
+    },
+    {
+      "role": "picture",
+      "paragraph_id": "1224871863",
+      "paraPrIDRef": "30",
+      "styleIDRef": "19"
+    },
+    {
+      "role": "figure_caption",
+      "paragraph_id": "1720927588",
+      "paraPrIDRef": "24",
+      "styleIDRef": "18"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "329419149",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1842287880",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "2007901754",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "531602683",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "493101002",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "724048648",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1887596442",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1146671714",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "259453548",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1114812658",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "881762699",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1199797973",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1745619490",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1211674541",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "935783837",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1595825831",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "2113779298",
+      "paraPrIDRef": "23",
+      "styleIDRef": "4"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1114992297",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1895788935",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1421003461",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1574865481",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1580738451",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1380877755",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1313096809",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "1030548587",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "section",
+      "paragraph_id": "1969622899",
+      "paraPrIDRef": "28",
+      "styleIDRef": "5"
+    },
+    {
+      "role": "body",
+      "paragraph_id": "674990444",
+      "paraPrIDRef": "27",
+      "styleIDRef": "3"
+    },
+    {
+      "role": "chapter",
+      "paragraph_id": "1085306863",
       "paraPrIDRef": "5",
       "styleIDRef": "13"
     },
     {
       "role": "reference",
-      "paragraph_id": "1686021702",
+      "paragraph_id": "1863645185",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1794634343",
+      "paragraph_id": "529450661",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "116281717",
+      "paragraph_id": "1591346192",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "873200192",
+      "paragraph_id": "2004899421",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1972004204",
+      "paragraph_id": "1912297569",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1070902701",
+      "paragraph_id": "246448888",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1873188077",
+      "paragraph_id": "759971137",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1408695727",
+      "paragraph_id": "1682160658",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1886041243",
+      "paragraph_id": "939094501",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "86017235",
+      "paragraph_id": "1552868714",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "870664697",
+      "paragraph_id": "860782620",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1864377676",
+      "paragraph_id": "592107353",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "90827441",
+      "paragraph_id": "1427091860",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1470211320",
+      "paragraph_id": "553482496",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1752556398",
+      "paragraph_id": "1765250345",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1596418404",
+      "paragraph_id": "1287476251",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "2131882307",
+      "paragraph_id": "1527969292",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1913222152",
+      "paragraph_id": "559716704",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "2043418670",
+      "paragraph_id": "976511891",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "488507016",
+      "paragraph_id": "315632786",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1659150984",
+      "paragraph_id": "977744348",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "854046103",
+      "paragraph_id": "2138668316",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "section",
-      "paragraph_id": "1369786258",
+      "paragraph_id": "1545591763",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1866293670",
+      "paragraph_id": "938129202",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "reference",
-      "paragraph_id": "660996521",
+      "paragraph_id": "1340365419",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1179972973",
+      "paragraph_id": "1596155009",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "269166266",
+      "paragraph_id": "1341287777",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "627743464",
+      "paragraph_id": "1225921599",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "258056323",
+      "paragraph_id": "1068125918",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "reference",
-      "paragraph_id": "1508034128",
+      "paragraph_id": "1158083891",
       "paraPrIDRef": "16",
       "styleIDRef": "14"
     },
     {
       "role": "body",
-      "paragraph_id": "116199770",
+      "paragraph_id": "283895075",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "420942252",
+      "paragraph_id": "1013658034",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "usage_entry",
-      "paragraph_id": "772805340",
+      "paragraph_id": "66585692",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_entry",
-      "paragraph_id": "380285008",
+      "paragraph_id": "1722313262",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_url",
-      "paragraph_id": "1681888965",
+      "paragraph_id": "1156529089",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_entry",
-      "paragraph_id": "755987368",
+      "paragraph_id": "1333266655",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_url",
-      "paragraph_id": "946113222",
+      "paragraph_id": "2010981643",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_entry",
-      "paragraph_id": "1759066470",
+      "paragraph_id": "807520240",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_url",
-      "paragraph_id": "974361011",
+      "paragraph_id": "44550452",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_entry",
-      "paragraph_id": "2022270747",
+      "paragraph_id": "1240658352",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "usage_url",
-      "paragraph_id": "2048334799",
+      "paragraph_id": "1292708206",
       "paraPrIDRef": "13",
       "styleIDRef": "3"
     },
     {
       "role": "chapter",
-      "paragraph_id": "558911283",
+      "paragraph_id": "857824598",
       "paraPrIDRef": "5",
       "styleIDRef": "12"
     },
     {
       "role": "body",
-      "paragraph_id": "163440344",
+      "paragraph_id": "1709337356",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1641990103",
+      "paragraph_id": "92683409",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "27956638",
+      "paragraph_id": "1509185547",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1405246694",
+      "paragraph_id": "1081550168",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1221136350",
+      "paragraph_id": "1387612186",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1956524589",
+      "paragraph_id": "2054473701",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "403925212",
+      "paragraph_id": "1106030360",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1453599355",
+      "paragraph_id": "1288305419",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1222921058",
+      "paragraph_id": "921797880",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1672719772",
+      "paragraph_id": "803478891",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "691978779",
+      "paragraph_id": "1920190069",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "816201235",
+      "paragraph_id": "1100721237",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "589460546",
+      "paragraph_id": "596355740",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "1439736710",
+      "paragraph_id": "282875334",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1181684181",
+      "paragraph_id": "621134855",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "2020054334",
+      "paragraph_id": "859338068",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "340329531",
+      "paragraph_id": "209858382",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "782243578",
+      "paragraph_id": "1540803869",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1193133514",
+      "paragraph_id": "1952555215",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "table_caption",
-      "paragraph_id": "2090800694",
+      "paragraph_id": "352580746",
       "paraPrIDRef": "31",
       "styleIDRef": "15"
     },
     {
       "role": "table",
-      "paragraph_id": "1394386879",
+      "paragraph_id": "1350366471",
       "paraPrIDRef": "20",
       "styleIDRef": "17"
     },
     {
       "role": "chapter",
-      "paragraph_id": "1884149542",
+      "paragraph_id": "291420884",
       "paraPrIDRef": "5",
       "styleIDRef": "12"
     },
     {
       "role": "body",
-      "paragraph_id": "61091187",
+      "paragraph_id": "1947110445",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1400606107",
+      "paragraph_id": "1135515235",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "395008314",
+      "paragraph_id": "1175492617",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1341496669",
+      "paragraph_id": "1009889279",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "363044067",
+      "paragraph_id": "686288944",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1877691006",
+      "paragraph_id": "1443642048",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1618001519",
+      "paragraph_id": "1195799587",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "640430545",
+      "paragraph_id": "712333588",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "745903454",
+      "paragraph_id": "173548361",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "894803256",
+      "paragraph_id": "1905491089",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1207100188",
+      "paragraph_id": "1815761124",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "896625",
+      "paragraph_id": "1533755938",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "642069223",
+      "paragraph_id": "1101549257",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "497419826",
+      "paragraph_id": "1755487072",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1285735487",
+      "paragraph_id": "1839231717",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1605585223",
+      "paragraph_id": "263553884",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1540596454",
+      "paragraph_id": "380589007",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "642684891",
+      "paragraph_id": "1120748272",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1408955497",
+      "paragraph_id": "1890976130",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1385209310",
+      "paragraph_id": "1589871499",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "557519495",
+      "paragraph_id": "1067767069",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1824876952",
+      "paragraph_id": "114515062",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "446551598",
+      "paragraph_id": "627944631",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "845026267",
+      "paragraph_id": "1278682199",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1696895737",
+      "paragraph_id": "545793854",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "784040099",
+      "paragraph_id": "1796634626",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "906172823",
+      "paragraph_id": "939306718",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "300658012",
+      "paragraph_id": "676911688",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "883030866",
+      "paragraph_id": "708242188",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1205839056",
+      "paragraph_id": "854768390",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "992124645",
+      "paragraph_id": "1829138671",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "758312469",
+      "paragraph_id": "1342016848",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "728633423",
+      "paragraph_id": "1532602173",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1899866097",
+      "paragraph_id": "206765900",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "869928073",
+      "paragraph_id": "335906510",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1848755243",
+      "paragraph_id": "2071052710",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1602062788",
+      "paragraph_id": "101195219",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1151655502",
+      "paragraph_id": "368597505",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "669360592",
+      "paragraph_id": "392003584",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1214140003",
+      "paragraph_id": "1607592616",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "422374848",
+      "paragraph_id": "525583692",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "section",
-      "paragraph_id": "1350718025",
+      "paragraph_id": "1662252322",
       "paraPrIDRef": "28",
       "styleIDRef": "5"
     },
     {
       "role": "body",
-      "paragraph_id": "1159629647",
+      "paragraph_id": "1394408398",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1459476434",
+      "paragraph_id": "1001391848",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "1941872594",
+      "paragraph_id": "1885469034",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     },
     {
       "role": "body",
-      "paragraph_id": "571321411",
+      "paragraph_id": "367292691",
       "paraPrIDRef": "27",
       "styleIDRef": "3"
     }
@@ -6337,13 +6337,13 @@
     "width": 42522
   },
   "inputs": {
-    "manuscript_sha256": "80c1b50d17dbc0292de49a63a4ea0961ade81bca9b03a2df31f78aa961a98ce4",
+    "manuscript_sha256": "6810666e77c9497ae4eae246a5a6caad386620638790e22a8f2a6e7c165ae10d",
     "tables_sha256": "6b2a39e5eb5e0a677c9b95b73b5aa89a55da19765c69364c4ae5d3448c753f5d"
   },
   "output": {
     "filename": "GRADUATION_REPORT_60Q_FINAL.hwpx",
-    "sha256": "e5cfb9c844e453199786e997b380e95dc293627849197a3efb48986313a1c5e5",
-    "bytes": 3002145
+    "sha256": "f47aebd3e602c19b0489b7b9008a12e505c81e71a8766a79937622c649448760",
+    "bytes": 3002178
   },
   "xml_validation": "ValidationReport(validated_parts=('Contents/header.xml', 'Contents/section0.xml'), issues=())"
 }

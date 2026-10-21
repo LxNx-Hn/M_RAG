@@ -20,7 +20,7 @@ RAG의 성능을 높이는 기법은 검색 단계와 생성 단계에 모두 �
 
 ## 1.2 연구범위 [스타일=절(1.1)]
 
-검색 대상은 영어 문서 4종으로, RAG Survey[D1], CAD[D2], RAPTOR(Recursive Abstractive Processing for Tree-Organized Retrieval)[D3], Mi:dm K 2.5 Pro Technical Report[D4]이다. 문서마다 한국어 질문을 15개씩, 총 60개 작성하였고, 각 질문의 검색 범위는 해당 문서로 한정하였다. 질문마다 8개 조건을 적용하여 생성 답변 480개를 얻었다.
+검색 대상은 영어 문서 네 종으로, RAG Survey[D1], CAD[D2], RAPTOR(Recursive Abstractive Processing for Tree-Organized Retrieval)[D3], Mi:dm K 2.5 Pro Technical Report[D4]이다. 문서마다 한국어 질문을 15개씩, 총 60개 작성하였고, 각 질문의 검색 범위는 해당 문서로 한정하였다. 질문마다 여덟 조건을 적용하여 생성 답변 480개를 얻었다.
 
 답변 생성 모델은 Mi:dm 2.0 Base Instruct[M1]이다. 검색과 생성의 품질은 RAGAS(Retrieval Augmented Generation Assessment)의 네 지표로, 출력 언어는 한국어 문자 비율로, 비용은 처리 시간으로 측정하였다. 검색, 재정렬, 생성의 설정은 4장에 정리하였다.
 
