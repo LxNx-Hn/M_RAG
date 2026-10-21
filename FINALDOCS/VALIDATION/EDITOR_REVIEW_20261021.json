@@ -1,21 +1,23 @@
 {
   "date": "2026-10-21",
   "editor": "한컴독스 웹 한글(Chrome)",
-  "document": "M_RAG_QUESTION_GROUPS_20261021_v6.hwpx",
-  "hwpx_sha256": "99e9bfd05207a4d6c5a110c4e0e1dd4a2dc8bad5684d834f43c45df5f125bc41",
-  "pdf_sha256": "c65c3b8f66d72aa67d1daaa5c242016441e7df1001fae402b4f725cdd95747b2",
+  "document": "M_RAG_QUESTION_GROUPS_20261021_v9.hwpx",
+  "hwpx_sha256": "f9242d1f7e59de147a8229cf15a72d7d3f708ba318b37ab6b7fba922a326c96a",
+  "pdf_sha256": "a7e17bf8d9a4c47dd22e7d29a93790d8fb7e93a93aa0c6b0e4163344bec437dd",
   "pdf_pages": 47,
-  "page_map_stable_from": "v5 to v6: 47 pages, every TOC anchor unchanged after page numbers were inserted",
+  "page_map_stable_from": "v8 to v9: 47 pages, every TOC anchor unchanged after page numbers were inserted",
   "checked": [
     "v1~v5 한컴 내보내기 47~50쪽을 쪽별로 확인하고 빈 공간, 표 배치, 그림 크기를 수정",
     "v6 편집 화면에서 표 5-2(16쪽)와 그림 5-4(19쪽)를 실제 본문 폭으로 확인",
-    "v6 장, 그림, 표 목차의 쪽 번호와 본문 위치를 한컴 내보내기에서 대조"
+    "v6 장, 그림, 표 목차의 쪽 번호와 본문 위치를 한컴 내보내기에서 대조",
+    "v9 편집 화면에서 5.6절(17쪽)이 본문으로 채워지고 그림 5-3부터 5-5가 각 쪽 위에서 시작하는 것을 확인, 목차 5.7절 20쪽 반영"
   ],
   "fixed_in_editor_review": [
     "그림 1-1을 연구 목적 문단 뒤로 옮겨 1쪽 하단의 빈 공간 제거",
     "평행좌표 그림 높이를 줄여 그림과 해설 문단이 같은 쪽에 놓이도록 조정",
     "5.5절의 해설 문단을 표 5-2 앞으로 옮겨 15쪽의 빈 공간 축소",
-    "5.8절과 6장의 중복 문장을 줄여 장 끝이 다음 쪽으로 2줄씩 넘어가는 현상 제거"
+    "5.8절과 6장의 중복 문장을 줄여 장 끝이 다음 쪽으로 2줄씩 넘어가는 현상 제거",
+    "5.6절 해설 문단을 그림 5-3 앞에 모아 17쪽 하단의 빈 공간 제거"
   ],
   "visually_confirmed_toc": {
     "1. 서론": 1,
@@ -29,6 +31,7 @@
   },
   "evidence_files": {
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-figure-5-4-p19.png": "a0d448ffa9e9c8d671a2d74c556bae2ea2f33723735c19762c4d7aa90b30868e",
-    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7"
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v9-section-5-6-p17.png": "6748d227114a764eaade72e3f15d88da71bc73d4e94c3bb3b4a4e8bf6ef4fe84"
   }
 }

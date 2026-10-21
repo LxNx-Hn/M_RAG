@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "160eb3f71419688c2b0f6ad7698c4573b2970c75822608fc53dfe91d7d62950d",
-  "manuscript_lf_sha256": "c1c01520d90ba976ec875f225d2eb00142e18e5e246a777a1c37101f3d9fc4ab",
+  "manuscript_sha256": "9ee76670824266529cb3438a293e234b4c2b8551d0f4f9741b84ab8184a2fa7b",
+  "manuscript_lf_sha256": "f9cbebae855f801f751eb861863f24f96b97c2aefc83950dc796e8caca728d6a",
   "layout_code_lf_sha256": {
     "build_thesis_hwpx.py": "546182535e283460f9c13dbad7ebbe9e1232970e0dd73f094d750c48de2ccf5c",
     "layout_policy.py": "dacead1a459771c87ffc78331e9629ba6e2487238af6323aa3bd225e5dce7cb4"
   },
-  "pdf_sha256": "c65c3b8f66d72aa67d1daaa5c242016441e7df1001fae402b4f725cdd95747b2",
+  "pdf_sha256": "a7e17bf8d9a4c47dd22e7d29a93790d8fb7e93a93aa0c6b0e4163344bec437dd",
   "pdf_pages": 47,
   "physical_pages": {
     "1.1 연구배경 및 목적": 7,
@@ -46,7 +46,7 @@
     "[그림 5-3]": 24,
     "[그림 5-4]": 25,
     "[그림 5-5]": 26,
-    "5.7 실제 답변에서 확인한 변화": 27,
+    "5.7 실제 답변에서 확인한 변화": 26,
     "5.8 질문 유형에 따른 기법 선택": 28,
     "6. 결론": 29,
     "6.1 연구 질문별 결과": 29,
@@ -106,7 +106,7 @@
     "[그림 5-3]": 18,
     "[그림 5-4]": 19,
     "[그림 5-5]": 20,
-    "5.7 실제 답변에서 확인한 변화": 21,
+    "5.7 실제 답변에서 확인한 변화": 20,
     "5.8 질문 유형에 따른 기법 선택": 22,
     "6. 결론": 23,
     "6.1 연구 질문별 결과": 23,
