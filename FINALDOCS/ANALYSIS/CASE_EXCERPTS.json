@@ -1,0 +1,98 @@
+[
+  {
+    "title": "RAPTOR에서 BIC가 결정하는 항목",
+    "query_id": "ext_raptor_004",
+    "base": [
+      "제공된 논문 컨텍스트를 면밀히 검토한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)이 어떤 결정을 내리는 데 사용되는지에 관한 구체적인 정보는 확인할 수 없습니다."
+    ],
+    "applied": [
+      "제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 **최적의 클러스터 개수 결정**을 위해 사용됨이 확인됩니다."
+    ]
+  },
+  {
+    "title": "NQ-Swap 데이터셋의 생성 절차",
+    "query_id": "ext_cad_004",
+    "base": [
+      "**2.1 Background** 섹션에서 CAD의 개발 배경과 해결하고자 하는 문제를 구체적으로 설명해주세요."
+    ],
+    "applied": [
+      "1. **원본 데이터 식별**: 먼저 NQ 데이터셋에서 개체명(named entity) 답변을 포함하는 질문들을 식별합니다.",
+      "3. **정답 교체**: 원본 문서에서 발견된 정답 개체(entity)를 무작위로 선택된 다른 개체로 대체합니다."
+    ]
+  },
+  {
+    "title": "Fusion SFT의 non-reasoning 비중 확대 목적",
+    "query_id": "ext_midm_005",
+    "base": [
+      "표 10: 단계별 성능 변화 - 추론 중심 후훈련"
+    ],
+    "applied": [
+      "In CPT stage 2, we increase the proportion of STEM data relative to the previous stage in order to further enhance overall performance and strengthen reasoning capability."
+    ]
+  },
+  {
+    "title": "QuALITY의 계층별 검색 성능 비교",
+    "query_id": "ext_raptor_010",
+    "base": [
+      "- 성능 점수: 57.9%",
+      "- 성능 점수: 73.68%"
+    ],
+    "applied": [
+      "제공된 논문 컨텍스트를 검토한 결과, QuALITY 데이터셋의 특정 스토리에서 RAPTOR가 전체 3개 계층을 검색했을 때와 leaf node 한 계층만 검색했을 때의 성능 차이에 대한 직접적인 비교 데이터는 확인할 수 없습니다."
+    ]
+  },
+  {
+    "title": "LLaMA-30B의 XSUM 세 지표 비교",
+    "query_id": "ext_cad_009",
+    "base": [
+      "- Regular decoding: 25.8점",
+      "- CAD 적용 시: 87.8점"
+    ],
+    "applied": [
+      "- **Regular Decoding**: ROUGE-L 25.8점, factKB 47.7점, BERT-P 87.1점",
+      "- **CAD 적용 시**: ROUGE-L 31.8점, factKB 87.8점, BERT-P 92.2점"
+    ]
+  },
+  {
+    "title": "RAPTOR 청크 길이와 문장 경계 처리",
+    "query_id": "ext_raptor_001",
+    "base": [
+      "문서 길이와 관련하여 어떤 성능 특성을 보이는지 설명해주세요"
+    ],
+    "applied": [
+      "RAPTOR는 빌드 시간(build time)이 초기 문서 길이와 선형적인 관계를 보입니다. Figure 6에 제시된 실험 결과에 따르면, 최대 80,000 토큰에 이르는 문서들에 대해 RAPTOR 나무 구조(tree construction) 건설 시간이 문서 길이에"
+    ]
+  },
+  {
+    "title": "지식 집약 과제에서 RAG의 이점",
+    "query_id": "track1_0012",
+    "base": [
+      "는 \"RAG excels in dynamic environments by offering realtime knowledge updates and effective utilization of external knowledge sources with high interpretability\"라고 명시하고 있습니다. RAG는 실시간 지식 업데이트를 제공하며 외부"
+    ],
+    "applied": [
+      "위 내용 참조"
+    ]
+  },
+  {
+    "title": "Naive RAG의 처리 과정",
+    "query_id": "track1_0010",
+    "base": [
+      "RAG, however, takes a hybrid approach, combining the strengths of both methods.",
+      "질문: RAG 시스템의 세 가지 패러다임(Naive, Advanced, Modular) 간의 차이점과 각각의 특징을 설명해주세요."
+    ],
+    "applied": [
+      "Modular RAG 패러다임에서 새롭게 도입된 모듈들은 무엇이며",
+      "Modular RAG 프레임워크에서 가장 주목할 만한 혁신 중 하나는 Search Module의 도입입니다."
+    ]
+  },
+  {
+    "title": "큰 청크와 작은 청크의 장단점",
+    "query_id": "ext_rag_003",
+    "base": [
+      "따라서 RAG의 세 가지 핵심 구성요소는 Retrieval(검색), Generation(생성)"
+    ],
+    "applied": [
+      "few examples,” arXiv preprint arXiv:2305.06296, 2023. [7] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. K¨uttler, M. Lewis, W."
+    ]
+  }
+]

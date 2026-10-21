@@ -1,0 +1,206 @@
+{
+  "baseline_head": "00b951fcf66f2da643f536296079d7587a4c92b8",
+  "raw_inputs_preserved": 8,
+  "replaced_or_removed": [
+    {
+      "path": "FINALDOCS/BUILD/build_query_analysis_tables.py",
+      "sha256": "1f1fe63c088573099cdbcc5b3dbba66a329a8425bbc86b14123590c8ff0b6d05",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/BUILD/build_ttest_anova_tables.py",
+      "sha256": "8c98b36cf0cb87785772d46aefc68225cdf03ef42c137c480b05558d444724f8",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/BUILD/build_statistics_tables.mjs",
+      "sha256": "85a95af260fb1d8efc4281cf49099b4c7cd24b2ce52dfd5b0ad744fb4ffd73a8",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/BUILD/build_academic_poster.mjs",
+      "sha256": "4698452888d70ab215141fe37f472e22f649ac272e0d47dc9b7c73d683ca1058",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/VALIDATION/analyze_factorial_60q.py",
+      "sha256": "7eea6ef7e847086eae500f86635aa095b183bf1994b4205014d7d5175fa998fe",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/VALIDATION/analyze_ttest_anova_60q.py",
+      "sha256": "940590d52d7a81619bfd04aff16e4fe5228660ff20feed5e46522889f4f42df3",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/VALIDATION/verify_statistics_reproduction.py",
+      "sha256": "478aeede72d8aa659c6600d57d321e35f238040fb26de3f90fd20353ae6071c4",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/VALIDATION/test_factorial_statistics.py",
+      "sha256": "3486c0ce9c3028e82c94abea0eb2c5148dbf583d856e7da56ac2845f980d4a89",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/VALIDATION/requirements-statistics.txt",
+      "sha256": "207214f2345a1b69d9cf9d93659353323cadae3908ad0bdc70c153c3264b2d00",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/DATA/TTEST_ANOVA_60Q.json",
+      "sha256": "144a5589903b4ba548cfa8d70386cdf4b59b65b427b36005956a05cd93690cf7",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/DATA/FACTORIAL_STATISTICS_60Q.json",
+      "sha256": "c31a06571034e80b997e2a432a341447d3881ae75edd1d08326fab8db52b5fcc",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/analyze_query_level.py",
+      "sha256": "e255baa3c8777d173c6fe8cfeda9782c16903d378a4e0e96a5f3f663c27b4cd8",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/compute_output_tokens.py",
+      "sha256": "09cc8f9395085a665d6a1aa6e5f846c948bf645d9f14055811ee21b9615ef0e7",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/plot_query_analysis.py",
+      "sha256": "73bd5baa0e555fc95c5347a3980ffcc495aa59f199603fa2b34a1053a93ee2e5",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/CONDITION_COMPARISONS.csv",
+      "sha256": "6b6abf585969cb1d8cb0bc4fe5756c42e6d62ea5940ec8ed0e41610314cf432d",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/CONDITION_DESCRIPTIVES.csv",
+      "sha256": "5ea5ec139bcdf63d9ea16eb968df0bdaa9bf9342cf4b3045af37fe0f6ff2a553",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/FACTOR_ESTIMATES.csv",
+      "sha256": "f3eaa7d8d29158ae8a1ee4585a15ea8eecd2e95aec7b1dcc041c3ac16068f49c",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/QUESTION_TYPE_TESTS.csv",
+      "sha256": "d8990803db592d903c2fcdf86a5de53ebde1db1b19762e20cae5a5bddeada43b",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/RUNTIME_BY_CONDITION.csv",
+      "sha256": "6c0e8ed03ce153c6a42a015f69e55b51181689cc614594d29484486688f83e70",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/RUNTIME_TOKENS.csv",
+      "sha256": "e9d568f87437273a1c7086d8a6d262386570c54ee7c9047c28373b71ac45540b",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_3_query_parallel.png",
+      "sha256": "392db08ac38b1a720d27753471f93aad3ca903400b7318854ee45a50f1d042de",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_3_query_parallel.svg",
+      "sha256": "a9548b0a8fec1a351af6ff56d3da9b4e85c0e6743e9ea3b2cd1dfa03e56009f8",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_4_query_change.png",
+      "sha256": "5f80e8b7d476487b565098bc000002d5070d5f765531041c0cc8a846b499e4f2",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_4_query_change.svg",
+      "sha256": "28d6bd472ccff54ef1a6de96325369736662fbd2d5d8e09a9a9522a067959c9c",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/figB_6_combo_parallel.png",
+      "sha256": "52f2a49af989857c2478881c92539f9e6e72df8fe7d8bd556fa99883a819b0c0",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/figB_6_combo_parallel.svg",
+      "sha256": "9fa605bbe81c5ea34ddfd74bcd8e19f14adcf0463371ae90e684e90b687abc4f",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_5_question_deltas.png",
+      "sha256": "a36fbb2458349486f31da1a092633d6562134a8f8e30b7a364162f9f77f1405e",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_5_question_deltas.svg",
+      "sha256": "5335a05f1691d7f940242b383f7d20f42ac9083dcf28b5e8c064239535664023",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_6_question_time.png",
+      "sha256": "1141e7a9d0fa2d0699efe2133b1e86b44ad7f1de391d7160ff759a263ed44ebe",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_6_question_time.svg",
+      "sha256": "1aae1606b6edd02724130e253607697937b6792a504e0c9e5685cca7a519da53",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/comparison_all60_no_id.png",
+      "sha256": "63213cfc6292e4d09c4d878680a04d18bab7ffd843369b4404f097015d1f2ca1",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/comparison_all60_no_id.svg",
+      "sha256": "abd58e2a0140afb3adc210a40940aa7ce30143df15ef44d2033820b1764a1299",
+      "reason": "사용자 지정 교체 대상의 파생 분석·생성 코드 또는 그림. 원본 측정·평가·질문·생성·검색 기록은 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/CASE_CANDIDATES.json",
+      "sha256": "137d854261397de6e864d42a8cc534af42701a1c5292f15dd3e6ec9d73f70847",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/CASE_INTERPRETATIONS.json",
+      "sha256": "5c2bdaabdcb2d42828305a6e49ffe8bf1ae59a58024d6c79aee364d186bc712c",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/CASE_REVIEW.md",
+      "sha256": "0d3e1080a1707a26aeb5dc352adb45375c51e521f57afb0383a40f433a0b8f3e",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/ANALYSIS/PRIMARY_TYPE_COMPARISONS.csv",
+      "sha256": "c08042be1e3db36c10cbc1458eed3fcaf906e0754f229a142b922399a562b42b",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_3_single_questions.png",
+      "sha256": "811dc58bb81f0165b06220aa30cd9a5f3578e75ce14465ebb1ed75af49a75b50",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_3_single_questions.svg",
+      "sha256": "faa851a09a158d9005babb8c0a2caca656483868c73b98ea0a7357301a4a0ce2",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_4_combined_questions.png",
+      "sha256": "829b94c13ff4af4626d499956eb45b434b317cac5d2c356421dff618aa743320",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    },
+    {
+      "path": "FINALDOCS/FIGURES/fig5_4_combined_questions.svg",
+      "sha256": "9a32da3106f2148679834610b1d4f330ae1fe3220ec74a0e5b7059002f08bbf2",
+      "reason": "전수 분석 이후 생성한 유형별 비교표와 사례 근거로 교체한 미사용 파생 초안. 원자료는 유지."
+    }
+  ]
+}

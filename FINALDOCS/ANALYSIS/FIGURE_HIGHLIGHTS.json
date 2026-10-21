@@ -1,0 +1,162 @@
+[
+  {
+    "group": "수치 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "up",
+    "query_id": "ext_midm_009",
+    "base": 0.7703,
+    "applied": 0.8858,
+    "delta": 0.11550000000000005
+  },
+  {
+    "group": "수치 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "down",
+    "query_id": "ext_midm_002",
+    "base": 0.8342,
+    "applied": 0.7257,
+    "delta": -0.10850000000000004
+  },
+  {
+    "group": "수치 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "up",
+    "query_id": "ext_raptor_001",
+    "base": 0.25,
+    "applied": 1.0,
+    "delta": 0.75
+  },
+  {
+    "group": "수치 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "down",
+    "query_id": "ext_midm_006",
+    "base": 1.0,
+    "applied": 0.8235,
+    "delta": -0.1765
+  },
+  {
+    "group": "수치 질문",
+    "condition": "H0C0S1",
+    "metric": "korean_ratio",
+    "direction": "up",
+    "query_id": "track1_0037",
+    "base": 0.3536345776031434,
+    "applied": 0.8768472906403941,
+    "delta": 0.5232127130372508
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "up",
+    "query_id": "ext_raptor_003",
+    "base": 0.5409,
+    "applied": 0.9428,
+    "delta": 0.4018999999999999
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "down",
+    "query_id": "ext_cad_006",
+    "base": 0.7839,
+    "applied": 0.6843,
+    "delta": -0.09960000000000002
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "up",
+    "query_id": "ext_cad_004",
+    "base": 0.1852,
+    "applied": 0.9545,
+    "delta": 0.7693
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "down",
+    "query_id": "ext_raptor_002",
+    "base": 1.0,
+    "applied": 0.875,
+    "delta": -0.125
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H0C0S1",
+    "metric": "korean_ratio",
+    "direction": "up",
+    "query_id": "track1_0040",
+    "base": 0.4713919726729291,
+    "applied": 0.96870925684485,
+    "delta": 0.4973172841719209
+  },
+  {
+    "group": "방법 질문",
+    "condition": "H0C0S1",
+    "metric": "korean_ratio",
+    "direction": "down",
+    "query_id": "ext_rag_004",
+    "base": 0.2570965125709651,
+    "applied": 0.0574506283662477,
+    "delta": -0.1996458842047174
+  },
+  {
+    "group": "개념과 결과 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "up",
+    "query_id": "ext_raptor_008",
+    "base": 0.6584,
+    "applied": 0.8145,
+    "delta": 0.15610000000000002
+  },
+  {
+    "group": "개념과 결과 질문",
+    "condition": "H1C0S0",
+    "metric": "answer_relevancy",
+    "direction": "down",
+    "query_id": "ext_cad_010",
+    "base": 0.8138,
+    "applied": 0.7165,
+    "delta": -0.09729999999999994
+  },
+  {
+    "group": "개념과 결과 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "up",
+    "query_id": "ext_raptor_008",
+    "base": 0.5,
+    "applied": 0.8,
+    "delta": 0.30000000000000004
+  },
+  {
+    "group": "개념과 결과 질문",
+    "condition": "H0C1S0",
+    "metric": "faithfulness",
+    "direction": "down",
+    "query_id": "track1_0012",
+    "base": 0.9375,
+    "applied": 0.5,
+    "delta": -0.4375
+  },
+  {
+    "group": "개념과 결과 질문",
+    "condition": "H0C0S1",
+    "metric": "korean_ratio",
+    "direction": "up",
+    "query_id": "ext_rag_010",
+    "base": 0.3323420074349442,
+    "applied": 0.9623059866962306,
+    "delta": 0.6299639792612863
+  }
+]

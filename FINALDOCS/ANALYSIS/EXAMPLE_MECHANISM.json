@@ -1,0 +1,28 @@
+{
+  "query_id": "track1_0033",
+  "query": "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
+  "question_group": "수치 질문",
+  "answer_span": "32B parameters",
+  "source_page": 2,
+  "translated_query": "How many parameters are in the Mi:dm K 2.5 Pro model?",
+  "hyde_clause": "Specifically, this model contains approximately 13 billion parameters",
+  "retrieved_clause": "The model is configured with 32B parameters",
+  "base_unit": "3.2 billion",
+  "cad_unit": "32 billion parameters",
+  "base_quote": "This model is configured with 32B parameters",
+  "scd_quote": "모델은 32B 파라미터로 구성되어 있으며",
+  "scores": {
+    "answer_relevancy": [
+      0.8932,
+      0.9498
+    ],
+    "faithfulness": [
+      0.5714,
+      0.7778
+    ],
+    "korean_ratio": [
+      0.6380697050938338,
+      0.828042328042328
+    ]
+  }
+}

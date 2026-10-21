@@ -104,9 +104,9 @@ EXPECTED_FILES = {
 }
 
 EXPECTED_CAPTIONS = {
-    "2-1": "RAG의 검색기–생성기 구조[1]",
+    "2-1": "RAG의 검색기와 생성기 구조[1]",
     "2-2": "HyDE의 가상 문서 기반 검색 구조[2]",
-    "2-3": "CAD의 문맥 포함·제외 로짓 결합[3]",
+    "2-3": "CAD의 문맥 포함 로짓과 제외 로짓의 결합[3]",
     "2-4": "SCD의 토큰 그룹별 로짓 조정[4]",
 }
 
@@ -201,7 +201,7 @@ def validate_academic_text(text):
             raise AssertionError("project history or audit metadata in body: " + legacy)
     if "검색 문맥" in body:
         raise AssertionError("abstract term '검색 문맥' returned; use 검색 결과")
-    for kind, count in (("그림", 13), ("표", 14)):
+    for kind, count in (("그림", 14), ("표", 14)):
         listed = re.findall(
             rf"^\[{kind} ([\dA-Z]+-\d+)\] (.*?) ···· .*?\[스타일=표/그림리스트\]$",
             text,

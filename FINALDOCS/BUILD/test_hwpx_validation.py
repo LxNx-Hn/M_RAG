@@ -21,19 +21,42 @@ NS = {"hp": "http://www.hancom.co.kr/hwpml/2011/paragraph"}
 
 
 class ContentCorruptionTests(unittest.TestCase):
-    def test_protocol_group_separator_required(self):
+    def test_maximum_bold_required(self):
         def change(section, parts):
             tables = section.findall(".//hp:tbl", NS)
-            # Covers + related work + design + environment precede Table 5-1.
-            table = tables[5]
-            cells = table.findall("hp:tr", NS)[5].findall("hp:tc", NS)
-            previous = table.findall("hp:tr", NS)[4].findall("hp:tc", NS)
-            for cell, old in zip(cells, previous):
-                cell.set("borderFillIDRef", old.get("borderFillIDRef"))
+            definitions = json.loads(
+                (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            index, definition = next(
+                (i, d) for i, d in enumerate(definitions) if d.get("bold_cells")
+            )
+            table = tables[index + 2]
+            ri, ci = definition["bold_cells"][0]
+            plain = next(
+                (r, c)
+                for r in range(1, len(definition["rows"]))
+                for c in definition["numeric_columns"]
+                if [r, c] not in definition["bold_cells"]
+                and definition["rows"][r][c] != ""
+            )
+            original = (
+                table.findall("hp:tr", NS)[plain[0]]
+                .findall("hp:tc", NS)[plain[1]]
+                .find(".//hp:run", NS)
+                .get("charPrIDRef")
+            )
+            for run in (
+                table.findall("hp:tr", NS)[ri]
+                .findall("hp:tc", NS)[ci]
+                .findall(".//hp:run", NS)
+            ):
+                run.set("charPrIDRef", original)
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("Missing S0/S1 table group border", result.stderr)
+        self.assertIn("Native bold mismatch", result.stderr)
 
     def run_case(self, change=None):
         with tempfile.TemporaryDirectory() as folder:
@@ -92,13 +115,41 @@ class ContentCorruptionTests(unittest.TestCase):
     def test_appendix_split_cell(self):
         def change(section, parts):
             table = next(
-                t for t in section.findall(".//hp:tbl", NS) if t.get("rowCnt") == "61"
+                t for t in section.findall(".//hp:tbl", NS) if t.get("colCnt") == "6"
             )
             table.set("pageBreak", "CELL")
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Table row pagination changed", result.stderr)
+
+    def test_appendix_height_cannot_exceed_page(self):
+        def change(section, parts):
+            table = next(
+                t
+                for t in section.findall(".//hp:tbl", NS)
+                if t.get("colCnt") == "6"
+                and "질문 ID" in "".join(t.find("hp:tr", NS).itertext())
+            )
+            table.find("hp:sz", NS).set("height", "60000")
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Inline appendix exceeds page height", result.stderr)
+
+    def test_last_appendix_question_cannot_disappear(self):
+        def change(section, parts):
+            table = [
+                t for t in section.findall(".//hp:tbl", NS) if t.get("colCnt") == "6"
+            ][-1]
+            table.remove(table.findall("hp:tr", NS)[-1])
+            table.set("rowCnt", str(int(table.get("rowCnt")) - 1))
+
+        result = self.run_case(change)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(
+            "Appendix must retain all 60 source rows exactly once", result.stderr
+        )
 
     def test_duplicated_paragraph(self):
         def change(section, parts):
@@ -159,12 +210,12 @@ class ContentCorruptionTests(unittest.TestCase):
             )
             header_para = (
                 table.findall("hp:tr", NS)[0]
-                .findall("hp:tc", NS)[1]
+                .findall("hp:tc", NS)[4]
                 .find(".//hp:p", NS)
             )
             value_para = (
-                table.findall("hp:tr", NS)[1]
-                .findall("hp:tc", NS)[1]
+                table.findall("hp:tr", NS)[2]
+                .findall("hp:tc", NS)[4]
                 .find(".//hp:p", NS)
             )
             value_para.set("paraPrIDRef", header_para.get("paraPrIDRef"))
@@ -183,25 +234,31 @@ class ContentCorruptionTests(unittest.TestCase):
 
     def test_missing_heading_keep_with_next(self):
         def change(section, parts):
+            header = ET.fromstring(parts["Contents/header.xml"])
+            namespace = {"hh": "http://www.hancom.co.kr/hwpml/2011/head"}
+            heading_style = header.find(".//hh:style[@name='절(1.1)']", namespace).get(
+                "id"
+            )
             paragraph = next(
                 p
                 for p in section
-                if "6.3 적용 조건과 후속 연구"
+                if "6.3 후속 연구"
                 == "".join(p.xpath("./hp:run/hp:t//text()", namespaces=NS))
+                and p.get("styleIDRef") == heading_style
             )
-            header = ET.fromstring(parts["Contents/header.xml"])
-            namespace = {"hh": "http://www.hancom.co.kr/hwpml/2011/head"}
             shape = header.find(
                 f".//hh:paraPr[@id='{paragraph.get('paraPrIDRef')}']", namespace
             )
-            shape.find("hh:breakSetting", namespace).set("keepWithNext", "1")
+            shape.find("hh:breakSetting", namespace).set("keepWithNext", "0")
             parts["Contents/header.xml"] = ET.tostring(
                 header, encoding="UTF-8", xml_declaration=True, standalone=True
             )
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("School paraPr modified", result.stderr)
+        self.assertIn(
+            "School paragraph formatting or pagination differs", result.stderr
+        )
 
     def alter_source_shape(self, operation):
         def change(section, parts):
@@ -231,14 +288,18 @@ class ContentCorruptionTests(unittest.TestCase):
             lambda p, s, h, ns: s.find("hh:align", ns).set("horizontal", "LEFT")
         )
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("School paraPr modified", result.stderr)
+        self.assertIn(
+            "School paragraph formatting or pagination differs", result.stderr
+        )
 
     def test_source_spacing_regression(self):
         result = self.alter_source_shape(
             lambda p, s, h, ns: s.find(".//hc:next", ns).set("value", "0")
         )
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("School paraPr modified", result.stderr)
+        self.assertIn(
+            "School paragraph formatting or pagination differs", result.stderr
+        )
 
     def test_source_font_regression(self):
         result = self.alter_source_shape(
@@ -255,18 +316,14 @@ class ContentCorruptionTests(unittest.TestCase):
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
 
-    def test_small_table_caption_flow_regression(self):
+    def test_table_row_flow_regression(self):
         def change(section, parts):
-            table = next(
-                t
-                for t in section.findall(".//hp:tbl", NS)[2:]
-                if t.find("hp:pos", NS).get("treatAsChar") == "1"
-            )
+            table = section.findall(".//hp:tbl", NS)[2]
             table.find("hp:pos", NS).set("treatAsChar", "0")
 
         result = self.run_case(change)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("table caption flow missing", result.stderr)
+        self.assertIn("inline table flow missing", result.stderr)
 
 
 if __name__ == "__main__":

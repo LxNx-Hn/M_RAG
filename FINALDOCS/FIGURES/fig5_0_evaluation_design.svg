@@ -1,1 +1,202 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="159mm" height="91.86666666666666mm" viewBox="0 0 1800 1040"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#24324A"/></marker></defs><rect width="100%" height="100%" fill="white"/><text x="900" y="75.0" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">질의 60개를 같은 8조건에서 반복측정</text><rect x="30" y="140" width="490" height="150" rx="12" fill="#FAF9FC" stroke="#695184" stroke-width="4"/><text x="275.0" y="200.70000000000002" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">한국어 질의</text><text x="275.0" y="260.1" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">60개</text><rect x="650" y="140" width="490" height="150" rx="12" fill="#FAF9FC" stroke="#695184" stroke-width="4"/><text x="895.0" y="200.70000000000002" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">H·C·S 적용 조합</text><text x="895.0" y="260.1" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">8조건</text><rect x="1270" y="140" width="490" height="150" rx="12" fill="#FAF9FC" stroke="#695184" stroke-width="4"/><text x="1515.0" y="200.70000000000002" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">저장 생성 기록</text><text x="1515.0" y="260.1" font-family="Malgun Gothic" font-size="44" text-anchor="middle" fill="#24324A">480개</text><polyline points="535,215 625,215" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><polyline points="1155,215 1245,215" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><rect x="80" y="405" width="740" height="190" rx="12" fill="#FAF9FC" stroke="#695184" stroke-width="4"/><text x="450.0" y="486.34999999999997" font-family="Malgun Gothic" font-size="42" text-anchor="middle" fill="#24324A">RAGAS 품질 지표</text><text x="450.0" y="543.05" font-family="Malgun Gothic" font-size="42" text-anchor="middle" fill="#24324A">S0 영어 / S1 한국어 번역 검색 결과</text><rect x="980" y="405" width="740" height="190" rx="12" fill="#FAF9FC" stroke="#16846F" stroke-width="4"/><text x="1350.0" y="486.34999999999997" font-family="Malgun Gothic" font-size="42" text-anchor="middle" fill="#24324A">한국어 문자 비율·조건 실행 시간</text><text x="1350.0" y="543.05" font-family="Malgun Gothic" font-size="42" text-anchor="middle" fill="#24324A">생성 답변과 실행 로그에서 계산</text><polyline points="1515,300 1515,340 450,340 450,390" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><polyline points="1515,340 1350,340 1350,390" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><rect x="80" y="700" width="740" height="155" rx="12" fill="#FAF9FC" stroke="#695184" stroke-width="4"/><text x="450.0" y="764.5" font-family="Malgun Gothic" font-size="40" text-anchor="middle" fill="#24324A">S0·S1별 H×C 반복측정 ANOVA</text><text x="450.0" y="818.5" font-family="Malgun Gothic" font-size="40" text-anchor="middle" fill="#24324A">충실도 n=58/57, 다른 지표 n=60</text><rect x="980" y="700" width="740" height="155" rx="12" fill="#FAF9FC" stroke="#16846F" stroke-width="4"/><text x="1350.0" y="764.5" font-family="Malgun Gothic" font-size="40" text-anchor="middle" fill="#24324A">H×C×S 반복측정 ANOVA</text><text x="1350.0" y="818.5" font-family="Malgun Gothic" font-size="40" text-anchor="middle" fill="#24324A">문자 비율·시간 n=60</text><polyline points="450,610 450,680" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><polyline points="1350,610 1350,680" fill="none" stroke="#24324A" stroke-width="4" marker-end="url(#arrow)"/><text x="900" y="965.0" font-family="Malgun Gothic" font-size="42" text-anchor="middle" fill="#24324A">질의별 대응 t-검정 · 반복측정 ANOVA · 평균(SD) · 효과크기</text></svg>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="453.6pt" height="280.8pt" viewBox="0 0 453.6 280.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-21T02:45:29.590521</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 280.8 
+L 453.6 280.8 
+L 453.6 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 18.213785 71.053632 
+L 127.636062 71.053632 
+Q 136.184677 71.053632 136.184677 65.549952 
+L 136.184677 17.117568 
+Q 136.184677 11.613888 127.636062 11.613888 
+L 18.213785 11.613888 
+Q 9.665169 11.613888 9.665169 17.117568 
+L 9.665169 65.549952 
+Q 9.665169 71.053632 18.213785 71.053632 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 172.088862 71.053632 
+L 281.511138 71.053632 
+Q 290.059754 71.053632 290.059754 65.549952 
+L 290.059754 17.117568 
+Q 290.059754 11.613888 281.511138 11.613888 
+L 172.088862 11.613888 
+Q 163.540246 11.613888 163.540246 17.117568 
+L 163.540246 65.549952 
+Q 163.540246 71.053632 172.088862 71.053632 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 325.963938 71.053632 
+L 435.386215 71.053632 
+Q 443.934831 71.053632 443.934831 65.549952 
+L 443.934831 17.117568 
+Q 443.934831 11.613888 435.386215 11.613888 
+L 325.963938 11.613888 
+Q 317.415323 11.613888 317.415323 17.117568 
+L 317.415323 65.549952 
+Q 317.415323 71.053632 325.963938 71.053632 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 18.213785 175.623552 
+L 208.847908 175.623552 
+Q 217.396523 175.623552 217.396523 170.119872 
+L 217.396523 99.672768 
+Q 217.396523 94.169088 208.847908 94.169088 
+L 18.213785 94.169088 
+Q 9.665169 94.169088 9.665169 99.672768 
+L 9.665169 170.119872 
+Q 9.665169 175.623552 18.213785 175.623552 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 244.752092 175.623552 
+L 435.386215 175.623552 
+Q 443.934831 175.623552 443.934831 170.119872 
+L 443.934831 99.672768 
+Q 443.934831 94.169088 435.386215 94.169088 
+L 244.752092 94.169088 
+Q 236.203477 94.169088 236.203477 99.672768 
+L 236.203477 170.119872 
+Q 236.203477 175.623552 244.752092 175.623552 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #1b7837; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 18.213785 269.186112 
+L 435.386215 269.186112 
+Q 443.934831 269.186112 443.934831 263.682432 
+L 443.934831 204.242688 
+Q 443.934831 198.739008 435.386215 198.739008 
+L 18.213785 198.739008 
+Q 9.665169 198.739008 9.665169 204.242688 
+L 9.665169 263.682432 
+Q 9.665169 269.186112 18.213785 269.186112 
+z
+" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #263044; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(39.477657 36.243379)">한국어 질문</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(59.430782 52.959297)">60개</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(184.905469 36.243379)">기법 적용 조건</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(216.92793 52.959297)">8개</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(353.477811 36.243379)">생성 답변</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(363.558866 52.959297)">480개</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 136.900227 41.33376 
+Q 149.860992 41.33376 161.032903 41.33376 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 154.632903 38.13376 
+L 161.032903 41.33376 
+L 154.632903 44.53376 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 290.775304 41.33376 
+Q 303.736069 41.33376 314.90798 41.33376 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 308.50798 38.13376 
+L 314.90798 41.33376 
+L 308.50798 44.53376 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(62.276081 123.599715)">RAGAS 품질 지표 4개</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(43.698463 137.641086)">SCD 미적용 조건은 영어 근거</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(31.35276 151.682457)">SCD 적용 조건은 한국어 번역 근거</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(269.686341 130.6204)">한국어 문자 비율과 처리 시간</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(259.186341 144.661771)">저장된 답변과 실행 기록에서 계산</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 378.684539 70.43404 
+Q 260.993429 82.611467 145.081673 94.604785 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 151.777031 97.129105 
+L 145.081673 94.604785 
+L 151.118343 90.763091 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 378.967467 71.269594 
+Q 360.371823 82.611539 343.303381 93.022005 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 350.433546 92.421388 
+L 343.303381 93.022005 
+L 347.100987 86.957502 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(158.262891 229.68664)">질문과 조건으로 연결한 분석</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(43.296094 243.728011)">조건별 평균과 표준편차, 질문 유형별 평균, 질문별 원점수와 미적용 대비 변화</text>
+   </g>
+   <g id="patch_12">
+    <path d="M 113.530846 176.796376 
+Q 113.530846 187.181303 113.530846 195.777375 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 116.730846 189.377375 
+L 113.530846 195.777375 
+L 110.330846 189.377375 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 340.069154 176.796376 
+Q 340.069154 187.181303 340.069154 195.777375 
+" style="fill: none; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 343.269154 189.377375 
+L 340.069154 195.777375 
+L 336.869154 189.377375 
+z
+" style="fill: #263044; stroke: #263044; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc2a957799b">
+   <rect x="4.536" y="2.808" width="444.528" height="275.184"/>
+  </clipPath>
+ </defs>
+</svg>

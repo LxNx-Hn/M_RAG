@@ -1,0 +1,101 @@
+{
+  "pairs": [
+    {
+      "comparison": "미적용 → HyDE",
+      "n": 60,
+      "same_input_passages": 4,
+      "same_ordered_chunk_ids": 4
+    },
+    {
+      "comparison": "미적용 → CAD",
+      "n": 60,
+      "same_input_passages": 60,
+      "same_ordered_chunk_ids": 60
+    },
+    {
+      "comparison": "HyDE → HyDE+CAD",
+      "n": 60,
+      "same_input_passages": 18,
+      "same_ordered_chunk_ids": 18,
+      "same_translation": 44,
+      "same_hypothetical_document": 1
+    },
+    {
+      "comparison": "CAD → HyDE+CAD",
+      "n": 60,
+      "same_input_passages": 3,
+      "same_ordered_chunk_ids": 3
+    },
+    {
+      "comparison": "SCD → HyDE+SCD",
+      "n": 60,
+      "same_input_passages": 3,
+      "same_ordered_chunk_ids": 3
+    },
+    {
+      "comparison": "SCD → CAD+SCD",
+      "n": 60,
+      "same_input_passages": 60,
+      "same_ordered_chunk_ids": 60
+    },
+    {
+      "comparison": "HyDE+SCD → HyDE+CAD+SCD",
+      "n": 60,
+      "same_input_passages": 24,
+      "same_ordered_chunk_ids": 24,
+      "same_translation": 41,
+      "same_hypothetical_document": 0
+    },
+    {
+      "comparison": "CAD+SCD → HyDE+CAD+SCD",
+      "n": 60,
+      "same_input_passages": 4,
+      "same_ordered_chunk_ids": 4
+    },
+    {
+      "comparison": "미적용 → SCD",
+      "n": 60,
+      "same_input_passages": 60,
+      "same_ordered_chunk_ids": 60
+    },
+    {
+      "comparison": "HyDE → HyDE+SCD",
+      "n": 60,
+      "same_input_passages": 27,
+      "same_ordered_chunk_ids": 27,
+      "same_translation": 45,
+      "same_hypothetical_document": 0
+    },
+    {
+      "comparison": "CAD → CAD+SCD",
+      "n": 60,
+      "same_input_passages": 60,
+      "same_ordered_chunk_ids": 60
+    },
+    {
+      "comparison": "HyDE+CAD → HyDE+CAD+SCD",
+      "n": 60,
+      "same_input_passages": 24,
+      "same_ordered_chunk_ids": 24,
+      "same_translation": 40,
+      "same_hypothetical_document": 0
+    }
+  ],
+  "hyde_generation_settings": [
+    {
+      "do_sample": true,
+      "force_greedy": false,
+      "max_new_tokens": 512,
+      "method": "generate_simple",
+      "model_name": "K-intelligence/Midm-2.0-Base-Instruct",
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  ],
+  "cause": "HyDE의 번역문과 가상 문서는 조건마다 표본추출(do_sample=True, temperature=0.1, top_p=0.9)로 새로 생성되어 저장되었다. HyDE를 포함한 두 조건의 밀집 검색 입력이 달라지므로 재정렬 후 입력 구간도 달라질 수 있다.",
+  "bm25_candidates_per_question": {
+    "0": 13,
+    "2": 3,
+    "8": 44
+  }
+}

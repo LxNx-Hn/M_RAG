@@ -1,0 +1,399 @@
+{
+  "selection_stage": "질문 유형별 평균과 질문별 원점수를 확인한 뒤, 유형마다 크게 오르거나 내린 질문의 검색 근거와 답변을 미적용 조건과 대조해 선정",
+  "inputs": {
+    "QUESTION_TYPE_SUMMARY.csv": "efaba0c672830b00d2a35c9cf6ecab9b820b90d720aa7de172c06d15f2c9ccbf",
+    "ZERO_RELEVANCY_AUDIT.json": "ff0cac58efc0c41c40bb07ec795c445107ecf3041f67bbb6ffe8fd3a5a44bfb8",
+    "CONDITION_SUMMARY.csv": "63321b76ad92e38331d49c35206a770493dcd6ab0347e2eb9d1a83aba78a5fd4"
+  },
+  "findings": {
+    "F1": "방법 질문에서 HyDE는 미적용에서 회피 응답으로 판정된 답변을 실제 설명으로 바꾼 경우가 많았다. 관련성 0점 답변은 5개에서 1개로 줄었고, 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
+    "F2": "수치 질문에서 HyDE는 관련성 평균을 바꾸지 않았고, 정답 수치가 담긴 구간이 입력에서 빠지면 답변도 수치를 잃었다.",
+    "F3": "수치 질문과 방법 질문에서 CAD는 근거 충실도를 높였지만, 입력 구간의 문장을 그대로 옮기거나 다른 행과 다른 내용을 옮긴 답변도 높은 충실도를 받았다.",
+    "F4": "개념과 결과 질문에서 CAD는 이미 정확했던 설명을 짧은 지시문으로 바꾸어 충실도와 관련성을 낮춘 경우가 있었다.",
+    "F5": "HyDE와 CAD를 함께 적용하면 HyDE 단독에서 얻은 설명이 사라지고 답변이 다른 주제로 이동한 경우가 있었다.",
+    "F6": "SCD는 대부분의 질문에서 한국어 문자 비율을 높였지만, 답변이 영어 원문을 이어 쓴 경우에는 비율이 오르지 않았다."
+  },
+  "cases": [
+    {
+      "finding": "F1",
+      "title": "RAPTOR에서 BIC가 결정하는 항목",
+      "query_id": "ext_raptor_004",
+      "base": "H0C0S0",
+      "applied": "H1C0S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "context_recall"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "optimal number of clusters",
+          false
+        ],
+        [
+          "applied",
+          "contexts",
+          "optimal number of clusters",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "확인할 수 없습니다",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "최적의 클러스터 개수",
+          true
+        ]
+      ],
+      "observation": "미적용의 입력 구간에는 최적 군집 수를 정한다는 문장이 없었고, 답변은 해당 정보를 확인할 수 없다고 하였다. HyDE를 적용하자 이 문장이 입력 구간에 들어왔고, 답변은 BIC가 최적 군집 수를 정하는 데 쓰인다고 설명하였다.",
+      "related": [
+        {
+          "base": "H0C0S1",
+          "applied": "H1C0S1",
+          "note": "SCD와 HyDE+SCD를 비교해도 같은 문장이 입력 구간에 새로 들어왔고, 한국어 번역 근거로 평가한 답변 관련성은 0.00에서 0.89로 올랐다."
+        }
+      ]
+    },
+    {
+      "finding": "F1",
+      "title": "NQ-Swap 데이터셋의 생성 절차",
+      "query_id": "ext_cad_004",
+      "base": "H0C0S0",
+      "applied": "H1C0S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "faithfulness"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "named entity answers",
+          true
+        ],
+        [
+          "applied",
+          "contexts",
+          "named entity answers",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "섹션에서",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "무작위로 선택된 다른 개체로 대체",
+          true
+        ]
+      ],
+      "observation": "두 조건 모두 생성 절차를 설명한 원문 구간을 입력받았다. 미적용 답변은 CAD 수식 문장을 이어 쓴 뒤 절마다 설명을 요청하는 문장을 나열하였고, HyDE 답변은 개체 정답 질문의 선택, 근거 문서 탐색, 정답 개체의 무작위 치환이라는 세 단계를 제시하였다.",
+      "related": [
+        {
+          "base": "H0C0S0",
+          "applied": "H0C1S0",
+          "note": "같은 입력 구간에서 CAD 답변은 CAD 논문의 α 설정 문단을 영어로 그대로 옮겼다. 근거 충실도는 0.19에서 0.95로 올랐고 답변 관련성은 0.39였다."
+        }
+      ]
+    },
+    {
+      "finding": "F1",
+      "title": "Fusion SFT의 non-reasoning 비중 확대 목적",
+      "query_id": "ext_midm_005",
+      "base": "H0C0S0",
+      "applied": "H1C0S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "korean_ratio"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "creative writing",
+          true
+        ],
+        [
+          "applied",
+          "contexts",
+          "creative writing",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "In CPT stage 2",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "creative writing",
+          false
+        ],
+        [
+          "base",
+          "answer",
+          "creative writing",
+          false
+        ]
+      ],
+      "observation": "두 조건의 입력 구간에는 대화 정렬이라는 목적과 창작, 번역, 일반 질의응답이라는 보강 과제가 모두 있었다. 미적용 답변은 설명을 요청하는 문장 뒤에 단계별 성능 표를 나열하였고, HyDE 답변은 사전학습 단계의 데이터 구성을 다룬 영어 원문을 이어 썼다. 목적과 보강 과제는 두 답변 모두에서 빠졌다.",
+      "related": []
+    },
+    {
+      "finding": "F2",
+      "title": "QuALITY의 계층별 검색 성능 비교",
+      "query_id": "ext_raptor_010",
+      "base": "H0C0S0",
+      "applied": "H1C0S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "context_recall",
+        "faithfulness"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "73.68",
+          true
+        ],
+        [
+          "applied",
+          "contexts",
+          "73.68",
+          false
+        ],
+        [
+          "base",
+          "answer",
+          "73.68",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "확인할 수 없습니다",
+          true
+        ]
+      ],
+      "observation": "미적용의 입력 구간과 답변에는 한 계층의 57.9와 세 계층의 73.68이 모두 있었다. HyDE를 적용하자 73.68이 담긴 구간이 입력에서 빠졌고, 답변은 직접 비교할 수치를 확인할 수 없다고 한 뒤 트리 검색의 일반적인 장점을 설명하였다.",
+      "related": [
+        {
+          "base": "H0C0S1",
+          "applied": "H1C0S1",
+          "note": "SCD와 HyDE+SCD를 비교해도 같은 구간이 빠졌고, 답변 관련성은 0.77에서 0.00으로 내려갔다."
+        }
+      ]
+    },
+    {
+      "finding": "F3",
+      "title": "LLaMA-30B의 XSUM 세 지표 비교",
+      "query_id": "ext_cad_009",
+      "base": "H0C0S0",
+      "applied": "H0C1S0",
+      "key_metrics": [
+        "faithfulness",
+        "answer_relevancy"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "66.4",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "25.8",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "87.8",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "66.4",
+          false
+        ],
+        [
+          "applied",
+          "answer",
+          "18.7",
+          false
+        ]
+      ],
+      "observation": "두 조건의 입력 구간은 같았고, 정답 수치인 ROUGE-L 18.7과 22.0, factKB 47.7과 66.4, BERT-P 87.1과 90.3이 들어 있었다. 두 답변은 모두 같은 표의 다른 행 값인 ROUGE-L 25.8과 31.8, factKB 87.8을 XSUM 결과로 제시하였다. CAD 답변은 일반 디코딩의 factKB 47.7과 BERT-P 87.1은 정답대로 옮겼지만, CAD 적용 값은 factKB 87.8, BERT-P 92.2로 정답과 달랐다.",
+      "related": []
+    },
+    {
+      "finding": "F3",
+      "title": "RAPTOR 청크 길이와 문장 경계 처리",
+      "query_id": "ext_raptor_001",
+      "base": "H0C0S0",
+      "applied": "H0C1S0",
+      "key_metrics": [
+        "faithfulness",
+        "answer_relevancy"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "length 100",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "설명해주세요",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "선형",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "100 토큰",
+          false
+        ]
+      ],
+      "observation": "두 조건의 입력 구간은 같았고, 100토큰 청크와 한계를 넘는 문장을 다음 청크로 옮기는 규칙이 들어 있었다. 미적용 답변은 문서 길이와 성능을 묻는 문장을 반복하였고, CAD 답변은 트리 구축 비용이 문서 길이에 선형으로 늘어난다는 다른 내용을 설명하였다.",
+      "related": []
+    },
+    {
+      "finding": "F4",
+      "title": "지식 집약 과제에서 RAG의 이점",
+      "query_id": "track1_0012",
+      "base": "H0C0S0",
+      "applied": "H0C1S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "faithfulness"
+      ],
+      "checks": [
+        [
+          "base",
+          "answer",
+          "realtime knowledge updates",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "위 내용 참조",
+          true
+        ]
+      ],
+      "observation": "두 조건의 입력 구간은 같았다. 미적용 답변은 실시간 지식 갱신과 외부 지식 활용을 원문 인용과 함께 정리하였고, CAD 답변은 ‘위 내용 참조’와 요청 문장 조각만 남겼다.",
+      "related": []
+    },
+    {
+      "finding": "F5",
+      "title": "Naive RAG의 처리 과정",
+      "query_id": "track1_0010",
+      "base": "H0C0S0",
+      "applied": "H1C1S0",
+      "key_metrics": [
+        "answer_relevancy",
+        "faithfulness"
+      ],
+      "checks": [
+        [
+          "base",
+          "contexts",
+          "indexing, retrieval, and generation",
+          true
+        ],
+        [
+          "applied",
+          "contexts",
+          "indexing, retrieval, and generation",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "Prompt Engineering",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "Modular RAG",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "Search Module",
+          true
+        ]
+      ],
+      "observation": "미적용, HyDE, HyDE+CAD의 세 조건은 모두 색인, 검색, 생성의 세 단계를 담은 구간을 입력받았다. 미적용 답변은 파인튜닝과 프롬프트 공학을 비교한 영어 원문을 이어 쓴 뒤 세 가지 패러다임을 묻는 질문을 스스로 만들었다. HyDE 답변은 세 단계를 한국어로 설명하였고, HyDE+CAD 답변은 Modular RAG의 새 모듈을 묻는 질문을 만든 뒤 그 내용을 설명하였다.",
+      "related": [
+        {
+          "base": "H0C0S0",
+          "applied": "H1C0S0",
+          "note": "HyDE 단독 답변은 색인, 검색, 생성의 세 단계를 설명하였고 답변 관련성은 0.93이었다."
+        }
+      ]
+    },
+    {
+      "finding": "F6",
+      "title": "큰 청크와 작은 청크의 장단점",
+      "query_id": "ext_rag_003",
+      "base": "H0C0S0",
+      "applied": "H0C0S1",
+      "key_metrics": [
+        "korean_ratio"
+      ],
+      "checks": [
+        [
+          "base",
+          "answer",
+          "arXiv preprint",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "arXiv preprint",
+          true
+        ],
+        [
+          "base",
+          "answer",
+          "세 가지 핵심 구성요소",
+          true
+        ],
+        [
+          "applied",
+          "answer",
+          "세 가지 핵심 구성요소",
+          false
+        ]
+      ],
+      "observation": "두 조건의 입력 구간은 같았다. 미적용 답변은 참고문헌 목록을 이어 쓴 뒤 RAG의 세 구성요소를 한국어로 설명하였고, SCD 답변은 영어 참고문헌만 이어 썼다. 두 답변 모두 질문한 장단점 대신 다른 내용을 담았다.",
+      "related": []
+    }
+  ]
+}

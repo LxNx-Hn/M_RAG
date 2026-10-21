@@ -1,19 +1,15 @@
-# Cube-RAG 최종 제출 자료
+# M-RAG 질문 유형별 논문·포스터
 
-현재 논문은 **국·영문초록과 주제어를 삭제한 45쪽**, 표14개·그림13개·편집 수식11개·정식 학술문헌22편이다. 2026-10-18 개정에서 통계 분석을 대응 t-검정과 반복측정 ANOVA로 한정하고(다중비교 보정 없음, 탐색적 분석으로 명시) 본문 1~6장을 다시 썼다. 통계 결과는 [TTEST_ANOVA_60Q.json](DATA/TTEST_ANOVA_60Q.json)이며, 이전 Holm·Wilcoxon 포함 분석은 [FACTORIAL_STATISTICS_60Q.json](DATA/FACTORIAL_STATISTICS_60Q.json)에 이력으로 보존한다. [문체 교정 대조표](VALIDATION/PROSE_REVIEW.md)는 개정 전 문체 교정 기록이다.
+60개 한국어 질문에 적용한 HyDE·CAD·SCD 여덟 조건의 점수와 실제 검색·답변을 분석한다. 네 질문 유형(8·29·20·3개)을 유지하고, 같은 평가 근거 언어의 조건끼리 질문별 대응 차이를 비교한다. 원래 480개 생성 기록과 평가값은 보존한다.
 
-- [논문 PDF](DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf) · [편집 HWPX](DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx) · [원고](MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md)
-- [A1 포스터 원본·인쇄본](POSTER/FINAL/README.md)
-- [표14개 XLSX](TABLES/TABLES_60Q.xlsx) · [최종 통계(t·ANOVA)](DATA/TTEST_ANOVA_60Q.json) · [60개 질의 근거](APPENDIX/QUERY_60_AUDIT.md)
-- [최종 검사·정리 감사](VALIDATION/CURRENT_AUDIT.md) · [교수 피드백·A→B·예상 질문](VALIDATION/PROFESSOR_FEEDBACK.md)
-- [학술·모델·실험자료 출처](VALIDATION/REFERENCES.md) · [질의 작성·자료 보관·주장 근거](VALIDATION/RESEARCH_PROVENANCE.md)
-- [재생성 방법](BUILD/README.md) · [검사 책임과 실행](VALIDATION/README.md)
+- [편집 HWPX](DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx) · [원고](MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md)
+- [논리 표 9개 XLSX](TABLES/TABLES_60Q.xlsx): 관련 연구·환경·결과표 6개·60문항 부록
+- [질문별 분석과 재현](ANALYSIS/README.md) · [최신 검토 기록](VALIDATION/CURRENT_AUDIT.md)
+- [A1 포스터 편집·인쇄 파일](POSTER/FINAL/README.md)
+- [재생성 방법](BUILD/README.md) · [검증 실행](VALIDATION/README.md)
 
-```powershell
-python -m pip install -r FINALDOCS/BUILD/requirements.txt -r FINALDOCS/VALIDATION/requirements-statistics.txt
-python -m FINALDOCS.VALIDATION.validate_all
-```
+결과 그림은 HyDE·CAD·SCD 적용 후의 질문별 점수를 각각 네 질문 유형으로 나눈 평행좌표다. 그림마다 실제 질문 60개를 사용하며 평균선과 적용 전후 선을 겹쳐 그리지 않는다. 한 선은 질문 하나이고, 여섯 지표 중 처리 시간은 초 단위의 별도 축으로 표시한다. 사용자가 지정한 0점 비표시는 그래프에만 적용하며 원자료와 표의 계산은 보존한다.
 
-검사 보고서·로그·렌더·내보내기 묶음은 기본적으로 `tmp/finaldocs/`에 생성한다. 원자료는 `experiments/data/`·`experiments/results/`에 보존한다. 이전 세대 자료는 복구 태그 `pre-finaldocs-cleanup-20261018`에서 찾는다. 현재 작업 트리에 HISTORY 복제본을 유지하지 않는다.
+관련성 비교표는 두 조건 모두 0점이 아닌 질문을 사용한다. 비교 제목은 ‘HyDE에 CAD를 추가했을 때의 답변 관련성’처럼 문장으로 쓰고 평가 언어와 제외 수를 다음 줄에 분리한다. 부록 A는 60개 질문을 보존하며 부록 B는 전체 분석 후 대조한 실제 사례다. [녹취 기반 그래프 의도 검토](VALIDATION/GRAPH_INTENT_REVIEW_20261020.md)에 표시 기준을 기록했다.
 
-공개 논문에는 개인정보 입력 표시를 유지한다. 개인 제출본은 저장소 밖에서 관리하며 인준일·주심·부심·날인은 미정이다. 실물 인쇄·A1 발표거리·색상과 설치형 PowerPoint 열기·편집은 디지털 검사와 별도 확인 사항이다.
+최종 배치는 한컴 편집 화면에서 확인한다. PDF는 한컴에서 내보낸 쪽번호·텍스트 연결 자료다. 미정인 인준일·심사위원·날인과 개인정보 필드는 공개 편집본에 비워 둔다. 실물 인쇄·A1 거리별 판독과 설치형 PowerPoint 실행은 별도 확인 대상이다.

@@ -1,17 +1,24 @@
-# 최종 A1 포스터
+# 질문 유형별 A1 포스터
 
-[인쇄 PDF](M_RAG_A1_FINAL_PRINT.pdf) · [편집 PPTX](M_RAG_A1_FINAL_EDITABLE.pptx) · [벡터 SVG](M_RAG_A1_FINAL_EDITABLE.svg)
+- `M_RAG_A1_FINAL_EDITABLE.pptx`: A1 세로 594×841 mm. 글 상자와 가로 표 1개는 PowerPoint 기본 개체이고, 예시 질문 그림과 평행좌표는 그림이다.
+- `M_RAG_A1_FINAL_PRINT.pdf`, `M_RAG_A1_FINAL_PREVIEW.png`: 설치된 PowerPoint가 PPTX를 직접 렌더링한 인쇄용 PDF와 미리보기.
+- `M_RAG_A1_FINAL_EDITABLE.svg`: 같은 PDF에서 만든 벡터 파일. `svg_export.py`가 SVG 내 PNG의 픽셀과 메타데이터를 보존하여 압축 스트림만 다시 기록한다.
+- `POSTER_TEXT.json`: 포스터에 배치한 모든 문구. 검사 코드가 PPTX, SVG, PDF에서 같은 문구를 확인한다.
+- `poster_mechanism.png`, `poster_parallel.png`: 포스터에 넣은 예시 질문 그림(`FINALDOCS/ANALYSIS/plot_questions.py`의 `example_mechanism`, 논문 그림 4-2와 같은 원본)과 방법 질문 25개의 평행좌표(미적용, HyDE, CAD, SCD 네 패널을 2×2로 배치). `poster_pipeline.png`는 이전 배치의 파이프라인 도식이며 현재 포스터에는 쓰이지 않는다.
 
-594×841mm 세로1쪽, 표4개·159셀·88수치 우측정렬, 표시 문구209단위가 PPTX/SVG/PDF에서 일치한다. 60질의×8조건480기록의 평균SD·반복측정 ANOVA·대응 t-검정을 제시하며, p는 양측 값이다. 01~08은 배경/목적→처리구조→실험설계→실제평가사례→전체결과/검정→해석→결론→학술/모델출처 순서다. 독립 초록은 선택사항으로 검토했고 사례·평가·결과 지면을 유지하도록 생략했다.
+제목 아래 학과, 학번, 이름, 지도교수 줄은 공개본에서 [학과] [학번] [이름], 지도교수 [지도교수]로 둔다. 개인 제출본은 저장소 밖 `personal_fields.json`을 `--personal-fields`로 전달하고 출력도 저장소 밖에 둔다.
 
-2026-10-18 문체 교정에서5개 텍스트 상자를 수정하고 PPTX·SVG·PDF를 함께 갱신했다. 통계표4개·159셀의 원래 값은 같다. [문구 대조표](../../VALIDATION/PROSE_REVIEW.md#포스터-문구-대조)에 변경 내용을 기록했다. 상세 출처는 [REFERENCES.md](../../VALIDATION/REFERENCES.md), 교수 대응·구획별 이유는 [PROFESSOR_FEEDBACK.md](../../VALIDATION/PROFESSOR_FEEDBACK.md), 실제 사례는 [증빙 명세](../../EVIDENCE/IO_CASES/PRINT_EVIDENCE_MANIFEST.json), 전체 통계는 [권위 JSON](../../DATA/TTEST_ANOVA_60Q.json)에서 확인한다.
-
-2026-10-18 t·ANOVA 개정에서 05~07의 통계 문구와 ANOVA·대응 비교 표를 논문 표 5-2~5-4에 맞췄다. Holm 보정 p와 보정 전·후 열을 없애고 ANOVA는 보정 없는 p, 대응 비교는 p와 dz를 표시한다. 표4개·159셀·88수치 우측정렬과 01~08 배치는 유지했다. 원본은 `FINALDOCS/BUILD/build_academic_poster.mjs`에서 재생성했고, `poster_checks.py`가 표 값을 `build_ttest_anova_tables.py`의 build() 행과 대조한다. 이어서 01·02·04·05·07·출처 줄의 문구를 논문 최신본 용어(평가 언어, 입력 길이, 검색 결과, 참고문헌 수록)에 맞췄으며 수치·표·배치는 그대로다. 이전 Holm 분석은 [FACTORIAL_STATISTICS_60Q.json](../../DATA/FACTORIAL_STATISTICS_60Q.json)에 이력으로 남아 있다.
+재생성(Windows, PowerPoint 설치 환경):
 
 ```powershell
-python FINALDOCS/POSTER/FINAL/rebuild_exports.py --output tmp/finaldocs/poster
+python FINALDOCS/BUILD/build_poster.py --output FINALDOCS/POSTER/FINAL
+python -m FINALDOCS.VALIDATION.package_checks --poster
 ```
 
-이 명령은 현재 원본을 읽어 PDF·미리보기·7016×9933 PNG·해시·ZIP을 임시 폴더에 생성한다. 이들은 재생성 결과이므로 추적하지 않는다. PPTX 구조·재가져오기 검토는 PPTX_FINALIZATION_CHECKS.json에 보존했다. 추가 편집용 [수정 프롬프트](POSTER_REVISION_PROMPT_KO.md)도 유지한다.
+구성: 01 연구 배경과 목적(두 열 글머리표), 02 예시 질문으로 본 세 기법의 작동(전체 폭 그림), 03 질문과 평가(두 열 글머리표), 04 질문 유형별 평균 점수(전체 폭 가로 표), 왼쪽 05 방법 질문 25개의 원점수 평행좌표, 오른쪽 06 결론과 07 실제 답변에서 확인한 점, 맨 아래 한 줄 참고문헌. 2026-10-21 교수 피드백(그림 중심, 기법별 제안자와 기본 아이디어, 예시 질문의 처리 과정)에 따라 단일 기법 처리 시간 표와 조건별 평균 표를 뺐다.
 
-실물 인쇄·발표거리·색상, 설치형 PowerPoint에서의 열기·편집은 추가 확인이 필요하다. 인쇄에는 동봉 PDF를 사용한다. 공개본은 학번을 포함하지 않으며 개인 제출본은 저장소 밖에서 관리한다.
+02 그림은 질문 "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?"(정답 근거 32B parameters, 원문 2쪽)의 저장된 실행 기록에서 HyDE 가상 구간과 검색 구간, 미적용과 CAD 답변의 수치, 미적용과 SCD 답변의 인용 문장, 세 점수 변화를 읽어 그린다. 사용한 원문과 값은 `FINALDOCS/ANALYSIS/EXAMPLE_MECHANISM.json`에 남기며, 임베딩 점의 위치와 후보 단어의 글자 크기는 원리를 보인 개념도다. 표의 수치는 `FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv`에서 읽어 소수 둘째 자리로 표시한다. 조건 순서는 논문과 같다(1 미적용, 2 HyDE, 3 CAD, 4 SCD, 5 HyDE+CAD, 6 HyDE+SCD, 7 CAD+SCD, 8 HyDE+CAD+SCD). 04는 다섯 지표를 각각 수치, 방법, 개념과 결과 질문으로 나눈 전체 폭의 가로 표이며(논문 표 5-2의 품질 지표와 한국어 문자 비율), 열마다 최댓값만 굵게 표시한다. 표준편차와 통계 검정 값은 넣지 않는다. 문구에는 가운뎃점, 화살표, 콜론 설명을 쓰지 않으며 `poster_checks.py`가 이를 검사한다.
+
+평행좌표는 질문마다 점수가 평균 주위로 크게 흩어지고, 평균에서 멀리 떨어진 질문을 찾아 그 질문의 유형에 맞는 기법을 고르자는 녹취(01:01~01:07)의 의도를 따른다. 0점과 결측값에서는 선을 끊는다.
+
+`POSTER_SCENE.json`, `A1_COPYEDIT_MAP.json`, `PPTX_FINALIZATION_CHECKS.json`, `rebuild_exports.py`는 이전 포스터 생성 방식의 기록이며 현재 포스터에는 쓰이지 않는다. 실물 인쇄 판독은 추가 확인 대상이다.

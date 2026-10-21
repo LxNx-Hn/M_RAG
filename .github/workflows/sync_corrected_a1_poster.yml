@@ -2,14 +2,11 @@ name: Validate A1 poster exports
 on:
   push:
     paths:
-      - 'FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg'
-      - 'FINALDOCS/POSTER/FINAL/A1_COPYEDIT_MAP.json'
-      - 'FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx'
-      - 'FINALDOCS/POSTER/FINAL/rebuild_exports.py'
+      - 'FINALDOCS/POSTER/FINAL/**'
       - 'FINALDOCS/BUILD/poster_alignment.py'
       - 'FINALDOCS/BUILD/poster_checks.py'
-      - 'FINALDOCS/BUILD/build_ttest_anova_tables.py'
-      - 'FINALDOCS/DATA/TTEST_ANOVA_60Q.json'
+      - 'FINALDOCS/BUILD/build_poster.py'
+      - 'FINALDOCS/ANALYSIS/**'
       - 'FINALDOCS/VALIDATION/package_checks.py'
       - 'FINALDOCS/VALIDATION/ARTIFACT_MANIFEST.json'
       - '.github/workflows/sync_corrected_a1_poster.yml'
@@ -17,30 +14,19 @@ on:
 permissions:
   contents: read
 jobs:
-  rebuild:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - name: Install rendering tools
+      - name: Install checking tools
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq inkscape fonts-nanum fontconfig
-          python -m pip install --quiet lxml pillow pymupdf fonttools openpyxl==3.1.5
-      - name: Verify protected submission files
+          python -m pip install --quiet lxml pymupdf openpyxl==3.1.5
+          python -m pip install -r FINALDOCS/VALIDATION/requirements-analysis.txt
+      # The print PDF and PNG are PowerPoint's own rendering of the PPTX
+      # (FINALDOCS/BUILD/build_poster.py on Windows); CI checks the committed files.
+      - name: Verify poster values, alignment and PPTX/SVG/PDF text
         run: python -m FINALDOCS.VALIDATION.package_checks --poster
-      - name: Render temporary exports and verify editable PPTX
-        shell: bash
-        run: |
-          python FINALDOCS/POSTER/FINAL/rebuild_exports.py --build-dir "$GITHUB_WORKSPACE/FINALDOCS/BUILD" --output "$RUNNER_TEMP/poster-exports"
-      - name: Preserve failed rendering diagnostics
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: poster-rendering-diagnostics
-          path: |
-            ${{ runner.temp }}/poster-exports/M_RAG_A1_FINAL_PRINT.pdf
-            ${{ runner.temp }}/poster-exports/M_RAG_A1_FINAL_PREVIEW.png
-            ${{ runner.temp }}/poster-exports/PDF_TEXT_DIAGNOSTIC.txt
+      - name: Poster mutation tests
+        working-directory: FINALDOCS/BUILD
+        run: python -m unittest test_poster_alignment test_poster_evidence

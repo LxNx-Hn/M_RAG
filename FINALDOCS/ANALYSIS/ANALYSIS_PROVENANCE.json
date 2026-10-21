@@ -1,0 +1,126 @@
+{
+  "inputs": {
+    "FINALDOCS/DATA/FACTORIAL_OBSERVATIONS_60Q.csv": "207b00840e364f4e4d5588252d7ce6389ada1cb49bd48cf962d6fd6cb9e0e76e",
+    "FINALDOCS/ANALYSIS/QUERY_TYPE_ANNOTATIONS.csv": "922f826774733e2416b80daa8cec306e8975c4d6dc5dab734d3bc309175f3ed6",
+    "FINALDOCS/DATA/QUESTIONS_60Q.json": "0d6a3e1d223128bbcf150e6f51e84f67eec03be7feae313d555031f3fd93fd58"
+  },
+  "classification_sha256": "d47fd6a37daf21c9988dcc69f50d4c7ecf2f0781404303d0037fcec456a3b5ac",
+  "question_types": {
+    "사실 및 정의": 8,
+    "방법 및 절차": 29,
+    "결과 및 비교": 20,
+    "목적 및 기여": 3
+  },
+  "question_groups": {
+    "수치 질문": 18,
+    "방법 질문": 25,
+    "개념과 결과 질문": 17
+  },
+  "group_rule": "수치형 답은 수치 질문, 나머지 중 원래 유형이 방법 및 절차이면 방법 질문, 그 외는 개념과 결과 질문",
+  "comparisons": [
+    [
+      "미적용 → HyDE",
+      "H0C0S0",
+      "H1C0S0",
+      "영어"
+    ],
+    [
+      "미적용 → CAD",
+      "H0C0S0",
+      "H0C1S0",
+      "영어"
+    ],
+    [
+      "미적용 → SCD",
+      "H0C0S0",
+      "H0C0S1",
+      "평가 언어 다름"
+    ],
+    [
+      "미적용 → HyDE+CAD",
+      "H0C0S0",
+      "H1C1S0",
+      "영어"
+    ],
+    [
+      "미적용 → HyDE+SCD",
+      "H0C0S0",
+      "H1C0S1",
+      "평가 언어 다름"
+    ],
+    [
+      "미적용 → CAD+SCD",
+      "H0C0S0",
+      "H0C1S1",
+      "평가 언어 다름"
+    ],
+    [
+      "미적용 → HyDE+CAD+SCD",
+      "H0C0S0",
+      "H1C1S1",
+      "평가 언어 다름"
+    ],
+    [
+      "HyDE → HyDE+CAD",
+      "H1C0S0",
+      "H1C1S0",
+      "영어"
+    ],
+    [
+      "CAD → HyDE+CAD",
+      "H0C1S0",
+      "H1C1S0",
+      "영어"
+    ],
+    [
+      "SCD → HyDE+SCD",
+      "H0C0S1",
+      "H1C0S1",
+      "한국어 번역"
+    ],
+    [
+      "SCD → CAD+SCD",
+      "H0C0S1",
+      "H0C1S1",
+      "한국어 번역"
+    ],
+    [
+      "HyDE+SCD → HyDE+CAD+SCD",
+      "H1C0S1",
+      "H1C1S1",
+      "한국어 번역"
+    ],
+    [
+      "CAD+SCD → HyDE+CAD+SCD",
+      "H0C1S1",
+      "H1C1S1",
+      "한국어 번역"
+    ],
+    [
+      "HyDE → HyDE+SCD",
+      "H1C0S0",
+      "H1C0S1",
+      null
+    ],
+    [
+      "CAD → CAD+SCD",
+      "H0C1S0",
+      "H0C1S1",
+      null
+    ],
+    [
+      "HyDE+CAD → HyDE+CAD+SCD",
+      "H1C1S0",
+      "H1C1S1",
+      null
+    ]
+  ],
+  "delta_rows": 5040,
+  "rules": {
+    "quality": "모든 조건을 미적용과 대응 비교하고, SCD 조건의 품질 지표는 한국어 번역 근거로 평가한 값으로 구분한다. 기법 하나를 추가한 비교는 같은 평가 언어 안에서 수행한다.",
+    "score_change": "0.05 초과 개선, -0.05 미만 악화, 경계 포함 사이는 비슷함",
+    "time_change": "1초 초과 증가, -1초 미만 감소, 사이는 비슷함",
+    "missing": "결측 질문은 해당 비교의 두 평균에서 함께 제외"
+  },
+  "status": "저장된 측정값의 질문별 기술 분석"
+}

@@ -1,0 +1,28 @@
+{
+  "records": 480,
+  "ragas_cells": 1920,
+  "missing_cells": 5,
+  "missing_rows": [
+    {
+      "query_id": "ext_rag_003",
+      "condition": "H0C0S1"
+    },
+    {
+      "query_id": "ext_rag_003",
+      "condition": "H0C1S0"
+    },
+    {
+      "query_id": "ext_rag_005",
+      "condition": "H0C0S1"
+    },
+    {
+      "query_id": "ext_rag_006",
+      "condition": "H0C0S1"
+    },
+    {
+      "query_id": "ext_rag_006",
+      "condition": "H0C1S0"
+    }
+  ],
+  "rule": "결측이 있는 질문은 해당 비교의 기준·적용 평균 모두에서 제외하며 값을 대체하지 않는다"
+}
