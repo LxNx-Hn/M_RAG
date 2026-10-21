@@ -24,7 +24,7 @@
     "title": "Fusion SFT의 non-reasoning 비중 확대 목적",
     "query_id": "ext_midm_005",
     "base": [
-      "## 표 10: 단계별 성능 변화 - 추론 중심 후훈련"
+      "표 10: 단계별 성능 변화 - 추론 중심 후훈련"
     ],
     "applied": [
       "In CPT stage 2, we increase the proportion of STEM data relative to the previous stage in order to further enhance overall performance and strengthen reasoning capability."
@@ -42,7 +42,7 @@
     ]
   },
   {
-    "title": "LLaMA-30B·XSUM의 세 지표 비교",
+    "title": "LLaMA-30B의 XSUM 세 지표 비교",
     "query_id": "ext_cad_009",
     "base": [
       "- Regular decoding: 25.8점",
@@ -77,9 +77,8 @@
     "title": "Naive RAG의 처리 과정",
     "query_id": "track1_0010",
     "base": [
-      "**1. Indexing(색인화)**",
-      "**2. Retrieval(검색)**",
-      "**3. Generation(생성)**"
+      "RAG, however, takes a hybrid approach, combining the strengths of both methods.",
+      "질문: RAG 시스템의 세 가지 패러다임(Naive, Advanced, Modular) 간의 차이점과 각각의 특징을 설명해주세요."
     ],
     "applied": [
       "Modular RAG 패러다임에서 새롭게 도입된 모듈들은 무엇이며",

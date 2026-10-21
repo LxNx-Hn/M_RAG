@@ -1,4 +1,4 @@
-"""Independent raw-score, pairing, four-type and submission-table checks."""
+"""Independent raw-score, pairing, question-group and submission-table checks."""
 
 from __future__ import annotations
 import json
@@ -11,7 +11,16 @@ from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "FINALDOCS/ANALYSIS"))
-from analyze_questions import run_records, comparisons, QUALITY, TYPES  # noqa: E402
+from analyze_questions import (  # noqa: E402
+    BASE,
+    CONDITIONS,
+    GROUP_SIZES,
+    METRICS,
+    QUALITY,
+    TYPES,
+    comparisons,
+    run_records,
+)
 
 FORBIDDEN = re.compile(
     r"ANOVA|분산분석|t-검정|t-test|p-value|p값|유의확률|통계적 유의성|검정력|Cohen|Holm|Wilcoxon|중앙값|\bmedian\b|\bDelta\b|델타|단정하지|보장하지|의미하지|확정하지",
@@ -86,6 +95,7 @@ def validate_summary(obs, summary, annotations):
         annotations[
             [
                 "query_id",
+                "question_group",
                 "question_type",
                 "document",
                 "answer_form",
@@ -98,6 +108,7 @@ def validate_summary(obs, summary, annotations):
     for r in summary.itertuples():
         assert r.grouping in [
             "전체",
+            "question_group",
             "question_type",
             "document",
             "answer_form",
@@ -167,7 +178,7 @@ def validate_tables():
         for scope in t.get("bold_scopes", []):
             col = scope["column"]
             values = {
-                row: float(t["rows"][row][col].removesuffix("초"))
+                row: float(t["rows"][row][col].split()[0].removesuffix("초"))
                 for row in scope["rows"]
             }
             maximum = max(values.values())
@@ -178,12 +189,30 @@ def validate_tables():
             tuple(cell) for cell in t.get("bold_cells", [])
         }, "Maximum bold selection differs"
         for ri, row in enumerate(t["rows"]):
-            for ci, _ in enumerate(row):
+            for ci, value in enumerate(row):
+                if value == "":
+                    continue  # merged placeholder cell
                 assert bool(ws.cell(ri + 3, ci + 1).font.bold) == (
-                    ri == 0 or (ri, ci) in expected_bold
+                    ri in t.get("header_rows", [0]) or (ri, ci) in expected_bold
                 ), "Unexpected XLSX bold cell"
     assert wb["Appendix_Queries"].max_row == 63
     return len(definitions)
+
+
+def validate_condition_summary(obs, ann):
+    """Recompute every condition mean and SD, overall and per question group."""
+    cs = pd.read_csv(
+        ROOT / "FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv", encoding="utf-8-sig"
+    )
+    raw = obs.merge(ann[["query_id", "question_group"]], on="query_id")
+    assert len(cs) == (1 + len(GROUP_SIZES)) * len(CONDITIONS) * len(METRICS)
+    for r in cs.itertuples():
+        g = raw if r.level == "전체" else raw[raw.question_group == r.level]
+        v = g[g.condition == r.condition][r.metric].dropna()
+        assert len(v) == r.n
+        assert abs(v.mean() - r.mean) < 1e-10, "Condition mean differs"
+        assert abs(v.std(ddof=1) - r.sd) < 1e-10, "Condition SD differs"
+        assert int((v == 0).sum()) == r.zero_count
 
 
 def validate_pairs(obs, deltas):
@@ -279,12 +308,18 @@ def main():
     d = pd.read_csv(
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_DELTAS.csv", encoding="utf-8-sig"
     )
-    assert len(d) == 3360
+    expected_rows = sum(len(c[3]) for c in comparisons()) * 60
+    assert len(d) == expected_rows
+    crossing = d.loc[d.metric.isin(QUALITY)].apply(
+        lambda r: r.applied[-1] != r.base[-1], axis=1
+    )
     assert (
-        d.loc[d.metric.isin(QUALITY)]
-        .apply(lambda r: r.applied[-1] == r.base[-1], axis=1)
-        .all()
-    ), "Quality comparison crosses evaluation languages"
+        d.loc[d.metric.isin(QUALITY)][crossing].evaluation_language == "평가 언어 다름"
+    ).all() and (
+        d.loc[d.metric.isin(QUALITY)][crossing].base == BASE
+    ).all(), "Quality comparison crosses evaluation languages without a label"
+    assert ann.question_group.value_counts().to_dict() == GROUP_SIZES
+    validate_condition_summary(obs, ann)
     for label, base, applied, metrics, language in comparisons():
         g = d[(d.comparison == label) & (d.metric == "korean_ratio")]
         assert len(g) == 60 and set(g.question_type) == set(TYPES)
@@ -297,7 +332,7 @@ def main():
     cases = validate_cases(records)
     if args.analysis_only:
         print(
-            f"PASS: 60 x 8; 1,920 original quality values; 480 durations; 3,360 aligned differences; {len(summary)} summaries; {len(cases)} evidence-checked cases"
+            f"PASS: 60 x 8; 1,920 original quality values; 480 durations; {len(d):,} aligned differences; {len(summary)} summaries; {len(cases)} evidence-checked cases"
         )
         return
     n = validate_tables()
@@ -315,8 +350,8 @@ def main():
     ]:
         assert old not in text
     figures = re.findall(r"\[그림삽입: ([^|]+)", text)
-    result_figs = [f.strip() for f in figures if re.search(r"fig5_[34]_", f)]
-    assert len(result_figs) == 2
+    result_figs = [f.strip() for f in figures if re.search(r"fig5_[345]_parallel", f)]
+    assert len(result_figs) == 3
     for f in figures:
         assert (ROOT / f.strip()).exists()
     for t in json.loads(
@@ -325,7 +360,7 @@ def main():
         assert text.count("Sheet=" + t["sheet"] + " |") == 1
     cases = validate_cases(records)
     print(
-        f"PASS: original 1,920 quality values incl. 5 missing; 480 durations; 3,360 differences; four types; {n} tables; {len(cases)} intact paired cases"
+        f"PASS: original 1,920 quality values incl. 5 missing; 480 durations; {len(d):,} differences; three question groups; {n} tables; {len(cases)} intact paired cases"
     )
 
 

@@ -2,8 +2,14 @@
 
 Inputs are the immutable observation table, the stored generation records and
 the question annotations. The script computes only what the thesis reports:
-raw scores, paired changes, type means and improved/worse/similar counts.
-No model, API, median or significance test is used.
+raw-score means and SDs per condition, the same means per question group,
+paired changes and improved/worse/similar counts. No model, API, median or
+significance test is used.
+
+Question groups (18/25/17) follow two stored annotations: questions whose
+answer is a value form the numeric group; the remaining descriptive questions
+split into method questions (original type 방법 및 절차) and concept-and-result
+questions (definitions, purposes and qualitative results).
 """
 
 from __future__ import annotations
@@ -25,14 +31,15 @@ QUESTIONS = ROOT / "FINALDOCS/DATA/QUESTIONS_60Q.json"
 
 TYPES = ["사실 및 정의", "방법 및 절차", "결과 및 비교", "목적 및 기여"]
 SHORT_TYPES = dict(zip(TYPES, ["사실·정의", "방법·절차", "결과·비교", "목적·기여"]))
+# Display order: no technique, the three single techniques, then combinations.
 CONDITIONS = [
     "H0C0S0",
-    "H0C1S0",
     "H1C0S0",
-    "H1C1S0",
+    "H0C1S0",
     "H0C0S1",
-    "H0C1S1",
+    "H1C1S0",
     "H1C0S1",
+    "H0C1S1",
     "H1C1S1",
 ]
 NAMES = dict(
@@ -40,16 +47,19 @@ NAMES = dict(
         CONDITIONS,
         [
             "미적용",
-            "CAD",
             "HyDE",
-            "HyDE+CAD",
+            "CAD",
             "SCD",
-            "CAD+SCD",
+            "HyDE+CAD",
             "HyDE+SCD",
+            "CAD+SCD",
             "HyDE+CAD+SCD",
         ],
     )
 )
+GROUPS = ["수치 질문", "방법 질문", "개념과 결과 질문"]
+GROUP_SIZES = {"수치 질문": 18, "방법 질문": 25, "개념과 결과 질문": 17}
+BASE = "H0C0S0"
 NUMBERS = {c: i + 1 for i, c in enumerate(CONDITIONS)}
 QUALITY = ["faithfulness", "answer_relevancy", "context_precision", "context_recall"]
 METRICS = QUALITY + ["korean_ratio", "duration_seconds"]
@@ -84,16 +94,36 @@ SCD_COMPARISONS = [
 ]
 
 
+def question_group(answer_form, original_type):
+    if answer_form == "수치형":
+        return "수치 질문", "정답이 점수, 비율, 개수, 설정값 같은 수치"
+    if original_type == "방법 및 절차":
+        return "방법 질문", "처리 과정, 실험 구성, 사용한 모델과 자료를 서술로 답함"
+    return "개념과 결과 질문", "정의, 목적, 결과의 경향이나 이유를 서술로 답함"
+
+
 def label(base, applied):
     return f"{NAMES[base]} → {NAMES[applied]}"
 
 
 def comparisons():
-    """(label, base, applied, metrics, evaluation language) for every reported pair."""
+    """(label, base, applied, metrics, evaluation language) for every reported pair.
+
+    Every condition is compared with no technique; quality pairs whose two
+    conditions use different evaluation languages are labelled as such.
+    Adding one technique inside one evaluation language is kept as well.
+    """
     out = []
+    for applied in CONDITIONS[1:]:
+        lang = "영어" if applied[-1] == "0" else "평가 언어 다름"
+        out.append((label(BASE, applied), BASE, applied, METRICS, lang))
+    seen = {o[0] for o in out}
     for lang, base, applied in QUALITY_COMPARISONS:
-        out.append((label(base, applied), base, applied, METRICS, lang))
+        if label(base, applied) not in seen:
+            out.append((label(base, applied), base, applied, METRICS, lang))
     for base, applied in SCD_COMPARISONS:
+        if label(base, applied) in seen:
+            continue
         out.append(
             (
                 label(base, applied),
@@ -143,6 +173,7 @@ def annotate(ann, questions):
     for r in ann.to_dict("records"):
         q = questions[r["query_id"]]
         assert q["question_type"] == r["original_type"]
+        group, basis = question_group(r["answer_form"], r["original_type"])
         rows.append(
             {
                 "query_id": q["query_id"],
@@ -158,9 +189,13 @@ def annotate(ann, questions):
                     "복수 항목" if r["element_count"] == "복수 요소" else "단일 항목"
                 ),
                 "type_review": q["type_review"],
+                "question_group": group,
+                "group_basis": basis,
             }
         )
-    return pd.DataFrame(rows)
+    out = pd.DataFrame(rows)
+    assert out.question_group.value_counts().to_dict() == GROUP_SIZES
+    return out
 
 
 def _delta(a, b):
@@ -174,10 +209,8 @@ def deltas(obs, annotations):
     rows = []
     for name, base, applied, metrics, lang in comparisons():
         for metric in metrics:
-            if metric in QUALITY:
-                assert (
-                    base[-1] == applied[-1]
-                ), "quality must stay in one evaluation language"
+            if metric in QUALITY and base[-1] != applied[-1]:
+                assert lang == "평가 언어 다름" and base == BASE
             for q in wide.index:
                 a, b = wide.loc[q, (metric, base)], wide.loc[q, (metric, applied)]
                 # Exclude stored zero-relevancy pairs from this comparison.
@@ -214,6 +247,7 @@ def summarize(d):
     d = d.assign(전체="전체 60개")
     for grouping in [
         "전체",
+        "question_group",
         "question_type",
         "document",
         "answer_form",
@@ -270,17 +304,18 @@ def run_records():
 
 def zero_relevancy(obs, annotations):
     """RAGAS 0.2.15 sets answer relevancy to 0 when the judge marks the answer noncommittal."""
-    t = annotations.set_index("query_id").question_type
+    t = annotations.set_index("query_id").question_group
     w = obs.pivot(index="query_id", columns="condition", values="answer_relevancy")
     counts = []
     for c in CONDITIONS:
         row = {"condition": c, "name": NAMES[c], "전체": int((w[c] == 0).sum())}
-        for typ in TYPES:
+        for typ in GROUPS:
             row[typ] = int((w[c][t == typ] == 0).sum())
         counts.append(row)
     transitions = []
-    for lang, base, applied in QUALITY_COMPARISONS:
-        for typ in ["전체"] + TYPES:
+    pairs = [(c[4], c[1], c[2]) for c in comparisons() if c[4] is not None]
+    for lang, base, applied in pairs:
+        for typ in ["전체"] + GROUPS:
             g = w if typ == "전체" else w[t == typ]
             x, y = g[base], g[applied]
             rest = (x > 0) & (y > 0)
@@ -301,6 +336,32 @@ def zero_relevancy(obs, annotations):
                 }
             )
     return counts, transitions
+
+
+def condition_summary(obs, annotations):
+    """Raw-score mean and SD per condition, overall and per question group."""
+    raw = obs.merge(annotations[["query_id", "question_group"]], on="query_id")
+    rows = []
+    for level in ["전체"] + GROUPS:
+        g = raw if level == "전체" else raw[raw.question_group == level]
+        for c in CONDITIONS:
+            x = g[g.condition == c]
+            for m in METRICS:
+                v = x[m].dropna()
+                rows.append(
+                    {
+                        "level": level,
+                        "condition": c,
+                        "name": NAMES[c],
+                        "number": NUMBERS[c],
+                        "metric": m,
+                        "n": len(v),
+                        "mean": v.mean(),
+                        "sd": v.std(ddof=1),
+                        "zero_count": int((v == 0).sum()),
+                    }
+                )
+    return pd.DataFrame(rows)
 
 
 def retrieval_audit(records):
@@ -373,6 +434,9 @@ def main():
     d.to_csv(HERE / "QUERY_LEVEL_DELTAS.csv", index=False, encoding="utf-8-sig")
     s = summarize(d)
     s.to_csv(HERE / "QUESTION_TYPE_SUMMARY.csv", index=False, encoding="utf-8-sig")
+    condition_summary(obs, annotations).to_csv(
+        HERE / "CONDITION_SUMMARY.csv", index=False, encoding="utf-8-sig"
+    )
     counts, transitions = zero_relevancy(obs, annotations)
     write_json(
         HERE / "ZERO_RELEVANCY_AUDIT.json",
@@ -427,10 +491,12 @@ def main():
             "question_types": {
                 t: int((annotations.question_type == t).sum()) for t in TYPES
             },
+            "question_groups": GROUP_SIZES,
+            "group_rule": "수치형 답은 수치 질문, 나머지 중 원래 유형이 방법 및 절차이면 방법 질문, 그 외는 개념과 결과 질문",
             "comparisons": [[c[0], c[1], c[2], c[4]] for c in comparisons()],
             "delta_rows": len(d),
             "rules": {
-                "quality": "같은 평가 언어(SCD 미적용끼리, SCD 적용끼리)의 두 조건만 비교",
+                "quality": "모든 조건을 미적용과 대응 비교하고, SCD 조건의 품질 지표는 한국어 번역 근거로 평가한 값으로 구분한다. 기법 하나를 추가한 비교는 같은 평가 언어 안에서 수행한다.",
                 "score_change": "0.05 초과 개선, -0.05 미만 악화, 경계 포함 사이는 비슷함",
                 "time_change": "1초 초과 증가, -1초 미만 감소, 사이는 비슷함",
                 "missing": "결측 질문은 해당 비교의 두 평균에서 함께 제외",

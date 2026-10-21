@@ -40,7 +40,7 @@
     "source_page": 3,
     "answer_span": "identify questions with named entity answers, find the supportive document, then replace the gold answer entity with a random entity",
     "short_title": "NQ-Swap 데이터셋의 생성 절차",
-    "required_information": "개체 정답 질문 선택·근거 문서 탐색·정답 개체 치환 절차",
+    "required_information": "개체 정답 질문 선택, 근거 문서 탐색, 정답 개체 치환의 절차",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -94,7 +94,7 @@
     "question_type": "결과 및 비교",
     "source_page": 4,
     "answer_span": "Regular: 18.7, 47.7, 87.1; CAD: 22.0, 66.4, 90.3",
-    "short_title": "LLaMA-30B·XSUM의 세 지표 비교",
+    "short_title": "LLaMA-30B의 XSUM 세 지표 비교",
     "required_information": "두 디코딩 조건의 세 평가 지표 수치 비교",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
@@ -161,7 +161,7 @@
     "source_page": 15,
     "answer_span": "interaction structure, topic and task, and persona",
     "short_title": "멀티턴 대화 데이터의 세 설계 차원",
-    "required_information": "대화 설계의 상호작용 구조·주제/과제·페르소나 세 차원",
+    "required_information": "대화 설계의 상호작용 구조, 주제와 과제, 페르소나의 세 차원",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -182,7 +182,7 @@
     "question_type": "결과 및 비교",
     "source_page": 23,
     "answer_span": "reduces step time by approximately 15% and improves token throughput by approximately 30%",
-    "short_title": "비동기 GSPO의 step time·throughput 개선율",
+    "short_title": "비동기 GSPO의 step time과 throughput 개선율",
     "required_information": "비동기 방식의 step time과 throughput 개선율",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
@@ -249,7 +249,7 @@
     "source_page": 8,
     "answer_span": "Larger chunks can capture more context, but they also generate more noise; smaller chunks may not fully convey the necessary context, but have less noise.",
     "short_title": "큰 청크와 작은 청크의 장단점",
-    "required_information": "큰 청크와 작은 청크의 문맥·잡음 상충관계",
+    "required_information": "큰 청크와 작은 청크의 문맥과 잡음 상충관계",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -292,8 +292,8 @@
     "question_type": "방법 및 절차",
     "source_page": 11,
     "answer_span": "Iterative retrieval alternates retrieval and generation; recursive retrieval refines queries and breaks problems into sub-problems; adaptive retrieval determines whether retrieval is necessary and when to stop.",
-    "short_title": "반복·재귀·적응 검색의 구분",
-    "required_information": "반복·재귀·적응 검색의 실행과 중단 방식",
+    "short_title": "반복 검색, 재귀 검색, 적응 검색의 구분",
+    "required_information": "반복, 재귀, 적응 검색의 실행과 중단 방식",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -325,8 +325,8 @@
     "question_type": "결과 및 비교",
     "source_page": 5,
     "answer_span": "real-time knowledge updates and effective utilization of external knowledge sources with high interpretability",
-    "short_title": "RAG와 파인튜닝의 지식 갱신·해석 가능성",
-    "required_information": "RAG와 파인튜닝의 지식 갱신·해석 가능성 차이",
+    "short_title": "RAG와 파인튜닝의 지식 갱신과 해석 가능성",
+    "required_information": "RAG와 파인튜닝의 지식 갱신과 해석 가능성 차이",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -402,8 +402,8 @@
     "question_type": "방법 및 절차",
     "source_page": 6,
     "answer_span": "5,049 questions across 1,585 NLP papers; accuracy is measured using standard F1",
-    "short_title": "QASPER의 질문·논문 수와 평가 지표",
-    "required_information": "질문 수·논문 수와 평가 지표",
+    "short_title": "QASPER의 질문 수, 논문 수와 평가 지표",
+    "required_information": "질문 수, 논문 수와 평가 지표",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -469,7 +469,7 @@
     "source_page": 3,
     "answer_span": "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.",
     "short_title": "Naive RAG의 처리 과정",
-    "required_information": "색인·검색·생성의 처리 순서",
+    "required_information": "색인, 검색, 생성의 처리 순서",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -480,7 +480,7 @@
     "source_page": 1,
     "answer_span": "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.",
     "short_title": "지식 집약 과제에서 RAG의 이점",
-    "required_information": "지식 집약 과제에서의 정확성·갱신·도메인 통합 이점",
+    "required_information": "지식 집약 과제에서의 정확성, 갱신, 도메인 통합 이점",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -491,7 +491,7 @@
     "source_page": 2,
     "answer_span": "the aspects of Retrieval, Generation and Augmentation",
     "short_title": "RAG의 세 구성 기술",
-    "required_information": "검색·생성·증강의 세 구성 기술",
+    "required_information": "검색, 생성, 증강의 세 구성 기술",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -502,7 +502,7 @@
     "source_page": 2,
     "answer_span": "We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools.",
     "short_title": "RAG 평가 방법의 정리 범위",
-    "required_information": "평가 과제·데이터셋·목적·지표·벤치마크의 정리 범위",
+    "required_information": "평가 과제, 데이터셋, 목적, 지표, 벤치마크의 정리 범위",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {
@@ -512,7 +512,7 @@
     "question_type": "결과 및 비교",
     "source_page": 3,
     "answer_span": "Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P.",
-    "short_title": "LLaMA-30B·CNN-DM의 세 지표 증가율",
+    "short_title": "LLaMA-30B의 CNN-DM 세 지표 증가율",
     "required_information": "CNN-DM의 세 지표 증가율",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
@@ -568,7 +568,7 @@
     "source_page": 2,
     "answer_span": "RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up.",
     "short_title": "RAPTOR 트리의 구축 절차",
-    "required_information": "임베딩·군집화·요약을 반복하는 트리 구축 절차",
+    "required_information": "임베딩, 군집화, 요약을 반복하는 트리 구축 절차",
     "type_review": "질문문과 정답 근거를 대조하여 원래 유형 유지"
   },
   {

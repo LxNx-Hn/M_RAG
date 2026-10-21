@@ -8,6 +8,29 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 P = ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
 
+METRIC_TOPIC = {
+    "faithfulness": "근거 충실도는",
+    "answer_relevancy": "답변 관련성은",
+    "context_precision": "문맥 정밀도는",
+    "context_recall": "문맥 재현율은",
+    "korean_ratio": "한국어 문자 비율은",
+}
+CONDITION_NAMES = {
+    "H0C0S0": "미적용",
+    "H1C0S0": "HyDE",
+    "H0C1S0": "CAD",
+    "H0C0S1": "SCD",
+    "H1C1S0": "HyDE+CAD",
+    "H1C0S1": "HyDE+SCD",
+    "H0C1S1": "CAD+SCD",
+    "H1C1S1": "HyDE+CAD+SCD",
+}
+
+
+def euro(number: str) -> str:
+    """Particle after a number read in Korean: 영, 삼, 육 end in a consonant."""
+    return "으로" if number.rstrip()[-1] in "036" else "로"
+
 
 def render_table(definition):
     number, title = definition["title"].split(" ", 2)[1:]
@@ -26,34 +49,49 @@ def figure(number, title, stem):
 
 
 def appendix_cases(cases, excerpts):
-    out = "# 부록 B. 질문별 검색 근거와 실제 답변 [스타일=부록제목]\n\n본문에서 확인한 현상을 질문 원문과 정답 근거, 실제 답변의 필요한 부분으로 정리하였다. 전체 답변과 입력 구간은 질문별 분석 자료에 보존되어 있다.\n\n"
+    out = (
+        "# 부록 B. 질문별 검색 근거와 실제 답변 [스타일=부록제목]\n\n"
+        "5.7절에서 다룬 질문의 원문과 정답 근거, 비교한 두 답변의 발췌와 점수를 정리하였다. "
+        "모든 비교의 기준은 같은 질문의 미적용 답변이며, 전체 답변과 입력 구간은 질문별 분석 자료에 보존되어 있다.\n\n"
+    )
     for index, c in enumerate(cases, 1):
         e = next(
             e
             for e in excerpts
             if e["query_id"] == c["query_id"] and e["title"] == c["title"]
         )
-        out += f"## B.{index} {c['title']} [스타일=절(1.1)]\n\n질문: ‘{c['query']}’\n\n정답 근거: {c['document']} 원문 {c['source_page']}쪽의 ‘{c['answer_span']}’이다.\n\n기준 조건은 {c['comparison'].split(' → ')[0]}, 적용 조건은 {c['comparison'].split(' → ')[1]}이다. {c['observation']}\n\n"
-        for side, label in [("base", "기준"), ("applied", "적용")]:
-            quotes = []
+        assert c["base"] == "H0C0S0"
+        applied = CONDITION_NAMES[c["applied"]]
+        out += f"## B.{index} {c['title']} [스타일=절(1.1)]\n\n"
+        out += (
+            f"질문은 ‘{c['query']}’이고, 정답 근거는 {c['document']} 원문 "
+            f"{c['source_page']}쪽의 ‘{c['answer_span']}’이다. "
+            f"이 질문은 {c['question_group']}에 속한다.\n\n"
+        )
+        out += f"미적용과 {applied} 조건을 비교하였다. {c['observation']}\n\n"
+        quotes = {}
+        for side in ("base", "applied"):
+            parts = []
             for quote in e[side]:
                 assert quote in c[side + "_record"]["answer"]
-                quotes.append(quote.replace("**", "").replace("\n", " "))
-            out += label + " 답변 발췌: ‘" + "’ / ‘".join(quotes) + "’\n\n"
+                parts.append("‘" + quote.replace("**", "").replace("\n", " ") + "’")
+            quotes[side] = ", ".join(parts)
+        out += (
+            f"미적용 답변 발췌는 {quotes['base']}이고, "
+            f"{applied} 답변 발췌는 {quotes['applied']}이다.\n\n"
+        )
+        changes = []
         for m in c["key_metrics"]:
-            if m == "duration_seconds":
+            score = c["scores"].get(m)
+            if m not in METRIC_TOPIC or score["base"] is None or score["applied"] is None:
                 continue
-            score = c["scores"][m]
-            if score["base"] is not None and score["applied"] is not None:
-                name = {
-                    "faithfulness": "근거 충실도",
-                    "answer_relevancy": "답변 관련성",
-                    "context_precision": "문맥 정밀도",
-                    "context_recall": "문맥 재현율",
-                    "korean_ratio": "한국어 문자 비율",
-                }[m]
-                out += f"{name}: {score['base']:.3f} → {score['applied']:.3f} (차이 {score['delta']:+.3f}). "
-        out += "\n\n"
+            value = f"{score['applied']:.2f}"
+            changes.append(
+                f"{METRIC_TOPIC[m]} {score['base']:.2f}에서 {value}{euro(value)}"
+            )
+        sentence = ", ".join(changes) + " 바뀌었다." if changes else ""
+        notes = " ".join(r["note"] for r in c.get("related_scores", []))
+        out += " ".join(x for x in [sentence, notes] if x) + "\n\n"
     return out
 
 
@@ -80,7 +118,9 @@ def main():
 
     body, results = expand(body), expand(results)
     appendix = (
-        "# 부록 A. 60개 질문과 정답 근거 [스타일=부록제목]\n\n각 질문의 대상 문서, 유형, 원문 페이지와 정답 근거를 제시하였다. 질문 ID는 저장된 생성·평가 기록을 연결하는 식별자다.\n\n"
+        "# 부록 A. 60개 질문과 정답 근거 [스타일=부록제목]\n\n"
+        "각 질문의 대상 문서와 유형, 원문 페이지, 정답 근거를 제시하였다. "
+        "유형은 5.1절의 수치, 방법, 개념과 결과 질문이며, 질문 ID는 저장된 생성 기록과 평가 기록을 연결하는 식별자다.\n\n"
         + render_table(by["Appendix_Queries"])
     )
     cases = json.loads(
@@ -113,7 +153,7 @@ def main():
     )
     P.write_text(front + toc + "\n" + complete, encoding="utf-8")
     print(
-        f"PASS: six result tables; natural-language findings and {len(cases)} evidence appendices; all 60 source questions retained"
+        f"PASS: {len(definitions)} tables; natural-language findings and {len(cases)} evidence appendices; all 60 source questions retained"
     )
 
 

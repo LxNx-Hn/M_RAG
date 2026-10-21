@@ -60,6 +60,9 @@ def main():
             (ROOT / "FINALDOCS/DATA/QUESTIONS_60Q.json").read_text(encoding="utf-8")
         )
     }
+    groups = pd.read_csv(
+        HERE / "QUESTION_CLASSIFICATION_60Q.csv", encoding="utf-8-sig"
+    ).set_index("query_id")["question_group"]
     raw = run_records()
     out = []
     for case in cases:
@@ -75,6 +78,7 @@ def main():
                 "checks": [list(c) for c in case["checks"]],
                 "query": meta["query"],
                 "question_type": meta["question_type"],
+                "question_group": groups[q],
                 "document": meta["document_label"],
                 "source_page": meta["source_page"],
                 "answer_span": meta["answer_span"],

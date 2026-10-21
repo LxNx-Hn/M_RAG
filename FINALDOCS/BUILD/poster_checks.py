@@ -1,9 +1,10 @@
 """Independently check the A1 poster tables against the question analysis.
 
-Every number in the four result tables (single techniques by question
-type, technique additions, SCD Korean ratio, single-technique time) is recomputed from
-QUESTION_TYPE_SUMMARY.csv at two decimals; bold marks only column maxima;
-statistical-test terms, standard deviations and internal question IDs are
+The condition legend follows the thesis order; every number in the three
+result tables (condition means, question-group means, single-technique time)
+is recomputed from CONDITION_SUMMARY.csv and QUESTION_TYPE_SUMMARY.csv at two
+decimals; bold marks only column maxima; statistical-test terms, standard
+deviations, internal question IDs, middle dots, arrows and colon labels are
 absent from the poster text.
 """
 
@@ -16,33 +17,41 @@ from lxml import etree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 A = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
-TYPES = ["사실 및 정의", "방법 및 절차", "결과 및 비교", "목적 및 기여"]
+CONDITIONS = [
+    "H0C0S0",
+    "H1C0S0",
+    "H0C1S0",
+    "H0C0S1",
+    "H1C1S0",
+    "H1C0S1",
+    "H0C1S1",
+    "H1C1S1",
+]
 NAMES = dict(
     zip(
-        [
-            "H0C0S0",
-            "H0C1S0",
-            "H1C0S0",
-            "H1C1S0",
-            "H0C0S1",
-            "H0C1S1",
-            "H1C0S1",
-            "H1C1S1",
-        ],
+        CONDITIONS,
         [
             "미적용",
-            "CAD",
             "HyDE",
-            "HyDE+CAD",
+            "CAD",
             "SCD",
-            "CAD+SCD",
+            "HyDE+CAD",
             "HyDE+SCD",
+            "CAD+SCD",
             "HyDE+CAD+SCD",
         ],
     )
 )
+SCORE_METRICS = [
+    "faithfulness",
+    "answer_relevancy",
+    "context_precision",
+    "context_recall",
+    "korean_ratio",
+]
+GROUPS = ["수치 질문", "방법 질문", "개념과 결과 질문"]
 FORBIDDEN = re.compile(
-    r"ANOVA|t-검정|p값|p<|표준편차|\bSD\b|ext_|track1_|H[01]C[01]S[01]|중앙값"
+    r"ANOVA|t-검정|p값|p<|표준편차|\bSD\b|ext_|track1_|H[01]C[01]S[01]|중앙값|·|→|[가-힣]: "
 )
 
 
@@ -84,6 +93,14 @@ def check_bold(rows, cols, label, skip_last=False):
 def validate_poster(pptx, svg=None):
     s = pd.read_csv(ROOT / "FINALDOCS/ANALYSIS/QUESTION_TYPE_SUMMARY.csv")
     s.loc[s.grouping == "전체", "level"] = "전체"
+    cs = pd.read_csv(
+        ROOT / "FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv", encoding="utf-8-sig"
+    )
+
+    def mean(level, code, metric):
+        g = cs[(cs.level == level) & (cs.condition == code) & (cs.metric == metric)]
+        assert len(g) == 1
+        return g["mean"].iat[0]
 
     def pick(level, base, applied, metric):
         g = s[
@@ -91,7 +108,7 @@ def validate_poster(pptx, svg=None):
             & (s.base == base)
             & (s.applied == applied)
             & (s.metric == metric)
-            & s.grouping.isin(["question_type", "전체"])
+            & s.grouping.isin(["question_group", "전체"])
         ]
         assert len(g) == 1
         return g.iloc[0]
@@ -100,88 +117,50 @@ def validate_poster(pptx, svg=None):
         slide = ET.fromstring(z.read("ppt/slides/slide1.xml"))
         media = [n for n in z.namelist() if n.startswith("ppt/media/")]
     tables = [cell_rows(t) for t in slide.findall(".//a:tbl", A)]
-    assert len(tables) == 6, "Expected six native tables"
+    assert len(tables) == 5, "Expected five native tables"
     assert len(media) >= 2, "Pipeline diagram or parallel-coordinate image missing"
     text = "".join(slide.xpath("//*[local-name()='t']/text()"))
     hit = FORBIDDEN.search(text)
     assert not hit, f"Forbidden poster text: {hit.group(0)}"
 
-    single = tables[2]
-    for i, t in enumerate(TYPES + ["전체"], 1):
-        a = pick(t, "H0C0S0", "H1C0S0", "answer_relevancy")
-        c = pick(t, "H0C0S0", "H0C1S0", "faithfulness")
-        k = pick(t, "H0C0S0", "H0C0S1", "korean_ratio")
+    labels = [f"{i} {NAMES[c]}" for i, c in enumerate(CONDITIONS, 1)]
+    legend = tables[0]
+    for i, code in enumerate(CONDITIONS, 1):
         expect = [
-            f2(a.mean_delta, True),
-            f"{a.improved}/{a.worse}",
-            f2(c.mean_delta, True),
-            f"{c.improved}/{c.worse}",
-            f2(k.mean_delta, True),
-            f"{k.improved}/{k.worse}",
+            labels[i - 1],
+            "+" if code[1] == "1" else "−",
+            "+" if code[3] == "1" else "−",
+            "+" if code[5] == "1" else "−",
+            "한국어 번역" if code[5] == "1" else "영어",
         ]
-        assert [
-            c[0] for c in single[i][1:]
-        ] == expect, f"Poster value differs: single-technique row {i}"
-    check_bold(single, [1, 3, 5], "Single-technique table", skip_last=True)
+        assert [c[0] for c in legend[i]] == expect, f"Condition legend differs: row {i}"
 
-    combos = [
-        ("H0C0S0", "H1C0S0"),
-        ("H0C1S0", "H1C1S0"),
-        ("H0C0S1", "H1C0S1"),
-        ("H0C1S1", "H1C1S1"),
-        ("H0C0S0", "H0C1S0"),
-        ("H1C0S0", "H1C1S0"),
-        ("H0C0S1", "H0C1S1"),
-        ("H1C0S1", "H1C1S1"),
-    ]
-    for i, (b0, a0) in enumerate(combos, 1):
-        r = pick("전체", b0, a0, "answer_relevancy")
-        row = tables[3][i]
-        expected_labels = [
-            "미적용 상태에서 HyDE 적용",
-            "CAD에 HyDE 추가",
-            "SCD에 HyDE 추가",
-            "CAD와 SCD에 HyDE 추가",
-            "미적용 상태에서 CAD 적용",
-            "HyDE에 CAD 추가",
-            "SCD에 CAD 추가",
-            "HyDE와 SCD에 CAD 추가",
+    means = tables[2]
+    for i, code in enumerate(CONDITIONS, 1):
+        expect = [labels[i - 1]] + [f2(mean("전체", code, m)) for m in SCORE_METRICS]
+        assert [c[0] for c in means[i]] == expect, f"Poster value differs: mean row {i}"
+    check_bold(means, [1, 2, 3, 4, 5], "Condition mean table")
+
+    groups = tables[3]
+    for i, code in enumerate(CONDITIONS, 1):
+        expect = [labels[i - 1]] + [
+            f2(mean(g, code, m))
+            for g in GROUPS
+            for m in ("answer_relevancy", "faithfulness")
         ]
-        assert row[1][0] == expected_labels[i - 1], "Combination label differs"
-        assert [row[2][0], row[3][0]] == [
-            f2(r.mean_delta, True),
-            f"{r.improved}/{r.worse}/{r.similar}",
-        ], f"Poster value differs: combination row {i}"
-    check_bold(tables[3], [2], "Combination table")
-
-    for i, (b0, a0) in enumerate(
-        [
-            ("H0C0S0", "H0C0S1"),
-            ("H1C0S0", "H1C0S1"),
-            ("H0C1S0", "H0C1S1"),
-            ("H1C1S0", "H1C1S1"),
-        ],
-        1,
-    ):
-        r = pick("전체", b0, a0, "korean_ratio")
-        assert [c[0] for c in tables[4][i][1:]] == [
-            f2(r.base_mean),
-            f2(r.applied_mean),
-            f2(r.mean_delta, True),
-            f"{r.improved}/60",
-        ], f"Poster value differs: Korean row {i}"
-    check_bold(tables[4], [2, 3], "Korean table")
+        assert [c[0] for c in groups[i]] == expect, f"Poster value differs: group row {i}"
+    check_bold(groups, [1, 2, 3, 4, 5, 6], "Question group table")
 
     for i, a0 in enumerate(["H1C0S0", "H0C1S0", "H0C0S1"], 1):
         r = pick("전체", "H0C0S0", a0, "duration_seconds")
-        assert [c[0] for c in tables[5][i][1:]] == [
+        assert [c[0] for c in tables[4][i]] == [
+            NAMES[a0],
             f2(r.base_mean),
             f2(r.applied_mean),
             f2(r.mean_delta, True),
-            f"{r.improved}/60",
         ], f"Poster value differs: time row {i}"
-    check_bold(tables[5], [2, 3], "Time table")
-    return {"tables": 6, "result_rows_checked": 5 + 8 + 4 + 3, "decimals": 2}
+    check_bold(tables[4], [2, 3], "Time table")
+    return {"tables": 5, "result_rows_checked": 8 + 8 + 8 + 3, "decimals": 2}
 
 
 def protocol_order(codes):

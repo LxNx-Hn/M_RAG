@@ -164,6 +164,8 @@ def table_data(sheet) -> dict:
         "bold_cells": bold,
         "column_fractions": definition.get("column_fractions"),
         "numeric_columns": definition.get("numeric_columns"),
+        "header_rows": definition.get("header_rows", [0]),
+        "center_columns": definition.get("center_columns", []),
     }
 
 
@@ -448,7 +450,11 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
         for c, value in enumerate(row):
             table.set_cell_text(r, c, value)
             cell = table.cell(r, c).element
-            cell.set("header", "1" if r == 0 else "0")
+            leading = set()
+            for h in sorted(data.get("header_rows", [0])):
+                if h == len(leading):
+                    leading.add(h)
+            cell.set("header", "1" if r in leading else "0")
             cell.find("hp:cellSz", NS).set("height", str(heights[r]))
             for p in cell.findall(".//hp:p", NS):
                 p.set("styleIDRef", cell_style.get("id"))
@@ -465,10 +471,10 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 )
                 alignment = (
                     "CENTER"
-                    if r == 0
+                    if r in data.get("header_rows", [0])
+                    or c in data.get("center_columns", [])
                     or label
                     in (
-                        "조건",
                         "H",
                         "C",
                         "S",

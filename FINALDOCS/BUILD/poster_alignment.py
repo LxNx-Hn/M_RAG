@@ -13,12 +13,11 @@ from lxml import etree
 NS = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 # c: centred short code, d: description (left), n: number (right)
 SCHEMAS = [
-    ["c", "c", "c", "c", "d"],
+    ["d", "c", "c", "c", "d"],
     ["d", "d", "d"],
+    ["d"] + ["n"] * 5,
     ["d"] + ["n"] * 6,
-    ["d", "d", "n", "n"],
-    ["d"] + ["n"] * 4,
-    ["d"] + ["n"] * 4,
+    ["d"] + ["n"] * 3,
 ]
 
 
@@ -26,7 +25,7 @@ def validate_alignment(pptx: Path, svg: Path) -> dict:
     with zipfile.ZipFile(pptx) as package:
         slide = etree.fromstring(package.read("ppt/slides/slide1.xml"))
     tables = slide.findall(".//a:tbl", NS)
-    assert len(tables) == len(SCHEMAS), "Expected six native tables"
+    assert len(tables) == len(SCHEMAS), "Expected five native tables"
     vector = "".join("".join(etree.fromstring(svg.read_bytes()).itertext()).split())
     checked = right = 0
     for ti, (table, kinds) in enumerate(zip(tables, SCHEMAS), 1):

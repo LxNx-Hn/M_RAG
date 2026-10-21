@@ -151,7 +151,9 @@ def main() -> None:
             ROOT / "FINALDOCS/TABLES/TABLES_60Q.xlsx", data_only=False
         )
         sheets = re.findall(r"\[표삽입:.*?Sheet=([^|]+)\|", source)
-        assert len(sheets) == 9
+        assert len(sheets) == len(definitions_list := json.loads(
+            (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(encoding="utf-8")
+        ))
         definitions = {
             t["sheet"]: t
             for t in json.loads(
@@ -163,10 +165,10 @@ def main() -> None:
         cell_count = 0
         instances = [
             (t, name, list(range(workbook[name.strip()].max_row - 2)))
-            for t, name in zip(tables[2:10], sheets[:8])
+            for t, name in zip(tables[2 : 2 + len(sheets) - 1], sheets[:-1])
         ]
         next_row = 1
-        appendix_parts = tables[10:]
+        appendix_parts = tables[2 + len(sheets) - 1 :]
         for index, table in enumerate(appendix_parts):
             count = int(table.get("rowCnt"))
             assert count >= 2, "Empty appendix segment"
@@ -259,12 +261,13 @@ def main() -> None:
                         )
                     )
                 )
+                definition = definitions[name.strip()]
                 expected_alignment = (
                     "CENTER"
-                    if r == 0
+                    if source_rows[r] in definition.get("header_rows", [0])
+                    or c in definition.get("center_columns", [])
                     or label
                     in (
-                        "조건",
                         "H",
                         "C",
                         "S",
@@ -375,7 +378,7 @@ def main() -> None:
         ), "Thesis abstracts returned"
         refs = re.findall(r"^\[(\d+)\]", source.split("# 참고문헌", 1)[1], re.MULTILINE)
         assert refs == [str(n) for n in range(1, 23)]
-        for kind, count in (("그림", 11), ("표", 9)):
+        for kind, count in (("그림", 11), ("표", len(sheets))):
             captions = re.findall(
                 rf"^\[{kind} ([\dA-Z]+-\d+)\].*?\[스타일={kind}제목\]",
                 source,
@@ -437,7 +440,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of 9 logical tables, 11 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of {len(sheets)} logical tables, 11 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

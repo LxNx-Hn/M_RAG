@@ -1,8 +1,12 @@
 """Figures for chapter 5, drawn from the stored measurements and records.
 
-Performance is shown only as parallel coordinates of the raw scores of all 60
-questions, one condition per row. Two non-performance figures explain the
-evaluation design and show one stored input/output example.
+Performance is shown only as parallel coordinates of raw scores. One figure
+per question group stacks four conditions (no technique, HyDE, CAD, SCD) from
+top to bottom; every question of the group is one line. In each technique
+panel the question whose key score rose most and the one that fell most
+against no technique are coloured, with their no-technique scores dashed.
+Two non-performance figures explain the evaluation design and show one stored
+input/output example.
 """
 
 from __future__ import annotations
@@ -20,14 +24,16 @@ import pandas as pd  # noqa: E402
 from matplotlib import font_manager  # noqa: E402
 from matplotlib.patches import FancyBboxPatch  # noqa: E402
 
-from analyze_questions import (
+from analyze_questions import (  # noqa: E402
+    BASE,
     CONDITIONS,
+    GROUPS,
     HERE,
     NAMES,
     QUALITY,
     ROOT,
     TYPES,
-)  # noqa: E402
+)
 
 for name in ["malgun.ttf", "malgunbd.ttf"]:
     if (Path("C:/Windows/Fonts") / name).exists():
@@ -110,6 +116,151 @@ def profile_coordinates(values):
     assert np.isnan(shown[-1]) or 0 < shown[-1] <= TIME_AXIS_SECONDS
     shown[-1] = 1 - shown[-1] / TIME_AXIS_SECONDS
     return shown
+
+
+# (condition, metric whose change against no technique selects the coloured lines)
+GROUP_PANELS = [
+    ("H0C0S0", None),
+    ("H1C0S0", "answer_relevancy"),
+    ("H0C1S0", "faithfulness"),
+    ("H0C0S1", "korean_ratio"),
+]
+METRIC_LABEL = {
+    "answer_relevancy": "답변 관련성",
+    "faithfulness": "근거 충실도",
+    "korean_ratio": "한국어 문자 비율",
+}
+GROUP_FIGURES = dict(
+    zip(
+        GROUPS,
+        [
+            "fig5_3_parallel_numeric",
+            "fig5_4_parallel_method",
+            "fig5_5_parallel_concept",
+        ],
+    )
+)
+
+
+def group_extremes(data, group, code, metric):
+    """Largest rise and fall of `metric` against no technique inside one group.
+
+    Pairs with a zero on either side are left out, as in the paired counts.
+    """
+    g = data[data.question_group == group]
+    w = g.pivot(index="query_id", columns="condition", values=metric)
+    pair = w[[BASE, code]].dropna()
+    pair = pair[(pair[BASE] != 0) & (pair[code] != 0)]
+    d = (pair[code] - pair[BASE]).sort_values()
+    up = d.index[-1] if d.iloc[-1] > 0.05 else None
+    down = d.index[0] if d.iloc[0] < -0.05 else None
+    return up, down, d
+
+
+def group_profiles(
+    data, group, size=(6.3, 7.4), scale=1.0, save_to=None, highlights=None, compact=False
+):
+    """Four stacked condition panels for one question group."""
+    by = data.set_index(["query_id", "condition"])
+    members = data[(data.question_group == group) & (data.condition == BASE)]
+    fig, axes = plt.subplots(len(GROUP_PANELS), 1, figsize=size, sharey=True)
+    x = np.arange(len(AXES))
+    labels = LABELS if scale == 1.0 else [s.replace("\n", " ") for s in LABELS]
+    for ax, (code, metric) in zip(axes, GROUP_PANELS):
+        for q in members.query_id:
+            ax.plot(
+                x,
+                display_values([by.loc[(q, code), m] for m in AXES]),
+                color=GREY,
+                alpha=0.75,
+                lw=0.9 * scale,
+                marker=".",
+                markersize=2.2 * scale,
+                zorder=1,
+            )
+        title = f"조건 {CONDITIONS.index(code) + 1}  {NAMES[code]}"
+        if metric:
+            up, down, d = group_extremes(data, group, code, metric)
+            for q, colour in [(up, UP), (down, DOWN)]:
+                if q is None:
+                    continue
+                ax.plot(
+                    x,
+                    display_values([by.loc[(q, BASE), m] for m in AXES]),
+                    color=colour,
+                    lw=1.2 * scale,
+                    ls=(0, (3, 2)),
+                    zorder=3,
+                    marker=".",
+                    markersize=2.2 * scale,
+                )
+                ax.plot(
+                    x,
+                    display_values([by.loc[(q, code), m] for m in AXES]),
+                    color=colour,
+                    lw=2.4 * scale,
+                    zorder=4,
+                    marker=".",
+                    markersize=3 * scale,
+                )
+                if highlights is not None:
+                    highlights.append(
+                        {
+                            "group": group,
+                            "condition": code,
+                            "metric": metric,
+                            "direction": "up" if colour == UP else "down",
+                            "query_id": q,
+                            "base": float(by.loc[(q, BASE), metric]),
+                            "applied": float(by.loc[(q, code), metric]),
+                            "delta": float(d[q]),
+                        }
+                    )
+            ax.text(
+                1,
+                1.06,
+                f"색 선은 미적용 대비 {METRIC_LABEL[metric]} 변화가 가장 큰 질문",
+                transform=ax.transAxes,
+                ha="right",
+                fontsize=8.5 * scale,
+                color=INK,
+            )
+        for k in x:
+            ax.axvline(k, color="#c9cfd6", lw=0.8 * scale, zorder=0)
+        ax.set_xlim(-0.2, len(AXES) - 0.8)
+        ax.set_ylim(-0.04, 1.04)
+        ax.set_yticks([0, 0.5, 1.0], ["0", "0.5", "1"])
+        ax.set_xticks(x, labels if (not compact or ax is axes[-1]) else [""] * len(labels))
+        ax.tick_params(labelsize=9.5 * scale, length=0)
+        ax.spines[["top", "right", "bottom"]].set_visible(False)
+        ax.set_title(title, loc="left", fontsize=10.5 * scale, fontweight="bold", color=INK, pad=4 * scale)
+    handles = [
+        plt.Line2D([], [], color=GREY, lw=2.2),
+        plt.Line2D([], [], color=UP, lw=2.4),
+        plt.Line2D([], [], color=DOWN, lw=2.4),
+        plt.Line2D([], [], color=INK, lw=1.2, ls=(0, (3, 2))),
+    ]
+    fig.legend(
+        handles,
+        ["질문별 점수", "가장 크게 오른 질문", "가장 크게 내린 질문", "같은 질문의 미적용 점수"],
+        loc="upper center",
+        ncol=4,
+        frameon=False,
+        fontsize=9 * scale,
+        bbox_to_anchor=(0.5, 1.0),
+        handlelength=1.8,
+        columnspacing=1.2,
+    )
+    fig.text(0.5, 0.008, "0점과 결측값은 선으로 잇지 않음", ha="center", fontsize=8.5 * scale, color=INK)
+    if compact:
+        fig.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.1, hspace=0.45)
+    else:
+        fig.subplots_adjust(left=0.07, right=0.985, top=0.925 if scale == 1.0 else 0.9, bottom=0.075, hspace=0.85 if scale == 1.0 else 0.95)
+    if save_to:
+        fig.savefig(save_to, dpi=200, facecolor="white")
+        plt.close(fig)
+    else:
+        save(fig, GROUP_FIGURES[group])
 
 
 def type_profiles(data, code, name, size=(6.3, 9.2), scale=1, save_to=None):
@@ -349,52 +500,42 @@ def evaluation_design():
     box(
         ax,
         0.00,
-        0.40,
+        0.38,
         0.47,
-        0.26,
-        "RAGAS 품질 지표 4개\n조건 1~4: 영어 근거로 평가\n조건 5~8: 한국어 번역 근거로 평가",
+        0.28,
+        "RAGAS 품질 지표 4개\nSCD 미적용 조건은 영어 근거\nSCD 적용 조건은 한국어 번역 근거",
         purple,
-        size=11,
+        size=10.5,
     )
     box(
         ax,
         0.53,
-        0.40,
+        0.38,
         0.47,
-        0.26,
-        "한국어 문자 비율 · 처리 시간\n저장된 답변과 실행 기록에서 계산",
+        0.28,
+        "한국어 문자 비율과 처리 시간\n저장된 답변과 실행 기록에서 계산",
         green,
-        size=11,
+        size=10.5,
     )
     arrow(ax, (0.86, 0.755), (0.30, 0.665))
     arrow(ax, (0.86, 0.755), (0.765, 0.665))
     box(
         ax,
         0.00,
-        0.06,
-        0.47,
+        0.04,
+        1.00,
         0.24,
-        "같은 평가 언어의 두 조건을\n같은 질문끼리 비교",
-        purple,
-        size=11,
+        "질문과 조건으로 연결한 분석\n조건별 평균과 표준편차, 질문 유형별 평균, 질문별 원점수와 미적용 대비 변화",
+        INK,
+        size=10.5,
     )
-    box(
-        ax,
-        0.53,
-        0.06,
-        0.47,
-        0.24,
-        "SCD 추가 전후와\n단일 기법 적용 전후를 비교",
-        green,
-        size=11,
-    )
-    arrow(ax, (0.235, 0.395), (0.235, 0.305))
-    arrow(ax, (0.765, 0.395), (0.765, 0.305))
+    arrow(ax, (0.235, 0.375), (0.235, 0.285))
+    arrow(ax, (0.765, 0.375), (0.765, 0.285))
     fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
     save(fig, "fig5_0_evaluation_design")
 
 
-def wrap_evidence(text, limit=32):
+def wrap_evidence(text, limit=35):
     lines = []
     line = ""
     width = 0
@@ -444,9 +585,15 @@ def io_example():
         ("생성 답변", quote),
     ]
     score = case["scores"]
-    metrics = f"근거 충실도 {score['faithfulness']['applied']:.3f} · 답변 관련성 {score['answer_relevancy']['applied']:.3f} / 문맥 정밀도 {score['context_precision']['applied']:.3f} · 문맥 재현율 {score['context_recall']['applied']:.3f}"
+    metrics = (
+        f"근거 충실도 {score['faithfulness']['applied']:.2f}, 답변 관련성 {score['answer_relevancy']['applied']:.2f}\n"
+        f"문맥 정밀도 {score['context_precision']['applied']:.2f}, 문맥 재현율 {score['context_recall']['applied']:.2f}"
+    )
     rows.append(("평가값", metrics))
-    wrapped = [(label, wrap_evidence(body)) for label, body in rows]
+    wrapped = [
+        (label, body.split("\n") if label == "평가값" else wrap_evidence(body))
+        for label, body in rows
+    ]
     row_heights = [len(lines) * 15.5 + 16 for _, lines in wrapped]
     height = sum(row_heights) + 10
     fig, ax = plt.subplots(figsize=(6.3, height / 72))
@@ -499,16 +646,16 @@ def io_example():
 
 def main():
     data = pd.read_csv(HERE / "QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig")
-    for code, name in [
-        ("H1C0S0", "fig5_3_parallel_hyde_types"),
-        ("H0C1S0", "fig5_4_parallel_cad_types"),
-        ("H0C0S1", "fig5_5_parallel_scd_types"),
-    ]:
-        type_profiles(data, code, name)
+    highlights = []
+    for group in GROUPS:
+        group_profiles(data, group, highlights=highlights)
+    (HERE / "FIGURE_HIGHLIGHTS.json").write_text(
+        json.dumps(highlights, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     evaluation_design()
     io_example()
     print(
-        "PASS: 3 parallel-coordinate figures, each 60 questions in 4 type panels, 6 raw-unit axes; design and I/O figures"
+        f"PASS: 3 group figures x 4 condition panels; {len(highlights)} highlighted questions; design and I/O figures"
     )
 
 

@@ -50,7 +50,7 @@
 
 [M1] K-intelligence/Midm-2.0-Base-Instruct 공식 모델 카드(KT), https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct (확인: 2026-10-17). [스타일=참고문헌리스트]
 
-[M2] MiniLM CrossEncoder 재정렬 모델의 공식 모델 카드, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 (확인: 2026-10-17). 원질의·후보 구간 쌍을 입력하는 CrossEncoder 재정렬에 사용하였다(구현 설정 표기: cross-encoder/ms-marco-MiniLM-L-6-v2). [스타일=참고문헌리스트]
+[M2] MiniLM CrossEncoder 재정렬 모델의 공식 모델 카드, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 (확인: 2026-10-17). 원질의와 후보 구간의 쌍을 입력하는 CrossEncoder 재정렬에 사용하였다(구현 설정 표기: cross-encoder/ms-marco-MiniLM-L-6-v2). [스타일=참고문헌리스트]
 
 [D1] Y. Gao et al., “Retrieval-Augmented Generation for Large Language Models: A Survey,” arXiv:2312.10997, https://arxiv.org/abs/2312.10997 (확인: 2026-10-20). 실험 원문: paper_nlp_rag.pdf. [스타일=참고문헌리스트]
 
@@ -60,7 +60,7 @@
 
 [D4] KT Tech Innovation Group, “Mi:dm K 2.5 Pro,” 기업 기술보고서, arXiv:2603.18788v2, 2026, https://arxiv.org/abs/2603.18788v2 (확인: 2026-10-20). 실험 원문: paper_midm.pdf. [스타일=참고문헌리스트]
 
-질의별 원문 페이지와 정답 근거는 부록 A에 제시하였다.
+질문별 원문 페이지와 정답 근거는 부록 A에 제시하였다.
 
 ## 그림 자료 이용 정보 [스타일=절(1.1)]
 

@@ -14,7 +14,7 @@ def sha(path):
 
 def main():
     review = json.loads(
-        (ROOT / "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261020.json").read_text(
+        (ROOT / "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json").read_text(
             encoding="utf-8"
         )
     )

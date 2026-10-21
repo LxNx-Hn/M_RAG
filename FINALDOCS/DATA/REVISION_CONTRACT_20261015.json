@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-20",
-  "title": "한국어 질의로 영어 학술·기술 문서를 검색하는 RAG에서의 HyDE·CAD·SCD 조합 실험",
+  "date": "2026-10-21",
+  "title": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서의 HyDE, CAD, SCD 조합 실험",
   "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries",
-  "tables": 9,
+  "tables": 6,
   "figures": 11,
   "equations": 8,
   "references": 22,
@@ -10,13 +10,10 @@
   "usage_hyperlinks": 4,
   "sheets": [
     "T2-1_Related_Work",
+    "T3-1_Conditions",
     "T4-1_Environment",
-    "T5-1_HyDE_Relevance",
-    "T5-2_CAD_Faithfulness",
-    "T5-3_Combinations",
-    "T5-4_HyDE_Retrieval",
-    "T5-5_Korean",
-    "T5-6_Time",
+    "T5-1_Condition_Scores",
+    "T5-2_Group_Scores",
     "Appendix_Queries"
   ],
   "case_figures": {
@@ -28,5 +25,10 @@
     "결과 및 비교": 20,
     "목적 및 기여": 3
   },
-  "question_profile_revision": "2026-10-20: HyDE, CAD, SCD figures each split the 60 questions into four types; six axes include raw seconds"
+  "question_profile_revision": "2026-10-21: raw-score table per condition, the same means per question group, and one parallel-coordinate figure per group with four condition panels (no technique, HyDE, CAD, SCD)",
+  "question_groups": {
+    "수치 질문": 18,
+    "방법 질문": 25,
+    "개념과 결과 질문": 17
+  }
 }

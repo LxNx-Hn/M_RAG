@@ -9,21 +9,15 @@
       "answer_relevancy",
       "context_recall"
     ],
-    "observation": "미적용의 입력 구간에는 최적 클러스터 수를 정한다는 문장이 없었고 답변은 정보를 확인할 수 없다고 하였다. HyDE 적용 후 해당 문장이 입력 구간에 들어왔고 답변은 BIC가 최적 클러스터 수를 정한다고 설명하였다.",
+    "observation": "미적용의 입력 구간에는 최적 군집 수를 정한다는 문장이 없었고, 답변은 해당 정보를 확인할 수 없다고 하였다. HyDE를 적용하자 이 문장이 입력 구간에 들어왔고, 답변은 BIC가 최적 군집 수를 정하는 데 쓰인다고 설명하였다.",
     "related": [
       {
         "base": "H0C0S1",
         "applied": "H1C0S1",
-        "note": "한국어 번역 근거 평가에서도 같은 문장이 들어오며 답변 관련성이 0.000에서 0.895로 올랐다."
-      },
-      {
-        "base": "H0C0S0",
-        "applied": "H0C1S0",
-        "note": "CAD는 입력 구간이 같아 근거가 없었고 답변도 정보를 찾을 수 없다고 하였으나, 답변 관련성은 0.890으로 기록되었다."
+        "note": "SCD와 HyDE+SCD를 비교해도 같은 문장이 입력 구간에 새로 들어왔고, 한국어 번역 근거로 평가한 답변 관련성은 0.00에서 0.89로 올랐다."
       }
     ],
-    "poster_observation": "HyDE 출력: 최적의 클러스터 개수 결정",
-    "finding_text": "HyDE는 관련성 0점을 제외한 비교에서 두 평가 언어 모두 관련성을 높인 질문이 더 많았고, 영어 평가에서는 방법·절차의 상승이 가장 컸다. 미적용에서 회피 응답(관련성 0)으로 판정된 방법·절차 질문 6개는 HyDE 적용 후 모두 양수가 되었고 그중 4개가 요구 정보를 제시하였다.",
+    "finding_text": "방법 질문에서 HyDE는 미적용에서 회피 응답으로 판정된 답변을 실제 설명으로 바꾼 경우가 많았다. 관련성 0점 답변은 5개에서 1개로 줄었고, 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
     "checks": [
       [
         "base",
@@ -52,6 +46,7 @@
     ],
     "query": "RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?",
     "question_type": "방법 및 절차",
+    "question_group": "방법 질문",
     "document": "RAPTOR",
     "source_page": 4,
     "answer_span": "to determine the optimal number of clusters",
@@ -95,7 +90,7 @@
       {
         "base": "H0C0S1",
         "applied": "H1C0S1",
-        "note": "한국어 번역 근거 평가에서도 같은 문장이 들어오며 답변 관련성이 0.000에서 0.895로 올랐다.",
+        "note": "SCD와 HyDE+SCD를 비교해도 같은 문장이 입력 구간에 새로 들어왔고, 한국어 번역 근거로 평가한 답변 관련성은 0.00에서 0.89로 올랐다.",
         "scores": {
           "faithfulness": {
             "base": 1.0,
@@ -126,43 +121,6 @@
             "base": 14.747,
             "applied": 25.862,
             "delta": 11.115
-          }
-        }
-      },
-      {
-        "base": "H0C0S0",
-        "applied": "H0C1S0",
-        "note": "CAD는 입력 구간이 같아 근거가 없었고 답변도 정보를 찾을 수 없다고 하였으나, 답변 관련성은 0.890으로 기록되었다.",
-        "scores": {
-          "faithfulness": {
-            "base": 1.0,
-            "applied": 1.0,
-            "delta": 0.0
-          },
-          "answer_relevancy": {
-            "base": 0.0,
-            "applied": 0.8905,
-            "delta": 0.8905
-          },
-          "context_precision": {
-            "base": 1.0,
-            "applied": 1.0,
-            "delta": 0.0
-          },
-          "context_recall": {
-            "base": 0.0,
-            "applied": 0.0,
-            "delta": 0.0
-          },
-          "korean_ratio": {
-            "base": 0.6568421052631579,
-            "applied": 0.7033707865168539,
-            "delta": 0.046529
-          },
-          "duration_seconds": {
-            "base": 9.303,
-            "applied": 34.128,
-            "delta": 24.825
           }
         }
       }
@@ -212,8 +170,15 @@
       "answer_relevancy",
       "faithfulness"
     ],
-    "observation": "두 조건 모두 생성 절차를 설명한 원문 구간을 입력받았다. 미적용 답변은 CAD 수식 문장을 이어 쓴 뒤 절별 설명을 요청하는 문장을 나열하였고, HyDE 답변은 개체 정답 질문 선택, 근거 문서 탐색, 정답 개체 치환의 세 단계를 제시하였다.",
-    "finding_text": "HyDE는 관련성 0점을 제외한 비교에서 두 평가 언어 모두 관련성을 높인 질문이 더 많았고, 영어 평가에서는 방법·절차의 상승이 가장 컸다. 미적용에서 회피 응답(관련성 0)으로 판정된 방법·절차 질문 6개는 HyDE 적용 후 모두 양수가 되었고 그중 4개가 요구 정보를 제시하였다.",
+    "observation": "두 조건 모두 생성 절차를 설명한 원문 구간을 입력받았다. 미적용 답변은 CAD 수식 문장을 이어 쓴 뒤 절마다 설명을 요청하는 문장을 나열하였고, HyDE 답변은 개체 정답 질문의 선택, 근거 문서 탐색, 정답 개체의 무작위 치환이라는 세 단계를 제시하였다.",
+    "related": [
+      {
+        "base": "H0C0S0",
+        "applied": "H0C1S0",
+        "note": "같은 입력 구간에서 CAD 답변은 CAD 논문의 α 설정 문단을 영어로 그대로 옮겼다. 근거 충실도는 0.19에서 0.95로 올랐고 답변 관련성은 0.39였다."
+      }
+    ],
+    "finding_text": "방법 질문에서 HyDE는 미적용에서 회피 응답으로 판정된 답변을 실제 설명으로 바꾼 경우가 많았다. 관련성 0점 답변은 5개에서 1개로 줄었고, 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
     "checks": [
       [
         "base",
@@ -242,10 +207,11 @@
     ],
     "query": "NQ-Swap 데이터셋은 기존 Natural Questions의 정답과 문서를 어떤 방식으로 변형해 만들어집니까?",
     "question_type": "방법 및 절차",
+    "question_group": "방법 질문",
     "document": "CAD",
     "source_page": 3,
     "answer_span": "identify questions with named entity answers, find the supportive document, then replace the gold answer entity with a random entity",
-    "required_information": "개체 정답 질문 선택·근거 문서 탐색·정답 개체 치환 절차",
+    "required_information": "개체 정답 질문 선택, 근거 문서 탐색, 정답 개체 치환의 절차",
     "comparison": "미적용 → HyDE",
     "same_input_passages": false,
     "same_ordered_chunk_ids": false,
@@ -281,7 +247,45 @@
         "delta": -1.153
       }
     },
-    "related_scores": [],
+    "related_scores": [
+      {
+        "base": "H0C0S0",
+        "applied": "H0C1S0",
+        "note": "같은 입력 구간에서 CAD 답변은 CAD 논문의 α 설정 문단을 영어로 그대로 옮겼다. 근거 충실도는 0.19에서 0.95로 올랐고 답변 관련성은 0.39였다.",
+        "scores": {
+          "faithfulness": {
+            "base": 0.1852,
+            "applied": 0.9545,
+            "delta": 0.7693
+          },
+          "answer_relevancy": {
+            "base": 0.0,
+            "applied": 0.3949,
+            "delta": 0.3949
+          },
+          "context_precision": {
+            "base": 1.0,
+            "applied": 1.0,
+            "delta": 0.0
+          },
+          "context_recall": {
+            "base": 1.0,
+            "applied": 1.0,
+            "delta": 0.0
+          },
+          "korean_ratio": {
+            "base": 0.562618595825427,
+            "applied": 0.1204081632653061,
+            "delta": -0.44221
+          },
+          "duration_seconds": {
+            "base": 22.638,
+            "applied": 95.316,
+            "delta": 72.678
+          }
+        }
+      }
+    ],
     "base_record": {
       "answer": "between the context **_c_** and the generated tokens. Specifically, we define the adjusted output probability distribution as follows:\n\nCAD(Context-Aware Decoding)는 어떤 문제를 해결하기 위해 개발되었는가?\n\n**2.1 Background** 섹션에서 CAD의 개발 배경과 해결하고자 하는 문제를 구체적으로 설명해주세요.\n\n**22 Context-aware Decoding** 섹션에서 CAD의 핵심 메커니즘을 상세히 설명하고, 이 방법이 어떻게 작동하는지 단계별로 설명해주세요.\n\n**2.3 Experiments** 섹션에서 CAD의 성능 평가 결과를 요약하고, 기존 방법 대비 어떤 개선점이 있었는지 분석해주세요.\n\n**2.4 Analysis** 섹션에서 CAD의 효과에 대한 이론적 근거와 한계점을 논의해주세요.\n\n**2.5 Future Work** 섹션에서 향후 연구 방향을 제시하고, CAD의 발전 가능성을 논의해주세요.\n\n**2.6 Conclusion** 섹션에서 CAD의 의의와 기여점을 정리해주세요.\n\n**2.7 Appendix** 섹션에서 CAD 구현에 사용된 기술적 세부사항을 설명해주세요.\n\n**2.8 References** 섹션에서 CAD 관련 선행 연구들을 정리하고 비교분석해주세요.\n\n**2.9 Acknowledgments** 섹션에서 연구진의 기여도와 감사 인사를 확인하세요.\n\n**2.10 Supplementary Materials** 섹션에서 추가 실험 결과나 데이터셋 정보를 제공해주세요.\n\n**2.11 Methodology** 섹션에서 CAD의 수학적 공식과 알고리즘을 상세히 설명해주세요.\n\n**2.12 Evaluation Metrics** 섹션에서 CAD 성능 측정에 사용된 평가 지표들을 정리해주세요.\n\n**2.13 Case Studies** 섹션에서 실제 적용 사례와 예시를 통해 CAD의 효과를 보여주세요.\n\n**2.14 Technical Details** 섹션에서 CAD 구현 시 고려해야 할 실무적 사항들을 설명해주세요.\n\n**2.15 Implementation Notes** 섹션에서 CAD 구현 과정에서 발생한 기술적 어려움과 해결 방안을 공유해주세요.\n\n**2.16 Validation** 섹션에서 CAD의 검증 방법과 절차를 설명해주세요.\n\n**2.17 Limitations** 섹션에서 CAD의 한계점과 개선 가능성을 논의해주세요.\n\n**2.18 Discussion** 섹션에서 CAD의 이론적 함의와 실용적 의미를 종합적으로 분석해주세요.\n\n**2.19 Related Work** 섹션에서 CAD와 유사한 기존 방법들을 비교분석해주세요.\n\n**2.20 Summary** 섹션에서 전체 논문의 핵심 내용을 간략히 요약해주세요.\n\n**2.21 Appendices** 섹션에서 추가 참고자료와 부록을 제공해주세요.\n\n**2.22 Glossary** 섹션에서 CAD 관련 주요 용어들을 정의해주세요.\n\n**2.23 Appendix** 섹션에서 CAD의 하이퍼파라미터 설정과 최적화",
       "contexts": [
@@ -327,8 +331,9 @@
       "answer_relevancy",
       "korean_ratio"
     ],
-    "observation": "두 조건의 입력 구간에 목적과 보강 과제가 모두 있었다. HyDE 답변은 사전학습 단계의 데이터 구성을 다룬 영어 원문을 이어 썼고, 대화 정렬이라는 목적과 창작·번역·일반 질의응답이라는 과제는 답변에 없었다. 답변 관련성은 0.000에서 0.463으로 올랐다.",
-    "finding_text": "HyDE는 관련성 0점을 제외한 비교에서 두 평가 언어 모두 관련성을 높인 질문이 더 많았고, 영어 평가에서는 방법·절차의 상승이 가장 컸다. 미적용에서 회피 응답(관련성 0)으로 판정된 방법·절차 질문 6개는 HyDE 적용 후 모두 양수가 되었고 그중 4개가 요구 정보를 제시하였다.",
+    "observation": "두 조건의 입력 구간에는 대화 정렬이라는 목적과 창작, 번역, 일반 질의응답이라는 보강 과제가 모두 있었다. 미적용 답변은 설명을 요청하는 문장 뒤에 단계별 성능 표를 나열하였고, HyDE 답변은 사전학습 단계의 데이터 구성을 다룬 영어 원문을 이어 썼다. 목적과 보강 과제는 두 답변 모두에서 빠졌다.",
+    "related": [],
+    "finding_text": "방법 질문에서 HyDE는 미적용에서 회피 응답으로 판정된 답변을 실제 설명으로 바꾼 경우가 많았다. 관련성 0점 답변은 5개에서 1개로 줄었고, 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
     "checks": [
       [
         "base",
@@ -353,10 +358,17 @@
         "answer",
         "creative writing",
         false
+      ],
+      [
+        "base",
+        "answer",
+        "creative writing",
+        false
       ]
     ],
     "query": "Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?",
     "question_type": "방법 및 절차",
+    "question_group": "방법 질문",
     "document": "Mi:dm K 2.5 Pro Technical Report",
     "source_page": 21,
     "answer_span": "to favor versatile conversational alignment; creative writing, translation, and general question answering",
@@ -443,15 +455,15 @@
       "context_recall",
       "faithfulness"
     ],
-    "observation": "미적용의 입력 구간과 답변에는 한 계층 57.9와 세 계층 73.68이 모두 있었다. HyDE 적용 후 73.68이 담긴 구간이 빠졌고, 답변은 직접 비교 수치를 확인할 수 없다고 한 뒤 전체 트리 검색의 일반적 장점을 설명하였다.",
+    "observation": "미적용의 입력 구간과 답변에는 한 계층의 57.9와 세 계층의 73.68이 모두 있었다. HyDE를 적용하자 73.68이 담긴 구간이 입력에서 빠졌고, 답변은 직접 비교할 수치를 확인할 수 없다고 한 뒤 트리 검색의 일반적인 장점을 설명하였다.",
     "related": [
       {
         "base": "H0C0S1",
         "applied": "H1C0S1",
-        "note": "한국어 번역 근거 평가에서도 같은 구간이 빠지며 답변 관련성이 0.768에서 0.000으로 낮아졌다."
+        "note": "SCD와 HyDE+SCD를 비교해도 같은 구간이 빠졌고, 답변 관련성은 0.77에서 0.00으로 내려갔다."
       }
     ],
-    "finding_text": "결과·비교 질문은 필요한 수치가 입력 구간에 들어왔는지와 답변이 그 수치를 옮겼는지에 따라 결과가 갈렸다.",
+    "finding_text": "수치 질문에서 HyDE는 관련성 평균을 바꾸지 않았고, 정답 수치가 담긴 구간이 입력에서 빠지면 답변도 수치를 잃었다.",
     "checks": [
       [
         "base",
@@ -480,6 +492,7 @@
     ],
     "query": "QuALITY의 한 스토리에서 RAPTOR가 전체 3개 계층을 검색했을 때의 성능은 leaf node 한 계층만 검색했을 때와 어떻게 달라졌습니까?",
     "question_type": "결과 및 비교",
+    "question_group": "수치 질문",
     "document": "RAPTOR",
     "source_page": 9,
     "answer_span": "57.9 with one leaf layer versus 73.68 with all three layers",
@@ -523,7 +536,7 @@
       {
         "base": "H0C0S1",
         "applied": "H1C0S1",
-        "note": "한국어 번역 근거 평가에서도 같은 구간이 빠지며 답변 관련성이 0.768에서 0.000으로 낮아졌다.",
+        "note": "SCD와 HyDE+SCD를 비교해도 같은 구간이 빠졌고, 답변 관련성은 0.77에서 0.00으로 내려갔다.",
         "scores": {
           "faithfulness": {
             "base": 0.8125,
@@ -594,8 +607,8 @@
     }
   },
   {
-    "finding": "F2",
-    "title": "LLaMA-30B·XSUM의 세 지표 비교",
+    "finding": "F3",
+    "title": "LLaMA-30B의 XSUM 세 지표 비교",
     "query_id": "ext_cad_009",
     "base": "H0C0S0",
     "applied": "H0C1S0",
@@ -603,8 +616,9 @@
       "faithfulness",
       "answer_relevancy"
     ],
-    "observation": "두 조건의 입력 구간은 같고 정답 수치 18.7·22.0, 47.7·66.4, 87.1·90.3이 들어 있었다. 두 답변은 모두 같은 표의 다른 행 값인 ROUGE-L 25.8·31.8과 factKB 87.8을 XSUM 결과로 제시하였다. CAD 적용 후 근거 충실도는 0.526에서 0.867로 올랐다.",
-    "finding_text": "결과·비교 질문은 필요한 수치가 입력 구간에 들어왔는지와 답변이 그 수치를 옮겼는지에 따라 결과가 갈렸다.",
+    "observation": "두 조건의 입력 구간은 같았고, 정답 수치인 ROUGE-L 18.7과 22.0, factKB 47.7과 66.4, BERT-P 87.1과 90.3이 들어 있었다. 두 답변은 모두 같은 표의 다른 행 값인 ROUGE-L 25.8과 31.8, factKB 87.8을 XSUM 결과로 제시하였다.",
+    "related": [],
+    "finding_text": "수치 질문과 방법 질문에서 CAD는 근거 충실도를 높였지만, 입력 구간의 문장을 그대로 옮기거나 다른 행과 다른 내용을 옮긴 답변도 높은 충실도를 받았다.",
     "checks": [
       [
         "base",
@@ -639,6 +653,7 @@
     ],
     "query": "LLaMA-30B에 CAD를 적용했을 때 XSUM에서 ROUGE-L, factKB, BERT-P 점수는 regular decoding과 비교해 어떻게 달라졌습니까?",
     "question_type": "결과 및 비교",
+    "question_group": "수치 질문",
     "document": "CAD",
     "source_page": 4,
     "answer_span": "Regular: 18.7, 47.7, 87.1; CAD: 22.0, 66.4, 90.3",
@@ -724,9 +739,9 @@
       "faithfulness",
       "answer_relevancy"
     ],
-    "observation": "입력 구간에는 100토큰 청크와 문장 이동 규칙이 있었다. 미적용 답변은 문서 길이와 성능을 묻는 문장을 반복하였고, CAD 답변은 트리 구축 비용이 문서 길이에 선형으로 증가한다는 다른 내용을 설명하였다. 근거 충실도는 0.250에서 1.000으로, 답변 관련성은 0.000에서 0.755로 올랐지만 청크 길이와 문장 처리 규칙은 두 답변 모두에 없었다.",
-    "poster_observation": "CAD 출력: 트리 구축 비용의 선형 증가 설명",
-    "finding_text": "CAD는 입력 구간이 같은 상태에서 답변의 형식과 내용을 바꾸었고, 자동 점수의 상승과 요구 정보 제시가 일치하지 않는 경우가 있었다.",
+    "observation": "두 조건의 입력 구간은 같았고, 100토큰 청크와 한계를 넘는 문장을 다음 청크로 옮기는 규칙이 들어 있었다. 미적용 답변은 문서 길이와 성능을 묻는 문장을 반복하였고, CAD 답변은 트리 구축 비용이 문서 길이에 선형으로 늘어난다는 다른 내용을 설명하였다.",
+    "related": [],
+    "finding_text": "수치 질문과 방법 질문에서 CAD는 근거 충실도를 높였지만, 입력 구간의 문장을 그대로 옮기거나 다른 행과 다른 내용을 옮긴 답변도 높은 충실도를 받았다.",
     "checks": [
       [
         "base",
@@ -755,6 +770,7 @@
     ],
     "query": "RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?",
     "question_type": "방법 및 절차",
+    "question_group": "수치 질문",
     "document": "RAPTOR",
     "source_page": 3,
     "answer_span": "length 100; if a sentence exceeds the 100-token limit, the entire sentence is moved to the next chunk",
@@ -831,7 +847,7 @@
     }
   },
   {
-    "finding": "F3",
+    "finding": "F4",
     "title": "지식 집약 과제에서 RAG의 이점",
     "query_id": "track1_0012",
     "base": "H0C0S0",
@@ -840,8 +856,9 @@
       "answer_relevancy",
       "faithfulness"
     ],
-    "observation": "입력 구간은 같았다. 미적용 답변은 실시간 지식 갱신과 외부 지식 활용을 원문 인용과 함께 정리하였고, CAD 답변은 ‘위 내용 참조’와 요청 문장 조각만 남겼다. 이 질문의 답변 관련성은 0.900에서 0.000으로 낮아졌다. 관련성 평균에서는 이 질문을 제외하였다.",
-    "finding_text": "CAD는 입력 구간이 같은 상태에서 답변의 형식과 내용을 바꾸었고, 자동 점수의 상승과 요구 정보 제시가 일치하지 않는 경우가 있었다.",
+    "observation": "두 조건의 입력 구간은 같았다. 미적용 답변은 실시간 지식 갱신과 외부 지식 활용을 원문 인용과 함께 정리하였고, CAD 답변은 ‘위 내용 참조’와 요청 문장 조각만 남겼다.",
+    "related": [],
+    "finding_text": "개념과 결과 질문에서 CAD는 이미 정확했던 설명을 짧은 지시문으로 바꾸어 충실도와 관련성을 낮춘 경우가 있었다.",
     "checks": [
       [
         "base",
@@ -858,10 +875,11 @@
     ],
     "query": "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
     "question_type": "목적 및 기여",
+    "question_group": "개념과 결과 질문",
     "document": "RAG Survey",
     "source_page": 1,
     "answer_span": "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information.",
-    "required_information": "지식 집약 과제에서의 정확성·갱신·도메인 통합 이점",
+    "required_information": "지식 집약 과제에서의 정확성, 갱신, 도메인 통합 이점",
     "comparison": "미적용 → CAD",
     "same_input_passages": true,
     "same_ordered_chunk_ids": true,
@@ -934,17 +952,24 @@
     }
   },
   {
-    "finding": "F4",
+    "finding": "F5",
     "title": "Naive RAG의 처리 과정",
     "query_id": "track1_0010",
-    "base": "H1C0S0",
+    "base": "H0C0S0",
     "applied": "H1C1S0",
     "key_metrics": [
       "answer_relevancy",
       "faithfulness"
     ],
-    "observation": "두 조건 모두 첫 입력 구간에 색인·검색·생성의 세 단계가 있었고, 가상 문서가 다시 생성되어 다섯 구간 중 하나가 바뀌었다. HyDE 답변은 세 단계를 설명하였고, HyDE+CAD 답변은 입력 구간을 이어 쓴 뒤 Modular RAG의 새 모듈을 묻는 질문을 스스로 만들어 그 내용을 설명하였다.",
-    "finding_text": "HyDE 조건에 CAD를 더한 비교는 HyDE 가상 문서가 다시 생성되어 입력 구간도 함께 달라졌다.",
+    "observation": "세 조건 모두 색인, 검색, 생성의 세 단계를 담은 구간을 입력받았다. 미적용 답변은 파인튜닝과 프롬프트 공학을 비교한 영어 원문을 이어 쓴 뒤 세 가지 패러다임을 묻는 질문을 스스로 만들었다. HyDE 답변은 세 단계를 한국어로 설명하였고, HyDE+CAD 답변은 Modular RAG의 새 모듈을 묻는 질문을 만든 뒤 그 내용을 설명하였다.",
+    "related": [
+      {
+        "base": "H0C0S0",
+        "applied": "H1C0S0",
+        "note": "HyDE 단독 답변은 색인, 검색, 생성의 세 단계를 설명하였고 답변 관련성은 0.93이었다."
+      }
+    ],
+    "finding_text": "HyDE와 CAD를 함께 적용하면 HyDE 단독에서 얻은 설명이 사라지고 답변이 다른 주제로 이동한 경우가 있었다.",
     "checks": [
       [
         "base",
@@ -961,7 +986,7 @@
       [
         "base",
         "answer",
-        "Indexing(색인화)",
+        "Prompt Engineering",
         true
       ],
       [
@@ -979,28 +1004,29 @@
     ],
     "query": "RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?",
     "question_type": "방법 및 절차",
+    "question_group": "방법 질문",
     "document": "RAG Survey",
     "source_page": 3,
     "answer_span": "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework.",
-    "required_information": "색인·검색·생성의 처리 순서",
-    "comparison": "HyDE → HyDE+CAD",
+    "required_information": "색인, 검색, 생성의 처리 순서",
+    "comparison": "미적용 → HyDE+CAD",
     "same_input_passages": false,
     "same_ordered_chunk_ids": false,
     "scores": {
       "faithfulness": {
-        "base": 0.95,
+        "base": 0.4167,
         "applied": 0.7333,
-        "delta": -0.2167
+        "delta": 0.3166
       },
       "answer_relevancy": {
-        "base": 0.9286,
+        "base": 0.7472,
         "applied": 0.0,
-        "delta": -0.9286
+        "delta": -0.7472
       },
       "context_precision": {
-        "base": 1.0,
+        "base": 0.9167,
         "applied": 1.0,
-        "delta": 0.0
+        "delta": 0.0833
       },
       "context_recall": {
         "base": 1.0,
@@ -1008,32 +1034,70 @@
         "delta": 0.0
       },
       "korean_ratio": {
-        "base": 0.7647058823529411,
+        "base": 0.0413333333333333,
         "applied": 0.4913863822805578,
-        "delta": -0.27332
+        "delta": 0.450053
       },
       "duration_seconds": {
-        "base": 23.395,
+        "base": 8.115,
         "applied": 101.724,
-        "delta": 78.329
+        "delta": 93.609
       }
     },
-    "related_scores": [],
+    "related_scores": [
+      {
+        "base": "H0C0S0",
+        "applied": "H1C0S0",
+        "note": "HyDE 단독 답변은 색인, 검색, 생성의 세 단계를 설명하였고 답변 관련성은 0.93이었다.",
+        "scores": {
+          "faithfulness": {
+            "base": 0.4167,
+            "applied": 0.95,
+            "delta": 0.5333
+          },
+          "answer_relevancy": {
+            "base": 0.7472,
+            "applied": 0.9286,
+            "delta": 0.1814
+          },
+          "context_precision": {
+            "base": 0.9167,
+            "applied": 1.0,
+            "delta": 0.0833
+          },
+          "context_recall": {
+            "base": 1.0,
+            "applied": 1.0,
+            "delta": 0.0
+          },
+          "korean_ratio": {
+            "base": 0.0413333333333333,
+            "applied": 0.7647058823529411,
+            "delta": 0.723373
+          },
+          "duration_seconds": {
+            "base": 8.115,
+            "applied": 23.395,
+            "delta": 15.28
+          }
+        }
+      }
+    ],
     "base_record": {
-      "answer": "제공된 논문 컨텍스트를 분석한 결과, Naive RAG(Naive Retrieval-Augmented Generation) 방법론의 구성 과정은 다음과 같이 확인됩니다.\n\nNaive RAG는 세 가지 핵심 단계로 구성된 전통적인 프로세스를 따릅니다:\n\n**1. Indexing(색인화)**\n- 다양한 형식(PDF, HTML, Word, Markdown 등)의 원시 데이터를 정제하고 추출하는 과정\n- 이를 통일된 일반 텍스트 형식으로 변환\n- 언어 모델의 맥락 제한을 고려하여 텍스트를 더 작은 소화 가능한 청크(chunk)로 분할\n- 임베딩 모델을 사용하여 청크들을 벡터 표현으로 인코딩하고 벡터 데이터베이스에 저장\n- 이 단계는 효율적인 유사도 검색을 위한 기반을 마련하는 중요한 과정\n\n**2. Retrieval(검색)**\n- 사용자 질의 수신 시, 색인화 단계에서 사용한 동일한 인코딩 모델로 질의를 벡터 표현으로 변환\n- 질의 벡터와 색인화된 코퍼스 내 청크들의 벡터 간 유사도 점수 계산\n- 가장 높은 유사도를 보이는 상위 K개의 청크를 우선순위에 따라 검색\n- 검색된 청크들은 확장된 프롬프트의 맥락으로 활용됨\n\n**3. Generation(생성)**\n- 원래의 질의와 선택된 문서들(청크들)을 합성하여 일관된 프롬프트 형성\n- 대형 언어 모델(LLM)이 이 프롬프트에 기반하여 응답 생성\n- 모델은 작업별 기준에 따라 내재된 매개변수 지식을 활용하거나 제공된 문서 내 정보로 응답을 제한할 수 있음\n- 대화형 상황에서는 기존 대화 이력을 프롬프트에 통합하여 다중 턴 대화 상호작용을 효과적으로 수행\n\n이러한 Naive RAG의 \"Retrieve-Read\" 프레임워크는 초기 RAG 방법론으로서 이후 Advanced RAG와 Modular RAG 발전의 기초가 되었습니다.",
+      "answer": "Prompt Engineering (PE). Fine-tuning involves modifying the parameters of a pretrained model to fit specific tasks, while Prompt Engineering focuses on crafting effective prompts to guide the model's behavior. RAG, however, takes a hybrid approach, combining the strengths of both methods. RAG leverages the pretrained model's inherent knowledge while simultaneously augmenting it with external information, providing a balance between model efficiency and task-specific adaptability. This hybrid nature allows RAG to achieve comparable or superior performance to fine-tuned models while maintaining the computational efficiency of pretrained models. The paper highlights that RAG outperforms native LLMs in terms of both performance and cost-effectiveness, demonstrating its practical advantages in real-world applications.\n\n---\n\n질문: RAG 시스템의 세 가지 패러다임(Naive, Advanced, Modular) 간의 차이점과 각각의 특징을 설명해주세요.",
       "contexts": [
         "future directions for RAG, emphasizing potential enhancements to tackle current challenges. The paper unfolds as follows: Section II introduces the main concept and current paradigms of RAG. The following three sections explore core components—“Retrieval”, “Generation” and “Augmentation”, respectively. Section III focuses on optimization methods in retrieval,including indexing, query and embedding optimization. Section IV concentrates on postretrieval process and LLM fine-tuning in generation. Section V analyzes the three augmentation processes. Section VI focuses on RAG’s downstream tasks and evaluation system. Section VII mainly discusses the challenges that RAG currently faces and its future development directions. At last, the paper concludes in Section VIII. II. OVERVIEW OF RAG A typical application of RAG is illustrated in Figure 2. Here, a user poses a question to ChatGPT about a recent, widely discussed news. Given ChatGPT’s reliance on pretraining data, it initially lacks the capacity to provide updates on recent developments. RAG bridges this information gap by sourcing and incorporating knowledge from external databases. In this case, it gathers relevant news articles related to the user’s query. These articles, combined with the original question, form a comprehensive prompt that empowers LLMs to generate a well-informed answer. The RAG research paradigm is continuously evolving, and we categorize it into three stages: Naive RAG, Advanced RAG, and Modular RAG, as showed in Figure 3. Despite RAG method are cost-effective and surpass the performance of the native LLM, they also exhibit several limitations. The development of Advanced RAG and Modular RAG is a response to these specific shortcomings in Naive RAG. _A. Naive RAG_ The Naive RAG research paradigm represents the earliest methodology, which gained prominence shortly after the Fig. 2. A representative instance of the RAG process applied to question answering. It mainly consists of 3 steps. 1) Indexing. Documents are split into chunks, encoded into vectors, and stored in a vector database. 2) Retrieval. Retrieve the Top k chunks most relevant to the question based on semantic similarity. 3) Generation. Input the original question and the retrieved chunks together into LLM to generate the final answer. widespread adoption of ChatGPT. The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a “Retrieve-Read” framework [7]. _Indexing_ starts with the cleaning and extraction of raw data in diverse formats like PDF, HTML, Word, and Markdown, which is then converted into a uniform plain text format. To accommodate the context limitations of language models, text is segmented into smaller, digestible chunks. Chunks are then encoded into vector representations using an embedding model and stored in vector database. This step is crucial for enabling efficient similarity searches in the subsequent retrieval phase. _Retrieval_ . Upon receipt of a user query, the RAG system employs the same encoding model utilized during the indexing phase to transform the query into a vector representation. It then computes the similarity scores between the query vector and the vector of chunks within the indexed corpus. The system prioritizes and retrieves the top K chunks that demonstrate the greatest similarity to the query. These chunks are subsequently used as",
         "it employs pre-retrieval and post-retrieval strate- gies. To tackle the indexing issues, Advanced RAG refines its indexing techniques through the use of a sliding window approach, fine-grained segmentation, and the incorporation of metadata. Additionally, it incorporates several optimization methods to streamline the retrieval process [8]. Fig. 3. Comparison between the three paradigms of RAG. (Left) Naive RAG mainly consists of three parts: indexing, retrieval and generation. (Middle) Advanced RAG proposes multiple optimization strategies around pre-retrieval and post-retrieval, with a process similar to the Naive RAG, still following a chain-like structure. (Right) Modular RAG inherits and develops from the previous paradigm, showcasing greater flexibility overall. This is evident in the introduction of multiple specific functional modules and the replacement of existing modules. The overall process is not limited to sequential retrieval and generation; it includes methods such as iterative and adaptive retrieval. Pre-retrieval process . In this stage, the primary focus is on optimizing the indexing structure and the original query. The goal of optimizing indexing is to enhance the quality of the content being indexed. This involves strategies: enhancing data granularity, optimizing index structures, adding metadata, alignment optimization, and mixed retrieval. While the goal of query optimization is to make the user’s original question clearer and more suitable for the retrieval task. Common methods include query rewriting query transformation, query expansion and other techniques [7], [9]–[11]. Post-Retrieval Process . Once relevant context is retrieved, it’s crucial to integrate it effectively with the query. The main methods in post-retrieval process include rerank chunks and context compressing. Re-ranking the retrieved information to relocate the most relevant content to the edges of the prompt is a key strategy. This concept has been implemented in frame- works such as LlamaIndex 2 , LangChain 3 , and HayStack [12]. Feeding all relevant documents directly into LLMs can lead to information overload, diluting the focus on key details with irrelevant content.To mitigate this, post-retrieval efforts con- centrate on selecting the essential information, emphasizing critical sections, and shortening the context to be processed. 2 https://www.llamaindex.ai 3 https://www.langchain.com/ C. Modular RAG The modular RAG architecture advances beyond the for- mer two RAG paradigms, offering enhanced adaptability and versatility. It incorporates diverse strategies for improving its components, such as adding a search module for similarity searches and refining the retriever through fine-tuning. Inno- vations like restructured RAG modules [13] and rearranged RAG pipelines [14] have been introduced to tackle specific challenges. The shift towards a modular RAG approach is becoming prevalent, supporting both sequential processing and integrated end-to-end training across its components. Despite its distinctiveness, Modular RAG builds upon the foundational principles of Advanced and Naive RAG, illustrating a progres- sion and refinement within the RAG family. 1) New Modules: The Modular RAG framework introduces additional specialized components to enhance retrieval and processing capabilities. The Search module adapts to spe- cific scenarios, enabling direct searches across various data sources like search engines, databases, and knowledge graphs, using LLM-generated code and query languages [15]. RAG- Fusion addresses traditional search limitations by employing a multi-query strategy that expands user queries into diverse perspectives,",
+        "Fig. 6. Summary of RAG ecosystem initial learning curve. 3) Specialization - optimizing RAG to better serve production environments. The mutual growth of RAG models and their technology stacks is evident; technological advancements continuously establish new standards for existing infrastructure. In turn, enhancements to the technology stack drive the development of RAG capabilities. RAG toolkits are converging into a foundational technology stack, laying the groundwork for advanced enterprise applications. However, a fully integrated, comprehensive platform concept is still in the future, requiring further innovation and development. F. Multi-modal RAG RAG has transcended its initial text-based question- answering confines, embracing a diverse array of modal data. This expansion has spawned innovative multimodal models that integrate RAG concepts across various domains: Image . RA-CM3 [176] stands as a pioneering multimodal model of both retrieving and generating text and images. BLIP-2 [177] leverages frozen image encoders alongside LLMs for efficient visual language pre-training, enabling zero- shot image-to-text conversions. The “Visualize Before You Write” method [178] employs image generation to steer the LM’s text generation, showing promise in open-ended text generation tasks. Audio and Video . The GSS method retrieves and stitches together audio clips to convert machine-translated data into speech-translated data [179]. UEOP marks a significant ad- vancement in end-to-end automatic speech recognition by incorporating external, offline strategies for voice-to-text con- version [180]. Additionally, KNN-based attention fusion lever- ages audio embeddings and semantically related text embed- dings to refine ASR, thereby accelerating domain adaptation. Vid2Seq augments language models with specialized temporal markers, facilitating the prediction of event boundaries and textual descriptions within a unified output sequence [181]. Code . RBPS [182] excels in small-scale learning tasks by retrieving code examples that align with developers’ objectives through encoding and frequency analysis. This approach has demonstrated efficacy in tasks such as test assertion genera- tion and program repair. For structured knowledge, the CoK method [106] first extracts facts pertinent to the input query from a knowledge graph, then integrates these facts as hints within the input, enhancing performance in knowledge graph question-answering tasks. VIII. C ONCLUSION The summary of this paper, as depicted in Figure 6, empha- sizes RAG’s significant advancement in enhancing the capa- bilities of LLMs by integrating parameterized knowledge from language models with extensive non-parameterized data from external knowledge bases. The survey showcases the evolution of RAG technologies and their application on many different tasks. The analysis outlines three developmental paradigms within the RAG framework: Naive, Advanced, and Modu- lar RAG, each representing a progressive enhancement over its predecessors. RAG’s technical integration with other AI methodologies, such as fine-tuning and reinforcement learning, has further expanded its capabilities. Despite the progress in RAG technology, there are research opportunities to improve its robustness and its ability to handle extended contexts. RAG’s application scope is expanding into multimodal do- mains, adapting its principles to interpret and process diverse data forms like images, videos, and code. This expansion high- lights RAG’s significant practical implications for AI deploy- ment, attracting interest from academic and industrial sectors. The growing ecosystem of RAG is evidenced by the rise in RAG-centric AI",
         "which is also characterized as a “Retrieve-Read” framework [7]. Indexing starts with the cleaning and extraction of raw data in diverse formats like PDF, HTML, Word, and Markdown, which is then converted into a uniform plain text format. To accommodate the context limitations of language models, text is segmented into smaller, digestible chunks. Chunks are then encoded into vector representations using an embedding model and stored in vector database. This step is crucial for enabling efficient similarity searches in the subsequent retrieval phase. Retrieval . Upon receipt of a user query, the RAG system employs the same encoding model utilized during the indexing phase to transform the query into a vector representation. It then computes the similarity scores between the query vector and the vector of chunks within the indexed corpus. The system prioritizes and retrieves the top K chunks that demonstrate the greatest similarity to the query. These chunks are subsequently used as the expanded context in prompt. Generation . The posed query and selected documents are synthesized into a coherent prompt to which a large language model is tasked with formulating a response. The model’s approach to answering may vary depending on task-specific criteria, allowing it to either draw upon its inherent parametric knowledge or restrict its responses to the information con- tained within the provided documents. In cases of ongoing dialogues, any existing conversational history can be integrated into the prompt, enabling the model to engage in multi-turn dialogue interactions effectively. However, Naive RAG encounters notable drawbacks: Retrieval Challenges . The retrieval phase often struggles with precision and recall, leading to the selection of misaligned or irrelevant chunks, and the missing of crucial information. Generation Difficulties . In generating responses, the model may face the issue of hallucination, where it produces con- tent not supported by the retrieved context. This phase can also suffer from irrelevance, toxicity, or bias in the outputs, detracting from the quality and reliability of the responses. Augmentation Hurdles . Integrating retrieved information with the different task can be challenging, sometimes resulting in disjointed or incoherent outputs. The process may also encounter redundancy when similar information is retrieved from multiple sources, leading to repetitive responses. Deter- mining the significance and relevance of various passages and ensuring stylistic and tonal consistency add further complexity. Facing complex issues, a single retrieval based on the original query may not suffice to acquire adequate context information. Moreover, there’s a concern that generation models might overly rely on augmented information, leading to outputs that simply echo retrieved content without adding insightful or synthesized information. B. Advanced RAG Advanced RAG introduces specific improvements to over- come the limitations of Naive RAG. Focusing on enhancing re- trieval quality, it employs pre-retrieval and post-retrieval strate- gies. To tackle the indexing issues, Advanced RAG refines its indexing techniques through the use of a sliding window approach, fine-grained segmentation, and the incorporation of metadata. Additionally, it incorporates several optimization methods to streamline the retrieval process [8]. Fig. 3. Comparison between the three paradigms of RAG. (Left) Naive RAG mainly consists of three parts: indexing, retrieval",
-        "in a hierarchical manner, which may include summarizing sections of a document or lengthy PDF before performing a retrieval based on this summary. Subsequently, a secondary retrieval within the document refines the search, embodying the recursive nature of the process. In contrast, multi-hop retrieval is designed to delve deeper into graph-structured data sources, extracting interconnected information [106]. _C. Adaptive Retrieval_ Adaptive retrieval methods, exemplified by Flare [24] and Self-RAG [25], refine the RAG framework by enabling LLMs to actively determine the optimal moments and content for retrieval, thus enhancing the efficiency and relevance of the information sourced. These methods are part of a broader trend wherein LLMs employ active judgment in their operations, as seen in model agents like AutoGPT, Toolformer, and GraphToolformer [107]–[109]. Graph-Toolformer, for instance, divides its retrieval process into distinct steps where LLMs proactively use retrievers, apply Self-Ask techniques, and employ few-shot prompts to initiate search queries. This proactive stance allows LLMs to decide when to search for necessary information, akin to how an agent utilizes tools. WebGPT [110] integrates a reinforcement learning framework to train the GPT-3 model in autonomously using a search engine during text generation. It navigates this process using special tokens that facilitate actions such as search engine queries, browsing results, and citing references, thereby expanding GPT-3’s capabilities through the use of external search engines. Flare automates timing retrieval by monitoring the confidence of the generation process, as indicated by the probability of generated terms [24]. When the probability falls below a certain threshold would activates the retrieval system to collect relevant information, thus optimizing the retrieval cycle. Self-RAG [25] introduces “reflection tokens” that allow the model to introspect its outputs. These tokens come in two varieties: “retrieve” and “critic”. The model autonomously decides when to activate retrieval, or alternatively, a predefined threshold may trigger the process. During retrieval, the generator conducts a fragment-level beam search across multiple paragraphs to derive the most coherent sequence. Critic scores are used to update the subdivision scores, with the flexibility to adjust these weights during inference, tailoring the model’s behavior. Self-RAG’s design obviates the need for additional classifiers or reliance on Natural Language Inference (NLI) models, thus streamlining the decision-making process for when to engage retrieval mechanisms and improving the model’s autonomous judgment capabilities in generating accurate responses.",
-        "practice often involves a singular (once) retrieval step followed by generation, which can lead to inefficiencies and sometimes is typically insufficient for complex problems demanding multi-step reasoning, as it provides a limited scope of information [105]. Many studies have optimized the retrieval process in response to this issue, and we have summarised them in Figure 5. _A. Iterative Retrieval_ Iterative retrieval is a process where the knowledge base is repeatedly searched based on the initial query and the text generated so far, providing a more comprehensive knowledge Fig. 5. In addition to the most common once retrieval, RAG also includes three types of retrieval augmentation processes. (left) Iterative retrieval involves alternating between retrieval and generation, allowing for richer and more targeted context from the knowledge base at each step. (Middle) Recursive retrieval involves gradually refining the user query and breaking down the problem into sub-problems, then continuously solving complex problems through retrieval and generation. (Right) Adaptive retrieval focuses on enabling the RAG system to autonomously determine whether external knowledge retrieval is necessary and when to stop retrieval and generation, often utilizing LLM-generated special tokens for control. base for LLMs. This approach has been shown to enhance the robustness of subsequent answer generation by offering additional contextual references through multiple retrieval iterations. However, it may be affected by semantic discontinuity and the accumulation of irrelevant information. ITERRETGEN [14] employs a synergistic approach that leverages “retrieval-enhanced generation” alongside “generationenhanced retrieval” for tasks that necessitate the reproduction of specific information. The model harnesses the content required to address the input task as a contextual basis for retrieving pertinent knowledge, which in turn facilitates the generation of improved responses in subsequent iterations. _B. Recursive Retrieval_ Recursive retrieval is often used in information retrieval and NLP to improve the depth and relevance of search results. The process involves iteratively refining search queries based on the results obtained from previous searches. Recursive Retrieval aims to enhance the search experience by gradually converging on the most pertinent information through a feedback loop. IRCoT [61] uses chain-of-thought to guide the retrieval process and refines the CoT with the obtained retrieval results. ToC [57] creates a clarification tree that systematically optimizes the ambiguous parts in the Query. It can be particularly useful in complex search scenarios where the user’s needs are not entirely clear from the outset or where the information sought is highly specialized or nuanced. The recursive nature of the process allows for continuous learning and adaptation to the user’s requirements, often resulting in improved satisfaction with the search outcomes. To address specific data scenarios, recursive retrieval and multi-hop retrieval techniques are utilized together. Recursive retrieval involves a structured index to process and retrieve data in a hierarchical manner, which may include summarizing sections of a document or lengthy PDF before performing a retrieval based on this summary. Subsequently, a secondary retrieval within the document refines the search, embodying the recursive nature of the process. In contrast, multi-hop retrieval is designed to delve deeper into graph-structured data sources, extracting interconnected information [106]. _C. Adaptive Retrieval_ Adaptive retrieval methods, exemplified"
+        "[17], [18]. Routing in the RAG system navigates through diverse data sources, selecting the optimal pathway for a query, whether it involves summarization, specific database searches, or merging different information streams [19]. The Predict module aims to reduce redundancy and noise by generating context directly through the LLM, ensuring relevance and accuracy [13]. Lastly, the Task Adapter module tailors RAG to various downstream tasks, automating prompt retrieval for zero-shot inputs and creating task-specific retrievers through few-shot query generation [20], [21] .This comprehensive approach not only streamlines the retrieval process but also significantly improves the quality and relevance of the information retrieved, catering to a wide array of tasks and queries with enhanced precision and flexibility. _2) New Patterns:_ Modular RAG offers remarkable adaptability by allowing module substitution or reconfiguration to address specific challenges. This goes beyond the fixed structures of Naive and Advanced RAG, characterized by a simple “Retrieve” and “Read” mechanism. Moreover, Modular RAG expands this flexibility by integrating new modules or adjusting interaction flow among existing ones, enhancing its applicability across different tasks. Innovations such as the Rewrite-Retrieve-Read [7]model leverage the LLM’s capabilities to refine retrieval queries through a rewriting module and a LM-feedback mechanism to update rewriting model., improving task performance. Similarly, approaches like Generate-Read [13] replace traditional retrieval with LLM-generated content, while ReciteRead [22] emphasizes retrieval from model weights, enhancing the model’s ability to handle knowledge-intensive tasks. Hybrid retrieval strategies integrate keyword, semantic, and vector searches to cater to diverse queries. Additionally, employing sub-queries and hypothetical document embeddings (HyDE) [11] seeks to improve retrieval relevance by focusing on embedding similarities between generated answers and real documents. Adjustments in module arrangement and interaction, such as the Demonstrate-Search-Predict (DSP) [23] framework and the iterative Retrieve-Read-Retrieve-Read flow of ITERRETGEN [14], showcase the dynamic use of module outputs to bolster another module’s functionality, illustrating a sophisticated understanding of enhancing module synergy. The flexible orchestration of Modular RAG Flow showcases the benefits of adaptive retrieval through techniques such as FLARE [24] and Self-RAG [25]. This approach transcends the fixed RAG retrieval process by evaluating the necessity of retrieval based on different scenarios. Another benefit of a flexible architecture is that the RAG system can more easily integrate with other technologies (such as fine-tuning or reinforcement learning) [26]. For example, this can involve fine-tuning the retriever for better retrieval results, fine-tuning the generator for more personalized outputs, or engaging in collaborative fine-tuning [27]. _D. RAG vs Fine-tuning_ The augmentation of LLMs has attracted considerable attention due to their growing prevalence. Among the optimization methods for LLMs, RAG is often compared with Fine-tuning (FT) and prompt engineering. Each method has distinct characteristics as illustrated in Figure 4. We used a quadrant chart to illustrate the differences among three methods in two dimensions: external knowledge requirements and model adaption requirements. Prompt engineering leverages a model’s inherent capabilities with minimum necessity for external knowledge and model adaption. RAG can be likened to providing a model with a tailored textbook for information retrieval, ideal for precise information retrieval tasks. In contrast, FT is comparable to a student internalizing"
       ],
       "chunk_ids": [
         "paper_nlp_rag_0bcd9be9759c",
         "paper_nlp_rag_720b1998c5fa",
+        "paper_nlp_rag_bf4cd54870dd_2",
         "paper_nlp_rag_c863b92d8865",
-        "paper_nlp_rag_72fd684d1902",
-        "paper_nlp_rag_1ce7481ba7c5"
+        "paper_nlp_rag_53219f9e0699"
       ]
     },
     "applied_record": {
@@ -1055,7 +1119,7 @@
     }
   },
   {
-    "finding": "F5",
+    "finding": "F6",
     "title": "큰 청크와 작은 청크의 장단점",
     "query_id": "ext_rag_003",
     "base": "H0C0S0",
@@ -1063,7 +1127,8 @@
     "key_metrics": [
       "korean_ratio"
     ],
-    "observation": "두 답변 모두 질문한 장단점을 설명하지 않았다. 미적용 답변은 참고문헌 목록을 이어 쓴 뒤 RAG의 세 구성요소를 한국어로 설명하였고, SCD 답변은 영어 참고문헌만 이어 써서 한국어 문자 비율이 0.425에서 0.000으로 낮아졌다.",
+    "observation": "두 조건의 입력 구간은 같았다. 미적용 답변은 참고문헌 목록을 이어 쓴 뒤 RAG의 세 구성요소를 한국어로 설명하였고, SCD 답변은 영어 참고문헌만 이어 썼다. 두 답변 모두 질문한 장단점 대신 다른 내용을 담았다.",
+    "related": [],
     "finding_text": "SCD는 대부분의 질문에서 한국어 문자 비율을 높였지만, 답변이 영어 원문을 이어 쓴 경우에는 비율이 오르지 않았다.",
     "checks": [
       [
@@ -1093,10 +1158,11 @@
     ],
     "query": "RAG에서 큰 청크와 작은 청크를 사용할 때 각각 어떤 장단점이 발생합니까?",
     "question_type": "방법 및 절차",
+    "question_group": "방법 질문",
     "document": "RAG Survey",
     "source_page": 8,
     "answer_span": "Larger chunks can capture more context, but they also generate more noise; smaller chunks may not fully convey the necessary context, but have less noise.",
-    "required_information": "큰 청크와 작은 청크의 문맥·잡음 상충관계",
+    "required_information": "큰 청크와 작은 청크의 문맥과 잡음 상충관계",
     "comparison": "미적용 → SCD",
     "same_input_passages": true,
     "same_ordered_chunk_ids": true,

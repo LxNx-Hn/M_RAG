@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-21",
+  "editor": "한컴독스 웹 한글(Chrome)",
+  "document": "M_RAG_QUESTION_GROUPS_20261021_v6.hwpx",
+  "hwpx_sha256": "99e9bfd05207a4d6c5a110c4e0e1dd4a2dc8bad5684d834f43c45df5f125bc41",
+  "pdf_sha256": "c65c3b8f66d72aa67d1daaa5c242016441e7df1001fae402b4f725cdd95747b2",
+  "pdf_pages": 47,
+  "page_map_stable_from": "v5 to v6: 47 pages, every TOC anchor unchanged after page numbers were inserted",
+  "checked": [
+    "v1~v5 한컴 내보내기 47~50쪽을 쪽별로 확인하고 빈 공간, 표 배치, 그림 크기를 수정",
+    "v6 편집 화면에서 표 5-2(16쪽)와 그림 5-4(19쪽)를 실제 본문 폭으로 확인",
+    "v6 장, 그림, 표 목차의 쪽 번호와 본문 위치를 한컴 내보내기에서 대조"
+  ],
+  "fixed_in_editor_review": [
+    "그림 1-1을 연구 목적 문단 뒤로 옮겨 1쪽 하단의 빈 공간 제거",
+    "평행좌표 그림 높이를 줄여 그림과 해설 문단이 같은 쪽에 놓이도록 조정",
+    "5.5절의 해설 문단을 표 5-2 앞으로 옮겨 15쪽의 빈 공간 축소",
+    "5.8절과 6장의 중복 문장을 줄여 장 끝이 다음 쪽으로 2줄씩 넘어가는 현상 제거"
+  ],
+  "visually_confirmed_toc": {
+    "1. 서론": 1,
+    "2. 이론적 배경": 3,
+    "3. 시스템 설계": 7,
+    "4. 프로그램 구현": 9,
+    "5. 실험": 11,
+    "6. 결론": 23,
+    "참고문헌": 24,
+    "그림 자료 이용 정보": 26
+  },
+  "evidence_files": {
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-figure-5-4-p19.png": "a0d448ffa9e9c8d671a2d74c556bae2ea2f33723735c19762c4d7aa90b30868e",
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7"
+  }
+}

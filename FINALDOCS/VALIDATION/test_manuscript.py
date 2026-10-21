@@ -21,23 +21,25 @@ class ManuscriptTests(unittest.TestCase):
     def test_literature_sources(self):
         validate_submission_assets(ROOT, self.text)
 
-    def test_comparison_names_are_explicit(self):
+    def test_condition_names_are_explicit(self):
         tables = json.loads(
             (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(encoding="utf-8")
         )
+        names = ["1 미적용", "2 HyDE", "3 CAD", "4 SCD", "5 HyDE+CAD", "6 HyDE+SCD", "7 CAD+SCD", "8 HyDE+CAD+SCD"]
         for t in tables:
-            if t["sheet"].startswith("T5-"):
-                groups = [t["rows"][r0][0] for r0, _, _, _ in t["merges"]]
-                self.assertTrue(groups)
-                self.assertTrue(all("했을 때의 " in g for g in groups))
-                self.assertTrue(all("→" not in g and " · " not in g for g in groups))
+            if t["sheet"].startswith(("T3-", "T5-")):
+                labels = [r[0] for r in t["rows"] if r[0] in names]
+                self.assertEqual(labels[:8], names)
+                text = json.dumps(t["rows"], ensure_ascii=False)
+                self.assertNotIn("→", text)
+                self.assertNotIn("·", text)
+                self.assertNotRegex(text, r"H[01]C[01]S[01]")
 
     def test_only_raw_score_parallel_result_figures(self):
         self.assertNotIn("fig5_5_question_deltas", self.text)
         self.assertNotIn("fig5_6", self.text)
-        self.assertIn("fig5_3_parallel_hyde_types", self.text)
-        self.assertIn("fig5_4_parallel_cad_types", self.text)
-        self.assertIn("fig5_5_parallel_scd_types", self.text)
+        for stem in ["fig5_3_parallel_numeric", "fig5_4_parallel_method", "fig5_5_parallel_concept"]:
+            self.assertIn(stem, self.text)
 
     def test_appendices(self):
         self.assertIn("# 부록 A.", self.text)

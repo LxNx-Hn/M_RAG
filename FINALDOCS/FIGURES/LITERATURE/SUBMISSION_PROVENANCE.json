@@ -1,58 +1,58 @@
 {
- "review_date": "2026-10-18",
- "figures": [
-  {
-   "figure": "2-1",
-   "file": "fig2_1_rag_independent.png",
-   "png_sha256": "602a496e9e0e638be5a73e51a18224151342942aac644af940b5674b651ea76e",
-   "status": "INDEPENDENT_DIAGRAM",
-   "creator": "본 연구",
-   "reference": 1,
-   "caption_source": "RAG의 검색기–생성기 구조[1]",
-   "usage_entry": "그림 2-1 — Lewis 외[1]의 RAG 구조",
-   "submission_source_url": "https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
-   "source_version": "Original research concept; independently drawn 2026-10-15",
-   "uses_source_art": false
-  },
-  {
-   "figure": "2-2",
-   "file": "fig2_2_hyde_independent.png",
-   "png_sha256": "a092037cd85b536942f762cf5ed193df610850fada17a19d2a97bd9b62459e43",
-   "status": "INDEPENDENT_DIAGRAM",
-   "creator": "본 연구",
-   "reference": 2,
-   "caption_source": "HyDE의 가상 문서 기반 검색 구조[2]",
-   "usage_entry": "그림 2-2 — Gao 외[2]의 HyDE 구조",
-   "submission_source_url": "https://aclanthology.org/2023.acl-long.99/",
-   "source_version": "Original research concept; independently drawn 2026-10-15",
-   "uses_source_art": false
-  },
-  {
-   "figure": "2-3",
-   "file": "fig2_3_cad_independent.png",
-   "png_sha256": "d16d8ca94214785f0362b05fb3a396211e29c273913f075079031f8f1de6ebde",
-   "status": "INDEPENDENT_DIAGRAM",
-   "creator": "본 연구",
-   "reference": 3,
-   "caption_source": "CAD의 문맥 포함·제외 로짓 결합[3]",
-   "usage_entry": "그림 2-3 — Shi 외[3]의 CAD 로짓 결합",
-   "submission_source_url": "https://aclanthology.org/2024.naacl-short.69/",
-   "source_version": "Original research concept; independently drawn 2026-10-15",
-   "uses_source_art": false
-  },
-  {
-   "figure": "2-4",
-   "file": "fig2_4_scd_independent.png",
-   "png_sha256": "d89a8295c365e19a945c393d3d6fe4878565f9d50c69b6e1cf4d8b9a30953d26",
-   "status": "INDEPENDENT_DIAGRAM",
-   "creator": "본 연구",
-   "reference": 4,
-   "caption_source": "SCD의 토큰 그룹별 로짓 조정[4]",
-   "usage_entry": "그림 2-4 — Li 외[4]의 SCD 토큰별 점수 조정",
-   "submission_source_url": "https://ojs.aaai.org/index.php/AAAI/article/view/40417",
-   "source_version": "Original research concept; independently drawn 2026-10-15",
-   "uses_source_art": false
-  }
- ],
- "retained_legacy": "Original six crops and provenance retained in repository/history; not embedded in revised manuscript."
+  "review_date": "2026-10-15",
+  "figures": [
+    {
+      "figure": "2-1",
+      "file": "fig2_1_rag_independent.png",
+      "png_sha256": "be31065bb08a0c83c6d853c52905370b265a71e54b8ddd27d07f9a1cdcd91967",
+      "status": "INDEPENDENT_DIAGRAM",
+      "creator": "본 연구",
+      "reference": 1,
+      "caption_source": "RAG의 검색기와 생성기 구조[1]",
+      "usage_entry": "그림 2-1 — Lewis 외[1]의 RAG 구조",
+      "submission_source_url": "https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf",
+      "source_version": "Original research concept; independently drawn 2026-10-15",
+      "uses_source_art": false
+    },
+    {
+      "figure": "2-2",
+      "file": "fig2_2_hyde_independent.png",
+      "png_sha256": "dea54f6aee5ef8b1102534ea4247156e4fd882d7689b738bd9f8c2185f8ec603",
+      "status": "INDEPENDENT_DIAGRAM",
+      "creator": "본 연구",
+      "reference": 2,
+      "caption_source": "HyDE의 가상 문서 기반 검색 구조[2]",
+      "usage_entry": "그림 2-2 — Gao 외[2]의 HyDE 구조",
+      "submission_source_url": "https://aclanthology.org/2023.acl-long.99/",
+      "source_version": "Original research concept; independently drawn 2026-10-15",
+      "uses_source_art": false
+    },
+    {
+      "figure": "2-3",
+      "file": "fig2_3_cad_independent.png",
+      "png_sha256": "f1c19ffc906c7c7176a4a43f55c74dfb82a0f884afd565f009a68db881f8fd34",
+      "status": "INDEPENDENT_DIAGRAM",
+      "creator": "본 연구",
+      "reference": 3,
+      "caption_source": "CAD의 문맥 포함 로짓과 제외 로짓의 결합[3]",
+      "usage_entry": "그림 2-3 — Shi 외[3]의 CAD 로짓 결합",
+      "submission_source_url": "https://aclanthology.org/2024.naacl-short.69/",
+      "source_version": "Original research concept; independently drawn 2026-10-15",
+      "uses_source_art": false
+    },
+    {
+      "figure": "2-4",
+      "file": "fig2_4_scd_independent.png",
+      "png_sha256": "dfef29e33372b4bf6e36bde41d04949c76210d01a797c652dc354faef1f92ba6",
+      "status": "INDEPENDENT_DIAGRAM",
+      "creator": "본 연구",
+      "reference": 4,
+      "caption_source": "SCD의 토큰 그룹별 로짓 조정[4]",
+      "usage_entry": "그림 2-4 — Li 외[4]의 SCD 토큰별 점수 조정",
+      "submission_source_url": "https://ojs.aaai.org/index.php/AAAI/article/view/40417",
+      "source_version": "Original research concept; independently drawn 2026-10-15",
+      "uses_source_art": false
+    }
+  ],
+  "retained_legacy": "Previous source-art crops are recoverable from Git tag pre-finaldocs-cleanup-20261018; not embedded in current manuscript."
 }

@@ -49,7 +49,7 @@ class PosterEvidenceTests(unittest.TestCase):
 
     def test_removed_table(self):
         def change(slide):
-            frame = slide.findall(".//a:tbl", A)[5].getparent().getparent().getparent()
+            frame = slide.findall(".//a:tbl", A)[4].getparent().getparent().getparent()
             frame.getparent().remove(frame)
 
         with self.assertRaises(AssertionError):
