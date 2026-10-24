@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "0b8b2b080c8e214e835d5af6e623c041896ebb80eea85502b3a3782f6b69fc99",
+      "sha256": "f2fcfbbda193ff9d958046c03dfd66ab2f150bcaf2b3fe709ec220e129bf4b49",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "d89406a702b3d585dd9f55051f3c6ab0d2efae39706219bc4f8db23c60124ce7",
+      "sha256": "bbde9c732061c28249c01f5746360a7d3fabce1d74de6fef2ab77479191067ee",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "0fac5dfaefc85f8812e3b1fe2d5344d2f34516a16bb9f5548359e67571a273c1",
+      "sha256": "5a8db37e0e8122f09081ed049e0aea65c4aa0de3ca9efbb6e52bfec82b4fd78b",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "703d443b85793863e0e00516864a9dd5234b6b0af6c8d4ec53c54c3ba46c669c",
+      "sha256": "8fd95e760f39dba1aac52b725d8b20879a07289e9b0a92ba32a58ddcef475abf",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -333,11 +333,11 @@
       "bytes": 1059945
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
-      "sha256": "fdd08093d4b480930ef21fde3a6e54ed094c0088630c1a583eff664fe0916e1e",
+      "sha256": "e7ba88df0e1e8fd09423df03e0952e891f98989f84773eab8a513c536d973aed",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b08d0cb615d35d68a780239f3cea9c39d91aa9d07ae4e04521ba49070e761fb6",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
       "bytes": null
     },
     "experiments/data/query_audit.json": {
@@ -1954,25 +1954,25 @@
       "baseline_raw_sha256": "210daa75d6108bb69e24656367cf9ec5e3fe983ac895c2f66cbbdabc19acfe7c",
       "role": "research_source"
     },
-    "FINALDOCS/FIGURES/fig5_3_parallel_single.png": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_single.png": {
       "sha256": "3c3a0807bdf7dc3ff8b0dfcbe84e5bdfa12dae13ae0379116daffdd4f434a44f",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
-    "FINALDOCS/FIGURES/fig5_3_parallel_single.svg": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_single.svg": {
       "sha256": "be1cb94b8e979ffa31aff1fc6d436d109937473d0d813e85217cbc1bf449b97f",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
-    "FINALDOCS/FIGURES/fig5_4_parallel_combined.png": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_4_parallel_combined.png": {
       "sha256": "306ddbbb8dfded73f58e085aefc152f3adb5a0c69db307d83b803e9ce048a95a",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
-    "FINALDOCS/FIGURES/fig5_4_parallel_combined.svg": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_4_parallel_combined.svg": {
       "sha256": "4adb8524511c83c02376c159dd2f07c01c36bde03ad6666e714571bcb8e76842",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
@@ -1999,32 +1999,32 @@
       "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
       "bytes": null
     },
-    "FINALDOCS/FIGURES/fig5_3_parallel_hyde_types.png": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_hyde_types.png": {
       "sha256": "cfd59d3137e7aad24253e2871223ac5d9b092fe74e5e5ba79d314bb8bfe4db50",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master"
     },
-    "FINALDOCS/FIGURES/fig5_3_parallel_hyde_types.svg": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_hyde_types.svg": {
       "sha256": "cc48853d262e4676f1175886686bb9a003d95ade68000289a5fede4596416ff1",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master"
     },
-    "FINALDOCS/FIGURES/fig5_4_parallel_cad_types.png": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_4_parallel_cad_types.png": {
       "sha256": "e338ee549a450211475f1be5bde689756310ac65c803c84cdfbb63013730149d",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master"
     },
-    "FINALDOCS/FIGURES/fig5_4_parallel_cad_types.svg": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_4_parallel_cad_types.svg": {
       "sha256": "89c882db9698de4910eae50cc5c6baaa14db31ac2ced4bcc82607623befa4895",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master"
     },
-    "FINALDOCS/FIGURES/fig5_5_parallel_scd_types.png": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_5_parallel_scd_types.png": {
       "sha256": "02d359efeb7083ddc301c59f5ee9c2ce52de0cf6d82b11e5cd516c630cc93aa3",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master"
     },
-    "FINALDOCS/FIGURES/fig5_5_parallel_scd_types.svg": {
+    "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_5_parallel_scd_types.svg": {
       "sha256": "bc5791b47a9990292b37d807751c3ed64b1f1f1aac1b960e440a3be5fdf787a2",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master"
@@ -2065,10 +2065,10 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "cfcd984c8283c06da8f24293287d8fc7a7af0fbcd916ab6027d40cef3868d2c9",
+      "sha256": "c358e060b319312a57849dd7c8982bcd7d0ec6681403a83869c7389fff6ff4b3",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2087,16 +2087,16 @@
       "bytes": 292568
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.png": {
-      "sha256": "8f1683be89a00a7037d617300aab9ea42945afc573a0f4f841f632f37b90d574",
+      "sha256": "6ab5976f6ec4578a28270c4f1f099e8a45573343e7ad16e25582af7e8c27dd58",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.svg": {
-      "sha256": "48af11930e05b1e62baee1671b1cf7eea6a1c924ae614fb64a864052e6950b47",
+      "sha256": "39d25d0ac13dd2e8a6b86782c29500288f0d04bdbed22a627392722dabbdc5d4",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
     },
     "FINALDOCS/POSTER/FINAL/poster_mechanism.png": {
       "sha256": "51c98df140411d8153e5bd31481dddc216b8ab92e83fd984714f3472f4067870",

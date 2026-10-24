@@ -729,155 +729,200 @@ def mechanism_record():
 RETRIEVE, GENERATE = "#695184", "#1b7837"
 
 
-def example_mechanism(save_to=None, scale=1.0):
+def example_mechanism(save_to=None, scale=1.0, layout="wide"):
     """Diagram of one numeric question passing through HyDE, CAD and SCD.
 
     Quoted answers and score changes come from the stored run; the embedding
     dots and the candidate word sizes illustrate how each technique works.
+    layout "wide" puts the three panels in one row (poster); layout "grid"
+    puts the question and the three panels in a 2x2 grid so the text is
+    about 1.5 times larger at the thesis body width.
     """
     rec = mechanism_record()
     s = rec["scores"]
-    fig = plt.figure(figsize=(6.3 * scale, 2.457 * scale))
-    ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_xlim(0, 100)
-    ax.set_ylim(2.0, 41.0)
-    ax.axis("off")
-    f = scale * 1.06
     MUTED, FAINT = "#5f6470", "#9aa0a8"
+    if layout == "wide":
+        fig = plt.figure(figsize=(6.3 * scale, 2.457 * scale))
+        f = scale * 1.06
+        ax = fig.add_axes([0, 0, 1, 1])
+        ax.set_xlim(0, 100)
+        ax.set_ylim(2.0, 41.0)
+        targets, clip = [ax], False
+    else:
+        # each cell shows one 32-unit panel (+ margins); 2 cells and a gap span the width
+        cw, ch, gap = 33.7, 34.0, 1.0
+        width, height = 2 * cw + gap, 2 * ch + gap
+        unit = 6.3 * scale / width
+        fig = plt.figure(figsize=(6.3 * scale, height * unit))
+        f = scale * 1.06 * unit / 0.063
+        cells = {}
+        for name, col, row in [("question", 0, 1), ("HyDE", 1, 1), ("CAD", 0, 0), ("SCD", 1, 0)]:
+            cells[name] = fig.add_axes(
+                [col * (cw + gap) / width, row * (ch + gap) / height, cw / width, ch / height]
+            )
+        for name, centre in [("HyDE", 16.3), ("CAD", 50.0), ("SCD", 83.7)]:
+            cells[name].set_xlim(centre - cw / 2, centre + cw / 2)
+            cells[name].set_ylim(2.4, 2.4 + ch)
+        targets, clip = [cells["HyDE"], cells["CAD"], cells["SCD"]], True
 
-    def rbox(x, y, w, h, fc, ec, lw=1.0, r=1.0, ls="-"):
-        ax.add_patch(
-            FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", fc=fc, ec=ec, lw=lw * f, ls=ls)
-        )
+    def draw(ax):
+        def rbox(x, y, w, h, fc, ec, lw=1.0, r=1.0, ls="-"):
+            ax.add_patch(
+                FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", fc=fc, ec=ec, lw=lw * f, ls=ls)
+            )
 
-    def flow(a, b, colour=INK, ls="-", lw=1.0):
-        ax.annotate("", xy=b, xytext=a, arrowprops=dict(arrowstyle="-|>", color=colour, lw=lw * f, ls=ls, mutation_scale=8 * f))
+        def flow(a, b, colour=INK, ls="-", lw=1.0):
+            ax.annotate("", xy=b, xytext=a, arrowprops=dict(arrowstyle="-|>", color=colour, lw=lw * f, ls=ls, mutation_scale=8 * f))
 
-    def label(x, y, text, size=6.4, colour=INK, bold=False, ha="left", va="center"):
-        ax.text(x, y, text, fontsize=size * f, color=colour, fontweight="bold" if bold else "normal", ha=ha, va=va, linespacing=1.35)
+        def label(x, y, text, size=6.4, colour=INK, bold=False, ha="left", va="center"):
+            ax.text(x, y, text, fontsize=size * f, color=colour, fontweight="bold" if bold else "normal", ha=ha, va=va, linespacing=1.35, clip_on=clip)
 
-    def result(x, key, name):
-        before, after = s[key]
-        up = after > before
-        label(x, 4.2, f"{name} {before:.2f}에서 {after:.2f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
+        def result(x, key, name):
+            before, after = s[key]
+            up = after > before
+            label(x, 4.2, f"{name} {before:.2f}에서 {after:.2f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
 
-    def document(x, y, w, h, ec, missing=False):
-        c = w * 0.32
-        ls = "--" if missing else "-"
-        ax.add_patch(
-            plt.Polygon([(x, y), (x + w, y), (x + w, y + h - c), (x + w - c, y + h), (x, y + h)], fc="#ffffff", ec=ec, lw=0.9 * f, ls=ls)
-        )
-        ax.plot([x + w - c, x + w - c, x + w], [y + h, y + h - c, y + h - c], color=ec, lw=0.7 * f, ls=ls)
-        for k in range(2):
-            ax.plot([x + 0.5, x + w - 0.5 - (c if k == 0 else 0)], [y + h - 1.0 - k * 0.8] * 2, color=ec, lw=0.6 * f)
-        if missing:
-            ax.plot([x - 0.4, x + w + 0.4], [y - 0.4, y + h + 0.4], color=FAINT, lw=0.9 * f)
-            ax.plot([x - 0.4, x + w + 0.4], [y + h + 0.4, y - 0.4], color=FAINT, lw=0.9 * f)
-        else:
-            label(x + w / 2, y + 1.0, "32B", 4.6, GENERATE, True, "center")
+        def document(x, y, w, h, ec, missing=False):
+            c = w * 0.32
+            ls = "--" if missing else "-"
+            ax.add_patch(
+                plt.Polygon([(x, y), (x + w, y), (x + w, y + h - c), (x + w - c, y + h), (x, y + h)], fc="#ffffff", ec=ec, lw=0.9 * f, ls=ls)
+            )
+            ax.plot([x + w - c, x + w - c, x + w], [y + h, y + h - c, y + h - c], color=ec, lw=0.7 * f, ls=ls)
+            for k in range(2):
+                ax.plot([x + 0.5, x + w - 0.5 - (c if k == 0 else 0)], [y + h - 1.0 - k * 0.8] * 2, color=ec, lw=0.6 * f)
+            if missing:
+                ax.plot([x - 0.4, x + w + 0.4], [y - 0.4, y + h + 0.4], color=FAINT, lw=0.9 * f)
+                ax.plot([x - 0.4, x + w + 0.4], [y + h + 0.4, y - 0.4], color=FAINT, lw=0.9 * f)
+            else:
+                label(x + w / 2, y + 1.0, "32B", 4.6, GENERATE, True, "center")
 
-    def answer(x, y, w, h, name, quote, ok, note=None):
-        colour = GENERATE if ok else DOWN
-        rbox(x, y, w, h, "#ffffff", colour, 0.9)
-        label(x + 0.9, y + h - 1.3, name, 5.6, colour, True)
-        label(x + 0.9, y + h / 2 - (0.3 if note else 0.8), quote, 5.3, INK)
-        if note:
-            label(x + 0.9, y + 1.1, note, 5.0, colour, True)
-        mx, my = x + w - 1.5, y + h - 1.4
-        if ok:
-            ax.plot([mx - 0.7, mx - 0.2, mx + 0.8], [my, my - 0.6, my + 0.7], color=colour, lw=1.5 * f, solid_capstyle="round")
-        else:
-            for d in (1, -1):
-                ax.plot([mx - 0.6, mx + 0.6], [my - 0.6 * d, my + 0.6 * d], color=colour, lw=1.5 * f, solid_capstyle="round")
+        def answer(x, y, w, h, name, quote, ok, note=None):
+            colour = GENERATE if ok else DOWN
+            rbox(x, y, w, h, "#ffffff", colour, 0.9)
+            label(x + 0.9, y + h - 1.3, name, 5.6, colour, True)
+            label(x + 0.9, y + h / 2 - (0.3 if note else 0.8), quote, 5.3, INK)
+            if note:
+                label(x + 0.9, y + 1.1, note, 5.0, colour, True)
+            mx, my = x + w - 1.5, y + h - 1.4
+            if ok:
+                ax.plot([mx - 0.7, mx - 0.2, mx + 0.8], [my, my - 0.6, my + 0.7], color=colour, lw=1.5 * f, solid_capstyle="round")
+            else:
+                for d in (1, -1):
+                    ax.plot([mx - 0.6, mx + 0.6], [my - 0.6 * d, my + 0.6 * d], color=colour, lw=1.5 * f, solid_capstyle="round")
 
-    # question
-    rbox(0.3, 36.95, 99.4, 3.9, "#ffffff", INK, 1.1)
-    label(2.0, 38.9, "예시 질문", 7.2, RETRIEVE, True)
-    label(13.5, 38.9, rec["query"], 7.4, INK)
-    label(98.2, 38.9, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
+        # question
+        rbox(0.3, 36.95, 99.4, 3.9, "#ffffff", INK, 1.1)
+        label(2.0, 38.9, "예시 질문", 7.2, RETRIEVE, True)
+        label(13.5, 38.9, rec["query"], 7.4, INK)
+        label(98.2, 38.9, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
 
-    panels = [
-        (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 답변으로 실제 구간을 찾음", RETRIEVE, "#f4f1f8"),
-        (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "문서가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
-        (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
-    ]
-    pw, py, ph = 32.0, 6.4, 29.6
-    for x0, name, who, stage, idea, ec, fc in panels:
-        rbox(x0, py, pw, ph, fc, ec, 1.1)
-        label(x0 + 1.5, py + ph - 2.3, name, 9.5, INK, True)
-        label(x0 + 1.5 + len(name) * 2.3, py + ph - 2.6, who, 6.0, MUTED)
-        label(x0 + pw - 1.3, py + ph - 2.3, stage, 6.0, ec, True, "right")
-        label(x0 + 1.5, py + ph - 5.4, idea, 6.4, INK, True)
+        panels = [
+            (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 답변으로 실제 구간을 찾음", RETRIEVE, "#f4f1f8"),
+            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "문서가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
+            (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
+        ]
+        pw, py, ph = 32.0, 6.4, 29.6
+        for x0, name, who, stage, idea, ec, fc in panels:
+            rbox(x0, py, pw, ph, fc, ec, 1.1)
+            label(x0 + 1.5, py + ph - 2.3, name, 9.5, INK, True)
+            label(x0 + 1.5 + len(name) * 2.3, py + ph - 2.6, who, 6.0, MUTED)
+            label(x0 + pw - 1.3, py + ph - 2.3, stage, 6.0, ec, True, "right")
+            label(x0 + 1.5, py + ph - 5.4, idea, 6.4, INK, True)
 
-    # HyDE: hypothetical passage written by the LLM, real passage found near it
-    rbox(1.5, 19.6, 14.6, 9.4, "#ffffff", RETRIEVE, 0.9, ls="--")
-    label(2.5, 27.4, "LLM이 쓴 가상 구간", 5.8, RETRIEVE, True)
-    label(2.5, 23.0, "“… approximately 13\nbillion parameters …”", 5.3, INK)
-    rbox(1.5, 8.6, 14.6, 9.4, "#ffffff", INK, 0.9)
-    label(2.5, 16.4, "원문의 실제 구간", 5.8, INK, True)
-    label(2.5, 12.0, "“… configured with\n32B parameters …”", 5.3, INK)
-    rbox(17.3, 8.6, 13.8, 20.0, "#ffffff", "#c9c3d6", 0.7)
-    label(18.1, 27.3, "임베딩 공간", 5.2, MUTED)
-    star, near = (23.4, 19.9), (24.8, 18.6)
-    rng = np.random.default_rng(11)
-    pts = rng.uniform([18.4, 11.8], [30.2, 25.8], size=(18, 2))
-    keep = np.array([p for p in pts if np.hypot(p[0] - 24.2, p[1] - 18.9) > 4.0])
-    ax.scatter(keep[:, 0], keep[:, 1], s=6 * f * f, color="#b8bcc4", zorder=2)
-    ax.add_patch(plt.Circle(star, 3.0, fill=False, ls="--", ec=RETRIEVE, lw=0.7 * f))
-    ax.scatter(*star, s=60 * f * f, marker="*", color=RETRIEVE, zorder=5)
-    ax.scatter(*near, s=24 * f * f, color=INK, zorder=4)
-    flow((16.2, 24.0), (22.3, 20.5), RETRIEVE)
-    flow((24.2, 18.1), (16.3, 13.4), INK)
-    label(24.2, 9.7, "가까운 구간 검색", 5.2, INK, ha="center")
+        # HyDE: hypothetical passage written by the LLM, real passage found near it
+        rbox(1.5, 19.6, 14.6, 9.4, "#ffffff", RETRIEVE, 0.9, ls="--")
+        label(2.5, 27.4, "LLM이 쓴 가상 구간", 5.8, RETRIEVE, True)
+        label(2.5, 23.0, "“… approximately 13\nbillion parameters …”", 5.3, INK)
+        rbox(1.5, 8.6, 14.6, 9.4, "#ffffff", INK, 0.9)
+        label(2.5, 16.4, "원문의 실제 구간", 5.8, INK, True)
+        label(2.5, 12.0, "“… configured with\n32B parameters …”", 5.3, INK)
+        rbox(17.3, 8.6, 13.8, 20.0, "#ffffff", "#c9c3d6", 0.7)
+        label(18.1, 27.3, "임베딩 공간", 5.2, MUTED)
+        star, near = (23.4, 19.9), (24.8, 18.6)
+        rng = np.random.default_rng(11)
+        pts = rng.uniform([18.4, 11.8], [30.2, 25.8], size=(18, 2))
+        keep = np.array([p for p in pts if np.hypot(p[0] - 24.2, p[1] - 18.9) > 4.0])
+        ax.scatter(keep[:, 0], keep[:, 1], s=6 * f * f, color="#b8bcc4", zorder=2)
+        ax.add_patch(plt.Circle(star, 3.0, fill=False, ls="--", ec=RETRIEVE, lw=0.7 * f))
+        ax.scatter(*star, s=60 * f * f, marker="*", color=RETRIEVE, zorder=5)
+        ax.scatter(*near, s=24 * f * f, color=INK, zorder=4)
+        flow((16.2, 24.0), (22.3, 20.5), RETRIEVE)
+        flow((24.2, 18.1), (16.3, 13.4), INK)
+        label(24.2, 9.7, "가까운 구간 검색", 5.2, INK, ha="center")
 
-    # CAD: the model reads the question with and without the document,
-    # then leans toward what the document adds
-    for yc, missing in ((25.4, False), (18.6, True)):
-        document(35.6, yc - 1.9, 3.0, 3.8, FAINT if missing else GENERATE, missing)
-        if not missing:
-            label(39.6, yc, "+", 6.4, INK, True, "center")
-        rbox(40.5, yc - 1.4, 3.8, 2.8, "#ffffff", INK, 0.8, r=0.8)
-        label(42.4, yc, "질문", 5.4, INK, True, "center")
-        flow((44.5, yc), (47.4, yc))
-        rbox(47.5, yc - 1.7, 3.6, 3.4, "#ffffff", GENERATE, 1.0, r=0.6)
-        label(49.3, yc, "LM", 6.0, GENERATE, True, "center")
-    hub = (57.9, 21.9)
-    flow((51.4, 25.4), (56.2, 22.7), GENERATE, lw=1.8)
-    flow((51.4, 18.6), (56.2, 21.1), FAINT)
-    label(55.2, 25.4, "키움", 5.2, GENERATE, True, "center")
-    label(55.2, 18.6, "뺌", 5.2, MUTED, True, "center")
-    ax.add_patch(plt.Circle(hub, 1.8, fc="#ffffff", ec=GENERATE, lw=1.0 * f))
-    label(hub[0], hub[1], "결합", 5.0, GENERATE, True, "center")
-    flow((hub[0], hub[1] - 1.9), (hub[0], 15.2), GENERATE)
-    answer(35.3, 7.4, 13.6, 7.6, "미적용", f"“… {rec['base_unit']} …”", False, "틀린 수치")
-    answer(51.1, 7.4, 13.6, 7.6, "CAD 적용", "“… 32 billion\nparameters …”", True, "원문과 같은 수치")
+        # CAD: the model reads the question with and without the document,
+        # then leans toward what the document adds
+        for yc, missing in ((25.4, False), (18.6, True)):
+            document(35.6, yc - 1.9, 3.0, 3.8, FAINT if missing else GENERATE, missing)
+            if not missing:
+                label(39.6, yc, "+", 6.4, INK, True, "center")
+            rbox(40.5, yc - 1.4, 3.8, 2.8, "#ffffff", INK, 0.8, r=0.8)
+            label(42.4, yc, "질문", 5.4, INK, True, "center")
+            flow((44.5, yc), (47.4, yc))
+            rbox(47.5, yc - 1.7, 3.6, 3.4, "#ffffff", GENERATE, 1.0, r=0.6)
+            label(49.3, yc, "LM", 6.0, GENERATE, True, "center")
+        hub = (57.9, 21.9)
+        flow((51.4, 25.4), (56.2, 22.7), GENERATE, lw=1.8)
+        flow((51.4, 18.6), (56.2, 21.1), FAINT)
+        label(55.2, 25.4, "키움", 5.2, GENERATE, True, "center")
+        label(55.2, 18.6, "뺌", 5.2, MUTED, True, "center")
+        ax.add_patch(plt.Circle(hub, 1.8, fc="#ffffff", ec=GENERATE, lw=1.0 * f))
+        label(hub[0], hub[1], "결합", 5.0, GENERATE, True, "center")
+        flow((hub[0], hub[1] - 1.9), (hub[0], 15.2), GENERATE)
+        answer(35.3, 7.4, 13.6, 7.6, "미적용", f"“… {rec['base_unit']} …”", False, "틀린 수치")
+        answer(51.1, 7.4, 13.6, 7.6, "CAD 적용", "“… 32 billion\nparameters …”", True, "원문과 같은 수치")
 
-    # SCD: while the answer is written in Korean, Korean candidates are scaled
-    # up and English ones down, so the Korean word fills the slot
-    label(69.2, 28.7, "생성 중인 답변", 5.2, MUTED)
-    rbox(69.0, 23.4, 29.4, 4.2, "#ffffff", GENERATE, 0.9)
-    label(70.0, 25.5, "모델은 32B", 6.2, INK, True)
-    rbox(77.9, 24.0, 8.4, 3.0, "#ffffff", GENERATE, 0.8, r=0.6, ls="--")
-    label(86.8, 25.5, "로 구성되어 …", 6.2, INK, True)
-    rbox(70.8, 17.4, 11.2, 4.0, "#d9eed9", GENERATE, 1.0, r=0.8)
-    label(76.4, 19.4, "파라미터", 7.6, GENERATE, True, "center")
-    label(76.4, 16.2, "한국어 ×1.1", 5.4, GENERATE, True, "center")
-    rbox(86.2, 18.2, 9.4, 2.4, "#f3f4f6", FAINT, 0.7, r=0.6)
-    label(90.9, 19.4, "parameters", 5.0, MUTED, False, "center")
-    label(90.9, 16.2, "영어 ×0.9", 5.4, DOWN, True, "center")
-    flow((75.8, 21.6), (80.4, 23.9), GENERATE, lw=1.6)
-    answer(69.0, 7.4, 14.2, 7.6, "미적용", "“This model is\nconfigured with\n32B parameters”", False)
-    answer(84.2, 7.4, 14.2, 7.6, "SCD 적용", "“모델은 32B\n파라미터로 구성되어\n있으며”", True)
+        # SCD: while the answer is written in Korean, Korean candidates are scaled
+        # up and English ones down, so the Korean word fills the slot
+        label(69.2, 28.7, "생성 중인 답변", 5.2, MUTED)
+        rbox(69.0, 23.4, 29.4, 4.2, "#ffffff", GENERATE, 0.9)
+        label(70.0, 25.5, "모델은 32B", 6.2, INK, True)
+        rbox(77.9, 24.0, 8.4, 3.0, "#ffffff", GENERATE, 0.8, r=0.6, ls="--")
+        label(86.8, 25.5, "로 구성되어 …", 6.2, INK, True)
+        rbox(70.8, 17.4, 11.2, 4.0, "#d9eed9", GENERATE, 1.0, r=0.8)
+        label(76.4, 19.4, "파라미터", 7.6, GENERATE, True, "center")
+        label(76.4, 16.2, "한국어 ×1.1", 5.4, GENERATE, True, "center")
+        rbox(86.2, 18.2, 9.4, 2.4, "#f3f4f6", FAINT, 0.7, r=0.6)
+        label(90.9, 19.4, "parameters", 5.0, MUTED, False, "center")
+        label(90.9, 16.2, "영어 ×0.9", 5.4, DOWN, True, "center")
+        flow((75.8, 21.6), (80.4, 23.9), GENERATE, lw=1.6)
+        answer(69.0, 7.4, 14.2, 7.6, "미적용", "“This model is\nconfigured with\n32B parameters”", False)
+        answer(84.2, 7.4, 14.2, 7.6, "SCD 적용", "“모델은 32B\n파라미터로 구성되어\n있으며”", True)
 
-    result(16.3, "answer_relevancy", "답변 관련성")
-    result(50.0, "faithfulness", "근거 충실도")
-    result(83.7, "korean_ratio", "한국어 문자 비율")
+        result(16.3, "answer_relevancy", "답변 관련성")
+        result(50.0, "faithfulness", "근거 충실도")
+        result(83.7, "korean_ratio", "한국어 문자 비율")
+
+
+    for ax in targets:
+        ax.axis("off")
+        draw(ax)
+
+    if layout == "grid":
+        ax = cells["question"]
+        ax.set_xlim(0, cw)
+        ax.set_ylim(0, ch)
+        ax.axis("off")
+        ax.add_patch(FancyBboxPatch((0.3, 4.0), cw - 0.6, ch - 4.3, boxstyle="round,pad=0,rounding_size=1.0", fc="#ffffff", ec=INK, lw=1.1 * f))
+        query = rec["query"].replace("모델의 ", "모델의\n")
+        ax.text(2.0, ch - 3.4, "예시 질문", fontsize=9.5 * f, color=RETRIEVE, fontweight="bold", va="center")
+        ax.text(2.0, ch - 9.6, query, fontsize=7.4 * f, color=INK, va="center", linespacing=1.4)
+        ax.text(2.0, ch - 16.6, f"정답 근거 {rec['answer_span']}\n(원문 {rec['source_page']}쪽)", fontsize=6.4 * f, color=MUTED, va="center", linespacing=1.4)
+        ax.text(2.0, 10.4, "패널마다 미적용 조건과\nHyDE, CAD, SCD 단독 조건의\n답변과 점수를 비교", fontsize=6.0 * f, color=INK, va="center", linespacing=1.4)
+        targets = targets + [ax]
 
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
-    for text in ax.texts:
-        b = text.get_window_extent(renderer)
-        assert b.x0 >= -1 and b.x1 <= fig.bbox.x1 + 1 and b.y0 >= -1 and b.y1 <= fig.bbox.y1 + 1, "Mechanism figure text overflow"
+    for ax in targets:
+        box = ax.get_window_extent(renderer)
+        (x0, x1), (y0, y1) = ax.get_xlim(), ax.get_ylim()
+        for text in ax.texts:
+            x, y = text.get_position()
+            if not (x0 <= x <= x1 and y0 <= y <= y1):
+                continue  # another panel's label, clipped out of this cell
+            b = text.get_window_extent(renderer)
+            assert b.x0 >= box.x0 - 1 and b.x1 <= box.x1 + 1 and b.y0 >= box.y0 - 1 and b.y1 <= box.y1 + 1, "Mechanism figure text overflow"
     if save_to:
         fig.savefig(save_to, dpi=250, facecolor="white")
         plt.close(fig)
@@ -899,7 +944,7 @@ def main():
     )
     evaluation_design()
     io_example()
-    example_mechanism()
+    example_mechanism(layout="grid")
     print(
         f"PASS: 3 group figures x 4 condition panels; {len(highlights)} highlighted questions; design, I/O and example mechanism figures"
     )

@@ -40,7 +40,7 @@ def render_table(definition):
     )
     return (
         f"[표 {number}] {title} [스타일=표제목]\n\n[표삽입: FINALDOCS/TABLES/TABLES_60Q.xlsx | Sheet={definition['sheet']} | 한글 표로 복사]\n\n```text\n{cells}\n```\n\n"
-        + ("주: " + definition["note"] + "\n\n" if definition.get("note") else "")
+        + (definition["note"] + "\n\n" if definition.get("note") else "")
     )
 
 
