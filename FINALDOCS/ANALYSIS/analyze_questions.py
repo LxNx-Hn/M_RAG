@@ -62,6 +62,9 @@ GROUP_SIZES = {"수치 질문": 18, "방법 질문": 25, "개념과 결과 질�
 BASE = "H0C0S0"
 NUMBERS = {c: i + 1 for i, c in enumerate(CONDITIONS)}
 QUALITY = ["faithfulness", "answer_relevancy", "context_precision", "context_recall"]
+# Metrics that read the retrieved passages; SCD runs were judged on Korean
+# translations of them, so these compare only inside one evaluation language.
+CONTEXT_METRICS = ["faithfulness", "context_precision", "context_recall"]
 METRICS = QUALITY + ["korean_ratio", "duration_seconds"]
 METRIC_NAMES = {
     "faithfulness": "근거 충실도",
@@ -73,6 +76,10 @@ METRIC_NAMES = {
 }
 SCORE_THRESHOLD = 0.05
 TIME_THRESHOLD = 1.0
+# The first generation of each run (main 19, extended 41 questions) includes
+# first-inference warm-up; these two questions are left out of every timing
+# statistic in all conditions so the time comparison stays paired.
+TIME_EXCLUDED = ("track1_0009", "ext_rag_001")
 
 # Quality is compared only inside one evaluation language.
 QUALITY_COMPARISONS = [
@@ -109,14 +116,18 @@ def label(base, applied):
 def comparisons():
     """(label, base, applied, metrics, evaluation language) for every reported pair.
 
-    Every condition is compared with no technique; quality pairs whose two
-    conditions use different evaluation languages are labelled as such.
-    Adding one technique inside one evaluation language is kept as well.
+    Every condition is compared with no technique. For SCD conditions that
+    comparison keeps only the metrics that do not read the retrieved passages
+    (answer relevancy, Korean ratio, time); the passage-based metrics are
+    compared inside one evaluation language.
     """
     out = []
     for applied in CONDITIONS[1:]:
-        lang = "영어" if applied[-1] == "0" else "평가 언어 다름"
-        out.append((label(BASE, applied), BASE, applied, METRICS, lang))
+        if applied[-1] == "0":
+            out.append((label(BASE, applied), BASE, applied, METRICS, "영어"))
+        else:
+            metrics = [m for m in METRICS if m not in CONTEXT_METRICS]
+            out.append((label(BASE, applied), BASE, applied, metrics, "질문과 답변"))
     seen = {o[0] for o in out}
     for lang, base, applied in QUALITY_COMPARISONS:
         if label(base, applied) not in seen:
@@ -209,13 +220,14 @@ def deltas(obs, annotations):
     rows = []
     for name, base, applied, metrics, lang in comparisons():
         for metric in metrics:
-            if metric in QUALITY and base[-1] != applied[-1]:
-                assert lang == "평가 언어 다름" and base == BASE
+            if metric in CONTEXT_METRICS:
+                assert base[-1] == applied[-1], "Passage metric across languages"
             for q in wide.index:
                 a, b = wide.loc[q, (metric, base)], wide.loc[q, (metric, applied)]
                 # Exclude stored zero-relevancy pairs from this comparison.
                 # Preserve the raw values; judge flags are not in the records.
                 zero = metric == "answer_relevancy" and (a == 0 or b == 0)
+                warmup = metric == "duration_seconds" and q in TIME_EXCLUDED
                 rows.append(
                     {
                         "comparison": name,
@@ -226,7 +238,7 @@ def deltas(obs, annotations):
                         "query_id": q,
                         "base_value": a,
                         "applied_value": b,
-                        "delta": float("nan") if zero else _delta(a, b),
+                        "delta": float("nan") if zero or warmup else _delta(a, b),
                         "relevancy_zero_excluded": bool(zero),
                     }
                 )
@@ -286,7 +298,7 @@ def run_records():
     manifest = json.loads(
         (ROOT / "FINALDOCS/DATA/evidence_manifest_60q.json").read_text(encoding="utf-8")
     )
-    records = {}
+    records, first = {}, {}
     for name in manifest["sources"]:
         if not (name.endswith(".jsonl") and "generation" in name):
             continue
@@ -298,7 +310,10 @@ def run_records():
             key = (r["query_id"], code)
             assert key not in records
             records[key] = {**r, "source_artifact": name}
+            first.setdefault(name, r["query_id"])
     assert len(records) == 480
+    assert sorted(first.values()) == sorted(TIME_EXCLUDED), "Warm-up records moved"
+
     return records
 
 
@@ -348,6 +363,8 @@ def condition_summary(obs, annotations):
             x = g[g.condition == c]
             for m in METRICS:
                 v = x[m].dropna()
+                if m == "duration_seconds":
+                    v = x.loc[~x.query_id.isin(TIME_EXCLUDED), m]
                 rows.append(
                     {
                         "level": level,
@@ -496,9 +513,10 @@ def main():
             "comparisons": [[c[0], c[1], c[2], c[4]] for c in comparisons()],
             "delta_rows": len(d),
             "rules": {
-                "quality": "모든 조건을 미적용과 대응 비교하고, SCD 조건의 품질 지표는 한국어 번역 근거로 평가한 값으로 구분한다. 기법 하나를 추가한 비교는 같은 평가 언어 안에서 수행한다.",
+                "quality": "근거 충실도, 문맥 정밀도, 문맥 재현율은 같은 평가 언어(SCD 미적용은 영어 검색 결과, SCD 적용은 한국어 번역 검색 결과)의 조건끼리 비교한다. 답변 관련성은 질문과 답변으로 계산하므로 여덟 조건 전체에서 비교한다.",
                 "score_change": "0.05 초과 개선, -0.05 미만 악화, 경계 포함 사이는 비슷함",
                 "time_change": "1초 초과 증가, -1초 미만 감소, 사이는 비슷함",
+                "time_sample": "각 생성 실행의 첫 기록(track1_0009, ext_rag_001)은 첫 추론의 워밍업을 포함하므로 처리 시간 통계에서 두 질문을 모든 조건에서 제외한 58개를 사용",
                 "missing": "결측 질문은 해당 비교의 두 평균에서 함께 제외",
             },
             "status": "저장된 측정값의 질문별 기술 분석",

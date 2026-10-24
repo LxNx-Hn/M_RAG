@@ -199,6 +199,8 @@ def validate_academic_text(text):
     for legacy in ("19개와 41개", "두 묶음", "질의 세트", "evidence_manifest", "SHA-256"):
         if legacy in body:
             raise AssertionError("project history or audit metadata in body: " + legacy)
+    if "회피 응답" in body:
+        raise AssertionError("judge zero score described as an evasive answer")
     if "검색 문맥" in body:
         raise AssertionError("abstract term '검색 문맥' returned; use 검색 결과")
     for kind, count in (("그림", 14), ("표", 14)):

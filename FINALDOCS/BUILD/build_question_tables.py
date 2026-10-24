@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "FINALDOCS/ANALYSIS"))
 from analyze_questions import (  # noqa: E402
     CONDITIONS,
+    CONTEXT_METRICS,
     GROUP_SIZES,
     GROUPS,
     METRICS,
@@ -62,6 +63,17 @@ def bold_maxima(rows, row_indexes, col):
     values = {r: first_number(rows[r][col]) for r in row_indexes}
     top = max(values.values())
     return [[r, col] for r, v in values.items() if v == top]
+
+
+def metric_scopes(body, metric):
+    """Rows compared for one column: passage-based metrics inside one evaluation
+    language (SCD off rows, SCD on rows), answer-only metrics across all eight,
+    and no emphasis for time."""
+    if metric == "duration_seconds":
+        return []
+    if metric in CONTEXT_METRICS:
+        return [[r for r, c in body if c[-1] == s] for s in "01"]
+    return [[r for r, _ in body]]
 
 
 def build():
@@ -120,7 +132,7 @@ def build():
             "numeric_columns": [],
             "center_columns": [1, 2, 3],
             "column_fractions": [0.3, 0.13, 0.13, 0.13, 0.31],
-            "note": "+는 적용, −는 미적용을 뜻한다. 품질 평가 근거는 RAGAS 네 지표를 계산할 때 제공한 검색 결과의 언어다.",
+            "note": "+는 적용, −는 미적용을 뜻한다. 품질 평가 근거는 근거 충실도, 문맥 정밀도, 문맥 재현율을 계산할 때 제공한 검색 결과의 언어이며, 답변 관련성은 질문과 답변만으로 계산한다.",
         }
     )
     output.append(env)
@@ -133,11 +145,12 @@ def build():
             s = stat("전체", code, m)
             cells.append(f"{s['mean']:.2f}\n({s['sd']:.2f})")
         rows.append(cells)
-    body = list(range(1, len(rows)))
+    body = list(zip(range(1, len(rows)), CONDITIONS))
     bold, scopes = [], []
-    for col in range(1, len(rows[0])):
-        bold += bold_maxima(rows, body, col)
-        scopes.append({"rows": body, "column": col})
+    for col, m in enumerate(METRICS, 1):
+        for scope in metric_scopes(body, m):
+            bold += bold_maxima(rows, scope, col)
+            scopes.append({"rows": scope, "column": col})
     output.append(
         {
             "sheet": "T5-1_Condition_Scores",
@@ -147,7 +160,7 @@ def build():
             "bold_scopes": scopes,
             "numeric_columns": [1, 2, 3, 4, 5, 6],
             "column_fractions": [0.22, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13],
-            "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고 계산하였다. SCD를 적용한 조건 4, 6, 7, 8의 품질 지표는 한국어로 번역한 근거로 평가한 값이다. 굵은 값은 열의 최댓값이며, 처리 시간에서는 가장 긴 시간이다.",
+            "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율은 조건 1, 2, 3, 5를 영어 검색 결과로, 조건 4, 6, 7, 8을 한국어 번역 검색 결과로 평가하였으므로 굵은 값은 각 네 조건 안의 최댓값이다. 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다.",
         }
     )
 
@@ -168,10 +181,11 @@ def build():
                 for g in GROUPS:
                     cells.append(f"{stat(g, code, m)['mean']:.2f}")
             rows.append(cells)
-        body = list(range(start, len(rows)))
+        body = list(zip(range(start, len(rows)), CONDITIONS))
         for col in range(1, 7):
-            bold += bold_maxima(rows, body, col)
-            scopes.append({"rows": body, "column": col})
+            for scope in metric_scopes(body, block[(col - 1) // 3]):
+                bold += bold_maxima(rows, scope, col)
+                scopes.append({"rows": scope, "column": col})
     output.append(
         {
             "sheet": "T5-2_Group_Scores",
@@ -183,7 +197,7 @@ def build():
             "bold_scopes": scopes,
             "numeric_columns": [1, 2, 3, 4, 5, 6],
             "column_fractions": [0.22, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13],
-            "note": "괄호 안은 각 유형의 질문 수다. 근거 충실도는 결측 질문을 빼고 계산하였고, 조건 4, 6, 7, 8의 품질 지표는 한국어 번역 근거로 평가한 값이다. 굵은 값은 같은 지표와 유형에서 8개 조건 중 최댓값이며, 처리 시간에서는 가장 긴 시간이다.",
+            "note": "괄호 안은 각 유형의 질문 수다. 근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율의 굵은 값은 SCD 미적용 네 조건과 적용 네 조건 안에서 각각 구한 최댓값이고, 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다.",
         }
     )
 

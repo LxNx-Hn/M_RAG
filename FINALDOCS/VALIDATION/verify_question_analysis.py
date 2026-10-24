@@ -12,11 +12,11 @@ from openpyxl import load_workbook
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "FINALDOCS/ANALYSIS"))
 from analyze_questions import (  # noqa: E402
-    BASE,
     CONDITIONS,
     GROUP_SIZES,
     METRICS,
     QUALITY,
+    TIME_EXCLUDED,
     TYPES,
     comparisons,
     run_records,
@@ -122,6 +122,8 @@ def validate_summary(obs, summary, annotations):
             excluded = pair.eq(0).any(axis=1)
             zero_count = int(excluded.sum())
             pair = pair.loc[~excluded]
+        if r.metric == "duration_seconds":
+            pair = pair.drop(index=list(TIME_EXCLUDED), errors="ignore")
         diff = pair[r.applied] - pair[r.base]
         assert len(diff) == r.n and len(g) / 8 == r.n_questions
         assert r.relevancy_zero_excluded == zero_count
@@ -148,6 +150,15 @@ def validate_summary(obs, summary, annotations):
         assert stored["worse"] == int((diff < -threshold).sum())
         assert stored["similar"] == int((diff.abs() <= threshold).sum())
         assert r.n == stored["improved"] + stored["worse"] + stored["similar"]
+
+
+def column_header(t, row, col):
+    """Metric label above a body cell (merged headers leave blank cells)."""
+    heads = [h for h in t.get("header_rows", [0]) if h < row]
+    top = heads[-2] if len(heads) > 1 and heads[-1] - 1 == heads[-2] else heads[-1]
+    while col > 0 and t["rows"][top][col] == "":
+        col -= 1
+    return t["rows"][top][col]
 
 
 def validate_tables():
@@ -177,6 +188,11 @@ def validate_tables():
         expected_bold = set()
         for scope in t.get("bold_scopes", []):
             col = scope["column"]
+            header = column_header(t, scope["rows"][0], col)
+            assert "처리 시간" not in header, "Time column must not be emphasized"
+            flags = {t["rows"][r][0].split()[-1].endswith("SCD") for r in scope["rows"]}
+            if any(k in header for k in ("근거 충실도", "문맥 정밀도", "문맥 재현율")):
+                assert len(flags) == 1, "Passage metric emphasis crosses SCD groups"
             values = {
                 row: float(t["rows"][row][col].split()[0].removesuffix("초"))
                 for row in scope["rows"]
@@ -208,7 +224,10 @@ def validate_condition_summary(obs, ann):
     assert len(cs) == (1 + len(GROUP_SIZES)) * len(CONDITIONS) * len(METRICS)
     for r in cs.itertuples():
         g = raw if r.level == "전체" else raw[raw.question_group == r.level]
-        v = g[g.condition == r.condition][r.metric].dropna()
+        x = g[g.condition == r.condition]
+        if r.metric == "duration_seconds":
+            x = x[~x.query_id.isin(TIME_EXCLUDED)]
+        v = x[r.metric].dropna()
         assert len(v) == r.n
         assert abs(v.mean() - r.mean) < 1e-10, "Condition mean differs"
         assert abs(v.std(ddof=1) - r.sd) < 1e-10, "Condition SD differs"
@@ -236,7 +255,8 @@ def validate_pairs(obs, deltas):
             assert (pd.isna(v) and pd.isna(raw)) or abs(v - raw) < 1e-12
         excluded = r.metric == "answer_relevancy" and (x == 0 or y == 0)
         assert bool(r.relevancy_zero_excluded) == excluded
-        if excluded or pd.isna(x) or pd.isna(y):
+        warmup = r.metric == "duration_seconds" and r.query_id in TIME_EXCLUDED
+        if excluded or warmup or pd.isna(x) or pd.isna(y):
             assert pd.isna(r.delta), "Excluded or missing pair has a difference"
         else:
             assert abs(r.delta - (y - x)) < 1e-12
@@ -310,14 +330,10 @@ def main():
     )
     expected_rows = sum(len(c[3]) for c in comparisons()) * 60
     assert len(d) == expected_rows
-    crossing = d.loc[d.metric.isin(QUALITY)].apply(
-        lambda r: r.applied[-1] != r.base[-1], axis=1
-    )
+    passage = d.loc[d.metric.isin(["faithfulness", "context_precision", "context_recall"])]
     assert (
-        d.loc[d.metric.isin(QUALITY)][crossing].evaluation_language == "평가 언어 다름"
-    ).all() and (
-        d.loc[d.metric.isin(QUALITY)][crossing].base == BASE
-    ).all(), "Quality comparison crosses evaluation languages without a label"
+        passage.base.str[-1] == passage.applied.str[-1]
+    ).all(), "Passage-based metric compared across evaluation languages"
     assert ann.question_group.value_counts().to_dict() == GROUP_SIZES
     validate_condition_summary(obs, ann)
     for label, base, applied, metrics, language in comparisons():

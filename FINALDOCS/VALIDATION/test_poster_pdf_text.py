@@ -4,7 +4,10 @@ import importlib.util
 import unittest
 from pathlib import Path
 
-SOURCE = Path(__file__).resolve().parents[1] / "POSTER/FINAL/rebuild_exports.py"
+SOURCE = (
+    Path(__file__).resolve().parent
+    / "HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/rebuild_exports.py"
+)
 SPEC = importlib.util.spec_from_file_location("poster_pdf_export", SOURCE)
 EXPORT = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(EXPORT)

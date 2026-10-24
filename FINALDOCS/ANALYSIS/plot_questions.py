@@ -737,10 +737,10 @@ def example_mechanism(save_to=None, scale=1.0):
     """
     rec = mechanism_record()
     s = rec["scores"]
-    fig = plt.figure(figsize=(6.3 * scale, 2.885 * scale))
+    fig = plt.figure(figsize=(6.3 * scale, 2.457 * scale))
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 45.9)
+    ax.set_ylim(2.0, 41.0)
     ax.axis("off")
     f = scale * 1.06
     MUTED, FAINT = "#5f6470", "#9aa0a8"
@@ -759,7 +759,7 @@ def example_mechanism(save_to=None, scale=1.0):
     def result(x, key, name):
         before, after = s[key]
         up = after > before
-        label(x, 2.6, f"{name} {before:.2f}에서 {after:.2f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
+        label(x, 4.2, f"{name} {before:.2f}에서 {after:.2f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
 
     def document(x, y, w, h, ec, missing=False):
         c = w * 0.32
@@ -791,23 +791,23 @@ def example_mechanism(save_to=None, scale=1.0):
                 ax.plot([mx - 0.6, mx + 0.6], [my - 0.6 * d, my + 0.6 * d], color=colour, lw=1.5 * f, solid_capstyle="round")
 
     # question
-    rbox(0.3, 39.9, 99.4, 5.6, "#ffffff", INK, 1.1)
-    label(2.0, 42.7, "예시 질문", 7.2, RETRIEVE, True)
-    label(13.5, 42.7, rec["query"], 7.4, INK)
-    label(98.2, 42.7, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
+    rbox(0.3, 36.95, 99.4, 3.9, "#ffffff", INK, 1.1)
+    label(2.0, 38.9, "예시 질문", 7.2, RETRIEVE, True)
+    label(13.5, 38.9, rec["query"], 7.4, INK)
+    label(98.2, 38.9, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
 
     panels = [
         (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 답변으로 실제 구간을 찾음", RETRIEVE, "#f4f1f8"),
         (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "문서가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
         (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
     ]
-    pw, py, ph = 32.0, 6.0, 31.5
+    pw, py, ph = 32.0, 6.4, 29.6
     for x0, name, who, stage, idea, ec, fc in panels:
         rbox(x0, py, pw, ph, fc, ec, 1.1)
-        label(x0 + 1.5, py + ph - 2.5, name, 9.5, INK, True)
-        label(x0 + 1.5 + len(name) * 2.3, py + ph - 2.8, who, 6.0, MUTED)
-        label(x0 + pw - 1.3, py + ph - 2.5, stage, 6.0, ec, True, "right")
-        label(x0 + 1.5, py + ph - 6.3, idea, 6.4, INK, True)
+        label(x0 + 1.5, py + ph - 2.3, name, 9.5, INK, True)
+        label(x0 + 1.5 + len(name) * 2.3, py + ph - 2.6, who, 6.0, MUTED)
+        label(x0 + pw - 1.3, py + ph - 2.3, stage, 6.0, ec, True, "right")
+        label(x0 + 1.5, py + ph - 5.4, idea, 6.4, INK, True)
 
     # HyDE: hypothetical passage written by the LLM, real passage found near it
     rbox(1.5, 19.6, 14.6, 9.4, "#ffffff", RETRIEVE, 0.9, ls="--")

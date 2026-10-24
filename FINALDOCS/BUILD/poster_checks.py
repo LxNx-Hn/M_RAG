@@ -2,7 +2,8 @@
 
 Every number in the question-group table (five metrics by question group for
 the eight conditions) is recomputed from CONDITION_SUMMARY.csv at two
-decimals; bold marks only column maxima; statistical-test terms, standard
+decimals; bold marks displayed maxima (passage-based metrics within the SCD-off
+and SCD-on rows separately); statistical-test terms, standard
 deviations, internal question IDs, middle dots, arrows and colon labels are
 absent from the poster text.
 """
@@ -79,8 +80,13 @@ def f2(v, sign=False):
     return f"{v:+.2f}".replace("-", "−") if sign else f"{v:.2f}"
 
 
-def check_bold(rows, cols, label, skip_last=False, start=1):
-    body = rows[start : len(rows) - (1 if skip_last else 0)]
+def check_bold(rows_all, cols, label, skip_last=False, start=1, rows=None):
+    """Bold marks exactly the displayed maxima of each column within the given rows."""
+    body = (
+        [rows_all[i] for i in rows]
+        if rows is not None
+        else rows_all[start : len(rows_all) - (1 if skip_last else 0)]
+    )
     for c in cols:
         top = max(float(r[c][0].replace("−", "-")) for r in body)
         for i, r in enumerate(body, 1):
@@ -118,9 +124,15 @@ def validate_poster(pptx, svg=None):
         assert [c[0] for c in groups[i + 1]] == expect, (
             f"Poster value differs: group table row {i}"
         )
-    check_bold(
-        groups, list(range(1, 1 + 3 * len(SCORE_METRICS))), "Question group table", start=2
-    )
+    # Passage-based metrics: maxima inside SCD-off rows and SCD-on rows separately.
+    for k, m in enumerate(SCORE_METRICS):
+        cols = list(range(1 + 3 * k, 4 + 3 * k))
+        if m in ("faithfulness", "context_precision", "context_recall"):
+            for s in "01":
+                rows_ = [i + 1 for i, c in enumerate(CONDITIONS, 1) if c[-1] == s]
+                check_bold(groups, cols, "Question group table", rows=rows_)
+        else:
+            check_bold(groups, cols, "Question group table", start=2)
     return {"tables": 1, "result_rows_checked": 8, "decimals": 2}
 
 

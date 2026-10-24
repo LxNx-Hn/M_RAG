@@ -232,7 +232,7 @@
     },
     {
       "comparison": "미적용 → SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "전체",
       "n": 60,
       "zero_to_positive": 2,
@@ -253,7 +253,7 @@
     },
     {
       "comparison": "미적용 → SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "수치 질문",
       "n": 18,
       "zero_to_positive": 1,
@@ -269,7 +269,7 @@
     },
     {
       "comparison": "미적용 → SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "방법 질문",
       "n": 25,
       "zero_to_positive": 1,
@@ -288,7 +288,7 @@
     },
     {
       "comparison": "미적용 → SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "개념과 결과 질문",
       "n": 17,
       "zero_to_positive": 0,
@@ -391,7 +391,7 @@
     },
     {
       "comparison": "미적용 → HyDE+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "전체",
       "n": 60,
       "zero_to_positive": 5,
@@ -416,7 +416,7 @@
     },
     {
       "comparison": "미적용 → HyDE+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "수치 질문",
       "n": 18,
       "zero_to_positive": 1,
@@ -434,7 +434,7 @@
     },
     {
       "comparison": "미적용 → HyDE+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "방법 질문",
       "n": 25,
       "zero_to_positive": 4,
@@ -456,7 +456,7 @@
     },
     {
       "comparison": "미적용 → HyDE+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "개념과 결과 질문",
       "n": 17,
       "zero_to_positive": 0,
@@ -472,7 +472,7 @@
     },
     {
       "comparison": "미적용 → CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "전체",
       "n": 60,
       "zero_to_positive": 6,
@@ -504,7 +504,7 @@
     },
     {
       "comparison": "미적용 → CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "수치 질문",
       "n": 18,
       "zero_to_positive": 2,
@@ -523,7 +523,7 @@
     },
     {
       "comparison": "미적용 → CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "방법 질문",
       "n": 25,
       "zero_to_positive": 4,
@@ -549,7 +549,7 @@
     },
     {
       "comparison": "미적용 → CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "개념과 결과 질문",
       "n": 17,
       "zero_to_positive": 0,
@@ -567,7 +567,7 @@
     },
     {
       "comparison": "미적용 → HyDE+CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "전체",
       "n": 60,
       "zero_to_positive": 5,
@@ -594,7 +594,7 @@
     },
     {
       "comparison": "미적용 → HyDE+CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "수치 질문",
       "n": 18,
       "zero_to_positive": 1,
@@ -613,7 +613,7 @@
     },
     {
       "comparison": "미적용 → HyDE+CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "방법 질문",
       "n": 25,
       "zero_to_positive": 4,
@@ -635,7 +635,7 @@
     },
     {
       "comparison": "미적용 → HyDE+CAD+SCD",
-      "evaluation_language": "평가 언어 다름",
+      "evaluation_language": "질문과 답변",
       "level": "개념과 결과 질문",
       "n": 17,
       "zero_to_positive": 0,

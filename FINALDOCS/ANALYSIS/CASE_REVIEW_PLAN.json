@@ -1,12 +1,12 @@
 {
   "selection_stage": "질문 유형별 평균과 질문별 원점수를 확인한 뒤, 유형마다 크게 오르거나 내린 질문의 검색 근거와 답변을 미적용 조건과 대조해 선정",
   "inputs": {
-    "QUESTION_TYPE_SUMMARY.csv": "efaba0c672830b00d2a35c9cf6ecab9b820b90d720aa7de172c06d15f2c9ccbf",
-    "ZERO_RELEVANCY_AUDIT.json": "ff0cac58efc0c41c40bb07ec795c445107ecf3041f67bbb6ffe8fd3a5a44bfb8",
-    "CONDITION_SUMMARY.csv": "63321b76ad92e38331d49c35206a770493dcd6ab0347e2eb9d1a83aba78a5fd4"
+    "QUESTION_TYPE_SUMMARY.csv": "0195442f5a2c7f510e4a636e05abf6a6dc98dc0a022484b218d15a1e73fd9308",
+    "ZERO_RELEVANCY_AUDIT.json": "3b334ca5538e6441b87d395ce8227adac3b3afe553569ef0338b9162654ac7a7",
+    "CONDITION_SUMMARY.csv": "2e6292ad560a417671aeb9b4c50d0afa7946b3efc8c25b69de7a95ddb8d2c49e"
   },
   "findings": {
-    "F1": "방법 질문에서 HyDE는 미적용에서 회피 응답으로 판정된 답변을 실제 설명으로 바꾼 경우가 많았다. 관련성 0점 답변은 5개에서 1개로 줄었고, 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
+    "F1": "방법 질문에서 HyDE 적용 후 미적용의 관련성 0점 답변 5개가 모두 양수가 되었고, 그중 3개는 질문에 필요한 정보를 제시하였다. 필요한 구간을 새로 찾은 질문과 같은 구간에서 설명이 바뀐 질문이 모두 있었다.",
     "F2": "수치 질문에서 HyDE는 관련성 평균을 바꾸지 않았고, 정답 수치가 담긴 구간이 입력에서 빠지면 답변도 수치를 잃었다.",
     "F3": "수치 질문과 방법 질문에서 CAD는 근거 충실도를 높였지만, 입력 구간의 문장을 그대로 옮기거나 다른 행과 다른 내용을 옮긴 답변도 높은 충실도를 받았다.",
     "F4": "개념과 결과 질문에서 CAD는 이미 정확했던 설명을 짧은 지시문으로 바꾸어 충실도와 관련성을 낮춘 경우가 있었다.",
