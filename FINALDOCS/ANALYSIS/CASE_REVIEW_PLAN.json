@@ -1,7 +1,7 @@
 {
   "selection_stage": "질문 유형별 평균과 질문별 원점수를 확인한 뒤, 유형마다 크게 오르거나 내린 질문의 검색 근거와 답변을 미적용 조건과 대조해 선정",
   "inputs": {
-    "QUESTION_TYPE_SUMMARY.csv": "0195442f5a2c7f510e4a636e05abf6a6dc98dc0a022484b218d15a1e73fd9308",
+    "QUESTION_TYPE_SUMMARY.csv": "7f180bd36e6c84155b0fb6f8ca983b5b659d0c56760b7b368abb3559047171a4",
     "ZERO_RELEVANCY_AUDIT.json": "3b334ca5538e6441b87d395ce8227adac3b3afe553569ef0338b9162654ac7a7",
     "CONDITION_SUMMARY.csv": "2e6292ad560a417671aeb9b4c50d0afa7946b3efc8c25b69de7a95ddb8d2c49e"
   },

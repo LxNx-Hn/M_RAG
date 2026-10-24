@@ -256,10 +256,14 @@ def direction_counts(x, metric):
 
 def summarize(d):
     rows = []
-    d = d.assign(전체="전체 60개")
+    # question type within one document (5.5 cites these)
+    d = d.assign(
+        전체="전체 60개", group_document=d.question_group + " / " + d.document.astype(str)
+    )
     for grouping in [
         "전체",
         "question_group",
+        "group_document",
         "question_type",
         "document",
         "answer_form",

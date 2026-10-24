@@ -105,10 +105,14 @@ def validate_summary(obs, summary, annotations):
         on="query_id",
         validate="many_to_one",
     )
+    raw = raw.assign(
+        group_document=raw.question_group + " / " + raw.document.astype(str)
+    )
     for r in summary.itertuples():
         assert r.grouping in [
             "전체",
             "question_group",
+            "group_document",
             "question_type",
             "document",
             "answer_form",

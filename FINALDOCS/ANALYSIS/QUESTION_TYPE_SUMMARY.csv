@@ -287,6 +287,798 @@ question_group,수치 질문,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S
 question_group,개념과 결과 질문,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,17,16,1,0,76.623375,73.7063125,-2.9170625,8,7,1
 question_group,방법 질문,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,25,24,1,0,78.74729166666667,64.90904166666667,-13.838250000000002,10,14,0
 question_group,수치 질문,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,18,18,0,0,60.59133333333333,59.861833333333344,-0.7294999999999998,11,6,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,6,6,0,0,0.8847333333333333,0.9002833333333333,0.01555,1,1,4
+group_document,방법 질문 / CAD,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,5,5,0,0,0.83704,0.7557,-0.08134000000000001,1,3,1
+group_document,수치 질문 / CAD,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,4,4,0,0,0.80865,0.7030500000000001,-0.1056,1,2,1
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,5,5,0,0,0.7569199999999999,0.76694,0.010020000000000001,2,2,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,8,8,0,0,0.85545,0.8373375000000001,-0.018112500000000004,2,3,3
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,10,10,0,0,0.56526,0.7408500000000001,0.17559,6,3,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,5,5,0,0,0.76806,0.8892800000000001,0.12122,3,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,6,6,0,0,0.7972333333333333,0.9408833333333333,0.14365,3,2,1
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,5,5,0,0,0.9056200000000001,0.9047599999999999,-0.0008599999999999997,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,4,4,0,0,0.845,0.875,0.03,2,1,1
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,2,2,0,0,0.94735,1.0,0.05265,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,6,6,0,0,0.7541833333333333,0.7623000000000001,0.008116666666666668,1,1,4
+group_document,방법 질문 / CAD,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,5,3,2,2,0.8344666666666667,0.7898666666666667,-0.0446,0,1,2
+group_document,수치 질문 / CAD,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,4,4,0,0,0.870325,0.865,-0.005325,0,0,4
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,5,3,2,2,0.8611666666666666,0.8677000000000001,0.006533333333333333,0,0,3
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,8,7,1,1,0.8361142857142856,0.8426857142857141,0.006571428571428573,2,1,4
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,10,9,1,1,0.6057444444444444,0.7447444444444444,0.139,6,0,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,5,5,0,0,0.7425,0.80012,0.05761999999999999,3,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,6,4,2,2,0.79155,0.804025,0.012475,1,1,2
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,5,4,1,1,0.780175,0.878875,0.0987,1,0,3
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,4,4,0,0,0.838425,0.88295,0.044524999999999995,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,answer_relevancy,H0C0S0,H1C0S0,영어,2,2,0,0,0.8197,0.87445,0.05475,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,6,6,0,0,0.9465333333333333,0.8120333333333334,-0.13449999999999998,0,3,3
+group_document,방법 질문 / CAD,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,5,5,0,0,0.68556,0.59112,-0.09444000000000001,1,2,2
+group_document,수치 질문 / CAD,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,4,4,0,0,0.780575,0.79165,0.011075000000000002,1,0,3
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,5,5,0,0,0.61666,0.67166,0.05500000000000001,2,1,2
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,8,8,0,0,0.6984375,0.6552,-0.0432375,3,2,3
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,10,10,0,0,0.77126,0.74376,-0.027500000000000007,3,5,2
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,5,5,0,0,0.83112,0.89696,0.06584000000000001,3,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,6,6,0,0,0.5513833333333333,0.46343333333333336,-0.08794999999999999,1,3,2
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,5,5,0,0,0.8066599999999999,0.8574999999999999,0.050839999999999996,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,4,4,0,0,0.784375,0.6875,-0.096875,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,context_precision,H0C0S0,H1C0S0,영어,2,2,0,0,0.8396,0.76665,-0.07295,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,6,6,0,0,1.0,1.0,0.0,0,0,6
+group_document,방법 질문 / CAD,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,5,5,0,0,1.0,0.8,-0.2,0,1,4
+group_document,수치 질문 / CAD,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,5,5,0,0,0.8,1.0,0.2,1,0,4
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,8,8,0,0,0.875,1.0,0.125,1,0,7
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,10,10,0,0,0.9,1.0,0.1,1,0,9
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,6,6,0,0,1.0,0.6666666666666666,-0.3333333333333333,0,2,4
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,5,5,0,0,0.8,1.0,0.2,1,0,4
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,4,4,0,0,1.0,0.75,-0.25,0,1,3
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,context_recall,H0C0S0,H1C0S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,6,6,0,0,0.5726716027788931,0.5722672792331799,-0.0004043235457132366,2,1,3
+group_document,방법 질문 / CAD,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,5,5,0,0,0.6117455019832991,0.5936956564895111,-0.018049845493788224,1,2,2
+group_document,수치 질문 / CAD,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,4,4,0,0,0.5743869140640219,0.6462276772767424,0.0718407632127205,2,0,2
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,5,5,0,0,0.693741536210038,0.6046067264823546,-0.08913480972768331,1,3,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,8,8,0,0,0.5166517331430949,0.4803804970068988,-0.036271236136196094,3,4,1
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,10,10,0,0,0.24909676279863602,0.5021799435906872,0.2530831807920513,7,3,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,5,5,0,0,0.31703377467237737,0.6429675937399276,0.32593381906755026,4,0,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,6,6,0,0,0.6828151469788323,0.5836941933443999,-0.09912095363443237,2,3,1
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,5,5,0,0,0.47148419632511607,0.637688494454042,0.16620429812892584,4,1,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,4,4,0,0,0.46723941508178896,0.4522625877706393,-0.014976827311149653,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,korean_ratio,H0C0S0,H1C0S0,영어,2,2,0,0,0.4323630136986301,0.38920056100981765,-0.04316245268881245,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,6,6,0,0,18.3245,25.334333333333333,7.009833333333333,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,5,5,0,0,16.4236,24.498199999999997,8.0746,4,1,0
+group_document,수치 질문 / CAD,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,4,4,0,0,14.252,20.8125,6.5605,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,5,5,0,0,15.942599999999999,24.6414,8.6988,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,8,8,0,0,13.998249999999999,20.663,6.66475,7,0,1
+group_document,방법 질문 / RAG Survey,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,10,9,1,0,17.870444444444445,25.59144444444444,7.721,7,1,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,5,4,1,0,19.8535,24.3425,4.488999999999999,4,0,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,6,6,0,0,15.777333333333333,21.261666666666667,5.484333333333335,5,1,0
+group_document,방법 질문 / RAPTOR,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,5,5,0,0,15.446599999999998,21.6088,6.1622,4,0,1
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,4,4,0,0,19.1535,25.345,6.1915,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE,duration_seconds,H0C0S0,H1C0S0,영어,2,2,0,0,18.26,26.974,8.713999999999999,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,6,6,0,0,0.8847333333333333,0.875,-0.009733333333333332,1,1,4
+group_document,방법 질문 / CAD,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,5,5,0,0,0.83704,0.9522,0.11516,1,2,2
+group_document,수치 질문 / CAD,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,4,4,0,0,0.80865,0.928225,0.119575,2,0,2
+group_document,방법 질문 / Mi:dm,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,5,5,0,0,0.7569199999999999,0.8913,0.13438,3,1,1
+group_document,수치 질문 / Mi:dm,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,8,8,0,0,0.85545,0.8311250000000001,-0.024325,1,4,3
+group_document,방법 질문 / RAG Survey,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,10,8,2,0,0.6473625000000001,0.684825,0.037462499999999996,4,2,2
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,5,5,0,0,0.76806,0.6,-0.16806000000000001,0,4,1
+group_document,수치 질문 / RAPTOR,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,6,6,0,0,0.7972333333333333,0.9601333333333333,0.16290000000000002,3,2,1
+group_document,방법 질문 / RAPTOR,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,5,5,0,0,0.9056200000000001,0.8807600000000001,-0.02486,0,1,4
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,4,4,0,0,0.845,0.9058250000000001,0.06082499999999999,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,faithfulness,H0C0S0,H0C1S0,영어,2,2,0,0,0.94735,0.76925,-0.1781,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,6,6,0,0,0.7541833333333333,0.7257166666666667,-0.028466666666666664,0,2,4
+group_document,방법 질문 / CAD,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,5,4,1,1,0.802675,0.7842,-0.018475,0,1,3
+group_document,수치 질문 / CAD,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,4,4,0,0,0.870325,0.7957000000000001,-0.074625,0,2,2
+group_document,방법 질문 / Mi:dm,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,5,3,2,2,0.8611666666666666,0.7827999999999999,-0.07836666666666665,0,1,2
+group_document,수치 질문 / Mi:dm,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,8,6,2,2,0.8470833333333333,0.8334333333333332,-0.01365,2,2,2
+group_document,방법 질문 / RAG Survey,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,10,7,3,3,0.6388428571428572,0.6402,0.0013571428571428565,2,2,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,5,4,1,1,0.7031000000000001,0.667225,-0.035875000000000004,1,2,1
+group_document,수치 질문 / RAPTOR,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,6,5,1,1,0.8075199999999999,0.78408,-0.02344,1,2,2
+group_document,방법 질문 / RAPTOR,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,5,4,1,1,0.780175,0.7779249999999999,-0.002250000000000002,0,0,4
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,4,3,1,1,0.8395666666666667,0.8462333333333333,0.006666666666666664,1,0,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,answer_relevancy,H0C0S0,H0C1S0,영어,2,2,0,0,0.8197,0.8546499999999999,0.03495,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,6,6,0,0,0.9465333333333333,0.8085666666666667,-0.13796666666666665,0,3,3
+group_document,방법 질문 / CAD,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,5,5,0,0,0.68556,0.68556,0.0,0,0,5
+group_document,수치 질문 / CAD,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,4,4,0,0,0.780575,0.780575,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,5,5,0,0,0.61666,0.61666,0.0,0,0,5
+group_document,수치 질문 / Mi:dm,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,8,8,0,0,0.6984375,0.6984375,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,10,10,0,0,0.77126,0.7796000000000001,0.00834,1,0,9
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,5,5,0,0,0.83112,0.83668,0.005559999999999998,1,1,3
+group_document,수치 질문 / RAPTOR,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,6,6,0,0,0.5513833333333333,0.5597166666666668,0.008333333333333333,0,0,6
+group_document,방법 질문 / RAPTOR,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,5,5,0,0,0.8066599999999999,0.8066599999999999,0.0,0,0,5
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,4,4,0,0,0.784375,0.8125,0.028125,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,context_precision,H0C0S0,H0C1S0,영어,2,2,0,0,0.8396,0.8396,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,6,6,0,0,1.0,1.0,0.0,0,0,6
+group_document,방법 질문 / CAD,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,4,4,0,0,1.0,0.75,-0.25,0,1,3
+group_document,방법 질문 / Mi:dm,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,5,5,0,0,0.8,0.8,0.0,0,0,5
+group_document,수치 질문 / Mi:dm,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,8,8,0,0,0.875,0.875,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,10,10,0,0,0.9,0.9,0.0,0,0,10
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,6,6,0,0,1.0,1.0,0.0,0,0,6
+group_document,방법 질문 / RAPTOR,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,5,5,0,0,0.8,0.8,0.0,0,0,5
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,context_recall,H0C0S0,H0C1S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,6,6,0,0,0.5726716027788931,0.5469664987832971,-0.025705103995595963,1,3,2
+group_document,방법 질문 / CAD,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,5,5,0,0,0.6117455019832991,0.5057969741889772,-0.10594852779432203,0,3,2
+group_document,수치 질문 / CAD,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,4,4,0,0,0.5743869140640219,0.599358420726559,0.024971506662537172,2,1,1
+group_document,방법 질문 / Mi:dm,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,5,5,0,0,0.693741536210038,0.6452693094590423,-0.04847222675099562,0,1,4
+group_document,수치 질문 / Mi:dm,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,8,8,0,0,0.5166517331430949,0.5208683341857676,0.004216601042672803,3,4,1
+group_document,방법 질문 / RAG Survey,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,10,10,0,0,0.24909676279863602,0.23314228317859062,-0.015954479620045394,3,4,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,5,5,0,0,0.31703377467237737,0.5369081116757862,0.21987433700340886,4,0,1
+group_document,수치 질문 / RAPTOR,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,6,6,0,0,0.6828151469788323,0.6177055806054751,-0.06510956637335713,2,4,0
+group_document,방법 질문 / RAPTOR,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,5,5,0,0,0.47148419632511607,0.46788429855226515,-0.003599897772850942,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,4,4,0,0,0.46723941508178896,0.5008704970023601,0.033631081920571126,2,0,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,korean_ratio,H0C0S0,H0C1S0,영어,2,2,0,0,0.4323630136986301,0.29904491917248827,-0.13331809452614185,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,6,6,0,0,18.3245,76.81349999999999,58.489,6,0,0
+group_document,방법 질문 / CAD,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,5,5,0,0,16.4236,73.651,57.2274,5,0,0
+group_document,수치 질문 / CAD,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,4,4,0,0,14.252,60.15975,45.90775,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,5,5,0,0,15.942599999999999,58.8652,42.9226,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,8,8,0,0,13.998249999999999,50.54575,36.5475,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,10,9,1,0,17.870444444444445,72.93211111111111,55.06166666666667,9,0,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,5,4,1,0,19.8535,39.64874999999999,19.79525,2,2,0
+group_document,수치 질문 / RAPTOR,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,6,6,0,0,15.777333333333333,58.728500000000004,42.951166666666666,6,0,0
+group_document,방법 질문 / RAPTOR,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,5,5,0,0,15.446599999999998,58.40260000000001,42.956,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,4,4,0,0,19.1535,81.235,62.08149999999999,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD,duration_seconds,H0C0S0,H0C1S0,영어,2,2,0,0,18.26,84.882,66.622,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,6,6,0,0,0.7541833333333333,0.7475666666666666,-0.006616666666666664,1,2,3
+group_document,방법 질문 / CAD,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,5,4,1,1,0.802675,0.8027,2.499999999999985e-05,0,0,4
+group_document,수치 질문 / CAD,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,0.870325,0.7355499999999999,-0.134775,0,4,0
+group_document,방법 질문 / Mi:dm,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,5,3,2,2,0.8611666666666666,0.8443666666666667,-0.0168,0,1,2
+group_document,수치 질문 / Mi:dm,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,8,7,1,1,0.8361142857142856,0.8140571428571429,-0.022057142857142855,0,1,6
+group_document,방법 질문 / RAG Survey,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,10,8,2,2,0.61375,0.607325,-0.006425,2,3,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,5,4,1,1,0.7638,0.706875,-0.056925,0,1,3
+group_document,수치 질문 / RAPTOR,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,6,5,1,1,0.8075199999999999,0.78264,-0.024880000000000006,1,3,1
+group_document,방법 질문 / RAPTOR,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,5,3,2,2,0.7506,0.6937666666666665,-0.056833333333333326,0,1,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,0.838425,0.76125,-0.077175,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → SCD,answer_relevancy,H0C0S0,H0C0S1,질문과 답변,2,2,0,0,0.8197,0.88575,0.06605,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,6,6,0,0,0.5726716027788931,0.864178615707227,0.291507012928334,6,0,0
+group_document,방법 질문 / CAD,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,0.6117455019832991,0.7828716590682545,0.17112615708495535,4,0,1
+group_document,수치 질문 / CAD,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,0.5743869140640219,0.8615074787238707,0.28712056465984875,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,0.693741536210038,0.943633242485131,0.2498917062750931,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,8,8,0,0,0.5166517331430949,0.7740934416150651,0.25744170847197023,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,10,10,0,0,0.24909676279863602,0.30805519223469396,0.058958429436057905,4,2,4
+group_document,개념과 결과 질문 / RAG Survey,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,0.31703377467237737,0.576300053442461,0.2592662787700836,4,1,0
+group_document,수치 질문 / RAPTOR,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,6,6,0,0,0.6828151469788323,0.8345567137080571,0.15174156672922492,5,0,1
+group_document,방법 질문 / RAPTOR,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,0.47148419632511607,0.7055046251669124,0.23402042884179633,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,0.46723941508178896,0.752078019064416,0.284838603982627,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → SCD,korean_ratio,H0C0S0,H0C0S1,질문과 답변,2,2,0,0,0.4323630136986301,0.489778534923339,0.0574155212247089,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,6,6,0,0,18.3245,20.395999999999997,2.0715000000000003,4,1,1
+group_document,방법 질문 / CAD,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,16.4236,18.507600000000004,2.084,4,0,1
+group_document,수치 질문 / CAD,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,14.252,16.80325,2.55125,3,0,1
+group_document,방법 질문 / Mi:dm,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,15.942599999999999,16.9058,0.9632000000000002,3,1,1
+group_document,수치 질문 / Mi:dm,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,8,8,0,0,13.998249999999999,17.448125,3.449875,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,10,9,1,0,17.870444444444445,20.609222222222222,2.7387777777777775,6,1,2
+group_document,개념과 결과 질문 / RAG Survey,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,5,4,1,0,19.8535,20.1445,0.29100000000000015,3,1,0
+group_document,수치 질문 / RAPTOR,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,6,6,0,0,15.777333333333333,16.304333333333336,0.527,5,1,0
+group_document,방법 질문 / RAPTOR,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,5,5,0,0,15.446599999999998,16.6362,1.1896,2,1,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,4,4,0,0,19.1535,21.539749999999998,2.38625,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → SCD,duration_seconds,H0C0S0,H0C0S1,질문과 답변,2,2,0,0,18.26,21.337,3.077,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,6,6,0,0,0.8847333333333333,0.7823666666666668,-0.10236666666666666,0,4,2
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,5,5,0,0,0.83704,0.73838,-0.09866000000000001,1,4,0
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,4,4,0,0,0.80865,0.9391,0.13045,2,1,1
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,5,5,0,0,0.7569199999999999,0.79312,0.036199999999999996,2,2,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,8,8,0,0,0.85545,0.947875,0.09242500000000001,4,1,3
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,10,10,0,0,0.56526,0.81677,0.25150999999999996,7,2,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,5,5,0,0,0.76806,0.91106,0.14300000000000002,3,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,6,6,0,0,0.7972333333333333,0.8920666666666667,0.09483333333333333,3,2,1
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,5,5,0,0,0.9056200000000001,0.81494,-0.09068000000000001,1,3,1
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,4,4,0,0,0.845,0.9378,0.09280000000000001,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,faithfulness,H0C0S0,H1C1S0,영어,2,2,0,0,0.94735,1.0,0.05265,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,6,6,0,0,0.7541833333333333,0.7486833333333335,-0.005500000000000002,1,1,4
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,5,4,1,1,0.802675,0.7049,-0.097775,0,3,1
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,4,4,0,0,0.870325,0.8102750000000001,-0.060050000000000006,0,3,1
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,5,3,2,2,0.8611666666666666,0.8193999999999999,-0.04176666666666667,0,1,2
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,8,7,1,1,0.8361142857142856,0.8289571428571428,-0.007157142857142858,3,2,2
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,10,7,3,3,0.588,0.6475428571428571,0.05954285714285714,3,1,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,5,4,1,1,0.7745500000000001,0.820375,0.045825,2,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,6,4,2,2,0.79155,0.814425,0.022875,1,0,3
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,5,3,2,2,0.7506,0.8427333333333333,0.09213333333333334,1,0,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,4,4,0,0,0.838425,0.8243499999999999,-0.014075,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,answer_relevancy,H0C0S0,H1C1S0,영어,2,2,0,0,0.8197,0.87825,0.05855,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,6,6,0,0,0.9465333333333333,0.7808,-0.16573333333333332,0,2,4
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,5,5,0,0,0.68556,0.72584,0.040279999999999996,1,1,3
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,4,4,0,0,0.780575,0.7722249999999999,-0.00835,0,0,4
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,5,5,0,0,0.61666,0.68834,0.07168000000000001,2,2,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,8,8,0,0,0.6984375,0.670825,-0.027612500000000005,2,2,4
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,10,10,0,0,0.77126,0.7116800000000001,-0.05958000000000001,2,3,5
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,5,5,0,0,0.83112,0.9025000000000001,0.07138000000000001,3,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,6,6,0,0,0.5513833333333333,0.6314833333333333,0.08009999999999999,3,2,1
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,5,5,0,0,0.8066599999999999,0.8074999999999999,0.0008400000000000046,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,4,4,0,0,0.784375,0.735425,-0.04895000000000001,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,context_precision,H0C0S0,H1C1S0,영어,2,2,0,0,0.8396,0.76665,-0.07295,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,5,5,0,0,0.8,0.8,0.0,1,1,3
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,8,8,0,0,0.875,1.0,0.125,1,0,7
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,10,10,0,0,0.9,0.8,-0.1,0,1,9
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,5,5,0,0,0.8,0.8,0.0,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,context_recall,H0C0S0,H1C1S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,6,6,0,0,0.5726716027788931,0.6314134867592495,0.058741883980356284,3,3,0
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,5,5,0,0,0.6117455019832991,0.526375874130734,-0.08536962785256524,1,2,2
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,4,4,0,0,0.5743869140640219,0.5190524777290051,-0.05533443633501675,1,2,1
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,5,5,0,0,0.693741536210038,0.39221443478042606,-0.30152710142961187,0,3,2
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,8,8,0,0,0.5166517331430949,0.45351906161956945,-0.06313267152352542,2,6,0
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,10,10,0,0,0.24909676279863602,0.41772237275602214,0.16862560995738615,5,2,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,5,5,0,0,0.31703377467237737,0.459941262837515,0.1429074881651377,3,2,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,6,6,0,0,0.6828151469788323,0.6083889165305472,-0.0744262304482851,0,2,4
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,5,5,0,0,0.47148419632511607,0.535339622270619,0.06385542594550293,2,1,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,4,4,0,0,0.46723941508178896,0.6188730352785624,0.15163362019677346,2,2,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,korean_ratio,H0C0S0,H1C1S0,영어,2,2,0,0,0.4323630136986301,0.41125290023201855,-0.02111011346661155,0,0,2
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,6,6,0,0,18.3245,78.20166666666667,59.877166666666675,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,5,5,0,0,16.4236,76.5954,60.171800000000005,5,0,0
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,4,4,0,0,14.252,63.543749999999996,49.29175000000001,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,5,5,0,0,15.942599999999999,81.4164,65.47380000000001,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,8,8,0,0,13.998249999999999,57.292375,43.294125,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,10,9,1,0,17.870444444444445,88.67366666666666,70.80322222222223,9,0,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,5,4,1,0,19.8535,69.47375,49.62025,4,0,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,6,6,0,0,15.777333333333333,63.02166666666667,47.24433333333334,6,0,0
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,5,5,0,0,15.446599999999998,60.3626,44.916,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,4,4,0,0,19.1535,73.2035,54.05,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD,duration_seconds,H0C0S0,H1C1S0,영어,2,2,0,0,18.26,93.0275,74.7675,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,6,6,0,0,0.7541833333333333,0.7490500000000001,-0.005133333333333335,2,1,3
+group_document,방법 질문 / CAD,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,5,4,1,1,0.802675,0.73255,-0.07012499999999999,0,1,3
+group_document,수치 질문 / CAD,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,0.870325,0.7613000000000001,-0.10902500000000001,0,4,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,5,3,2,2,0.8611666666666666,0.8509666666666668,-0.010199999999999999,0,0,3
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,8,7,1,1,0.8361142857142856,0.864657142857143,0.02854285714285714,2,1,4
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,10,7,3,3,0.6321571428571428,0.7238857142857142,0.09172857142857141,4,2,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,5,4,1,1,0.7745500000000001,0.8540500000000001,0.0795,2,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,6,4,2,2,0.79155,0.7898499999999999,-0.0016999999999999997,0,0,4
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,5,4,1,1,0.780175,0.8786,0.09842500000000001,2,0,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,0.838425,0.83295,-0.005475000000000001,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+SCD,answer_relevancy,H0C0S0,H1C0S1,질문과 답변,2,2,0,0,0.8197,0.63605,-0.18365,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,6,6,0,0,0.5726716027788931,0.9081637757947462,0.33549217301585305,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,0.6117455019832991,0.6618653961236547,0.05011989414035556,4,1,0
+group_document,수치 질문 / CAD,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,0.5743869140640219,0.8343113915084721,0.2599244774444502,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,0.693741536210038,0.8857408235583781,0.19199928734834018,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,8,8,0,0,0.5166517331430949,0.8811655386491388,0.3645138055060439,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,10,10,0,0,0.24909676279863602,0.7707339057997429,0.521637143001107,10,0,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,0.31703377467237737,0.7530768391125695,0.4360430644401922,5,0,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,6,6,0,0,0.6828151469788323,0.7734269620384321,0.09061181505959981,5,1,0
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,0.47148419632511607,0.8363649109251728,0.36488071460005683,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,0.46723941508178896,0.8996553879160234,0.4324159728342345,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+SCD,korean_ratio,H0C0S0,H1C0S1,질문과 답변,2,2,0,0,0.4323630136986301,0.4821428571428572,0.0497798434442271,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,6,6,0,0,18.3245,27.72,9.3955,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,16.4236,25.3136,8.89,4,0,1
+group_document,수치 질문 / CAD,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,14.252,25.6995,11.4475,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,15.942599999999999,26.186799999999998,10.244200000000001,5,0,0
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,8,8,0,0,13.998249999999999,23.19375,9.1955,7,1,0
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,10,9,1,0,17.870444444444445,21.275666666666666,3.405222222222222,7,2,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,5,4,1,0,19.8535,27.3345,7.481000000000001,4,0,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,6,6,0,0,15.777333333333333,24.138166666666667,8.360833333333332,5,0,1
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,5,5,0,0,15.446599999999998,24.142,8.695400000000001,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,4,4,0,0,19.1535,25.6675,6.514,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+SCD,duration_seconds,H0C0S0,H1C0S1,질문과 답변,2,2,0,0,18.26,28.934,10.674,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,6,6,0,0,0.7541833333333333,0.7331166666666666,-0.021066666666666668,0,2,4
+group_document,방법 질문 / CAD,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,5,4,1,1,0.802675,0.753675,-0.049,0,2,2
+group_document,수치 질문 / CAD,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,0.870325,0.806725,-0.06359999999999999,0,2,2
+group_document,방법 질문 / Mi:dm,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,5,3,2,2,0.8611666666666666,0.7837666666666667,-0.0774,0,1,2
+group_document,수치 질문 / Mi:dm,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,8,6,2,2,0.8470833333333333,0.7940333333333333,-0.05305000000000001,1,3,2
+group_document,방법 질문 / RAG Survey,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,10,5,5,5,0.6722,0.64148,-0.030719999999999997,1,1,3
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,5,2,3,3,0.7704,0.74085,-0.02955,0,1,1
+group_document,수치 질문 / RAPTOR,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,6,5,1,1,0.8075199999999999,0.789,-0.018520000000000002,2,2,1
+group_document,방법 질문 / RAPTOR,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,5,2,3,3,0.85545,0.8631500000000001,0.0077,0,0,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,0.838425,0.8043,-0.034124999999999996,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD+SCD,answer_relevancy,H0C0S0,H0C1S1,질문과 답변,2,2,0,0,0.8197,0.6838,-0.1359,0,1,1
+group_document,개념과 결과 질문 / CAD,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,6,6,0,0,0.5726716027788931,0.7578948040947395,0.18522320131584638,5,1,0
+group_document,방법 질문 / CAD,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,0.6117455019832991,0.7719660146612608,0.16022051267796164,4,0,1
+group_document,수치 질문 / CAD,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,0.5743869140640219,0.7806433933857564,0.20625647932173435,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,0.693741536210038,0.7969246262916934,0.10318309008165538,2,1,2
+group_document,수치 질문 / Mi:dm,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,8,8,0,0,0.5166517331430949,0.7524622789935653,0.23581054585047045,6,1,1
+group_document,방법 질문 / RAG Survey,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,10,10,0,0,0.24909676279863602,0.5000499677391728,0.25095320494053686,9,1,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,0.31703377467237737,0.7534241409714681,0.4363903662990909,4,0,1
+group_document,수치 질문 / RAPTOR,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,6,6,0,0,0.6828151469788323,0.7805157296207605,0.09770058264192837,5,0,1
+group_document,방법 질문 / RAPTOR,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,0.47148419632511607,0.7021417262624654,0.23065752993734936,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,0.46723941508178896,0.7555680407015164,0.28832862561972744,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD+SCD,korean_ratio,H0C0S0,H0C1S1,질문과 답변,2,2,0,0,0.4323630136986301,0.8254922839274734,0.39312927022884336,2,0,0
+group_document,개념과 결과 질문 / CAD,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,6,6,0,0,18.3245,78.95466666666668,60.63016666666667,6,0,0
+group_document,방법 질문 / CAD,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,16.4236,81.71020000000001,65.28659999999999,5,0,0
+group_document,수치 질문 / CAD,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,14.252,49.923249999999996,35.67124999999999,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,15.942599999999999,42.1766,26.234,4,1,0
+group_document,수치 질문 / Mi:dm,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,8,8,0,0,13.998249999999999,46.084374999999994,32.086125,7,1,0
+group_document,방법 질문 / RAG Survey,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,10,9,1,0,17.870444444444445,44.77388888888889,26.903444444444446,7,2,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,5,4,1,0,19.8535,63.54474999999999,43.691250000000004,4,0,0
+group_document,수치 질문 / RAPTOR,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,6,6,0,0,15.777333333333333,56.57583333333334,40.7985,5,1,0
+group_document,방법 질문 / RAPTOR,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,5,5,0,0,15.446599999999998,47.211200000000005,31.7646,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,4,4,0,0,19.1535,71.0975,51.944,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → CAD+SCD,duration_seconds,H0C0S0,H0C1S1,질문과 답변,2,2,0,0,18.26,35.678,17.418000000000003,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,6,6,0,0,0.7541833333333333,0.7427333333333334,-0.011449999999999993,2,3,1
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,5,4,1,1,0.802675,0.726675,-0.07600000000000001,0,3,1
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,4,3,1,1,0.8828333333333335,0.8261,-0.05673333333333334,0,2,1
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,5,3,2,2,0.8611666666666666,0.6689333333333334,-0.19223333333333334,0,2,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,8,7,1,1,0.8361142857142856,0.7937000000000001,-0.042414285714285724,1,2,4
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,10,8,2,2,0.600725,0.7074625,0.1067375,6,1,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,5,4,1,1,0.7745500000000001,0.79755,0.023,2,1,1
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,6,4,2,2,0.79155,0.815975,0.024425000000000002,0,0,4
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,5,3,2,2,0.7261000000000001,0.8287,0.10260000000000001,1,0,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,4,4,0,0,0.838425,0.802475,-0.035949999999999996,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,answer_relevancy,H0C0S0,H1C1S1,질문과 답변,2,1,1,1,0.9357,0.9357,0.0,0,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,6,6,0,0,0.5726716027788931,0.7893793067956758,0.21670770401678272,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,0.6117455019832991,0.6683391441318585,0.056593642148559366,4,1,0
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,4,4,0,0,0.5743869140640219,0.6683226420991037,0.09393572803508192,3,1,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,0.693741536210038,0.8199590189740931,0.12621748276405503,3,1,1
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,8,8,0,0,0.5166517331430949,0.6928496558770081,0.1761979227339133,5,2,1
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,10,10,0,0,0.24909676279863602,0.6218169243012717,0.37272016150263565,8,1,1
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,0.31703377467237737,0.736204934540693,0.4191711598683157,3,0,2
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,6,6,0,0,0.6828151469788323,0.8429186739851966,0.1601035270063645,6,0,0
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,0.47148419632511607,0.7057989443323762,0.23431474800726013,3,0,2
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,4,4,0,0,0.46723941508178896,0.8612583934767034,0.3940189783949144,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,korean_ratio,H0C0S0,H1C1S1,질문과 답변,2,2,0,0,0.4323630136986301,0.7792078382322285,0.3468448245335984,1,0,1
+group_document,개념과 결과 질문 / CAD,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,6,6,0,0,18.3245,72.03416666666668,53.709666666666664,6,0,0
+group_document,방법 질문 / CAD,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,16.4236,65.03620000000001,48.6126,5,0,0
+group_document,수치 질문 / CAD,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,4,4,0,0,14.252,61.7695,47.5175,4,0,0
+group_document,방법 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,15.942599999999999,64.384,48.441399999999994,4,1,0
+group_document,수치 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,8,8,0,0,13.998249999999999,51.417375,37.419125,8,0,0
+group_document,방법 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,10,9,1,0,17.870444444444445,67.62844444444445,49.758,8,1,0
+group_document,개념과 결과 질문 / RAG Survey,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,5,4,1,0,19.8535,71.54925,51.695750000000004,4,0,0
+group_document,수치 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,6,6,0,0,15.777333333333333,69.84933333333335,54.072,6,0,0
+group_document,방법 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,5,5,0,0,15.446599999999998,60.412,44.9654,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,4,4,0,0,19.1535,77.23349999999999,58.08,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,미적용 → HyDE+CAD+SCD,duration_seconds,H0C0S0,H1C1S1,질문과 답변,2,2,0,0,18.26,75.98249999999999,57.7225,2,0,0
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,6,6,0,0,0.9002833333333333,0.7823666666666668,-0.11791666666666667,1,4,1
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,5,5,0,0,0.7557,0.73838,-0.017320000000000002,3,2,0
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,4,4,0,0,0.7030500000000001,0.9391,0.23604999999999998,3,1,0
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,5,5,0,0,0.76694,0.79312,0.02618,3,2,0
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,8,8,0,0,0.8373375000000001,0.947875,0.1105375,4,2,2
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,10,10,0,0,0.7408500000000001,0.81677,0.07592000000000002,3,3,4
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,5,5,0,0,0.8892800000000001,0.91106,0.02178,2,2,1
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,6,6,0,0,0.9408833333333333,0.8920666666666667,-0.04881666666666667,2,3,1
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,5,5,0,0,0.9047599999999999,0.81494,-0.08982,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,4,4,0,0,0.875,0.9378,0.0628,2,2,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,faithfulness,H1C0S0,H1C1S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,6,6,0,0,0.7623000000000001,0.7486833333333335,-0.013616666666666666,2,2,2
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,5,4,1,1,0.7887,0.790025,0.0013249999999999998,1,1,2
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,4,4,0,0,0.865,0.8102750000000001,-0.054725,0,3,1
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,5,5,0,0,0.7838800000000001,0.7404999999999999,-0.04338,0,2,3
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,8,7,1,1,0.8426857142857141,0.8289571428571428,-0.013728571428571429,0,1,6
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,10,8,2,2,0.6768750000000001,0.6218625,-0.055012500000000006,1,4,3
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,5,4,1,1,0.8459,0.820375,-0.025525,0,1,3
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,6,5,1,1,0.79304,0.7992800000000001,0.006240000000000001,1,1,3
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,5,4,1,1,0.882775,0.8615999999999999,-0.021175000000000003,0,1,3
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,4,4,0,0,0.88295,0.8243499999999999,-0.0586,0,2,2
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,answer_relevancy,H1C0S0,H1C1S0,영어,2,2,0,0,0.87445,0.87825,0.0038,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,6,6,0,0,0.8120333333333334,0.7808,-0.03123333333333333,2,1,3
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,5,5,0,0,0.59112,0.72584,0.13472,2,0,3
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,4,4,0,0,0.79165,0.7722249999999999,-0.019425,0,1,3
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,5,5,0,0,0.67166,0.68834,0.016679999999999993,1,1,3
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,8,8,0,0,0.6552,0.670825,0.015625,1,1,6
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,10,10,0,0,0.74376,0.7116800000000001,-0.032080000000000004,2,2,6
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,5,5,0,0,0.89696,0.9025000000000001,0.005540000000000001,1,1,3
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,6,6,0,0,0.46343333333333336,0.6314833333333333,0.16805,3,0,3
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,5,5,0,0,0.8574999999999999,0.8074999999999999,-0.05,0,1,4
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,4,4,0,0,0.6875,0.735425,0.047925,2,1,1
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,context_precision,H1C0S0,H1C1S0,영어,2,2,0,0,0.76665,0.76665,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,5,5,0,0,0.8,1.0,0.2,1,0,4
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,5,5,0,0,1.0,0.8,-0.2,0,1,4
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,8,8,0,0,1.0,1.0,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,10,10,0,0,1.0,0.8,-0.2,0,2,8
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,6,6,0,0,0.6666666666666666,0.8333333333333334,0.16666666666666666,1,0,5
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,5,5,0,0,1.0,0.8,-0.2,0,1,4
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,4,4,0,0,0.75,1.0,0.25,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,context_recall,H1C0S0,H1C1S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,6,6,0,0,0.5722672792331799,0.6314134867592495,0.05914620752606952,4,1,1
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,5,5,0,0,0.5936956564895111,0.526375874130734,-0.06731978235877703,4,1,0
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,4,4,0,0,0.6462276772767424,0.5190524777290051,-0.12717519954773726,0,3,1
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,5,5,0,0,0.6046067264823546,0.39221443478042606,-0.21239229170192858,1,2,2
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,8,8,0,0,0.4803804970068988,0.45351906161956945,-0.026861435387329338,2,5,1
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,10,10,0,0,0.5021799435906872,0.41772237275602214,-0.08445757083466512,3,6,1
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,5,5,0,0,0.6429675937399276,0.459941262837515,-0.18302633090241255,1,4,0
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,6,6,0,0,0.5836941933443999,0.6083889165305472,0.024694723186147263,2,3,1
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,5,5,0,0,0.637688494454042,0.535339622270619,-0.1023488721834229,1,3,1
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,4,4,0,0,0.4522625877706393,0.6188730352785624,0.16661044750792312,3,1,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,korean_ratio,H1C0S0,H1C1S0,영어,2,2,0,0,0.38920056100981765,0.41125290023201855,0.0220523392222009,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,6,6,0,0,25.334333333333333,78.20166666666667,52.86733333333333,6,0,0
+group_document,방법 질문 / CAD,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,5,5,0,0,24.498199999999997,76.5954,52.0972,5,0,0
+group_document,수치 질문 / CAD,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,4,4,0,0,20.8125,63.543749999999996,42.73125,4,0,0
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,5,5,0,0,24.6414,81.4164,56.775,5,0,0
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,8,8,0,0,20.663,57.292375,36.629374999999996,8,0,0
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,10,9,1,0,25.59144444444444,88.67366666666666,63.08222222222222,9,0,0
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,5,4,1,0,24.3425,69.47375,45.13125,4,0,0
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,6,6,0,0,21.261666666666667,63.02166666666667,41.76,6,0,0
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,5,5,0,0,21.6088,60.3626,38.7538,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,4,4,0,0,25.345,73.2035,47.8585,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+CAD,duration_seconds,H1C0S0,H1C1S0,영어,2,2,0,0,26.974,93.0275,66.0535,2,0,0
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,6,6,0,0,0.875,0.7823666666666668,-0.09263333333333333,0,3,3
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,5,5,0,0,0.9522,0.73838,-0.21381999999999998,0,4,1
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,4,4,0,0,0.928225,0.9391,0.010875000000000003,2,1,1
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,5,5,0,0,0.8913,0.79312,-0.09818,1,3,1
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,8,8,0,0,0.8311250000000001,0.947875,0.11674999999999999,6,1,1
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,10,8,2,0,0.684825,0.8133,0.128475,2,1,5
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,5,5,0,0,0.6,0.91106,0.31106,4,1,0
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,6,6,0,0,0.9601333333333333,0.8920666666666667,-0.06806666666666666,2,3,1
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,5,5,0,0,0.8807600000000001,0.81494,-0.06581999999999999,1,3,1
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,4,4,0,0,0.9058250000000001,0.9378,0.031975,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,faithfulness,H0C1S0,H1C1S0,영어,2,2,0,0,0.76925,1.0,0.23075,1,0,1
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,6,6,0,0,0.7257166666666667,0.7486833333333335,0.022966666666666673,1,1,4
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,5,5,0,0,0.70634,0.7240599999999999,0.017720000000000003,1,2,2
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,4,4,0,0,0.7957000000000001,0.8102750000000001,0.014575000000000003,1,0,3
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,5,4,1,1,0.798875,0.71675,-0.082125,1,2,1
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,8,7,1,1,0.8113857142857143,0.8026714285714285,-0.008714285714285714,1,1,5
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,10,6,4,4,0.6209333333333334,0.5974166666666667,-0.02351666666666667,1,2,3
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,5,3,2,2,0.6987,0.8193666666666667,0.12066666666666666,2,0,1
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,6,5,1,1,0.79248,0.7992800000000001,0.0068000000000000005,0,0,5
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,5,4,1,1,0.7812999999999999,0.8615999999999999,0.0803,1,0,3
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,4,3,1,1,0.8462333333333333,0.8366333333333333,-0.0096,0,0,3
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,answer_relevancy,H0C1S0,H1C1S0,영어,2,2,0,0,0.8546499999999999,0.87825,0.0236,0,0,2
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,6,6,0,0,0.8085666666666667,0.7808,-0.02776666666666666,3,1,2
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,5,5,0,0,0.68556,0.72584,0.040279999999999996,1,1,3
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,4,4,0,0,0.780575,0.7722249999999999,-0.00835,0,0,4
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,5,5,0,0,0.61666,0.68834,0.07168000000000001,2,2,1
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,8,8,0,0,0.6984375,0.670825,-0.027612500000000005,2,2,4
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,10,10,0,0,0.7796000000000001,0.7116800000000001,-0.06792000000000001,2,3,5
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,5,5,0,0,0.83668,0.9025000000000001,0.06581999999999999,3,1,1
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,6,6,0,0,0.5597166666666668,0.6314833333333333,0.07176666666666667,3,2,1
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,5,5,0,0,0.8066599999999999,0.8074999999999999,0.0008400000000000046,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,4,4,0,0,0.8125,0.735425,-0.077075,0,2,2
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,context_precision,H0C1S0,H1C1S0,영어,2,2,0,0,0.8396,0.76665,-0.07295,0,1,1
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,4,4,0,0,0.75,1.0,0.25,1,0,3
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,5,5,0,0,0.8,0.8,0.0,1,1,3
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,8,8,0,0,0.875,1.0,0.125,1,0,7
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,10,10,0,0,0.9,0.8,-0.1,0,1,9
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,5,5,0,0,0.8,0.8,0.0,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,context_recall,H0C1S0,H1C1S0,영어,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,6,6,0,0,0.5469664987832971,0.6314134867592495,0.08444698797595225,3,1,2
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,5,5,0,0,0.5057969741889772,0.526375874130734,0.02057889994175679,2,1,2
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,4,4,0,0,0.599358420726559,0.5190524777290051,-0.08030594299755392,0,2,2
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,5,5,0,0,0.6452693094590423,0.39221443478042606,-0.25305487467861626,1,3,1
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,8,8,0,0,0.5208683341857676,0.45351906161956945,-0.06734927256619822,2,4,2
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,10,10,0,0,0.23314228317859062,0.41772237275602214,0.18458008957743155,6,2,2
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,5,5,0,0,0.5369081116757862,0.459941262837515,-0.07696684883827114,1,4,0
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,6,6,0,0,0.6177055806054751,0.6083889165305472,-0.009316664074927962,3,3,0
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,5,5,0,0,0.46788429855226515,0.535339622270619,0.06745532371835386,2,2,1
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,4,4,0,0,0.5008704970023601,0.6188730352785624,0.11800253827620233,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,korean_ratio,H0C1S0,H1C1S0,영어,2,2,0,0,0.29904491917248827,0.41125290023201855,0.11220798105953031,1,0,1
+group_document,개념과 결과 질문 / CAD,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,6,6,0,0,76.81349999999999,78.20166666666667,1.3881666666666668,4,2,0
+group_document,방법 질문 / CAD,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,5,5,0,0,73.651,76.5954,2.944399999999999,3,2,0
+group_document,수치 질문 / CAD,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,4,4,0,0,60.15975,63.543749999999996,3.384,2,1,1
+group_document,방법 질문 / Mi:dm,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,5,5,0,0,58.8652,81.4164,22.5512,4,1,0
+group_document,수치 질문 / Mi:dm,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,8,8,0,0,50.54575,57.292375,6.746625,6,1,1
+group_document,방법 질문 / RAG Survey,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,10,9,1,0,72.93211111111111,88.67366666666666,15.741555555555554,8,1,0
+group_document,개념과 결과 질문 / RAG Survey,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,5,4,1,0,39.64874999999999,69.47375,29.825,2,2,0
+group_document,수치 질문 / RAPTOR,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,6,6,0,0,58.728500000000004,63.02166666666667,4.293166666666666,3,3,0
+group_document,방법 질문 / RAPTOR,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,5,5,0,0,58.40260000000001,60.3626,1.9600000000000002,3,2,0
+group_document,개념과 결과 질문 / RAPTOR,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,4,4,0,0,81.235,73.2035,-8.0315,2,2,0
+group_document,개념과 결과 질문 / Mi:dm,CAD → HyDE+CAD,duration_seconds,H0C1S0,H1C1S0,영어,2,2,0,0,84.882,93.0275,8.1455,2,0,0
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.9154,0.8058333333333333,-0.10956666666666666,0,4,2
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.9666599999999999,0.8313600000000001,-0.1353,1,2,2
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.8258,0.798825,-0.026974999999999996,2,2,0
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.68886,0.74548,0.05661999999999999,3,2,0
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,8,8,0,0,0.8509375,0.845925,-0.005012499999999996,3,3,2
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,10,7,3,0,0.5229,0.9032714285714286,0.3803714285714285,6,0,1
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.6766,0.75358,0.07698,3,1,1
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.8591500000000001,0.8721,0.012950000000000003,3,2,1
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.7381,0.9288399999999999,0.19074000000000002,3,1,1
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.814575,0.83035,0.015775000000000004,2,1,1
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,faithfulness,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,0.9116500000000001,0.75,-0.16165,1,1,0
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.7475666666666666,0.7490500000000001,0.0014833333333333365,1,1,4
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.7240399999999999,0.74308,0.019040000000000012,1,1,3
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.7355499999999999,0.7613000000000001,0.02575,1,0,3
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,5,3,2,2,0.8443666666666667,0.8509666666666668,0.006600000000000001,0,0,3
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,8,7,1,1,0.8140571428571429,0.864657142857143,0.05059999999999999,2,1,4
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,10,6,4,4,0.6479833333333332,0.71455,0.06656666666666666,2,2,2
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,5,3,2,2,0.7464333333333334,0.8508333333333334,0.10439999999999999,1,1,1
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,6,4,2,2,0.7862499999999999,0.7898499999999999,0.003600000000000002,2,1,1
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,5,3,2,2,0.6937666666666665,0.8800333333333334,0.18626666666666666,2,0,1
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.76125,0.83295,0.07170000000000001,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,answer_relevancy,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,0.88575,0.63605,-0.2497,0,1,1
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.9314833333333333,0.8990833333333333,-0.0324,0,1,5
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.68556,0.6925,0.006940000000000002,1,1,3
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.780575,0.79165,0.011075000000000002,1,0,3
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.61666,0.53834,-0.07832000000000001,1,2,2
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,8,8,0,0,0.7151000000000001,0.7020875,-0.0130125,2,1,5
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,10,10,0,0,0.76223,0.72085,-0.04138000000000001,3,3,4
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.89528,0.8478,-0.04748000000000001,2,3,0
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.5875,0.6750166666666667,0.08751666666666669,3,1,2
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.8066599999999999,0.7699999999999999,-0.03666,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.8812500000000001,0.8357749999999999,-0.045475,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,context_precision,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,0.8396,0.76665,-0.07295,0,1,1
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,1.0,1.0,0.0,0,0,6
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.8,0.6,-0.2,1,2,2
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,8,8,0,0,0.875,0.875,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,10,10,0,0,0.8,0.8,0.0,1,1,8
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.8333333333333334,0.8333333333333334,0.0,1,1,4
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.8,1.0,0.2,1,0,4
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,context_recall,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.864178615707227,0.9081637757947462,0.04398516008751909,3,0,3
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.7828716590682545,0.6618653961236547,-0.12100626294459978,1,1,3
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.8615074787238707,0.8343113915084721,-0.027196087215398575,0,1,3
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.943633242485131,0.8857408235583781,-0.05789241892675292,0,2,3
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,8,8,0,0,0.7740934416150651,0.8811655386491388,0.10707209703407368,4,0,4
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,10,10,0,0,0.30805519223469396,0.7707339057997429,0.462678713565049,7,3,0
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.576300053442461,0.7530768391125695,0.17677678567010857,2,0,3
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,0.8345567137080571,0.7734269620384321,-0.061129751669625115,1,1,4
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,0.7055046251669124,0.8363649109251728,0.1308602857582605,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,0.752078019064416,0.8996553879160234,0.1475773688516075,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,korean_ratio,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,0.489778534923339,0.4821428571428572,-0.0076356777804818,0,0,2
+group_document,개념과 결과 질문 / CAD,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,20.395999999999997,27.72,7.324000000000001,6,0,0
+group_document,방법 질문 / CAD,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,18.507600000000004,25.3136,6.806,4,1,0
+group_document,수치 질문 / CAD,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,16.80325,25.6995,8.89625,4,0,0
+group_document,방법 질문 / Mi:dm,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,16.9058,26.186799999999998,9.281,5,0,0
+group_document,수치 질문 / Mi:dm,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,8,8,0,0,17.448125,23.19375,5.745625,7,1,0
+group_document,방법 질문 / RAG Survey,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,10,9,1,0,20.609222222222222,21.275666666666666,0.6664444444444444,4,3,2
+group_document,개념과 결과 질문 / RAG Survey,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,5,4,1,0,20.1445,27.3345,7.1899999999999995,4,0,0
+group_document,수치 질문 / RAPTOR,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,6,6,0,0,16.304333333333336,24.138166666666667,7.833833333333332,6,0,0
+group_document,방법 질문 / RAPTOR,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,5,5,0,0,16.6362,24.142,7.505799999999999,4,1,0
+group_document,개념과 결과 질문 / RAPTOR,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,4,4,0,0,21.539749999999998,25.6675,4.127750000000001,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,SCD → HyDE+SCD,duration_seconds,H0C0S1,H1C0S1,한국어 번역,2,2,0,0,21.337,28.934,7.5969999999999995,2,0,0
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.9154,0.92955,0.014149999999999998,2,1,3
+group_document,방법 질문 / CAD,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.9666599999999999,0.85052,-0.11614,1,4,0
+group_document,수치 질문 / CAD,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.8258,0.758325,-0.06747500000000001,1,1,2
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.68886,0.8888999999999999,0.20004,3,1,1
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,8,8,0,0,0.8509375,0.7215125,-0.129425,3,3,2
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,10,7,3,0,0.5229,0.6052428571428571,0.08234285714285713,3,3,1
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.6766,0.57046,-0.10613999999999998,3,2,0
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.8591500000000001,0.8344666666666667,-0.024683333333333335,2,3,1
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.7381,0.87058,0.13248,3,0,2
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.814575,0.8875,0.072925,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,faithfulness,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,0.9116500000000001,0.8889,-0.02275,1,1,0
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.7475666666666666,0.7331166666666666,-0.01445,1,1,4
+group_document,방법 질문 / CAD,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.7240399999999999,0.6815,-0.04254,0,2,3
+group_document,수치 질문 / CAD,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.7355499999999999,0.806725,0.071175,2,0,2
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,5,3,2,2,0.8443666666666667,0.7837666666666667,-0.060599999999999994,0,1,2
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,8,7,1,1,0.7905142857142857,0.7413714285714287,-0.04914285714285715,1,3,3
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,10,5,5,5,0.6963199999999999,0.64148,-0.05484,0,1,4
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,5,2,3,3,0.6696,0.74085,0.07125000000000001,1,1,0
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,6,5,1,1,0.78264,0.789,0.00636,2,1,2
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,5,2,3,3,0.8595999999999999,0.8631500000000001,0.00355,0,0,2
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.76125,0.8043,0.04305,1,2,1
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,answer_relevancy,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,0.88575,0.6838,-0.20195,0,1,1
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.9314833333333333,0.8085666666666667,-0.12291666666666667,0,2,4
+group_document,방법 질문 / CAD,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.68556,0.68556,0.0,0,0,5
+group_document,수치 질문 / CAD,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.780575,0.780575,0.0,0,0,4
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.61666,0.61666,0.0,0,0,5
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,8,8,0,0,0.7151000000000001,0.6984375,-0.0166625,0,1,7
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,10,10,0,0,0.76223,0.76764,0.00541,1,0,9
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.89528,0.89,-0.005279999999999998,1,1,3
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.5875,0.5791666666666667,-0.008333333333333333,0,0,6
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.8066599999999999,0.8066599999999999,0.0,0,0,5
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.8812500000000001,0.9375,0.05625,2,0,2
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,context_precision,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,0.8396,0.8396,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,1.0,0.8333333333333334,-0.16666666666666666,0,1,5
+group_document,방법 질문 / CAD,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,1.0,0.75,-0.25,0,1,3
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.8,0.6,-0.2,0,1,4
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,8,8,0,0,0.875,0.875,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,10,10,0,0,0.8,0.8,0.0,0,0,10
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.8333333333333334,0.8333333333333334,0.0,0,0,6
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.8,0.8,0.0,0,0,5
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,context_recall,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.864178615707227,0.7578948040947395,-0.10628381161248755,1,3,2
+group_document,방법 질문 / CAD,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.7828716590682545,0.7719660146612608,-0.010905644406993698,2,2,1
+group_document,수치 질문 / CAD,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.8615074787238707,0.7806433933857564,-0.08086408533811437,0,3,1
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.943633242485131,0.7969246262916934,-0.14670861619343772,0,3,2
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,8,8,0,0,0.7740934416150651,0.7524622789935653,-0.021631162621499785,1,2,5
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,10,10,0,0,0.30805519223469396,0.5000499677391728,0.1919947755044789,6,3,1
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.576300053442461,0.7534241409714681,0.1771240875290072,3,1,1
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,0.8345567137080571,0.7805157296207605,-0.054040984087296566,1,3,2
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,0.7055046251669124,0.7021417262624654,-0.0033628989044469622,1,1,3
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,0.752078019064416,0.7555680407015164,0.003490021637100448,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,korean_ratio,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,0.489778534923339,0.8254922839274734,0.3357137490041345,1,0,1
+group_document,개념과 결과 질문 / CAD,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,20.395999999999997,78.95466666666668,58.558666666666674,6,0,0
+group_document,방법 질문 / CAD,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,18.507600000000004,81.71020000000001,63.202600000000004,5,0,0
+group_document,수치 질문 / CAD,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,16.80325,49.923249999999996,33.12,4,0,0
+group_document,방법 질문 / Mi:dm,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,16.9058,42.1766,25.2708,4,1,0
+group_document,수치 질문 / Mi:dm,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,8,8,0,0,17.448125,46.084374999999994,28.636250000000004,7,1,0
+group_document,방법 질문 / RAG Survey,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,10,9,1,0,20.609222222222222,44.77388888888889,24.164666666666665,7,2,0
+group_document,개념과 결과 질문 / RAG Survey,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,5,4,1,0,20.1445,63.54474999999999,43.40025,4,0,0
+group_document,수치 질문 / RAPTOR,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,6,6,0,0,16.304333333333336,56.57583333333334,40.2715,5,0,1
+group_document,방법 질문 / RAPTOR,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,5,5,0,0,16.6362,47.211200000000005,30.575,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,4,4,0,0,21.539749999999998,71.0975,49.55775,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,SCD → CAD+SCD,duration_seconds,H0C0S1,H0C1S1,한국어 번역,2,2,0,0,21.337,35.678,14.341,1,1,0
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.8058333333333333,0.79625,-0.009583333333333326,3,3,0
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.8313600000000001,0.76666,-0.06470000000000001,1,2,2
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.798825,0.825,0.026175000000000004,1,2,1
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.74548,0.70778,-0.0377,1,2,2
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,8,8,0,0,0.845925,0.9702375,0.12431249999999999,4,0,4
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,10,10,0,0,0.81888,0.74982,-0.06906,5,4,1
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.75358,0.8316600000000001,0.07808000000000001,1,1,3
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.8721,0.9373333333333335,0.06523333333333332,4,2,0
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.9288399999999999,0.8493,-0.07954,0,3,2
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.83035,0.989575,0.159225,2,0,2
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,faithfulness,H1C0S1,H1C1S1,한국어 번역,2,2,0,0,0.75,0.5892999999999999,-0.1607,0,2,0
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.7490500000000001,0.7427333333333334,-0.006316666666666666,0,1,5
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.74308,0.73954,-0.003539999999999999,1,2,2
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,4,3,1,1,0.7645333333333334,0.8261,0.061566666666666665,1,0,2
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.78598,0.71036,-0.07561999999999999,1,2,2
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,8,7,1,1,0.864657142857143,0.7937000000000001,-0.07095714285714286,1,2,4
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,10,6,4,4,0.75045,0.7106500000000001,-0.039799999999999995,1,2,3
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,5,4,1,1,0.8540500000000001,0.79755,-0.056499999999999995,0,1,3
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,6,5,1,1,0.7698599999999999,0.79152,0.021660000000000002,0,0,5
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,5,4,1,1,0.8695249999999999,0.8326749999999999,-0.03685,0,2,2
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.83295,0.802475,-0.030474999999999995,0,2,2
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,answer_relevancy,H1C0S1,H1C1S1,한국어 번역,2,1,1,1,0.9357,0.9357,0.0,0,0,1
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.8990833333333333,0.7777666666666666,-0.12131666666666667,0,2,4
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.6925,0.7175,0.025,1,0,4
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.79165,0.708325,-0.083325,0,1,3
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.53834,0.78166,0.24331999999999998,3,0,2
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,8,8,0,0,0.7020875,0.670825,-0.0312625,0,2,6
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,10,10,0,0,0.72085,0.7909799999999999,0.07013,3,0,7
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.8478,0.8886200000000001,0.04082,1,1,3
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.6750166666666667,0.6833499999999999,0.008333333333333337,2,1,3
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.7699999999999999,0.74084,-0.029160000000000002,0,1,4
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.8357749999999999,0.848275,0.0125,1,1,2
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_precision,H1C0S1,H1C1S1,한국어 번역,2,2,0,0,0.76665,0.6625,-0.10415,0,1,1
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,1.0,1.0,0.0,0,0,6
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,1.0,0.5,-0.5,0,2,2
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.6,1.0,0.4,2,0,3
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,8,8,0,0,0.875,0.875,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,10,10,0,0,0.8,0.9,0.1,1,0,9
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.8333333333333334,0.8333333333333334,0.0,0,0,6
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,context_recall,H1C0S1,H1C1S1,한국어 번역,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.9081637757947462,0.7893793067956758,-0.11878446899907032,0,4,2
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.6618653961236547,0.6683391441318585,0.0064737480082038,1,1,3
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.8343113915084721,0.6683226420991037,-0.16598874940936825,0,4,0
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.8857408235583781,0.8199590189740931,-0.06578180458428515,0,2,3
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,8,8,0,0,0.8811655386491388,0.6928496558770081,-0.18831588277213063,0,4,4
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,10,10,0,0,0.7707339057997429,0.6218169243012717,-0.14891698149847127,0,6,4
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.7530768391125695,0.736204934540693,-0.016871904571876484,1,2,2
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,0.7734269620384321,0.8429186739851966,0.06949171194676468,2,2,2
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,0.8363649109251728,0.7057989443323762,-0.13056596659279668,0,3,2
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,0.8996553879160234,0.8612583934767034,-0.03839699443932007,0,1,3
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,korean_ratio,H1C0S1,H1C1S1,한국어 번역,2,2,0,0,0.4821428571428572,0.7792078382322285,0.2970649810893713,1,1,0
+group_document,개념과 결과 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,27.72,72.03416666666668,44.314166666666665,6,0,0
+group_document,방법 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,25.3136,65.03620000000001,39.72259999999999,5,0,0
+group_document,수치 질문 / CAD,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,25.6995,61.7695,36.07,4,0,0
+group_document,방법 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,26.186799999999998,64.384,38.1972,4,1,0
+group_document,수치 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,8,8,0,0,23.19375,51.417375,28.223625,8,0,0
+group_document,방법 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,10,9,1,0,21.275666666666666,67.62844444444445,46.35277777777778,8,1,0
+group_document,개념과 결과 질문 / RAG Survey,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,5,4,1,0,27.3345,71.54925,44.21475,4,0,0
+group_document,수치 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,6,6,0,0,24.138166666666667,69.84933333333335,45.711166666666664,6,0,0
+group_document,방법 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,5,5,0,0,24.142,60.412,36.27,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,4,4,0,0,25.6675,77.23349999999999,51.56599999999999,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE+SCD → HyDE+CAD+SCD,duration_seconds,H1C0S1,H1C1S1,한국어 번역,2,2,0,0,28.934,75.98249999999999,47.048500000000004,2,0,0
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.92955,0.79625,-0.1333,0,4,2
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.85052,0.76666,-0.08386000000000002,2,2,1
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.758325,0.825,0.066675,2,0,2
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.8888999999999999,0.70778,-0.18112,1,3,1
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,8,8,0,0,0.7215125,0.9702375,0.24872499999999997,5,2,1
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,10,10,0,0,0.59867,0.74982,0.15114999999999998,6,2,2
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.57046,0.8316600000000001,0.2612,3,2,0
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.8344666666666667,0.9373333333333335,0.10286666666666668,3,2,1
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.87058,0.8493,-0.02128,1,3,1
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.8875,0.989575,0.102075,3,0,1
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,faithfulness,H0C1S1,H1C1S1,한국어 번역,2,2,0,0,0.8889,0.5892999999999999,-0.29960000000000003,0,2,0
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.7331166666666666,0.7427333333333334,0.009616666666666667,1,2,3
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.6815,0.73954,0.05804,1,1,3
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,4,3,1,1,0.8541666666666666,0.8261,-0.028066666666666667,0,1,2
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,5,4,1,1,0.7606999999999999,0.6745749999999999,-0.08612500000000001,0,1,3
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,8,6,2,2,0.7940333333333333,0.7897833333333333,-0.004250000000000001,2,1,3
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,10,5,5,5,0.64148,0.7179399999999999,0.07646,2,1,2
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,5,2,3,3,0.74085,0.8228,0.08195,2,0,0
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,6,5,1,1,0.7576,0.79152,0.03392,3,1,1
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,5,2,3,3,0.8277,0.8180000000000001,-0.0097,0,0,2
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.8043,0.802475,-0.001824999999999999,1,0,3
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,answer_relevancy,H0C1S1,H1C1S1,한국어 번역,2,1,1,1,0.9357,0.9357,0.0,0,0,1
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.8085666666666667,0.7777666666666666,-0.03080000000000001,1,2,3
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.68556,0.7175,0.03194,1,1,3
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.780575,0.708325,-0.07225000000000001,1,1,2
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.61666,0.78166,0.165,3,0,2
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,8,8,0,0,0.6984375,0.670825,-0.0276125,2,1,5
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,10,10,0,0,0.76764,0.7909799999999999,0.023340000000000007,4,3,3
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.89,0.8886200000000001,-0.0013800000000000034,1,2,2
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.5791666666666667,0.6833499999999999,0.10418333333333334,3,1,2
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.8066599999999999,0.74084,-0.06582,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.9375,0.848275,-0.089225,0,2,2
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_precision,H0C1S1,H1C1S1,한국어 번역,2,2,0,0,0.8396,0.6625,-0.1771,0,1,1
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.8333333333333334,1.0,0.16666666666666666,1,0,5
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.75,0.5,-0.25,0,1,3
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.6,1.0,0.4,2,0,3
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,8,8,0,0,0.875,0.875,0.0,0,0,8
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,10,10,0,0,0.8,0.9,0.1,2,1,7
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,1.0,1.0,0.0,0,0,5
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.8333333333333334,0.8333333333333334,0.0,1,1,4
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.8,1.0,0.2,1,0,4
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,1.0,1.0,0.0,0,0,4
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,context_recall,H0C1S1,H1C1S1,한국어 번역,2,2,0,0,1.0,1.0,0.0,0,0,2
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.7578948040947395,0.7893793067956758,0.03148450270093633,2,1,3
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.7719660146612608,0.6683391441318585,-0.10362687052940227,1,2,2
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.7806433933857564,0.6683226420991037,-0.11232075128665245,0,3,1
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.7969246262916934,0.8199590189740931,0.023034392682399638,2,1,2
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,8,8,0,0,0.7524622789935653,0.6928496558770081,-0.05961262311655714,1,2,5
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,10,10,0,0,0.5000499677391728,0.6218169243012717,0.12176695656209886,5,2,3
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.7534241409714681,0.736204934540693,-0.017219206430775107,2,1,2
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,0.7805157296207605,0.8429186739851966,0.062402944364436136,2,0,4
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,0.7021417262624654,0.7057989443323762,0.0036572180699107914,1,2,2
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,0.7555680407015164,0.8612583934767034,0.10569035277518697,2,0,2
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,korean_ratio,H0C1S1,H1C1S1,한국어 번역,2,2,0,0,0.8254922839274734,0.7792078382322285,-0.04628444569524505,0,1,1
+group_document,개념과 결과 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,78.95466666666668,72.03416666666668,-6.9205,2,4,0
+group_document,방법 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,81.71020000000001,65.03620000000001,-16.674,2,3,0
+group_document,수치 질문 / CAD,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,49.923249999999996,61.7695,11.84625,4,0,0
+group_document,방법 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,42.1766,64.384,22.2074,4,1,0
+group_document,수치 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,8,8,0,0,46.084374999999994,51.417375,5.333,6,2,0
+group_document,방법 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,10,9,1,0,44.77388888888889,67.62844444444445,22.854555555555553,5,4,0
+group_document,개념과 결과 질문 / RAG Survey,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,5,4,1,0,63.54474999999999,71.54925,8.0045,2,2,0
+group_document,수치 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,6,6,0,0,56.57583333333334,69.84933333333335,13.2735,5,1,0
+group_document,방법 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,5,5,0,0,47.211200000000005,60.412,13.200800000000001,4,1,0
+group_document,개념과 결과 질문 / RAPTOR,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,4,4,0,0,71.0975,77.23349999999999,6.136000000000001,3,1,0
+group_document,개념과 결과 질문 / Mi:dm,CAD+SCD → HyDE+CAD+SCD,duration_seconds,H0C1S1,H1C1S1,한국어 번역,2,2,0,0,35.678,75.98249999999999,40.3045,2,0,0
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,6,6,0,0,0.5722672792331799,0.9081637757947462,0.3358964965615663,6,0,0
+group_document,방법 질문 / CAD,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,5,5,0,0,0.5936956564895111,0.6618653961236547,0.06816973963414379,4,1,0
+group_document,수치 질문 / CAD,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,4,4,0,0,0.6462276772767424,0.8343113915084721,0.18808371423172968,4,0,0
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,5,5,0,0,0.6046067264823546,0.8857408235583781,0.2811340970760235,4,0,1
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,8,8,0,0,0.4803804970068988,0.8811655386491388,0.40078504164224,8,0,0
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,10,10,0,0,0.5021799435906872,0.7707339057997429,0.26855396220905564,10,0,0
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,5,5,0,0,0.6429675937399276,0.7530768391125695,0.11010924537264188,5,0,0
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,6,6,0,0,0.5836941933443999,0.7734269620384321,0.18973276869403213,5,0,1
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,5,5,0,0,0.637688494454042,0.8363649109251728,0.19867641647113093,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,4,4,0,0,0.4522625877706393,0.8996553879160234,0.44739280014538413,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+SCD,korean_ratio,H1C0S0,H1C0S1,,2,2,0,0,0.38920056100981765,0.4821428571428572,0.09294229613303955,1,0,1
+group_document,개념과 결과 질문 / CAD,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,6,6,0,0,25.334333333333333,27.72,2.385666666666667,4,1,1
+group_document,방법 질문 / CAD,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,5,5,0,0,24.498199999999997,25.3136,0.8154,2,1,2
+group_document,수치 질문 / CAD,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,4,4,0,0,20.8125,25.6995,4.8870000000000005,4,0,0
+group_document,방법 질문 / Mi:dm,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,5,5,0,0,24.6414,26.186799999999998,1.5454,3,1,1
+group_document,수치 질문 / Mi:dm,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,8,8,0,0,20.663,23.19375,2.53075,6,1,1
+group_document,방법 질문 / RAG Survey,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,10,9,1,0,25.59144444444444,21.275666666666666,-4.315777777777778,2,5,2
+group_document,개념과 결과 질문 / RAG Survey,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,5,4,1,0,24.3425,27.3345,2.992,3,0,1
+group_document,수치 질문 / RAPTOR,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,6,6,0,0,21.261666666666667,24.138166666666667,2.8765,5,0,1
+group_document,방법 질문 / RAPTOR,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,5,5,0,0,21.6088,24.142,2.5332,4,0,1
+group_document,개념과 결과 질문 / RAPTOR,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,4,4,0,0,25.345,25.6675,0.3224999999999999,2,1,1
+group_document,개념과 결과 질문 / Mi:dm,HyDE → HyDE+SCD,duration_seconds,H1C0S0,H1C0S1,,2,2,0,0,26.974,28.934,1.96,2,0,0
+group_document,개념과 결과 질문 / CAD,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,6,6,0,0,0.5469664987832971,0.7578948040947395,0.21092830531144233,5,0,1
+group_document,방법 질문 / CAD,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,5,5,0,0,0.5057969741889772,0.7719660146612608,0.2661690404722836,5,0,0
+group_document,수치 질문 / CAD,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,4,4,0,0,0.599358420726559,0.7806433933857564,0.1812849726591972,3,0,1
+group_document,방법 질문 / Mi:dm,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,5,5,0,0,0.6452693094590423,0.7969246262916934,0.151655316832651,4,1,0
+group_document,수치 질문 / Mi:dm,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,8,8,0,0,0.5208683341857676,0.7524622789935653,0.2315939448077976,7,0,1
+group_document,방법 질문 / RAG Survey,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,10,10,0,0,0.23314228317859062,0.5000499677391728,0.2669076845605822,9,0,1
+group_document,개념과 결과 질문 / RAG Survey,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,5,5,0,0,0.5369081116757862,0.7534241409714681,0.21651602929568198,4,0,1
+group_document,수치 질문 / RAPTOR,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,6,6,0,0,0.6177055806054751,0.7805157296207605,0.16281014901528548,5,0,1
+group_document,방법 질문 / RAPTOR,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,5,5,0,0,0.46788429855226515,0.7021417262624654,0.2342574277102003,5,0,0
+group_document,개념과 결과 질문 / RAPTOR,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,4,4,0,0,0.5008704970023601,0.7555680407015164,0.2546975436991563,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,CAD → CAD+SCD,korean_ratio,H0C1S0,H0C1S1,,2,2,0,0,0.29904491917248827,0.8254922839274734,0.5264473647549852,2,0,0
+group_document,개념과 결과 질문 / CAD,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,6,6,0,0,76.81349999999999,78.95466666666668,2.1411666666666664,3,3,0
+group_document,방법 질문 / CAD,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,5,5,0,0,73.651,81.71020000000001,8.0592,3,1,1
+group_document,수치 질문 / CAD,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,4,4,0,0,60.15975,49.923249999999996,-10.236500000000001,0,4,0
+group_document,방법 질문 / Mi:dm,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,5,5,0,0,58.8652,42.1766,-16.6886,1,4,0
+group_document,수치 질문 / Mi:dm,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,8,8,0,0,50.54575,46.084374999999994,-4.461375,4,3,1
+group_document,방법 질문 / RAG Survey,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,10,9,1,0,72.93211111111111,44.77388888888889,-28.15822222222222,2,7,0
+group_document,개념과 결과 질문 / RAG Survey,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,5,4,1,0,39.64874999999999,63.54474999999999,23.896,3,1,0
+group_document,수치 질문 / RAPTOR,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,6,6,0,0,58.728500000000004,56.57583333333334,-2.152666666666668,4,2,0
+group_document,방법 질문 / RAPTOR,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,5,5,0,0,58.40260000000001,47.211200000000005,-11.1914,3,2,0
+group_document,개념과 결과 질문 / RAPTOR,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,4,4,0,0,81.235,71.0975,-10.1375,2,2,0
+group_document,개념과 결과 질문 / Mi:dm,CAD → CAD+SCD,duration_seconds,H0C1S0,H0C1S1,,2,2,0,0,84.882,35.678,-49.204,0,2,0
+group_document,개념과 결과 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,6,6,0,0,0.6314134867592495,0.7893793067956758,0.15796582003642645,5,1,0
+group_document,방법 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,5,5,0,0,0.526375874130734,0.6683391441318585,0.14196327000112458,5,0,0
+group_document,수치 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,4,4,0,0,0.5190524777290051,0.6683226420991037,0.14927016437009866,4,0,0
+group_document,방법 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,5,5,0,0,0.39221443478042606,0.8199590189740931,0.427744584193667,5,0,0
+group_document,수치 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,8,8,0,0,0.45351906161956945,0.6928496558770081,0.23933059425743874,7,0,1
+group_document,방법 질문 / RAG Survey,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,10,10,0,0,0.41772237275602214,0.6218169243012717,0.20409455154524953,8,1,1
+group_document,개념과 결과 질문 / RAG Survey,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,5,5,0,0,0.459941262837515,0.736204934540693,0.276263671703178,4,1,0
+group_document,수치 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,6,6,0,0,0.6083889165305472,0.8429186739851966,0.23452975745464955,6,0,0
+group_document,방법 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,5,5,0,0,0.535339622270619,0.7057989443323762,0.17045932206175723,4,0,1
+group_document,개념과 결과 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,4,4,0,0,0.6188730352785624,0.8612583934767034,0.24238535819814097,4,0,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,korean_ratio,H1C1S0,H1C1S1,,2,2,0,0,0.41125290023201855,0.7792078382322285,0.3679549380002099,2,0,0
+group_document,개념과 결과 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,6,6,0,0,78.20166666666667,72.03416666666668,-6.1674999999999995,3,3,0
+group_document,방법 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,5,5,0,0,76.5954,65.03620000000001,-11.5592,1,4,0
+group_document,수치 질문 / CAD,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,4,4,0,0,63.543749999999996,61.7695,-1.77425,1,2,1
+group_document,방법 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,5,5,0,0,81.4164,64.384,-17.032400000000003,2,3,0
+group_document,수치 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,8,8,0,0,57.292375,51.417375,-5.875,5,3,0
+group_document,방법 질문 / RAG Survey,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,10,9,1,0,88.67366666666666,67.62844444444445,-21.045222222222222,4,5,0
+group_document,개념과 결과 질문 / RAG Survey,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,5,4,1,0,69.47375,71.54925,2.0755,2,1,1
+group_document,수치 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,6,6,0,0,63.02166666666667,69.84933333333335,6.8276666666666666,5,1,0
+group_document,방법 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,5,5,0,0,60.3626,60.412,0.04940000000000033,3,2,0
+group_document,개념과 결과 질문 / RAPTOR,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,4,4,0,0,73.2035,77.23349999999999,4.029999999999999,3,1,0
+group_document,개념과 결과 질문 / Mi:dm,HyDE+CAD → HyDE+CAD+SCD,duration_seconds,H1C1S0,H1C1S1,,2,2,0,0,93.0275,75.98249999999999,-17.045,0,2,0
 question_type,사실 및 정의,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,8,8,0,0,0.7488625,0.845475,0.09661249999999999,4,2,2
 question_type,방법 및 절차,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,29,29,0,0,0.7247310344827584,0.803955172413793,0.07922413793103447,12,10,7
 question_type,결과 및 비교,미적용 → HyDE,faithfulness,H0C0S0,H1C0S0,영어,20,20,0,0,0.9057450000000001,0.854815,-0.050929999999999996,5,8,7

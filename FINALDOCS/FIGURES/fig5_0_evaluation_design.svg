@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-21T02:45:29.590521</dc:date>
+    <dc:date>2026-10-24T23:15:11.915019</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,7 +40,7 @@ Q 9.665169 11.613888 9.665169 17.117568
 L 9.665169 65.549952 
 Q 9.665169 71.053632 18.213785 71.053632 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 172.088862 71.053632 
@@ -53,7 +53,7 @@ Q 163.540246 11.613888 163.540246 17.117568
 L 163.540246 65.549952 
 Q 163.540246 71.053632 172.088862 71.053632 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 325.963938 71.053632 
@@ -66,7 +66,7 @@ Q 317.415323 11.613888 317.415323 17.117568
 L 317.415323 65.549952 
 Q 317.415323 71.053632 325.963938 71.053632 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 18.213785 175.623552 
@@ -79,7 +79,7 @@ Q 9.665169 94.169088 9.665169 99.672768
 L 9.665169 170.119872 
 Q 9.665169 175.623552 18.213785 175.623552 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #695184; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 244.752092 175.623552 
@@ -92,7 +92,7 @@ Q 236.203477 94.169088 236.203477 99.672768
 L 236.203477 170.119872 
 Q 236.203477 175.623552 244.752092 175.623552 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #1b7837; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #1b7837; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 18.213785 269.186112 
@@ -105,7 +105,7 @@ Q 9.665169 198.739008 9.665169 204.242688
 L 9.665169 263.682432 
 Q 9.665169 269.186112 18.213785 269.186112 
 z
-" clip-path="url(#pc2a957799b)" style="fill: #f8f8fb; stroke: #263044; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p60f9f66b80)" style="fill: #f8f8fb; stroke: #263044; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <text style="font-weight: 700; font-size: 12.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(39.477657 36.243379)">한국어 질문</text>
@@ -141,8 +141,8 @@ z
    </g>
    <g id="text_4">
     <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(62.276081 123.599715)">RAGAS 품질 지표 4개</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(43.698463 137.641086)">SCD 미적용 조건은 영어 근거</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(31.35276 151.682457)">SCD 적용 조건은 한국어 번역 근거</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(33.160729 137.641086)">검색 결과를 쓰는 지표 3개의 근거</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(18.409049 151.682457)">SCD 미적용 영어, SCD 적용 한국어 번역</text>
    </g>
    <g id="text_5">
     <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(269.686341 130.6204)">한국어 문자 비율과 처리 시간</text>
@@ -170,7 +170,7 @@ z
    </g>
    <g id="text_6">
     <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(158.262891 229.68664)">질문과 조건으로 연결한 분석</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(43.296094 243.728011)">조건별 평균과 표준편차, 질문 유형별 평균, 질문별 원점수와 미적용 대비 변화</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(23.854687 243.728011)">조건별 평균과 표준편차, 질문 유형별 평균, 질문별 원점수와 같은 평가 언어 안의 변화</text>
    </g>
    <g id="patch_12">
     <path d="M 113.530846 176.796376 
@@ -195,7 +195,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pc2a957799b">
+  <clipPath id="p60f9f66b80">
    <rect x="4.536" y="2.808" width="444.528" height="275.184"/>
   </clipPath>
  </defs>

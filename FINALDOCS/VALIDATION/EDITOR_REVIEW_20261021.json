@@ -1,11 +1,11 @@
 {
   "date": "2026-10-24",
   "editor": "한컴독스 웹 한글(Chrome)",
-  "document": "M_RAG_QUESTION_GROUPS_20261024_v23.hwpx",
-  "hwpx_sha256": "f59cf0a9c832e6209aab7d30da515d58c846bc5389c5d060fdc76e749739ecc0",
-  "pdf_sha256": "fd4b6e208dd6d90eede75aa87b629b203996ae944e43b3e284b2ce1325a2a515",
+  "document": "M_RAG_QUESTION_GROUPS_20261024_v24.hwpx",
+  "hwpx_sha256": "0b8b2b080c8e214e835d5af6e623c041896ebb80eea85502b3a3782f6b69fc99",
+  "pdf_sha256": "d89406a702b3d585dd9f55051f3c6ab0d2efae39706219bc4f8db23c60124ce7",
   "pdf_pages": 49,
-  "page_map_stable_from": "v23 draft3 to v23: 49 pages, every TOC anchor unchanged after page numbers were inserted",
+  "page_map_stable_from": "v24 draft to v24: 49 pages, every TOC anchor unchanged after page numbers were inserted",
   "checked": [
     "v1~v5 한컴 내보내기 47~50쪽을 쪽별로 확인하고 빈 공간, 표 배치, 그림 크기를 수정",
     "v6 편집 화면에서 표 5-2(16쪽)와 그림 5-4(19쪽)를 실제 본문 폭으로 확인",
@@ -17,7 +17,8 @@
     "v22 그림 4-2 추가 후 초안 내보내기에서 4.2절 끝에 둔 그림이 다음 쪽으로 밀려 10쪽 하단이 비는 것을 확인하고, 그림과 해설 문단을 4.3절 끝으로 옮긴 v22 draft2에서 10쪽이 본문으로 채워지고 그림 4-2가 11쪽에 놓이는 것을 확인",
     "v22 편집 화면에서 그림 4-2와 제목이 11쪽에 함께 놓이는 것을 확인하고, 목차의 4.3절 10쪽, 5장 12쪽, 6장 24쪽, 참고문헌 25쪽, 그림 4-2 11쪽을 내보내기와 대조",
     "v23 초안에서 5.2절 보강으로 표 5-1이 다음 쪽으로 밀려 14쪽 하단이 비고, 6장이 26쪽으로 3줄 넘친 것을 확인하였다. 표 5-1을 5.4절의 두 해설 문단 뒤로 옮기고 6장 문장을 줄인 draft3에서 14쪽이 채워지고 6장이 25쪽 한 쪽에 들어가는 것을 확인하였다.",
-    "v23 편집 화면에서 그림 목차의 그림 4-2 제목과 11쪽, 5장 그림 쪽 번호를 확인하였다. 장 시작 1, 3, 7, 9, 12, 25쪽, 참고문헌 26쪽, 그림 자료 이용 정보 28쪽을 내보내기와 대조하였다."
+    "v23 편집 화면에서 그림 목차의 그림 4-2 제목과 11쪽, 5장 그림 쪽 번호를 확인하였다. 장 시작 1, 3, 7, 9, 12, 25쪽, 참고문헌 26쪽, 그림 자료 이용 정보 28쪽을 내보내기와 대조하였다.",
+    "v24 최종검토 반영본의 초안과 최종 내보내기에서 49쪽과 모든 목차 위치가 v23과 같음을 확인하고, 5.4절, 5.8절, 6장의 수정 문단이 쪽을 넘기지 않는 것을 확인하였다. 편집 화면에서 그림 목차와 표 목차의 쪽 번호를 확인하였다."
   ],
   "fixed_in_editor_review": [
     "그림 1-1을 연구 목적 문단 뒤로 옮겨 1쪽 하단의 빈 공간 제거",
@@ -32,7 +33,8 @@
     "학과 체크리스트 대응: 1~5장 개요 문장, 약어 첫 등장 풀이(RAGAS, RAPTOR, BM25, CEDR, BEIR, MTEB, BIC, GMM, UMAP), 로짓, 청크, 평행좌표 정의, 표 A-1 본문 인용",
     "최종 문장 점검: 5.8절 수치 질문 충실도 서술 정정(CAD+SCD 0.77 제외), 5.7절 Fusion SFT와 XSUM 사례 문장 정리, 6.2절 시제 통일, 네 종과 여덟 조건 표기 통일, 참고문헌 콜론 표기 정리",
     "교수 피드백(2026-10-21)에 따라 예시 질문 하나로 HyDE, CAD, SCD의 작동 원리를 보이는 그림 4-2를 4.3절 끝에 추가(포스터 02 그림과 같은 원본)",
-    "2026-10-24 감사 반영: 검색 결과를 쓰는 세 지표의 같은 평가 언어 안 비교와 굵게 표시, 처리 시간 58개 기준, 관련성 0점 표현, 0점 5개 중 3개 요구 정보 포함, HyDE와 HyDE+CAD의 입력 구간 일치 18개, 1.1절 HyDE 선행연구 범위, 그림 4-2 제목과 세로 축소"
+    "2026-10-24 감사 반영: 검색 결과를 쓰는 세 지표의 같은 평가 언어 안 비교와 굵게 표시, 처리 시간 58개 기준, 관련성 0점 표현, 0점 5개 중 3개 요구 정보 포함, HyDE와 HyDE+CAD의 입력 구간 일치 18개, 1.1절 HyDE 선행연구 범위, 그림 4-2 제목과 세로 축소",
+    "2026-10-24 최종검토 반영: 단일 기법이 최고인 지표를 답변 관련성으로 한정(5.8절, 6.2절, 포스터 결론), 답변 길이를 58개 기준 글자 수로 통일하고 4.1절 길이 정의 정리, 문서별 관련성 변화의 0점 제외 기준 명시, 3.3절과 5.3절 비교 문장과 그림 5-1 라벨을 같은 평가 언어 기준으로 정리, 4.3절 두 생성 실행 소개, 1.1절 SCD 선행연구 범위"
   ],
   "visually_confirmed_toc": {
     "1. 서론": 1,
@@ -49,6 +51,7 @@
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v9-section-5-6-p17.png": "6748d227114a764eaade72e3f15d88da71bc73d4e94c3bb3b4a4e8bf6ef4fe84",
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v22-figure-4-2-p11.png": "8ed82b3a02dd1b2c98a1923995c2b677908c3e20a4ab4c765d6f8ecd1d692408",
-    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v23-figure-list-p5.png": "053605205d6f3053b40ec97870542c48c8df47ff6caa88277c886dac7789fb6e"
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v23-figure-list-p5.png": "053605205d6f3053b40ec97870542c48c8df47ff6caa88277c886dac7789fb6e",
+    "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v24-figure-table-lists-p5.png": "83545dc46371c07a5e8127e3c27958860b103169c74fb958df491a8bba1f72c2"
   }
 }
