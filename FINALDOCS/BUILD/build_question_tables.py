@@ -143,7 +143,7 @@ def build():
         cells = [condition_label(code)]
         for m in METRICS:
             s = stat("전체", code, m)
-            cells.append(f"{s['mean']:.2f}\n({s['sd']:.2f})")
+            cells.append(f"{s['mean']:.3f}\n({s['sd']:.3f})")
         rows.append(cells)
     body = list(zip(range(1, len(rows)), CONDITIONS))
     bold, scopes = [], []
@@ -179,7 +179,7 @@ def build():
             cells = [condition_label(code)]
             for m in block:
                 for g in GROUPS:
-                    cells.append(f"{stat(g, code, m)['mean']:.2f}")
+                    cells.append(f"{stat(g, code, m)['mean']:.3f}")
             rows.append(cells)
         body = list(zip(range(start, len(rows)), CONDITIONS))
         for col in range(1, 7):

@@ -85,9 +85,9 @@ def appendix_cases(cases, excerpts):
             score = c["scores"].get(m)
             if m not in METRIC_TOPIC or score["base"] is None or score["applied"] is None:
                 continue
-            value = f"{score['applied']:.2f}"
+            value = f"{score['applied']:.3f}"
             changes.append(
-                f"{METRIC_TOPIC[m]} {score['base']:.2f}에서 {value}{euro(value)}"
+                f"{METRIC_TOPIC[m]} {score['base']:.3f}에서 {value}{euro(value)}"
             )
         sentence = ", ".join(changes) + " 바뀌었다." if changes else ""
         notes = " ".join(r["note"] for r in c.get("related_scores", []))

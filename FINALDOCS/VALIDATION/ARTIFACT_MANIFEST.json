@@ -41,11 +41,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/THESIS_TABLES_60Q.json": {
-      "sha256": "2754c380f78a49068e9918141ee130afae0842f6a8e75eb6562ef909b0543c6d",
+      "sha256": "a835f950782f953d699e398c4229ba43ebb760a24387abb7dbc7913d0be1a61d",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "c162ac4adef05a75fff17f9ee8498ccc15ee569ed919a662b99595ee16b3dc72",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/DATA/evidence_manifest_60q.json": {
@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "f2fcfbbda193ff9d958046c03dfd66ab2f150bcaf2b3fe709ec220e129bf4b49",
+      "sha256": "e1bb8e0875a3deb9d98daee69a54b54962614c3d363005fded44249eee3ab5f9",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "bbde9c732061c28249c01f5746360a7d3fabce1d74de6fef2ab77479191067ee",
+      "sha256": "72cd751e57f9dd793034ce5bde9ebf6d6c19c00a51ce3cc55ac554d6d0bddd11",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "5a8db37e0e8122f09081ed049e0aea65c4aa0de3ca9efbb6e52bfec82b4fd78b",
+      "sha256": "09e84010ef4419a1653274590e3c56bbdcdbebdc3a48177371e8ac581cfb81f2",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "8fd95e760f39dba1aac52b725d8b20879a07289e9b0a92ba32a58ddcef475abf",
+      "sha256": "89ede8b5fd8ab3c3960e8f2df3927138230b6dd7d1887af59eda228a8dff855b",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -333,11 +333,11 @@
       "bytes": 1059945
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
-      "sha256": "e7ba88df0e1e8fd09423df03e0952e891f98989f84773eab8a513c536d973aed",
+      "sha256": "2fbe895cfc896e9443fe72a4088592876478ece8900bfb2fc136253e2df6439c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b08d0cb615d35d68a780239f3cea9c39d91aa9d07ae4e04521ba49070e761fb6",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "experiments/data/query_audit.json": {
@@ -2065,10 +2065,10 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "c358e060b319312a57849dd7c8982bcd7d0ec6681403a83869c7389fff6ff4b3",
+      "sha256": "81c1c6c7ebdbb7bb7f1ecf52c7cf259cb3cb5f9cbc0f27d8a57340273c35cb93",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2087,16 +2087,16 @@
       "bytes": 292568
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.png": {
-      "sha256": "6ab5976f6ec4578a28270c4f1f099e8a45573343e7ad16e25582af7e8c27dd58",
+      "sha256": "c8064d22d3c1c25b513d54b3121036d94ea1e56889b5c6593e3843e0af6a0533",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.svg": {
-      "sha256": "39d25d0ac13dd2e8a6b86782c29500288f0d04bdbed22a627392722dabbdc5d4",
+      "sha256": "265ed905ccd5aa0f769f2fdf86210a012f59b19fd91e4da17c3e663ebb1e6891",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-25: thesis editing checklist judgment, table notes without label, term and abbreviation definitions, figure 4-2 in a 2x2 grid, unused parallel figures moved to history, Hancom v25 delivery"
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
     },
     "FINALDOCS/POSTER/FINAL/poster_mechanism.png": {
       "sha256": "51c98df140411d8153e5bd31481dddc216b8ab92e83fd984714f3472f4067870",

@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-21T02:45:29.760221</dc:date>
+    <dc:date>2026-10-25T01:01:15.914800</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -61,8 +61,8 @@ z
     <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #695184" x="4.248" y="200.646406" transform="rotate(-0 4.248 200.646406)">평가값</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 200.266797)">근거 충실도 0.86, 답변 관련성 0.89</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 214.308168)">문맥 정밀도 0.70, 문맥 재현율 1.00</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 200.266797)">근거 충실도 0.857, 답변 관련성 0.895</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #263044" transform="translate(85.428 214.308168)">문맥 정밀도 0.700, 문맥 재현율 1.000</text>
    </g>
   </g>
  </g>

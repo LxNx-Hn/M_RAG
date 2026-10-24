@@ -606,8 +606,8 @@ def io_example():
     ]
     score = case["scores"]
     metrics = (
-        f"근거 충실도 {score['faithfulness']['applied']:.2f}, 답변 관련성 {score['answer_relevancy']['applied']:.2f}\n"
-        f"문맥 정밀도 {score['context_precision']['applied']:.2f}, 문맥 재현율 {score['context_recall']['applied']:.2f}"
+        f"근거 충실도 {score['faithfulness']['applied']:.3f}, 답변 관련성 {score['answer_relevancy']['applied']:.3f}\n"
+        f"문맥 정밀도 {score['context_precision']['applied']:.3f}, 문맥 재현율 {score['context_recall']['applied']:.3f}"
     )
     rows.append(("평가값", metrics))
     wrapped = [
@@ -736,8 +736,10 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
     dots and the candidate word sizes illustrate how each technique works.
     layout "wide" puts the three panels in one row (poster); layout "grid"
     puts the question and the three panels in a 2x2 grid so the text is
-    about 1.5 times larger at the thesis body width.
+    about 1.5 times larger at the thesis body width. Scores show two
+    decimals on the poster (wide) and three in the thesis (grid).
     """
+    digits = 2 if layout == "wide" else 3
     rec = mechanism_record()
     s = rec["scores"]
     MUTED, FAINT = "#5f6470", "#9aa0a8"
@@ -780,7 +782,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         def result(x, key, name):
             before, after = s[key]
             up = after > before
-            label(x, 4.2, f"{name} {before:.2f}에서 {after:.2f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
+            label(x, 4.2, f"{name} {before:.{digits}f}에서 {after:.{digits}f} {'▲' if up else '▼'}", 6.6, UP if up else DOWN, True, "center")
 
         def document(x, y, w, h, ec, missing=False):
             c = w * 0.32
