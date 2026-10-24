@@ -12,13 +12,16 @@
 
 ```powershell
 python FINALDOCS/BUILD/build_poster.py --output FINALDOCS/POSTER/FINAL
+python FINALDOCS/BUILD/build_poster.py --layout a --output FINALDOCS/POSTER/VARIANT_A
 python -m FINALDOCS.VALIDATION.package_checks --poster
 ```
 
-구성: 왼쪽 01 연구 배경과 목적, 오른쪽 02 파이프라인, 03 예시 질문으로 본 단독 기법의 작동(전체 폭 그림, 패널마다 미적용과 단독 적용 조건 비교), 04 질문과 평가(두 열 글머리표), 05 질문 유형별 평균 점수(전체 폭 가로 표), 왼쪽 06 방법 질문 25개의 원점수 평행좌표, 오른쪽 07 결론과 08 실제 답변에서 확인한 점, 맨 아래 한 줄 참고문헌. 2026-10-21 교수 피드백(그림 중심, 기법별 제안자와 기본 아이디어, 예시 질문의 처리 과정)에 따라 단일 기법 처리 시간 표와 조건별 평균 표를 뺐다.
+제출용 B 구성(`FINAL`, 기본값 `--layout b`): 왼쪽 01 연구 배경과 목적, 오른쪽 02 파이프라인, 03 예시 질문으로 본 단독 기법의 작동(전체 폭 그림, 패널마다 미적용과 단독 적용 조건 비교), 04 질문과 평가(두 열 글머리표), 05 질문 유형별 평균 점수(전체 폭 가로 표), 왼쪽 06 방법 질문 25개의 원점수 평행좌표, 오른쪽 07 결론과 08 실제 답변에서 확인한 점, 맨 아래 한 줄 참고문헌. 2026-10-21 교수 피드백(그림 중심, 기법별 제안자와 기본 아이디어, 예시 질문의 처리 과정)에 따라 단일 기법 처리 시간 표와 조건별 평균 표를 뺐다.
 
 02 그림은 질문 "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?"(정답 근거 32B parameters, 원문 2쪽)의 저장된 실행 기록에서 HyDE 가상 구간과 검색 구간, 미적용과 CAD 답변의 수치, 미적용과 SCD 답변의 인용 문장, 세 점수 변화를 읽어 그린다. 사용한 원문과 값은 `FINALDOCS/ANALYSIS/EXAMPLE_MECHANISM.json`에 남기며, 임베딩 점의 위치와 후보 단어의 글자 크기는 원리를 보인 개념도다. 표의 수치는 `FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv`에서 읽어 소수 둘째 자리로 표시한다. 조건 순서는 논문과 같다(1 미적용, 2 HyDE, 3 CAD, 4 SCD, 5 HyDE+CAD, 6 HyDE+SCD, 7 CAD+SCD, 8 HyDE+CAD+SCD). 05는 다섯 지표를 각각 수치, 방법, 개념과 결과 질문으로 나눈 전체 폭의 가로 표다(논문 표 5-2의 품질 지표와 한국어 문자 비율). 근거 충실도, 문맥 정밀도, 문맥 재현율은 SCD 미적용 조건(영어 검색 결과)과 적용 조건(한국어 번역 검색 결과) 안에서 각각 최댓값을 굵게 표시하고, 답변 관련성과 한국어 문자 비율은 여덟 조건 중 최댓값을 굵게 표시한다. 표시값이 같으면 함께 굵게 표시한다. 표준편차와 통계 검정 값은 넣지 않는다. 문구에는 가운뎃점, 화살표, 콜론 설명을 쓰지 않으며 `poster_checks.py`가 이를 검사한다.
 
 평행좌표는 질문마다 점수가 평균 주위로 크게 흩어지고, 평균에서 멀리 떨어진 질문을 찾아 그 질문의 유형에 맞는 기법을 고르자는 녹취(01:01~01:07)의 의도를 따른다. 0점과 결측값에서는 선을 끊는다.
 
 이전 포스터 생성 방식의 기록(`POSTER_SCENE.json`, `A1_COPYEDIT_MAP.json`, `PPTX_FINALIZATION_CHECKS.json`, `POSTER_REVISION_PROMPT_KO.md`, `rebuild_exports.py`)은 `FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/`로 옮겼다. 실물 인쇄 판독은 추가 확인 대상이다.
+
+비교용 A 구성(`FINALDOCS/POSTER/VARIANT_A`, `--layout a`)은 파이프라인 도식 없이 01을 두 열 글머리표로 두고 02 예시 질문 그림부터 07 실제 답변 사례까지 같은 내용과 같은 표 기준을 쓴다. 두 구성 모두 `package_checks --poster`가 검사한다.

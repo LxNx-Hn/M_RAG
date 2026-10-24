@@ -388,7 +388,15 @@ def condition_label(code):
     return f"{CONDITIONS.index(code) + 1} {NAMES[code]}"
 
 
-def build(out_dir: Path, personal=None):
+def build(out_dir: Path, personal=None, layout="b"):
+    """layout "b" puts the pipeline diagram beside 01; layout "a" keeps 01 as
+    two bullet columns and shows only the example-question figure."""
+    assert layout in ("a", "b")
+    numbers = iter(range(1, 10))
+
+    def section(label):
+        return f"{next(numbers):02d} {label}"
+
     cs = condition_summary()
     out_dir.mkdir(parents=True, exist_ok=True)
     mech, par = out_dir / "poster_mechanism.png", out_dir / "poster_parallel.png"
@@ -426,28 +434,29 @@ def build(out_dir: Path, personal=None):
 
     FW = W - 2 * L
 
-    # ---------------- 01 background (left) beside 02 pipeline (right)
-    pipe = out_dir / "poster_pipeline.png"
-    pipeline_png(pipe)
-    y = P.heading(L, TOP, C, "01 연구 배경과 목적")
-    yl = P.bullets(
-        L,
-        y,
-        C,
-        [
-            "한국어 질문으로 영어 논문을 찾아 한국어로 답하는 RAG",
-            "질문과 원문의 어휘가 달라 근거 구간을 찾기 어려움",
-            "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
-            "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
-            "세 문제에 맞춘 HyDE, CAD, SCD를 같은 질문 60개에 조합",
-            "질문 유형마다 각 기법의 이득과 손실을 비교",
-        ],
-    )
-    y = P.heading(R, TOP, C, "02 파이프라인")
-    yr = P.picture(pipe, R, y, C)
+    # ---------------- background, beside the pipeline (b) or in two columns (a)
+    background = [
+        "한국어 질문으로 영어 논문을 찾아 한국어로 답하는 RAG",
+        "질문과 원문의 어휘가 달라 근거 구간을 찾기 어려움",
+        "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
+        "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
+        "세 문제에 맞춘 HyDE, CAD, SCD를 같은 질문 60개에 조합",
+        "질문 유형마다 각 기법의 이득과 손실을 비교",
+    ]
+    if layout == "b":
+        pipe = out_dir / "poster_pipeline.png"
+        pipeline_png(pipe)
+        y = P.heading(L, TOP, C, section("연구 배경과 목적"))
+        yl = P.bullets(L, y, C, background)
+        y = P.heading(R, TOP, C, section("파이프라인"))
+        yr = P.picture(pipe, R, y, C)
+    else:
+        y = P.heading(L, TOP, FW, section("연구 배경과 목적"))
+        yl = P.bullets(L, y, C, background[:3])
+        yr = P.bullets(R, y, C, background[3:])
 
     # ---------------- 03 example question, each technique against no technique
-    y = P.heading(L, max(yl, yr) + 3, FW, "03 예시 질문으로 본 단독 기법의 작동")
+    y = P.heading(L, max(yl, yr) + 3, FW, section("예시 질문으로 본 단독 기법의 작동"))
     y = P.picture(mech, L, y + 1, FW)
     P.text(
         L,
@@ -461,7 +470,7 @@ def build(out_dir: Path, personal=None):
     y += 10
 
     # ---------------- 04 questions and metrics
-    y = P.heading(L, y + 2, FW, "04 질문과 평가")
+    y = P.heading(L, y + 2, FW, section("질문과 평가"))
     yl = P.bullets(
         L,
         y,
@@ -487,7 +496,7 @@ def build(out_dir: Path, personal=None):
     y = max(yl, yr)
 
     # ---------------- 05 question-type means (wide table)
-    y = P.heading(L, y + 4, FW, "05 질문 유형별 평균 점수")
+    y = P.heading(L, y + 4, FW, section("질문 유형별 평균 점수"))
     groups = [
         ("수치 질문", "수치"),
         ("방법 질문", "방법"),
@@ -549,7 +558,8 @@ def build(out_dir: Path, personal=None):
     # right column first, spaced to reach the bottom of the parallel chart
     line_h = 21 * 0.3528 * 1.32
     rgap = min(12.0, ((H - 6 - refs_h) - y0 - 34 - 8 * line_h) / 9)
-    yr = P.heading(R, y0, C, "07 결론")
+    parallel_label = section("방법 질문 25개의 원점수 평행좌표")
+    yr = P.heading(R, y0, C, section("결론"))
     yr = P.bullets(
         R,
         yr,
@@ -563,7 +573,7 @@ def build(out_dir: Path, personal=None):
         size=21,
         gap=rgap,
     )
-    yr = P.heading(R, yr + rgap, C, "08 실제 답변에서 확인한 점")
+    yr = P.heading(R, yr + rgap, C, section("실제 답변에서 확인한 점"))
     yr = P.bullets(
         R,
         yr,
@@ -578,7 +588,7 @@ def build(out_dir: Path, personal=None):
         gap=rgap,
     )
     end = max(yr, H - 6 - refs_h)
-    yl = P.heading(L, y0, C, "06 방법 질문 25개의 원점수 평행좌표")
+    yl = P.heading(L, y0, C, parallel_label)
     caption_h = 21
     width_in = C / 25.4
     height_in = (end - yl - caption_h) / 25.4
@@ -645,6 +655,12 @@ def main():
     ap.add_argument("--output", type=Path, default=ROOT / "tmp/poster")
     ap.add_argument("--no-export", action="store_true")
     ap.add_argument(
+        "--layout",
+        choices=["a", "b"],
+        default="b",
+        help="b: pipeline diagram beside 01 (submitted poster); a: example figure only",
+    )
+    ap.add_argument(
         "--personal-fields",
         type=Path,
         help="Local personal_fields.json (department, student_id, name, advisor are used); output must stay outside the repository",
@@ -659,7 +675,7 @@ def main():
         personal = {k: fields[k] for k in used}
         if a.output.resolve().is_relative_to(ROOT.resolve()):
             raise ValueError("Personal poster output must stay outside the repository")
-    pptx = build(a.output, personal)
+    pptx = build(a.output, personal, a.layout)
     if not a.no_export:
         export(pptx)
 

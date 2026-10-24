@@ -115,7 +115,10 @@ def main():
     if args.poster:
         print(
             json.dumps(
-                validate_poster_files(ROOT / "FINALDOCS/POSTER/FINAL"),
+                {
+                    name: validate_poster_files(ROOT / "FINALDOCS/POSTER" / name)
+                    for name in ("FINAL", "VARIANT_A")
+                },
                 ensure_ascii=False,
             )
         )

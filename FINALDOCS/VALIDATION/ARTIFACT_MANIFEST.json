@@ -303,7 +303,7 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "2e675e0a2d43e12bfcf7f23f76c5fc5615ceaae1c1d2734fbe49b755ea3a9d0e",
+      "sha256": "2ca7f69be70e32389af4d648756c97dd2171de648dd1ed88245400caec5a9174",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
@@ -323,7 +323,7 @@
       "bytes": 1438541
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "8cf2d2c4d2be6576fb84e47da0544b9dd080a029e8af54fc015e04ba11b9ef2a",
+      "sha256": "d3bcae7c37eeb915d59957392bd971a99675851bc3a58d8d4d2b27a88e9a3b92",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
@@ -2115,6 +2115,36 @@
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
+    },
+    "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
+      "sha256": "c1ec2f44cb20fbe1641cea90870de16c0834f91a55a46ce4019b0662b71dc6e5",
+      "hash_method": "raw bytes",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-24: comparison poster, layout a (example figure only)"
+    },
+    "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
+      "sha256": "413c2b0977b6e41fda0c51756f301284c763e6148f614aa1f5c308823494d7d4",
+      "hash_method": "raw bytes",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-24: comparison poster, layout a (example figure only)"
+    },
+    "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
+      "sha256": "d9cbc2596c382e97f96d3f7e0220db7ee125f4dc5432ec9dffe9cc423c930788",
+      "hash_method": "raw bytes",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-24: comparison poster, layout a (example figure only)"
+    },
+    "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
+      "sha256": "372048304577ce52aa303d82bf8b37ce8c9b25fed66513a763c176e4d08b69a2",
+      "hash_method": "UTF-8 bytes, CRLF normalized to LF",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-24: comparison poster, layout a (example figure only)"
+    },
+    "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
+      "sha256": "cd310e0067b4380cbebb9502114836c71d3e9bac71d07901bf1484c32954f266",
+      "hash_method": "UTF-8 bytes, CRLF normalized to LF",
+      "role": "question_group_revision_20261021",
+      "change_note": "2026-10-24: comparison poster, layout a (example figure only)"
     }
   },
   "prose_revision": {
