@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "e1bb8e0875a3deb9d98daee69a54b54962614c3d363005fded44249eee3ab5f9",
+      "sha256": "357ae8d2e03c98254f1702081d8b4179fce55a5c8a68ece2a1890b4b5cd93354",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
+      "change_note": "2026-10-27: 22 wording fixes, Hancom v27 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "72cd751e57f9dd793034ce5bde9ebf6d6c19c00a51ce3cc55ac554d6d0bddd11",
+      "sha256": "d72ea1c310eb2dbe569045c12368e916f027633b7547beafbad0cf8ccf003942",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
+      "change_note": "2026-10-27: 22 wording fixes, Hancom v27 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "09e84010ef4419a1653274590e3c56bbdcdbebdc3a48177371e8ac581cfb81f2",
+      "sha256": "790284c0c1416c1ffddfc36d76f9f7769942c43b50446ea807cc2b1b5537a841",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
+      "change_note": "2026-10-27: 22 wording fixes, Hancom v27 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "89ede8b5fd8ab3c3960e8f2df3927138230b6dd7d1887af59eda228a8dff855b",
+      "sha256": "bae0b889b0968da2372090aaaeec08aa16fb88f51fef42b5582cebdef317d18e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
+      "change_note": "2026-10-27: 22 wording fixes, Hancom v27 delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -2065,10 +2065,10 @@
       "bytes": 573993
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "81c1c6c7ebdbb7bb7f1ecf52c7cf259cb3cb5f9cbc0f27d8a57340273c35cb93",
+      "sha256": "c995108cd0a0afea424067d3c35ec74405633b38ad329f0cdc80599257224dba",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
+      "change_note": "2026-10-27: 22 wording fixes, Hancom v27 delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
