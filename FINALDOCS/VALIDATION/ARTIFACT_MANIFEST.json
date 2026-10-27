@@ -55,25 +55,25 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "68bf4b1a9b5b4e004cf8bacf93c174c33fd9625102faad1d0c679cf493db246b",
+      "sha256": "46fb57e723692b8dbb7f7774219bf506b04f0df6b8723a4c9b110b9bf12441cd",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-10-27: figure 4-2 and poster 03 redrawn to show the HyDE search shift, CAD score contrast and SCD token rescaling, Hancom v29 delivery",
+      "change_note": "2026-10-27: figure 4-2 and poster 03 terms corrected (가상 문서, 근거 제외 점수), Hancom v30 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "05807f913e517b46835bd6cb265975b94dee6e221760d95239a5513177e60c6f",
+      "sha256": "e51bd8e66895f0d48ba46441f508e0541795446d54b3d74305538746d43ad4b8",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-10-27: figure 4-2 and poster 03 redrawn to show the HyDE search shift, CAD score contrast and SCD token rescaling, Hancom v29 delivery",
+      "change_note": "2026-10-27: figure 4-2 and poster 03 terms corrected (가상 문서, 근거 제외 점수), Hancom v30 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "eb0f66ae865ccfd3f0ed0c3e3fd0d1d3a6d56388acfd5fc39ddc1d3851e5b065",
+      "sha256": "21bc8576fc47450b6672d34f90bebe45fc4dfac1c5a1a367b13c0128dc130d69",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -303,7 +303,7 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "3ff4a77ff29f2825e6ed3d9c70fd83c93fbecad5e3f809c4d739660f6bb285a3",
+      "sha256": "ac99cc0662de57f0b3daf25b7a3537e0167fcbcf8631cddc1a3ba953aebf162d",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
@@ -313,7 +313,7 @@
       "bytes": 1245761
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "f100f3f8e96ca14c8bfbd16d803c752fdfb05539784e446dcb30d278b2764e31",
+      "sha256": "35304a80dc54b15b3f3dadee2868c371c2ce47dc4565827971ad29dbf1a55fc6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
@@ -323,7 +323,7 @@
       "bytes": 1510015
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "043fb734fde25f113da28c32e64ba6b464445cd99dc3d1fd2c6f94a40872a4c7",
+      "sha256": "bc1b89fe5bb21dfef49137736479a9b1287cf2908ed81f011a25909dc21e1200",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
@@ -1979,7 +1979,7 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "76883873a23732fcf6e02558c80c2bbc86b29e7aabcdb329b6a8f861201e536a",
+      "sha256": "99f25e5f9ad7ba4ff5a4aeb81694080362904608e79bf013fd3b5766587853ec",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
@@ -2065,7 +2065,7 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "f218434c3cb292b42154ad0ca888eef652b66ef943db902196f399f1cb65a2cd",
+      "sha256": "8ddb391036633bc08ade6d46b3ab244623a47bd4033cfc763c72dbcd4448eeb9",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
@@ -2087,19 +2087,19 @@
       "bytes": 292568
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.png": {
-      "sha256": "30e0f4ae1cda77755a7e8a53478a09af2792f299b19e67e81f6c4464e3920df0",
+      "sha256": "edf50b9206b1b147b275e827a467a871da273490552f5c502c83f46b05d01492",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.svg": {
-      "sha256": "e41f490d9affa049a69053824149af135f7118bb50dcea324265c8c43a2c44ee",
+      "sha256": "f76f49bcdd8d9f80ffe00093cce765bdf25715d0a5a0ae74b043e85fbf338ca7",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery"
     },
     "FINALDOCS/POSTER/FINAL/poster_mechanism.png": {
-      "sha256": "b8c25af9eeab4b52f8a1c4aa77f1c94b5862d60a2086cd022da22a72649a003c",
+      "sha256": "a2118db2999c9bafd2d5fb800f71953cb2a93260c53ab8a78ec440df8078d06a",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
@@ -2117,19 +2117,19 @@
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "d456c6ab2aa5a26ad8bfb56b78b3b72487a01fde646434a92ee3b34ff1afa2ab",
+      "sha256": "21e5b41401fe3eefce283259b00a86119da83ed2b23190999a423c7bbfd0697b",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "d505caa451b49a59cbb1e52cfba46a5af071c6ffc1b75174461b0f933ca03bb2",
+      "sha256": "df9ff6e794d56e9645be26e2ac44949366e757e6dbd62992aeb1b22e0ce2ec7e",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "6f74c93700d925eaace43380b9a64c17433782d10e81d2548d538defdbc77902",
+      "sha256": "d252c9a97d9b1a0550076ea9f6ff59b946d04f550691a54362515a0202ee9ec3",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
@@ -2141,7 +2141,7 @@
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "2695cbc3e361dd0c0130985a876b14cf38377df3b9e01fdc17b364c94b465212",
+      "sha256": "141314835837b288432d1b4a4df7bdf1d551350827cc8a294a16547fc609c57e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
       "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"

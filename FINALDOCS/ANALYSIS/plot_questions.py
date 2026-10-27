@@ -823,7 +823,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         label(98.2, 38.9, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
 
         panels = [
-            (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 답변으로 실제 구간을 찾음", RETRIEVE, "#f4f1f8"),
+            (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 문서로 실제 근거를 검색", RETRIEVE, "#f4f1f8"),
             (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "문서가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
             (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
         ]
@@ -847,7 +847,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         # HyDE: the question and the hypothetical passage sit at different points
         # of the embedding space, and retrieval searches around the passage
         rbox(1.5, 19.6, 14.6, 9.4, "#ffffff", RETRIEVE, 0.9, ls="--")
-        label(2.5, 27.4, "LLM이 쓴 가상 구간", 5.8, RETRIEVE, True)
+        label(2.5, 27.4, "LLM이 쓴 가상 문서", 5.8, RETRIEVE, True)
         label(2.5, 23.0, "“… approximately 13\nbillion parameters …”", 5.3, INK)
         rbox(1.5, 8.6, 14.6, 9.4, "#ffffff", INK, 0.9)
         label(2.5, 16.4, "원문의 실제 구간", 5.8, INK, True)
@@ -870,7 +870,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         label(24.0, 23.6, "기준 이동", 5.0, RETRIEVE, True, "center")
         flow((16.2, 24.0), (21.9, 19.4), RETRIEVE)
         flow((23.8, 16.8), (16.3, 13.4), INK)
-        label(24.2, 9.7, "가상 구간 주변 검색", 5.2, INK, ha="center")
+        label(24.2, 9.7, "가상 문서 주변 검색", 5.2, INK, ha="center")
 
         # CAD: the same LLM scores the next token with and without the document.
         # Without it the model's prior knowledge shows; CAD enlarges the gap the
@@ -882,7 +882,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         best = max(mixed, key=lambda m: m[1])[0]
         mixed = [(t, v, GENERATE if t == best else FAINT) for t, v in mixed]
         assert best == "32"
-        for yc, missing, title, rows in ((25.6, False, "근거 포함 점수", ctx), (19.6, True, "사전 지식 점수", noctx)):
+        for yc, missing, title, rows in ((25.6, False, "근거 포함 점수", ctx), (19.6, True, "근거 제외 점수", noctx)):
             document(35.0, yc - 1.7, 2.8, 3.4, FAINT if missing else GENERATE, missing)
             if not missing:
                 label(38.35, yc, "+", 6.0, INK, True, "center")
