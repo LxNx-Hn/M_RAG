@@ -266,12 +266,6 @@ def group_profiles(
         handlelength=1.8,
         columnspacing=1.2,
     )
-    if one_row:
-        pass  # poster row: the legend alone, the bottom margin left to the axis labels
-    elif compact:
-        fig.text(0.99, 0.005, "0점과 결측값은 선으로 잇지 않음", ha="right", va="bottom", fontsize=8.5 * scale, color=INK)
-    else:
-        fig.text(0.5, 0.008, "0점과 결측값은 선으로 잇지 않음", ha="center", fontsize=8.5 * scale, color=INK)
     if compact:
         h, w = size[1], size[0]
         fig.subplots_adjust(

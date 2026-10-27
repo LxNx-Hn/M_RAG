@@ -480,7 +480,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         y + 1,
         FW,
         8,
-        "HyDE Hypothetical Document Embeddings   CAD Context-Aware Decoding   SCD Soft Constrained Decoding   패널마다 미적용과 단독 적용 조건을 비교, 점 위치와 글자 크기는 원리를 보인 개념도",
+        "HyDE Hypothetical Document Embeddings   CAD Context-Aware Decoding   SCD Soft Constrained Decoding   패널마다 미적용과 단독 적용 조건을 비교",
         size=16,
         color=GREY,
     )
