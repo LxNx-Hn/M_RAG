@@ -382,6 +382,23 @@ METRIC_SHORT = {
     "korean_ratio": "한국어\n문자 비율",
 }
 SCORE_METRICS = list(METRIC_SHORT)
+# Section 04 definitions, same order and names as the 05 table (thesis 5.2).
+METRIC_DEFINITIONS = [
+    ["지표", "측정 내용", "값의 방향"],
+    ["근거 충실도", "답변의 주장 중 검색 구간이 뒷받침하는 비율", "높을수록 근거에 충실"],
+    [
+        "답변 관련성",
+        "답변에서 역으로 만든 질문과 원래 질문의 유사도\n모호하거나 회피하는 답변은 0",
+        "높을수록 질문에 부합",
+    ],
+    ["문맥 정밀도", "참조 답변에 유용한 구간의 순위가 높은 정도", "높을수록 순위가 적절"],
+    ["문맥 재현율", "참조 답변의 주장을 검색 구간이 뒷받침하는 비율", "높을수록 정답 근거 확보"],
+    [
+        "한국어 문자 비율",
+        "출력 언어, 한글 ÷ (한글 + ASCII 영문자)",
+        "높을수록 한국어 출력",
+    ],
+]
 
 
 def condition_label(code):
@@ -469,7 +486,7 @@ def build(out_dir: Path, personal=None, layout="b"):
     )
     y += 10
 
-    # ---------------- 04 questions and metrics
+    # ---------------- 04 questions and metrics, definitions above the 05 columns
     y = P.heading(L, y + 2, FW, section("질문과 평가"))
     yl = P.bullets(
         L,
@@ -479,19 +496,21 @@ def build(out_dir: Path, personal=None, layout="b"):
             "영어 문서 4종에서 15개씩, 한국어 질문 60개",
             "수치 18개, 방법 25개, 개념과 결과 17개",
             "세 기법의 적용 여부를 조합한 조건 8개, 답변 480개",
-        ],
-        size=20,
-    )
-    yr = P.bullets(
-        R,
-        y,
-        C,
-        [
-            "답변 품질은 RAGAS의 근거 충실도, 답변 관련성,\n문맥 정밀도, 문맥 재현율(0에서 1)",
-            "출력 언어는 한국어 문자 비율",
+            "관측값은 모두 0에서 1, 앞의 네 지표는 RAGAS로 계산",
             "SCD 조건 4, 6, 7, 8의 충실도, 정밀도, 재현율은\n한국어 번역 근거로 평가해 같은 언어 조건끼리 비교",
         ],
         size=20,
+        gap=2.0,
+    )
+    yr = P.table(
+        R,
+        y,
+        C,
+        METRIC_DEFINITIONS,
+        [1.0, 2.75, 1.45],
+        size=17,
+        row_h=8.6,
+        aligns=["left", "left", "left"],
     )
     y = max(yl, yr)
 
@@ -552,41 +571,23 @@ def build(out_dir: Path, personal=None, layout="b"):
         size=19,
     )
 
-    # ---------------- 06 parallel coordinates (left) beside 07 and 08 (right)
+    # ---------------- 06 parallel coordinates (left) beside 07 conclusions (right)
     y0 = y + 4
     refs_h = 13
-    # right column first, spaced to reach the bottom of the parallel chart
-    line_h = 21 * 0.3528 * 1.32
-    rgap = min(12.0, ((H - 6 - refs_h) - y0 - 34 - 8 * line_h) / 9)
+    # right column first, spaced down the height of the parallel chart
+    conclusions = [
+        "관련성과 응답 시간이 중요하면 HyDE 하나\n(개념과 결과 질문 포함)",
+        "수치 질문은 정답 구간의 검색을 확인하고 충실도는 HyDE+CAD",
+        "한국어 답변은 세 기법(방법 질문 세 지표가 SCD 단독보다 높음)",
+        "조합은 HyDE 단독보다 관련성이 낮고\n일관된 이득은 SCD의 한국어 비율",
+    ]
+    size_c = 24
+    lines = sum(1 + c.count("\n") for c in conclusions)
+    line_h = size_c * 0.3528 * 1.32
+    rgap = min(14.0, ((H - 6 - refs_h) - y0 - 19 - lines * line_h) / len(conclusions))
     parallel_label = section("방법 질문 25개의 원점수 평행좌표")
     yr = P.heading(R, y0, C, section("결론"))
-    yr = P.bullets(
-        R,
-        yr,
-        C,
-        [
-            "관련성과 응답 시간이 중요하면 HyDE 하나(개념과 결과 질문 포함)",
-            "수치 질문은 정답 구간의 검색을 확인하고 충실도는 HyDE+CAD",
-            "한국어 답변은 세 기법(방법 질문 세 지표가 SCD 단독보다 높음)",
-            "조합은 HyDE 단독보다 관련성이 낮고 일관된 이득은 SCD의 한국어 비율",
-        ],
-        size=21,
-        gap=rgap,
-    )
-    yr = P.heading(R, yr + rgap, C, section("실제 답변에서 확인한 점"))
-    yr = P.bullets(
-        R,
-        yr,
-        C,
-        [
-            "BIC 질문은 HyDE가 근거 구간을 찾아 관련성이 0.00에서 0.89로 오름",
-            "QuALITY 질문은 HyDE 후 73.68이 빠져 관련성이 0.87에서 0.00으로 내림",
-            "XSUM 질문은 CAD가 다른 행 수치를 옮겼는데 충실도가 0.53에서 0.87로 오름",
-            "RAG 이점 질문은 CAD 후 지시문만 남아 관련성이 0.90에서 0.00으로 내림",
-        ],
-        size=21,
-        gap=rgap,
-    )
+    yr = P.bullets(R, yr + 2, C, conclusions, size=size_c, gap=rgap)
     end = max(yr, H - 6 - refs_h)
     yl = P.heading(L, y0, C, parallel_label)
     caption_h = 21

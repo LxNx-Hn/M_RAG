@@ -109,14 +109,25 @@ def validate_poster(pptx, svg=None):
         slide = ET.fromstring(z.read("ppt/slides/slide1.xml"))
         media = [n for n in z.namelist() if n.startswith("ppt/media/")]
     tables = [cell_rows(t) for t in slide.findall(".//a:tbl", A)]
-    assert len(tables) == 1, "Expected one native table"
+    assert len(tables) == 2, "Expected the metric definition table and the result table"
     assert len(media) >= 2, "Example figure or parallel-coordinate image missing"
     text = "".join(slide.xpath("//*[local-name()='t']/text()"))
     hit = FORBIDDEN.search(text)
     assert not hit, f"Forbidden poster text: {hit.group(0)}"
 
+    # Section 04 defines the five result metrics in the result-table order,
+    # each with what it measures and what a higher value means.
+    definitions, groups = tables
+    assert [c[0] for c in definitions[0]] == ["지표", "측정 내용", "값의 방향"]
+    metric_labels = [groups[0][1 + 3 * k][0] for k in range(len(SCORE_METRICS))]
+    assert [r[0][0] for r in definitions[1:]] == metric_labels, (
+        "Metric definitions differ from the result table metrics"
+    )
+    for r in definitions[1:]:
+        assert r[1][0].strip(), f"Metric definition missing: {r[0][0]}"
+        assert r[2][0].startswith("높을수록 "), f"Value direction missing: {r[0][0]}"
+
     labels = [f"{i} {NAMES[c]}" for i, c in enumerate(CONDITIONS, 1)]
-    groups = tables[0]
     for i, code in enumerate(CONDITIONS, 1):
         expect = [labels[i - 1]] + [
             f2(mean(g, code, m)) for m in SCORE_METRICS for g in GROUPS
@@ -133,7 +144,12 @@ def validate_poster(pptx, svg=None):
                 check_bold(groups, cols, "Question group table", rows=rows_)
         else:
             check_bold(groups, cols, "Question group table", start=2)
-    return {"tables": 1, "result_rows_checked": 8, "decimals": 2}
+    return {
+        "tables": 2,
+        "metric_definitions": len(definitions) - 1,
+        "result_rows_checked": 8,
+        "decimals": 2,
+    }
 
 
 def protocol_order(codes):

@@ -303,34 +303,34 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "8841ac75f47a1989ea7f428149b887124ee634d49889cc8c7b73fa73d6f16711",
+      "sha256": "f266c9e8464d70bc4a6a10850eccc78651ba92f27e6eadfd51d70d7d7648bf39",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1160520
+      "bytes": 1115011
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "f4f12242f2674e5896f89cbadbd93f50254512671bf9cd993f1ede037094e1cd",
+      "sha256": "50afd08f2cc96ea00de20c8cf4031c79f942a491d2fbe17ca9ffc4f7145f576f",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1438545
+      "bytes": 1400371
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "d31dbb0863dfe589ec1d6cbb4518c8404d36e7e60d911587f6c05ccb13712473",
+      "sha256": "cfd6a826195b76ed9beed90f687624c59c821346e0832fda4133fdefe5cfb7bc",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1059945
+      "bytes": 1032369
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
       "sha256": "2fbe895cfc896e9443fe72a4088592876478ece8900bfb2fc136253e2df6439c",
@@ -1979,24 +1979,24 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "9b253cbf5c95ae7a757b679aff7654d268e2aec7593f1be7a935f3ac01f12312",
+      "sha256": "4cf8530a881968b7ffe998a9f7529cbefeec2924cf365936017ba668f338322f",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
-      "bytes": 1676237
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
+      "bytes": 1641752
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "31e33a23c7c78a7b48ef1fe5c671b2d85839770a96c614f46628533e66a7adcf",
+      "sha256": "11a867069b635b701ccf7b939b32d52c5fe084d6101c79038f6e5ef3e35ffd3e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
-      "bytes": 4705
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
+      "bytes": 4916
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
-      "sha256": "5809a202b10c0055d1914b4cf51a94d497a8cd8fc89aad1439e95d050c89760b",
+      "sha256": "711a83fef71099e899deeabeee8b5154c973e7e52d656f9137afb56c1bf9abd3",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery",
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_hyde_types.png": {
@@ -2117,34 +2117,34 @@
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "168618560ad4437390402fd09eb9850bf9ef11b242644481a5ab9c8d2ff53350",
+      "sha256": "f224417beef4266014a2ffaf216bdf6775bdd79fc2d456926bb9560904fc4f6e",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "1165430d7bb36f0780d98aa7959b09675f18d75e8006fe53f7b0c239311ecc36",
+      "sha256": "5acef1772f70eda888002bb2f9138dcb1b7bdedddfd5c6b3767d164d30b2efcf",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "0fa12cfc46a2e4d5b5fa99324c3aaa78e54265ec1722ac7ce1b313f92c72e518",
+      "sha256": "ac4037e720476e14249f07fc84879f3e83324bfc5e34812ebb0a46e254af158b",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed"
     },
     "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
-      "sha256": "cc7488e18fdc6846b07eeb1be092dd5f2ea3d78dbfa508521ab9d31e458aa140",
+      "sha256": "d3d4661c48bfc938bae5c5193d9182e22438a4cb7ead4f24480909e96c03d8f1",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "f0e3ffc021dbe96598ab945cdd98678549d43b0cc8d14378f788768a0e41f0da",
+      "sha256": "b7c291376b244749bac51f569670314b92495d4aee547db619466c7cddde5f8a",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-24: passage-based metrics compared within one evaluation language, 58-question timing, zero-relevancy wording, compact figure 4-2, poster with pipeline, Hancom v23 delivery"
+      "change_note": "2026-10-27: poster metric definition table restored in 04, answer-case section removed"
     }
   },
   "prose_revision": {

@@ -1,4 +1,5 @@
-"""Mutations reject a changed poster number, a moved bold value and a removed table."""
+"""Mutations reject a changed poster number, a moved bold value, a removed table
+and a changed metric definition."""
 
 import tempfile
 import unittest
@@ -34,14 +35,14 @@ class PosterEvidenceTests(unittest.TestCase):
 
     def test_changed_value(self):
         def change(slide):
-            self.cell(slide, 0, 2, 4).find(".//a:t", A).text = "0.99"
+            self.cell(slide, 1, 2, 4).find(".//a:t", A).text = "0.99"
 
         with self.assertRaisesRegex(AssertionError, "Poster value differs"):
             self.trial(change)
 
     def test_bold_on_non_maximum(self):
         def change(slide):
-            for r in self.cell(slide, 0, 2, 1).findall(".//a:rPr", A):
+            for r in self.cell(slide, 1, 2, 1).findall(".//a:rPr", A):
                 r.set("b", "1")
 
         with self.assertRaisesRegex(AssertionError, "bold differs"):
@@ -53,4 +54,11 @@ class PosterEvidenceTests(unittest.TestCase):
             frame.getparent().remove(frame)
 
         with self.assertRaises(AssertionError):
+            self.trial(change)
+
+    def test_definition_without_direction(self):
+        def change(slide):
+            self.cell(slide, 0, 1, 2).find(".//a:t", A).text = "근거에 충실"
+
+        with self.assertRaisesRegex(AssertionError, "Value direction missing"):
             self.trial(change)
