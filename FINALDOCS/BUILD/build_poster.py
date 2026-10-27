@@ -197,14 +197,14 @@ def mechanism_png(path):
 
 
 def parallel_png(path, height_in=6.1, width_in=21.7):
-    """The 25 method questions in four condition panels."""
+    """The 25 method questions in four condition panels, side by side."""
     from plot_questions import group_profiles
 
     data = pd.read_csv(
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
     group_profiles(
-        data, "방법 질문", size=(width_in, height_in), scale=2.0 if width_in > 15 else 1.75, save_to=path, compact=True
+        data, "방법 질문", size=(width_in, height_in), scale=1.75, save_to=path, compact=True, ncols=4
     )
 
 
@@ -571,40 +571,32 @@ def build(out_dir: Path, personal=None, layout="b"):
         size=19,
     )
 
-    # ---------------- 06 parallel coordinates (left) beside 07 conclusions (right)
-    y0 = y + 4
+    # ---------------- 06 parallel coordinates, then 07 conclusions, both full width
     refs_h = 13
-    # right column first, spaced down the height of the parallel chart
     conclusions = [
-        "관련성과 응답 시간이 중요하면 HyDE 하나\n(개념과 결과 질문 포함)",
+        "관련성과 응답 시간이 중요하면 HyDE 하나(개념과 결과 질문 포함)",
         "수치 질문은 정답 구간의 검색을 확인하고 충실도는 HyDE+CAD",
         "한국어 답변은 세 기법(방법 질문 세 지표가 SCD 단독보다 높음)",
-        "조합은 HyDE 단독보다 관련성이 낮고\n일관된 이득은 SCD의 한국어 비율",
+        "조합은 HyDE 단독보다 관련성이 낮고 일관된 이득은 SCD의 한국어 비율",
     ]
-    size_c = 24
-    lines = sum(1 + c.count("\n") for c in conclusions)
-    line_h = size_c * 0.3528 * 1.32
-    rgap = min(14.0, ((H - 6 - refs_h) - y0 - 19 - lines * line_h) / len(conclusions))
-    parallel_label = section("방법 질문 25개의 원점수 평행좌표")
-    yr = P.heading(R, y0, C, section("결론"))
-    yr = P.bullets(R, yr + 2, C, conclusions, size=size_c, gap=rgap)
-    end = max(yr, H - 6 - refs_h)
-    yl = P.heading(L, y0, C, parallel_label)
-    caption_h = 21
-    width_in = C / 25.4
-    height_in = (end - yl - caption_h) / 25.4
-    parallel_png(par, height_in, width_in)
-    yl = P.picture(par, L, yl, C)
-    yl = P.bullets(
+    size_c, gap_c = 22, 2.0
+    conclusion_h = 17 + 2 * (size_c * 0.3528 * 1.32 + gap_c)
+    caption_h = 19 * 0.3528 * 1.32 + 2.5
+    y = P.heading(L, y + 4, FW, section("방법 질문 25개의 원점수 평행좌표"))
+    chart_h = (H - 6 - refs_h) - y - 1 - caption_h - 4 - conclusion_h
+    parallel_png(par, chart_h / 25.4, FW / 25.4)
+    y = P.picture(par, L, y, FW)
+    y = P.bullets(
         L,
-        yl + 1,
-        C,
-        [
-            "HyDE 적용 후 관련성 축의 선이 위로 모이고\n관련성 0점 답변이 5개에서 1개로 줄어듦",
-        ],
+        y + 1,
+        FW,
+        ["HyDE 적용 후 관련성 축의 선이 위로 모이고 관련성 0점 답변이 5개에서 1개로 줄어듦"],
         size=19,
     )
-    y = max(yl, yr) + 3
+    y = P.heading(L, y + 4, FW, section("결론"))
+    yl = P.bullets(L, y, C, conclusions[:2], size=size_c, gap=gap_c)
+    yr = P.bullets(R, y, C, conclusions[2:], size=size_c, gap=gap_c)
+    y = max(yl, yr) + 2
     P.text(
         L,
         y,
