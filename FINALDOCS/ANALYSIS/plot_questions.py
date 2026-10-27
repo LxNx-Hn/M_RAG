@@ -735,7 +735,8 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
     """Diagram of one numeric question passing through HyDE, CAD and SCD.
 
     Quoted answers and score changes come from the stored run; the embedding
-    dots and the candidate word sizes illustrate how each technique works.
+    dots and the next-token score bars illustrate how each technique shifts
+    the search point (HyDE) or the chosen token (CAD, SCD).
     layout "wide" puts the three panels in one row (poster); layout "grid"
     puts the question and the three panels in a 2x2 grid so the text is
     about 1.5 times larger at the thesis body width. Scores show two
@@ -834,7 +835,17 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
             label(x0 + pw - 1.3, py + ph - 2.3, stage, 6.0, ec, True, "right")
             label(x0 + 1.5, py + ph - 5.4, idea, 6.4, INK, True)
 
-        # HyDE: hypothetical passage written by the LLM, real passage found near it
+        def scores(x, y, rows, unit=1.0, factors=None):
+            """Next-token score bars; candidate names right-aligned at x."""
+            for k, (token, value, colour) in enumerate(rows):
+                yy = y - k * 1.6
+                label(x, yy, token, 4.8, INK if colour != FAINT else MUTED, colour != FAINT, "right")
+                ax.add_patch(plt.Rectangle((x + 0.4, yy - 0.5), value * unit, 1.0, fc=colour, ec="none"))
+                if factors:
+                    label(x + 0.8 + value * unit, yy, factors[k], 4.8, colour if colour != FAINT else DOWN, True)
+
+        # HyDE: the question and the hypothetical passage sit at different points
+        # of the embedding space, and retrieval searches around the passage
         rbox(1.5, 19.6, 14.6, 9.4, "#ffffff", RETRIEVE, 0.9, ls="--")
         label(2.5, 27.4, "LLM이 쓴 가상 구간", 5.8, RETRIEVE, True)
         label(2.5, 23.0, "“… approximately 13\nbillion parameters …”", 5.3, INK)
@@ -843,54 +854,73 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         label(2.5, 12.0, "“… configured with\n32B parameters …”", 5.3, INK)
         rbox(17.3, 8.6, 13.8, 20.0, "#ffffff", "#c9c3d6", 0.7)
         label(18.1, 27.3, "임베딩 공간", 5.2, MUTED)
-        star, near = (23.4, 19.9), (24.8, 18.6)
+        query, star, near = (28.6, 24.6), (23.0, 18.6), (24.4, 17.3)
         rng = np.random.default_rng(11)
-        pts = rng.uniform([18.4, 11.8], [30.2, 25.8], size=(18, 2))
-        keep = np.array([p for p in pts if np.hypot(p[0] - 24.2, p[1] - 18.9) > 4.0])
+        pts = rng.uniform([18.4, 11.8], [30.2, 25.8], size=(22, 2))
+        keep = np.array(
+            [p for p in pts if np.hypot(p[0] - star[0], p[1] - star[1]) > 4.0 and np.hypot(p[0] - query[0], p[1] - query[1]) > 2.0 and np.hypot(p[0] - 24.0, p[1] - 23.6) > 2.6]
+        )
         ax.scatter(keep[:, 0], keep[:, 1], s=6 * f * f, color="#b8bcc4", zorder=2)
         ax.add_patch(plt.Circle(star, 3.0, fill=False, ls="--", ec=RETRIEVE, lw=0.7 * f))
+        ax.scatter(*query, s=26 * f * f, marker="o", fc="#ffffff", ec=RETRIEVE, lw=1.1 * f, zorder=5)
+        label(query[0], query[1] + 1.4, "질문", 5.0, RETRIEVE, True, "center")
         ax.scatter(*star, s=60 * f * f, marker="*", color=RETRIEVE, zorder=5)
         ax.scatter(*near, s=24 * f * f, color=INK, zorder=4)
-        flow((16.2, 24.0), (22.3, 20.5), RETRIEVE)
-        flow((24.2, 18.1), (16.3, 13.4), INK)
-        label(24.2, 9.7, "가까운 구간 검색", 5.2, INK, ha="center")
+        flow((28.0, 23.9), (25.3, 20.6), RETRIEVE, lw=1.6)
+        label(24.0, 23.6, "기준 이동", 5.0, RETRIEVE, True, "center")
+        flow((16.2, 24.0), (21.9, 19.4), RETRIEVE)
+        flow((23.8, 16.8), (16.3, 13.4), INK)
+        label(24.2, 9.7, "가상 구간 주변 검색", 5.2, INK, ha="center")
 
-        # CAD: the model reads the question with and without the document,
-        # then leans toward what the document adds
-        for yc, missing in ((25.4, False), (18.6, True)):
-            document(35.6, yc - 1.9, 3.0, 3.8, FAINT if missing else GENERATE, missing)
+        # CAD: the same LLM scores the next token with and without the document.
+        # Without it the model's prior knowledge shows; CAD enlarges the gap the
+        # document makes, (1 + a) z_ctx - a z_noctx with a = 0.5
+        ctx = [("3.2", 3.0, DOWN), ("32", 2.8, FAINT)]
+        noctx = [("3.2", 3.0, FAINT), ("32", 1.2, FAINT)]
+        alpha = 0.5
+        mixed = [(t, (1 + alpha) * a - alpha * b) for (t, a, _), (_, b, _) in zip(ctx, noctx)]
+        best = max(mixed, key=lambda m: m[1])[0]
+        mixed = [(t, v, GENERATE if t == best else FAINT) for t, v in mixed]
+        assert best == "32"
+        for yc, missing, title, rows in ((25.6, False, "근거 포함 점수", ctx), (19.6, True, "사전 지식 점수", noctx)):
+            document(35.0, yc - 1.7, 2.8, 3.4, FAINT if missing else GENERATE, missing)
             if not missing:
-                label(39.6, yc, "+", 6.4, INK, True, "center")
-            rbox(40.5, yc - 1.4, 3.8, 2.8, "#ffffff", INK, 0.8, r=0.8)
-            label(42.4, yc, "질문", 5.4, INK, True, "center")
-            flow((44.5, yc), (47.4, yc))
-            rbox(47.5, yc - 1.7, 3.6, 3.4, "#ffffff", GENERATE, 1.0, r=0.6)
-            label(49.3, yc, "LM", 6.0, GENERATE, True, "center")
-        hub = (57.9, 21.9)
-        flow((51.4, 25.4), (56.2, 22.7), GENERATE, lw=1.8)
-        flow((51.4, 18.6), (56.2, 21.1), FAINT)
-        label(55.2, 25.4, "키움", 5.2, GENERATE, True, "center")
-        label(55.2, 18.6, "뺌", 5.2, MUTED, True, "center")
-        ax.add_patch(plt.Circle(hub, 1.8, fc="#ffffff", ec=GENERATE, lw=1.0 * f))
-        label(hub[0], hub[1], "결합", 5.0, GENERATE, True, "center")
-        flow((hub[0], hub[1] - 1.9), (hub[0], 15.2), GENERATE)
+                label(38.35, yc, "+", 6.0, INK, True, "center")
+            rbox(38.9, yc - 1.3, 3.3, 2.6, "#ffffff", INK, 0.8, r=0.8)
+            label(40.55, yc, "질문", 5.2, INK, True, "center")
+            flow((42.3, yc), (43.3, yc))
+            rbox(43.4, yc - 1.5, 3.6, 3.0, "#ffffff", GENERATE, 1.0, r=0.6)
+            label(45.2, yc, "LLM", 5.4, GENERATE, True, "center")
+            flow((47.1, yc), (48.6, yc))
+            label(49.0, yc + 2.1, title, 4.8, MUTED, True)
+            scores(51.0, yc + 0.6, rows, 1.1)
+        rbox(58.0, 19.2, 7.3, 7.0, "#ffffff", GENERATE, 1.0, r=0.8)
+        label(61.65, 25.0, "CAD 점수", 5.2, GENERATE, True, "center")
+        scores(60.3, 23.3, mixed, 1.1)
+        label(61.65, 20.2, f"α={alpha}", 4.6, MUTED, ha="center")
+        flow((55.6, 25.6), (57.8, 24.2), GENERATE, lw=1.6)
+        flow((55.6, 19.6), (57.8, 21.0), FAINT)
+        label(56.7, 26.5, "키움", 4.8, GENERATE, True, "center")
+        label(56.7, 18.9, "뺌", 4.8, MUTED, True, "center")
+        flow((61.65, 19.1), (61.65, 15.2), GENERATE)
         answer(35.3, 7.4, 13.6, 7.6, "미적용", f"“… {rec['base_unit']} …”", False, "틀린 수치")
         answer(51.1, 7.4, 13.6, 7.6, "CAD 적용", "“… 32 billion\nparameters …”", True, "원문과 같은 수치")
 
         # SCD: while the answer is written in Korean, Korean candidates are scaled
-        # up and English ones down, so the Korean word fills the slot
+        # up and English ones down, so the Korean word overtakes and fills the slot
         label(69.2, 28.7, "생성 중인 답변", 5.2, MUTED)
         rbox(69.0, 23.4, 29.4, 4.2, "#ffffff", GENERATE, 0.9)
         label(70.0, 25.5, "모델은 32B", 6.2, INK, True)
         rbox(77.9, 24.0, 8.4, 3.0, "#ffffff", GENERATE, 0.8, r=0.6, ls="--")
         label(86.8, 25.5, "로 구성되어 …", 6.2, INK, True)
-        rbox(70.8, 17.4, 11.2, 4.0, "#d9eed9", GENERATE, 1.0, r=0.8)
-        label(76.4, 19.4, "파라미터", 7.6, GENERATE, True, "center")
-        label(76.4, 16.2, "한국어 ×1.1", 5.4, GENERATE, True, "center")
-        rbox(86.2, 18.2, 9.4, 2.4, "#f3f4f6", FAINT, 0.7, r=0.6)
-        label(90.9, 19.4, "parameters", 5.0, MUTED, False, "center")
-        label(90.9, 16.2, "영어 ×0.9", 5.4, DOWN, True, "center")
-        flow((75.8, 21.6), (80.4, 23.9), GENERATE, lw=1.6)
+        en, ko = 4.6, 4.2
+        assert ko * 1.1 > en * 0.9 and en > ko
+        label(69.2, 21.7, "조정 전", 5.0, MUTED, True)
+        scores(75.0, 19.9, [("parameters", en, DOWN), ("파라미터", ko, FAINT)])
+        flow((80.8, 18.9), (83.9, 18.9), FAINT)
+        label(84.8, 21.7, "SCD 조정 후", 5.0, GENERATE, True)
+        scores(90.6, 19.9, [("파라미터", ko * 1.1, GENERATE), ("parameters", en * 0.9, FAINT)], factors=["×1.1", "×0.9"])
+        flow((88.4, 22.7), (84.2, 23.9), GENERATE, lw=1.6)
         answer(69.0, 7.4, 14.2, 7.6, "미적용", "“This model is\nconfigured with\n32B parameters”", False)
         answer(84.2, 7.4, 14.2, 7.6, "SCD 적용", "“모델은 32B\n파라미터로 구성되어\n있으며”", True)
 
