@@ -875,7 +875,10 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         # CAD: the same LLM scores the next token with and without the document.
         # Without it the model's prior knowledge shows; CAD enlarges the gap the
         # document makes, (1 + a) z_ctx - a z_noctx with a = 0.5
-        ctx = [("3.2", 3.0, DOWN), ("32", 2.8, FAINT)]
+        # With the document the two candidates score alike, so plain decoding may
+        # still pick 3.2
+        TIE = "#7d8596"
+        ctx = [("3.2", 3.0, TIE), ("32", 3.0, TIE)]
         noctx = [("3.2", 3.0, FAINT), ("32", 1.2, FAINT)]
         alpha = 0.5
         mixed = [(t, (1 + alpha) * a - alpha * b) for (t, a, _), (_, b, _) in zip(ctx, noctx)]
