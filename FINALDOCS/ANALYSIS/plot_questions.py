@@ -776,8 +776,8 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
                 FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", fc=fc, ec=ec, lw=lw * f, ls=ls)
             )
 
-        def flow(a, b, colour=INK, ls="-", lw=1.0):
-            ax.annotate("", xy=b, xytext=a, arrowprops=dict(arrowstyle="-|>", color=colour, lw=lw * f, ls=ls, mutation_scale=8 * f))
+        def flow(a, b, colour=INK, ls="-", lw=1.0, head=8):
+            ax.annotate("", xy=b, xytext=a, arrowprops=dict(arrowstyle="-|>", color=colour, lw=lw * f, ls=ls, mutation_scale=head * f))
 
         def label(x, y, text, size=6.4, colour=INK, bold=False, ha="left", va="center"):
             ax.text(x, y, text, fontsize=size * f, color=colour, fontweight="bold" if bold else "normal", ha=ha, va=va, linespacing=1.35, clip_on=clip)
@@ -800,7 +800,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
                 ax.plot([x - 0.4, x + w + 0.4], [y - 0.4, y + h + 0.4], color=FAINT, lw=0.9 * f)
                 ax.plot([x - 0.4, x + w + 0.4], [y + h + 0.4, y - 0.4], color=FAINT, lw=0.9 * f)
             else:
-                label(x + w / 2, y + 1.0, "32B", 4.6, GENERATE, True, "center")
+                label(x + w / 2, y + 1.0, "32B", 4.2, GENERATE, True, "center")
 
         def answer(x, y, w, h, name, quote, ok, note=None):
             colour = GENERATE if ok else DOWN
@@ -886,15 +886,16 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         mixed = [(t, v, GENERATE if t == best else FAINT) for t, v in mixed]
         assert best == "32"
         for yc, missing, title, rows in ((25.6, False, "근거 포함 점수", ctx), (19.6, True, "근거 제외 점수", noctx)):
-            document(35.0, yc - 1.7, 2.8, 3.4, FAINT if missing else GENERATE, missing)
+            # short arrows get a smaller head so the shaft stays visible
+            document(34.9, yc - 1.7, 2.4, 3.4, FAINT if missing else GENERATE, missing)
             if not missing:
-                label(38.35, yc, "+", 6.0, INK, True, "center")
-            rbox(38.9, yc - 1.3, 3.3, 2.6, "#ffffff", INK, 0.8, r=0.8)
-            label(40.55, yc, "질문", 5.2, INK, True, "center")
-            flow((42.3, yc), (43.3, yc))
-            rbox(43.4, yc - 1.5, 3.6, 3.0, "#ffffff", GENERATE, 1.0, r=0.6)
-            label(45.2, yc, "LLM", 5.4, GENERATE, True, "center")
-            flow((47.1, yc), (48.6, yc))
+                label(37.72, yc, "+", 5.4, INK, True, "center")
+            rbox(38.2, yc - 1.3, 3.0, 2.6, "#ffffff", INK, 0.8, r=0.8)
+            label(39.7, yc, "질문", 5.2, INK, True, "center")
+            flow((41.3, yc), (43.25, yc), lw=1.2, head=6)
+            rbox(43.35, yc - 1.5, 3.4, 3.0, "#ffffff", GENERATE, 1.0, r=0.6)
+            label(45.05, yc, "LLM", 5.4, GENERATE, True, "center")
+            flow((46.85, yc), (48.8, yc), lw=1.2, head=6)
             label(49.0, yc + 2.1, title, 4.8, MUTED, True)
             scores(51.0, yc + 0.6, rows, 1.1)
         rbox(58.0, 19.2, 7.3, 7.0, "#ffffff", GENERATE, 1.0, r=0.8)

@@ -574,10 +574,10 @@ def build(out_dir: Path, personal=None, layout="b"):
     # ---------------- 06 parallel coordinates, then 07 conclusions, both full width
     refs_h = 13
     conclusions = [
-        "관련성과 처리 시간이 중요하면 HyDE 하나(개념과 결과 질문 포함)",
-        "수치 질문은 정답 구간의 검색을 확인하고 충실도는 HyDE+CAD",
-        "한국어 답변은 세 기법(방법 질문 세 지표가 SCD 단독보다 높음)",
-        "조합은 HyDE 단독보다 관련성이 낮고 일관된 이득은 SCD의 한국어 비율",
+        "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
+        "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
+        "한국어 답변에는 세 기법을 모두 적용, SCD 단독보다 충실도가 높음",
+        "조합하면 관련성은 HyDE 단독보다 낮고, 한국어 비율만 일관되게 오름",
     ]
     size_c, gap_c = 22, 2.0
     conclusion_h = 17 + 2 * (size_c * 0.3528 * 1.32 + gap_c)
