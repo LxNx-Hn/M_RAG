@@ -566,13 +566,14 @@ def build(out_dir: Path, personal=None, layout="b"):
         FW,
         [
             "충실도, 정밀도, 재현율의 굵은 값은 SCD 미적용 조건과 적용 조건 안에서 각각 구한 최댓값",
-            "관련성은 방법 질문에서 HyDE가 0.57에서 0.74로, 충실도는 수치 질문에서 CAD가 0.83에서 0.90으로 높임",
         ],
         size=19,
     )
 
     # ---------------- 06 parallel coordinates, then 07 conclusions, both full width
     refs_h = 13
+    # the core message spans the full width above the two columns
+    core = "같은 기법도 질문 유형에 따라 이득과 손실이 달라짐"
     conclusions = [
         "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
@@ -583,7 +584,8 @@ def build(out_dir: Path, personal=None, layout="b"):
     # recommendations on the left, what combining did on the right
     left_c, right_c = conclusions[:3], conclusions[3:]
     size_c, gap_c = 22, 2.0
-    conclusion_h = 17 + max(len(left_c), len(right_c)) * (size_c * 0.3528 * 1.32 + gap_c)
+    line_c = size_c * 0.3528 * 1.32 + gap_c
+    conclusion_h = 17 + (1 + max(len(left_c), len(right_c))) * line_c
     caption_h = 19 * 0.3528 * 1.32 + 2.5
     y = P.heading(L, y + 4, FW, section("방법 질문 25개의 원점수 평행좌표"))
     chart_h = (H - 6 - refs_h) - y - 1 - caption_h - 4 - conclusion_h
@@ -597,6 +599,8 @@ def build(out_dir: Path, personal=None, layout="b"):
         size=19,
     )
     y = P.heading(L, y + 4, FW, section("결론"))
+    P.text(L, y, FW, line_c - gap_c, [[("- ", True), (core, True)]], size=size_c)
+    y += line_c
     yl = P.bullets(L, y, C, left_c, size=size_c, gap=gap_c)
     yr = P.bullets(R, y, C, right_c, size=size_c, gap=gap_c)
     y = max(yl, yr) + 2
