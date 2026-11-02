@@ -140,7 +140,7 @@ RAGAS는 RAG의 검색과 생성을 나누어 자동으로 평가하는 프레�
 
 Dense Passage Retrieval(DPR)[11]은 질의와 문서를 각각 임베딩하는 밀집 검색을, Fusion-in-Decoder(FiD)[12]는 여러 검색 구간을 디코더에서 결합하는 생성을 다룬다. Contrastive Decoding[13]은 두 모델의 출력 분포를 대조하며, CAD는 같은 모델에서 문맥을 포함한 입력과 제외한 입력을 대조한다.
 
-RAPTOR[14]는 계층적 요약 검색을, Self-RAG[15]와 Adaptive-RAG[16]는 검색 필요성과 질문 복잡도에 따른 검색 전략을 다룬다. Zhao 외[17]와 Fan 외[18]는 구성 요소별 기법을 정리하였고, BEIR(Benchmarking Information Retrieval)[19]와 MTEB(Massive Text Embedding Benchmark)[20]은 검색과 임베딩을 비교하는 벤치마크다.
+RAPTOR[14]는 계층적 요약 검색을, Self-RAG[15]와 Adaptive-RAG[16]는 검색 필요성과 질문 복잡도에 따른 검색 전략을 다룬다. Zhao 외[17]와 Fan 외[18]는 RAG의 구성 요소별 기법을 정리하였고, BEIR(Benchmarking Information Retrieval)[19]와 MTEB(Massive Text Embedding Benchmark)[20]은 검색과 임베딩을 비교하는 벤치마크다.
 
 본 연구는 검색과 생성의 구성을 고정한 채 HyDE, CAD, SCD를 조합하고, 한국어 질문 60개의 유형별 점수를 실제 검색 결과와 답변에 연결한다. 표 2-1은 선행연구의 접근과 본 연구의 분석 대상을 정리한 것이다.
 

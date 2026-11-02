@@ -395,7 +395,7 @@ METRIC_DEFINITIONS = [
     ["문맥 재현율", "참조 답변의 주장을 검색 구간이 뒷받침하는 비율", "높을수록 정답 근거 확보"],
     [
         "한국어 문자 비율",
-        "출력 언어, 한글 ÷ (한글 + ASCII 영문자)",
+        "답변의 한글 수 ÷ (한글 + ASCII 영문자 수)",
         "높을수록 한국어 출력",
     ],
 ]
@@ -456,8 +456,8 @@ def build(out_dir: Path, personal=None, layout="b"):
         "한국어 질문으로 영어 논문을 찾아 한국어로 답하는 RAG",
         "질문과 원문의 어휘가 달라 근거 구간을 찾기 어려움",
         "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
-        "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
-        "세 문제에 맞춘 HyDE, CAD, SCD를 같은 질문 60개에 조합",
+        "답변이 근거를 따라 영어로 바뀌는 언어 이탈이 생김",
+        "세 문제에 맞춘 HyDE, CAD, SCD를 조합해 같은 질문 60개에 적용",
         "질문 유형마다 각 기법의 이득과 손실을 비교",
     ]
     if layout == "b":
@@ -496,7 +496,7 @@ def build(out_dir: Path, personal=None, layout="b"):
             "영어 문서 4종에서 15개씩, 한국어 질문 60개",
             "수치 18개, 방법 25개, 개념과 결과 17개",
             "세 기법의 적용 여부를 조합한 조건 8개, 답변 480개",
-            "관측값은 모두 0에서 1, 앞의 네 지표는 RAGAS로 계산",
+            "관측값은 모두 0에서 1 사이, 앞의 네 지표는 RAGAS로 계산",
             "SCD 조건 4, 6, 7, 8의 충실도, 정밀도, 재현율은\n한국어 번역 근거로 평가해 같은 언어 조건끼리 비교",
         ],
         size=20,
@@ -565,7 +565,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         y + 3,
         FW,
         [
-            "충실도, 정밀도, 재현율의 굵은 값은 SCD 미적용 조건과 적용 조건 안에서 각각 구한 최댓값",
+            "굵은 값은 충실도, 정밀도, 재현율이 SCD 미적용 조건과 적용 조건 안에서, 관련성과 한국어 비율이 여덟 조건에서 구한 최댓값",
         ],
         size=19,
     )
@@ -575,13 +575,13 @@ def build(out_dir: Path, personal=None, layout="b"):
     conclusions = [
         "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
-        "한국어 답변에는 세 기법 모두 적용, SCD만 쓸 때보다 충실도가 높음",
+        "한국어 답변이 중요하면 세 기법 모두 적용, SCD만 쓸 때보다 충실도가 높음",
         "기법을 둘 이상 조합하면 답변 관련성이 HyDE만 쓸 때보다 모두 낮음",
         "조합으로 일관되게 오른 지표는 SCD를 넣었을 때의 한국어 문자 비율뿐",
     ]
     # recommendations on the left, what combining did on the right
     left_c, right_c = conclusions[:3], conclusions[3:]
-    size_c, gap_c = 22, 2.0
+    size_c, gap_c = 21, 2.0
     line_c = size_c * 0.3528 * 1.32 + gap_c
     conclusion_h = 17 + max(len(left_c), len(right_c)) * line_c
     caption_h = 19 * 0.3528 * 1.32 + 2.5
