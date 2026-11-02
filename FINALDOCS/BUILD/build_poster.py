@@ -577,10 +577,13 @@ def build(out_dir: Path, personal=None, layout="b"):
         "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
         "한국어 답변에는 세 기법을 모두 적용, SCD 단독보다 충실도가 높음",
-        "조합하면 관련성은 HyDE 단독보다 낮고, 한국어 비율만 일관되게 오름",
+        "조합한 네 조건 모두 답변 관련성이 HyDE 단독보다 낮음",
+        "조합으로 일관되게 좋아진 지표는 SCD가 높인 한국어 문자 비율뿐",
     ]
+    # recommendations on the left, what combining did on the right
+    left_c, right_c = conclusions[:3], conclusions[3:]
     size_c, gap_c = 22, 2.0
-    conclusion_h = 17 + 2 * (size_c * 0.3528 * 1.32 + gap_c)
+    conclusion_h = 17 + max(len(left_c), len(right_c)) * (size_c * 0.3528 * 1.32 + gap_c)
     caption_h = 19 * 0.3528 * 1.32 + 2.5
     y = P.heading(L, y + 4, FW, section("방법 질문 25개의 원점수 평행좌표"))
     chart_h = (H - 6 - refs_h) - y - 1 - caption_h - 4 - conclusion_h
@@ -594,8 +597,8 @@ def build(out_dir: Path, personal=None, layout="b"):
         size=19,
     )
     y = P.heading(L, y + 4, FW, section("결론"))
-    yl = P.bullets(L, y, C, conclusions[:2], size=size_c, gap=gap_c)
-    yr = P.bullets(R, y, C, conclusions[2:], size=size_c, gap=gap_c)
+    yl = P.bullets(L, y, C, left_c, size=size_c, gap=gap_c)
+    yr = P.bullets(R, y, C, right_c, size=size_c, gap=gap_c)
     y = max(yl, yr) + 2
     P.text(
         L,
