@@ -824,7 +824,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
 
         panels = [
             (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 문서로 실제 근거를 검색", RETRIEVE, "#f4f1f8"),
-            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "문서가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
+            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "근거가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
             (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
         ]
         pw, py, ph = 32.0, 6.4, 29.6
