@@ -458,7 +458,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
         "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
         "세 문제에 맞춘 HyDE, CAD, SCD를 조합해 같은 질문 60개에 적용",
-        "질문 유형마다 각 기법의 이득과 손실을 비교",
+        "질문 유형별로 기법과 조합을 비교 분석해 적합한 조합을 고르는 기준 제시",
     ]
     if layout == "b":
         pipe = out_dir / "poster_pipeline.png"

@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "73e5c5a3e0abc7f905bcf0f76e8640136fd8f57859e41e5bad33bc559601724a",
-  "manuscript_lf_sha256": "238ec7b7fe57c2a800ee907fcced8f5d0118985cb0b56d92b7b3e76629d1a65e",
+  "manuscript_sha256": "3bfd7fdf8f2cd0667252b0d33849638d086a5f401774a92f4540bff2b890e594",
+  "manuscript_lf_sha256": "bea1b89e275bfea8b510b12ac961906c09bbf0a3d6b36245c737eea8c7b97afb",
   "layout_code_lf_sha256": {
-    "build_thesis_hwpx.py": "546182535e283460f9c13dbad7ebbe9e1232970e0dd73f094d750c48de2ccf5c",
+    "build_thesis_hwpx.py": "c29817cf95027cbc5d80648fbf9420510c73405832e9ef138bf0a602406385fe",
     "layout_policy.py": "dacead1a459771c87ffc78331e9629ba6e2487238af6323aa3bd225e5dce7cb4"
   },
-  "pdf_sha256": "f896561d21275a2b524e1f372779278b088f6e2ebec4da65885b34bba1829f77",
+  "pdf_sha256": "ade1ee180904dcf032d1e028072958ad3d0b19a02c9218bbb695c328764b4ccb",
   "pdf_pages": 49,
   "physical_pages": {
     "1. 서론": 7,

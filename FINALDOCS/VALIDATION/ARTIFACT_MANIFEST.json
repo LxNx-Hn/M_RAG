@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "35cf933819431de37823d641e31fdebb288b94ada85319c6947886638bcbefd5",
+      "sha256": "95e2a0b2cd16b21dc9353115c897e5b27ee7285d4ed6814b5d201f9c6b25a813",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-03: second sentence review (term definitions, particles, spacing, explicit scope), Hancom v34 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "f896561d21275a2b524e1f372779278b088f6e2ebec4da65885b34bba1829f77",
+      "sha256": "ade1ee180904dcf032d1e028072958ad3d0b19a02c9218bbb695c328764b4ccb",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-11-03: second sentence review (term definitions, particles, spacing, explicit scope), Hancom v34 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "57c74bb7c3e632e4ae554c39e0414d2c7dfa620216fab9f8644cb599c2478d4a",
+      "sha256": "8362ec9599138f944881965d1e175056aac4e7cdb9317335b1ff436f3df55650",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "238ec7b7fe57c2a800ee907fcced8f5d0118985cb0b56d92b7b3e76629d1a65e",
+      "sha256": "bea1b89e275bfea8b510b12ac961906c09bbf0a3d6b36245c737eea8c7b97afb",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -303,34 +303,34 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "2f7058a66df539ca84a2d008bd102a635b9eef1d2d9fcd6d9d865169787431f7",
+      "sha256": "d0bcfd66ebc55d9e1eb19901ad64ed1b4c9e33a64a86f18b0747ddb9716abaca",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1245761
+      "bytes": 1297676
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "5167c106e6e06367eb56f4cc9069218181ee0a115386a64a23d8b4a18b66053c",
+      "sha256": "aafd74c50e4c87f93f813a611d023ff1dfd547ce753bb952048c5240b4b9d0f8",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1510015
+      "bytes": 1563425
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "d731235837fabaef690e8324d798d570f7f7b643b8afc8fd6b4f44a5c2d42fe1",
+      "sha256": "2d12b0d187377fb897d1bbd194ed34d47169223bf2d00bc17c79c2048e92e781",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1122666
+      "bytes": 1164652
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
       "sha256": "2fbe895cfc896e9443fe72a4088592876478ece8900bfb2fc136253e2df6439c",
@@ -1979,18 +1979,18 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "4a6c49d2bcfbf0e956aaff2be70266629f38fb9f25f5f21201c189d6fe86ae30",
+      "sha256": "3656c6c2b91617e6a425b6d799a7c5fc3cdd0089f2b04386ff2f9563188d6bf1",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
-      "bytes": 1698074
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
+      "bytes": 1750511
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "e97f3d23ec55b6d08b32202cf325ecb5ae84ecd87336a1464b0b1039623bcd6b",
+      "sha256": "acfb585d256c470058c2ebe5239f750c3424eda6531c4c014b30f6cd4d221661",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery",
-      "bytes": 4847
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
+      "bytes": 4981
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
       "sha256": "03a02c55542dba34f8e4657485f7ea656b8af5be73bef54ed2316c12b2c7f678",
@@ -2065,10 +2065,10 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "119f5eac270184a2d3f838e4e7d4e61e7769dd357c2c9ce4d5e1c99ed62f106f",
+      "sha256": "bd9e998c74e85d106f8e29faa687876d54c632a5ee177ad55cf0cdcb34201433",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2117,34 +2117,34 @@
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "ac700e2ace53be1373383064f0eb128c1f7fe0d124955cb3669a5a9ef565a5ed",
+      "sha256": "e698081f7ea40a245e2cb62c9facf45589b069ba745bbe777f40198406acb53d",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "f7001bec0d34b61acf8d2577a06eda91d9b4300c0470d3177ce4f24f58cb4d81",
+      "sha256": "9f65c7f73b928fb5c9c73a35d057a9735c9f1df15c50e678c2d58e460c101309",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "6dc8dca78276d219594c441e24b3b626f54d5ade100f6664d982c04789200f07",
+      "sha256": "6d6d0c0b8ec2f5904915afa7524bc0de2e2f8cce2e19492c483c3099bcf8848a",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
-      "sha256": "debc5ad960306b17e6f6cff556b7ae30700c1bdc725a5e335cf9da94f138f4a3",
+      "sha256": "7f65a7b8c85b3240f17cf4c66a6c92624e94bba334b3b08c360da5824e3f8223",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "5f8d8f2881b97361c75cc7ca27a4c86044905def1341d5c6c96a41a34d2835b6",
+      "sha256": "93339fc7fefd357cf685e1e66a7f1a80a8c3a1fb1d4bc1ad26760e449e707d18",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-10-27: defensive sentences removed from thesis, figures 5-3 to 5-5 and poster caption, Hancom v28 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     }
   },
   "prose_revision": {
