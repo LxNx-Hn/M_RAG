@@ -212,7 +212,7 @@ def empty_template(doc: HwpxDocument) -> None:
         run.insert(1, ctrl)
 
 
-ENGLISH_TITLE = "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries"
+ENGLISH_TITLE = "Comparative Analysis of Performance Improvement Algorithms for Retrieval-Augmented Generation (RAG) on English Documents with Korean Queries"
 
 
 def insert_school_covers(

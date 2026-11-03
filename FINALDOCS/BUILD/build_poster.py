@@ -431,8 +431,8 @@ def build(out_dir: Path, personal=None, layout="b"):
         W - 2 * L,
         50,
         [
-            "한국어 질의로 영어 학술 및 기술 문서를 검색하는",
-            "RAG에서의 HyDE, CAD, SCD 조합 실험",
+            "한국어 질의 기반 영문 문서 검색 증강 생성(RAG)의",
+            "성능 개선 알고리즘 비교 분석",
         ],
         size=62,
         bold=True,
