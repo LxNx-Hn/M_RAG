@@ -41,11 +41,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/THESIS_TABLES_60Q.json": {
-      "sha256": "0a1a2762974aca0524d05f291d0aedcdea3e9696841cfdc955e450dc59cd4ef6",
+      "sha256": "a835f950782f953d699e398c4229ba43ebb760a24387abb7dbc7913d0be1a61d",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "c162ac4adef05a75fff17f9ee8498ccc15ee569ed919a662b99595ee16b3dc72",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "FINALDOCS/DATA/evidence_manifest_60q.json": {
@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "94bd2a0de64a54d20be2b5d2ec7ae124b3c32a10fcfde9c5e95984b17fdf9a8a",
+      "sha256": "95e2a0b2cd16b21dc9353115c897e5b27ee7285d4ed6814b5d201f9c6b25a813",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "b1b70788eb5eaa466d7a0277c8ceed95f7ce5d20a45885ef1ddc658b64e4b791",
+      "sha256": "ade1ee180904dcf032d1e028072958ad3d0b19a02c9218bbb695c328764b4ccb",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "30c3b38d1189d16178adc3b972b5785d3d2f3e3d312ae394d8a2e9fa9b32a623",
+      "sha256": "8362ec9599138f944881965d1e175056aac4e7cdb9317335b1ff436f3df55650",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "d5d2e16abbb37fc6c00a220fe9a6301d3406c615b767e9053d7a6069925de6c3",
+      "sha256": "bea1b89e275bfea8b510b12ac961906c09bbf0a3d6b36245c737eea8c7b97afb",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -303,41 +303,41 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "56ba861c28c401026c5fd0eaeefb9efa2020ab5a8129ee4b188019022a4ae42d",
+      "sha256": "d0bcfd66ebc55d9e1eb19901ad64ed1b4c9e33a64a86f18b0747ddb9716abaca",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1297699
+      "bytes": 1297676
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "f5b9e8c3fcfa14b3635b517abbfa031b63209e7847e79e6c0a779afb27ad134d",
+      "sha256": "aafd74c50e4c87f93f813a611d023ff1dfd547ce753bb952048c5240b4b9d0f8",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1564543
+      "bytes": 1563425
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "bbd9d212d2a1ee54c6fa761cab6599098eb471999885a7d835a905c19416e476",
+      "sha256": "2d12b0d187377fb897d1bbd194ed34d47169223bf2d00bc17c79c2048e92e781",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1165006
+      "bytes": 1164652
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
-      "sha256": "719ac0b10adf9035138a32123afa4b2ab974255b9a3baef35bf1a24362ed9f5f",
+      "sha256": "2fbe895cfc896e9443fe72a4088592876478ece8900bfb2fc136253e2df6439c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b08d0cb615d35d68a780239f3cea9c39d91aa9d07ae4e04521ba49070e761fb6",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
+      "change_note": "2026-10-25: thesis result numbers at three decimals (poster stays at two), Hancom v26 delivery",
       "bytes": null
     },
     "experiments/data/query_audit.json": {
@@ -1979,18 +1979,18 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "fdfce0f0692ff258907b005c9c8ec7836d88f7f62cc765bb42fae62819b80fca",
+      "sha256": "3656c6c2b91617e6a425b6d799a7c5fc3cdd0089f2b04386ff2f9563188d6bf1",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
-      "bytes": 1752641
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
+      "bytes": 1750511
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "6aa084c2b3bc8c95e7383b99f6c100e61412d96168420bec9888250f7d8f3306",
+      "sha256": "acfb585d256c470058c2ebe5239f750c3424eda6531c4c014b30f6cd4d221661",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery",
-      "bytes": 4989
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery",
+      "bytes": 4981
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
       "sha256": "03a02c55542dba34f8e4657485f7ea656b8af5be73bef54ed2316c12b2c7f678",
@@ -2065,10 +2065,10 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "4067b3d700c2fb768da50ed460fdd66b385f16675794094c0e3fc79dd801b7b4",
+      "sha256": "bd9e998c74e85d106f8e29faa687876d54c632a5ee177ad55cf0cdcb34201433",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2117,34 +2117,34 @@
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "e108022f778877d8046686a0aa9ab62a96e5ad1ddcf3407158e46ece7902b9f9",
+      "sha256": "e698081f7ea40a245e2cb62c9facf45589b069ba745bbe777f40198406acb53d",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "65b32e16f5846f90563553fe70919b7cfca1a15bc2e9c3c33ec98f1725518135",
+      "sha256": "9f65c7f73b928fb5c9c73a35d057a9735c9f1df15c50e678c2d58e460c101309",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "014db3e4f7402de73b2b6b2b5509e00f9755323fa3e83342ca51542cacb187b5",
+      "sha256": "6d6d0c0b8ec2f5904915afa7524bc0de2e2f8cce2e19492c483c3099bcf8848a",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
-      "sha256": "1f05235db6e9634ddbcdf4d3de47aad1dc4705c11b9e092495021d100efc334b",
+      "sha256": "7f65a7b8c85b3240f17cf4c66a6c92624e94bba334b3b08c360da5824e3f8223",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "8fbb0136a994048438d9eed6ff952b9688b88e82565a6f87292c8a664abcc28d",
+      "sha256": "93339fc7fefd357cf685e1e66a7f1a80a8c3a1fb1d4bc1ad26760e449e707d18",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-08: chair-criteria review applied (HyDE+SCD for Korean answers, CAD on matched questions, run history in 3.3, Table 5-1 judge note), Hancom v36 delivery"
+      "change_note": "2026-11-03: thesis and poster retitled to the comparative-analysis framing, purpose and review sentences aligned, Hancom v35r delivery"
     }
   },
   "prose_revision": {
