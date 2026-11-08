@@ -575,9 +575,10 @@ def build(out_dir: Path, personal=None, layout="b"):
     conclusions = [
         "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
-        "한국어 답변이 중요하면 세 기법 모두 적용, SCD만 쓸 때보다 충실도가 높음",
+        "한국어 답변이 중요하면 HyDE+SCD 적용, 한국어 비율이 가장 높음",
         "두 기법 이상 조합한 경우는 모두 답변 관련성이 HyDE만 쓸 때보다 낮음",
         "조합으로 일관되게 오른 지표는 SCD를 넣었을 때의 한국어 문자 비율뿐",
+        "세 기법 모두 쓰면 수치 질문 충실도가 HyDE+SCD보다 높은 0.93",
     ]
     # recommendations on the left, what combining did on the right
     left_c, right_c = conclusions[:3], conclusions[3:]
