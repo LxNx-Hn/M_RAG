@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "b2e27238e4bb37698bab8b3730450e3123f225334b1395f734584e998e79cacc",
+      "sha256": "26903e1bfcd2e3bf6c16ca291e5afb768e58817f46a31446016dc0ddd555f18d",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "b8072248ea17b4d3ca80b333f7affebdf626ba961b006358e33ca35cab279c70",
+      "sha256": "bdd33c1ff8fe20b3826db6958358cc7851a64998b445c48bd14c18332873e0cd",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "937210ac23bd93114651499abcc86df52abfcad145f0700ad0d86c6b7f5e5c4b",
+      "sha256": "72d986a0c9e8c71cc55346cfec9403cf883af0bbdae59f898675ed232c2d6999",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "75053008958caf19def12578d043ef175aaf08f55e0c36eb6eec1319d3cb2ac5",
+      "sha256": "5d13d60c2dab24e0118403c63f79277641208df1357ece53d0161b8d881b4f34",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -303,34 +303,34 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "3d34755ab48e568946246af863140b5085c3bc6a26c820d0b3d6a1c512441b6c",
+      "sha256": "1b74aa234245774a8442cdb7969a359722d63635469c3c891bb137ff51109569",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1297726
+      "bytes": 1297701
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "79d151cdc13b12bbb3cf12bb4de0df2c4a824c8a360f4e399d553984d12c9022",
+      "sha256": "17dad031867f03a81df7b5fbd6f5b81c5088b4c1cd614410617074ec84defe31",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1567408
+      "bytes": 1566230
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "2c5a375f98d1c640726e214601588e01fafd436e9f6ff93d0cdbb713ce4234a4",
+      "sha256": "a4c443d845d4b453d2fc91e50eb30d328374ec595b4f6a30aa9281f3b7dc63a8",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line",
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1165662
+      "bytes": 1164801
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
       "sha256": "2215d3f746fd6f9f25fa07adc5e8cc11e7b7198ed9fb6caaf4373592080618e7",
@@ -1979,18 +1979,18 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "e15592b4575dd9b8083dc4e6d7d79b1c4d3d019a81490a432ce3a777bf146f85",
+      "sha256": "21b889a3270a11dac9718c21493f801a23bf24ce67e64faae1b1a3f14d8bebcb",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line",
-      "bytes": 1764699
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "bytes": 1762795
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "6fe65e888fc0098af6deac1e534f6123d4017efbe5ccf106ed03c4ad12517d6f",
+      "sha256": "b0fac1a076f42628a3153271ca227f33272dc56736a1aa0af2c6f4b593222fb6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line",
-      "bytes": 5071
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "bytes": 5047
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
       "sha256": "03a02c55542dba34f8e4657485f7ea656b8af5be73bef54ed2316c12b2c7f678",
@@ -2065,10 +2065,10 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "cdfbb430f2ce77a2728d1c062c5006ef0ed3a3aa16358a65f97387ba12663fb2",
+      "sha256": "67891072b1353f46c2e751b3c6c071e3ec251fc8ba85ec6084108cf06350d2c8",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2117,34 +2117,34 @@
       "change_note": "2026-10-24: poster 02 pipeline figure restored beside 01"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "e72a22241fb064860b16969e8416c2ec54a1f3fce83ee7509bd57d414ffa5756",
+      "sha256": "de207f8f726b6da625590ded7388b1d79c90636b6134dd7772dfd26902cee3b8",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "6d757601cb35ff90421b29573bf74f1bc47e3bfba20dac8fe7c5ff8b33011ec1",
+      "sha256": "6eb8323e9186d64076b4c6b4dbee7f824229e9365c7904e90393f0e61abef4b5",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "9c05ae1698132a0bbc5c835986c09eb27a2782546fefafcf8610fa41657f70b9",
+      "sha256": "d8dd9f531d73165713faff66a260eb415c9db4d74d7332d2ff85a9876f9f28a2",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
-      "sha256": "d2a7f8cea12ccc5a8f954244df19ae15c5c042b4a0125d6d8086dd6052e63ad7",
+      "sha256": "5da9afc68ef7012224bdd047a92100ea4fda34f4f8bc62eb9b5c4cf21ac8ce9a",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "f1133ec118bb9ee5e983dc3e33830e99a60431ae3f3b9cd08e103987133c3625",
+      "sha256": "88740f896faf5e858277af825edff8df8006a73c1e7ca9656171cc2694de292b",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: poster three-technique conclusion states gain and time cost in one line"
+      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
     }
   },
   "prose_revision": {
