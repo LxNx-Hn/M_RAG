@@ -55,7 +55,7 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "fa0933820516388d1e177ab07eec332ad7aa13cb89de95f488df6552aa3efe57",
+      "sha256": "b48820842dc516db5e4d981ecd9953fe767b39584145c9825c05e1f9302868ac",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
@@ -64,7 +64,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "2dc53d7b708d9f8acaaef4284d45b50fe0b067eb2370df015b39c55838c1881a",
+      "sha256": "e55538e1c0b54ff239425d2f962ba3e112137d22391b3951304117cfa1bad4b1",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
@@ -73,7 +73,7 @@
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "2cb36ac81ecfde861d74f763e78c02b73bb6cf0e30425f6d3846332309d4e34b",
+      "sha256": "a1af6363f7ee2005d028e037eca53a20d625a9f18b0842bd2869e2e94a77a319",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
@@ -285,7 +285,7 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "4685b73488f34e02cb0a127785d6dc2fcecd775a90e542186c07a93ed7ab2f6f",
+      "sha256": "3a91778a8f95e2f6f8bd9accda4d6dbba6feb26066b0a886b661b9e68176be93",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
@@ -2065,7 +2065,7 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "bfbd971d5d5e92706207f2beef3717a453a0f5ac3caa23212afbaaff6e78444f",
+      "sha256": "974d91523ba2e31333d1a3260179fda65eb2123bb78130dad00cdcad0d1b2940",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
       "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line"
