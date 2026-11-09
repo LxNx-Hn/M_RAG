@@ -95,10 +95,17 @@ def validate_layout(header, section):
             expected, method="c14n", exclusive=True
         ), f"School paragraph formatting or pagination differs: {role}"
         for run in p.findall("hp:run", NS):
-            assert run.get("charPrIDRef") == original.get(
-                "charPrIDRef"
-            ), f"School character style overridden: {role}"
             assert run.get("charPrIDRef") in chars
+            if run.get("charPrIDRef") != original.get("charPrIDRef"):
+                # Only an inline symbol subscript may differ from the school shape.
+                shape = copy.deepcopy(chars[run.get("charPrIDRef")])
+                mark = shape.find("hh:subscript", NS)
+                assert mark is not None, f"School character style overridden: {role}"
+                shape.remove(mark)
+                shape.set("id", original.get("charPrIDRef"))
+                assert ET.tostring(shape, method="c14n", exclusive=True) == ET.tostring(
+                    chars[original.get("charPrIDRef")], method="c14n", exclusive=True
+                ), f"School character style overridden: {role}"
         if role == "usage_url":
             fields = p.findall(".//hp:fieldBegin", NS)
             assert (

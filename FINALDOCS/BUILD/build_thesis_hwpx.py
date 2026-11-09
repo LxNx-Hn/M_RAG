@@ -26,6 +26,58 @@ HP = "http://www.hancom.co.kr/hwpml/2011/paragraph"
 HH = "http://www.hancom.co.kr/hwpml/2011/head"
 HC = "http://www.hancom.co.kr/hwpml/2011/core"
 NS = {"hp": HP, "hh": HH}
+# Inline symbol subscripts in the manuscript, e.g. C<sub>q</sub>.
+SUB = re.compile(r"<sub>(.*?)</sub>")
+
+
+def plain(text: str) -> str:
+    return SUB.sub(r"\1", text)
+
+
+_SUBSCRIPT = {}
+
+
+def subscript_char(header, base_ref: str) -> str:
+    """School character shape of the paragraph with only subscript added."""
+    key = (id(header), base_ref)
+    if key in _SUBSCRIPT:
+        return _SUBSCRIPT[key]
+    chars = header.find(".//hh:charProperties", NS)
+    if chars is None:
+        chars = header.find(".//hh:charPr", NS).getparent()
+    base = next(c for c in chars if c.get("id") == base_ref)
+    shape = copy.deepcopy(base)
+    new_id = str(max(int(c.get("id")) for c in chars) + 1)
+    shape.set("id", new_id)
+    ET.SubElement(shape, f"{{{HH}}}subscript")
+    chars.append(shape)
+    chars.set("itemCnt", str(len(chars)))
+    _SUBSCRIPT[key] = new_id
+    return new_id
+
+
+def apply_subscripts(header, element) -> None:
+    """Split a single-text paragraph into runs, subscripting <sub> spans."""
+    runs = element.findall("hp:run", NS)
+    text = "".join("".join(r.xpath("./hp:t//text()", namespaces=NS)) for r in runs)
+    if "<sub>" not in text:
+        return
+    base_ref = runs[0].get("charPrIDRef")
+    sub_ref = subscript_char(header, base_ref)
+    anchor = runs[0].getprevious()
+    for r in runs:
+        element.remove(r)
+    position = 0 if anchor is None else list(element).index(anchor) + 1
+    parts = SUB.split(text)
+    for i, part in enumerate(parts):
+        if not part:
+            continue
+        run = element.makeelement(
+            f"{{{HP}}}run", {"charPrIDRef": sub_ref if i % 2 else base_ref}
+        )
+        ET.SubElement(run, f"{{{HP}}}t").text = part
+        element.insert(position, run)
+        position += 1
 
 
 def clean(text: str) -> str:
@@ -493,6 +545,8 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                 p.set("paraPrIDRef", align_refs[alignment])
             for run in cell.findall(".//hp:run", NS):
                 run.set("charPrIDRef", cell_style.get("charPrIDRef"))
+            for cp in cell.findall(".//hp:p", NS):
+                apply_subscripts(header, cp)
     # Native bold character properties, with no extrema colour fills.
     chars = header.find(".//hh:charProperties", NS)
     if chars is None:
@@ -536,6 +590,8 @@ def emit(
                     text += "\t" + str(pages[key])
                 else:
                     text += "\t"
+            marked = text
+            text = plain(text)
             p = doc.add_paragraph(text, style=e["style"], inherit_style=False)
             role = None
             if e["style"] in ("장(1.)", "부록제목", "참고문헌제목"):
@@ -569,6 +625,10 @@ def emit(
                 role = "table_note" if text.startswith("주:") else "body"
             if role:
                 mapping["layout"].append(apply_layout(doc, p, role))
+            if marked != text:
+                run = p.element.find("hp:run", NS)
+                run.find("hp:t", NS).text = marked
+                apply_subscripts(doc.parts.headers[0].element, p.element)
             if role == "usage_url":
                 prefix, url = text.split("https://", 1)
                 url, _, suffix = url.partition(" ")

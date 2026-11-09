@@ -15,11 +15,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/EXPERIMENT_60_VALIDATION.md": {
-      "sha256": "a5a33ea0c1039d580272f483825604c9d2fd63247073065d63096f2858377bcc",
+      "sha256": "b4878eee5b157d30007936c798dba53c194127937c03a83f944c235c385afc5d",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "06a323e0fbceb8e42406a25ce682babe39684426c9d124bcc6859d5d05636478",
       "role": "submission_input_or_master",
-      "change_note": "Documentation pointer only: retired FINAL_CLAIM_MAP_60Q.md merged into RESEARCH_PROVENANCE.md; numerical content unchanged"
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line"
     },
     "FINALDOCS/DATA/FACTORIAL_OBSERVATIONS_60Q.csv": {
       "sha256": "207b00840e364f4e4d5588252d7ce6389ada1cb49bd48cf962d6fd6cb9e0e76e",
@@ -41,11 +41,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/THESIS_TABLES_60Q.json": {
-      "sha256": "ea921acf569db5ab15e47f15bc495276be8ab29deb96dce40fca8147351fd151",
+      "sha256": "d6a3e98cb703917ffb43c1d686be568f0e7678ed2bf3a6bda36c412a83fe2a32",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "c162ac4adef05a75fff17f9ee8498ccc15ee569ed919a662b99595ee16b3dc72",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "FINALDOCS/DATA/evidence_manifest_60q.json": {
@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "26903e1bfcd2e3bf6c16ca291e5afb768e58817f46a31446016dc0ddd555f18d",
+      "sha256": "eeebe0715565cb6d8533aaf909df3cd016f2b883685e602ac2e536c173afd4d2",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "bdd33c1ff8fe20b3826db6958358cc7851a64998b445c48bd14c18332873e0cd",
+      "sha256": "807cef2d5f38cd9a1b703c73d97ef91895ddeab1ed125009ce7c39abbeeff8b7",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "72d986a0c9e8c71cc55346cfec9403cf883af0bbdae59f898675ed232c2d6999",
+      "sha256": "db8a388c24cc884f176e1219878f0958555cafe7bd7f55d2468509f4831653e0",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -285,12 +285,12 @@
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "5d13d60c2dab24e0118403c63f79277641208df1357ece53d0161b8d881b4f34",
+      "sha256": "87b79ca7b2eaa7f7e1b8db2358e3503bb6dd6935ec85c678d6f3ffd8a31e38d6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -303,41 +303,41 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "1b74aa234245774a8442cdb7969a359722d63635469c3c891bb137ff51109569",
+      "sha256": "ed560391f4b985da1938c47a1ff7ca5c4b68698decb51f351abf883b8153e308",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1297701
+      "bytes": 1297688
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "17dad031867f03a81df7b5fbd6f5b81c5088b4c1cd614410617074ec84defe31",
+      "sha256": "f0cedd56323c719f0523ff4ed8f1d6f3cf709fdf211e9f5ca3bce54c0212fac6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1566230
+      "bytes": 1565443
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "a4c443d845d4b453d2fc91e50eb30d328374ec595b4f6a30aa9281f3b7dc63a8",
+      "sha256": "b9f0f3e962ec9f677b9fa64a02b3548342b0f255b0630c93ab337dec10a665eb",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1164801
+      "bytes": 1164592
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
-      "sha256": "2215d3f746fd6f9f25fa07adc5e8cc11e7b7198ed9fb6caaf4373592080618e7",
+      "sha256": "bfd037953ac13b6d5fc739da0078929e1b4f606c599a372504b604c865f88343",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b08d0cb615d35d68a780239f3cea9c39d91aa9d07ae4e04521ba49070e761fb6",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: six-criteria review applied (HyDE+SCD for Korean answers, three-technique assessment, CAD on matched questions, Table 5-1 judge note, 5.1 type definition), Hancom v38 delivery",
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
       "bytes": null
     },
     "experiments/data/query_audit.json": {
@@ -1979,18 +1979,18 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "21b889a3270a11dac9718c21493f801a23bf24ce67e64faae1b1a3f14d8bebcb",
+      "sha256": "599d0821670d22b3c2adc30a720c99a5063140461f5bcc3f795c7e5c18b1738a",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
-      "bytes": 1762795
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
+      "bytes": 1760725
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "b0fac1a076f42628a3153271ca227f33272dc56736a1aa0af2c6f4b593222fb6",
+      "sha256": "f4dba66ce42b71f9db1e81bae0985c99ebaeb392021c60ef1d61654f29d74463",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery",
-      "bytes": 5047
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
+      "bytes": 5030
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
       "sha256": "03a02c55542dba34f8e4657485f7ea656b8af5be73bef54ed2316c12b2c7f678",
@@ -2065,10 +2065,10 @@
       "bytes": 563020
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "67891072b1353f46c2e751b3c6c071e3ec251fc8ba85ec6084108cf06350d2c8",
+      "sha256": "3cf0fac72ab5935c871454ef0ed2328a7b9f8e9f0ca57ec4fb5ccc1a14ce0400",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",

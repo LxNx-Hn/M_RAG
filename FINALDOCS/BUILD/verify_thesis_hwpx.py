@@ -71,6 +71,8 @@ def main() -> None:
     source = (
         ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
     ).read_text(encoding="utf-8")
+    # Inline symbol subscripts are markup in the manuscript, plain text in HWPX.
+    source = re.sub(r"</?sub>", "", source)
     package = validate_package(args.file)
     assert not package.issues, package
     document = HwpxDocument.open(args.file)
@@ -215,7 +217,7 @@ def main() -> None:
                 assert (
                     original.data_type != "f"
                 ), "Cached-only formula input not permitted"
-                value = "" if original.value is None else str(original.value)
+                value = "" if original.value is None else re.sub(r"</?sub>", "", str(original.value))
                 # This workbook stores thesis precision as text; check every cell.
                 if isinstance(original.value, float) and re.fullmatch(
                     r"0\.0+", original.number_format

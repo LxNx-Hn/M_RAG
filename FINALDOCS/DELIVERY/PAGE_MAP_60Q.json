@@ -1,11 +1,11 @@
 {
-  "manuscript_sha256": "db7b07ed82d399c4d66e699fed190cca8d31b1b0cb11323256ef9442f9e260dc",
-  "manuscript_lf_sha256": "5d13d60c2dab24e0118403c63f79277641208df1357ece53d0161b8d881b4f34",
+  "manuscript_sha256": "cb07af0aa8e25ca951daf21141ed05996ddcfaf6520e31da7d27f4c2e8287ea5",
+  "manuscript_lf_sha256": "87b79ca7b2eaa7f7e1b8db2358e3503bb6dd6935ec85c678d6f3ffd8a31e38d6",
   "layout_code_lf_sha256": {
-    "build_thesis_hwpx.py": "c29817cf95027cbc5d80648fbf9420510c73405832e9ef138bf0a602406385fe",
+    "build_thesis_hwpx.py": "165f8cabf1db7e532174234ff885121d21d64a5c5335155a5e5e8ef6e2669787",
     "layout_policy.py": "dacead1a459771c87ffc78331e9629ba6e2487238af6323aa3bd225e5dce7cb4"
   },
-  "pdf_sha256": "bdd33c1ff8fe20b3826db6958358cc7851a64998b445c48bd14c18332873e0cd",
+  "pdf_sha256": "807cef2d5f38cd9a1b703c73d97ef91895ddeab1ed125009ce7c39abbeeff8b7",
   "pdf_pages": 49,
   "physical_pages": {
     "1. 서론": 7,
@@ -34,7 +34,7 @@
     "4. 프로그램 구현": 15,
     "4.1 시스템 환경": 15,
     "[표 4-1]": 15,
-    "4.2 시스템 구성": 15,
+    "4.2 시스템 구성": 16,
     "[그림 4-1]": 16,
     "4.3 시스템 구현과 실행 기록": 16,
     "[그림 4-2]": 17,
@@ -100,7 +100,7 @@
     "4. 프로그램 구현": 9,
     "4.1 시스템 환경": 9,
     "[표 4-1]": 9,
-    "4.2 시스템 구성": 9,
+    "4.2 시스템 구성": 10,
     "[그림 4-1]": 10,
     "4.3 시스템 구현과 실행 기록": 10,
     "[그림 4-2]": 11,

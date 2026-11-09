@@ -573,7 +573,7 @@ def build(out_dir: Path, personal=None, layout="b"):
     # ---------------- 06 parallel coordinates, then 07 conclusions, both full width
     refs_h = 13
     conclusions = [
-        "답변 관련성과 처리 시간이 중요하면 HyDE 하나만 적용",
+        "답변 관련성이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
         "한국어 답변이 중요하면 HyDE+SCD 적용, 한국어 비율이 가장 높음",
         "한국어 답변이 중요한 수치 질문이면 세 기법 모두 적용",

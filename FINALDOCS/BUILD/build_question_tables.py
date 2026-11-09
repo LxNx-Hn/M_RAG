@@ -89,6 +89,7 @@ def build():
         return r.iloc[0]
 
     related = existing["T2-1_Related_Work"]
+    related["title"] = "표 2-1 선행 연구의 핵심 접근과 본 연구와의 관계"
     related["rows"] = [
         ["연구", "핵심 접근", "본 연구와의 관계"],
         ["HyDE[2]", "가상 문서를 임베딩하여 검색", "질문 유형별 답변 관련성과 검색 지표의 변화"],
@@ -106,7 +107,11 @@ def build():
         else (
             ["CAD", "문맥 포함 로짓과 제외 로짓의 결합", r[2]]
             if r[0] == "CAD"
-            else ["SCD", "목표 언어 토큰의 로짓 조정", r[2]]
+            else [
+                "SCD",
+                "목표 언어 토큰의 로짓 조정",
+                r[2].replace("Tstart", "T<sub>start</sub>"),
+            ]
         )
         for r in env["rows"]
     ]
