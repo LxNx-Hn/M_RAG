@@ -141,9 +141,9 @@ def pipeline_png(path):
     arrow((23.5, 25.0), (29.5, 25.0))
     arrow((62.5, 25.0), (68.5, 25.0))
     tags = [
-        (30, "HyDE", "가상 문서로\n검색 입력 변경", "#2166ac"),
-        (66, "CAD", "문맥 포함과\n제외 로짓 결합", "#b2182b"),
-        (84, "SCD", "한국어 토큰\n로짓 조정", "#1b7837"),
+        (30, "HyDE", "가상 문서로\n밀집 검색 입력 변경", "#2166ac"),
+        (66, "CAD", "근거 포함과 제외\n점수 결합", "#b2182b"),
+        (84, "SCD", "한국어 토큰\n점수 조정", "#1b7837"),
     ]
     for x, name, desc, col in tags:
         w = 32 if name == "HyDE" else 15.5
@@ -174,7 +174,7 @@ def pipeline_png(path):
             desc,
             ha="center",
             va="center",
-            fontsize=15.5,
+            fontsize=14.5,
             color=ink,
             linespacing=1.2,
         )
@@ -385,14 +385,18 @@ SCORE_METRICS = list(METRIC_SHORT)
 # Section 04 definitions, same order and names as the 05 table (thesis 5.2).
 METRIC_DEFINITIONS = [
     ["지표", "측정 내용", "값의 방향"],
-    ["근거 충실도", "답변의 주장 중 검색 구간이 뒷받침하는 비율", "높을수록 근거에 충실"],
+    [
+        "근거 충실도",
+        "답변의 주장 중 입력 구간이 뒷받침하는 비율\n값이 없는 방법 질문의 답변 5개는 평균에서 뺌",
+        "높을수록 근거에 충실",
+    ],
     [
         "답변 관련성",
         "답변에서 역으로 만든 질문과 원래 질문의 유사도\n모호하거나 회피하는 답변은 0",
         "높을수록 질문에 부합",
     ],
-    ["문맥 정밀도", "참조 답변에 유용한 구간의 순위가 높은 정도", "높을수록 순위가 정확"],
-    ["문맥 재현율", "참조 답변의 주장을 검색 구간이 뒷받침하는 비율", "높을수록 정답 근거 확보"],
+    ["문맥 정밀도", "정답 근거에 유용한 구간의 순위가 높은 정도", "높을수록 순위가 정확"],
+    ["문맥 재현율", "정답 근거의 주장을 입력 구간이 뒷받침하는 비율", "높을수록 정답 근거 확보"],
     [
         "한국어 문자 비율",
         "답변의 한글 문자 수 ÷ (한글 + ASCII 영문자 수)",
@@ -453,10 +457,10 @@ def build(out_dir: Path, personal=None, layout="b"):
 
     # ---------------- background, beside the pipeline (b) or in two columns (a)
     background = [
-        "한국어 질문으로 영어 문서를 찾아 한국어로 답하는 RAG",
+        "한국어 질문으로 영어 문서를 찾아 한국어로 답하는 RAG[1]",
         "질문과 원문의 어휘가 달라 근거 구간을 찾기 어려움",
         "영어 근거를 한국어 답변에 충실히 옮기기 어려움",
-        "답변이 근거를 따라 영어로 바뀌는 언어 이탈",
+        "답변이 근거를 따라 영어로 바뀌는 언어 이탈이 생김",
         "세 문제에 맞춘 HyDE, CAD, SCD를 조합해 같은 질문 60개에 적용",
         "질문 유형별로 기법과 조합을 비교 분석해 적합한 조합을 고르는 기준 제시",
     ]
@@ -465,26 +469,29 @@ def build(out_dir: Path, personal=None, layout="b"):
         pipeline_png(pipe)
         y = P.heading(L, TOP, C, section("연구 배경과 목적"))
         yl = P.bullets(L, y, C, background)
+        ax, aw = L, C
         y = P.heading(R, TOP, C, section("파이프라인"))
         yr = P.picture(pipe, R, y, C)
     else:
         y = P.heading(L, TOP, FW, section("연구 배경과 목적"))
         yl = P.bullets(L, y, C, background[:3])
         yr = P.bullets(R, y, C, background[3:])
+        ax, aw, yl = L, FW, max(yl, yr)
+    # abbreviations spelled out where the three techniques are first named
+    P.text(
+        ax,
+        yl,
+        aw,
+        7,
+        "HyDE(Hypothetical Document Embeddings), CAD(Context-Aware Decoding), SCD(Soft Constrained Decoding)",
+        size=15,
+        color=GREY,
+    )
+    yl += 15 * 0.3528 * 1.15 + 1
 
     # ---------------- 03 example question, each technique against no technique
     y = P.heading(L, max(yl, yr) + 3, FW, section("예시 질문으로 본 단독 기법의 작동"))
     y = P.picture(mech, L, y + 1, FW)
-    P.text(
-        L,
-        y + 1,
-        FW,
-        8,
-        "HyDE Hypothetical Document Embeddings   CAD Context-Aware Decoding   SCD Soft Constrained Decoding   패널마다 미적용과 단독 적용 조건을 비교",
-        size=16,
-        color=GREY,
-    )
-    y += 10
 
     # ---------------- 04 questions and metrics, definitions above the 05 columns
     y = P.heading(L, y + 2, FW, section("질문과 평가"))
@@ -493,11 +500,11 @@ def build(out_dir: Path, personal=None, layout="b"):
         y,
         C,
         [
-            "영어 문서 4종에서 15개씩, 한국어 질문 60개",
-            "수치 18개, 방법 25개, 개념과 결과 17개",
+            "영어 문서 네 종에서 15개씩, 한국어 질문 60개(수치 18, 방법 25, 개념과 결과 17)",
             "세 기법의 적용 여부를 조합한 조건 8개, 답변 480개",
-            "지표값은 모두 0에서 1 사이, 한국어 비율을 뺀 네 지표는 RAGAS로 계산",
-            "SCD를 적용한 조건 4, 6, 7, 8의 충실도, 정밀도, 재현율은\n한국어로 번역한 근거로 평가해 SCD 적용 여부가 같은 조건끼리 비교",
+            "생성 모델 Mi:dm 2.0 Base Instruct, 평가 모델 GPT-4o",
+            "다섯 지표의 관측값은 모두 0에서 1 사이, 한국어 문자 비율을 뺀 네 지표는\nRAGAS(Retrieval Augmented Generation Assessment)[5]로 계산",
+            "SCD를 적용한 조건 4, 6, 7, 8의 충실도, 정밀도, 재현율은\n한국어로 번역한 입력 구간으로 평가해 SCD 적용 여부가 같은 조건끼리 비교",
         ],
         size=20,
         gap=2.0,
@@ -565,7 +572,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         y + 3,
         FW,
         [
-            "굵은 값은 최댓값이며, 충실도, 정밀도, 재현율은 SCD 적용 여부가 같은 네 조건 안에서, 관련성과 한국어 비율은 여덟 조건 전체에서 구함",
+            "굵은 값은 최댓값이며, 충실도, 정밀도, 재현율은 SCD 적용 여부가 같은 네 조건 안에서, 관련성과 한국어 문자 비율은 여덟 조건에서 구하고 최댓값과 같은 표시 값도 굵게 표시함",
         ],
         size=19,
     )
@@ -575,10 +582,10 @@ def build(out_dir: Path, personal=None, layout="b"):
     conclusions = [
         "답변 관련성이 중요하면 HyDE 하나만 적용",
         "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
-        "한국어 답변이 중요하면 HyDE+SCD 적용, 한국어 비율이 가장 높음",
+        "한국어 답변이 중요하면 한국어 문자 비율이 가장 높은 HyDE+SCD 적용",
         "한국어 답변이 중요한 수치 질문이면 세 기법 모두 적용",
         "두 기법 이상 조합한 경우는 모두 답변 관련성이 HyDE만 쓸 때보다 낮음",
-        "조합으로 일관되게 오른 지표는 SCD를 넣었을 때의 한국어 문자 비율뿐",
+        "모든 유형에서 일관되게 오른 지표는 SCD를 넣었을 때의 한국어 문자 비율뿐",
     ]
     # recommendations first, then what combining did
     left_c, right_c = conclusions[:3], conclusions[3:]
@@ -594,7 +601,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         L,
         y + 1,
         FW,
-        ["HyDE 적용 후 관련성 축의 선이 위로 모이고 관련성 0점 답변이 5개에서 1개로 줄어듦"],
+        ["HyDE 적용 후 관련성 축의 선이 위로 모이고 관련성 0점으로 선이 끊긴 답변이 5개에서 1개로 줄어듦"],
         size=19,
     )
     y = P.heading(L, y + 4, FW, section("결론"))

@@ -611,9 +611,9 @@ def io_example():
         f"근거 충실도 {score['faithfulness']['applied']:.3f}, 답변 관련성 {score['answer_relevancy']['applied']:.3f}\n"
         f"문맥 정밀도 {score['context_precision']['applied']:.3f}, 문맥 재현율 {score['context_recall']['applied']:.3f}"
     )
-    rows.append(("평가값", metrics))
+    rows.append(("평가 점수", metrics))
     wrapped = [
-        (label, body.split("\n") if label == "평가값" else wrap_evidence(body))
+        (label, body.split("\n") if label == "평가 점수" else wrap_evidence(body))
         for label, body in rows
     ]
     row_heights = [len(lines) * 15.5 + 16 for _, lines in wrapped]
@@ -824,8 +824,8 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
 
         panels = [
             (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 문서로 실제 근거를 검색", RETRIEVE, "#f4f1f8"),
-            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "근거가 있을 때 오르는 토큰을 키움", GENERATE, "#eef6ef"),
-            (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "한국어 토큰의 점수를 키움", GENERATE, "#eef6ef"),
+            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "근거가 올린 토큰 점수를 키움", GENERATE, "#eef6ef"),
+            (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "언어별로 다른 계수를 토큰 점수에 곱함", GENERATE, "#eef6ef"),
         ]
         pw, py, ph = 32.0, 6.4, 29.6
         for x0, name, who, stage, idea, ec, fc in panels:
@@ -925,8 +925,8 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         label(84.8, 21.7, "SCD 조정 후", 5.0, GENERATE, True)
         scores(90.6, 19.9, [("파라미터", ko * 1.1, GENERATE), ("parameters", en * 0.9, FAINT)], factors=["×1.1", "×0.9"])
         flow((88.4, 22.7), (84.2, 23.9), GENERATE, lw=1.6)
-        answer(69.0, 7.4, 14.2, 7.6, "미적용", "“This model is\nconfigured with\n32B parameters”", False)
-        answer(84.2, 7.4, 14.2, 7.6, "SCD 적용", "“모델은 32B\n파라미터로 구성되어\n있으며”", True)
+        answer(69.0, 7.4, 14.2, 7.6, "미적용", "“This model is\nconfigured with\n32B parameters …”", False)
+        answer(84.2, 7.4, 14.2, 7.6, "SCD 적용", "“모델은 32B\n파라미터로 구성되어\n있으며 …”", True)
 
         result(16.3, "answer_relevancy", "답변 관련성")
         result(50.0, "faithfulness", "근거 충실도")
