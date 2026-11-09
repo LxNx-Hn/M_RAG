@@ -41,9 +41,12 @@ for name in ["malgun.ttf", "malgunbd.ttf"]:
         font_manager.fontManager.addfont(str(Path("C:/Windows/Fonts") / name))
 plt.rcParams.update({"font.family": FONT, "axes.unicode_minus": False})
 
-INK = RGBColor(0x26, 0x30, 0x44)
-PURPLE = RGBColor(0x69, 0x51, 0x84)
-GREY = RGBColor(0x77, 0x77, 0x77)
+INK = RGBColor(0x22, 0x33, 0x44)
+# Sky-blue palette shared with the thesis figures (plot_questions.py).
+NAVY = RGBColor(0x1B, 0x32, 0x5F)
+SKY = RGBColor(0x3A, 0x89, 0xC9)
+SKY_PALE = RGBColor(0xE9, 0xF2, 0xF9)
+GREY = RGBColor(0x5E, 0x6B, 0x7A)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 W, H = 594, 841  # mm, A1 portrait
 L, G = 22, 16
@@ -93,7 +96,7 @@ def pipeline_png(path):
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 33)
     ax.axis("off")
-    ink = "#263044"
+    ink = "#223344"
 
     def node(x, y, w, h, title, sub, edge):
         ax.add_patch(
@@ -135,15 +138,15 @@ def pipeline_png(path):
             arrowprops=dict(arrowstyle="-|>", lw=2.2, color=ink, mutation_scale=20),
         )
 
-    node(1, 19, 22, 12, "한국어 질문", "60개", "#695184")
-    node(30, 19, 32, 12, "검색과 재정렬", "밀집 검색과 BM25의 융합", "#695184")
-    node(69, 19, 30, 12, "답변 생성", "영어 구간 5개 + 질문", "#695184")
+    node(1, 19, 22, 12, "한국어 질문", "60개", "#1B325F")
+    node(30, 19, 32, 12, "검색과 재정렬", "밀집 검색과 BM25의 융합", "#1B325F")
+    node(69, 19, 30, 12, "답변 생성", "영어 구간 5개 + 질문", "#1B325F")
     arrow((23.5, 25.0), (29.5, 25.0))
     arrow((62.5, 25.0), (68.5, 25.0))
     tags = [
-        (30, "HyDE", "가상 문서로\n밀집 검색 입력 변경", "#2166ac"),
-        (66, "CAD", "근거 포함과 제외\n점수 결합", "#b2182b"),
-        (84, "SCD", "한국어 토큰\n점수 조정", "#1b7837"),
+        (30, "HyDE", "가상 문서로\n밀집 검색 입력 변경", "#3A89C9"),
+        (66, "CAD", "근거 포함과 제외\n점수 결합", "#1B325F"),
+        (84, "SCD", "한국어 토큰\n점수 조정", "#1B325F"),
     ]
     for x, name, desc, col in tags:
         w = 32 if name == "HyDE" else 15.5
@@ -264,7 +267,7 @@ class Poster:
         return box
 
     def heading(self, x, y, w, label):
-        self.rect(x, y, w, 13, PURPLE)
+        self.rect(x, y, w, 13, SKY)
         self.text(x + 4, y + 0.7, w - 8, 10, label, size=27, bold=True, color=WHITE)
         return y + 17
 
@@ -322,7 +325,7 @@ class Poster:
             for j in range(nc):
                 cell = tbl.cell(i, j)
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = WHITE
+                cell.fill.fore_color.rgb = SKY_PALE if i < header_rows else WHITE
                 cell.margin_left = cell.margin_right = Mm(1.6)
                 cell.margin_top = cell.margin_bottom = Mm(0.6)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
@@ -352,7 +355,7 @@ class Poster:
                 for side in ["a:lnL", "a:lnR", "a:lnT", "a:lnB"]:
                     ln = etree.SubElement(tcpr, qn(side), w=str(int(0.75 * 12700)))
                     sf = etree.SubElement(ln, qn("a:solidFill"))
-                    etree.SubElement(sf, qn("a:srgbClr"), val="777777")
+                    etree.SubElement(sf, qn("a:srgbClr"), val="8C9DB0")
                 self.texts.append(str(rows[i][j]))
         for r0, c0, r1, c1 in merges:
             tbl.cell(r0, c0).merge(tbl.cell(r1, c1))
@@ -428,7 +431,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         return stat(cs, level, code, metric)["mean"]
 
     TOP = 90  # first section heading below the title band
-    P.rect(0, 0, W, TOP - 10, PURPLE)
+    P.rect(0, 0, W, TOP - 10, NAVY)
     P.text(
         L,
         9,

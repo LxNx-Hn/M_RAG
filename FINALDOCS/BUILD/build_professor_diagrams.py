@@ -12,11 +12,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FIG = ROOT / "FINALDOCS/FIGURES"
-INK = "#24324A"
-BLUE = "#2F6DF6"
-GREEN = "#16846F"
-ORANGE = "#CF6800"
-PURPLE = "#695184"
+# Sky-blue palette shared with the analysis figures and the poster: the names
+# keep their roles (BLUE inputs, PURPLE retrieval, GREEN generation, ORANGE the
+# techniques), the values follow the palette.
+INK = "#223344"
+BLUE = "#1B325F"
+GREEN = "#1B325F"
+ORANGE = "#BF2436"
+PURPLE = "#3A89C9"
 
 
 class Drawing:
@@ -33,7 +36,7 @@ class Drawing:
 
     def box(self, x, y, w, h, label, color=PURPLE, size=44):
         self.parts.append(
-            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="#FAF9FC" stroke="{color}" stroke-width="4"/>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="#F7FAFD" stroke="{color}" stroke-width="4"/>'
         )
         lines = label.count("\n") + 1
         self.text(
@@ -71,7 +74,7 @@ def main():
     # Printed at 150 mm wide: 40 units = 9.5 pt, close to the 10 pt table titles.
     for y, w, h, label in [(10, 1760, 330, "검색 단계"), (355, 1250, 285, "생성 단계")]:
         d.parts.append(
-            f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#F5F6FA" stroke="none"/>'
+            f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#EEF5FB" stroke="none"/>'
         )
         d.text(44, y + 44, label, 38, center=False)
     d.box(40, 120, 300, 160, "한국어 질의\n60개", BLUE, 42)

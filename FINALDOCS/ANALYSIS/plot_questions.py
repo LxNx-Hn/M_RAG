@@ -47,7 +47,10 @@ plt.rcParams.update(
     }
 )
 OUT = ROOT / "FINALDOCS/FIGURES"
-INK = "#263044"
+INK = "#223344"
+# Sky-blue palette shared with the poster: sky main, navy depth, one red accent.
+SKY, NAVY, RED = "#3A89C9", "#1B325F", "#BF2436"
+SKY_PALE, NAVY_PALE = "#EEF5FB", "#EEF1F7"
 COLORS = dict(zip(TYPES, ["#8c510a", "#2166ac", "#b2182b", "#1b7837"]))
 AXES = QUALITY + ["korean_ratio"]
 LABELS = [
@@ -78,7 +81,7 @@ COMBINED_PANELS = [
     ("H1C1S0", "H0C1S0", "answer_relevancy", "답변 관련성"),
     ("H1C1S1", "H0C1S1", "answer_relevancy", "답변 관련성"),
 ]
-UP, DOWN, GREY = "#c0392b", "#1f5fa8", "#b8bcc4"
+UP, DOWN, GREY = RED, SKY, "#B4C0CC"
 TOP = 3
 
 
@@ -241,7 +244,7 @@ def group_profiles(
                     color=INK,
                 )
         for k in x:
-            ax.axvline(k, color="#c9cfd6", lw=0.8 * scale, zorder=0)
+            ax.axvline(k, color="#C9D5E1", lw=0.8 * scale, zorder=0)
         ax.set_xlim(-0.2, len(AXES) - 0.8)
         ax.set_ylim(-0.04, 1.04)
         ax.set_yticks([0, 0.5, 1.0], ["0", "0.5", "1"])
@@ -303,7 +306,7 @@ def type_profiles(data, code, name, size=(6.3, 9.2), scale=1, save_to=None):
             ax.plot(
                 x,
                 profile_coordinates([getattr(r, m) for m in PROFILE_AXES]),
-                color="#1b5f97" if highlighted else "#87929e",
+                color=NAVY if highlighted else "#8A97A8",
                 alpha=1 if highlighted else 0.6,
                 lw=(2.2 if highlighted else 0.85) * scale,
                 marker=".",
@@ -327,10 +330,10 @@ def type_profiles(data, code, name, size=(6.3, 9.2), scale=1, save_to=None):
                 transform=ax.transAxes,
                 ha="right",
                 fontsize=8.5 * scale,
-                color="#1b5f97",
+                color=NAVY,
             )
         for k in x:
-            ax.axvline(k, color="#d1d7de", lw=0.7 * scale, zorder=0)
+            ax.axvline(k, color="#D3DDE7", lw=0.7 * scale, zorder=0)
         for y, seconds in [(1, 0), (0.5, 90), (0, 180)]:
             ax.text(5.07, y, str(seconds), va="center", fontsize=8 * scale, color=INK)
         ax.set_xlim(-0.15, 5.45)
@@ -424,7 +427,7 @@ def parallel(
                     )
             title += f"  ·  기준 {NAMES[base]}, {metric_label} 변화 상·하위 {TOP}개"
         for k in x:
-            ax.axvline(k, color="#8a909a", lw=0.8 * scale, zorder=0)
+            ax.axvline(k, color="#8A97A8", lw=0.8 * scale, zorder=0)
         ax.set_xlim(-0.3, len(AXES) - 0.7)
         ax.set_ylim(-0.04, 1.04)
         ax.set_yticks([0, 0.5, 1.0], ["0", "0.5", "1"])
@@ -481,7 +484,7 @@ def box(ax, x, y, w, h, text, edge, size=12.5, bold=False):
             w,
             h,
             boxstyle="round,pad=0.008,rounding_size=0.02",
-            fc="#f8f8fb",
+            fc="#F5F9FD",
             ec=edge,
             lw=1.8,
         )
@@ -513,7 +516,7 @@ def evaluation_design():
     ax.set_xlim(-0.02, 1.02)
     ax.set_ylim(0, 1)
     ax.axis("off")
-    purple, green = "#695184", "#1b7837"
+    purple, green = SKY, NAVY
     box(ax, 0.00, 0.76, 0.28, 0.2, "한국어 질문\n60개", purple, bold=True)
     box(ax, 0.36, 0.76, 0.28, 0.2, "기법 적용 조건\n8개", purple, bold=True)
     box(ax, 0.72, 0.76, 0.28, 0.2, "생성 답변\n480개", purple, bold=True)
@@ -624,7 +627,7 @@ def io_example():
     ax.axis("off")
     y = height - 5
     for (label, lines), rh in zip(wrapped, row_heights):
-        ax.text(2, y, label, fontsize=11, fontweight="bold", color="#695184", va="top")
+        ax.text(2, y, label, fontsize=11, fontweight="bold", color=NAVY, va="top")
         ax.text(
             84,
             y,
@@ -728,7 +731,7 @@ def mechanism_record():
     return record
 
 
-RETRIEVE, GENERATE = "#695184", "#1b7837"
+RETRIEVE, GENERATE = SKY, NAVY
 
 
 def example_mechanism(save_to=None, scale=1.0, layout="wide"):
@@ -745,7 +748,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
     digits = 2 if layout == "wide" else 3
     rec = mechanism_record()
     s = rec["scores"]
-    MUTED, FAINT = "#5f6470", "#9aa0a8"
+    MUTED, FAINT = "#5E6B7A", "#A3AEBB"
     if layout == "wide":
         fig = plt.figure(figsize=(6.3 * scale, 2.457 * scale))
         f = scale * 1.06
@@ -803,7 +806,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
                 label(x + w / 2, y + 1.0, "32B", 4.2, GENERATE, True, "center")
 
         def answer(x, y, w, h, name, quote, ok, note=None):
-            colour = GENERATE if ok else DOWN
+            colour = GENERATE if ok else "#7F8C9C"
             rbox(x, y, w, h, "#ffffff", colour, 0.9)
             label(x + 0.9, y + h - 1.3, name, 5.6, colour, True)
             label(x + 0.9, y + h / 2 - (0.3 if note else 0.8), quote, 5.3, INK)
@@ -823,9 +826,9 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         label(98.2, 38.9, f"정답 근거 {rec['answer_span']}(원문 {rec['source_page']}쪽)", 6.2, MUTED, ha="right")
 
         panels = [
-            (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 문서로 실제 근거를 검색", RETRIEVE, "#f4f1f8"),
-            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "근거가 올린 토큰 점수를 키움", GENERATE, "#eef6ef"),
-            (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "언어별로 다른 계수를 토큰 점수에 곱함", GENERATE, "#eef6ef"),
+            (0.3, "HyDE", "Gao 외, ACL 2023", "검색 단계", "가상 문서로 실제 근거를 검색", RETRIEVE, SKY_PALE),
+            (34.0, "CAD", "Shi 외, NAACL 2024", "생성 단계", "근거가 올린 토큰 점수를 키움", GENERATE, NAVY_PALE),
+            (67.7, "SCD", "Li 외, AAAI 2026", "생성 단계", "언어별로 다른 계수를 토큰 점수에 곱함", GENERATE, NAVY_PALE),
         ]
         pw, py, ph = 32.0, 6.4, 29.6
         for x0, name, who, stage, idea, ec, fc in panels:
@@ -852,7 +855,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         rbox(1.5, 8.6, 14.6, 9.4, "#ffffff", INK, 0.9)
         label(2.5, 16.4, "원문의 실제 구간", 5.8, INK, True)
         label(2.5, 12.0, "“… configured with\n32B parameters …”", 5.3, INK)
-        rbox(17.3, 8.6, 13.8, 20.0, "#ffffff", "#c9c3d6", 0.7)
+        rbox(17.3, 8.6, 13.8, 20.0, "#ffffff", "#C5D6E6", 0.7)
         label(18.1, 27.3, "임베딩 공간", 5.2, MUTED)
         query, star, near = (28.6, 24.6), (23.0, 18.6), (24.4, 17.3)
         rng = np.random.default_rng(11)
@@ -860,7 +863,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         keep = np.array(
             [p for p in pts if np.hypot(p[0] - star[0], p[1] - star[1]) > 4.0 and np.hypot(p[0] - query[0], p[1] - query[1]) > 2.0 and np.hypot(p[0] - 24.0, p[1] - 23.6) > 2.6]
         )
-        ax.scatter(keep[:, 0], keep[:, 1], s=6 * f * f, color="#b8bcc4", zorder=2)
+        ax.scatter(keep[:, 0], keep[:, 1], s=6 * f * f, color="#B4C0CC", zorder=2)
         ax.add_patch(plt.Circle(star, 3.0, fill=False, ls="--", ec=RETRIEVE, lw=0.7 * f))
         ax.scatter(*query, s=26 * f * f, marker="o", fc="#ffffff", ec=RETRIEVE, lw=1.1 * f, zorder=5)
         label(query[0], query[1] + 1.4, "질문", 5.0, RETRIEVE, True, "center")
@@ -877,7 +880,7 @@ def example_mechanism(save_to=None, scale=1.0, layout="wide"):
         # document makes, (1 + a) z_ctx - a z_noctx with a = 0.5
         # With the document the two candidates score alike, so plain decoding may
         # still pick 3.2
-        TIE = "#7d8596"
+        TIE = "#7F8C9C"
         ctx = [("3.2", 3.0, TIE), ("32", 3.0, TIE)]
         noctx = [("3.2", 3.0, FAINT), ("32", 1.2, FAINT)]
         alpha = 0.5
