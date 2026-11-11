@@ -64,21 +64,21 @@
 
 ## 그림 자료 이용 정보 [스타일=절(1.1)]
 
-그림 2-1~2-4는 아래 문헌의 구조를 바탕으로 본 연구에서 작성하였으며, 각 항목 아래에 참고 자료의 주소를 적었다.
+[그림 2-1]~[그림 2-4]는 아래 문헌의 구조를 바탕으로 본 연구에서 작성하였으며, 각 항목 아래에 참고 자료의 주소를 적었다.
 
-그림 2-1 — Lewis 외[1]의 RAG 구조
+[그림 2-1] Lewis et al.[1]의 RAG 구조
 
 https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf (접근일 2026-10-20)
 
-그림 2-2 — Gao 외[2]의 HyDE 구조
+[그림 2-2] Gao et al.[2]의 HyDE 구조
 
 https://aclanthology.org/2023.acl-long.99/ (접근일 2026-10-20)
 
-그림 2-3 — Shi 외[3]의 CAD 로짓 결합
+[그림 2-3] Shi et al.[3]의 CAD 로짓 결합
 
 https://aclanthology.org/2024.naacl-short.69/ (접근일 2026-10-20)
 
-그림 2-4 — Li 외[4]의 SCD 토큰별 점수 조정
+[그림 2-4] Li et al.[4]의 SCD 토큰별 점수 조정
 
 https://ojs.aaai.org/index.php/AAAI/article/view/40417 (접근일 2026-10-20)
 

@@ -145,7 +145,7 @@
       [
         "순위 융합",
         "가중 RRF",
-        "k=60"
+        "$k = 60$"
       ],
       [
         "재정렬",
@@ -175,12 +175,12 @@
       [
         "CAD",
         "문맥 포함 로짓과 제외 로짓의 결합",
-        "α=0.5 고정"
+        "$alpha = 0.5$ 고정"
       ],
       [
         "SCD",
         "목표 언어 토큰의 로짓 조정",
-        "α=1.1, β=0.9, T<sub>start</sub>=5"
+        "$alpha = 1.1$, $beta = 0.9$, $T _{rm start} = 5$"
       ]
     ]
   },
@@ -276,16 +276,8 @@
         1
       ],
       [
-        8,
-        1
-      ],
-      [
         2,
         2
-      ],
-      [
-        1,
-        3
       ],
       [
         4,
@@ -293,14 +285,6 @@
       ],
       [
         1,
-        4
-      ],
-      [
-        2,
-        4
-      ],
-      [
-        8,
         4
       ],
       [
@@ -314,13 +298,8 @@
           1,
           2,
           3,
-          5
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
           4,
+          5,
           6,
           7,
           8
@@ -345,13 +324,8 @@
           1,
           2,
           3,
-          5
-        ],
-        "column": 3
-      },
-      {
-        "rows": [
           4,
+          5,
           6,
           7,
           8
@@ -363,13 +337,8 @@
           1,
           2,
           3,
-          5
-        ],
-        "column": 4
-      },
-      {
-        "rows": [
           4,
+          5,
           6,
           7,
           8
@@ -407,705 +376,181 @@
       0.13,
       0.13
     ],
-    "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율은 조건 1, 2, 3, 5를 영어 검색 결과로, 조건 4, 6, 7, 8을 한국어 번역 검색 결과로 평가하였으므로 굵은 값은 각 네 조건 안의 최댓값이다. 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다. 미적용과 CAD, SCD와 CAD+SCD는 각각 질문 60개 모두에서 같은 입력 구간으로 평가하였으므로, 두 쌍의 문맥 정밀도와 문맥 재현율 차이는 평가 모델이 같은 입력을 다르게 판정한 데서 생겼다."
+    "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율은 조건 1, 2, 3, 5를 영어 검색 결과로, 조건 4, 6, 7, 8을 한국어 번역 검색 결과로 평가하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다. 미적용과 CAD, SCD와 CAD+SCD는 각각 질문 60개 모두에서 같은 입력 구간으로 평가하였으므로, 두 쌍의 문맥 정밀도와 문맥 재현율 차이는 평가 모델이 같은 입력을 다르게 판정한 데서 생겼다."
   },
   {
-    "sheet": "T5-2_Group_Scores",
-    "title": "표 5-2 질문 유형별 8개 조건의 평가 지표 평균",
+    "sheet": "T5-2_Numeric_Scores",
+    "title": "표 5-2 수치형 질문의 조건별 평가 지표 평균",
     "rows": [
       [
         "조건",
         "근거 충실도",
-        "",
-        "",
         "답변 관련성",
-        "",
-        ""
-      ],
-      [
-        "",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)"
+        "문맥 정밀도",
+        "문맥 재현율",
+        "한국어 문자 비율",
+        "처리 시간(초)"
       ],
       [
         "1 미적용",
         "0.826",
-        "0.726",
-        "0.848",
         "0.743",
-        "0.575",
-        "0.778"
+        "0.668",
+        "0.944",
+        "0.585",
+        "14.648"
       ],
       [
         "2 HyDE",
         "0.842",
-        "0.782",
-        "0.903",
         "0.740",
-        "0.745",
-        "0.815"
+        "0.622",
+        "0.889",
+        "0.552",
+        "20.896"
       ],
       [
         "3 CAD",
         "0.896",
-        "0.830",
-        "0.789",
         "0.752",
-        "0.629",
-        "0.663"
+        "0.670",
+        "0.889",
+        "0.571",
+        "55.410"
       ],
       [
         "4 SCD",
         "0.848",
-        "0.710",
-        "0.821",
         "0.723",
-        "0.524",
-        "0.713"
+        "0.687",
+        "0.889",
+        "0.814",
+        "16.924"
       ],
       [
         "5 HyDE+CAD",
         "0.927",
-        "0.796",
-        "0.882",
         "0.761",
-        "0.630",
-        "0.755"
+        "0.680",
+        "0.944",
+        "0.520",
+        "60.591"
       ],
       [
         "6 HyDE+SCD",
         "0.844",
-        "0.829",
-        "0.790",
         "0.719",
-        "0.685",
-        "0.736"
+        "0.713",
+        "0.889",
+        "0.835",
+        "24.065"
       ],
       [
         "7 CAD+SCD",
         "0.767",
-        "0.761",
-        "0.809",
         "0.719",
-        "0.503",
-        "0.616"
+        "0.677",
+        "0.833",
+        "0.768",
+        "50.435"
       ],
       [
         "8 HyDE+CAD+SCD",
         "0.927",
-        "0.765",
-        "0.828",
         "0.666",
-        "0.650",
-        "0.694"
-      ],
-      [
-        "조건",
-        "문맥 정밀도",
-        "",
-        "",
-        "문맥 재현율",
-        "",
-        ""
-      ],
-      [
-        "",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)"
-      ],
-      [
-        "1 미적용",
-        "0.668",
-        "0.730",
-        "0.862",
-        "0.944",
-        "0.880",
-        "1.000"
-      ],
-      [
-        "2 HyDE",
-        "0.622",
-        "0.722",
-        "0.802",
-        "0.889",
-        "0.960",
-        "0.941"
-      ],
-      [
-        "3 CAD",
-        "0.670",
-        "0.734",
-        "0.821",
-        "0.889",
-        "0.880",
-        "1.000"
-      ],
-      [
-        "4 SCD",
-        "0.687",
-        "0.727",
-        "0.898",
-        "0.889",
-        "0.840",
-        "1.000"
-      ],
-      [
-        "5 HyDE+CAD",
-        "0.680",
-        "0.729",
-        "0.804",
-        "0.944",
-        "0.840",
-        "0.941"
-      ],
-      [
-        "6 HyDE+SCD",
-        "0.713",
-        "0.689",
-        "0.854",
-        "0.889",
-        "0.840",
-        "1.000"
-      ],
-      [
-        "7 CAD+SCD",
-        "0.677",
-        "0.729",
-        "0.867",
-        "0.833",
-        "0.800",
-        "0.941"
-      ],
-      [
-        "8 HyDE+CAD+SCD",
         "0.683",
-        "0.764",
-        "0.813",
         "0.778",
-        "0.960",
-        "1.000"
-      ],
-      [
-        "조건",
-        "한국어 문자 비율",
-        "",
-        "",
-        "처리 시간(초)",
-        "",
-        ""
-      ],
-      [
-        "",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)",
-        "수치\n(18개)",
-        "방법\n(25개)",
-        "개념과 결과\n(17개)"
-      ],
-      [
-        "1 미적용",
-        "0.585",
-        "0.455",
-        "0.456",
-        "14.648",
-        "16.662",
-        "18.906"
-      ],
-      [
-        "2 HyDE",
-        "0.552",
-        "0.568",
-        "0.543",
-        "20.896",
-        "24.336",
-        "25.294"
-      ],
-      [
-        "3 CAD",
-        "0.571",
-        "0.417",
-        "0.504",
-        "55.410",
-        "67.124",
-        "69.636"
-      ],
-      [
-        "4 SCD",
-        "0.814",
-        "0.610",
-        "0.709",
-        "16.924",
-        "18.572",
-        "20.737"
-      ],
-      [
-        "5 HyDE+CAD",
-        "0.520",
-        "0.458",
-        "0.552",
-        "60.591",
-        "78.747",
-        "76.623"
-      ],
-      [
-        "6 HyDE+SCD",
-        "0.835",
-        "0.785",
-        "0.810",
-        "24.065",
-        "23.737",
-        "27.262"
-      ],
-      [
-        "7 CAD+SCD",
-        "0.768",
-        "0.654",
-        "0.764",
-        "50.435",
-        "52.436",
-        "67.728"
-      ],
-      [
-        "8 HyDE+CAD+SCD",
         "0.737",
-        "0.688",
-        "0.789",
-        "59.862",
-        "64.909",
-        "73.706"
+        "59.862"
       ]
-    ],
-    "merges": [
-      [
-        0,
-        0,
-        1,
-        0
-      ],
-      [
-        0,
-        1,
-        0,
-        3
-      ],
-      [
-        0,
-        4,
-        0,
-        6
-      ],
-      [
-        10,
-        0,
-        11,
-        0
-      ],
-      [
-        10,
-        1,
-        10,
-        3
-      ],
-      [
-        10,
-        4,
-        10,
-        6
-      ],
-      [
-        20,
-        0,
-        21,
-        0
-      ],
-      [
-        20,
-        1,
-        20,
-        3
-      ],
-      [
-        20,
-        4,
-        20,
-        6
-      ]
-    ],
-    "header_rows": [
-      0,
-      1,
-      10,
-      11,
-      20,
-      21
     ],
     "bold_cells": [
       [
-        6,
+        5,
         1
       ],
       [
-        9,
-        1
-      ],
-      [
-        4,
+        5,
         2
-      ],
-      [
-        7,
-        2
-      ],
-      [
-        3,
-        3
-      ],
-      [
-        9,
-        3
       ],
       [
         6,
-        4
-      ],
-      [
-        3,
-        5
-      ],
-      [
-        3,
-        6
-      ],
-      [
-        16,
-        1
-      ],
-      [
-        17,
-        1
-      ],
-      [
-        14,
-        2
-      ],
-      [
-        19,
-        2
-      ],
-      [
-        12,
         3
       ],
       [
-        15,
-        3
-      ],
-      [
-        12,
+        1,
         4
       ],
       [
-        16,
-        4
-      ],
-      [
-        15,
-        4
-      ],
-      [
-        17,
-        4
-      ],
-      [
-        13,
+        6,
         5
-      ],
-      [
-        19,
-        5
-      ],
-      [
-        12,
-        6
-      ],
-      [
-        14,
-        6
-      ],
-      [
-        15,
-        6
-      ],
-      [
-        17,
-        6
-      ],
-      [
-        19,
-        6
-      ],
-      [
-        27,
-        1
-      ],
-      [
-        27,
-        2
-      ],
-      [
-        27,
-        3
       ]
     ],
     "bold_scopes": [
       {
         "rows": [
-          2,
-          3,
-          4,
-          6
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
-          5,
-          7,
-          8,
-          9
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
-          2,
-          3,
-          4,
-          6
-        ],
-        "column": 2
-      },
-      {
-        "rows": [
-          5,
-          7,
-          8,
-          9
-        ],
-        "column": 2
-      },
-      {
-        "rows": [
-          2,
-          3,
-          4,
-          6
-        ],
-        "column": 3
-      },
-      {
-        "rows": [
-          5,
-          7,
-          8,
-          9
-        ],
-        "column": 3
-      },
-      {
-        "rows": [
+          1,
           2,
           3,
           4,
           5,
           6,
           7,
-          8,
-          9
+          8
         ],
-        "column": 4
+        "column": 1
       },
       {
         "rows": [
+          1,
           2,
           3,
           4,
           5,
           6,
           7,
-          8,
-          9
+          8
         ],
-        "column": 5
+        "column": 2
       },
       {
         "rows": [
+          1,
           2,
           3,
           4,
           5,
           6,
           7,
-          8,
-          9
-        ],
-        "column": 6
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
-        ],
-        "column": 2
-      },
-      {
-        "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 2
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
+          8
         ],
         "column": 3
       },
       {
         "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 3
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
         ],
         "column": 4
       },
       {
         "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 4
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
         ],
         "column": 5
-      },
-      {
-        "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 5
-      },
-      {
-        "rows": [
-          12,
-          13,
-          14,
-          16
-        ],
-        "column": 6
-      },
-      {
-        "rows": [
-          15,
-          17,
-          18,
-          19
-        ],
-        "column": 6
-      },
-      {
-        "rows": [
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28,
-          29
-        ],
-        "column": 1
-      },
-      {
-        "rows": [
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28,
-          29
-        ],
-        "column": 2
-      },
-      {
-        "rows": [
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28,
-          29
-        ],
-        "column": 3
       }
     ],
     "numeric_columns": [
@@ -1125,7 +570,395 @@
       0.13,
       0.13
     ],
-    "note": "괄호 안은 각 유형의 질문 수다. 근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율의 굵은 값은 SCD 미적용 네 조건과 적용 네 조건 안에서 각각 구한 최댓값이고, 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다."
+    "note": "근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다."
+  },
+  {
+    "sheet": "T5-3_Method_Scores",
+    "title": "표 5-3 방법형 질문의 조건별 평가 지표 평균",
+    "rows": [
+      [
+        "조건",
+        "근거 충실도",
+        "답변 관련성",
+        "문맥 정밀도",
+        "문맥 재현율",
+        "한국어 문자 비율",
+        "처리 시간(초)"
+      ],
+      [
+        "1 미적용",
+        "0.726",
+        "0.575",
+        "0.730",
+        "0.880",
+        "0.455",
+        "16.662"
+      ],
+      [
+        "2 HyDE",
+        "0.782",
+        "0.745",
+        "0.722",
+        "0.960",
+        "0.568",
+        "24.336"
+      ],
+      [
+        "3 CAD",
+        "0.830",
+        "0.629",
+        "0.734",
+        "0.880",
+        "0.417",
+        "67.124"
+      ],
+      [
+        "4 SCD",
+        "0.710",
+        "0.524",
+        "0.727",
+        "0.840",
+        "0.610",
+        "18.572"
+      ],
+      [
+        "5 HyDE+CAD",
+        "0.796",
+        "0.630",
+        "0.729",
+        "0.840",
+        "0.458",
+        "78.747"
+      ],
+      [
+        "6 HyDE+SCD",
+        "0.829",
+        "0.685",
+        "0.689",
+        "0.840",
+        "0.785",
+        "23.737"
+      ],
+      [
+        "7 CAD+SCD",
+        "0.761",
+        "0.503",
+        "0.729",
+        "0.800",
+        "0.654",
+        "52.436"
+      ],
+      [
+        "8 HyDE+CAD+SCD",
+        "0.765",
+        "0.650",
+        "0.764",
+        "0.960",
+        "0.688",
+        "64.909"
+      ]
+    ],
+    "bold_cells": [
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        6,
+        5
+      ]
+    ],
+    "bold_scopes": [
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 1
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 2
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 3
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 4
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 5
+      }
+    ],
+    "numeric_columns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "column_fractions": [
+      0.22,
+      0.13,
+      0.13,
+      0.13,
+      0.13,
+      0.13,
+      0.13
+    ],
+    "note": "근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다."
+  },
+  {
+    "sheet": "T5-4_Concept_Scores",
+    "title": "표 5-4 개념과 결과형 질문의 조건별 평가 지표 평균",
+    "rows": [
+      [
+        "조건",
+        "근거 충실도",
+        "답변 관련성",
+        "문맥 정밀도",
+        "문맥 재현율",
+        "한국어 문자 비율",
+        "처리 시간(초)"
+      ],
+      [
+        "1 미적용",
+        "0.848",
+        "0.778",
+        "0.862",
+        "1.000",
+        "0.456",
+        "18.906"
+      ],
+      [
+        "2 HyDE",
+        "0.903",
+        "0.815",
+        "0.802",
+        "0.941",
+        "0.543",
+        "25.294"
+      ],
+      [
+        "3 CAD",
+        "0.789",
+        "0.663",
+        "0.821",
+        "1.000",
+        "0.504",
+        "69.636"
+      ],
+      [
+        "4 SCD",
+        "0.821",
+        "0.713",
+        "0.898",
+        "1.000",
+        "0.709",
+        "20.737"
+      ],
+      [
+        "5 HyDE+CAD",
+        "0.882",
+        "0.755",
+        "0.804",
+        "0.941",
+        "0.552",
+        "76.623"
+      ],
+      [
+        "6 HyDE+SCD",
+        "0.790",
+        "0.736",
+        "0.854",
+        "1.000",
+        "0.810",
+        "27.262"
+      ],
+      [
+        "7 CAD+SCD",
+        "0.809",
+        "0.616",
+        "0.867",
+        "0.941",
+        "0.764",
+        "67.728"
+      ],
+      [
+        "8 HyDE+CAD+SCD",
+        "0.828",
+        "0.694",
+        "0.813",
+        "1.000",
+        "0.789",
+        "73.706"
+      ]
+    ],
+    "bold_cells": [
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        6,
+        5
+      ]
+    ],
+    "bold_scopes": [
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 1
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 2
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 3
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 4
+      },
+      {
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "column": 5
+      }
+    ],
+    "numeric_columns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "column_fractions": [
+      0.22,
+      0.13,
+      0.13,
+      0.13,
+      0.13,
+      0.13,
+      0.13
+    ],
+    "note": "근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다."
   },
   {
     "sheet": "Appendix_Queries",
@@ -1143,7 +976,7 @@
         "ext_cad_001",
         "언어 모델이 생성 시 활용하는 prior knowledge와 context knowledge는 각각 어디에서 오는 정보입니까?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "the context contains external knowledge; prior knowledge is encoded in the model parameters"
       ],
@@ -1151,7 +984,7 @@
         "ext_cad_002",
         "CAD의 요약 실험에는 어떤 데이터셋과 평가 지표가 사용되었습니까?",
         "CAD",
-        "방법",
+        "방법형",
         "3",
         "CNN-DM and XSUM; ROUGE-L, BERT-Precision, and FactKB"
       ],
@@ -1159,7 +992,7 @@
         "ext_cad_003",
         "CAD의 지식 충돌 실험에는 어떤 두 데이터셋이 사용되었고 각각 무엇을 평가합니까?",
         "CAD",
-        "방법",
+        "방법형",
         "3",
         "MemoTrap investigates memorization traps; NQ-Swap tests faithful answering from a modified reliable document."
       ],
@@ -1167,7 +1000,7 @@
         "ext_cad_004",
         "NQ-Swap 데이터셋은 기존 Natural Questions의 정답과 문서를 어떤 방식으로 변형해 만들어집니까?",
         "CAD",
-        "방법",
+        "방법형",
         "3",
         "identify questions with named entity answers, find the supportive document, then replace the gold answer entity with a random entity"
       ],
@@ -1175,7 +1008,7 @@
         "ext_cad_005",
         "CAD 실험에서 요약 과제와 지식 충돌 과제에 사용한 α 값은 각각 얼마이며, 지식 충돌 과제에서 더 큰 값을 사용한 이유는 무엇입니까?",
         "CAD",
-        "수치",
+        "수치형",
         "3",
         "α = 0.5 for summarization and α = 1 for knowledge conflicts, where prior knowledge needs to be factored out more"
       ],
@@ -1183,7 +1016,7 @@
         "ext_cad_006",
         "CAD 논문의 베이스라인 디코딩은 요약 과제와 지식 충돌 과제에서 각각 어떤 샘플링 전략을 사용합니까?",
         "CAD",
-        "방법",
+        "방법형",
         "3",
         "greedy decoding for knowledge conflict tasks and top-p sampling with p=0.9 for summarization tasks"
       ],
@@ -1191,7 +1024,7 @@
         "ext_cad_007",
         "CAD가 실험에서 적용된 사전학습 및 instruction-finetuned 언어 모델 계열은 무엇입니까?",
         "CAD",
-        "방법",
+        "방법형",
         "3",
         "OPT, GPT-Neo, LLaMA, and FLAN-T5"
       ],
@@ -1199,7 +1032,7 @@
         "ext_cad_008",
         "지식 충돌 과제에서 모델 크기가 커질수록 CAD의 성능 향상 폭은 어떤 경향을 보였습니까?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "5",
         "the gain increases as the model size grows"
       ],
@@ -1207,7 +1040,7 @@
         "ext_cad_009",
         "LLaMA-30B에 CAD를 적용했을 때 XSUM에서 ROUGE-L, factKB, BERT-P 점수는 regular decoding과 비교해 어떻게 달라졌습니까?",
         "CAD",
-        "수치",
+        "수치형",
         "4",
         "Regular: 18.7, 47.7, 87.1; CAD: 22.0, 66.4, 90.3"
       ],
@@ -1215,7 +1048,7 @@
         "ext_cad_010",
         "외부 컨텍스트가 생성 토큰과 조건부 독립이라면 α가 0이 아니어도 CAD의 출력 분포에는 어떤 영향이 있습니까?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "2",
         "even a non-zero α would not have an impact to the original output distribution"
       ],
@@ -1223,7 +1056,7 @@
         "ext_cad_011",
         "CAD는 특정 instruction-finetuned 언어 모델에만 제한됩니까, 아니면 어떤 언어 모델에도 적용 가능한 디코딩 전략입니까?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "6",
         "a decoding strategy applicable to any LM"
       ],
@@ -1231,7 +1064,7 @@
         "ext_midm_001",
         "Mi:dm K 2.5 Pro의 학습 데이터는 어떤 세 가지 경로를 통해 확보됩니까?",
         "Mi:dm",
-        "방법",
+        "방법형",
         "3",
         "licensed proprietary datasets, public datasets that permit commercial use, and in-house synthetic data"
       ],
@@ -1239,7 +1072,7 @@
         "ext_midm_002",
         "Mi:dm K 2.5 Pro는 한국어 중심 학습을 유지하기 위해 다국어 데이터를 한국어 코퍼스 대비 어느 정도 비율로 제한하며, 그 이유는 무엇입니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "3",
         "3–10% of the Korean corpus, to encourage cross-lingual transfer without diluting the Korean-language focus"
       ],
@@ -1247,7 +1080,7 @@
         "ext_midm_003",
         "응답 스타일 재작성 후 평균 응답 길이는 몇 % 증가했고, bullet_count=0인 응답의 비율은 어떻게 변했습니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "8",
         "mean response length increases by 256.70%; bullet_count = 0 drops from 82.8% to 3.9%"
       ],
@@ -1255,7 +1088,7 @@
         "ext_midm_004",
         "Mi:dm K 2.5 Pro의 한국어 멀티턴 대화 데이터는 어떤 세 가지 차원을 기준으로 고품질 대화를 설계합니까?",
         "Mi:dm",
-        "방법",
+        "방법형",
         "15",
         "interaction structure, topic and task, and persona"
       ],
@@ -1263,7 +1096,7 @@
         "ext_midm_005",
         "Fusion SFT 단계에서 non-reasoning 데이터의 비중을 높인 목적은 무엇이며, 어떤 유형의 과제를 특히 보강합니까?",
         "Mi:dm",
-        "방법",
+        "방법형",
         "21",
         "to favor versatile conversational alignment; creative writing, translation, and general question answering"
       ],
@@ -1271,7 +1104,7 @@
         "ext_midm_006",
         "Fully asynchronous GSPO 학습은 synchronous 방식과 비교해 step time과 token throughput을 각각 어느 정도 개선했습니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "23",
         "reduces step time by approximately 15% and improves token throughput by approximately 30%"
       ],
@@ -1279,7 +1112,7 @@
         "ext_midm_007",
         "LLM-as-a-Judge 기반 reward signal은 사람의 평가와 어느 정도의 일치율을 보였습니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "24",
         "an agreement rate of 91%"
       ],
@@ -1287,7 +1120,7 @@
         "ext_midm_008",
         "Reasoning-enabled 평가에서 Mi:dm K 2.5 Pro가 HumanEval+와 τ²-Bench Telecom에서 기록한 점수는 각각 얼마입니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "25",
         "HumanEval+ 92.07% and τ²-Bench Telecom 89%"
       ],
@@ -1295,7 +1128,7 @@
         "ext_midm_009",
         "한국어 red-teaming 평가에서 Mi:dm K 2.5 Pro의 Attack Success Rate는 얼마였으며 비교 모델들 가운데 어떤 수준이었습니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "31",
         "ASR of 36.3%, the lowest attack success rate among the compared models"
       ],
@@ -1303,7 +1136,7 @@
         "ext_rag_001",
         "Advanced RAG의 pre-retrieval 단계는 인덱스와 사용자 질의를 각각 어떤 방향으로 최적화합니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "4",
         "optimizing the indexing structure and the original query"
       ],
@@ -1311,7 +1144,7 @@
         "ext_rag_002",
         "Advanced RAG의 post-retrieval 단계에서 사용되는 두 가지 핵심 방법은 무엇입니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "4",
         "rerank chunks and context compressing"
       ],
@@ -1319,7 +1152,7 @@
         "ext_rag_003",
         "RAG에서 큰 청크와 작은 청크를 사용할 때 각각 어떤 장단점이 발생합니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "8",
         "Larger chunks can capture more context, but they also generate more noise; smaller chunks may not fully convey the necessary context, but have less noise."
       ],
@@ -1327,7 +1160,7 @@
         "ext_rag_004",
         "문서 청크에 타임스탬프 같은 메타데이터를 부여하면 time-aware RAG는 최신 정보를 어떻게 우선할 수 있습니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "8",
         "Assigning different weights to document timestamps during retrieval can achieve time-aware RAG, ensuring the freshness of knowledge and avoiding outdated information."
       ],
@@ -1335,7 +1168,7 @@
         "ext_rag_005",
         "Reverse HyDE는 문서로부터 가상의 질문을 생성해 원래 질문과 답변 사이의 의미적 간극을 어떻게 줄입니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "8",
         "using LLM to generate questions that can be answered by the document, then calculating the similarity between the original question and the hypothetical question"
       ],
@@ -1343,7 +1176,7 @@
         "ext_rag_006",
         "Multi-Query와 Sub-Query 방식은 원래 질의를 확장하거나 분해하는 방식에서 어떻게 다릅니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "8",
         "Multi-Query expands queries via LLMs for parallel execution; Sub-Query decomposes a complex question into simpler sub-questions."
       ],
@@ -1351,7 +1184,7 @@
         "ext_rag_007",
         "Iterative Retrieval, Recursive Retrieval, Adaptive Retrieval은 검색을 반복하거나 중단하는 방식에서 각각 어떻게 구분됩니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "11",
         "Iterative retrieval alternates retrieval and generation; recursive retrieval refines queries and breaks problems into sub-problems; adaptive retrieval determines whether retrieval is necessary and when to stop."
       ],
@@ -1359,7 +1192,7 @@
         "ext_rag_008",
         "RAG 평가에서 요구되는 네 가지 핵심 능력은 무엇입니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "12",
         "noise robustness, negative rejection, information integration, and counterfactual robustness"
       ],
@@ -1367,7 +1200,7 @@
         "ext_rag_009",
         "RAG 평가에서 Negative Rejection은 어떤 능력을 측정합니까?",
         "RAG Survey",
-        "개념과 결과",
+        "개념과 결과형",
         "12",
         "refraining from responding when the retrieved documents do not contain the necessary knowledge to answer a question"
       ],
@@ -1375,7 +1208,7 @@
         "ext_rag_010",
         "RAG와 파인튜닝을 비교할 때 지식 업데이트의 동적 특성과 해석 가능성 측면에서 RAG가 갖는 특징은 무엇입니까?",
         "RAG Survey",
-        "개념과 결과",
+        "개념과 결과형",
         "5",
         "real-time knowledge updates and effective utilization of external knowledge sources with high interpretability"
       ],
@@ -1383,7 +1216,7 @@
         "ext_raptor_001",
         "RAPTOR는 초기 문서를 몇 토큰 길이의 청크로 나누며, 문장이 청크 경계를 넘을 때 어떻게 처리합니까?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "3",
         "length 100; if a sentence exceeds the 100-token limit, the entire sentence is moved to the next chunk"
       ],
@@ -1391,7 +1224,7 @@
         "ext_raptor_002",
         "RAPTOR의 leaf node를 만들 때 텍스트 임베딩에 사용한 모델은 무엇입니까?",
         "RAPTOR",
-        "방법",
+        "방법형",
         "3",
         "SBERT, a BERT-based encoder (multi-qa-mpnet-base-cos-v1)"
       ],
@@ -1399,7 +1232,7 @@
         "ext_raptor_003",
         "RAPTOR의 GMM 클러스터링 전에 UMAP을 사용하는 이유는 무엇입니까?",
         "RAPTOR",
-        "방법",
+        "방법형",
         "4",
         "to mitigate the challenge of high-dimensional vector embeddings by dimensionality reduction"
       ],
@@ -1407,7 +1240,7 @@
         "ext_raptor_004",
         "RAPTOR의 클러스터링 과정에서 Bayesian Information Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?",
         "RAPTOR",
-        "방법",
+        "방법형",
         "4",
         "to determine the optimal number of clusters"
       ],
@@ -1415,7 +1248,7 @@
         "ext_raptor_005",
         "RAPTOR에서 클러스터별 요약을 생성하는 데 사용한 언어 모델은 무엇입니까?",
         "RAPTOR",
-        "방법",
+        "방법형",
         "4",
         "gpt-3.5-turbo"
       ],
@@ -1423,7 +1256,7 @@
         "ext_raptor_006",
         "RAPTOR의 트리 구축 비용은 문서 길이가 증가할 때 build time과 token expenditure 측면에서 어떻게 확장됩니까?",
         "RAPTOR",
-        "개념과 결과",
+        "개념과 결과형",
         "16",
         "both build time and token expenditure scale linearly with document length"
       ],
@@ -1431,7 +1264,7 @@
         "ext_raptor_007",
         "QASPER 데이터셋은 몇 개의 질문과 NLP 논문으로 구성되며, 논문에서는 어떤 지표로 성능을 평가합니까?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "6",
         "5,049 questions across 1,585 NLP papers; accuracy is measured using standard F1"
       ],
@@ -1439,7 +1272,7 @@
         "ext_raptor_008",
         "QuALITY-HARD는 일반 QuALITY 질문 중 어떤 기준을 만족하는 질문들로 구성됩니까?",
         "RAPTOR",
-        "개념과 결과",
+        "개념과 결과형",
         "6",
         "questions that a majority of human annotators answered incorrectly in a speed-setting"
       ],
@@ -1447,7 +1280,7 @@
         "ext_raptor_009",
         "QASPER에서 RAPTOR의 F1 Match 점수는 GPT-3, GPT-4, UnifiedQA를 사용할 때 각각 얼마였습니까?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "7",
         "53.1%, 55.7%, and 36.6%, respectively"
       ],
@@ -1455,7 +1288,7 @@
         "ext_raptor_010",
         "QuALITY의 한 스토리에서 RAPTOR가 전체 3개 계층을 검색했을 때의 성능은 leaf node 한 계층만 검색했을 때와 어떻게 달라졌습니까?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "9",
         "57.9 with one leaf layer versus 73.68 with all three layers"
       ],
@@ -1463,7 +1296,7 @@
         "ext_raptor_011",
         "Cinderella 사례의 정성 분석에서 RAPTOR의 tree-based retrieval이 DPR보다 주제형·멀티홉 질문에 유리했던 이유는 무엇입니까?",
         "RAPTOR",
-        "개념과 결과",
+        "개념과 결과형",
         "20",
         "RAPTOR retrieves relevant information across tree layers, while DPR retrieves detailed descriptions of a narrow subset of the story"
       ],
@@ -1471,7 +1304,7 @@
         "track1_0009",
         "RAG가 LLM에서 사실적으로 부정확한 콘텐츠 생성을 줄이는 데 어떻게 기여합니까?",
         "RAG Survey",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "By referencing external knowledge, RAG effectively reduces the problem of generating factually incorrect content."
       ],
@@ -1479,7 +1312,7 @@
         "track1_0010",
         "RAG의 Naive RAG 방법론은 어떤 과정으로 구성되어 있습니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "3",
         "The Naive RAG follows a traditional process that includes indexing, retrieval, and generation, which is also characterized as a 'Retrieve-Read' framework."
       ],
@@ -1487,7 +1320,7 @@
         "track1_0012",
         "RAG 시스템은 지식 집약적인 작업에서 어떻게 유리합니까?",
         "RAG Survey",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information."
       ],
@@ -1495,7 +1328,7 @@
         "track1_0015",
         "RAG 프로세스에서 핵심적인 역할을 하는 세 가지 구성 기술은 무엇인가요?",
         "RAG Survey",
-        "개념과 결과",
+        "개념과 결과형",
         "2",
         "the aspects of Retrieval, Generation and Augmentation"
       ],
@@ -1503,7 +1336,7 @@
         "track1_0016",
         "RAG 방법론의 평가 방법은 어떻게 요약되어 있습니까?",
         "RAG Survey",
-        "방법",
+        "방법형",
         "2",
         "We have summarized the current assessment methods of RAG, covering 26 tasks, nearly 50 datasets, outlining the evaluation objectives and metrics, as well as the current evaluation benchmarks and tools."
       ],
@@ -1511,7 +1344,7 @@
         "track1_0019",
         "LLaMA-30B 모델에 CAD를 적용했을 때 CNN-DM 데이터셋에서 어떤 성과가 있었나요?",
         "CAD",
-        "수치",
+        "수치형",
         "3",
         "Specifically, when applied to LLAMA-30B in CNN-DM, CAD leads to 21% increase in ROUGE-L, 14.3% increase in factKB and 7.8% increase in BERT-P."
       ],
@@ -1519,7 +1352,7 @@
         "track1_0021",
         "CAD는 어떻게 잘못된 정보 생성을 줄이나요?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "2",
         "These results demonstrate the potential of CAD in mitigating hallucinations in text generation and overriding prior knowledge with reliable and trusted information."
       ],
@@ -1527,7 +1360,7 @@
         "track1_0023",
         "CAD는 언어 모델이 생성하는 요약문의 사실적 정확성을 향상시키나요?",
         "CAD",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "Experimental results from summarization tasks show that context-aware decoding significantly enhances the generation faithfulness of various vanilla LMs including OPT (Zhang et al., 2022), GPT-Neo (Black et al., 2021), LLaMA (Touvron et al., 2023) and instruction-finetuned LMs such as FLAN (Chung et al., 2022)."
       ],
@@ -1535,7 +1368,7 @@
         "track1_0024",
         "CAD를 적용하지 않은 경우와 비교했을 때, knowledge conflict QA 데이터셋에서 LLaMA-30B의 성능은 어떻게 변화하나요?",
         "CAD",
-        "수치",
+        "수치형",
         "2",
         "CAD brings a 2.9x improvement to LLaMA-30B on a knowledge conflicts QA dataset (Longpre et al., 2021)."
       ],
@@ -1543,7 +1376,7 @@
         "track1_0025",
         "RAPTOR 모델이 QuALITY 벤치마크에서 기존 성능을 얼마나 개선했나요?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "1",
         "we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy."
       ],
@@ -1551,7 +1384,7 @@
         "track1_0026",
         "RAPTOR의 트리 구조는 텍스트 클러스터링을 통해 어떻게 구축되나요?",
         "RAPTOR",
-        "방법",
+        "방법형",
         "2",
         "RAPTOR recursively clusters chunks of text based on their vector embeddings and generates text summaries of those clusters, constructing a tree from the bottom up."
       ],
@@ -1559,7 +1392,7 @@
         "track1_0027",
         "RAPTOR가 여러 QA 작업에서 달성한 결과는 무엇인가요?",
         "RAPTOR",
-        "개념과 결과",
+        "개념과 결과형",
         "2",
         "RAPTOR coupled with GPT-4, and sometimes even with UnifiedQA, gives new state-of-the-art results on three QA tasks: free text response questions on books and movies (NarrativeQA, Koˇcisk`y et al. 2018), full-text NLP papers (QASPER, Dasigi et al. 2021), and multiple-choice questions based on medium-length passages (QuALITY, Pang et al. 2022)."
       ],
@@ -1567,7 +1400,7 @@
         "track1_0032",
         "RAPTOR의 계층에서 검색된 노드가 어느 계층에서 오는지에 대한 연구 결과는 무엇인가요?",
         "RAPTOR",
-        "수치",
+        "수치형",
         "22",
         "We observe that between 18.5% to 57% of the retrieved nodes come from non-leaf nodes."
       ],
@@ -1575,7 +1408,7 @@
         "track1_0033",
         "Mi:dm K 2.5 Pro 모델의 파라미터 수는 몇 개입니까?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "2",
         "32B parameters"
       ],
@@ -1583,7 +1416,7 @@
         "track1_0034",
         "Mi:dm K 2.5 Pro의 방법론에서 AST 분석은 어떤 목적으로 사용됩니까?",
         "Mi:dm",
-        "방법",
+        "방법형",
         "1",
         "abstract syntax tree (AST) analysis for code"
       ],
@@ -1591,7 +1424,7 @@
         "track1_0035",
         "Mi:dm K 2.5 Pro 모델은 어떤 한국어 벤치마크에서 최첨단 결과를 달성했습니까?",
         "Mi:dm",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "sets state-of-the-art results on Korean-specific benchmarks"
       ],
@@ -1599,7 +1432,7 @@
         "track1_0036",
         "Mi:dm K 2.5 Pro가 해결하려는 주요 문제는 무엇입니까?",
         "Mi:dm",
-        "개념과 결과",
+        "개념과 결과형",
         "1",
         "address enterprise-grade complexity through reasoning-focused optimization"
       ],
@@ -1607,7 +1440,7 @@
         "track1_0037",
         "Mi:dm K 2.5 Pro 모델의 컨텍스트 윈도우(context window) 길이는 얼마인가요?",
         "Mi:dm",
-        "수치",
+        "수치형",
         "1",
         "128K token context window"
       ],
@@ -1615,7 +1448,7 @@
         "track1_0040",
         "Mi:dm K 2.5 Pro의 사후 훈련 파이프라인에서 모델 병합은 어떤 역할을 합니까?",
         "Mi:dm",
-        "방법",
+        "방법형",
         "2",
         "improve training stability and achieve balanced performance across complex reasoning, coding, instruction following, and agentic task execution"
       ]

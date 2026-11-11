@@ -27,6 +27,10 @@ CONDITION_NAMES = {
 }
 
 
+# Post-hoc question types as named in 5.5 of the thesis.
+TYPE_LABELS = {"수치 질문": "수치형 질문", "방법 질문": "방법형 질문", "개념과 결과 질문": "개념과 결과형 질문"}
+
+
 def euro(number: str) -> str:
     """Particle after a number read in Korean: 영, 삼, 육 end in a consonant."""
     return "으로" if number.rstrip()[-1] in "036" else "로"
@@ -66,7 +70,7 @@ def appendix_cases(cases, excerpts):
         out += (
             f"질문은 ‘{c['query']}’이고, 정답 근거는 {c['document']} 원문 "
             f"{c['source_page']}쪽의 ‘{c['answer_span']}’이다. "
-            f"이 질문은 {c['question_group']}에 속한다.\n\n"
+            f"이 질문은 {TYPE_LABELS[c['question_group']]}에 속한다.\n\n"
         )
         out += f"미적용과 {applied} 조건을 비교하였다. {c['observation']}\n\n"
         quotes = {}

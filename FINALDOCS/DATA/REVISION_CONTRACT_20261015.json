@@ -2,7 +2,7 @@
   "date": "2026-10-21",
   "title": "한국어 질의로 영어 학술 및 기술 문서를 검색하는 RAG에서의 HyDE, CAD, SCD 조합 실험",
   "english_title": "Combination Experiments of HyDE, CAD, and SCD in RAG for Searching English Academic and Technical Documents with Korean Queries",
-  "tables": 6,
+  "tables": 8,
   "figures": 12,
   "equations": 8,
   "references": 22,
@@ -13,7 +13,9 @@
     "T3-1_Conditions",
     "T4-1_Environment",
     "T5-1_Condition_Scores",
-    "T5-2_Group_Scores",
+    "T5-2_Numeric_Scores",
+    "T5-3_Method_Scores",
+    "T5-4_Concept_Scores",
     "Appendix_Queries"
   ],
   "case_figures": {

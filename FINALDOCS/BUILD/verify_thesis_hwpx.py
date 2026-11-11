@@ -71,8 +71,11 @@ def main() -> None:
     source = (
         ROOT / "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md"
     ).read_text(encoding="utf-8")
-    # Inline symbol subscripts are markup in the manuscript, plain text in HWPX.
+    # Inline symbol subscripts are markup in the manuscript, plain text in HWPX;
+    # $...$ formulas become equation objects, which carry no paragraph text.
+    raw_source = source
     source = re.sub(r"</?sub>", "", source)
+    source = re.sub(r"\$[^$]+\$", "", source)
     package = validate_package(args.file)
     assert not package.issues, package
     document = HwpxDocument.open(args.file)
@@ -193,6 +196,7 @@ def main() -> None:
             f"[계속표 A-1 ({i+1}/{len(appendix_parts)})] 60개 질문과 정답 근거"
             for i in range(1, len(appendix_parts))
         ]
+        cell_scripts = []
         for table, name, source_rows in instances:
             ws = workbook[name.strip()]
             assert int(table.get("rowCnt")) == len(source_rows)
@@ -218,6 +222,8 @@ def main() -> None:
                     original.data_type != "f"
                 ), "Cached-only formula input not permitted"
                 value = "" if original.value is None else re.sub(r"</?sub>", "", str(original.value))
+                cell_scripts.extend(s.strip() for s in re.findall(r"\$([^$]+)\$", value))
+                value = re.sub(r"\$[^$]+\$", "", value)
                 # This workbook stores thesis precision as text; check every cell.
                 if isinstance(original.value, float) and re.fullmatch(
                     r"0\.0+", original.number_format
@@ -327,7 +333,12 @@ def main() -> None:
             for block in re.findall(r"```text\n(.*?)```", source, re.DOTALL)
             if "\t" not in block
         ]
-        assert scripts == equation_blocks and len(scripts) == 8
+        # Display equations from the code blocks, inline ones from the sentences
+        # (the transfer manuscript also lists the table cells); each appears once.
+        inline = [s.strip() for s in re.findall(r"\$([^$]+)\$", raw_source)]
+        assert len(equation_blocks) == 6
+        assert sorted(scripts) == sorted(equation_blocks + inline)
+        assert set(cell_scripts) <= set(inline)
         template = zipfile.ZipFile(delivery / "SCHOOL_TEMPLATE_CONVERTED.hwpx")
         original_header = ET.fromstring(template.read("Contents/header.xml"))
         layout_report = validate_layout(header, section)
@@ -373,7 +384,8 @@ def main() -> None:
             "Comparative Analysis of Performance Improvement Algorithms for Retrieval-Augmented Generation (RAG) on English Documents with Korean Queries"
             in cover_text
         )
-        assert "주심" in cover_text and "부심" in cover_text
+        compact = re.sub(r"\s", "", cover_text)
+        assert "주심" in compact and "부심" in compact
         template.close()
         assert not re.search(
             r"^# (국문초록|Abstract)|^(주제어|Keywords):", source, re.MULTILINE
@@ -442,7 +454,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of {len(sheets)} logical tables, 12 pictures, 8 equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
+        f"PASS: HWPX ZIP/XML, {len(paragraphs)} ordered paragraphs, {cell_count} XLSX cells, {len(tables) - 2} native segments of {len(sheets)} logical tables, 12 pictures, {len(equation_blocks)} display and {len(scripts) - len(equation_blocks)} inline equations, 22 references, 60 x 8 = 480 records, school styles/page/columns"
     )
 
 

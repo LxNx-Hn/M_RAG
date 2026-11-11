@@ -28,10 +28,29 @@ HC = "http://www.hancom.co.kr/hwpml/2011/core"
 NS = {"hp": HP, "hh": HH}
 # Inline symbol subscripts in the manuscript, e.g. C<sub>q</sub>.
 SUB = re.compile(r"<sub>(.*?)</sub>")
+# Inline formulas in sentences and table cells, written as EqEdit scripts
+# between dollar signs, e.g. $z _{rm ctx}$; they become Hancom equation objects.
+EQ = re.compile(r"\$([^$]+)\$")
 
 
 def plain(text: str) -> str:
-    return SUB.sub(r"\1", text)
+    return SUB.sub(r"\1", EQ.sub("", text))
+
+
+def equation_run(doc, script: str, char_ref: str, header):
+    """A run holding one inline Hancom equation in the paragraph's character size."""
+    shape = next(
+        c for c in header.iter(f"{{{HH}}}charPr") if c.get("id") == char_ref
+    )
+    base_unit = int(shape.get("height", "1000"))
+    holder = doc.add_paragraph("", include_run=False)
+    obj = doc.shapes.add_equation(
+        script, paragraph=holder, base_unit=base_unit, char_pr_id_ref=char_ref
+    )
+    run = obj.element.getparent()
+    holder.element.remove(run)
+    holder.element.getparent().remove(holder.element)
+    return run
 
 
 _SUBSCRIPT = {}
@@ -56,28 +75,33 @@ def subscript_char(header, base_ref: str) -> str:
     return new_id
 
 
-def apply_subscripts(header, element) -> None:
-    """Split a single-text paragraph into runs, subscripting <sub> spans."""
+def apply_subscripts(header, element, doc=None) -> None:
+    """Split a single-text paragraph into runs: <sub> spans become subscript
+    runs and $...$ spans become inline equation objects (needs *doc*)."""
     runs = element.findall("hp:run", NS)
     text = "".join("".join(r.xpath("./hp:t//text()", namespaces=NS)) for r in runs)
-    if "<sub>" not in text:
+    if "<sub>" not in text and not EQ.search(text):
         return
+    if EQ.search(text) and doc is None:
+        raise ValueError("Inline equation needs the document")
     base_ref = runs[0].get("charPrIDRef")
-    sub_ref = subscript_char(header, base_ref)
     anchor = runs[0].getprevious()
     for r in runs:
         element.remove(r)
     position = 0 if anchor is None else list(element).index(anchor) + 1
-    parts = SUB.split(text)
-    for i, part in enumerate(parts):
-        if not part:
+    for k, piece in enumerate(EQ.split(text)):
+        if k % 2:
+            element.insert(position, equation_run(doc, piece.strip(), base_ref, header))
+            position += 1
             continue
-        run = element.makeelement(
-            f"{{{HP}}}run", {"charPrIDRef": sub_ref if i % 2 else base_ref}
-        )
-        ET.SubElement(run, f"{{{HP}}}t").text = part
-        element.insert(position, run)
-        position += 1
+        for i, part in enumerate(SUB.split(piece)):
+            if not part:
+                continue
+            ref = subscript_char(header, base_ref) if i % 2 else base_ref
+            run = element.makeelement(f"{{{HP}}}run", {"charPrIDRef": ref})
+            ET.SubElement(run, f"{{{HP}}}t").text = part
+            element.insert(position, run)
+            position += 1
 
 
 def clean(text: str) -> str:
@@ -304,67 +328,75 @@ def insert_school_covers(
         raise ValueError("Unknown or empty personal field")
     # Unconfirmed school-form fields remain blank in the public master.
     values = {key: fields.get(key, "") for key in allowed}
-    identity = ", ".join(values[key] for key in ("name", "student_id") if values[key])
-    first = {
-        0: front[0]["text"],
-        2: front[1]["text"],
-        5: "지도교수  " + values["advisor"],
-        7: values["department"] + "\n" + values["university"],
-        9: identity,
-        11: values["submission_year"],
-    }
-    second = (
-        {
-            0: front[0]["text"],
-            2: front[1]["text"],
-            4: ENGLISH_TITLE,
-            6: identity,
-            8: "지도교수  " + values["advisor"],
-            10: "본 보고서를 졸업자격 실험보고서로 제출함.",
-            11: values["submission_date"],
-            13: (values["name"] + "의 " if values["name"] else "")
-            + "졸업자격 실험보고 통과를 인준함.",
-            14: values["approval_date"],
-            16: "주심  "
-            + values["chair"]
-            + " (인)\n부심  "
-            + values["reviewer"]
-            + " (인)",
-            18: values["university"] + " " + values["department"],
-        }
-        if len(front) == 9
-        else {}
-    )
-    for number, (cover, values) in enumerate(zip(covers, (first, second))):
-        if number == 1 and not second:
+    header = template.parts.headers[0].element
+
+    def char_pr(run):
+        return header.find(f".//hh:charPr[@id='{run.get('charPrIDRef')}']", NS)
+
+    def set_text(run, text):
+        ts = run.findall("hp:t", NS)
+        for extra in ts[1:]:
+            run.remove(extra)
+        (ts[0] if ts else ET.SubElement(run, f"{{{HP}}}t")).text = text
+
+    def fill_example(cell, value):
+        """Replace the form's red example run with the value in the cell's black style."""
+        for p in cell.findall(".//hp:p", NS):
+            runs = p.findall("hp:run", NS)
+            black = [r for r in runs if char_pr(r).get("textColor") == "#000000"]
+            for r in runs:
+                if char_pr(r).get("textColor") == "#FF0000":
+                    if not black:
+                        raise ValueError("Cover cell has no black run for its value")
+                    r.set("charPrIDRef", black[-1].get("charPrIDRef"))
+                    set_text(r, value)
+
+    def replace_cell(cell, text):
+        sub = cell.find("hp:subList", NS)
+        oldp = sub.find("hp:p", NS)
+        black = [r for r in oldp.findall("hp:run", NS) if char_pr(r).get("textColor") == "#000000"]
+        char_ref = (black or oldp.findall("hp:run", NS))[0].get("charPrIDRef")
+        attrs = dict(oldp.attrib)
+        for child in list(sub):
+            sub.remove(child)
+        p = ET.SubElement(sub, f"{{{HP}}}p", attrs)
+        run = ET.SubElement(p, f"{{{HP}}}run", {"charPrIDRef": char_ref})
+        ET.SubElement(run, f"{{{HP}}}t").text = text
+
+    # The form's cells stay as they are (layout, the name-only cells, the
+    # department lines, the blank "2026년   월  일" dates and the underlined
+    # signature lines); only the titles and the red examples are filled.
+    title, english = front[1]["text"], ENGLISH_TITLE
+    approval = (values["name"] + "의 " if values["name"] else "") + "졸업자격 실험보고 통과를 인준함."
+    plans = [
+        {1: ("cell", ""), 2: ("cell", title), 5: ("example", values["advisor"]),
+         9: ("example", values["name"]), 11: ("cell", values["submission_year"])},
+        {2: ("cell", title), 4: ("cell", english), 6: ("example", values["name"]),
+         8: ("example", values["advisor"]), 13: ("cell", approval), 16: ("signature", None)},
+    ]
+    for number, (cover, plan) in enumerate(zip(covers, plans)):
+        if number == 1 and len(front) != 9:
             continue
         cover.set("pageBreak", "0" if number == 0 else "1")
         for cell in cover.findall(".//hp:tc", NS):
             row = int(cell.find("hp:cellAddr", NS).get("rowAddr"))
-            sub = cell.find("hp:subList", NS)
-            oldp = sub.find("hp:p", NS)
-            run = oldp.find("hp:run", NS)
-            char_ref = run.get("charPrIDRef") if run is not None else "0"
-            if fields and row in ({9} if number == 0 else {6}):
-                # Use the cover cell's original black run, after its red example.
-                properties = template.parts.headers[0].element
-                black_runs = [
+            kind, value = plan.get(row, (None, None))
+            if kind == "cell":
+                replace_cell(cell, value)
+            elif kind == "example":
+                fill_example(cell, value)
+            elif kind == "signature":
+                blanks = [
                     r
-                    for r in oldp.findall("hp:run", NS)
-                    if properties.find(
-                        f".//hh:charPr[@id='{r.get('charPrIDRef')}']", NS
-                    ).get("textColor")
-                    == "#000000"
+                    for r in cell.findall(".//hp:run", NS)
+                    if char_pr(r).find("hh:underline", NS).get("type") == "BOTTOM"
                 ]
-                if not black_runs:
-                    raise ValueError("Original cover cell has no black input run")
-                char_ref = black_runs[0].get("charPrIDRef")
-            attrs = dict(oldp.attrib)
-            for child in list(sub):
-                sub.remove(child)
-            p = ET.SubElement(sub, f"{{{HP}}}p", attrs)
-            newrun = ET.SubElement(p, f"{{{HP}}}run", {"charPrIDRef": char_ref})
-            ET.SubElement(newrun, f"{{{HP}}}t").text = values.get(row, "")
+                if len(blanks) != 2:
+                    raise ValueError("Approval page lost its signature lines")
+                for run, key in zip(blanks, ("chair", "reviewer")):
+                    if values.get(key):
+                        width = len(run.find("hp:t", NS).text)
+                        set_text(run, values[key].center(width))
         doc.sections[0].element.append(cover)
 
 
@@ -393,24 +425,25 @@ def table_geometry(data: dict, width: int):
         for r0, c0, r1, c1 in data["merges"]:
             if r0 == r1 == row_index:
                 effective_widths[c0] = sum(widths[c0 : c1 + 1])
+        # Compact rows (department review): one 9 pt line needs about 1,150 HWPUNIT.
         heights.append(
             max(
-                1700,
+                1250,
                 max(
                     sum(
                         max(
                             1,
                             (
                                 sum(900 if ord(ch) > 127 else 500 for ch in line)
-                                + max(900, w - 1020)
+                                + max(900, w - 700)
                                 - 1
                             )
-                            // max(900, w - 1020),
+                            // max(900, w - 700),
                         )
                         for line in value.split("\n")
                     )
-                    * 1200
-                    + 400
+                    * 1150
+                    + 200
                     for value, w in zip(row, effective_widths)
                 ),
             )
@@ -498,6 +531,10 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
     # TABLE keeps the bounded object intact; every segment repeats its header.
     table.element.set("pageBreak", "TABLE")
     table.element.find("hp:pos", NS).set("treatAsChar", "1")
+    # Tight inner margins so cells do not float (department review).
+    table.element.find("hp:inMargin", NS).attrib.update(
+        {"left": "340", "right": "340", "top": "57", "bottom": "57"}
+    )
     for r, row in enumerate(rows):
         for c, value in enumerate(row):
             table.set_cell_text(r, c, value)
@@ -508,6 +545,9 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
                     leading.add(h)
             cell.set("header", "1" if r in leading else "0")
             cell.find("hp:cellSz", NS).set("height", str(heights[r]))
+            cell.find("hp:cellMargin", NS).attrib.update(
+                {"left": "340", "right": "340", "top": "57", "bottom": "57"}
+            )
             for p in cell.findall(".//hp:p", NS):
                 p.set("styleIDRef", cell_style.get("id"))
                 label = str(rows[0][c])
@@ -546,7 +586,7 @@ def insert_table(doc: HwpxDocument, data: dict, width: int):
             for run in cell.findall(".//hp:run", NS):
                 run.set("charPrIDRef", cell_style.get("charPrIDRef"))
             for cp in cell.findall(".//hp:p", NS):
-                apply_subscripts(header, cp)
+                apply_subscripts(header, cp, doc)
     # Native bold character properties, with no extrema colour fills.
     chars = header.find(".//hh:charProperties", NS)
     if chars is None:
@@ -628,7 +668,7 @@ def emit(
             if marked != text:
                 run = p.element.find("hp:run", NS)
                 run.find("hp:t", NS).text = marked
-                apply_subscripts(doc.parts.headers[0].element, p.element)
+                apply_subscripts(doc.parts.headers[0].element, p.element, doc)
             if role == "usage_url":
                 prefix, url = text.split("https://", 1)
                 url, _, suffix = url.partition(" ")

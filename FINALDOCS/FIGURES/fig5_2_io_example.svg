@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-10T06:31:29.196345</dc:date>
+    <dc:date>2026-11-10T11:12:19.074147</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -30,39 +30,39 @@ z
   </g>
   <g id="axes_1">
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #1b325f" x="4.248" y="14.526406" transform="rotate(-0 4.248 14.526406)">질문</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #4c566a" x="4.248" y="14.526406" transform="rotate(-0 4.248 14.526406)">질문</text>
    </g>
    <g id="text_2">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 15.142656)">RAPTOR의 클러스터링 과정에서 Bayesian Information</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 29.568098)">Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 15.142656)">RAPTOR의 클러스터링 과정에서 Bayesian Information</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 29.568098)">Criterion(BIC)은 어떤 결정을 내리는 데 사용됩니까?</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #1b325f" x="4.248" y="61.056406" transform="rotate(-0 4.248 61.056406)">참조 답변</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #4c566a" x="4.248" y="61.056406" transform="rotate(-0 4.248 61.056406)">참조 답변</text>
    </g>
    <g id="text_4">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #223344" x="85.428" y="61.672656" transform="rotate(-0 85.428 61.672656)">to determine the optimal number of clusters (원문 4쪽)</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #2e3440" x="85.428" y="61.672656" transform="rotate(-0 85.428 61.672656)">to determine the optimal number of clusters (원문 4쪽)</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #1b325f" x="4.248" y="92.241406" transform="rotate(-0 4.248 92.241406)">입력 구간</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #4c566a" x="4.248" y="92.241406" transform="rotate(-0 4.248 92.241406)">입력 구간</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 91.979922)">To determine the optimal number of clusters, we employ the</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 106.248355)">Bayesian Information Criterion (BIC) for model selection.</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 91.979922)">To determine the optimal number of clusters, we employ the</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 106.248355)">Bayesian Information Criterion (BIC) for model selection.</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #1b325f" x="4.248" y="138.771406" transform="rotate(-0 4.248 138.771406)">생성 답변</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #4c566a" x="4.248" y="138.771406" transform="rotate(-0 4.248 138.771406)">생성 답변</text>
    </g>
    <g id="text_8">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 138.391797)">제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 153.877164)">Bayesian Information Criterion(BIC)은 최적의 클러스터 개수</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 167.974316)">결정을 위해 사용됨이 확인됩니다.</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 138.391797)">제공된 논문 컨텍스트를 분석한 결과, RAPTOR의 클러스터링 과정에서</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 153.877164)">Bayesian Information Criterion(BIC)은 최적의 클러스터 개수</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 167.974316)">결정을 위해 사용됨이 확인됩니다.</text>
    </g>
    <g id="text_9">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #1b325f" x="4.248" y="200.646406" transform="rotate(-0 4.248 200.646406)">평가 점수</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #4c566a" x="4.248" y="200.646406" transform="rotate(-0 4.248 200.646406)">평가 점수</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 200.266797)">근거 충실도 0.857, 답변 관련성 0.895</text>
-    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #223344" transform="translate(85.428 214.308168)">문맥 정밀도 0.700, 문맥 재현율 1.000</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 200.266797)">근거 충실도 0.857, 답변 관련성 0.895</text>
+    <text style="font-size: 10.5px; font-family: 'Malgun Gothic'; fill: #2e3440" transform="translate(85.428 214.308168)">문맥 정밀도 0.700, 문맥 재현율 1.000</text>
    </g>
   </g>
  </g>

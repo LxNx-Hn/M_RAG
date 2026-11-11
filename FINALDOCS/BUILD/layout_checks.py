@@ -29,7 +29,8 @@ def validate_layout(header, section):
             usage = False
         if p.find(".//hp:pic", NS) is not None:
             role = "picture"
-        elif p.find(".//hp:equation", NS) is not None:
+        elif p.find(".//hp:equation", NS) is not None and not text and p.find(".//hp:tbl", NS) is None:
+            # display equation; sentences with inline equations stay body text
             role = "equation"
         elif p.find(".//hp:tbl", NS) is not None:
             if index >= 3:
@@ -125,7 +126,8 @@ def validate_layout(header, section):
         sum(r["role"] == "table" for r in checked)
         == len(section.findall(".//hp:tbl", NS)) - 2
     )
-    assert sum(r["role"] == "equation" for r in checked) == 8
+    # six display equations (the SCD cases formula replaced three lines)
+    assert sum(r["role"] == "equation" for r in checked) == 6
     assert len(links) == 4
     return {
         "paragraphs": checked,

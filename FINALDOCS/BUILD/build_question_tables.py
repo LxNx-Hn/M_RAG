@@ -44,10 +44,16 @@ HEADERS = {
     "korean_ratio": "한국어 문자 비율",
     "duration_seconds": "처리 시간(초)",
 }
-GROUP_HEADERS = {
-    "수치 질문": "수치\n(18개)",
-    "방법 질문": "방법\n(25개)",
-    "개념과 결과 질문": "개념과 결과\n(17개)",
+# Post-hoc question types (5.5) as named in the thesis.
+TYPE_NAMES = {
+    "수치 질문": "수치형",
+    "방법 질문": "방법형",
+    "개념과 결과 질문": "개념과 결과형",
+}
+TYPE_SHEETS = {
+    "수치 질문": ("T5-2_Numeric_Scores", "표 5-2 수치형 질문의 조건별 평가 지표 평균"),
+    "방법 질문": ("T5-3_Method_Scores", "표 5-3 방법형 질문의 조건별 평가 지표 평균"),
+    "개념과 결과 질문": ("T5-4_Concept_Scores", "표 5-4 개념과 결과형 질문의 조건별 평가 지표 평균"),
 }
 
 
@@ -55,24 +61,11 @@ def condition_label(code):
     return f"{NUMBERS[code]} {NAMES[code]}"
 
 
-def first_number(cell):
-    return float(str(cell).split()[0])
-
-
-def bold_maxima(rows, row_indexes, col):
-    values = {r: first_number(rows[r][col]) for r in row_indexes}
-    top = max(values.values())
-    return [[r, col] for r, v in values.items() if v == top]
-
-
 def metric_scopes(body, metric):
-    """Rows compared for one column: passage-based metrics inside one evaluation
-    language (SCD off rows, SCD on rows), answer-only metrics across all eight,
-    and no emphasis for time."""
+    """One bold maximum per column across the eight conditions (department
+    review: emphasise only the highest value); no emphasis for time."""
     if metric == "duration_seconds":
         return []
-    if metric in CONTEXT_METRICS:
-        return [[r for r, c in body if c[-1] == s] for s in "01"]
     return [[r for r, _ in body]]
 
 
@@ -102,17 +95,12 @@ def build():
     env = existing["T4-1_Environment"]
     env["title"] = "표 4-1 단계별 모델, 공통 설정과 기법별 파라미터"
     env["rows"] = [
-        r
-        if r[0] not in ("CAD", "SCD")
-        else (
-            ["CAD", "문맥 포함 로짓과 제외 로짓의 결합", r[2]]
-            if r[0] == "CAD"
-            else [
-                "SCD",
-                "목표 언어 토큰의 로짓 조정",
-                r[2].replace("Tstart", "T<sub>start</sub>"),
-            ]
-        )
+        # Symbols in cells are Hancom equations, as in the body text.
+        {
+            "순위 융합": ["순위 융합", "가중 RRF", "$k = 60$"],
+            "CAD": ["CAD", "문맥 포함 로짓과 제외 로짓의 결합", "$alpha = 0.5$ 고정"],
+            "SCD": ["SCD", "목표 언어 토큰의 로짓 조정", "$alpha = 1.1$, $beta = 0.9$, $T _{rm start} = 5$"],
+        }.get(r[0], r)
         for r in env["rows"]
     ]
     output = [related]
@@ -154,7 +142,8 @@ def build():
     bold, scopes = [], []
     for col, m in enumerate(METRICS, 1):
         for scope in metric_scopes(body, m):
-            bold += bold_maxima(rows, scope, col)
+            best = max(scope, key=lambda r: (stat("전체", CONDITIONS[r - 1], m)["mean"], -r))
+            bold.append([best, col])
             scopes.append({"rows": scope, "column": col})
     output.append(
         {
@@ -165,46 +154,35 @@ def build():
             "bold_scopes": scopes,
             "numeric_columns": [1, 2, 3, 4, 5, 6],
             "column_fractions": [0.22, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13],
-            "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율은 조건 1, 2, 3, 5를 영어 검색 결과로, 조건 4, 6, 7, 8을 한국어 번역 검색 결과로 평가하였으므로 굵은 값은 각 네 조건 안의 최댓값이다. 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다. 미적용과 CAD, SCD와 CAD+SCD는 각각 질문 60개 모두에서 같은 입력 구간으로 평가하였으므로, 두 쌍의 문맥 정밀도와 문맥 재현율 차이는 평가 모델이 같은 입력을 다르게 판정한 데서 생겼다.",
+            "note": "질문 60개의 평균이며 괄호 안은 표준편차다. 근거 충실도는 결측이 있는 CAD 2개, SCD 3개 질문을 빼고, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율은 조건 1, 2, 3, 5를 영어 검색 결과로, 조건 4, 6, 7, 8을 한국어 번역 검색 결과로 평가하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다. 미적용과 CAD, SCD와 CAD+SCD는 각각 질문 60개 모두에서 같은 입력 구간으로 평가하였으므로, 두 쌍의 문맥 정밀도와 문맥 재현율 차이는 평가 모델이 같은 입력을 다르게 판정한 데서 생겼다.",
         }
     )
 
-    # Table 5-2: the same means per question group, metrics in three blocks.
-    rows, merges, bold, scopes, header_rows = [], [], [], [], []
-    for block in [METRICS[0:2], METRICS[2:4], METRICS[4:6]]:
-        top = len(rows)
-        rows.append(["조건"] + [HEADERS[m] if i == 0 else "" for m in block for i in range(3)])
-        rows.append([""] + [GROUP_HEADERS[g] for _ in block for g in GROUPS])
-        header_rows += [top, top + 1]
-        merges.append([top, 0, top + 1, 0])
-        for k in range(len(block)):
-            merges.append([top, 1 + 3 * k, top, 3 + 3 * k])
-        start = len(rows)
+    # Tables 5-2 to 5-4: the same means for each post-hoc question type.
+    for g in GROUPS:
+        sheet, title = TYPE_SHEETS[g]
+        rows = [["조건"] + [HEADERS[m] for m in METRICS]]
         for code in CONDITIONS:
-            cells = [condition_label(code)]
-            for m in block:
-                for g in GROUPS:
-                    cells.append(f"{stat(g, code, m)['mean']:.3f}")
-            rows.append(cells)
-        body = list(zip(range(start, len(rows)), CONDITIONS))
-        for col in range(1, 7):
-            for scope in metric_scopes(body, block[(col - 1) // 3]):
-                bold += bold_maxima(rows, scope, col)
+            rows.append([condition_label(code)] + [f"{stat(g, code, m)['mean']:.3f}" for m in METRICS])
+        body = list(zip(range(1, len(rows)), CONDITIONS))
+        bold, scopes = [], []
+        for col, m in enumerate(METRICS, 1):
+            for scope in metric_scopes(body, m):
+                best = max(scope, key=lambda r: (stat(g, CONDITIONS[r - 1], m)["mean"], -r))
+                bold.append([best, col])
                 scopes.append({"rows": scope, "column": col})
-    output.append(
-        {
-            "sheet": "T5-2_Group_Scores",
-            "title": "표 5-2 질문 유형별 8개 조건의 평가 지표 평균",
-            "rows": rows,
-            "merges": merges,
-            "header_rows": header_rows,
-            "bold_cells": bold,
-            "bold_scopes": scopes,
-            "numeric_columns": [1, 2, 3, 4, 5, 6],
-            "column_fractions": [0.22, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13],
-            "note": "괄호 안은 각 유형의 질문 수다. 근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 근거 충실도, 문맥 정밀도, 문맥 재현율의 굵은 값은 SCD 미적용 네 조건과 적용 네 조건 안에서 각각 구한 최댓값이고, 답변 관련성과 한국어 문자 비율의 굵은 값은 8개 조건 중 최댓값이다.",
-        }
-    )
+        output.append(
+            {
+                "sheet": sheet,
+                "title": title,
+                "rows": rows,
+                "bold_cells": bold,
+                "bold_scopes": scopes,
+                "numeric_columns": [1, 2, 3, 4, 5, 6],
+                "column_fractions": [0.22, 0.13, 0.13, 0.13, 0.13, 0.13, 0.13],
+                "note": "근거 충실도는 결측 질문을, 처리 시간은 각 생성 실행의 첫 기록인 2개 질문을 빼고 계산하였다. 처리 시간을 제외한 각 열에서 반올림 전 평균이 가장 높은 값 하나를 굵게 표시하였다. 평균이 같으면 조건 번호가 앞선 값을 표시하였다.",
+            }
+        )
 
     # Appendix A with short document and group labels.
     questions = json.loads(
@@ -222,7 +200,7 @@ def build():
                 q["query_id"],
                 q["query"],
                 DOC_SHORT[q["document_label"]],
-                groups[q["query_id"]].removesuffix(" 질문"),
+                TYPE_NAMES[groups[q["query_id"]]],
                 str(q["source_page"]),
                 q["answer_span"],
             ]
@@ -236,7 +214,7 @@ def build():
             "column_fractions": [0.165, 0.295, 0.11, 0.12, 0.05, 0.26],
         }
     )
-    assert set(GROUPS) == set(GROUP_HEADERS)
+    assert set(GROUPS) == set(TYPE_NAMES) == set(TYPE_SHEETS)
 
     path.write_text(
         json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

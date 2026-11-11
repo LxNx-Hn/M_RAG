@@ -41,12 +41,13 @@ for name in ["malgun.ttf", "malgunbd.ttf"]:
         font_manager.fontManager.addfont(str(Path("C:/Windows/Fonts") / name))
 plt.rcParams.update({"font.family": FONT, "axes.unicode_minus": False})
 
-INK = RGBColor(0x22, 0x33, 0x44)
-# Sky-blue palette shared with the thesis figures (plot_questions.py).
-NAVY = RGBColor(0x1B, 0x32, 0x5F)
-SKY = RGBColor(0x3A, 0x89, 0xC9)
-SKY_PALE = RGBColor(0xE9, 0xF2, 0xF9)
-GREY = RGBColor(0x5E, 0x6B, 0x7A)
+INK = RGBColor(0x2E, 0x34, 0x40)
+# Muted palette shared with the thesis figures (plot_questions.py): Nord frost blue
+# for the title band and section accents, snow-storm greys for large areas.
+STEEL = RGBColor(0x5E, 0x81, 0xAC)
+PALE = RGBColor(0xE5, 0xE9, 0xF0)
+TABLE_HEAD = RGBColor(0xEC, 0xEF, 0xF4)
+GREY = RGBColor(0x5F, 0x6B, 0x7A)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 W, H = 594, 841  # mm, A1 portrait
 L, G = 22, 16
@@ -96,7 +97,7 @@ def pipeline_png(path):
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 33)
     ax.axis("off")
-    ink = "#223344"
+    ink = "#2E3440"
 
     def node(x, y, w, h, title, sub, edge):
         ax.add_patch(
@@ -138,15 +139,15 @@ def pipeline_png(path):
             arrowprops=dict(arrowstyle="-|>", lw=2.2, color=ink, mutation_scale=20),
         )
 
-    node(1, 19, 22, 12, "한국어 질문", "60개", "#1B325F")
-    node(30, 19, 32, 12, "검색과 재정렬", "밀집 검색과 BM25의 융합", "#1B325F")
-    node(69, 19, 30, 12, "답변 생성", "영어 구간 5개 + 질문", "#1B325F")
+    node(1, 19, 22, 12, "한국어 질문", "60개", "#4C566A")
+    node(30, 19, 32, 12, "검색과 재정렬", "밀집 검색과 BM25의 융합", "#4C566A")
+    node(69, 19, 30, 12, "답변 생성", "영어 구간 5개 + 질문", "#4C566A")
     arrow((23.5, 25.0), (29.5, 25.0))
     arrow((62.5, 25.0), (68.5, 25.0))
     tags = [
-        (30, "HyDE", "가상 문서로\n밀집 검색 입력 변경", "#3A89C9"),
-        (66, "CAD", "근거 포함과 제외\n점수 결합", "#1B325F"),
-        (84, "SCD", "한국어 토큰\n점수 조정", "#1B325F"),
+        (30, "HyDE", "가상 문서로\n밀집 검색 입력 변경", "#5E81AC"),
+        (66, "CAD", "근거 포함과 제외\n점수 결합", "#4C566A"),
+        (84, "SCD", "한국어 토큰\n점수 조정", "#4C566A"),
     ]
     for x, name, desc, col in tags:
         w = 32 if name == "HyDE" else 15.5
@@ -200,15 +201,27 @@ def mechanism_png(path):
 
 
 def parallel_png(path, height_in=6.1, width_in=21.7):
-    """The 25 method questions in four condition panels, side by side."""
-    from plot_questions import group_profiles
+    """Show the three questions used in thesis section 5.6."""
+    from plot_questions import REPRESENTATIVES, draw_representative
 
     data = pd.read_csv(
         ROOT / "FINALDOCS/ANALYSIS/QUERY_LEVEL_RESULTS.csv", encoding="utf-8-sig"
     )
-    group_profiles(
-        data, "방법 질문", size=(width_in, height_in), scale=1.75, save_to=path, compact=True, ncols=4
-    )
+    fig, axes = plt.subplots(1, 3, figsize=(width_in, height_in))
+    titles = [
+        "수치형  |  CAD 적용 후 LLaMA-30B 성능 변화",
+        "방법형  |  RAG 평가에 필요한 네 가지 능력",
+        "개념과 결과형  |  RAPTOR의 질의응답 결과",
+    ]
+    for ax, (qid, _), title in zip(axes, REPRESENTATIVES, titles, strict=True):
+        handles, labels = draw_representative(ax, data, qid, scale=1.75)
+        for line in handles:
+            line.set_linewidth(1.55 * 1.75)
+        ax.set_title(title, loc="left", fontsize=18, pad=8)
+    fig.legend(handles, labels, loc="upper center", ncol=8, frameon=False, fontsize=17)
+    fig.subplots_adjust(left=0.034, right=0.99, top=0.75, bottom=0.18, wspace=0.24)
+    fig.savefig(path, dpi=200, facecolor="white")
+    plt.close(fig)
 
 
 # ---------------------------------------------------------------- pptx helpers
@@ -267,8 +280,10 @@ class Poster:
         return box
 
     def heading(self, x, y, w, label):
-        self.rect(x, y, w, 13, SKY)
-        self.text(x + 4, y + 0.7, w - 8, 10, label, size=27, bold=True, color=WHITE)
+        # pale bar with a frost-blue edge instead of a saturated block
+        self.rect(x, y, w, 13, PALE)
+        self.rect(x, y, 3, 13, STEEL)
+        self.text(x + 7, y + 0.7, w - 11, 10, label, size=27, bold=True, color=INK)
         return y + 17
 
     def bullets(self, x, y, w, items, size=21, gap=2.5):
@@ -325,7 +340,7 @@ class Poster:
             for j in range(nc):
                 cell = tbl.cell(i, j)
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = SKY_PALE if i < header_rows else WHITE
+                cell.fill.fore_color.rgb = TABLE_HEAD if i < header_rows else WHITE
                 cell.margin_left = cell.margin_right = Mm(1.6)
                 cell.margin_top = cell.margin_bottom = Mm(0.6)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
@@ -355,7 +370,7 @@ class Poster:
                 for side in ["a:lnL", "a:lnR", "a:lnT", "a:lnB"]:
                     ln = etree.SubElement(tcpr, qn(side), w=str(int(0.75 * 12700)))
                     sf = etree.SubElement(ln, qn("a:solidFill"))
-                    etree.SubElement(sf, qn("a:srgbClr"), val="8C9DB0")
+                    etree.SubElement(sf, qn("a:srgbClr"), val="8A94A3")
                 self.texts.append(str(rows[i][j]))
         for r0, c0, r1, c1 in merges:
             tbl.cell(r0, c0).merge(tbl.cell(r1, c1))
@@ -364,16 +379,6 @@ class Poster:
     def picture(self, path, x, y, w):
         pic = self.slide.shapes.add_picture(str(path), Mm(x), Mm(y), width=Mm(w))
         return y + pic.height / 36000
-
-
-def bold_max(rows, scopes):
-    """Displayed maxima per (column, rows) scope; equal displayed values share bold."""
-    out = []
-    for c, body in scopes:
-        vals = [float(rows[i][c].replace("−", "-")) for i in body]
-        m = max(vals)
-        out += [(i, c) for i, v in zip(body, vals) if v == m]
-    return out
 
 
 # ---------------------------------------------------------------- content
@@ -431,7 +436,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         return stat(cs, level, code, metric)["mean"]
 
     TOP = 90  # first section heading below the title band
-    P.rect(0, 0, W, TOP - 10, NAVY)
+    P.rect(0, 0, W, TOP - 10, STEEL)
     P.text(
         L,
         9,
@@ -494,7 +499,7 @@ def build(out_dir: Path, personal=None, layout="b"):
 
     # ---------------- 03 example question, each technique against no technique
     y = P.heading(L, max(yl, yr) + 3, FW, section("예시 질문으로 본 단독 기법의 작동"))
-    y = P.picture(mech, L, y + 1, FW)
+    y = P.picture(mech, L + 0.055 * FW, y + 1, 0.89 * FW)
 
     # ---------------- 04 questions and metrics, definitions above the 05 columns
     y = P.heading(L, y + 2, FW, section("질문과 평가"))
@@ -503,7 +508,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         y,
         C,
         [
-            "영어 문서 네 종에서 15개씩, 한국어 질문 60개(수치 18, 방법 25, 개념과 결과 17)",
+            "영어 문서 4종에서 한국어 질문 60개 구성",
             "세 기법의 적용 여부를 조합한 조건 8개, 답변 480개",
             "생성 모델 Mi:dm 2.0 Base Instruct, 평가 모델 GPT-4o",
             "다섯 지표의 관측값은 모두 0에서 1 사이, 한국어 문자 비율을 뺀 네 지표는\nRAGAS(Retrieval Augmented Generation Assessment)[5]로 계산",
@@ -527,9 +532,9 @@ def build(out_dir: Path, personal=None, layout="b"):
     # ---------------- 05 question-type means (wide table)
     y = P.heading(L, y + 4, FW, section("질문 유형별 평균 점수"))
     groups = [
-        ("수치 질문", "수치"),
-        ("방법 질문", "방법"),
-        ("개념과 결과 질문", "개념과\n결과"),
+        ("수치 질문", "수치형"),
+        ("방법 질문", "방법형"),
+        ("개념과 결과 질문", "개념과\n결과형"),
     ]
     block = [
         ("faithfulness", "근거 충실도"),
@@ -546,17 +551,11 @@ def build(out_dir: Path, personal=None, layout="b"):
         rows.append(
             [condition_label(c)] + [f2(mean(g, c, m)) for m, _ in block for g, _ in groups]
         )
-    body = list(range(2, len(rows)))
-    scopes = []
-    for k, (m, _) in enumerate(block):
-        if m in ("faithfulness", "context_precision", "context_recall"):
-            groups_of_rows = [
-                [r for r, c in zip(body, CONDITIONS) if c[-1] == s] for s in "01"
-            ]
-        else:
-            groups_of_rows = [body]
-        for j in range(3):
-            scopes += [(1 + 3 * k + j, rows_) for rows_ in groups_of_rows]
+    winners = {
+        (2 + max(range(len(CONDITIONS)), key=lambda i: (mean(g, CONDITIONS[i], m), -i)), 1 + 3 * k + j)
+        for k, (m, _) in enumerate(block)
+        for j, (g, _) in enumerate(groups)
+    }
     merges = [(0, 0, 1, 0)] + [(0, 1 + 3 * k, 0, 3 + 3 * k) for k in range(len(block))]
     y = P.table(
         L,
@@ -564,7 +563,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         FW,
         rows,
         [1.75] + [1.0] * (len(rows[0]) - 1),
-        bold=set(bold_max(rows, scopes)),
+        bold=winners,
         size=17,
         row_h=7.0,
         header_rows=2,
@@ -575,7 +574,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         y + 3,
         FW,
         [
-            "굵은 값은 최댓값이며, 충실도, 정밀도, 재현율은 SCD 적용 여부가 같은 네 조건 안에서, 관련성과 한국어 문자 비율은 여덟 조건에서 구하고 최댓값과 같은 표시 값도 굵게 표시함",
+            "굵은 값은 열마다 반올림 전 평균이 가장 높은 값 하나이며, 동률이면 조건 번호가 앞선 값을 표시",
         ],
         size=19,
     )
@@ -584,7 +583,7 @@ def build(out_dir: Path, personal=None, layout="b"):
     refs_h = 13
     conclusions = [
         "답변 관련성이 중요하면 HyDE 하나만 적용",
-        "수치 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
+        "수치형 질문에서 근거 충실도가 중요하면 HyDE+CAD 적용",
         "한국어 답변이 중요하면 한국어 문자 비율이 가장 높은 HyDE+SCD 적용",
         "한국어 답변이 중요한 수치 질문이면 세 기법 모두 적용",
         "두 기법 이상 조합한 경우는 모두 답변 관련성이 HyDE만 쓸 때보다 낮음",
@@ -596,7 +595,7 @@ def build(out_dir: Path, personal=None, layout="b"):
     line_c = size_c * 0.3528 * 1.32 + gap_c
     conclusion_h = 17 + max(len(left_c), len(right_c)) * line_c
     caption_h = 19 * 0.3528 * 1.32 + 2.5
-    y = P.heading(L, y + 4, FW, section("방법 질문 25개의 원점수 평행좌표"))
+    y = P.heading(L, y + 4, FW, section("유형별 대표 질문의 조건별 점수"))
     chart_h = (H - 6 - refs_h) - y - 1 - caption_h - 4 - conclusion_h
     parallel_png(par, chart_h / 25.4, FW / 25.4)
     y = P.picture(par, L, y, FW)
@@ -604,7 +603,7 @@ def build(out_dir: Path, personal=None, layout="b"):
         L,
         y + 1,
         FW,
-        ["HyDE 적용 후 관련성 축의 선이 위로 모이고 관련성 0점으로 선이 끊긴 답변이 5개에서 1개로 줄어듦"],
+        ["실선은 SCD 미적용, 점선은 SCD 적용. 충실도, 정밀도, 재현율은 같은 선 종류끼리 비교"],
         size=19,
     )
     y = P.heading(L, y + 4, FW, section("결론"))

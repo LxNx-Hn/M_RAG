@@ -12,14 +12,62 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FIG = ROOT / "FINALDOCS/FIGURES"
-# Sky-blue palette shared with the analysis figures and the poster: the names
+# Muted Nord-based palette shared with the analysis figures and the poster: the names
 # keep their roles (BLUE inputs, PURPLE retrieval, GREEN generation, ORANGE the
 # techniques), the values follow the palette.
-INK = "#223344"
-BLUE = "#1B325F"
-GREEN = "#1B325F"
-ORANGE = "#BF2436"
-PURPLE = "#3A89C9"
+INK = "#2E3440"
+BLUE = "#4C566A"
+GREEN = "#4C566A"
+ORANGE = "#BF616A"
+PURPLE = "#5E81AC"
+
+
+def trim_png(path, pad=6):
+    """Crop a rendered figure to its drawing plus a few pixels of white."""
+    from PIL import Image, ImageChops
+
+    image = Image.open(path).convert("RGB")
+    box = ImageChops.difference(image, Image.new("RGB", image.size, "white")).point(
+        lambda v: 255 if v > 10 else 0
+    ).getbbox()
+    if box:
+        x0, y0, x1, y1 = box
+        image.crop(
+            (max(0, x0 - pad), max(0, y0 - pad), min(image.width, x1 + pad), min(image.height, y1 + pad))
+        ).save(path)
+
+
+def math_svg(expr, size):
+    """SVG tspans for a small formula: italic letters, upright digits and
+    operators, upright subscripts written _{...}, as an equation editor sets them."""
+    out, pending, i = [], 0.0, 0
+    serif = 'font-family="Times New Roman"'
+
+    def span(text, style="", dy=0.0, small=False):
+        nonlocal pending
+        shift = dy + pending
+        pending = 0.0
+        attrs = [serif]
+        if style:
+            attrs.append(f'font-style="{style}"')
+        if shift:
+            attrs.append(f'dy="{shift:.1f}"')
+        if small:
+            attrs.append(f'font-size="{size * 0.7:.1f}"')
+        out.append(f"<tspan {' '.join(attrs)}>{html.escape(text)}</tspan>")
+
+    while i < len(expr):
+        if expr.startswith("_{", i):
+            j = expr.index("}", i)
+            sub = expr[i + 2 : j]
+            span(sub, "italic" if len(sub) == 1 and sub.isalpha() else "", dy=size * 0.28, small=True)
+            pending = -size * 0.28
+            i = j + 1
+            continue
+        ch = expr[i]
+        span(ch, "italic" if ch.isalpha() else "")
+        i += 1
+    return "".join(out)
 
 
 class Drawing:
@@ -31,12 +79,18 @@ class Drawing:
         anchor = "middle" if center else "start"
         for i, line in enumerate(value.split("\n")):
             self.parts.append(
-                f'<text x="{x}" y="{y+i*size*1.35}" font-family="Malgun Gothic" font-size="{size}" text-anchor="{anchor}" fill="{INK}">{html.escape(line)}</text>'
+                f'<text x="{x}" y="{y+i*size*1.35}" font-family="Malgun Gothic" font-size="{size}" text-anchor="{anchor}" fill="{INK}">'
+                + "".join(
+                    math_svg(part, size) if k % 2 else html.escape(part)
+                    for k, part in enumerate(line.split("$"))
+                )
+                + "</text>"
             )
 
     def box(self, x, y, w, h, label, color=PURPLE, size=44):
+        width = 8 if color == ORANGE else 4  # technique boxes stay emphasised in greyscale
         self.parts.append(
-            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="#F7FAFD" stroke="{color}" stroke-width="4"/>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="#F4F6F9" stroke="{color}" stroke-width="{width}"/>'
         )
         lines = label.count("\n") + 1
         self.text(
@@ -74,12 +128,11 @@ def main():
     # Printed at 150 mm wide: 40 units = 9.5 pt, close to the 10 pt table titles.
     for y, w, h, label in [(10, 1760, 330, "검색 단계"), (355, 1250, 285, "생성 단계")]:
         d.parts.append(
-            f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#EEF5FB" stroke="none"/>'
+            f'<rect x="20" y="{y}" width="{w}" height="{h}" rx="16" fill="#ECEFF4" stroke="none"/>'
         )
         d.text(44, y + 44, label, 38, center=False)
     d.box(40, 120, 300, 160, "한국어 질의\n60개", BLUE, 42)
     d.box(410, 62, 620, 130, "HyDE 적용 시\n영어 번역 후 가상 문서 생성", ORANGE, 40)
-    d.text(720, 236, "미적용 시 원래 질의를 그대로 사용", 36)
     d.box(1080, 62, 280, 130, "밀집 검색", PURPLE, 42)
     d.box(1080, 205, 280, 130, "BM25 검색\n한국어 질의", PURPLE, 40)
     d.box(1440, 105, 330, 185, "융합과 재정렬\n상위 5개 구간", PURPLE, 42)
@@ -105,12 +158,8 @@ def main():
     d.box(1350, 180, 400, 180, "생성 모델\n질문 + 검색 텍스트", GREEN)
     d.arrow("450,270 660,270")
     d.arrow("1120,270 1330,270")
-    d.text(900, 95, "RAG는 외부 자료의 검색 결과를 답변 생성에 활용")
-    d.text(900, 485, "검색 결과 = 생성 모델에 입력하는 문서 구간의 텍스트")
-    d.text(900, 565, "출력은 질문에 대한 생성 답변 y")
     drawings[FIG / "LITERATURE/fig2_1_rag_independent.svg"] = d.svg()
     d = Drawing(1800, 730)
-    d.text(900, 80, "HyDE의 가상 문서 기반 검색")
     for x, label, color in [
         (35, "입력 질의", BLUE),
         (485, "언어 모델\n가상 문서 생성", BLUE),
@@ -120,47 +169,39 @@ def main():
         d.box(x, 200, 380, 180, label, color, 42)
     for x in [425, 875, 1325]:
         d.arrow(f"{x},290 {x+45},290")
-    d.text(900, 505, "본 실험은 영어로 번역한 질의로 가상 문서를 생성해 BGE-M3로 검색", 42)
-    d.text(900, 585, "BM25 검색과 CrossEncoder 재정렬에는 한국어 원래 질의 사용", 42)
     drawings[FIG / "LITERATURE/fig2_2_hyde_independent.svg"] = d.svg()
     d = Drawing(1800, 850)
-    d.text(900, 75, "CAD는 문맥 포함 입력과 제외 입력의 로짓을 결합")
     d.box(
         70,
         150,
         650,
         200,
-        "질문 + 검색 결과\n+ 생성 접두 시퀀스\n문맥 포함 로짓 z_ctx",
+        "질문 + 검색 결과\n+ 생성 접두 시퀀스\n문맥 포함 로짓 $z_{ctx}$",
         GREEN,
         40,
     )
     d.box(
-        70, 410, 650, 200, "질문 + 생성 접두 시퀀스\n문맥 제외 로짓 z_noctx", PURPLE, 40
+        70, 410, 650, 200, "질문 + 생성 접두 시퀀스\n문맥 제외 로짓 $z_{noctx}$", PURPLE, 40
     )
     d.box(
         1000,
         270,
         720,
         190,
-        "z_CAD = (1+α) z_ctx − α z_noctx\n본 실험의 α=0.5",
+        "$z_{CAD} = (1 + α) z_{ctx} − α z_{noctx}$",
         GREEN,
         40,
     )
     d.arrow("735,245 890,245 890,330 980,330")
     d.arrow("735,485 890,485 890,410 980,410")
-    d.text(900, 700, "CAD 적용 시 각 토큰의 최종 점수에 검색 결과의 영향을 반영", 42)
     drawings[FIG / "LITERATURE/fig2_3_cad_independent.svg"] = d.svg()
     d = Drawing(1800, 900)
-    d.text(900, 80, "SCD는 토큰 그룹별로 로짓에 계수를 곱함")
     for x, label, color in [
-        (40, "한국어 목표 토큰\nz′ = 1.1 × z", BLUE),
-        (655, "비목표 언어 토큰\nz′ = 0.9 × z", ORANGE),
-        (1270, "중립 토큰\nz′ = z", PURPLE),
+        (40, "목표 언어 토큰\n$z̃_{i} = α z_{i}$", BLUE),
+        (655, "비목표 언어 토큰\n$z̃_{i} = β z_{i}$", "#3E5F8A"),
+        (1270, "중립 토큰\n$z̃_{i} = z_{i}$", "#8A97A8"),
     ]:
         d.box(x, 210, 490, 190, label, color, 42)
-    d.text(900, 535, "이미 생성한 토큰 5개부터 적용, 그 이전에는 기본 로짓 유지", 42)
-    d.text(900, 635, "CAD와 함께 적용하면 CAD 로짓 결합 뒤에 SCD 계수 적용", 42)
-    d.text(900, 755, "출력 언어는 한글 / (한글 + ASCII 영문자)로 측정", 44)
     drawings[FIG / "LITERATURE/fig2_4_scd_independent.svg"] = d.svg()
     # Pipeline figure 4-1 is a standalone SVG source.
     # Analysis/plot_questions.py owns evaluation figure 5-1.
@@ -196,6 +237,8 @@ def main():
         subprocess.run(command, check=True, capture_output=True)
         if not args.inkscape:
             page.unlink()
+        # The department asked for figures without surrounding margins.
+        trim_png(target.with_suffix(".png"))
     source_info = [
         (
             "2-1",
@@ -240,7 +283,7 @@ def main():
             "2-4": "SCD의 토큰 그룹별 로짓 조정",
         }
         caption = f"{titles[n]}[{ref}]"
-        usage = f"그림 {n} — {author} 외[{ref}]의 {concept}"
+        usage = f"[그림 {n}] {author} et al.[{ref}]의 {concept}"
         records.append(
             {
                 "figure": n,

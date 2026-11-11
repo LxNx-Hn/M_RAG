@@ -80,21 +80,6 @@ def f2(v, sign=False):
     return f"{v:+.2f}".replace("-", "−") if sign else f"{v:.2f}"
 
 
-def check_bold(rows_all, cols, label, skip_last=False, start=1, rows=None):
-    """Bold marks exactly the displayed maxima of each column within the given rows."""
-    body = (
-        [rows_all[i] for i in rows]
-        if rows is not None
-        else rows_all[start : len(rows_all) - (1 if skip_last else 0)]
-    )
-    for c in cols:
-        top = max(float(r[c][0].replace("−", "-")) for r in body)
-        for i, r in enumerate(body, 1):
-            assert r[c][1] == (
-                float(r[c][0].replace("−", "-")) == top
-            ), f"{label} bold differs at row {i} col {c}"
-
-
 def validate_poster(pptx, svg=None):
     cs = pd.read_csv(
         ROOT / "FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv", encoding="utf-8-sig"
@@ -135,15 +120,14 @@ def validate_poster(pptx, svg=None):
         assert [c[0] for c in groups[i + 1]] == expect, (
             f"Poster value differs: group table row {i}"
         )
-    # Passage-based metrics: maxima inside SCD-off rows and SCD-on rows separately.
-    for k, m in enumerate(SCORE_METRICS):
-        cols = list(range(1 + 3 * k, 4 + 3 * k))
-        if m in ("faithfulness", "context_precision", "context_recall"):
-            for s in "01":
-                rows_ = [i + 1 for i, c in enumerate(CONDITIONS, 1) if c[-1] == s]
-                check_bold(groups, cols, "Question group table", rows=rows_)
-        else:
-            check_bold(groups, cols, "Question group table", start=2)
+    for k, metric in enumerate(SCORE_METRICS):
+        for j, group in enumerate(GROUPS):
+            col = 1 + 3 * k + j
+            ranked = sorted(enumerate(CONDITIONS), key=lambda item: (-mean(group, item[1], metric), item[0]))
+            expected = 2 + ranked[0][0]
+            assert [i for i in range(2, len(groups)) if groups[i][col][1]] == [expected], (group, metric)
+    assert "유형별 대표 질문의 조건별 점수" in text
+    assert "방법 질문 25개의 원점수 평행좌표" not in text
     return {
         "tables": 2,
         "metric_definitions": len(definitions) - 1,

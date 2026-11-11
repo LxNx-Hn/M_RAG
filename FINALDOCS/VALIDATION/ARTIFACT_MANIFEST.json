@@ -28,11 +28,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/REVISION_CONTRACT_20261015.json": {
-      "sha256": "6d0fad8f1408023e6aeb060dbcbc414fa7541fe909523c615c2a25efd26859c5",
+      "sha256": "d878967cf895472aad6dc37a6101ca0da34b1afea7d1bee7bab374d822b1e2a4",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "600ec48065e0ca03c4896092a4ca44ac5b0ce450b39924560243d746c50d9b50",
       "role": "submission_input_or_master",
-      "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/DATA/REVISION_CONTRACT_20261018.json": {
@@ -41,11 +41,11 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DATA/THESIS_TABLES_60Q.json": {
-      "sha256": "a4bffb2ebeccc4d32c2c467fae55712b69e1a65bc65cf3b74cbb5c5eb1cf8d33",
+      "sha256": "d59a5b01abf77a051d6711c9e8d6577cb068bda5f83da163c2db79678387c97c",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "c162ac4adef05a75fff17f9ee8498ccc15ee569ed919a662b99595ee16b3dc72",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-09: v40 department checklist and external reviews applied (counts at the 0.05 boundary corrected, HyDE recommendation by answer relevancy, 4.1 environment, subscripts, overview sentences), Hancom v40b delivery, poster HyDE line",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/DATA/evidence_manifest_60q.json": {
@@ -55,30 +55,30 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.hwpx": {
-      "sha256": "5cb745589daeadcdbfba4d8c2ba940263bdb06f5f5106b811f167813c3f7c4b1",
+      "sha256": "61c551ce88abc8a165d261e914ec27f8cdff41d8789efc6c723bb4f0358758d6",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/GRADUATION_REPORT_60Q_FINAL.pdf": {
-      "sha256": "72a2481ba4b0fc2d0bb7754de7e423557b3c559f5ebe0103ca17766330a92312",
+      "sha256": "0aac24d54f2960d202699186221761dd1ce13dd7fac4ff54e500bd5bf24ef9fa",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
       "role": "submission_input_or_master",
       "before_prose_sha256": "9025c6901914d00d0b0ce624f01d8d9d50026af787815827d7c62164dbab5b8d",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/PAGE_MAP_60Q.json": {
-      "sha256": "42c31d91317bd1f2baf489eb0722bbcd764c0818fd84aaa2ca327fed24922797",
+      "sha256": "c9489133359c810eeb6e1e4e8a72fcd1d1dc7a1d196434acad66eb6febbec52d",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "537928a679a578d0e89878b0c0df5f4ed7e3b59615c19ba4993ac0633a509294",
       "role": "submission_input_or_master",
       "before_prose_sha256": "8cbac4fb0d0737c978af1566b696ccb7d75e31f833de4fb79438818ed98dc766",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/DELIVERY/SCHOOL_TEMPLATE_2026.hwp": {
@@ -178,132 +178,132 @@
       "role": "submission_input_or_master"
     },
     "FINALDOCS/FIGURES/LITERATURE/SUBMISSION_PROVENANCE.json": {
-      "sha256": "705c603c72f8e23ea75e6ea22ae8e4bb4af6938ba1ff168536a40bef39fa987b",
+      "sha256": "d04445f1b829561a9576571be9f141452bec7db0d5c21c587f514b43432ad4a7",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "fb595e746c3e8973982ab1f785a7973cf503c6fa3b3315dd1fbc96969a75f517",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_1_rag_independent.png": {
-      "sha256": "701f5e8d0419b4fdc608973d441d0e91fd8603f6e9243bcc7d5a1e60eaba1ae7",
+      "sha256": "ad569cb2b50bb2619b7c1e894b611fdfe8dc4ef23af9c443285892da044b674c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "57935187b3fbb3f78d24776f9d892ce9e80044beded36808d568513965ec6dad",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_1_rag_independent.svg": {
-      "sha256": "46be3716310015d7a3a28a8a8af73dddb5d7261e45d42956b1ecdd149dfafec1",
+      "sha256": "176be07c8050b2b0d6dac3a30ee4b681f1f2757338ffcec16413235c01419f4e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "97ae1a34b667850e02b10bf8bf4b8c6223db7ab3347dfb39040cadd6d91c0a7e",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_2_hyde_independent.png": {
-      "sha256": "2c5e8b5f652db7560e74658e6794a81d9ff1bc55c0d05ba196b78d6f9ebf4753",
+      "sha256": "cdba2741b921d2d4858cfd3a79c9d3d6afa83786cf2c3c69c7829010036a6e99",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "a092037cd85b536942f762cf5ed193df610850fada17a19d2a97bd9b62459e43",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_2_hyde_independent.svg": {
-      "sha256": "cff68c37ec04234ed743fc26d0e833e48cef6859d9d0a4e3aa46274d11c970e8",
+      "sha256": "1d7d15d22aa9cbd2ffd03c54eef7c9d18acb63b27f51f2471d88a7ccf55f454e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "8df1d18331ce2c27d35345312193561cbdff06a94485cf96e818a5d3a6d74e90",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_3_cad_independent.png": {
-      "sha256": "8350c481f0b14a9824dc5f56fc746c3bbd26f7cb4ce445aa9db088508e2fa33a",
+      "sha256": "497c39177724dc7de652a865306803033b16ec963f5fd05288921c67af6d992e",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "f3ffb09ceddadee23a169d5a536f0f8a128341832387ad0b8eac842d9b51f0af",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_3_cad_independent.svg": {
-      "sha256": "b208aeac7ecc0e1d8444b92ebf8bc1d2b16165a0c32eaf24d49729e0a3b201f5",
+      "sha256": "79e753d61eaa27b758a938abaa6eafc6ddbe14666909d03268a89ebaa68a7cb5",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "468d70e0ef4c07ee5cf991c597006ad67a0986a51109d126f914e7da887579bf",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_4_scd_independent.png": {
-      "sha256": "cdfdb8dc4a5c9190c2ff1d4c75ca4c1f5977fec87e330dbb04ad980bb3abe9c3",
+      "sha256": "0b667d9c6cac2323dc948e8473e5bd0edd8e609f7ae60656348b70160383605c",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "d89a8295c365e19a945c393d3d6fe4878565f9d50c69b6e1cf4d8b9a30953d26",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/LITERATURE/fig2_4_scd_independent.svg": {
-      "sha256": "ce9d310b41f297e823118a20299571d6eee9ad160706c57a9ad2d73994cda888",
+      "sha256": "410f4cb641ca155e0c760d3f802b6cc3b948bc5012b3576bbd23ab211fcf7bf1",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "70ab79c9a9da0cbbc96e2605ded466e555792c27d0b9e490b512e1e36cde5158",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig1_1_research_setting.png": {
-      "sha256": "2c4f0a44a53d07a9074a354a4dc86a0f617d40acf6a5c12a6192a387d92ecc34",
+      "sha256": "ab63106462fccdd1b04d8623663b2f2d496dd1543a09270072c6b2b196fb9817",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "e5a89de554c065f834c41f5ef3ab4f7b37cc72cfd89aced8ee6fc949b40da05c",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig1_1_research_setting.svg": {
-      "sha256": "4ddfbadcf9dd940da0f8c74ace600d25e4609f9f7f95ecaa6abee4dd372ef8b6",
+      "sha256": "25fee17ec4b9e1ce2d87b1b569e34cd631469356c8f152a5dd0af621a2c19b1e",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "dee4057a4275abf31c9e16107b43704697cade284a0e700203a137bd7a371ce0",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig4_1_pipeline.png": {
-      "sha256": "1fdbe6fb86749541cf497b54e8da52fdfeb5b2283b5ffa067c59f8b0e79378f4",
+      "sha256": "c58b6ff5a9ff62cec889a25722db92e9a0027d2ed9fb6e4a148f8559a043c251",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "040a603147bc46827390dca7797b4e8fcdc8581c3aaca89cc2909494a27c286b",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig4_1_pipeline.svg": {
-      "sha256": "fd489a93d3b2d2e9c4f7266a6765351940a9b22c81136a47262bd587509ac8db",
+      "sha256": "36c0e542c4aa03344e141a17f1af5f925e0d4a7876629ee5e374423cbbbc7dc7",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "b3ec8ce40a39544e500e133c75d679a496302d81509e06cfbbcc90be77d9880a",
       "role": "submission_input_or_master",
       "bytes": null,
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig5_0_evaluation_design.png": {
-      "sha256": "0e0ea9d4823e2d97b5c85a9c88e980eed2920a13e592673102687b4325f17157",
+      "sha256": "a277fc048483b4f3e45549937bf1e1154fb1b1c688c2f0b254c44391fcb81a97",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "617d3624b2dfd7b79f6646f1ed02fe38c57de60b7639387fc4a26f71022ed819",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/FIGURES/fig5_0_evaluation_design.svg": {
-      "sha256": "4b5115aca57883578a3d3380d2c612149162d0aaa003d6e4c545ff28b7e0afc4",
+      "sha256": "7506ced222b6b5a9c9277992e3281516bce0d748fc22ce35a7ab6a368bbc0e12",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "9ab1529a06883945f57f22b5dbccb0deb21b75a8fe8169ca16057c1d281905ef",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/MANUSCRIPT/GRADUATION_REPORT_TRANSFER_KO_60Q.md": {
-      "sha256": "f32b2b4b7bd57d4387f06673a8bd7306b8bd6f887c82f1a70b3483307074d6a9",
+      "sha256": "7010589fb6d6e8fa3ec554d673d514ac50e2fff66f7db45e67350a50b883604b",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "e4aec66013ffcbb045bd82f3fa00a70a9e157245f71a1675053c83ff514beb56",
       "role": "submission_input_or_master",
       "before_prose_sha256": "92bad1d65ffd3ee69925b8bbbe503611fd650a3a2dd8c136c29eb8bb96de19f2",
-      "change_note": "2026-11-10: v40g poster independent review applied (abbreviations in 01, models and RAGAS in 04, terms matched to the thesis, missing faithfulness note, conclusion scope), thesis 평가값 to 평가 점수 and figure 4-2 panel titles, Hancom v40g delivery",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261024_legacy_poster_and_audit/POSTER_FINAL/A1_COPYEDIT_MAP.json": {
@@ -316,41 +316,41 @@
       "before_ttest_anova_sha256": "7d1cfc14d3429a3fb7a5a5d1229e394edf8a3e64e58d242b9b7a7110b32d695a"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "20005180ef37504d423e38e218f340df277d605cd4fd14ee99c90623c611b83c",
+      "sha256": "a29a931472d1254fe6656a500afe9ef2dc24dba7f8d7a85ee4bc4f366faca48e",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
       "role": "submission_input_or_master",
       "before_prose_sha256": "b82a8c8b3a6e8419dff094e9c2d415ba78f42830b83b03467bb31d6b0b2ee2ce",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "before_ttest_anova_sha256": "c4814ddd4b88e5c9132f1acaf830144759c9078aa4cb419163a3eefd42b40dd2",
-      "bytes": 1253977
+      "bytes": 1215959
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "9183d90fd9c26fde4a6ca482ea7045020a98c035e32e11d1a46674de5f625ce5",
+      "sha256": "308bc593fdbe3b24524757ca7bb110a017b50f62b4c79bd366a3f9a3e35d5eb6",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "baseline_raw_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
       "role": "submission_input_or_master",
       "before_prose_sha256": "d2c643dab302070a33564993b5d911935acb219ae6fb4c59d4ba901fbeff5ecb",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "before_ttest_anova_sha256": "3451f7fd7087ea38ebe4d4659b8d720267e084b89691435b7ba032c4f4ebb4dd",
-      "bytes": 1540741
+      "bytes": 1488622
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "255ec07f1351ef6ca691406a18f03b538dd1ce8c31d842ba360d2715f77ce3a6",
+      "sha256": "36d155de5cade95506bf170294287a688eba5504367423a3a24a240c2bdb1134",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
       "role": "submission_input_or_master",
       "before_prose_sha256": "2400bad9fd9533c7f8154df7c1bc70545c2f5545bc7728d2629f8da524be8ed7",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "before_ttest_anova_sha256": "6fb0009b846de1902cc2ec2b7e3341e9cdec526b939000a5a990480fa9d39abd",
-      "bytes": 1138440
+      "bytes": 1101716
     },
     "FINALDOCS/TABLES/TABLES_60Q.xlsx": {
-      "sha256": "20b480b44ce2849c7b92b1789e96c0547de4c6acb427ce53399f7894efd1f3f4",
+      "sha256": "1579621ef10757c809ee48389d28f77f6605a4a091ac32b2cb6d9ab8896b79cb",
       "hash_method": "raw bytes",
       "baseline_raw_sha256": "b08d0cb615d35d68a780239f3cea9c39d91aa9d07ae4e04521ba49070e761fb6",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40g poster independent review applied (abbreviations in 01, models and RAGAS in 04, terms matched to the thesis, missing faithfulness note, conclusion scope), thesis 평가값 to 평가 점수 and figure 4-2 panel titles, Hancom v40g delivery",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "experiments/data/query_audit.json": {
@@ -1992,24 +1992,24 @@
       "change_note": "2026-10-20: type-faceted individual six-metric profiles, natural comparison headings, zero display gaps and reviewed Hancom v14 delivery"
     },
     "FINALDOCS/POSTER/FINAL/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "ae9dceecaaf4f2becb7ea081b4aa55b8d678f130f9bcbfcd1cf4806534a5f662",
+      "sha256": "19d2628525efb7788d053af594f11a91aff15f3567e9d8f75c5d9624c21d8faf",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
-      "bytes": 1801040
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
+      "bytes": 1742715
     },
     "FINALDOCS/POSTER/FINAL/POSTER_TEXT.json": {
-      "sha256": "25bedc16b322f7adb8b781fafb5beae3597eb2b84ce6e37f551aa0f88b13a5d1",
+      "sha256": "971ad7cdfae1486883ecfe67dbf23a75cd9056fa9a4ff8680e5a5e4678da38d7",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40g poster independent review applied (abbreviations in 01, models and RAGAS in 04, terms matched to the thesis, missing faithfulness note, conclusion scope), thesis 평가값 to 평가 점수 and figure 4-2 panel titles, Hancom v40g delivery",
-      "bytes": 5274
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
+      "bytes": 5216
     },
     "FINALDOCS/POSTER/FINAL/poster_parallel.png": {
-      "sha256": "6c94650dd3bec6ba2f9f2528e4b76e32db4218d92e8b324d482bd7e68ac2f2b5",
+      "sha256": "ed379871a8613da26a3e714e624345f2315e779397202b21ae9a9992c97a1db3",
       "hash_method": "raw bytes",
       "role": "submission_input_or_master",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
       "bytes": null
     },
     "FINALDOCS/VALIDATION/HISTORY/20261025_unused_figures/fig5_3_parallel_hyde_types.png": {
@@ -2054,34 +2054,34 @@
       "role": "question_group_revision_20261021"
     },
     "FINALDOCS/FIGURES/fig5_3_parallel_numeric.png": {
-      "sha256": "4e5b5f73bf6971bf98a35242b5dc7d04838487f8bc6b976e2a951b0f01ebd68a",
+      "sha256": "2da0d19944a8601c10e5e49d313c871e1cd4755adc477863aaa58a5629bde549",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
-      "bytes": 554521
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
+      "bytes": 142181
     },
     "FINALDOCS/FIGURES/fig5_4_parallel_method.png": {
-      "sha256": "f6fd453e4936f1f848ccb76a8267a94524328490e3c08bc1aa2cdf7d21a36438",
+      "sha256": "22d4ec9d4ebfa978422d1e3e20a579addb2cd90ed5f0fa46bf836ef264aba2f5",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
-      "bytes": 657297
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
+      "bytes": 155896
     },
     "FINALDOCS/FIGURES/fig5_5_parallel_concept.png": {
-      "sha256": "27be1fdcc065999799e89cbe7534b9e9fedf61920af6153caddfac309e6f46a3",
+      "sha256": "c6b183c4227c32931b8df4f4948563be8bb0df09cce8ec626de75500d038c382",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
       "before_prose_sha256": "9d06b46ff158442623a626f77236a5f50f9a5d7cf326f0d0452e2053b1ad6af0",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged",
-      "bytes": 560962
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2",
+      "bytes": 112210
     },
     "FINALDOCS/VALIDATION/EDITOR_REVIEW_20261021.json": {
-      "sha256": "5a091fd83e918fab2b36b18388c29ac0bced2fb0d66e5a7b50227ad743d9f5e4",
+      "sha256": "1c679fdcb920f988a6c40fe42bbf9798d7c1e6e9e6415b9f4011ba4aebbe5e45",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/VALIDATION/EDITOR_EVIDENCE_20261021/v6-table-5-2-p16.png": {
       "sha256": "73a5bbf12eec0f019e4359b92a98015efc831b64b5447d3728f33c44e52509c7",
@@ -2100,22 +2100,22 @@
       "bytes": 292568
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.png": {
-      "sha256": "d937185890e704a45479b0331694b0d4cb50239dd941248a903f5bc51de12a29",
+      "sha256": "911983f50f8f0683dc6c6543e388c4b5130c41169b3cb7c2229e8c1d4f00dc40",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/FIGURES/fig4_2_example_mechanism.svg": {
-      "sha256": "5267071eb92989245cc45527a2c5c33b4b1501a6bec87c3cf154973913c65c6f",
+      "sha256": "ebc2b30c3ed229f8bbda84048175c27c3ea6df935577757906240f1587fdae4b",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/POSTER/FINAL/poster_mechanism.png": {
-      "sha256": "93523de9301ef2141dc9bf2be9d00cb9e68158ed4194433941a77e73a5301060",
+      "sha256": "fbd7535a27437000bfe8dd5b2a53ee01cdef1e3a6b8c4ac3bf4c6cfe7f739940",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/ANALYSIS/EXAMPLE_MECHANISM.json": {
       "sha256": "59c85fc16eb8f39b293f83ce5815e3130c9c4887ba8f028514ce2e612b495276",
@@ -2124,40 +2124,40 @@
       "change_note": "2026-10-21: professor feedback, example-question mechanism figure (poster 02, thesis figure 4-2), poster without time and condition-mean tables, reviewed Hancom v22 delivery"
     },
     "FINALDOCS/POSTER/FINAL/poster_pipeline.png": {
-      "sha256": "ecac8709c5da380c1d00fa93861692abac983b088e466f24264b1898b91aa3f9",
+      "sha256": "c6ca3fc9c2e8970cb2f01f5ee99c01da808ec39a53d85c7afd1b3eaf1a28edb3",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-10: v40h sky-blue palette for every thesis figure and the poster (sky #3A89C9, navy #1B325F, red accent #BF2436), Hancom v40h delivery; text and page layout unchanged"
+      "change_note": "2026-11-10: v42 department form review (school cover cells, inline Hancom equations, et al. citations, bracketed figure and table references, SCD cases equation, post-hoc type analysis with three type tables, one bold maximum per column, representative-question parallel plots, trimmed figures, compact tables), Hancom v42 delivery; table count 8 in the revision contract follows the split of table 5-2"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.pptx": {
-      "sha256": "de207f8f726b6da625590ded7388b1d79c90636b6134dd7772dfd26902cee3b8",
+      "sha256": "f181afee50ef4a292502806dc5bdfe70d84bb756e6433bb7a7185ea9b261c38b",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-10: v42 department form review; poster table bold follows the thesis rule (one maximum per column) and the type names 수치형, 방법형, 개념과 결과형"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PRINT.pdf": {
-      "sha256": "6eb8323e9186d64076b4c6b4dbee7f824229e9365c7904e90393f0e61abef4b5",
+      "sha256": "b05304133e2a51243eb6ce929b51257e5b947e5f6cb71436c206ce1587ed6d0e",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-10: v42 department form review; poster table bold follows the thesis rule (one maximum per column) and the type names 수치형, 방법형, 개념과 결과형"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_PREVIEW.png": {
-      "sha256": "d8dd9f531d73165713faff66a260eb415c9db4d74d7332d2ff85a9876f9f28a2",
+      "sha256": "d0815057b64743b2b6eedd320b92ddec67e4f7796e435216ec86dbdc8a604eec",
       "hash_method": "raw bytes",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-10: v42 department form review; poster table bold follows the thesis rule (one maximum per column) and the type names 수치형, 방법형, 개념과 결과형"
     },
     "FINALDOCS/POSTER/VARIANT_A/POSTER_TEXT.json": {
-      "sha256": "5da9afc68ef7012224bdd047a92100ea4fda34f4f8bc62eb9b5c4cf21ac8ce9a",
+      "sha256": "075eb8514aeb888acae0f06f9c7c13ded606ee37f79123d5e78ff8d9f21c6428",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-10: v42 department form review; poster table bold follows the thesis rule (one maximum per column) and the type names 수치형, 방법형, 개념과 결과형"
     },
     "FINALDOCS/POSTER/VARIANT_A/M_RAG_A1_FINAL_EDITABLE.svg": {
-      "sha256": "88740f896faf5e858277af825edff8df8006a73c1e7ca9656171cc2694de292b",
+      "sha256": "5ca5efb828b7888dcf67664061ce7302f5be33da88ec30faab1e83e34aa4b903",
       "hash_method": "UTF-8 bytes, CRLF normalized to LF",
       "role": "question_group_revision_20261021",
-      "change_note": "2026-11-09: external review applied (HyDE recommendation when relevancy and time both matter, 5.5 retrieval gap includes judge variation), poster recommends all three for Korean numeric questions, Hancom v39 delivery"
+      "change_note": "2026-11-10: v42 department form review; poster table bold follows the thesis rule (one maximum per column) and the type names 수치형, 방법형, 개념과 결과형"
     }
   },
   "prose_revision": {

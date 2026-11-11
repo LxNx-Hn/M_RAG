@@ -156,16 +156,8 @@ def validate_summary(obs, summary, annotations):
         assert r.n == stored["improved"] + stored["worse"] + stored["similar"]
 
 
-def column_header(t, row, col):
-    """Metric label above a body cell (merged headers leave blank cells)."""
-    heads = [h for h in t.get("header_rows", [0]) if h < row]
-    top = heads[-2] if len(heads) > 1 and heads[-1] - 1 == heads[-2] else heads[-1]
-    while col > 0 and t["rows"][top][col] == "":
-        col -= 1
-    return t["rows"][top][col]
-
-
 def validate_tables():
+    condition_summary = pd.read_csv(ROOT / "FINALDOCS/ANALYSIS/CONDITION_SUMMARY.csv", encoding="utf-8-sig")
     definitions = json.loads(
         (ROOT / "FINALDOCS/DATA/THESIS_TABLES_60Q.json").read_text(encoding="utf-8")
     )
@@ -190,21 +182,19 @@ def validate_tables():
                     "00FFFFFF",
                 ), "Colour shading returned"
         expected_bold = set()
-        for scope in t.get("bold_scopes", []):
+        levels = {"T5-1": "전체", "T5-2": "수치 질문", "T5-3": "방법 질문", "T5-4": "개념과 결과 질문"}
+        level = levels.get(t["sheet"][:4])
+        metrics = ["faithfulness", "answer_relevancy", "context_precision", "context_recall", "korean_ratio"]
+        scopes = t.get("bold_scopes", [])
+        if level:
+            assert [scope["column"] for scope in scopes] == list(range(1, 6))
+        for scope in scopes:
             col = scope["column"]
-            header = column_header(t, scope["rows"][0], col)
-            assert "처리 시간" not in header, "Time column must not be emphasized"
-            flags = {t["rows"][r][0].split()[-1].endswith("SCD") for r in scope["rows"]}
-            if any(k in header for k in ("근거 충실도", "문맥 정밀도", "문맥 재현율")):
-                assert len(flags) == 1, "Passage metric emphasis crosses SCD groups"
-            values = {
-                row: float(t["rows"][row][col].split()[0].removesuffix("초"))
-                for row in scope["rows"]
-            }
-            maximum = max(values.values())
-            expected_bold.update(
-                (row, col) for row, value in values.items() if value == maximum
-            )
+            assert scope["rows"] == list(range(1, 9))
+            scores = condition_summary[(condition_summary.level == level) & (condition_summary.metric == metrics[col - 1])]
+            assert len(scores) == 8
+            rank = scores.sort_values(["mean", "number"], ascending=[False, True])
+            expected_bold.add((int(rank.iloc[0]["number"]), col))
         assert expected_bold == {
             tuple(cell) for cell in t.get("bold_cells", [])
         }, "Maximum bold selection differs"
